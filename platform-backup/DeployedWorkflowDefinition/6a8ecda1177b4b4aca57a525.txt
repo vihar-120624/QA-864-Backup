@@ -1,0 +1,497 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743649433,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_YN0G3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5D0by",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5D0by",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aSlFk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aSlFk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_B9w4D",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B9w4D",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QRXCE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QRXCE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_B31BD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B31BD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bnnjI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bnnjI",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2pBju",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_2pBju",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HxYR6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bnnjI",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HxYR6",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecda1177b4b4aca57a525",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge update | servicenow | article webhook handler final",
+	"modifiedTime":1787756426364,
+	"name":"Knowledge Update | ServiceNow | Article Webhook Handler final",
+	"nodes":[
+		{
+			"context":{
+				"appName":"servicenow",
+				"resourceVersion":31,
+				"connectionId":"69f888edbb37d358a9cf64a5",
+				"resourceName":"servicenow_on_record_changed"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_YN0G3",
+			"index":1,
+			"inputs":{
+				"objectSourceResourceName":"servicenow_fetch_object",
+				"objectId":"kb_knowledge"
+			},
+			"skip":false,
+			"subTitle":"ServiceNow",
+			"title":"New, updated or deleted record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":15,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_5D0by",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"knowledgeId":"<<KNOWLEDGE_ID>>",
+				"connectionId":"<<CONNECTION_ID>>",
+				"indexingVersion":"1"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Knowledge Variables",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":164,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_aSlFk",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"articleSysId":{
+							"title":"Article Sys Id",
+							"type":"string"
+						},
+						"origChangeType":{
+							"title":"Original Change Type",
+							"type":"string"
+						},
+						"workflowState":{
+							"title":"Workflow State",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"articleSysId":{
+							"title":"Article Sys Id",
+							"type":"string"
+						},
+						"eventType":{
+							"title":"Event Type",
+							"type":"string"
+						},
+						"workflowState":{
+							"title":"Workflow State",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def evt = binding.hasVariable(\"eventType\") ? eventType?.toString()?.toLowerCase()?.trim() : null\ndef sid = binding.hasVariable(\"articleSysId\") ? articleSysId?.toString()?.trim() : null\ndef state = binding.hasVariable(\"workflowState\") ? workflowState?.toString()?.toLowerCase()?.trim() : null\n\ndef origChangeType = \"update\"\nif (evt == \"insert\" || evt == \"create\") origChangeType = \"create\"\nelse if (evt == \"delete\")               origChangeType = \"delete\"\n\nreturn [\n  \"origChangeType\": origChangeType,\n  \"articleSysId\":   sid ?: \"\",\n  \"workflowState\":  state ?: \"\"\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"articleSysId":"{{ n_YN0G3.outputs.record.sys_id }}",
+					"eventType":"{{ n_YN0G3.outputs.eventType }}",
+					"workflowState":"{{ n_YN0G3.outputs.record.workflow_state }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":28,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_B9w4D",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"id":{
+							"title":"Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"id":"{{ n_5D0by.outputs.knowledgeId }}_{{ n_aSlFk.outputs.result.articleSysId }}_{{ n_5D0by.outputs.indexingVersion }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"id":{
+							"title":"Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Create Id",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":977,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_QRXCE",
+			"index":5,
+			"inputs":{
+				"object_type":"knowledge_raw_data_store",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_B9w4D.outputs.id }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Knowledge Raw Data",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":433,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_B31BD",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"finalChangeType":{
+							"title":"Final Change Type",
+							"type":"string"
+						},
+						"isProcessable":{
+							"title":"Is Processable",
+							"type":"boolean"
+						},
+						"skipReason":{
+							"title":"Skip Reason",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"existing":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Existing",
+							"type":"object"
+						},
+						"origChangeType":{
+							"title":"Orig Change Type",
+							"type":"string"
+						},
+						"workflowState":{
+							"title":"Workflow State",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def origChange = binding.hasVariable('origChangeType') ? origChangeType?.toString()?.toLowerCase()?.trim() : \"update\"\ndef state = binding.hasVariable('workflowState') ? workflowState?.toString()?.toLowerCase()?.trim() : \"\"\ndef existing = binding.hasVariable('existing') ? existing : [:]\n\ndef existsInStore = (existing?.id != null && existing?.id?.toString()?.trim() != \"\")\n\ndef finalChangeType = \"update\"\ndef isProcessable = false\ndef skipReason = \"\"\n\nif (origChange == \"delete\") {\n  if (existsInStore) {\n    finalChangeType = \"delete_article\"\n    isProcessable = true\n  } else {\n    skipReason = \"Article deleted but was never indexed\"\n  }\n}\nelse if (state == \"published\") {\n  finalChangeType = existsInStore ? \"update\" : \"create\"\n  isProcessable = true\n}\nelse if (state in [\"outdated\", \"retired\", \"pending_retirement\"]) {\n  if (existsInStore) {\n    finalChangeType = \"delete_article\"\n    isProcessable = true\n  } else {\n    skipReason = (\"Article in '\" + state + \"' state and not indexed\")\n  }\n}\nelse {\n  skipReason = (\"Article in '\" + state + \"' state — not indexable\")\n}\n\nreturn [\n  \"finalChangeType\": finalChangeType,\n  \"isProcessable\":   isProcessable,\n  \"skipReason\":      skipReason\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"existing":"{{ n_QRXCE.outputs }}",
+					"origChangeType":"{{ n_aSlFk.outputs.result.origChangeType }}",
+					"workflowState":"{{ n_aSlFk.outputs.result.workflowState }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Filter Events",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":23,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_bnnjI",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_B31BD.outputs.result.isProcessable }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":366,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_bnnjI@_51CHn-1@y",
+			"id":"n_2pBju",
+			"index":8,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"webhook_raw_data_store",
+				"skipIfBlank":false,
+				"record":{
+					"changeType":"{{ n_B31BD.outputs.result.finalChangeType }}",
+					"connectionId":"{{ n_5D0by.outputs.connectionId }}",
+					"deletionUniqueEntityId":"{{ n_aSlFk.outputs.result.articleSysId }}",
+					"knowledgeId":"{{ n_5D0by.outputs.knowledgeId }}",
+					"parentEntityId":"kb_knowledge",
+					"rawDataDownloaderAutomationId":"6a11554b39ddb070d04f726b",
+					"recordId":"{{ n_aSlFk.outputs.result.articleSysId }}",
+					"status":"UNPROCESSED",
+					"useCustomFlow":false,
+					"webhookData":"{{ n_YN0G3.outputs.record }}"
+				},
+				"useUuid":false
+			},
+			"skip":false,
+			"subTitle":"Add Webhook Raw Store",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_51CHn-1",
+			"id":"n_HxYR6",
+			"index":9,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"pauseReason":"CONNECTION with id 69f888edbb37d358a9cf64a5 not found",
+	"paused":true,
+	"pausedAt":1787756426302,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2",
+		"servicenow"
+	],
+	"version":1,
+	"workflowDefinitionId":"6a0430f6a85dab7a5c2f40a8",
+	"workflowVersion":46
+}
