@@ -1,0 +1,247 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787847320308,
+	"deleted":false,
+	"deployedWorkflowVersion":6,
+	"deploymentSource":{
+		"changesetRequestId":"6a905cb9f5bbe608fa818260",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"gQCa7",
+			"id":"next@gQCa7@uhcUP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"uhcUP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"uhcUP",
+			"id":"next@uhcUP@wNl4q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"wNl4q",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"wNl4q",
+			"id":"next@wNl4q@iklcx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"iklcx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"iklcx",
+			"id":"next@iklcx@RVdgI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"RVdgI",
+			"type":"next"
+		}
+	],
+	"id":"6a9062983be1d83b068a9378",
+	"lastModifiedBy":-1,
+	"lcName":"export object and send notification [dnd]",
+	"modifiedTime":1787847320309,
+	"name":"Export Object and Send Notification [DND]",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":46,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"QhmaL-1",
+			"id":"gQCa7",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"entityType":{
+							"title":"Entity Type",
+							"type":"string"
+						},
+						"fileType":{
+							"title":"File Type",
+							"type":"string"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1407,
+				"resourceName":"storage_by_unifyapps_export_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"QhmaL-1",
+			"id":"uhcUP",
+			"index":2,
+			"inputs":{
+				"fileName":"{{ gQCa7.outputs.entityType }}_{{ gQCa7.outputs.fileType }}",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"resolvedFilter":{
+								"filter":"{{ gQCa7.outputs.filter }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"{{ gQCa7.outputs.entityType }}",
+				"format":"MM/dd/yyyy HH:mm",
+				"preserveDataTypes":true,
+				"recordsBatchSize":100,
+				"sortBy":[],
+				"keepExactFileName":false,
+				"fileType":"{{ gQCa7.outputs.fileType }}"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Export records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"notification_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"notification_by_unifyapps_send_notification",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"QhmaL-1",
+			"id":"wNl4q",
+			"index":3,
+			"inputs":{
+				"cta":{
+					"type":"url",
+					"width":{
+						"custom":"400px"
+					}
+				},
+				"input_schema":{
+					"fileUrl":"{{ uhcUP.outputs.file.source }}"
+				},
+				"receivers":{
+					"user":"{{ __RUN__.outputs.userId }}"
+				},
+				"eventType":"SUCCESS",
+				"applicationId":"",
+				"notificationPreviewTime":5,
+				"templateId":"e_66b30d6972eb8770edca5b47",
+				"user":"{{ __RUN__.outputs.userId }}",
+				"content":{
+					"input_schema":{
+						"fileUrl":"/api/file/download/{{ uhcUP.outputs.id }}"
+					},
+					"templateId":"e_66b30d6972eb8770edca5b47"
+				}
+			},
+			"skip":false,
+			"subTitle":"Notification by UnifyApps",
+			"title":"Send Notification",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":42,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"QhmaL-1",
+			"id":"iklcx",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"QhmaL-1",
+			"id":"RVdgI",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"nodeLogLevel":"INFO",
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"66cdce8e6113d547a9143ab7",
+	"workflowVersion":34
+}
