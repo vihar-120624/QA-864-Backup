@@ -1,5 +1,5 @@
 {
-	"columnCounts":28,
+	"columnCounts":27,
 	"createdTime":1787859811631,
 	"deleted":false,
 	"grants":{
@@ -271,6 +271,171 @@
 				},
 				"used":{
 					"type":"boolean"
+				},
+				"notify":{
+					"type":"object",
+					"title":"Notify",
+					"additionalProperties":true,
+					"properties":{
+						"mode":{
+							"type":"string",
+							"title":"Notification",
+							"format":"single-select",
+							"oneOf":[
+								{
+									"const":"EMAIL_AND_APP",
+									"title":"Email + App"
+								},
+								{
+									"const":"EMAIL_ONLY",
+									"title":"Email only"
+								},
+								{
+									"const":"APP_ONLY",
+									"title":"App only"
+								},
+								{
+									"const":"OFF",
+									"title":"Off"
+								}
+							]
+						},
+						"enabled":{
+							"type":"boolean"
+						},
+						"events":{
+							"type":"array",
+							"items":{
+								"type":"string",
+								"enum":[
+									"SUCCESS",
+									"FAILURE",
+									"SKIPPED",
+									"BLOCKED",
+									"NEEDS_INPUT",
+									"CANCELLED",
+									"BUDGET_WARNING"
+								]
+							}
+						},
+						"locale":{
+							"type":"string"
+						},
+						"timezone":{
+							"type":"string"
+						},
+						"instructions":{
+							"type":"string"
+						},
+						"subscriptions":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"additionalProperties":true,
+								"properties":{
+									"channel":{
+										"type":"string",
+										"enum":[
+											"EMAIL",
+											"MESSAGE",
+											"IN_APP"
+										]
+									},
+									"enabled":{
+										"type":"boolean"
+									},
+									"events":{
+										"type":"array",
+										"items":{
+											"type":"string",
+											"enum":[
+												"SUCCESS",
+												"FAILURE",
+												"SKIPPED",
+												"BLOCKED",
+												"NEEDS_INPUT",
+												"CANCELLED",
+												"BUDGET_WARNING"
+											]
+										}
+									},
+									"to":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"cc":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"bcc":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"workspaceId":{
+										"type":"string"
+									},
+									"conversationId":{
+										"type":"string"
+									},
+									"threadId":{
+										"type":"string"
+									},
+									"mentions":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"receiverType":{
+										"type":"string",
+										"enum":[
+											"USER",
+											"USER_GROUP"
+										]
+									},
+									"receiverIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"subject":{
+										"type":"string"
+									},
+									"format":{
+										"type":"string",
+										"enum":[
+											"HTML",
+											"TEXT",
+											"MARKDOWN"
+										]
+									},
+									"instructions":{
+										"type":"string"
+									},
+									"locale":{
+										"type":"string"
+									},
+									"timezone":{
+										"type":"string"
+									},
+									"inputs":{
+										"type":"object",
+										"additionalProperties":true
+									}
+								},
+								"required":[
+									"channel"
+								]
+							}
+						}
+					}
 				}
 			},
 			"required":[
@@ -313,15 +478,35 @@
 			"toolCatalogueHash",
 			"triggerContext",
 			"triggerInputs",
-			"tools",
-			"tools.inputs",
-			"tools.name",
-			"tools.context",
-			"tools.description",
 			"skills",
 			"lastRunAt",
 			"lastRunStatus",
 			"notify",
+			"notify.mode",
+			"notify.instructions",
+			"notify.subscriptions",
+			"notify.subscriptions.cc",
+			"notify.subscriptions.instructions",
+			"notify.subscriptions.bcc",
+			"notify.subscriptions.receiverIds",
+			"notify.subscriptions.conversationId",
+			"notify.subscriptions.subject",
+			"notify.subscriptions.timezone",
+			"notify.subscriptions.inputs",
+			"notify.subscriptions.channel",
+			"notify.subscriptions.format",
+			"notify.subscriptions.locale",
+			"notify.subscriptions.enabled",
+			"notify.subscriptions.threadId",
+			"notify.subscriptions.receiverType",
+			"notify.subscriptions.mentions",
+			"notify.subscriptions.to",
+			"notify.subscriptions.events",
+			"notify.subscriptions.workspaceId",
+			"notify.timezone",
+			"notify.locale",
+			"notify.enabled",
+			"notify.events",
 			"cost30d",
 			"runCount30d",
 			"usageRollupAt",
@@ -390,7 +575,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788034833957,
+	"modifiedTime":1788163824641,
 	"name":"ai_routine",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -593,32 +778,6 @@
 					"type":"object",
 					"additionalProperties":true
 				},
-				"tools":{
-					"type":"array",
-					"items":{
-						"type":"object",
-						"properties":{
-							"name":{
-								"type":"string"
-							},
-							"description":{
-								"type":"string"
-							},
-							"context":{
-								"type":"object",
-								"additionalProperties":true
-							},
-							"inputs":{
-								"type":"object",
-								"additionalProperties":true
-							}
-						},
-						"required":[
-							"name"
-						],
-						"additionalProperties":true
-					}
-				},
 				"skills":{
 					"type":"array",
 					"items":{
@@ -632,24 +791,168 @@
 					"type":"string"
 				},
 				"notify":{
-					"type":"array",
+					"type":"object",
 					"title":"Notify",
-					"items":{
-						"type":"string",
-						"oneOf":[
-							{
-								"const":"EMAIL",
-								"title":"EMAIL"
-							},
-							{
-								"const":"SLACK",
-								"title":"SLACK"
-							},
-							{
-								"const":"IN_APP",
-								"title":"IN_APP"
+					"additionalProperties":true,
+					"properties":{
+						"mode":{
+							"type":"string",
+							"title":"Notification",
+							"format":"single-select",
+							"oneOf":[
+								{
+									"const":"EMAIL_AND_APP",
+									"title":"Email + App"
+								},
+								{
+									"const":"EMAIL_ONLY",
+									"title":"Email only"
+								},
+								{
+									"const":"APP_ONLY",
+									"title":"App only"
+								},
+								{
+									"const":"OFF",
+									"title":"Off"
+								}
+							]
+						},
+						"enabled":{
+							"type":"boolean"
+						},
+						"events":{
+							"type":"array",
+							"items":{
+								"type":"string",
+								"enum":[
+									"SUCCESS",
+									"FAILURE",
+									"SKIPPED",
+									"BLOCKED",
+									"NEEDS_INPUT",
+									"CANCELLED",
+									"BUDGET_WARNING"
+								]
 							}
-						]
+						},
+						"locale":{
+							"type":"string"
+						},
+						"timezone":{
+							"type":"string"
+						},
+						"instructions":{
+							"type":"string"
+						},
+						"subscriptions":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"additionalProperties":true,
+								"properties":{
+									"channel":{
+										"type":"string",
+										"enum":[
+											"EMAIL",
+											"MESSAGE",
+											"IN_APP"
+										]
+									},
+									"enabled":{
+										"type":"boolean"
+									},
+									"events":{
+										"type":"array",
+										"items":{
+											"type":"string",
+											"enum":[
+												"SUCCESS",
+												"FAILURE",
+												"SKIPPED",
+												"BLOCKED",
+												"NEEDS_INPUT",
+												"CANCELLED",
+												"BUDGET_WARNING"
+											]
+										}
+									},
+									"to":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"cc":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"bcc":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"workspaceId":{
+										"type":"string"
+									},
+									"conversationId":{
+										"type":"string"
+									},
+									"threadId":{
+										"type":"string"
+									},
+									"mentions":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"receiverType":{
+										"type":"string",
+										"enum":[
+											"USER",
+											"USER_GROUP"
+										]
+									},
+									"receiverIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									},
+									"subject":{
+										"type":"string"
+									},
+									"format":{
+										"type":"string",
+										"enum":[
+											"HTML",
+											"TEXT",
+											"MARKDOWN"
+										]
+									},
+									"instructions":{
+										"type":"string"
+									},
+									"locale":{
+										"type":"string"
+									},
+									"timezone":{
+										"type":"string"
+									},
+									"inputs":{
+										"type":"object",
+										"additionalProperties":true
+									}
+								},
+								"required":[
+									"channel"
+								]
+							}
+						}
 					}
 				},
 				"cost30d":{
@@ -685,5 +988,5 @@
 		}
 	},
 	"standard":true,
-	"version":13
+	"version":14
 }
