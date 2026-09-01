@@ -1,0 +1,233 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744074913,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744075148,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf4b2889f9507f11ea16",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":17
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Z51Bw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_elrEA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_elrEA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AQdGJ",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68779ee170d33c2f9505623a",
+	"lastModifiedBy":-1,
+	"lcName":"text to workflow v2 | update dynamic schema",
+	"modifiedTime":1788252971260,
+	"name":"Text to Workflow v2 | Update Dynamic Schema",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":445,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XLua9-1",
+			"id":"n_Z51Bw",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"result":{
+							"title":"result",
+							"type":"string"
+						}
+					},
+					"required":[
+						"result"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"inputSchema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Input Schema",
+							"type":"object"
+						},
+						"nodeID":{
+							"title":"Node ID",
+							"type":"string"
+						},
+						"schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Schema",
+							"type":"object"
+						},
+						"workflowDefinition":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Definition",
+							"type":"object"
+						}
+					},
+					"required":[
+						"inputSchema",
+						"workflowDefinition",
+						"nodeID"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":449,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XLua9-1",
+			"id":"n_elrEA",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"updatedWorkflowJson":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Updated Workflow Json",
+							"type":"object"
+						}
+					},
+					"required":[
+						"updatedWorkflowJson"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inputSchema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Input Schema",
+							"type":"object"
+						},
+						"nodeID":{
+							"title":"Node ID",
+							"type":"string"
+						},
+						"schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Schema",
+							"type":"object"
+						},
+						"workflowDefinition":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Definition",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"/* Binding vars expected:\n *   workflowDefinition  (Map)\n *   nodeID | nodeId     (String)\n *   schema              (Map, optional)\n *   inputSchema         (Map, optional)\n */\n\ndef wf        = workflowDefinition ?: [:]\ndef targetId  = (this.binding.hasVariable('nodeID') ? nodeID : null) ?:\n                (this.binding.hasVariable('nodeId') ? nodeId : null)\n\nif (!wf?.nodes || !targetId) {\n    return [\n        updatedWorkflowDefinition: wf,\n        warning: \"Missing workflowDefinition.nodes or nodeID; nothing updated.\"\n    ]\n}\n\n/* locate node */\ndef node = wf.nodes.find { it?.id == targetId }\nif (!node) {\n    return [\n        updatedWorkflowDefinition: wf,\n        warning: \"No node found with id=${targetId}; nothing updated.\"\n    ]\n}\n\n/* deep merge helper: merge src into dest in place */\ndef deepMerge\ndeepMerge = { Map dest, Map src ->\n    src.each { k, v ->\n        if (dest[k] instanceof Map && v instanceof Map) {\n            deepMerge(dest[k] as Map, v as Map)\n        } else {\n            // replace scalar / list / non-map or create new\n            dest[k] = v\n        }\n    }\n    return dest\n}\n\n/* start merged with existing node.inputs (preserve) */\ndef merged = [:]\nif (node.inputs instanceof Map && !node.inputs.isEmpty()) {\n    merged.putAll(node.inputs)\n}\n\n/* overlay schema (if provided) */\nif (schema instanceof Map && !schema.isEmpty()) {\n    deepMerge(merged, schema)\n}\n\n/* overlay inputSchema (if provided) -- wins on conflicts */\nif (inputSchema instanceof Map && !inputSchema.isEmpty()) {\n    deepMerge(merged, inputSchema)\n}\n\n/* assign merged inputs back to node */\nnode.inputs = merged\n\n/* done */\nreturn [\n    updatedWorkflowDefinition: wf\n]",
+				"compile_static":false,
+				"parameters":{
+					"inputSchema":"{{ n_Z51Bw.outputs.inputSchema }}",
+					"nodeID":"{{ n_Z51Bw.outputs.nodeID }}",
+					"schema":"{{ n_Z51Bw.outputs.schema }}",
+					"workflowDefinition":"{{ n_Z51Bw.outputs.workflowDefinition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":455,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XLua9-1",
+			"id":"n_AQdGJ",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":"{{ n_elrEA.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":19
+}
