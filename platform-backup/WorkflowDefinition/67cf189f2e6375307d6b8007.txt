@@ -1,0 +1,355 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743438850,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743439163,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecccf3f7ad93bb1670e65",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":33
+	},
+	"edges":[
+		{
+			"fromNodeId":"e8dQ4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"LbqBG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"LbqBG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"xqmhc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"xqmhc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"6sC3j",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"6sC3j",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lr0VH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"lr0VH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"jocpy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"jocpy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_zYpSr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_zYpSr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"90sP9",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67cf189f2e6375307d6b8007",
+	"lastModifiedBy":-1,
+	"lcName":"[mcp server] new created",
+	"modifiedTime":1788252972550,
+	"name":"[MCP Server] New Created",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2366,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"e8dQ4",
+			"index":1,
+			"inputs":{
+				"object_type":"e_mcp_server"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":427,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"LbqBG",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"title":"Output",
+							"type":"string"
+						}
+					},
+					"required":[
+						"output"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"input":{
+							"title":"Input",
+							"type":"string"
+						}
+					},
+					"required":[
+						"input"
+					],
+					"type":"object"
+				},
+				"code":"def sanitizeString(String input) {\n    input.toLowerCase().replaceAll(/[^a-z0-9]/, '-')\n}\n\nreturn ['output': sanitizeString(input)]",
+				"compile_static":false,
+				"parameters":{
+					"input":"{{ e8dQ4.outputs.properties.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":7,
+				"resourceName":"standard_entities_create_api_collection",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"xqmhc",
+			"index":3,
+			"inputs":{
+				"path":"{{ LbqBG.outputs.result.output }}",
+				"name":"{{ e8dQ4.outputs.properties.name }}",
+				"description":"{{ e8dQ4.outputs.properties.description }}",
+				"mcpServerId":"{{ e8dQ4.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Group",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2371,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"6sC3j",
+			"index":4,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ e8dQ4.outputs.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_mcp_server",
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.apiCollectionId",
+						"setValue":"{{ xqmhc.outputs.id }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.enabled",
+						"setValue":"false"
+					}
+				],
+				"skipIfEmpty":false,
+				"page":{
+					"limit":20,
+					"offset":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":127,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"lr0VH",
+			"index":5,
+			"inputs":{
+				"path":"mcp/sse",
+				"automation":"67dd3e1d24f9fb5bd409af36",
+				"endpointType":"REST",
+				"name":"SSE",
+				"active":true,
+				"description":"SSE API Endpoint for MCP Server",
+				"httpMethod":"GET",
+				"collectionId":"{{ xqmhc.outputs.id }}",
+				"resourceType":"CALLABLE_WORKFLOW"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":127,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"jocpy",
+			"index":6,
+			"inputs":{
+				"path":"mcp/messages",
+				"automation":"67dbf54e6b0a2f279887d047",
+				"endpointType":"REST",
+				"name":"JSON-RPC",
+				"active":true,
+				"description":"JSON-RPC API Endpoint for MCP Server",
+				"httpMethod":"POST",
+				"collectionId":"{{ xqmhc.outputs.id }}",
+				"resourceType":"CALLABLE_WORKFLOW"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":127,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"_zYpSr",
+			"index":7,
+			"inputs":{
+				"path":"mcp/streamableHTTP",
+				"automation":"68b981d3da641f06bd18f1f5",
+				"endpointType":"REST",
+				"name":"Streamable HTTP",
+				"active":true,
+				"description":"Streamable HTTP API Endpoint for MCP Server",
+				"httpMethod":"POST",
+				"collectionId":"{{ xqmhc.outputs.id }}",
+				"resourceType":"CALLABLE_WORKFLOW"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lmczT-1",
+			"id":"90sP9",
+			"index":8,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"MCP Server"
+	],
+	"version":35
+}
