@@ -1,0 +1,937 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744009304,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744009896,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf09cee862008d74cd5a",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":270
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Evvj3",
+			"id":"next@n_Evvj3@n_spuil",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_spuil",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_spuil",
+			"id":"next@n_spuil@n_RJZRu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RJZRu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RJZRu",
+			"id":"next@n_RJZRu@n_Hw3rV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Hw3rV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Hw3rV",
+			"id":"next@n_Hw3rV@n_xztVx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xztVx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xztVx",
+			"id":"next@n_xztVx@n_twaqz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_twaqz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_twaqz",
+			"id":"if@n_twaqz@n_V0Tmy",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V0Tmy",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_V0Tmy",
+			"id":"next@n_V0Tmy@n_0RN5F",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0RN5F",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_twaqz",
+			"id":"next@n_twaqz@n_0RN5F",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0RN5F",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0RN5F",
+			"id":"next@n_0RN5F@n_6vRpu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6vRpu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6vRpu",
+			"id":"if@n_6vRpu@n_NROLd",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NROLd",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_NROLd",
+			"id":"next@n_NROLd@n_wp1rW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wp1rW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6vRpu",
+			"id":"next@n_6vRpu@n_wp1rW",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wp1rW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wp1rW",
+			"id":"next@n_wp1rW@n_zXoCH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zXoCH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zXoCH",
+			"id":"next@n_zXoCH@n_81Qui",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_81Qui",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69eca408580e9278c3693988",
+	"lastModifiedBy":-1,
+	"lcName":"ai spending | limits | check usage",
+	"modifiedTime":1788252972801,
+	"name":"AI Spending | Limits | Check Usage",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":804,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_Evvj3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"maxOutputToken":{
+							"title":"Max Output Token",
+							"type":"integer"
+						},
+						"showAlert":{
+							"title":"Show Alert",
+							"type":"boolean"
+						},
+						"stopFlow":{
+							"title":"Stop Flow",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent ID",
+							"type":"string"
+						},
+						"estimatedCostPrefix":{
+							"title":"Estimated Cost Prefix",
+							"type":"string"
+						},
+						"inputString":{
+							"title":"Input String",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model ID",
+							"type":"string"
+						},
+						"outputMaxTokens":{
+							"title":"Output Max Tokens",
+							"type":"integer"
+						},
+						"workflowId":{
+							"title":"Workflow ID",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":13064,
+				"resourceName":"standard_entities_fetch_user",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_spuil",
+			"index":2,
+			"inputs":{
+				"fetchBy":"id",
+				"applicationId":"",
+				"user":"{{ __USER__.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Fetch User",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1228,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_RJZRu",
+			"index":3,
+			"inputs":{
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_ai_agent_limit",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Fetch Limits",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1228,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_Hw3rV",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"=IF(ISBLANK({{ __USER__.outputs.id }}), \"NA\", VALUE({{ __USER__.outputs.id }}))"
+							},
+							"property":"properties_userId"
+						},
+						{
+							"filter":{
+								"operator":"IN",
+								"value":"{{ n_spuil.outputs.userGroups }}"
+							},
+							"property":"properties_teamId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"=IF(ISBLANK({{ n_Evvj3.outputs.agentId }}), \"NA\", {{ n_Evvj3.outputs.agentId }})"
+							},
+							"property":"properties_agentId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"=IF(ISBLANK({{ n_Evvj3.outputs.modelId }}), \"NA\", {{ n_Evvj3.outputs.modelId }})"
+							},
+							"property":"properties_modelId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"= IF(ISBLANK({{ n_Evvj3.outputs.workflowId }}), \"NA\", {{ n_Evvj3.outputs.workflowId }})"
+							},
+							"property":"properties_workflowId"
+						}
+					],
+					"operator":"OR"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_ai_agent_limit_exception",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Overrides",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":9004,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_xztVx",
+			"index":5,
+			"inputs":{
+				"object_type":"ai_agent_llm_model",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_Evvj3.outputs.modelId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Overrides",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":459,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_twaqz",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"0"
+						},
+						"property":"=LEN({{ n_RJZRu.outputs.objects }})"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"0"
+						},
+						"property":"=LEN({{ n_Hw3rV.outputs.objects }})"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Limit configured?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":836,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_twaqz@_Upv6s-1@y",
+			"id":"n_V0Tmy",
+			"index":7,
+			"inputs":{
+				"result":{
+					"maxOutputToken":"{{ n_Evvj3.outputs.outputMaxTokens }}",
+					"showAlert":false,
+					"stopFlow":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.agentLimits.items",
+					"root.parameters.agentLimitExceptions.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":765,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_0RN5F",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"title":"error",
+							"type":"string"
+						},
+						"inputToken":{
+							"title":"inputToken",
+							"type":"integer"
+						},
+						"maxInputTokens":{
+							"additionalProperties":false,
+							"properties":{
+								"enforcement":{
+									"title":"enforcement",
+									"type":"string"
+								},
+								"value":{
+									"title":"value",
+									"type":"integer"
+								}
+							},
+							"title":"maxInputTokens",
+							"type":"object"
+						},
+						"maxOutputTokens":{
+							"additionalProperties":false,
+							"properties":{
+								"enforcement":{
+									"title":"enforcement",
+									"type":"string"
+								},
+								"value":{
+									"title":"value",
+									"type":"integer"
+								}
+							},
+							"title":"maxOutputTokens",
+							"type":"object"
+						},
+						"maxQueryCost":{
+							"additionalProperties":false,
+							"properties":{
+								"enforcement":{
+									"title":"enforcement",
+									"type":"string"
+								},
+								"value":{
+									"title":"value",
+									"type":"integer"
+								}
+							},
+							"title":"maxQueryCost",
+							"type":"object"
+						},
+						"outputToken":{
+							"title":"outputToken",
+							"type":"integer"
+						},
+						"showAlert":{
+							"title":"showAlert",
+							"type":"boolean"
+						},
+						"stopFlow":{
+							"title":"stopFlow",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"agentLimitExceptions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Agent Limit Exceptions",
+							"type":"array"
+						},
+						"agentLimits":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Agent Limits",
+							"type":"array"
+						},
+						"inputString":{
+							"title":"Input String",
+							"type":"string"
+						},
+						"outputToken":{
+							"title":"Output Token",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"/* =============================================================================\n * Resolves effective per-call estimates by applying perQuery caps from\n * agentLimits + agentLimitExceptions.\n *\n * Resolution model (mirrors the \"How caps resolve\" UI):\n *   DEFAULT  : scope baseline from agentLimits (overall, user, aiAgent, model)\n *   TEAM     : floor for users only — multi-team users get highest team cap\n *   OVERRIDE : per-entity exception, beats default + team for that scope\n *   ORG CAP  : overall perQuery — final ceiling, nothing exceeds it\n *\n * Per-field cascade for a given scope:\n *   override(scope) ?: max(team_for_user, default(scope))   // user-only floor\n *   override(scope) ?: default(scope)                       // other scopes\n * Then clamp by overall (org cap).\n *\n * Per-query checks:\n *   token type:  estInputToken  > effective maxInputTokens\n *   cost  type:  estInputCost   > effective maxQueryCost   (input overflow)\n *                estTotalCost   > effective maxQueryCost   (total overflow)\n *\n *   Each resolved cap carries its own enforcement (the enforcement of the\n *   perQuery object that won). hard -> stopFlow = true; soft -> alert only.\n *\n * Inputs:\n *   agentLimits, agentLimitExceptions   : List<Map>\n *   inputToken, outputToken             : Number\n *   inputCost,  outputCost              : Number\n *\n * Output (feeds into the period-based pre-flight groovy):\n *   inputToken / outputToken / inputCost / outputCost : effective estimates\n *     - outputToken is overridden by effective maxOutputTokens when set\n *   maxInputTokens / maxOutputTokens / maxQueryCost   : effective caps + enforcement\n *   stopFlow / showAlert / error                       : per-query check result\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('inputString'))           { inputString = \"\" }\nif (!binding.hasVariable('outputToken'))          { outputToken = 0L }\n\n/* ---------- Calculate inputToken ------------------------------ */\n\ndef estimateTokens = { String inputString ->\n    if (!inputString?.trim()) return 0\n    \n    def wordCount = inputString.trim().split(/\\s+/).length\n\n    // Roughly 1 word ≈ 1.3 tokens (words often split into subword tokens)\n    return (int) Math.ceil(wordCount * 1.33)\n}\n\n/* ---------- Collect perQuery objects by tier ------------------------------ */\n\ndouble estInputToken  = (estimateTokens(inputString)  as Number).doubleValue()\ndouble estOutputToken = (outputToken as Number).doubleValue()\n\ndef NON_OVERALL_DEFAULT_SCOPES = [\"user\", \"aiAgent\", \"model\", \"workflow\"] as Set\n\ndef gatherPerQueries = { List source, Closure scopeFilter ->\n    def out = []\n    source?.each { entry ->\n        def scope = entry?.properties?.scope as String\n        def pq    = entry?.properties?.perQuery\n        if (pq && scopeFilter(scope)) out << pq\n    }\n    return out\n}\n\ndef overallDefaults  = gatherPerQueries(agentLimits,          { it == \"overall\" })\ndef scopeOverrides   = gatherPerQueries(agentLimitExceptions, { NON_OVERALL_DEFAULT_SCOPES.contains(it) })\ndef teamPerQueries   = gatherPerQueries(agentLimitExceptions, { it == \"team\" })\n\n/* ---------- Pick a single cap for a (field, requiredType) tuple ----------- *\n * Returns [value, enforcement] or null. When multiple candidates qualify in\n * the same tier (e.g. multi-team user), the highest value wins per the\n * \"raises it\" team semantics in the prototype.                              */\n\ndef maxCap = { List perQueries, String field, String requiredType ->\n    def matches = perQueries.findAll { pq ->\n        pq.type?.toString()?.equalsIgnoreCase(requiredType) && pq[field] != null\n    }\n    if (!matches) return null\n    def winner = matches.max { (it[field] as Number).doubleValue() }\n    return [\n            value      : (winner[field] as Number).doubleValue(),\n            enforcement: (winner.enforcement as String)?.toLowerCase()\n    ]\n}\n\ndef resolveCap = { String field, String requiredType ->\n    // 1. Override pins for the specific entity (user/agent/model).\n    def cap = maxCap(scopeOverrides, field, requiredType)\n\n    // 2. If no override, team cap is used\n    if (cap == null) {\n        cap = maxCap(teamPerQueries, field, requiredType)\n    }\n\n    // 3. Overall perQuery is the BASELINE — used only when no scope-level\n    //    perQuery applies. A scope override/team/default takes precedence and\n    //    is NOT clamped by overall.\n    if (cap == null) {\n        cap = maxCap(overallDefaults,  field, requiredType)\n    }\n\n    return cap\n}\n\ndef effMaxInputTokens  = resolveCap(\"maxInputTokens\",  \"token\")\ndef effMaxOutputTokens = resolveCap(\"maxOutputTokens\", \"token\")\ndef effMaxQueryCost    = resolveCap(\"maxQueryCost\",    \"cost\")\n\n/* ---------- Apply maxOutputTokens override to outputToken ---------------- *\n * Strict override (not min). perQuery caps the LLM's max_tokens, so reserve\n * for worst case and let capture-usage reconcile to actuals.                */\n\ndouble effOutputToken = estOutputToken\nif (effMaxOutputTokens != null) {\n    effOutputToken = effMaxOutputTokens.value\n}\n\n/* ---------- Per-query checks --------------------------------------------- */\n\ndef errors = []\nboolean stopFlow = false\nboolean showAlert = false\n\ndef applyVerdict = { Map cap, String message ->\n    if (!cap) return\n    boolean isHard = (cap.enforcement == \"hard\")\n    if (isHard) stopFlow = true\n    showAlert = true\n    errors << message\n}\n\nif (effMaxInputTokens != null && estInputToken > effMaxInputTokens.value) {\n    applyVerdict(effMaxInputTokens,\n            \"Per-query token limit reached (${effMaxInputTokens.enforcement}): \" +\n            \"input (${estInputToken}) exceeds max input tokens of ${effMaxInputTokens.value}\".toString())\n}\n\nreturn [\n        inputToken     : estInputToken,\n        outputToken    : effOutputToken,\n        maxInputTokens : effMaxInputTokens,\n        maxOutputTokens: effMaxOutputTokens,\n        maxQueryCost   : effMaxQueryCost,\n        stopFlow       : stopFlow,\n        showAlert      : showAlert,\n        error          : errors.isEmpty() ? null : errors.join(\"; \")\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"agentLimitExceptions":{
+						"items":"{{ n_Hw3rV.outputs.objects[0] }}",
+						"source":"{{ n_Hw3rV.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"agentLimits":{
+						"items":"{{ n_RJZRu.outputs.objects[0] }}",
+						"source":"{{ n_RJZRu.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"inputString":"{{ n_Evvj3.outputs.inputString }}",
+					"outputToken":"{{ n_Evvj3.outputs.outputMaxTokens }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Check Input Tokens",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":459,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_6vRpu",
+			"index":9,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_0RN5F.outputs.result.stopFlow }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Should Stop?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":836,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6vRpu@_Upv6s-1@y",
+			"id":"n_NROLd",
+			"index":10,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_0RN5F.outputs.result.error }}",
+					"maxOutputToken":0,
+					"showAlert":true,
+					"stopFlow":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":852,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_wp1rW",
+			"index":11,
+			"inputs":{
+				"automationId":"680bb38e89c13d6ab6b7babe",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"inputTokens":"{{ n_0RN5F.outputs.result.inputToken }}",
+					"modelId":"{{ n_Evvj3.outputs.modelId }}",
+					"outputTokens":"{{ n_0RN5F.outputs.result.outputToken }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"LLM Cost Calculator",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.agentLimits.items",
+					"root.parameters.agentLimitExceptions.items",
+					"root.parameters.teamIds.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1131,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_zXoCH",
+			"index":12,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"title":"error",
+							"type":"string"
+						},
+						"maxOutputTokens":{
+							"title":"Max Output Tokens",
+							"type":"integer"
+						},
+						"showAlert":{
+							"title":"showAlert",
+							"type":"boolean"
+						},
+						"stopFlow":{
+							"title":"stopFlow",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"agentLimitExceptions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Agent Limit Exceptions",
+							"type":"array"
+						},
+						"agentLimits":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Agent Limits",
+							"type":"array"
+						},
+						"aiAgentId":{
+							"title":"AI Agent ID",
+							"type":"string"
+						},
+						"estimatedCostPrefix":{
+							"title":"Estimated Cost Prefix",
+							"type":"string"
+						},
+						"inputCost":{
+							"title":"Input Cost",
+							"type":"number"
+						},
+						"inputToken":{
+							"title":"Input Token",
+							"type":"number"
+						},
+						"inputTokenErrors":{
+							"title":"Input Token Errors",
+							"type":"string"
+						},
+						"maxQueryCost":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Max Query Cost",
+							"type":"object"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						},
+						"modelSpendingLimit":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Model Spending Limit",
+							"type":"object"
+						},
+						"outputCost":{
+							"title":"Output Cost",
+							"type":"number"
+						},
+						"outputToken":{
+							"title":"Output Token",
+							"type":"number"
+						},
+						"teamIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Team Ids",
+							"type":"array"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						},
+						"workflowId":{
+							"title":"Workflow ID",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes\nimport com.unifyapps.infra.utils.context.UserContext\nimport io.quarkus.arc.Arc\nimport io.quarkus.arc.InstanceHandle\nimport java.time.Duration\nimport java.util.Calendar\n\n/* =============================================================================\n * Pre-flight rate-limit check for an LLM call.\n *\n *   1. Reserve estimates against the FULL set of (scope, period, metric)\n *      counters ‚Äî even ones with no limit defined ‚Äî so capture-usage can\n *      uniformly subtract the same reservation from every counter.\n *   2. Resolve effective per-scope period limits using the prototype's\n *      tiered cascade: override pins ‚Üí team raises default ‚Üí all clamped\n *      by overall (org cap).\n *   3. Look up each limit's currentUsage from the counter map and classify.\n *   4. Select ONE prioritized message to surface (see message selection).\n *   5a. stopFlow = true  -> revert every increment.\n *   5b. stopFlow = false -> keep increments and persist\n *                          {estimatedCostPrefix}_token / _cost so\n *                          capture-usage can reconcile.\n *\n * Message selection (single message returned in every case):\n *   Priority: org hard  >  other hard  >  org soft  >  other soft.\n *   The highest-priority violation's message wins; the rest are dropped.\n *\n * Per-query checks live in the resolver script (run before this one) and\n * are NOT duplicated here, except the per-query cost check which uses the\n * resolved maxQueryCost binding.\n *\n * Decision:\n *   stopFlow = true  iff at least one row has (currentUsage + estimatedInput)\n *                    exceeding its limit AND that row's enforcement is \"hard\".\n *\n * Inputs (all bindings optional):\n *   agentLimits, agentLimitExceptions    : List<Map>\n *   userId, aiAgentId, modelId           : scope ids\n *   inputToken, outputToken              : Number (already-resolved estimates)\n *   inputCost,  outputCost               : Number\n *   maxQueryCost                         : Map [value, enforcement] from resolver\n *   inputTokenErrors                     : String from resolver (per-query token)\n *   estimatedCostPrefix                  : opaque id; reservation keyed on it\n *\n * Output:\n *   { stopFlow: boolean, error: String,\n *     showAlert: boolean, maxOutputTokens: Number | null }\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('userId'))               { userId = null }\nif (!binding.hasVariable('aiAgentId'))            { aiAgentId = null }\nif (!binding.hasVariable('modelId'))              { modelId = null }\nif (!binding.hasVariable('workflowId'))           { workflowId = null }\nif (!binding.hasVariable('inputToken'))           { inputToken = 0L }\nif (!binding.hasVariable('outputToken'))          { outputToken = 0L }\nif (!binding.hasVariable('inputCost'))            { inputCost = 0.0d }\nif (!binding.hasVariable('outputCost'))           { outputCost = 0.0d }\nif (!binding.hasVariable('maxQueryCost'))         { maxQueryCost = [:] }\nif (!binding.hasVariable('estimatedCostPrefix'))  { estimatedCostPrefix = null }\nif (!binding.hasVariable('inputTokenErrors'))     { inputTokenErrors = \"\" }\nif (!binding.hasVariable('teamIds'))              { teamIds = [] }\n\n// Caller's team ids (from userGroups resolver), used for model+team composite caps.\nfinal List CALLER_TEAM_IDS = ((teamIds ?: []) as List).findAll { it != null && it.toString() }.collect { it.toString() }.unique()\n\nfinal double EST_INPUT_TOKEN  = (inputToken  as Number).doubleValue()\nfinal double EST_OUTPUT_TOKEN = (outputToken as Number).doubleValue()\nfinal double EST_INPUT_COST   = (inputCost   as Number).doubleValue()\nfinal double EST_OUTPUT_COST  = (outputCost  as Number).doubleValue()\nfinal double TOTAL_TOKEN      = EST_INPUT_TOKEN + EST_OUTPUT_TOKEN\nfinal double TOTAL_COST       = EST_INPUT_COST  + EST_OUTPUT_COST\n\nfinal long RESERVATION_TTL_SECONDS = 3600L\n\n/* ---------- pure helpers -------------------------------------------------- */\n\ndef computePeriodRange = { period ->\n    if (!period) return [startTime: null, endTime: null]\n    def cal = Calendar.getInstance()\n    cal.set(Calendar.HOUR_OF_DAY, 0)\n    cal.set(Calendar.MINUTE, 0)\n    cal.set(Calendar.SECOND, 0)\n    cal.set(Calendar.MILLISECOND, 0)\n    Long start = null, end = null\n    switch (period.toLowerCase()) {\n        case \"daily\":\n            start = cal.timeInMillis\n            cal.add(Calendar.DAY_OF_MONTH, 1)\n            end = cal.timeInMillis - 1\n            break\n        case \"weekly\":\n            cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)\n            start = cal.timeInMillis\n            cal.add(Calendar.WEEK_OF_YEAR, 1)\n            end = cal.timeInMillis - 1\n            break\n        case \"monthly\":\n            cal.set(Calendar.DAY_OF_MONTH, 1)\n            start = cal.timeInMillis\n            cal.add(Calendar.MONTH, 1)\n            end = cal.timeInMillis - 1\n            break\n    }\n    [startTime: start, endTime: end]\n}\n\ndef buildKeyPrefix = { String category ->\n    switch (category) {\n        case \"overall\": return \"overall\"\n        case \"user\":    return userId    ? \"users_${userId}\".toString()        : null\n        case \"aiAgent\": return aiAgentId ? \"ai_agents_${aiAgentId}\".toString() : null\n        case \"model\":   return modelId   ? \"models_${modelId}\".toString()      : null\n        case \"workflow\": return workflowId ? \"workflows_${workflowId}\".toString() : null\n        default:        return null\n    }\n}\n\ndef estimatesFor = { String type ->\n    def t = type?.toString()?.toLowerCase()\n    if (t == \"token\") return [input: EST_INPUT_TOKEN, output: EST_OUTPUT_TOKEN, total: TOTAL_TOKEN]\n    if (t == \"cost\")  return [input: EST_INPUT_COST,  output: EST_OUTPUT_COST,  total: TOTAL_COST]\n    return [input: 0.0d, output: 0.0d, total: 0.0d]\n}\n\ndef resolveCategory = { entry ->\n    entry?.properties?.scope as String\n}\n\n/* ---------- 1. Build the FULL set of counters to reserve against ---------- */\n\ndef categories = [\"overall\", \"user\", \"aiAgent\", \"model\", \"workflow\"].findAll { buildKeyPrefix(it) != null }\n\ndef counters = [:]\n[\"daily\", \"weekly\", \"monthly\"].each { period ->\n    def range = computePeriodRange(period)\n    if (range.startTime == null) return\n    categories.each { category ->\n        def prefix = buildKeyPrefix(category)\n        [\"token\", \"cost\"].each { metric ->\n            def est = estimatesFor(metric)\n            def key = \"${prefix}_${metric}_${period}_${range.startTime}\".toString()\n            counters[key] = [\n                    key         : key,\n                    category    : category,\n                    period      : period,\n                    metric      : metric,\n                    amount      : est.total,\n                    endTime     : range.endTime,\n                    currentUsage: 0.0d,\n                    incremented : false\n            ]\n        }\n    }\n}\n\n/* ---------- 1b. Reserve composite (model-anchored) + team counters -------- *\n * Composite prefix = models_<m>_<subPrefix> (model first). MUST be byte-identical\n * to Capture-Usage so reservations reconcile (else counters drift/go negative). */\n\ndef compositePrefixesForCaller = {\n    def out = []\n    if (modelId) {\n        if (userId)    out << \"models_${modelId}_users_${userId}\".toString()\n        if (aiAgentId) out << \"models_${modelId}_ai_agents_${aiAgentId}\".toString()\n        CALLER_TEAM_IDS.each { t -> out << \"models_${modelId}_teams_${t}\".toString() }\n    }\n    return out\n}()\n\n[\"daily\", \"weekly\", \"monthly\"].each { period ->\n    def range = computePeriodRange(period)\n    if (range.startTime == null) return\n    compositePrefixesForCaller.each { prefix ->\n        [\"token\", \"cost\"].each { metric ->\n            def est = estimatesFor(metric)\n            def key = \"${prefix}_${metric}_${period}_${range.startTime}\".toString()\n            if (!counters.containsKey(key)) {\n                counters[key] = [\n                        key         : key,\n                        category    : \"composite\",\n                        period      : period,\n                        metric      : metric,\n                        amount      : est.total,\n                        endTime     : range.endTime,\n                        currentUsage: 0.0d,\n                        incremented : false\n                ]\n            }\n        }\n    }\n}\n\n/* ---------- 2. Resolve effective period limits (tiered cascade) ----------- */\n\ndef flattenLimits = { entry ->\n    def rows = []\n    entry?.properties?.limits?.each { lim ->\n        def p = lim.period?.toString()?.toLowerCase()\n        def t = lim.type?.toString()?.toLowerCase()\n        if (!p || !t) return\n        rows << [\n                period     : p,\n                type       : t,\n                value      : (lim.value as Number).doubleValue(),\n                enforcement: (lim.enforcement as String)?.toLowerCase()\n        ]\n    }\n    return rows\n}\n\ndef indexByTier = { List entries ->\n    def out = [:]\n    entries.each { entry ->\n        flattenLimits(entry).each { limit ->\n            def k = \"${limit.period}|${limit.type}\".toString()\n            out[k] = out[k] ?: []\n            out[k] << limit\n        }\n    }\n    return out\n}\n\n// A model-anchored exception row carries properties.modelId. Those are handled as\n// INDEPENDENT composite caps below; exclude them from the plain single-scope cascade\n// so a \"user+model\" row does not also pin the plain \"user\" cap (backward compat).\ndef isPlain = { entry -> !(entry?.properties?.modelId) }\n\ndef overallDefaults  = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"overall\" })\ndef userDefaults     = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"user\" })\ndef userOverrides    = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"user\"    && isPlain(it) })\ndef teamOverrides    = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"team\"    && isPlain(it) })\ndef agentDefaults    = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"aiAgent\" })\ndef agentOverrides   = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"aiAgent\" && isPlain(it) })\ndef modelDefaults    = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"model\" })\ndef modelOverrides   = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"model\" })\ndef workflowDefaults = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"workflow\" })\ndef workflowOverrides= indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"workflow\" })\n\ndef maxRow = { List rows ->\n    rows ? rows.max { it.value } : null\n}\n\ndef allKeysUnion = { Map... maps ->\n    def s = new LinkedHashSet<String>()\n    maps.each { m -> if (m) s.addAll(m.keySet()) }\n    return s\n}\n\ndef resolveScope = {\n    String scopeName,\n    Map defaults, Map overrides,\n    boolean applyTeams,            // teams only raise users\n    Map orgDefaults ->\n\n    def keys = allKeysUnion(defaults, overrides,\n                            applyTeams ? teamOverrides : null,\n                            orgDefaults)\n    def out = []\n    keys.each { k ->\n        // Tier 1 ‚Äî entity override pins\n        def cap = maxRow(overrides[k])\n\n        // Tier 2 ‚Äî team raises default (users only); multi-team => highest\n        if (cap == null) {\n            def teamCap    = applyTeams ? maxRow(teamOverrides[k]) : null\n            def defaultCap = maxRow(defaults[k])\n            if (teamCap != null && defaultCap != null) {\n                cap = (teamCap.value >= defaultCap.value) ? teamCap : defaultCap\n            } else {\n                cap = teamCap ?: defaultCap\n            }\n        }\n\n        // Tier 3 ‚Äî clamp by org cap\n        def orgCap = maxRow(orgDefaults[k])\n        if (orgCap != null) {\n            if (cap == null || cap.value > orgCap.value) cap = orgCap\n        }\n\n        if (cap == null) return\n        def (period, type) = k.tokenize(\"|\")\n        out << [\n                scope      : scopeName,\n                period     : period,\n                type       : type,\n                value      : cap.value,\n                enforcement: cap.enforcement\n        ]\n    }\n    return out\n}\n\ndef overallRows = []\noverallDefaults.each { k, rows ->\n    def cap = maxRow(rows)\n    if (!cap) return\n    def (period, type) = k.tokenize(\"|\")\n    overallRows << [scope: \"overall\", period: period, type: type,\n                    value: cap.value, enforcement: cap.enforcement]\n}\n\ndef userRows  = resolveScope(\"user\",    userDefaults,  userOverrides,  true,  overallDefaults)\ndef agentRows = resolveScope(\"aiAgent\", agentDefaults, agentOverrides, false, overallDefaults)\ndef modelRows = resolveScope(\"model\",   modelDefaults, modelOverrides, false, overallDefaults)\ndef workflowRows = resolveScope(\"workflow\", workflowDefaults, workflowOverrides, false, overallDefaults)\n\n// Map resolved rows into the shape the classifier expects.\ndef buildRow = { Map r ->\n    def metric = r.type\n    def prefix = buildKeyPrefix(r.scope)\n    def range  = computePeriodRange(r.period)\n    def redisKey = (prefix && metric && range.startTime != null)\n            ? \"${prefix}_${metric}_${r.period}_${range.startTime}\".toString()\n            : null\n    def est = estimatesFor(metric)\n    return [\n            scope          : r.scope,\n            period         : r.period,\n            enforcement    : r.enforcement,\n            limit          : r.value,\n            type           : r.type,\n            estimatedInput : est.input,\n            estimatedOutput: est.output,\n            redisKey       : redisKey\n    ]\n}\n\n/* ---- Composite (model-anchored) INDEPENDENT caps -----------------------------\n * A model-anchored exception row (properties.modelId set) that matches the CURRENT\n * call's model becomes an independent cap keyed by models_<m>_<subPrefix>_<subId>.\n * Rows for a DIFFERENT model are skipped (no cross-model leakage). Enforced\n * conjunctively alongside the single-scope caps (strictest HARD wins).            */\ndef curModel = modelId?.toString()\n\ndef compositeSubPrefix = { String sc, String subId ->\n    if (!subId) return null\n    switch (sc) {\n        case \"user\":    return \"users_${subId}\".toString()\n        case \"team\":    return \"teams_${subId}\".toString()\n        case \"aiAgent\": return \"ai_agents_${subId}\".toString()\n        default:        return null\n    }\n}\n\ndef compositeCaps = []\nif (curModel) {\n    agentLimitExceptions.each { entry ->\n        def rowModel = entry?.properties?.modelId?.toString()\n        if (!rowModel || rowModel != curModel) return          // skip non-model + other-model rows\n        def sc = resolveCategory(entry)\n        if (!(sc in [\"user\", \"team\", \"aiAgent\"])) return       // model-global handled by modelRows\n        def subId = (sc == \"user\") ? entry?.properties?.userId\n                  : (sc == \"team\") ? entry?.properties?.teamId\n                  :                  entry?.properties?.agentId\n        def sid = subId?.toString()\n        // Anchor enforcement to the SAME identity as the reservation (the caller).\n        // The exceptions fetch ORs its filters, so a row for ANOTHER user/agent/team can be\n        // returned via the modelId clause. Apply only rows that belong to THIS caller ‚Äî else\n        // the cap key would miss the reserved counter (currentUsage read as 0 -> under-enforced)\n        // and could leak another identity's limit onto this call.\n        if (sc == \"user\"    && sid != userId?.toString())      return\n        if (sc == \"aiAgent\" && sid != aiAgentId?.toString())   return\n        if (sc == \"team\"    && !CALLER_TEAM_IDS.contains(sid)) return\n        def subPfx = compositeSubPrefix(sc, sid)\n        if (!subPfx) return\n        def prefix = \"models_${curModel}_${subPfx}\".toString()\n        def label  = \"Model+\" + (sc == \"aiAgent\" ? \"agent\" : sc)\n        flattenLimits(entry).each { lim ->\n            compositeCaps << [scopeLabel: label, prefix: prefix, period: lim.period,\n                              type: lim.type, value: lim.value, enforcement: lim.enforcement]\n        }\n    }\n}\n\n// buildRow for an explicit-prefix (composite) cap.\ndef buildCompositeRow = { Map r ->\n    def range    = computePeriodRange(r.period)\n    def redisKey = (r.prefix && r.type && range.startTime != null)\n            ? \"${r.prefix}_${r.type}_${r.period}_${range.startTime}\".toString()\n            : null\n    def est = estimatesFor(r.type)\n    return [\n            scope          : r.scopeLabel,\n            period         : r.period,\n            enforcement    : r.enforcement,\n            limit          : r.value,\n            type           : r.type,\n            estimatedInput : est.input,\n            estimatedOutput: est.output,\n            redisKey       : redisKey\n    ]\n}\n\ndef limitRows = []\nlimitRows.addAll(overallRows.collect(buildRow))\nlimitRows.addAll(userRows.collect(buildRow))\nlimitRows.addAll(agentRows.collect(buildRow))\nlimitRows.addAll(modelRows.collect(buildRow))\nlimitRows.addAll(workflowRows.collect(buildRow))\nlimitRows.addAll(compositeCaps.collect(buildCompositeRow))\n\n/* ---------- 3. Acquire Redis template ------------------------------------- */\n\ndef redisTemplate\ntry {\n    InstanceHandle<RedisTemplateFactory> handle =\n            Arc.container().instance(RedisTemplateFactory.class)\n    redisTemplate = handle.get().getRedisTemplate(\n            UserContext.getCurrentCustomerId(),\n            WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE\n    )\n} catch (Exception e) {\n    return [stopFlow: false,\n            error: \"Rate-limit check unavailable: ${e.toString()}\".toString(),\n            showAlert: false,\n            maxOutputTokens: (EST_OUTPUT_TOKEN.toInteger() > 0 ? EST_OUTPUT_TOKEN.toInteger() : 4096)]\n}\n\n/* ---------- 4. Reserve against EVERY counter ------------------------------ */\n\nlong now = System.currentTimeMillis()\n\ncounters.values().each { c ->\n    if (c.amount == 0.0d) {\n        try {\n            def v = redisTemplate.find(c.key, Number.class)\n            c.currentUsage = (v != null) ? (v as Number).doubleValue() : 0.0d\n        } catch (Exception e) {\n            c.currentUsage = 0.0d\n            c.error = e.toString()\n        }\n        return\n    }\n    try {\n        double newTotal = redisTemplate.incrByFloat(c.key, Number.class, c.amount)\n        long ttlMs = (c.endTime as Long) - now\n        if (ttlMs > 0) redisTemplate.expireAfter(c.key, ttlMs, Number.class)\n        c.currentUsage = newTotal - c.amount\n        c.incremented  = true\n    } catch (Exception e) {\n        c.currentUsage = Double.MAX_VALUE\n        c.error        = e.toString()\n    }\n}\n\n/* ---------- 5. Classify each limit row into prioritized violations -------- *\n * Each violation is tagged with:\n *   isOrg    : true if scope == \"overall\"\n *   severity : \"hard\" | \"soft\"   (only hard violations set stopFlow)\n *   message  : user-facing text\n * A single message is selected later by priority:\n *   org hard > other hard > org soft > other soft.                          */\n\ndef violations = []        // [ {isOrg, severity, message} ]\nboolean stopFlow = false\nboolean showAlert = false\n\ndef addViolation = { boolean isOrg, String severity, String message ->\n    violations << [isOrg: isOrg, severity: severity, message: message]\n    showAlert = true\n    if (severity == \"hard\") stopFlow = true\n}\n\n// Per-query token violation passed in from the resolver. We don't know its\n// enforcement here, so treat a non-empty string as a org soft violation\n// (the resolver only emits this string when it intends to block on input).\nif (inputTokenErrors != null && inputTokenErrors.size() > 0) {\n    addViolation(true, \"soft\", inputTokenErrors as String)\n}\n\nlimitRows.each { row ->\n    def counter  = row.redisKey ? counters[row.redisKey] : null\n    double current = counter ? (counter.currentUsage as double) : 0.0d\n    double limit   = ((row.limit ?: 0.0) as Number).doubleValue()\n    double estIn   = (row.estimatedInput  as Number).doubleValue()\n    double estOut  = (row.estimatedOutput as Number).doubleValue()\n    String enforce = (row.enforcement as String)?.toLowerCase() ?: \"soft\"\n    String scope   = row.scope as String\n    boolean isOrg  = (scope == \"overall\")\n\n    double withInput = current + estIn\n    double withTotal = withInput + estOut\n\n    if (withInput > limit) {\n        // Input alone exceeds: severity follows the limit's own enforcement.\n        addViolation(isOrg, enforce,\n                \"${scope.capitalize()} ${row.period} ${row.type} ${enforce} limit reached: \" +\n                \"input alone (${withInput}) exceeds limit of ${row.limit}\".toString())\n    } else if (withTotal > limit) {\n        // Estimated total exceeds: always a soft warning (call hasn't overrun\n        // anything yet ‚Äî output is only a projection).\n        addViolation(isOrg, \"soft\",\n                \"${scope.capitalize()} ${row.period} ${row.type} ${enforce} limit reached: \" +\n                \"estimated total (${withTotal}) exceeds limit of ${row.limit}\".toString())\n    }\n}\n\n// Per-query cost check (resolved maxQueryCost binding).\nif (maxQueryCost != null && maxQueryCost.value != null) {\n    boolean isOrg = true    // perQuery is an overall-scope (org) concept\n    if (EST_INPUT_COST > (maxQueryCost.value as Number).doubleValue()) {\n        // Input cost overflow follows perQuery enforcement.\n        String sev = ((maxQueryCost.enforcement as String)?.toLowerCase() == \"hard\") ? \"hard\" : \"soft\"\n        addViolation(isOrg, sev,\n                \"Per-query cost limit reached (${maxQueryCost.enforcement}): \" +\n                \"input cost (${EST_INPUT_COST}) exceeds max query cost of ${maxQueryCost.value}\".toString())\n    } else if (TOTAL_COST > (maxQueryCost.value as Number).doubleValue()) {\n        // Total overflow is always a soft warning.\n        addViolation(isOrg, \"soft\",\n                \"Per-query cost limit reached (${maxQueryCost.enforcement}): \" +\n                \"estimated total (${TOTAL_COST}) exceeds max query cost of ${maxQueryCost.value}\".toString())\n    }\n}\n\n/* ---------- 5b. Select the message ---------------------------------------- *\n * Priority tiers, descending ‚Äî return the first non-empty one:\n *   1. org hard    -> single highest org-hard message\n *   2. other hard  -> all non-org hard messages, combined (\"; \")\n *   3. org soft    -> single org-soft message\n *   4. other soft  -> all non-org soft messages, combined (\"; \")            */\n\ndef selectMessage = { List vios ->\n    if (!vios) return \"\"\n\n    def orgHard   = vios.find    { it.isOrg  && it.severity == \"hard\" }\n    def otherHard = vios.findAll { !it.isOrg && it.severity == \"hard\" }\n    def orgSoft   = vios.find    { it.isOrg  && it.severity == \"soft\" }\n    def otherSoft = vios.findAll { !it.isOrg && it.severity == \"soft\" }\n\n    if (orgHard)   return orgHard.message as String\n    if (otherHard) return otherHard.collect { it.message }.join(\"; \")\n    if (orgSoft)   return orgSoft.message as String\n    if (otherSoft) return otherSoft.collect { it.message }.join(\"; \")\n    return \"\"\n}\n\nString selectedMessage = selectMessage(violations)\n\n/* ---------- 6. Revert helper -------------------------------------------- */\n\ndef revertAll = {\n    counters.values().each { c ->\n        if (c.incremented && c.amount != 0.0d) {\n            try { redisTemplate.incrByFloat(c.key, Number.class, -c.amount) }\n            catch (Exception ignore) { /* best-effort; key has TTL backstop */ }\n        }\n    }\n}\n\n/* ---------- 6a. stopFlow = true: revert all reservations ------------------ */\n\nif (stopFlow) {\n    revertAll()\n    return [stopFlow: true,\n            error: selectedMessage,\n            showAlert: true,\n            maxOutputTokens: null]\n}\n\n/* ---------- 6b. stopFlow = false: persist case totals --------------------- */\n\nif (estimatedCostPrefix) {\n    try {\n        def expiry = Duration.ofSeconds(RESERVATION_TTL_SECONDS)\n        redisTemplate.update(\"${estimatedCostPrefix}_token\".toString(), TOTAL_TOKEN as Number, expiry, Number.class)\n        redisTemplate.update(\"${estimatedCostPrefix}_cost\".toString(),  TOTAL_COST  as Number, expiry, Number.class)\n    } catch (Exception e) {\n        revertAll()\n        return [stopFlow: true,\n                error: \"Reservation persistence failed; aborting to avoid orphaned counters: ${e.toString()}\".toString(),\n                showAlert: showAlert,\n                maxOutputTokens: null]\n    }\n}\n\n// TODO: future ‚Äî return effective max_tokens for the LLM call as\n//   tightest_remaining_token_headroom = min over token-typed limit rows of\n//       (row.limit - row.currentUsage - row.estimatedInput)\n//   clamped at 0. This lets the caller pass `max_tokens` to the LLM so the\n//   model can't overrun the soft headroom we just reserved against.\n// def usableOutputToken = limitRows\n//         .findAll { it.type?.toString()?.equalsIgnoreCase(\"token\") }\n//         .collect { row ->\n//             def counter = row.redisKey ? counters[row.redisKey] : null\n//             double current = counter ? (counter.currentUsage as double) : 0.0d\n//             double limit   = ((row.limit ?: 0.0) as Number).doubleValue()\n//             double estIn   = (row.estimatedInput as Number).doubleValue()\n//             Math.max(0.0d, limit - current - estIn)\n//         }\n//         .min()\n// // Then return: maxOutputTokens: usableOutputToken ?: EST_OUTPUT_TOKEN\n\nreturn [\"stopFlow\": false,\n        \"error\": selectedMessage,\n        \"showAlert\": showAlert,\n        \"maxOutputTokens\": (EST_OUTPUT_TOKEN.toInteger() > 0 ? EST_OUTPUT_TOKEN.toInteger() : 4096)]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"agentLimitExceptions":{
+						"items":"{{ n_Hw3rV.outputs.objects[0] }}",
+						"source":"{{ n_Hw3rV.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"agentLimits":{
+						"items":"{{ n_RJZRu.outputs.objects[0] }}",
+						"source":"{{ n_RJZRu.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"aiAgentId":"{{ n_Evvj3.outputs.agentId }}",
+					"estimatedCostPrefix":"{{ n_Evvj3.outputs.estimatedCostPrefix }}",
+					"inputCost":"{{ n_wp1rW.outputs.inputTokenCost }}",
+					"inputToken":"{{ n_0RN5F.outputs.result.inputToken }}",
+					"inputTokenErrors":"{{ n_0RN5F.outputs.result.error }}",
+					"maxQueryCost":"{{ n_0RN5F.outputs.result.maxQueryCost }}",
+					"modelId":"{{ n_Evvj3.outputs.modelId }}",
+					"modelSpendingLimit":"{{ n_xztVx.outputs.properties.spendingLimit }}",
+					"outputCost":"{{ n_wp1rW.outputs.outputTokenCost }}",
+					"outputToken":"{{ n_0RN5F.outputs.result.outputToken }}",
+					"teamIds":{
+						"items":"{{ n_spuil.outputs.userGroups[0] }}",
+						"source":"{{ n_spuil.outputs.userGroups }}",
+						"ua:type":"mappedArray"
+					},
+					"userId":"{{ __USER__.outputs.id }}",
+					"workflowId":"{{ n_Evvj3.outputs.workflowId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Check Usage",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":831,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_81Qui",
+			"index":13,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_zXoCH.outputs.result.error }}",
+					"maxOutputToken":"{{ n_zXoCH.outputs.result.maxOutputTokens }}",
+					"showAlert":"{{ n_zXoCH.outputs.result.showAlert }}",
+					"stopFlow":"{{ n_zXoCH.outputs.result.stopFlow }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":272
+}
