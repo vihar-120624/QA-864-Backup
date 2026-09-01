@@ -1,5 +1,5 @@
 {
-	"columnCounts":5,
+	"columnCounts":6,
 	"createdTime":1787737373064,
 	"deleted":false,
 	"grants":{
@@ -20,6 +20,109 @@
 			"applicationId":{
 				"ui:title":"Application ID",
 				"ui:description":"Select the application for which you want to set the settings"
+			},
+			"build_info":{
+				"ui:title":"Native Build Info",
+				"ui:order":[
+					"bundleIdentifier",
+					"version",
+					"expoProject",
+					"firebase",
+					"ios",
+					"android",
+					"appName",
+					"newApp"
+				],
+				"expoProject":{
+					"ui:order":[
+						"slug",
+						"scheme",
+						"projectId",
+						"owner"
+					]
+				},
+				"firebase":{
+					"ui:order":[
+						"connectionId",
+						"google_services",
+						"google_service_Info",
+						"notification_image",
+						"notification_color"
+					],
+					"google_services":{
+						"ui:field":"FileUploaderField"
+					},
+					"google_service_Info":{
+						"ui:field":"FileUploaderField"
+					},
+					"notification_image":{
+						"ui:field":"FileUploaderField"
+					}
+				},
+				"ios":{
+					"ui:order":[
+						"googleServicesFile",
+						"signingKeys",
+						"appStoreConnectionId",
+						"ascAppId",
+						"appStoreConnectionName"
+					],
+					"appStoreConnectionId":{},
+					"signingKeys":{
+						"ui:order":[
+							"mode",
+							"provisioningProfile",
+							"distributionCertificate",
+							"certificatePassword"
+						],
+						"provisioningProfile":{},
+						"distributionCertificate":{
+							"ui:field":"FileUploaderField"
+						},
+						"certificatePassword":{
+							"ui:order":[
+								"mode",
+								"provisioningProfile",
+								"distributionCertificate"
+							]
+						}
+					}
+				},
+				"android":{
+					"ui:order":[
+						"googleServicesFile",
+						"signingKeys",
+						"playStoreConnectionId",
+						"playStoreConnectionName"
+					],
+					"signingKeys":{
+						"ui:order":[
+							"mode",
+							"keyAlias",
+							"keystore",
+							"keystorePassword",
+							"keyPassword"
+						],
+						"keystore":{
+							"ui:field":"FileUploaderField"
+						},
+						"keystorePassword":{
+							"ui:order":[
+								"mode",
+								"keyAlias",
+								"keystore"
+							]
+						},
+						"keyPassword":{
+							"ui:order":[
+								"mode",
+								"keyAlias",
+								"keystore",
+								"keystorePassword"
+							]
+						}
+					}
+				}
 			}
 		},
 		"schema":{
@@ -142,6 +245,594 @@
 							}
 						}
 					}
+				},
+				"build_info":{
+					"type":"object",
+					"title":"Native Build Info",
+					"description":"Native (Android/iOS) build record: app identity, Expo project, Firebase files and per-platform signing material. Written by the Releases tab and the signing-generate API; read by the release manager at build time.",
+					"additionalProperties":false,
+					"properties":{
+						"bundleIdentifier":{
+							"type":"string",
+							"title":"Bundle Identifier"
+						},
+						"expoProject":{
+							"type":"object",
+							"properties":{
+								"slug":{
+									"type":"string",
+									"title":"slug"
+								},
+								"scheme":{
+									"type":"string",
+									"title":"scheme"
+								},
+								"projectId":{
+									"type":"string",
+									"title":"projectId"
+								},
+								"owner":{
+									"type":"string",
+									"title":"owner",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"additionalProperties":false,
+							"title":"Expo Project",
+							"required":[]
+						},
+						"firebase":{
+							"type":"object",
+							"properties":{
+								"connectionId":{
+									"type":"string",
+									"title":"connectionId"
+								},
+								"google_services":{
+									"type":"object",
+									"additionalProperties":true,
+									"format":"file-uploader",
+									"properties":{
+										"fileType":{
+											"type":"string",
+											"title":"File Extension"
+										},
+										"id":{
+											"type":"string",
+											"title":"ID"
+										},
+										"isUploaded":{
+											"type":"boolean",
+											"title":"Is Uploaded"
+										},
+										"name":{
+											"type":"string",
+											"title":"Name"
+										},
+										"progress":{
+											"type":"number",
+											"title":"Progress"
+										},
+										"size":{
+											"type":"number",
+											"title":"Size"
+										},
+										"url":{
+											"type":"string",
+											"title":"URL"
+										},
+										"mimeType":{
+											"type":"string",
+											"title":"Mime Type"
+										},
+										"sourceType":{
+											"type":"string",
+											"title":"Source Type",
+											"enum":[
+												"CLOUD_STORAGE",
+												"URL"
+											]
+										},
+										"source":{
+											"type":"string",
+											"title":"Source"
+										}
+									},
+									"required":[],
+									"title":"Google Services file (.json)",
+									"allowDownload":true,
+									"allowPublicAccess":false,
+									"multipleFiles":false,
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"google_service_Info":{
+									"type":"object",
+									"additionalProperties":true,
+									"format":"file-uploader",
+									"properties":{
+										"fileType":{
+											"type":"string",
+											"title":"File Extension"
+										},
+										"id":{
+											"type":"string",
+											"title":"ID"
+										},
+										"isUploaded":{
+											"type":"boolean",
+											"title":"Is Uploaded"
+										},
+										"name":{
+											"type":"string",
+											"title":"Name"
+										},
+										"progress":{
+											"type":"number",
+											"title":"Progress"
+										},
+										"size":{
+											"type":"number",
+											"title":"Size"
+										},
+										"url":{
+											"type":"string",
+											"title":"URL"
+										},
+										"mimeType":{
+											"type":"string",
+											"title":"Mime Type"
+										},
+										"sourceType":{
+											"type":"string",
+											"title":"Source Type",
+											"enum":[
+												"CLOUD_STORAGE",
+												"URL"
+											]
+										},
+										"source":{
+											"type":"string",
+											"title":"Source"
+										}
+									},
+									"required":[],
+									"title":"GoogleService-Info file (.plist)",
+									"allowDownload":true,
+									"allowPublicAccess":false,
+									"multipleFiles":false,
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"notification_image":{
+									"type":"object",
+									"additionalProperties":true,
+									"format":"file-uploader",
+									"properties":{
+										"fileType":{
+											"type":"string",
+											"title":"File Extension"
+										},
+										"id":{
+											"type":"string",
+											"title":"ID"
+										},
+										"isUploaded":{
+											"type":"boolean",
+											"title":"Is Uploaded"
+										},
+										"name":{
+											"type":"string",
+											"title":"Name"
+										},
+										"progress":{
+											"type":"number",
+											"title":"Progress"
+										},
+										"size":{
+											"type":"number",
+											"title":"Size"
+										},
+										"url":{
+											"type":"string",
+											"title":"URL"
+										},
+										"mimeType":{
+											"type":"string",
+											"title":"Mime Type"
+										},
+										"sourceType":{
+											"type":"string",
+											"title":"Source Type",
+											"enum":[
+												"CLOUD_STORAGE",
+												"URL"
+											]
+										},
+										"source":{
+											"type":"string",
+											"title":"Source"
+										}
+									},
+									"required":[],
+									"title":"Notification Image ",
+									"allowDownload":true,
+									"allowPublicAccess":false,
+									"multipleFiles":false,
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"notification_color":{
+									"type":"string",
+									"title":"Notification Color",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"title":"firebase",
+							"additionalProperties":false,
+							"required":[]
+						},
+						"ios":{
+							"type":"object",
+							"properties":{
+								"googleServicesFile":{
+									"type":"string",
+									"title":"googleServicesFile"
+								},
+								"signingKeys":{
+									"type":"object",
+									"properties":{
+										"mode":{
+											"type":"string",
+											"title":"mode"
+										},
+										"provisioningProfile":{
+											"type":"object",
+											"properties":{
+												"fileType":{
+													"type":"string",
+													"title":"File Extension"
+												},
+												"id":{
+													"type":"string",
+													"title":"ID"
+												},
+												"isUploaded":{
+													"type":"boolean",
+													"title":"Is Uploaded"
+												},
+												"name":{
+													"type":"string",
+													"title":"Name"
+												},
+												"progress":{
+													"type":"number",
+													"title":"Progress"
+												},
+												"size":{
+													"type":"number",
+													"title":"Size"
+												},
+												"url":{
+													"type":"string",
+													"title":"URL"
+												},
+												"mimeType":{
+													"type":"string",
+													"title":"Mime Type"
+												},
+												"sourceType":{
+													"type":"string",
+													"title":"Source Type",
+													"enum":[
+														"CLOUD_STORAGE",
+														"URL"
+													]
+												},
+												"source":{
+													"type":"string",
+													"title":"Source"
+												}
+											},
+											"additionalProperties":false,
+											"title":"Provisioning Profile (.mobileprovision)",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false,
+											"required":[]
+										},
+										"distributionCertificate":{
+											"type":"object",
+											"additionalProperties":true,
+											"format":"secure",
+											"properties":{
+												"fileType":{
+													"type":"string",
+													"title":"File Extension"
+												},
+												"id":{
+													"type":"string",
+													"title":"ID"
+												},
+												"isUploaded":{
+													"type":"boolean",
+													"title":"Is Uploaded"
+												},
+												"name":{
+													"type":"string",
+													"title":"Name"
+												},
+												"progress":{
+													"type":"number",
+													"title":"Progress"
+												},
+												"size":{
+													"type":"number",
+													"title":"Size"
+												},
+												"url":{
+													"type":"string",
+													"title":"URL"
+												},
+												"mimeType":{
+													"type":"string",
+													"title":"Mime Type"
+												},
+												"sourceType":{
+													"type":"string",
+													"title":"Source Type",
+													"enum":[
+														"CLOUD_STORAGE",
+														"URL"
+													]
+												},
+												"source":{
+													"type":"string",
+													"title":"Source"
+												}
+											},
+											"required":[],
+											"title":"Distribution Certificate (.p12)",
+											"allowDownload":true,
+											"allowPublicAccess":false,
+											"multipleFiles":false,
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										},
+										"certificatePassword":{
+											"type":"string",
+											"title":"Certificate Password",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										}
+									},
+									"additionalProperties":false,
+									"title":"signingKeys",
+									"required":[]
+								},
+								"appStoreConnectionId":{
+									"type":"string",
+									"title":"App Store Connection Id",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"ascAppId":{
+									"type":"string",
+									"title":"App Store App Id"
+								},
+								"appStoreConnectionName":{
+									"type":"string",
+									"title":"App Store Connection Name",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"title":"ios",
+							"additionalProperties":false,
+							"required":[]
+						},
+						"android":{
+							"type":"object",
+							"properties":{
+								"googleServicesFile":{
+									"type":"string",
+									"title":"googleServicesFile"
+								},
+								"signingKeys":{
+									"type":"object",
+									"properties":{
+										"mode":{
+											"type":"string",
+											"title":"mode"
+										},
+										"keyAlias":{
+											"type":"string",
+											"title":"Key Alias"
+										},
+										"keystore":{
+											"type":"object",
+											"additionalProperties":true,
+											"format":"secure",
+											"properties":{
+												"fileType":{
+													"type":"string",
+													"title":"File Extension"
+												},
+												"id":{
+													"type":"string",
+													"title":"ID"
+												},
+												"isUploaded":{
+													"type":"boolean",
+													"title":"Is Uploaded"
+												},
+												"name":{
+													"type":"string",
+													"title":"Name"
+												},
+												"progress":{
+													"type":"number",
+													"title":"Progress"
+												},
+												"size":{
+													"type":"number",
+													"title":"Size"
+												},
+												"url":{
+													"type":"string",
+													"title":"URL"
+												},
+												"mimeType":{
+													"type":"string",
+													"title":"Mime Type"
+												},
+												"sourceType":{
+													"type":"string",
+													"title":"Source Type",
+													"enum":[
+														"CLOUD_STORAGE",
+														"URL"
+													]
+												},
+												"source":{
+													"type":"string",
+													"title":"Source"
+												}
+											},
+											"required":[],
+											"title":"Keystore File ( .keystore/ .jks )",
+											"allowDownload":true,
+											"allowPublicAccess":false,
+											"multipleFiles":false,
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										},
+										"keystorePassword":{
+											"type":"string",
+											"title":"Keystore Password",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										},
+										"keyPassword":{
+											"type":"string",
+											"title":"Key Password",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										}
+									},
+									"title":"signingKeys",
+									"additionalProperties":false,
+									"required":[]
+								},
+								"playStoreConnectionId":{
+									"type":"string",
+									"title":"Play Store Connection Id",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"playStoreConnectionName":{
+									"type":"string",
+									"title":"Play Store Connection Name",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"title":"android",
+							"additionalProperties":false,
+							"required":[]
+						},
+						"appName":{
+							"type":"string",
+							"title":"App Name",
+							"searchable":false,
+							"sortable":false,
+							"filterable":false,
+							"primaryKey":false,
+							"uniqueKey":false,
+							"nameField":false
+						},
+						"version":{
+							"type":"string",
+							"title":"Version"
+						},
+						"newApp":{
+							"type":"boolean",
+							"title":"New App",
+							"default":false,
+							"searchable":false,
+							"sortable":false,
+							"filterable":false,
+							"primaryKey":false,
+							"uniqueKey":false,
+							"nameField":false
+						}
+					},
+					"required":[]
 				}
 			},
 			"required":[
@@ -165,7 +856,12 @@
 		],
 		"deployable":false,
 		"encryptedFields":[
-			
+			"build_info.android.signingKeys.keystore",
+			"build_info.ios.signingKeys.distributionCertificate",
+			"build_info.android.signingKeys.keystorePassword",
+			"build_info.android.signingKeys.keyPassword",
+			"build_info.ios.signingKeys.provisioningProfile",
+			"build_info.ios.signingKeys.certificatePassword"
 		],
 		"external":false,
 		"filterableFields":[
@@ -189,7 +885,86 @@
 			"security.cspDetails",
 			"security.cspDetails.forceCSPHeaders",
 			"security.cspDetails.enforceCSP",
-			"security.cspDetails.cspHeaders"
+			"security.cspDetails.cspHeaders",
+			"build_info",
+			"build_info.expoProject",
+			"build_info.expoProject.scheme",
+			"build_info.expoProject.projectId",
+			"build_info.expoProject.slug",
+			"build_info.android",
+			"build_info.android.signingKeys",
+			"build_info.android.signingKeys.mode",
+			"build_info.android.signingKeys.keyAlias",
+			"build_info.android.signingKeys.keystore.size",
+			"build_info.android.signingKeys.keystore.sourceType",
+			"build_info.android.signingKeys.keystore.name",
+			"build_info.android.signingKeys.keystore.progress",
+			"build_info.android.signingKeys.keystore.isUploaded",
+			"build_info.android.signingKeys.keystore.id",
+			"build_info.android.signingKeys.keystore.mimeType",
+			"build_info.android.signingKeys.keystore.source",
+			"build_info.android.signingKeys.keystore.fileType",
+			"build_info.android.signingKeys.keystore.url",
+			"build_info.android.googleServicesFile",
+			"build_info.bundleIdentifier",
+			"build_info.firebase",
+			"build_info.firebase.notification_image.size",
+			"build_info.firebase.notification_image.sourceType",
+			"build_info.firebase.notification_image.name",
+			"build_info.firebase.notification_image.progress",
+			"build_info.firebase.notification_image.isUploaded",
+			"build_info.firebase.notification_image.id",
+			"build_info.firebase.notification_image.mimeType",
+			"build_info.firebase.notification_image.source",
+			"build_info.firebase.notification_image.fileType",
+			"build_info.firebase.notification_image.url",
+			"build_info.firebase.google_service_Info.size",
+			"build_info.firebase.google_service_Info.sourceType",
+			"build_info.firebase.google_service_Info.name",
+			"build_info.firebase.google_service_Info.progress",
+			"build_info.firebase.google_service_Info.isUploaded",
+			"build_info.firebase.google_service_Info.id",
+			"build_info.firebase.google_service_Info.mimeType",
+			"build_info.firebase.google_service_Info.source",
+			"build_info.firebase.google_service_Info.fileType",
+			"build_info.firebase.google_service_Info.url",
+			"build_info.firebase.connectionId",
+			"build_info.firebase.google_services.size",
+			"build_info.firebase.google_services.sourceType",
+			"build_info.firebase.google_services.name",
+			"build_info.firebase.google_services.progress",
+			"build_info.firebase.google_services.isUploaded",
+			"build_info.firebase.google_services.id",
+			"build_info.firebase.google_services.mimeType",
+			"build_info.firebase.google_services.source",
+			"build_info.firebase.google_services.fileType",
+			"build_info.firebase.google_services.url",
+			"build_info.ios",
+			"build_info.ios.signingKeys",
+			"build_info.ios.signingKeys.mode",
+			"build_info.ios.signingKeys.provisioningProfile.size",
+			"build_info.ios.signingKeys.provisioningProfile.sourceType",
+			"build_info.ios.signingKeys.provisioningProfile.name",
+			"build_info.ios.signingKeys.provisioningProfile.progress",
+			"build_info.ios.signingKeys.provisioningProfile.isUploaded",
+			"build_info.ios.signingKeys.provisioningProfile.id",
+			"build_info.ios.signingKeys.provisioningProfile.mimeType",
+			"build_info.ios.signingKeys.provisioningProfile.source",
+			"build_info.ios.signingKeys.provisioningProfile.fileType",
+			"build_info.ios.signingKeys.provisioningProfile.url",
+			"build_info.ios.signingKeys.distributionCertificate.size",
+			"build_info.ios.signingKeys.distributionCertificate.sourceType",
+			"build_info.ios.signingKeys.distributionCertificate.name",
+			"build_info.ios.signingKeys.distributionCertificate.progress",
+			"build_info.ios.signingKeys.distributionCertificate.isUploaded",
+			"build_info.ios.signingKeys.distributionCertificate.id",
+			"build_info.ios.signingKeys.distributionCertificate.mimeType",
+			"build_info.ios.signingKeys.distributionCertificate.source",
+			"build_info.ios.signingKeys.distributionCertificate.fileType",
+			"build_info.ios.signingKeys.distributionCertificate.url",
+			"build_info.ios.googleServicesFile",
+			"build_info.ios.ascAppId",
+			"build_info.version"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -240,7 +1015,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788028812951,
+	"modifiedTime":1788270282859,
 	"name":"Application Settings",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -367,6 +1142,594 @@
 							}
 						}
 					}
+				},
+				"build_info":{
+					"type":"object",
+					"title":"Native Build Info",
+					"description":"Native (Android/iOS) build record: app identity, Expo project, Firebase files and per-platform signing material. Written by the Releases tab and the signing-generate API; read by the release manager at build time.",
+					"additionalProperties":false,
+					"properties":{
+						"bundleIdentifier":{
+							"type":"string",
+							"title":"Bundle Identifier"
+						},
+						"expoProject":{
+							"type":"object",
+							"properties":{
+								"slug":{
+									"type":"string",
+									"title":"slug"
+								},
+								"scheme":{
+									"type":"string",
+									"title":"scheme"
+								},
+								"projectId":{
+									"type":"string",
+									"title":"projectId"
+								},
+								"owner":{
+									"type":"string",
+									"title":"owner",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"additionalProperties":false,
+							"title":"Expo Project",
+							"required":[]
+						},
+						"firebase":{
+							"type":"object",
+							"properties":{
+								"connectionId":{
+									"type":"string",
+									"title":"connectionId"
+								},
+								"google_services":{
+									"type":"object",
+									"additionalProperties":true,
+									"format":"file-uploader",
+									"properties":{
+										"fileType":{
+											"type":"string",
+											"title":"File Extension"
+										},
+										"id":{
+											"type":"string",
+											"title":"ID"
+										},
+										"isUploaded":{
+											"type":"boolean",
+											"title":"Is Uploaded"
+										},
+										"name":{
+											"type":"string",
+											"title":"Name"
+										},
+										"progress":{
+											"type":"number",
+											"title":"Progress"
+										},
+										"size":{
+											"type":"number",
+											"title":"Size"
+										},
+										"url":{
+											"type":"string",
+											"title":"URL"
+										},
+										"mimeType":{
+											"type":"string",
+											"title":"Mime Type"
+										},
+										"sourceType":{
+											"type":"string",
+											"title":"Source Type",
+											"enum":[
+												"CLOUD_STORAGE",
+												"URL"
+											]
+										},
+										"source":{
+											"type":"string",
+											"title":"Source"
+										}
+									},
+									"required":[],
+									"title":"Google Services file (.json)",
+									"allowDownload":true,
+									"allowPublicAccess":false,
+									"multipleFiles":false,
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"google_service_Info":{
+									"type":"object",
+									"additionalProperties":true,
+									"format":"file-uploader",
+									"properties":{
+										"fileType":{
+											"type":"string",
+											"title":"File Extension"
+										},
+										"id":{
+											"type":"string",
+											"title":"ID"
+										},
+										"isUploaded":{
+											"type":"boolean",
+											"title":"Is Uploaded"
+										},
+										"name":{
+											"type":"string",
+											"title":"Name"
+										},
+										"progress":{
+											"type":"number",
+											"title":"Progress"
+										},
+										"size":{
+											"type":"number",
+											"title":"Size"
+										},
+										"url":{
+											"type":"string",
+											"title":"URL"
+										},
+										"mimeType":{
+											"type":"string",
+											"title":"Mime Type"
+										},
+										"sourceType":{
+											"type":"string",
+											"title":"Source Type",
+											"enum":[
+												"CLOUD_STORAGE",
+												"URL"
+											]
+										},
+										"source":{
+											"type":"string",
+											"title":"Source"
+										}
+									},
+									"required":[],
+									"title":"GoogleService-Info file (.plist)",
+									"allowDownload":true,
+									"allowPublicAccess":false,
+									"multipleFiles":false,
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"notification_image":{
+									"type":"object",
+									"additionalProperties":true,
+									"format":"file-uploader",
+									"properties":{
+										"fileType":{
+											"type":"string",
+											"title":"File Extension"
+										},
+										"id":{
+											"type":"string",
+											"title":"ID"
+										},
+										"isUploaded":{
+											"type":"boolean",
+											"title":"Is Uploaded"
+										},
+										"name":{
+											"type":"string",
+											"title":"Name"
+										},
+										"progress":{
+											"type":"number",
+											"title":"Progress"
+										},
+										"size":{
+											"type":"number",
+											"title":"Size"
+										},
+										"url":{
+											"type":"string",
+											"title":"URL"
+										},
+										"mimeType":{
+											"type":"string",
+											"title":"Mime Type"
+										},
+										"sourceType":{
+											"type":"string",
+											"title":"Source Type",
+											"enum":[
+												"CLOUD_STORAGE",
+												"URL"
+											]
+										},
+										"source":{
+											"type":"string",
+											"title":"Source"
+										}
+									},
+									"required":[],
+									"title":"Notification Image ",
+									"allowDownload":true,
+									"allowPublicAccess":false,
+									"multipleFiles":false,
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"notification_color":{
+									"type":"string",
+									"title":"Notification Color",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"title":"firebase",
+							"additionalProperties":false,
+							"required":[]
+						},
+						"ios":{
+							"type":"object",
+							"properties":{
+								"googleServicesFile":{
+									"type":"string",
+									"title":"googleServicesFile"
+								},
+								"signingKeys":{
+									"type":"object",
+									"properties":{
+										"mode":{
+											"type":"string",
+											"title":"mode"
+										},
+										"provisioningProfile":{
+											"type":"object",
+											"properties":{
+												"fileType":{
+													"type":"string",
+													"title":"File Extension"
+												},
+												"id":{
+													"type":"string",
+													"title":"ID"
+												},
+												"isUploaded":{
+													"type":"boolean",
+													"title":"Is Uploaded"
+												},
+												"name":{
+													"type":"string",
+													"title":"Name"
+												},
+												"progress":{
+													"type":"number",
+													"title":"Progress"
+												},
+												"size":{
+													"type":"number",
+													"title":"Size"
+												},
+												"url":{
+													"type":"string",
+													"title":"URL"
+												},
+												"mimeType":{
+													"type":"string",
+													"title":"Mime Type"
+												},
+												"sourceType":{
+													"type":"string",
+													"title":"Source Type",
+													"enum":[
+														"CLOUD_STORAGE",
+														"URL"
+													]
+												},
+												"source":{
+													"type":"string",
+													"title":"Source"
+												}
+											},
+											"additionalProperties":false,
+											"title":"Provisioning Profile (.mobileprovision)",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false,
+											"required":[]
+										},
+										"distributionCertificate":{
+											"type":"object",
+											"additionalProperties":true,
+											"format":"secure",
+											"properties":{
+												"fileType":{
+													"type":"string",
+													"title":"File Extension"
+												},
+												"id":{
+													"type":"string",
+													"title":"ID"
+												},
+												"isUploaded":{
+													"type":"boolean",
+													"title":"Is Uploaded"
+												},
+												"name":{
+													"type":"string",
+													"title":"Name"
+												},
+												"progress":{
+													"type":"number",
+													"title":"Progress"
+												},
+												"size":{
+													"type":"number",
+													"title":"Size"
+												},
+												"url":{
+													"type":"string",
+													"title":"URL"
+												},
+												"mimeType":{
+													"type":"string",
+													"title":"Mime Type"
+												},
+												"sourceType":{
+													"type":"string",
+													"title":"Source Type",
+													"enum":[
+														"CLOUD_STORAGE",
+														"URL"
+													]
+												},
+												"source":{
+													"type":"string",
+													"title":"Source"
+												}
+											},
+											"required":[],
+											"title":"Distribution Certificate (.p12)",
+											"allowDownload":true,
+											"allowPublicAccess":false,
+											"multipleFiles":false,
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										},
+										"certificatePassword":{
+											"type":"string",
+											"title":"Certificate Password",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										}
+									},
+									"additionalProperties":false,
+									"title":"signingKeys",
+									"required":[]
+								},
+								"appStoreConnectionId":{
+									"type":"string",
+									"title":"App Store Connection Id",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"ascAppId":{
+									"type":"string",
+									"title":"App Store App Id"
+								},
+								"appStoreConnectionName":{
+									"type":"string",
+									"title":"App Store Connection Name",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"title":"ios",
+							"additionalProperties":false,
+							"required":[]
+						},
+						"android":{
+							"type":"object",
+							"properties":{
+								"googleServicesFile":{
+									"type":"string",
+									"title":"googleServicesFile"
+								},
+								"signingKeys":{
+									"type":"object",
+									"properties":{
+										"mode":{
+											"type":"string",
+											"title":"mode"
+										},
+										"keyAlias":{
+											"type":"string",
+											"title":"Key Alias"
+										},
+										"keystore":{
+											"type":"object",
+											"additionalProperties":true,
+											"format":"secure",
+											"properties":{
+												"fileType":{
+													"type":"string",
+													"title":"File Extension"
+												},
+												"id":{
+													"type":"string",
+													"title":"ID"
+												},
+												"isUploaded":{
+													"type":"boolean",
+													"title":"Is Uploaded"
+												},
+												"name":{
+													"type":"string",
+													"title":"Name"
+												},
+												"progress":{
+													"type":"number",
+													"title":"Progress"
+												},
+												"size":{
+													"type":"number",
+													"title":"Size"
+												},
+												"url":{
+													"type":"string",
+													"title":"URL"
+												},
+												"mimeType":{
+													"type":"string",
+													"title":"Mime Type"
+												},
+												"sourceType":{
+													"type":"string",
+													"title":"Source Type",
+													"enum":[
+														"CLOUD_STORAGE",
+														"URL"
+													]
+												},
+												"source":{
+													"type":"string",
+													"title":"Source"
+												}
+											},
+											"required":[],
+											"title":"Keystore File ( .keystore/ .jks )",
+											"allowDownload":true,
+											"allowPublicAccess":false,
+											"multipleFiles":false,
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										},
+										"keystorePassword":{
+											"type":"string",
+											"title":"Keystore Password",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										},
+										"keyPassword":{
+											"type":"string",
+											"title":"Key Password",
+											"format":"secure",
+											"searchable":false,
+											"sortable":false,
+											"filterable":false,
+											"primaryKey":false,
+											"uniqueKey":false,
+											"nameField":false
+										}
+									},
+									"title":"signingKeys",
+									"additionalProperties":false,
+									"required":[]
+								},
+								"playStoreConnectionId":{
+									"type":"string",
+									"title":"Play Store Connection Id",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								},
+								"playStoreConnectionName":{
+									"type":"string",
+									"title":"Play Store Connection Name",
+									"searchable":false,
+									"sortable":false,
+									"filterable":false,
+									"primaryKey":false,
+									"uniqueKey":false,
+									"nameField":false
+								}
+							},
+							"title":"android",
+							"additionalProperties":false,
+							"required":[]
+						},
+						"appName":{
+							"type":"string",
+							"title":"App Name",
+							"searchable":false,
+							"sortable":false,
+							"filterable":false,
+							"primaryKey":false,
+							"uniqueKey":false,
+							"nameField":false
+						},
+						"version":{
+							"type":"string",
+							"title":"Version"
+						},
+						"newApp":{
+							"type":"boolean",
+							"title":"New App",
+							"default":false,
+							"searchable":false,
+							"sortable":false,
+							"filterable":false,
+							"primaryKey":false,
+							"uniqueKey":false,
+							"nameField":false
+						}
+					},
+					"required":[]
 				}
 			},
 			"required":[
@@ -375,5 +1738,5 @@
 		}
 	},
 	"standard":true,
-	"version":2
+	"version":3
 }
