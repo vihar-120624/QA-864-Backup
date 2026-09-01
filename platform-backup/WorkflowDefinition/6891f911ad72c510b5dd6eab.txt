@@ -1,0 +1,191 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744450734,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744450913,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed0c2ba51514edfc8117d",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"od8bl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_njWoe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_njWoe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"R73tS",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6891f911ad72c510b5dd6eab",
+	"lastModifiedBy":-1,
+	"lcName":"deep research tool | retrigger executor",
+	"modifiedTime":1788252973212,
+	"name":"Deep Research Tool | Retrigger Executor",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root.result":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AdoDF-1",
+			"id":"od8bl",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"instructionsToAppend":{
+							"title":"Instructions To Append",
+							"type":"string"
+						},
+						"message_ID":{
+							"title":"Message ID",
+							"type":"string"
+						},
+						"task":{
+							"title":"Task",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":15,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AdoDF-1",
+			"id":"_njWoe",
+			"index":2,
+			"inputs":{
+				"automationId":"6891ce76c06ff80a8817719a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"agentId":"{{ od8bl.outputs.aiAgentId }}",
+					"caseId":"{{ od8bl.outputs.caseId }}",
+					"messageId":"{{ od8bl.outputs.message_ID }}",
+					"research_plan":"{{ od8bl.outputs.instructionsToAppend }}",
+					"user_query":"{{ od8bl.outputs.task }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Agent Executor",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AdoDF-1",
+			"id":"R73tS",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":"200"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":10
+}
