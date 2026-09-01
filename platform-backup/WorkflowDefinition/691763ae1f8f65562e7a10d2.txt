@@ -1,0 +1,288 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743890271,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743890333,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece929d7c534668ef9ff1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":42
+	},
+	"edges":[
+		{
+			"fromNodeId":"_hgwDQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_k0rlK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_k0rlK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_1SyVo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_1SyVo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5q6pt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5q6pt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_ihIXU",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"691763ae1f8f65562e7a10d2",
+	"lastModifiedBy":-1,
+	"lcName":"create summary checkpoint",
+	"modifiedTime":1788252971622,
+	"name":"Create Summary Checkpoint",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IKDXB@3A1nC@kgcmN@VnH37-1@l@n@y",
+			"id":"_hgwDQ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"startTime",
+						"endTime"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"$schema":"http://json-schema.org/draft-07/schema#",
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"summarizeTillTime":{
+							"title":"Summarize Till Time",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"aiAgentId",
+						"summarizeTillTime",
+						"caseId",
+						"agentId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":71,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IKDXB@3A1nC@kgcmN@VnH37-1@l@n@y",
+			"id":"_k0rlK",
+			"index":2,
+			"inputs":{
+				"object_type":"case_summary_checkpoint",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ _hgwDQ.outputs.caseId }}_{{ _hgwDQ.outputs.agentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IKDXB@3A1nC@kgcmN@VnH37-1@l@n@y",
+			"id":"_1SyVo",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"newSummaryStartTime":{
+							"title":"New Summary Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"newSummaryStartTime"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"latestSummaryTime":{
+							"title":"Latest Summary Time",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"latestSummaryTime"
+					],
+					"type":"object"
+				},
+				"code":"return [\"newSummaryStartTime\": binding.hasVariable('latestSummaryTime') ? latestSummaryTime : 0]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"latestSummaryTime":"{{ _k0rlK.outputs.properties.endTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.id",
+					"root.records.items.caseId",
+					"root.records.items.agentId",
+					"root.records.items.startTime",
+					"root.records.items.endTime"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":71,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IKDXB@3A1nC@kgcmN@VnH37-1@l@n@y",
+			"id":"n_5q6pt",
+			"index":4,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"case_summary_checkpoint",
+				"skipIfBlank":false,
+				"record":{
+					"endTime":"{{ _hgwDQ.outputs.summarizeTillTime }}",
+					"key":"{{ _hgwDQ.outputs.caseId }}_{{ _hgwDQ.outputs.agentId }}",
+					"startTime":"{{ _1SyVo.outputs.result.newSummaryStartTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IKDXB@3A1nC@kgcmN@VnH37-1@l@n@y",
+			"id":"_ihIXU",
+			"index":5,
+			"inputs":{
+				"result":{
+					"endTime":"{{ n_5q6pt.outputs.properties.endTime }}",
+					"startTime":"{{ n_5q6pt.outputs.properties.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Team",
+		"sre_ai",
+		"dev_migrate"
+	],
+	"version":44
+}
