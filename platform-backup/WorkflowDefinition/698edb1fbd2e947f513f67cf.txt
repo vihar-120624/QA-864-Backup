@@ -1,0 +1,172 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744674614,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744674682,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1a22889f9507f121ffe",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":0
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_OnU0N",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_A8sha",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_A8sha",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_D9fYP",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"698edb1fbd2e947f513f67cf",
+	"lastModifiedBy":-1,
+	"lcName":"cached hit status store ",
+	"modifiedTime":1788252973084,
+	"name":"Cached hit status store ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":506,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UQnmF-1",
+			"id":"n_OnU0N",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentCached":{
+							"title":"Agent Cached",
+							"type":"boolean"
+						},
+						"cachedCaseId":{
+							"title":"Cached Case Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"routeCached":{
+							"title":"Route Cached",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":889,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UQnmF-1",
+			"id":"n_A8sha",
+			"index":2,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"cached_status",
+				"skipIfBlank":false,
+				"record":{
+					"agentCached":"{{ n_OnU0N.outputs.agentCached }}",
+					"cachedCaseId":"{{ n_OnU0N.outputs.cachedCaseId }}",
+					"caseId":"{{ n_OnU0N.outputs.caseId }}",
+					"routeCached":"{{ n_OnU0N.outputs.routeCached }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":506,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UQnmF-1",
+			"id":"n_D9fYP",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":2
+}
