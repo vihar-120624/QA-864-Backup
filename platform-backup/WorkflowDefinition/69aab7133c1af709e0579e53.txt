@@ -1,0 +1,340 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743830976,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743831024,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece57177b4b4aca57b850",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":28
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Vw44g",
+			"id":"next@n_Vw44g@n_7TCNw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7TCNw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7TCNw",
+			"id":"next@n_7TCNw@n_61Co4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_61Co4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_61Co4",
+			"id":"next@n_61Co4@n_VugfU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VugfU",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69aab7133c1af709e0579e53",
+	"lastModifiedBy":-1,
+	"lcName":"schedule knowledge downloader | user",
+	"modifiedTime":1788252972959,
+	"name":"Schedule Knowledge Downloader | User",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":444,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wgiv8-1",
+			"id":"n_Vw44g",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"accountId":{
+							"title":"Account Id",
+							"type":"string"
+						},
+						"appPermitId":{
+							"title":"App Permit Id",
+							"type":"string"
+						},
+						"downloaderAutomation":{
+							"title":"Downloader Automation",
+							"type":"string"
+						},
+						"errorCount":{
+							"title":"Error Count",
+							"type":"integer"
+						},
+						"globalPermitId":{
+							"title":"Global Permit Id",
+							"type":"string"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"importerParams":{
+							"additionalProperties":false,
+							"properties":{
+								"aiAgentId":{
+									"title":"aiAgentId",
+									"type":"string"
+								},
+								"downloaderConfig":{
+									"additionalProperties":false,
+									"properties":{
+										"currentTimeEpoch":{
+											"title":"Current Time Epoch",
+											"type":"integer"
+										},
+										"grabberSubtype":{
+											"title":"Grabber Subtype",
+											"type":"string"
+										},
+										"grabberType":{
+											"title":"Grabber Type",
+											"type":"string"
+										},
+										"startTimeEpoch":{
+											"title":"Start Time Epoch",
+											"type":"integer"
+										}
+									},
+									"required":[],
+									"title":"Downloader Config",
+									"type":"object"
+								},
+								"inputs":{
+									"title":"inputs",
+									"type":"object"
+								},
+								"knowledge":{
+									"title":"knowledge",
+									"type":"object"
+								},
+								"knowledgeId":{
+									"title":"knowledgeId",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"loadTestingEnabled":{
+							"title":"Load Testing Enabled",
+							"type":"boolean"
+						},
+						"parentEntityId":{
+							"title":"Parent Entity Id",
+							"type":"string"
+						},
+						"syncMode":{
+							"title":"Sync Mode",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						},
+						"userPermitId":{
+							"title":"User Permit Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1351,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wgiv8-1",
+			"id":"n_7TCNw",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [\"userId\":userId.toString()]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"userId":"{{ n_Vw44g.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"stringify userId",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1909,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wgiv8-1",
+			"id":"n_61Co4",
+			"index":3,
+			"inputs":{
+				"automationId":"6859a7fdff420a0e4ad2c4a3",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"runInUserContext":"{{ n_7TCNw.outputs.result.userId }}",
+				"parameters":{
+					"accountId":"{{ n_Vw44g.outputs.accountId }}",
+					"appPermitId":"{{ n_Vw44g.outputs.appPermitId }}",
+					"downloaderAutomation":"{{ n_Vw44g.outputs.downloaderAutomation }}",
+					"errorCount":"{{ n_Vw44g.outputs.errorCount }}",
+					"globalPermitId":"{{ n_Vw44g.outputs.globalPermitId }}",
+					"importerConnections":"{{ n_Vw44g.outputs.importerConnections }}",
+					"importerParams":{
+						"aiAgentId":"{{ n_Vw44g.outputs.importerParams.aiAgentId }}",
+						"downloaderConfig":{
+							"currentTimeEpoch":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.currentTimeEpoch }}",
+							"grabberSubtype":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.grabberSubtype }}",
+							"grabberType":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.grabberType }}",
+							"startTimeEpoch":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.startTimeEpoch }}"
+						},
+						"inputs":"{{ n_Vw44g.outputs.importerParams.inputs }}",
+						"knowledge":"{{ n_Vw44g.outputs.importerParams.knowledge }}",
+						"knowledgeId":"{{ n_Vw44g.outputs.importerParams.knowledgeId }}"
+					},
+					"knowledgeId":"{{ n_Vw44g.outputs.knowledgeId }}",
+					"loadTestingEnabled":"{{ n_Vw44g.outputs.loadTestingEnabled }}",
+					"parentEntityId":"{{ n_Vw44g.outputs.parentEntityId }}",
+					"syncMode":"{{ n_Vw44g.outputs.syncMode }}",
+					"userPermitId":"{{ n_Vw44g.outputs.userPermitId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Schedule Knowledge Downloader",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1815,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wgiv8-1",
+			"id":"n_VugfU",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":true,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2",
+		"release_27jan"
+	],
+	"version":30
+}
