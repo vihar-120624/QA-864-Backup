@@ -1,0 +1,226 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743951703,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743951788,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ececf45d2142160e6f6a3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":5
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_H3eV0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"VciuA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"VciuA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_83dYl",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69862acd6208311ff6c13c6a",
+	"lastModifiedBy":-1,
+	"lcName":"gitlab chunkmetadata",
+	"modifiedTime":1788252973428,
+	"name":"Gitlab ChunkMetadata",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":687,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vjHts-1",
+			"id":"n_H3eV0",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"69463cac91a45a6faf92f4f2",
+				"setup":{
+					"properties":{
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vjHts-1",
+			"id":"VciuA",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"baseUrl":{
+							"title":"Base Url",
+							"type":"string"
+						},
+						"blobPath":{
+							"title":"Blob Path",
+							"type":"string"
+						},
+						"modifiedBy":{
+							"title":"Modified By",
+							"type":"string"
+						},
+						"modifiedTime":{
+							"title":"Modified Time",
+							"type":"string"
+						},
+						"projectId":{
+							"title":"Project Id",
+							"type":"string"
+						},
+						"reference":{
+							"title":"Reference",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.OffsetDateTime\n\n\ndef modifiedTimeEpoch = null\n\nif(binding.hasVariable('modifiedTime') && modifiedTime){\n modifiedTimeEpoch = OffsetDateTime.parse(modifiedTime).toInstant().toEpochMilli() \n}\n\n\ndef blobName = null\nif (binding.hasVariable('blobPath') && blobPath) {\n    blobName = blobPath.tokenize('/').last()\n}\n\ndef referenceUrl = null\n\nif(binding.hasVariable('blobPath') && binding.hasVariable('reference') && binding.hasVariable('baseUrl')){\n  referenceUrl = baseUrl + \"/-/blob/\" + reference + \"/\" + blobPath\n}\n \n\ndef chunkMetadata = [:]\nchunkMetadata << ['appName':'gitlab']\nchunkMetadata << (blobName ? [\"name\": blobName] : [:])\nchunkMetadata << (binding.hasVariable('blobPath') && blobPath ? [\"path\": blobPath] : [:])\nchunkMetadata << (binding.hasVariable('projectId') && projectId ? [\"projectId\": projectId] : [:])\nchunkMetadata << ( referenceUrl ? [\"referenceUrl\": referenceUrl] : [:])\nchunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\nchunkMetadata << (modifiedTimeEpoch ? [\"modifiedTime\": modifiedTimeEpoch] : [:])\n\n\nreturn [\"chunkMetadata\":chunkMetadata]",
+				"compile_static":false,
+				"isAsync":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"baseUrl":"{{ n_H3eV0.outputs.sourceResponse.baseUrl }}",
+					"blobPath":"{{ n_H3eV0.outputs.sourceResponse.blobPath }}",
+					"modifiedBy":"{{ n_H3eV0.outputs.sourceResponse.modifiedBy }}",
+					"modifiedTime":"{{ n_H3eV0.outputs.sourceResponse.modifiedTime }}",
+					"projectId":"{{ n_H3eV0.outputs.sourceResponse.projectId }}",
+					"reference":"{{ n_H3eV0.outputs.sourceResponse.reference }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Chunk Metadata",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":721,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vjHts-1",
+			"id":"n_83dYl",
+			"index":3,
+			"inputs":{
+				"result":{
+					"chunkMetadata":"{{ VciuA.outputs.result.chunkMetadata }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":7
+}
