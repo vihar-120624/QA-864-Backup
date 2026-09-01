@@ -1,0 +1,187 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744674386,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744674433,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1a2cee862008d75d8fc",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":40
+	},
+	"edges":[
+		{
+			"fromNodeId":"2b3oe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_i1rTW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_i1rTW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lJdby",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67ec037440a4a8664291a627",
+	"lastModifiedBy":-1,
+	"lcName":"rbac detail fetcher wrapper",
+	"modifiedTime":1788252972818,
+	"name":"Rbac Detail Fetcher Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":166,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"vQ6GU-1",
+			"id":"2b3oe",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"automationId":{
+							"title":"Automation Id",
+							"type":"string"
+						},
+						"connections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Connections",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"userEmailAddress":{
+							"title":"User Email Address",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"vQ6GU-1",
+			"id":"_i1rTW",
+			"index":0,
+			"inputs":{
+				"callableInterfaceId":"67091cd2c6db330cf5b08881",
+				"runtimeConnections":"{{ 2b3oe.outputs.connections }}",
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[],
+				"fallbackWorkflowId":"{{ 2b3oe.outputs.automationId }}",
+				"parameters":{
+					"knowledgeId":"{{ 2b3oe.outputs.knowledgeId }}",
+					"userEmailAddress":"{{ 2b3oe.outputs.userEmailAddress }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Individual rbac fetcher",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":169,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"vQ6GU-1",
+			"id":"lJdby",
+			"index":0,
+			"inputs":{
+				"result":{
+					"sharedWithIds":{
+						"items":"{{ _i1rTW.outputs.sharedWithIds[0] }}",
+						"source":"{{ _i1rTW.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":42
+}
