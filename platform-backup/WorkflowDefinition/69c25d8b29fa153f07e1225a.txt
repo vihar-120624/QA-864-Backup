@@ -1,0 +1,190 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744650527,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744650765,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed18a2889f9507f121df8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_wBvhe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6FURI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6FURI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cmDg4",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69c25d8b29fa153f07e1225a",
+	"lastModifiedBy":-1,
+	"lcName":"generic trigger ai agent text2dax ",
+	"modifiedTime":1788252971259,
+	"name":"Generic Trigger AI Agent Text2DAX ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"ai_evaluator_by_unifyapps",
+				"resourceVersion":540,
+				"resourceName":"ai_evaluator_by_unifyapps_trigger_metric_evaluation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rQuQ2-1",
+			"id":"n_wBvhe",
+			"index":1,
+			"inputs":{
+				"setup":{
+					"properties":{
+						"actual_output":{
+							"type":"string"
+						},
+						"additional":{
+							"additionalProperties":true,
+							"title":"Additional Input Properties",
+							"type":"object"
+						},
+						"additional_output_properties":{
+							"additionalProperties":true,
+							"type":"object"
+						},
+						"context":{
+							"type":"string"
+						},
+						"expected_output":{
+							"type":"string"
+						},
+						"expected_tools":{
+							"items":{
+								"type":"object"
+							},
+							"type":"array"
+						},
+						"input":{
+							"type":"string"
+						},
+						"metadataFields":{
+							"additionalProperties":true,
+							"title":"metadataFields",
+							"type":"object"
+						},
+						"retrieved_context":{
+							"type":"string"
+						},
+						"tools_called":{
+							"items":{
+								"type":"object"
+							},
+							"type":"array"
+						}
+					},
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"AI Evaluator by UnifyApps",
+			"title":"Triggers LLM metrics evaluation",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":819,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rQuQ2-1",
+			"id":"n_6FURI",
+			"index":2,
+			"inputs":{
+				"automationId":"69c25e968d65fb68e156b0a4",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"actualOutput":"{{ n_wBvhe.outputs.actual_output }}",
+					"context":"{{ n_wBvhe.outputs.context }}",
+					"expectedOutput":"{{ n_wBvhe.outputs.expected_output }}",
+					"input":"{{ n_wBvhe.outputs.input }}",
+					"retrievedContext":"{{ n_wBvhe.outputs.retrieved_context }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"ai_evaluator_by_unifyapps",
+				"resourceVersion":534,
+				"resourceName":"ai_evaluator_by_unifyapps_return_response_to_metric_evaluation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rQuQ2-1",
+			"id":"n_cmDg4",
+			"index":3,
+			"inputs":{
+				"result":{
+					"cost":"{{ n_6FURI.outputs.cost }}",
+					"reason":"{{ n_6FURI.outputs.reason }}",
+					"score":"{{ n_6FURI.outputs.score }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"AI Evaluator by UnifyApps",
+			"title":"Respond to metric evaluation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":3
+}
