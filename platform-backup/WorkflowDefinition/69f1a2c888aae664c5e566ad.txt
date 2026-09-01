@@ -1,0 +1,257 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744116537,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744116741,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf74ba51514edfc7eac8",
+		"deploymentNotes":"Composite reconcile: add models_<m>_teams_<t> prefix + teamIds so team composite counters reconcile with pre-flight reservation",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":183
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Evvj3",
+			"id":"next@n_Evvj3@n_zXoCH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zXoCH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zXoCH",
+			"id":"next@n_zXoCH@n_81Qui",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_81Qui",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69f1a2c888aae664c5e566ad",
+	"lastModifiedBy":-1,
+	"lcName":"ai spending | limits | capture usage",
+	"modifiedTime":1788252971444,
+	"name":"AI Spending | Limits | Capture Usage",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":804,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_Evvj3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"AI Agent ID",
+							"type":"string"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"estimatedCostPrefix":{
+							"title":"Estimated Cost Prefix",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model ID",
+							"type":"string"
+						},
+						"tokens":{
+							"title":"Tokens",
+							"type":"number"
+						},
+						"workflowId":{
+							"title":"Workflow ID",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.agentLimits.items",
+					"root.parameters.agentLimitExceptions.items",
+					"root.parameters.teamIds.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1131,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_zXoCH",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"response":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"response",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"estimatedCostPrefix":{
+							"title":"Estimated Cost Prefix",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						},
+						"tokens":{
+							"title":"Tokens",
+							"type":"number"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						},
+						"workflowId":{
+							"title":"Workflow ID",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes\nimport com.unifyapps.infra.utils.context.UserContext\nimport io.quarkus.arc.Arc\nimport io.quarkus.arc.InstanceHandle\nimport java.util.Calendar\n\n/* =============================================================================\n * Capture-usage: applies actual LLM token/cost consumption to every relevant\n * Redis counter (overall, user, teams, ai_agent, model) across daily, weekly,\n * and monthly periods.\n *\n * Reconciliation against pre-flight reservation:\n *   When `estimatedCostPrefix` is provided, atomically reads + deletes\n *     \"{estimatedCostPrefix}_token\" and \"{estimatedCostPrefix}_cost\"\n *   (estimates the pre-flight check already added to every counter), and\n *   writes (actual - reserved) as the delta. Negative deltas are normal ‚Äî\n *   incrByFloat shrinks counters when we over-estimated.\n *   When no reservation is found, actuals are applied directly.\n *\n * Inputs:\n *   tokens               -> long   (actual)\n *   cost                 -> double (actual)\n *   userId               -> optional\n *   teamIds              -> optional List\n *   aiAgentId, modelId   -> optional\n *   estimatedCostPrefix  -> optional; pairs with the pre-flight reservation\n *   resourceType         -> optional; defaults to WORKFLOW_EXECUTION_CACHE\n *\n * Returns:\n *   [response: List<Map>] ‚Äî one entry per Redis write attempt\n * ========================================================================== */\n\nif (!binding.hasVariable('userId'))              { userId = null }\nif (!binding.hasVariable('aiAgentId'))           { aiAgentId = null }\nif (!binding.hasVariable('modelId'))             { modelId = null }\nif (!binding.hasVariable('workflowId'))          { workflowId = null }\nif (!binding.hasVariable('tokens'))              { tokens = 0L }\nif (!binding.hasVariable('cost'))                { cost = 0.0d }\nif (!binding.hasVariable('estimatedCostPrefix')) { estimatedCostPrefix = null }\nif (!binding.hasVariable('teamIds'))             { teamIds = [] }\n\nfinal List CALLER_TEAM_IDS = ((teamIds ?: []) as List).findAll { it != null && it.toString() }.collect { it.toString() }.unique()\n\nfinal double ACTUAL_TOKENS = (tokens as Number).doubleValue()\nfinal double ACTUAL_COST   = (cost   as Number).doubleValue()\n\n/* ---------- helpers ------------------------------------------------------- */\n\ndef computePeriodRange = { String period ->\n    if (!period) return [startTime: null, endTime: null]\n    def cal = Calendar.getInstance()\n    cal.set(Calendar.HOUR_OF_DAY, 0)\n    cal.set(Calendar.MINUTE, 0)\n    cal.set(Calendar.SECOND, 0)\n    cal.set(Calendar.MILLISECOND, 0)\n    Long startTime = null, endTime = null\n    switch (period.toLowerCase()) {\n        case \"daily\":\n            startTime = cal.timeInMillis\n            cal.add(Calendar.DAY_OF_MONTH, 1)\n            endTime = cal.timeInMillis - 1\n            break\n        case \"weekly\":\n            cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)\n            startTime = cal.timeInMillis\n            cal.add(Calendar.WEEK_OF_YEAR, 1)\n            endTime = cal.timeInMillis - 1\n            break\n        case \"monthly\":\n            cal.set(Calendar.DAY_OF_MONTH, 1)\n            startTime = cal.timeInMillis\n            cal.add(Calendar.MONTH, 1)\n            endTime = cal.timeInMillis - 1\n            break\n    }\n    [startTime: startTime, endTime: endTime]\n}\n\n/* ---------- 1. Acquire Redis once ----------------------------------------- */\n\ndef redisTemplate\ntry {\n    InstanceHandle<RedisTemplateFactory> handle =\n            Arc.container().instance(RedisTemplateFactory.class)\n    def resType = binding.hasVariable('resourceType')\n            ? resourceType\n            : WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE\n    redisTemplate = handle.get().getRedisTemplate(\n            UserContext.getCurrentCustomerId(),\n            resType\n    )\n} catch (Exception e) {\n    return [error: \"redis_init_failed: ${e.toString()}\".toString()]\n}\n\n/* ---------- 2. Reconcile against pre-flight reservation ------------------- */\n\ndouble tokenDelta = ACTUAL_TOKENS\ndouble costDelta  = ACTUAL_COST\n\nif (estimatedCostPrefix) {\n    try {\n        def tokenKey = \"${estimatedCostPrefix}_token\".toString()\n        def costKey  = \"${estimatedCostPrefix}_cost\".toString()\n\n        def reservedToken = redisTemplate.findAndDelete(tokenKey, Number.class)\n        def reservedCost  = redisTemplate.findAndDelete(costKey,  Number.class)\n\n        if (reservedToken != null) tokenDelta = ACTUAL_TOKENS - (reservedToken as Number).doubleValue()\n        if (reservedCost  != null) costDelta  = ACTUAL_COST  - (reservedCost  as Number).doubleValue()\n    } catch (Exception ignore) {\n        // Fall back to actuals. Counters may drift slightly, but no usage is lost.\n    }\n}\n\n/* ---------- 3. Build scope prefixes once ---------------------------------- */\n\ndef prefixes = [\"overall\"]\nif (userId != null && userId.toString())       prefixes << \"users_${userId}\".toString()\nif (aiAgentId != null && aiAgentId.toString()) prefixes << \"ai_agents_${aiAgentId}\".toString()\nif (modelId != null && modelId.toString())     prefixes << \"models_${modelId}\".toString()\nif (workflowId != null && workflowId.toString()) prefixes << \"workflows_${workflowId}\".toString()\n\n// Composite (model-anchored) prefixes: models_<m>_<subPrefix>, model always first.\n// MUST be byte-identical to the pre-flight (Check Usage) reservation, else counters drift.\nif (modelId != null && modelId.toString() && userId != null && userId.toString())       prefixes << \"models_${modelId}_users_${userId}\".toString()\nif (modelId != null && modelId.toString() && aiAgentId != null && aiAgentId.toString()) prefixes << \"models_${modelId}_ai_agents_${aiAgentId}\".toString()\nif (modelId != null && modelId.toString()) {\n    CALLER_TEAM_IDS.each { t -> prefixes << \"models_${modelId}_teams_${t}\".toString() }\n}\n\n/* ---------- 4. Apply deltas to every (prefix, period, metric) ------------- */\n\ndef results = []\nlong now = System.currentTimeMillis()\n\ndef applyDelta = { String prefix, String metric, String period, long startTs,\n                   double delta, long expiryAt, long ttlMs ->\n    def key = \"${prefix}_${metric}_${period}_${startTs}\".toString()\n    try {\n        def newValue = redisTemplate.incrByFloat(key, Number.class, delta)\n        redisTemplate.expireAfter(key, ttlMs, Number.class)\n        results << [key: key, success: true, newValue: newValue, expiryAt: expiryAt]\n    } catch (Exception e) {\n        results << [key: key, success: false, exception: e.toString()]\n    }\n}\n\n[\"daily\", \"weekly\", \"monthly\"].each { period ->\n    def range = computePeriodRange(period)\n    long startTs = range.startTime\n    long endTs   = range.endTime\n    long ttlMs   = endTs - now\n    if (ttlMs <= 0) return  // safety guard; current periods always have positive TTL\n\n    prefixes.each { prefix ->\n        if (tokenDelta != 0.0d) applyDelta(prefix, \"token\", period, startTs, tokenDelta, endTs, ttlMs)\n        if (costDelta  != 0.0d) applyDelta(prefix, \"cost\",  period, startTs, costDelta,  endTs, ttlMs)\n    }\n}\n\nreturn [response: results]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"aiAgentId":"{{ n_Evvj3.outputs.aiAgentId }}",
+					"cost":"=VALUE({{ n_Evvj3.outputs.cost }})",
+					"estimatedCostPrefix":"{{ n_Evvj3.outputs.estimatedCostPrefix }}",
+					"modelId":"{{ n_Evvj3.outputs.modelId }}",
+					"tokens":"=VALUE({{ n_Evvj3.outputs.tokens }})",
+					"userId":"{{ __USER__.outputs.id }}",
+					"workflowId":"{{ n_Evvj3.outputs.workflowId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Get Keys vs Cost/Token",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":831,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_81Qui",
+			"index":3,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_zXoCH.outputs.result.error }}",
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":185
+}
