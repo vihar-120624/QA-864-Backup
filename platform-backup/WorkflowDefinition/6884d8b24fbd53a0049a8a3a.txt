@@ -1,0 +1,318 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743630557,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743630851,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd8e177b4b4aca57a23c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":160
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_D5mkv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_g5IO9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_g5IO9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gEPVH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gEPVH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Ca68R",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6884d8b24fbd53a0049a8a3a",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | okta | people ",
+	"modifiedTime":1788252972410,
+	"name":"Knowledge Downloader | Okta | People ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":436,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SVwnj-1",
+			"id":"n_D5mkv",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"entityCount":{
+							"title":"Entity Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"686af1b917f4c626f9b30e71",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"integer"
+								},
+								"grabberType":{
+									"title":"Grabber Type",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"indexingVersion":{
+									"title":"Indexing Version",
+									"type":"integer"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.importerParams.aiAgentId",
+					"root.records.items.importerParams.knowledgeId",
+					"root.records.items.importerParams.inputs",
+					"root.records.items.importerParams.knowledge",
+					"root.records.items.importerParams.downloaderConfig.startTimeEpoch",
+					"root.records.items.importerParams.downloaderConfig.currentTimeEpoch",
+					"root.records.items.importerParams.downloaderConfig.grabberType",
+					"root.records.items.downloaderAutomation",
+					"root.records.items.knowledgeId",
+					"root.records.items.importerConnections",
+					"root.records.items.syncMode",
+					"root.records.items.parentEntityId"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":442,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SVwnj-1",
+			"id":"_g5IO9",
+			"index":2,
+			"inputs":{
+				"object_type":"knowledge_downloader_entities",
+				"records":{
+					"items":{
+						"downloaderAutomation":"687ddde6011363a381b1738b",
+						"importerConnections":"{{ n_D5mkv.outputs.importerConnections }}",
+						"importerParams":{
+							"aiAgentId":"{{ n_D5mkv.outputs.aiAgentId }}",
+							"downloaderConfig":{
+								"currentTimeEpoch":"{{ n_D5mkv.outputs.downloaderConfig.currentTimeEpoch }}",
+								"grabberType":"{{ n_D5mkv.outputs.downloaderConfig.grabberType }}",
+								"startTimeEpoch":"{{ n_D5mkv.outputs.downloaderConfig.startTimeEpoch }}"
+							},
+							"inputs":"{{ n_D5mkv.outputs.inputs }}",
+							"knowledge":"{{ n_D5mkv.outputs.knowledge }}",
+							"knowledgeId":"{{ n_D5mkv.outputs.knowledgeId }}"
+						},
+						"knowledgeId":"{{ n_D5mkv.outputs.knowledgeId }}",
+						"parentEntityId":"6884d8b24fbd53a0049a8a3a"
+					},
+					"ua:type":"mappedArray"
+				}
+			},
+			"skip":false,
+			"subTitle":"Dummy record of Knowledge Downloader Entities",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":460,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SVwnj-1",
+			"id":"n_gEPVH",
+			"index":3,
+			"inputs":{
+				"automationId":"686e32e346d5ef287e56f8fb",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"parameters":{
+					"grabberType":"{{ n_D5mkv.outputs.downloaderConfig.grabberType }}",
+					"knowledge":"{{ n_D5mkv.outputs.knowledge }}",
+					"knowledgeId":"{{ n_D5mkv.outputs.knowledgeId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Call Downloader Task (Async)",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":9,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SVwnj-1",
+			"id":"Ca68R",
+			"index":4,
+			"inputs":{
+				"result":{
+					"entityCount":1
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":162
+}
