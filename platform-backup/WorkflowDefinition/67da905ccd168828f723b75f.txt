@@ -1,0 +1,413 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743450316,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743450578,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8eccda4cdb0358b9df1bc7",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":13
+	},
+	"edges":[
+		{
+			"fromNodeId":"fTMhy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"hMNg9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"hMNg9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"1QQZ5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"1QQZ5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"mGpfB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"mGpfB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ozD28",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67da905ccd168828f723b75f",
+	"lastModifiedBy":-1,
+	"lcName":"[prompt] test prompt",
+	"modifiedTime":1788252972550,
+	"name":"[Prompt] Test Prompt",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":407,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"oZ417-1",
+			"id":"fTMhy",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"title":"Response",
+							"type":"string"
+						},
+						"tokensUsed":{
+							"title":"Tokens Used",
+							"type":"number"
+						}
+					},
+					"required":[
+						"response"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"currentPrompt":{
+							"additionalProperties":false,
+							"properties":{
+								"messages":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"content":{
+												"title":"Content",
+												"type":"string"
+											},
+											"role":{
+												"title":"Role",
+												"type":"string"
+											}
+										},
+										"required":[
+											"role",
+											"content"
+										],
+										"type":"object"
+									},
+									"title":"Messages",
+									"type":"array"
+								},
+								"systemMessage":{
+									"title":"System Message",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Current Prompt",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"modelConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"frequencyPenalty":{
+									"title":"Frequency Penalty",
+									"type":"number"
+								},
+								"maxOutputTokens":{
+									"default":"2048",
+									"title":"Max Output Tokens",
+									"type":"integer"
+								},
+								"presencePenalty":{
+									"title":"Presence Penalty",
+									"type":"number"
+								},
+								"temprature":{
+									"default":"0.1",
+									"title":"Temprature",
+									"type":"number"
+								},
+								"topP":{
+									"title":"Top P",
+									"type":"number"
+								}
+							},
+							"required":[],
+							"title":"Model Config",
+							"type":"object"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"modelId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":442,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"oZ417-1",
+			"id":"hMNg9",
+			"index":0,
+			"inputs":{
+				"automationId":"67debfa39bd3e2541bb5fdc3",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"inputs":"{{ fTMhy.outputs.inputs }}",
+					"messages":{
+						"items":{
+							"content":"{{ fTMhy.outputs.currentPrompt.messages[0].content }}",
+							"role":"{{ fTMhy.outputs.currentPrompt.messages[0].role }}"
+						},
+						"source":"{{ fTMhy.outputs.currentPrompt.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"systemMessage":"{{ fTMhy.outputs.currentPrompt.systemMessage }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":420,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"oZ417-1",
+			"id":"1QQZ5",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"additionalProperties":false,
+										"properties":{
+											"text":{
+												"title":"Text",
+												"type":"string"
+											}
+										},
+										"required":[
+											"text"
+										],
+										"title":"Content",
+										"type":"object"
+									},
+									"role":{
+										"title":"Role",
+										"type":"string"
+									}
+								},
+								"required":[
+									"role",
+									"content"
+								],
+								"type":"object"
+							},
+							"title":"Messages",
+							"type":"array"
+						}
+					},
+					"required":[
+						"messages"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"title":"Content",
+										"type":"string"
+									},
+									"role":{
+										"title":"Role",
+										"type":"string"
+									}
+								},
+								"required":[
+									"role",
+									"content"
+								],
+								"type":"object"
+							},
+							"title":"Messages",
+							"type":"array"
+						}
+					},
+					"required":[
+						"messages"
+					],
+					"type":"object"
+				},
+				"code":"def output = []\nmessages.each { message ->\n  def outputMessage = [:]\n  outputMessage['role'] = message['role']\n  outputMessage['content'] = ['text': message['content'], 'type': 'text']\n  output << outputMessage\n}\n\nreturn ['messages': output]\n",
+				"compile_static":false,
+				"parameters":{
+					"messages":{
+						"items":{
+							"content":"{{ hMNg9.outputs.messages[0].content }}",
+							"role":"{{ hMNg9.outputs.messages[0].role }}"
+						},
+						"source":"{{ hMNg9.outputs.messages }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"oZ417-1",
+			"id":"mGpfB",
+			"index":0,
+			"inputs":{
+				"automationId":"66ac70650f725f5b425d12d8",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"frequencyPenalty":"=VALUE({{ fTMhy.outputs.modelConfig.frequencyPenalty }})",
+					"logProbs":false,
+					"maxTokens":"=VALUE({{ fTMhy.outputs.modelConfig.maxOutputTokens }})",
+					"message":{
+						"items":{
+							"content":[
+								"{{ 1QQZ5.outputs.result.messages[0].content }}"
+							],
+							"role":"{{ 1QQZ5.outputs.result.messages[0].role }}"
+						},
+						"source":"{{ 1QQZ5.outputs.result.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"modelId":"{{ fTMhy.outputs.modelId }}",
+					"presencePenalty":"=VALUE({{ fTMhy.outputs.modelConfig.presencePenalty }})",
+					"responseFormat":{
+						"type":"text"
+					},
+					"systemPrompt":"{{ hMNg9.outputs.systemMessage }}",
+					"temperature":"=VALUE({{ fTMhy.outputs.modelConfig.temprature }})",
+					"top_p":"=VALUE({{ fTMhy.outputs.modelConfig.topP }})"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":408,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"oZ417-1",
+			"id":"ozD28",
+			"index":0,
+			"inputs":{
+				"result":{
+					"response":"{{ mGpfB.outputs.llmResponse }}",
+					"tokensUsed":"{{ mGpfB.outputs.tokensUsed }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":15
+}
