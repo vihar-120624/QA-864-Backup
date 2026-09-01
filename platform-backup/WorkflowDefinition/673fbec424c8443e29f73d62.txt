@@ -1,0 +1,104 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743679564,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743679656,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdbf45d2142160e6d5ef",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":10
+	},
+	"edges":[
+		{
+			"fromNodeId":"_14Hla",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_DKxVu",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"673fbec424c8443e29f73d62",
+	"lastModifiedBy":-1,
+	"lcName":"ai agent deployment delete handler",
+	"modifiedTime":1788252972526,
+	"name":"AI Agent Deployment Delete Handler",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2065,
+				"resourceName":"storage_by_unifyapps_on_delete_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vyoEx-1",
+			"id":"_14Hla",
+			"index":0,
+			"inputs":{
+				"object_type":"ai_agent_deployment"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Deleted record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":2,
+				"resourceName":"standard_entities_manage_workflow",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vyoEx-1",
+			"id":"_DKxVu",
+			"index":0,
+			"inputs":{
+				"operationType":"DELETE",
+				"workflowId":"{{ _14Hla.outputs.properties.trigger.triggerAutomationId }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Modify automation",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":12
+}
