@@ -1,0 +1,372 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743950857,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743951048,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ececf45d2142160e6f69b",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":2
+	},
+	"edges":[
+		{
+			"fromNodeId":"fGOsJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WaxyR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WaxyR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WN9qS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WN9qS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"4QrAm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"4QrAm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_wqKCC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_wqKCC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_Vhv41",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_Vhv41",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"vcFSk",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"685abd551ee8540930ac357a",
+	"lastModifiedBy":-1,
+	"lcName":"schedule knowledge processor",
+	"modifiedTime":1788252973123,
+	"name":"Schedule knowledge processor",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":49,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"fGOsJ",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"default":false,
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"n_WaxyR",
+			"index":0,
+			"inputs":{
+				"object_type":"knowledge",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"id":"{{ fGOsJ.outputs.knowledgeId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"n_WN9qS",
+			"index":0,
+			"inputs":{
+				"object_type":"knowledge_source",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"id":"{{ n_WaxyR.outputs.properties.applicationInfo.context.resourceName }}",
+				"readThroughSessionVariables":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"4QrAm",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"connections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Connections",
+							"type":"object"
+						},
+						"params":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Params",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"\ndef map = [\n    \"knowledgeId\": knowledgeId, \n]\n\nif (binding.hasVariable('inputs') && inputs != null) {\n    map.put(\"inputs\", inputs)\n    map.putAll(inputs)\n}\n\nreturn [\n    \"params\": map,\n    \"connections\": binding.hasVariable('connectionId') && binding.hasVariable('appName') ? [(appName):connectionId] : null\n]",
+				"compile_static":false,
+				"isAsync":false,
+				"parameters":{
+					"appName":"{{ n_WaxyR.outputs.properties.applicationInfo.context.appName }}",
+					"connectionId":"{{ n_WaxyR.outputs.properties.applicationInfo.context.connectionId }}",
+					"inputs":"{{ n_WaxyR.outputs.properties.applicationInfo.inputs }}",
+					"knowledgeId":"{{ fGOsJ.outputs.knowledgeId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"prepare Inputs",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"_wqKCC",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"nextFireTime":{
+							"title":"Next Fire Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"type":{
+							"title":"Type",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.LocalDateTime\nimport java.time.ZoneOffset\nimport java.time.format.DateTimeFormatter\n\ndef getNextFireTime(x) {\n    return LocalDateTime.now()\n                       .plusMinutes(x)\n                       .atZone(ZoneOffset.systemDefault())\n                       .withZoneSameInstant(ZoneOffset.UTC)\n                       .format(DateTimeFormatter.ISO_INSTANT)\n}\ndef getMinutesFromFrequency(String frequency) {\n    def frequencyMap = [\n        'HOURLY': 60,\n        'DAILY': 1440,      // 24 * 60\n        'WEEKLY': 10080,    // 7 * 24 * 60\n        'MONTHLY': 43200,   // 30 * 24 * 60\n        'YEARLY': 525600    // 365 * 24 * 60\n    ]\n    \n    return frequencyMap[frequency?.toUpperCase()] ?: 1440\n}\n\ndef minutes = getMinutesFromFrequency(type)\n\n\nreturn [\"nextFireTime\": getNextFireTime(minutes) ]",
+				"compile_static":false,
+				"parameters":{
+					"type":"{{ n_WN9qS.outputs.properties.refreshFrequency }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"get next fire time",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":463,
+				"resourceName":"callables_schedule_a_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"_Vhv41",
+			"index":0,
+			"inputs":{
+				"automation_id":"68542b2278cd2411657b613d",
+				"start_time":"{{ _wqKCC.outputs.result.nextFireTime }}",
+				"runtimeConnections":{},
+				"schedule_type":"ONE_TIME",
+				"cancel_existing":true,
+				"parameters":{
+					"downloaderAutomation":"{{ n_WN9qS.outputs.properties.downloaderAutomationId }}",
+					"importerConnections":"{{ 4QrAm.outputs.result.connections }}",
+					"importerParams":"{{ 4QrAm.outputs.result.params }}",
+					"ingesterAutomation":"{{ n_WN9qS.outputs.properties.ingesterAutomationId }}",
+					"knowledgeId":"{{ fGOsJ.outputs.knowledgeId }}",
+					"syncMode":"{{ n_WN9qS.outputs.properties.syncMode }}"
+				},
+				"schedule_name":"knowledge_processor_{{ fGOsJ.outputs.knowledgeId }}",
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Schedule next call",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":45,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"qZH4A-1",
+			"id":"vcFSk",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":4
+}
