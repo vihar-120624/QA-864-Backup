@@ -1,0 +1,295 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744005433,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744005556,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf05ba51514edfc7e20e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":39
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_tSVCF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HYiyn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HYiyn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AsZhI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AsZhI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MR1gj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MR1gj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lcGNU",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69e1288b5654ec3af6a98fde",
+	"lastModifiedBy":-1,
+	"lcName":"prereq nav editor",
+	"modifiedTime":1788252972130,
+	"name":"PreReq Nav Editor",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":609,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bsg8a-1",
+			"id":"n_tSVCF",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[
+						"caseId"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"queryFromInvokeAgent":{
+							"title":"Query From Invoke Agent",
+							"type":"string"
+						},
+						"taskId":{
+							"title":"Task Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"caseId",
+						"queryFromInvokeAgent",
+						"taskId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":299,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bsg8a-1",
+			"id":"n_HYiyn",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"agentId":{
+							"default":"e_69b267ec5725553d7a82c3ed",
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"sessionId":{
+							"title":"Session Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"agentId",
+						"sessionId"
+					]
+				}
+			},
+			"inputs":{
+				"agentId":"{{ n_tSVCF.outputs.agentId }}",
+				"sessionId":"no-code-builder"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"agentId":{
+							"default":"e_69b267ec5725553d7a82c3ed",
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"sessionId":{
+							"title":"Session Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"agentId",
+						"sessionId"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":419,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bsg8a-1",
+			"id":"n_AsZhI",
+			"index":3,
+			"inputs":{
+				"automationId":"69bce21dd31b6b550995f743",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ n_tSVCF.outputs.caseId }}",
+					"sessionId":"{{ n_HYiyn.outputs.sessionId }}",
+					"taskId":"{{ n_tSVCF.outputs.taskId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Get Types for Context",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":550,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bsg8a-1",
+			"id":"n_MR1gj",
+			"index":4,
+			"inputs":{
+				"automationId":"67a31b86addac8605df79166",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_HYiyn.outputs.agentId }}",
+					"caseId":"{{ n_tSVCF.outputs.caseId }}",
+					"createMessageIfAbsent":true,
+					"internalMessageType":"AGENT_INTERNAL_RESPONSE",
+					"messageContent":"sessionId: {{ n_HYiyn.outputs.sessionId }} \\n {{ n_AsZhI.outputs.context }}",
+					"messageType":"fan",
+					"taskId":"{{ n_tSVCF.outputs.taskId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Add Context To Agent",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":418,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bsg8a-1",
+			"id":"n_lcGNU",
+			"index":5,
+			"inputs":{
+				"result":{
+					"caseId":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"text-to-lowcode"
+	],
+	"version":41
+}
