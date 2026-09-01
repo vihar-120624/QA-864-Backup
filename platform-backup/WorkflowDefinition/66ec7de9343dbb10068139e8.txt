@@ -1,0 +1,401 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743872951,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743873023,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece81177b4b4aca57bbb7",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":31
+	},
+	"edges":[
+		{
+			"fromNodeId":"yzZwd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_lQMD6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_lQMD6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"8iqyU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"8iqyU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"vxOzR",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"66ec7de9343dbb10068139e8",
+	"lastModifiedBy":-1,
+	"lcName":"api to trigger ai agent",
+	"modifiedTime":1788252972205,
+	"name":"API to Trigger AI Agent",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":77,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rPHaB-1",
+			"id":"yzZwd",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"aiAgentId":{
+								"title":"Ai Agent Id",
+								"type":"string"
+							},
+							"attachments":{
+								"items":{
+									"type":"string"
+								},
+								"title":"Attachments",
+								"type":"array"
+							},
+							"citations":{
+								"title":"Citations",
+								"type":"boolean"
+							},
+							"externalKnowledgeSets":{
+								"items":{
+									"type":"string"
+								},
+								"title":"External Knowledge Sets",
+								"type":"array"
+							},
+							"sessionId":{
+								"title":"Session Id",
+								"type":"string"
+							},
+							"userEmailAddress":{
+								"title":"User Email Address",
+								"type":"string"
+							},
+							"userQuery":{
+								"title":"User Query",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"agentResponse":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"choices":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"id":{
+															"title":"Id",
+															"type":"string"
+														},
+														"title":{
+															"title":"Title",
+															"type":"string"
+														},
+														"url":{
+															"title":"Url",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"type":"object"
+												},
+												"title":"Choices",
+												"type":"array"
+											},
+											"text":{
+												"title":"Text",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Agent Response",
+									"type":"array"
+								},
+								"citations":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{},
+										"type":"object"
+									},
+									"title":"Citations",
+									"type":"array"
+								},
+								"listAttachments":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"url":{
+												"title":"Url",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"List Attachments",
+									"type":"array"
+								},
+								"sessionId":{
+									"title":"Session Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":200
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger using API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":134,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rPHaB-1",
+			"id":"_lQMD6",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"accountId":{
+							"title":"Account Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"toCustomerUserId":{
+							"title":"To Customer User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"accountId":"API_AI_AGENT",
+				"caseId":"{{ yzZwd.outputs.body.sessionId }}",
+				"channelName":"API",
+				"fromCustomerUserId":"API_USER_{{ __RUN__.outputs.executionId }}",
+				"toCustomerUserId":"AI_AGENT_{{ yzZwd.outputs.body.aiAgentId }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"accountId":{
+							"title":"Account Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"toCustomerUserId":{
+							"title":"To Customer User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":228,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rPHaB-1",
+			"id":"8iqyU",
+			"index":3,
+			"inputs":{
+				"callableInterfaceId":"__ua__invoke_ai_agent_by_unifyapps",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"fallbackWorkflowId":"68050ca67df58855654804a0",
+				"parameters":{
+					"aiAgentId":"{{ yzZwd.outputs.body.aiAgentId }}",
+					"attachments":{
+						"items":"{{ yzZwd.outputs.body.attachments[0] }}",
+						"source":"{{ yzZwd.outputs.body.attachments }}",
+						"ua:type":"mappedArray"
+					},
+					"citations":"{{ yzZwd.outputs.body.citations }}",
+					"externalKnowledgeSets":{
+						"items":"{{ yzZwd.outputs.body.externalKnowledgeSets[0] }}",
+						"source":"{{ yzZwd.outputs.body.externalKnowledgeSets }}",
+						"ua:type":"mappedArray"
+					},
+					"sessionId":"{{ yzZwd.outputs.body.sessionId }}",
+					"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+					"userEmailAddress":"{{ yzZwd.outputs.body.userEmailAddress }}",
+					"userQuery":"{{ yzZwd.outputs.body.userQuery }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rPHaB-1",
+			"id":"vxOzR",
+			"index":4,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"agentResponse":{
+						"items":{
+							"choices":{
+								"items":{
+									"id":"{{ 8iqyU.outputs.publicResponse[0].choices[0].id }}",
+									"title":"{{ 8iqyU.outputs.publicResponse[0].choices[0].title }}",
+									"url":"{{ 8iqyU.outputs.publicResponse[0].choices[0].url }}"
+								},
+								"source":"{{ 8iqyU.outputs.publicResponse[0].choices }}",
+								"ua:type":"mappedArray"
+							},
+							"text":"{{ 8iqyU.outputs.publicResponse[0].text }}"
+						},
+						"source":"{{ 8iqyU.outputs.publicResponse }}",
+						"ua:type":"mappedArray"
+					},
+					"citations":{
+						"items":"{{ 8iqyU.outputs.citations[0] }}",
+						"source":"{{ 8iqyU.outputs.citations }}",
+						"ua:type":"mappedArray"
+					},
+					"sessionId":"{{ 8iqyU.outputs.sessionId }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":33
+}
