@@ -1,0 +1,802 @@
+{
+	"appsUsed":[
+		"slack"
+	],
+	"createdTime":1787743785104,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743785280,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece2945d2142160e6e138",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":28
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_a011o",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hxHnb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_hxHnb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wXms2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wXms2",
+			"name":"1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wXms2@1",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_wXms2@1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vdSEC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wXms2",
+			"name":"2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wXms2@2",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_wXms2@2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_YsTh1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vdSEC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E5mod",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_YsTh1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E5mod",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wXms2",
+			"name":"default",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E5mod",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_E5mod",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VUpkR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VUpkR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iKiLd",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6926d4f3d2d23014949224f4",
+	"lastModifiedBy":-1,
+	"lcName":"sre | post investigation summary to channel",
+	"modifiedTime":1788252972818,
+	"name":"SRE | Post Investigation Summary to Channel",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":94,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0fnJ7-1",
+			"id":"n_a011o",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"message":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Message",
+							"type":"object"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success",
+						"message"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"activeHypotheses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"collectedEvidences":{
+										"help":"evidences collected to prove or disprove this hypothesis",
+										"items":{
+											"type":"string"
+										},
+										"title":"Collected Evidences",
+										"type":"array"
+									},
+									"cummulativeCausalLikelihood":{
+										"title":"Cummulative Causal Likelihood",
+										"type":"integer"
+									},
+									"evidencesToCollect":{
+										"help":"evidences that have yet to be collected to prove or disprove this hypothesis",
+										"items":{
+											"type":"string"
+										},
+										"title":"Evidences To Collect",
+										"type":"array"
+									},
+									"likelihood":{
+										"title":"Likelihood",
+										"type":"integer"
+									},
+									"statement":{
+										"help":"hypotheses statement",
+										"title":"Statement",
+										"type":"string"
+									}
+								},
+								"required":[
+									"statement"
+								],
+								"type":"object"
+							},
+							"title":"Active Hypotheses",
+							"type":"array"
+						},
+						"additonalInvestigationNotes":{
+							"help":"You can provide any additional notes regarding ongoing investigation in natural language an in bullet point form to be posted in slack",
+							"title":"Additonal Investigation Notes",
+							"type":"string"
+						},
+						"approvedHypotheses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"cummulativeCausalLikelihood":{
+										"title":"Cummulative Causal Likelihood",
+										"type":"integer"
+									},
+									"evidences":{
+										"help":"evidences based on which the hypothesis was approved",
+										"items":{
+											"type":"string"
+										},
+										"title":"Evidences",
+										"type":"array"
+									},
+									"likelihood":{
+										"title":"Likelihood",
+										"type":"integer"
+									},
+									"statement":{
+										"help":"hypotheses statement",
+										"title":"Statement",
+										"type":"string"
+									}
+								},
+								"required":[
+									"statement",
+									"evidences",
+									"likelihood",
+									"cummulativeCausalLikelihood"
+								],
+								"type":"object"
+							},
+							"title":"Approved Hypotheses",
+							"type":"array"
+						},
+						"incidentId":{
+							"title":"Incident Id",
+							"type":"string"
+						},
+						"investigationPhase":{
+							"help":"Current investigation phase. It should be one of : [\"init\",\"init_completed\",\"collect\",\"verify\",\"reason\",\"completed\",\"best-effort RCA reached\",\"unknown root cause\",\"verification_inconclusive\"]",
+							"title":"Investigation Phase",
+							"type":"string"
+						},
+						"nextSteps":{
+							"help":"Next steps in the debugging process",
+							"items":{
+								"type":"string"
+							},
+							"title":"Next Steps",
+							"type":"array"
+						},
+						"rejectedHypotheses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"cumulativeCausalLikelihood":{
+										"title":"Cumulative Causal Likelihood",
+										"type":"integer"
+									},
+									"evidences":{
+										"help":"evidences based on which the hypothesis was rejected",
+										"items":{
+											"type":"string"
+										},
+										"title":"Evidences",
+										"type":"array"
+									},
+									"likelihood":{
+										"title":"Likelihood",
+										"type":"integer"
+									},
+									"statement":{
+										"help":"hypotheses statement",
+										"title":"Statement",
+										"type":"string"
+									}
+								},
+								"required":[
+									"statement",
+									"evidences",
+									"likelihood",
+									"cumulativeCausalLikelihood"
+								],
+								"type":"object"
+							},
+							"title":"Rejected Hypotheses",
+							"type":"array"
+						},
+						"slackChannelId":{
+							"title":"Slack Channel Id",
+							"type":"string"
+						},
+						"slackThreadId":{
+							"title":"Slack Thread Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"nextSteps",
+						"investigationPhase",
+						"incidentId",
+						"slackChannelId",
+						"slackThreadId",
+						"additonalInvestigationNotes"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":64,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0fnJ7-1",
+			"id":"n_hxHnb",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"alertColor":{
+							"title":"Alert Color",
+							"type":"string"
+						}
+					},
+					"required":[
+						"alertColor"
+					]
+				}
+			},
+			"inputs":{
+				"alertColor":"#FFA500"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"alertColor":{
+							"title":"Alert Color",
+							"type":"string"
+						}
+					},
+					"required":[
+						"alertColor"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0fnJ7-1",
+			"id":"n_wXms2",
+			"index":3,
+			"inputs":{
+				"branches":[
+					{
+						"id":"1",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"CONTAINS",
+											"value":"best-effort RCA reached"
+										},
+										"property":"{{ n_a011o.outputs.investigationPhase }}"
+									},
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"completed"
+										},
+										"property":"{{ n_a011o.outputs.investigationPhase }}"
+									}
+								],
+								"operator":"OR"
+							},
+							"name":"Found root cause"
+						}
+					},
+					{
+						"id":"2",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"CONTAINS",
+											"value":"unknown root cause"
+										},
+										"property":"{{ n_a011o.outputs.investigationPhase }}"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"No root cause found"
+						}
+					},
+					{
+						"id":"default"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Branch",
+			"title":"",
+			"type":"BRANCH"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_wXms2@_0fnJ7-1@1",
+			"id":"n_wXms2@1",
+			"index":4,
+			"inputs":{
+				"name":"Found root cause",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"best-effort RCA reached"
+							},
+							"property":"{{ n_a011o.outputs.investigationPhase }}"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"completed"
+							},
+							"property":"{{ n_a011o.outputs.investigationPhase }}"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":64,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_wXms2@_0fnJ7-1@1",
+			"id":"n_vdSEC",
+			"index":5,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_hxHnb.outputs.alertColor }}",
+						"value":"#51f542"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_wXms2@_0fnJ7-1@2",
+			"id":"n_wXms2@2",
+			"index":6,
+			"inputs":{
+				"name":"No root cause found",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"unknown root cause"
+							},
+							"property":"{{ n_a011o.outputs.investigationPhase }}"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":64,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_wXms2@_0fnJ7-1@2",
+			"id":"_YsTh1",
+			"index":7,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_hxHnb.outputs.alertColor }}",
+						"value":"#f54248"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0fnJ7-1",
+			"id":"n_E5mod",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"activeHypothesesCount":{
+							"title":"Active Hypotheses Count",
+							"type":"integer"
+						},
+						"activeHypothesesSummary":{
+							"title":"Active Hypotheses Summary",
+							"type":"string"
+						},
+						"approvedHypothesesCount":{
+							"title":"Approved Hypotheses Count",
+							"type":"integer"
+						},
+						"approvedHypothesesSummary":{
+							"title":"Approved Hypotheses Summary",
+							"type":"string"
+						},
+						"notes":{
+							"title":"Notes",
+							"type":"string"
+						},
+						"rejectedHypothesesCount":{
+							"title":"Rejected Hypotheses Count",
+							"type":"integer"
+						},
+						"rejectedHypothesesSummary":{
+							"title":"Rejected Hypotheses Summary",
+							"type":"string"
+						}
+					},
+					"required":[
+						"approvedHypothesesCount",
+						"rejectedHypothesesCount",
+						"activeHypothesesCount",
+						"notes"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"activeHypotheses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Active Hypotheses",
+							"type":"array"
+						},
+						"approvedHypotheses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Approved Hypotheses",
+							"type":"array"
+						},
+						"notes":{
+							"title":"Notes",
+							"type":"string"
+						},
+						"rejectedHypotheses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Rejected Hypotheses",
+							"type":"array"
+						}
+					},
+					"required":[
+						"approvedHypotheses",
+						"rejectedHypotheses",
+						"activeHypotheses"
+					],
+					"type":"object"
+				},
+				"code":"def map = [:]\n\nif (binding.hasVariable('approvedHypotheses')) {\n  map[\"approvedHypothesesCount\"] = approvedHypotheses.size()\n  map[\"approvedHypothesesSummary\"] = buildApprovedOrRejectedSummary((List<Map>) (approvedHypotheses ?: []))\n} else {\n    map[\"approvedHypothesesCount\"] = 0\n    map[\"approvedHypothesesSummary\"] = buildApprovedOrRejectedSummary([])\n}\n\nif (binding.hasVariable('rejectedHypotheses')) {\n  map[\"rejectedHypothesesCount\"] = rejectedHypotheses.size()\n  map[\"rejectedHypothesesSummary\"] = buildApprovedOrRejectedSummary((List<Map>) (rejectedHypotheses ?: []))\n} else {\n    map[\"rejectedHypothesesCount\"] = 0\n    map[\"rejectedHypothesesSummary\"] = buildApprovedOrRejectedSummary([])\n}\n\nif (binding.hasVariable('activeHypotheses')) {\n  map[\"activeHypothesesCount\"] = activeHypotheses.size()\n  map[\"activeHypothesesSummary\"] = buildActiveSummary((List<Map>) (activeHypotheses ?: []))\n} else {\n    map[\"activeHypothesesCount\"] = 0\n    map[\"activeHypothesesSummary\"] = buildApprovedOrRejectedSummary([])\n}\n\n// ---------- Helpers ----------\n\nString buildApprovedOrRejectedSummary(List<Map> hypotheses) {\n    if (!hypotheses || hypotheses.isEmpty()) {\n        return \"_None_\"\n    }\n\n    def sb = new StringBuilder()\n\n    hypotheses.eachWithIndex { Map hyp, int idx ->\n        String likelihoodPart = \"\"\n        def localConfidence   = hyp.likelihood\n        def rootCauseConfidence = hyp.cummulativeCausalLikelihood ?: hyp.cumulativeCausalLikelihood\n        if (localConfidence != null || rootCauseConfidence != null) {\n            likelihoodPart = \" (Confidence=`${localConfidence ?: \"?\"}`, Root Cause Confidence=`${rootCauseConfidence ?: \"?\"}`)\"\n        }\n\n        sb.append(\"${idx + 1}. ${hyp.statement}${likelihoodPart}\\n\")\n\n        List<String> evidences = (List<String>) (hyp.evidences ?: [])\n        appendEvidenceLines(sb, evidences)\n\n        sb.append(\"\\n\")\n    }\n\n    return sb.toString().trim()\n}\n\nString buildActiveSummary(List<Map> activeHypotheses) {\n    if (!activeHypotheses || activeHypotheses.isEmpty()) {\n        return \"_None_\"\n    }\n\n    def sb = new StringBuilder()\n\n    activeHypotheses.eachWithIndex { Map hyp, int idx ->\n        String likelihoodPart = \"\"\n        def localConfidence   = hyp.likelihood\n        def rootCauseConfidence = hyp.cummulativeCausalLikelihood ?: hyp.cumulativeCausalLikelihood\n        if (localConfidence != null || rootCauseConfidence != null) {\n            likelihoodPart = \" (Confidence=`${localConfidence ?: \"?\"}`, Root Cause Confidence=`${rootCauseConfidence ?: \"?\"}`)\"\n        }\n\n        sb.append(\"${idx + 1}. ${hyp.statement}${likelihoodPart}\\n\")\n\n        List<String> collected = (List<String>) (hyp.collectedEvidences ?: [])\n        List<String> toCollect = (List<String>) (hyp.evidencesToCollect ?: [])\n\n        // collected evidences → a., b., ...\n        def evIdx = 0\n        collected.each { String ev ->\n            char letter = (char) ('a' as char + evIdx)\n            sb.append(\"   ${letter}. [collected] ${ev}\\n\")\n            evIdx++\n        }\n\n        if (evIdx > 0 && toCollect.size() > 0) {\n          sb.append(\"\\n\\n\")\n        }\n        \n        // evidences to collect → continue lettering\n        toCollect.each { String ev ->\n            char letter = (char) ('a' as char + evIdx)\n            sb.append(\"   ${letter}. [to collect] ${ev}\\n\")\n            evIdx++\n        }\n\n        sb.append(\"\\n\")\n    }\n\n    return sb.toString().trim()\n}\n\nvoid appendEvidenceLines(StringBuilder sb, List<String> evidences) {\n    evidences?.eachWithIndex { String ev, int j ->\n        char letter = (char) ('a' as char + j)\n        sb.append(\"   ${letter}. ${ev}\\n\")\n    }\n}\n\n\nif (binding.hasVariable('notes') && notes.length() > 0) {\n    map[\"notes\"] = notes\n} else {\n    map[\"notes\"] = \"_None_\"\n}\nreturn map",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"activeHypotheses":{
+						"items":"{{ n_a011o.outputs.activeHypotheses[0] }}",
+						"source":"{{ n_a011o.outputs.activeHypotheses }}",
+						"ua:type":"mappedArray"
+					},
+					"approvedHypotheses":{
+						"items":"{{ n_a011o.outputs.approvedHypotheses[0] }}",
+						"source":"{{ n_a011o.outputs.approvedHypotheses }}",
+						"ua:type":"mappedArray"
+					},
+					"notes":"{{ n_a011o.outputs.additonalInvestigationNotes }}",
+					"rejectedHypotheses":{
+						"items":"{{ n_a011o.outputs.rejectedHypotheses[0] }}",
+						"source":"{{ n_a011o.outputs.rejectedHypotheses }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":159,
+				"connectionId":"6907b22ad501541f8cd34941",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0fnJ7-1",
+			"id":"n_VUpkR",
+			"index":9,
+			"inputs":{
+				"link_names":true,
+				"messageType":"blocks",
+				"icon_emoji":":mag:",
+				"Attach":[
+					{
+						"attachmentsBlock":{
+							"color":"{{ n_hxHnb.outputs.alertColor }}",
+							"fields":[
+								{
+									"short":false,
+									"title":"Approved",
+									"value":"{{ n_E5mod.outputs.result.approvedHypothesesSummary }}"
+								},
+								{
+									"short":false,
+									"title":"Rejected",
+									"value":"{{ n_E5mod.outputs.result.rejectedHypothesesSummary }}"
+								},
+								{
+									"short":false,
+									"title":"Active",
+									"value":"{{ n_E5mod.outputs.result.activeHypothesesSummary }}"
+								},
+								{
+									"short":false,
+									"title":"Notes",
+									"value":"{{ n_E5mod.outputs.result.notes }}"
+								}
+							],
+							"footer":"SRE AI Reporting Agent",
+							"mrkdwn_in":[
+								"text",
+								"pretext",
+								"fields",
+								"footer"
+							],
+							"pretext":"*Incident `{{ n_a011o.outputs.incidentId }}`* in `{{ n_a011o.outputs.investigationPhase }}`",
+							"text":"*Hypotheses*: `{{ n_E5mod.outputs.result.approvedHypothesesCount }}` approved · `{{ n_E5mod.outputs.result.rejectedHypothesesCount }}` rejected · `{{ n_E5mod.outputs.result.activeHypothesesCount }}` active"
+						},
+						"attachmentsType":"attachmentBlock"
+					}
+				],
+				"thread_ts":"{{ n_a011o.outputs.slackThreadId }}",
+				"channel":"{{ n_a011o.outputs.slackChannelId }}",
+				"reply_broadcast":false,
+				"unfurl_links":false,
+				"mrkdwn":true,
+				"username":"SRE AI – Reporting Agent"
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":94,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0fnJ7-1",
+			"id":"n_iKiLd",
+			"index":10,
+			"inputs":{
+				"result":{
+					"message":"{{ n_VUpkR.outputs.message }}",
+					"success":"{{ n_VUpkR.outputs.ok }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"sre_ai"
+	],
+	"version":30
+}
