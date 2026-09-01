@@ -1,0 +1,577 @@
+{
+	"appsUsed":[
+		"microsoft_outlook"
+	],
+	"createdTime":1787743806315,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743806444,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece3e45d2142160e6e380",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"a1xhW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"7XBj5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"7XBj5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"RFF4g",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"RFF4g",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"9OoHs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"9OoHs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"zoY9T",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"zoY9T",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"HouqF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"HouqF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"bxxCK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"bxxCK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"HkBPn",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67af0ae488e7f75667761c78",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | outlook | index contact",
+	"modifiedTime":1788252971342,
+	"name":"Knowledge Indexer | Outlook | Index contact",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":68,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"a1xhW",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"assistantName":{
+							"title":"Assistant Name",
+							"type":"string"
+						},
+						"businessPhones":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Business Phones",
+							"type":"array"
+						},
+						"contact":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Contact",
+							"type":"object"
+						},
+						"displayName":{
+							"title":"Display Name",
+							"type":"string"
+						},
+						"emailAddresses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Email Addresses",
+							"type":"array"
+						},
+						"givenName":{
+							"title":"Given Name",
+							"type":"string"
+						},
+						"homePhones":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Home Phones",
+							"type":"array"
+						},
+						"id":{
+							"title":"Id",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"mobilePhone":{
+							"title":"Mobile Phone",
+							"type":"string"
+						},
+						"nickName":{
+							"title":"Nick Name",
+							"type":"string"
+						},
+						"readVersion":{
+							"title":"readVersion",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":61,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"7XBj5",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"contact":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Contact",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def chunkMetadata = [:]\nchunkMetadata << [\"appName\": \"microsoft_outlook\"]\nchunkMetadata << [\"id\": contact['id']]\nchunkMetadata << [\"name\": (contact['displayName'])? contact['displayName']:\"Unknown\"]\nchunkMetadata << [\"author\": (contact['emailAddresses'] && contact['emailAddresses'][0]?.address) ? contact['emailAddresses'][0].address : \"Unknown\"]\nchunkMetadata << [\"date\": (contact['lastModifiedDateTime'])? java.time.Instant.parse(contact['lastModifiedDateTime']).toEpochMilli():0]\n\nreturn [\"chunkMetadata\":chunkMetadata]",
+				"compile_static":false,
+				"parameters":{
+					"contact":"{{ a1xhW.outputs.contact }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Chunk Metadata",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.emailAddresses.items",
+					"root.parameters.homePhones.items",
+					"root.parameters.businessPhones.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":61,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"RFF4g",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"contactData":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Contact Data",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"assistantName":{
+							"title":"Assistant Name",
+							"type":"string"
+						},
+						"businessPhones":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Business Phones",
+							"type":"array"
+						},
+						"contact":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Contact",
+							"type":"object"
+						},
+						"displayName":{
+							"title":"Display Name",
+							"type":"string"
+						},
+						"emailAddresses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Email Addresses",
+							"type":"array"
+						},
+						"givenName":{
+							"title":"Given Name",
+							"type":"string"
+						},
+						"homePhones":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Home Phones",
+							"type":"array"
+						},
+						"mobilePhone":{
+							"title":"Mobile Phone",
+							"type":"string"
+						},
+						"nickName":{
+							"title":"Nick Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def nickNamePart = (binding.hasVariable('nickName') && nickName) ? \"The nickname is: ${nickName}, \" : \"\"\ndef assistantNamePart = (binding.hasVariable('assistantName') && assistantName) ? \"The assistant's name is: ${assistantName}, \" : \"\"\ndef mobilePhonePart = (binding.hasVariable('mobilePhone') && mobilePhone) ? \"The mobile phone is: ${mobilePhone}, \" : \"\"\n\n\ndef emailAddressesPart = (binding.hasVariable('emailAddresses') && emailAddresses) ? \n    \"Email addresses are: ${emailAddresses.collect { it.address }.join(', ')}, \" : \"\"\n\ndef homePhonesPart = (binding.hasVariable('homePhones') && homePhones) ? \n    \"Home phones are: ${homePhones.join(', ')}, \" : \"\"\n\ndef businessPhonesPart = (binding.hasVariable('businessPhones') && businessPhones) ? \n    \"Business phones are: ${businessPhones.join(', ')}, \" : \"\"\n\ndef companyPart = contact['companyName'] ? \"Company name is: ${contact['companyName']}, \" : \"\"\ndef jobTitlePart = contact['jobTitle'] ? \"Job title is: ${contact['jobTitle']}, \" : \"\"\ndef managerPart = contact['manager'] ? \"Manager is: ${contact['manager']}, \" : \"\"\ndef departmentPart = contact['department'] ? \"Department is: ${contact['department']}, \" : \"\"\ndef officeLocationPart = contact['officeLocation'] ? \"Office location is: ${contact['officeLocation']}, \" : \"\"\ndef birthdayPart = contact['birthday'] ? \"Birthday is: ${contact['birthday']}, \" : \"\"\ndef createdDatePart = contact['createdDateTime'] ? \"Created date is: ${contact['createdDateTime']}, \" : \"\"\ndef givenName = contact['givenName']? \"Given name is : ${contact['givenName']}, \": \"\"\ndef businessAddressPart = contact['businessAddress'] ? \"Business address is: ${contact['businessAddress']}, \" : \"\"\ndef homeAddressPart = contact['homeAddress'] ? \"Home address is: ${contact['homeAddress']}, \" : \"\"\ndef otherAddressPart = contact['otherAddress'] ? \"Other address is: ${contact['otherAddress']}, \" : \"\"\n\n// Combine all parts\ndef contactData = \"${nickNamePart}${assistantNamePart}${emailAddressesPart}${homePhonesPart}${mobilePhonePart}${businessPhonesPart}${companyPart}${jobTitlePart}${managerPart}${departmentPart}${officeLocationPart}${birthdayPart}${createdDatePart}${givenName}${businessAddressPart}${homeAddressPart}${otherAddressPart}\"\n\nreturn [\"contactData\":contactData.toString()]\n",
+				"compile_static":false,
+				"parameters":{
+					"assistantName":"{{ a1xhW.outputs.assistantName }}",
+					"businessPhones":{
+						"items":"{{ a1xhW.outputs.businessPhones[0] }}",
+						"source":"{{ a1xhW.outputs.businessPhones }}",
+						"ua:type":"mappedArray"
+					},
+					"contact":"{{ a1xhW.outputs.contact }}",
+					"displayName":"{{ a1xhW.outputs.displayName }}",
+					"emailAddresses":{
+						"items":"{{ a1xhW.outputs.emailAddresses[0] }}",
+						"source":"{{ a1xhW.outputs.emailAddresses }}",
+						"ua:type":"mappedArray"
+					},
+					"givenName":"{{ a1xhW.outputs.givenName }}",
+					"homePhones":{
+						"items":"{{ a1xhW.outputs.homePhones[0] }}",
+						"source":"{{ a1xhW.outputs.homePhones }}",
+						"ua:type":"mappedArray"
+					},
+					"mobilePhone":"{{ a1xhW.outputs.mobilePhone }}",
+					"nickName":"{{ a1xhW.outputs.nickName }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Prepare data for index",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_outlook",
+				"resourceVersion":210,
+				"connectionId":"67ad9dc389ac6f331d488c52",
+				"resourceName":"microsoft_outlook_fetch_user_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"9OoHs",
+			"index":0,
+			"skip":false,
+			"subTitle":"Microsoft Outlook",
+			"title":"Fetch user details",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.emailAddresses.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":66,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"zoY9T",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"emailGrants":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Email Grants",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						},
+						"contact":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Contact",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def emails = []\nif (contact.emailAddresses) {\n    addEmails(emails, contact.emailAddresses)\n}\nemails = emails.toSet().toList()\ndef emailGrants = []\nemails.each { email ->\n    emailGrants << 'microsoft_outlook/u/' + email\n}\ndef authorEmail=binding.hasVariable('authorEmail')?binding.authorEmail:\"\"\nif(!authorEmail.isEmpty())\n{\n    emailGrants << 'microsoft_outlook/u/' + binding.authorEmail\n}\nreturn ['emailGrants':emailGrants]\n\ndef addEmails(def emails, def contactList) {\n    if (contactList) {\n        contactList.each { contact -> \n            addEmail(emails, contact)\n        }\n    }\n}\n\ndef addEmail(def emails, def contact) {\n    if (contact && contact['address']) {\n        emails << contact['address']\n    }\n}\n",
+				"compile_static":false,
+				"parameters":{
+					"authorEmail":"{{ 9OoHs.outputs.mail }}",
+					"contact":"{{ a1xhW.outputs.contact }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Get contact shared with Ids",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":61,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"HouqF",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"contact":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Contact",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def authorDetails = [:]\nauthorDetails << [\"authorEmail\": (contact['emailAddresses'] && contact['emailAddresses'][0]?.address) ? contact['emailAddresses'][0].address : \"Unknown\"]\n\nreturn authorDetails",
+				"compile_static":false,
+				"parameters":{
+					"contact":"{{ a1xhW.outputs.contact }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Fetch Author Email",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":65,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"bxxCK",
+			"index":0,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ HouqF.outputs.result.authorEmail }}",
+					"chunkMetadata":"{{ 7XBj5.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"data":"Contact data: {{ RFF4g.outputs.result.contactData }}, Contact Metadata: {{ 7XBj5.outputs.result.chunkMetadata }}",
+							"sharedWithIds":{
+								"items":"{{ zoY9T.outputs.result.emailGrants[0] }}",
+								"source":"{{ zoY9T.outputs.result.emailGrants }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ a1xhW.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ a1xhW.outputs.readVersion }}",
+					"uniqueEntityId":"{{ a1xhW.outputs.id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":69,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IbDrn-1",
+			"id":"HkBPn",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_outlook"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":9
+}
