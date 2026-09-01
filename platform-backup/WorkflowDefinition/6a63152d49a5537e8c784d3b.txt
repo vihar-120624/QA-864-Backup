@@ -1,0 +1,182 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743609837,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743610024,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd793f7ad93bb16756a6",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_JhkiY",
+			"id":"next@n_JhkiY@n_AOzFw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AOzFw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AOzFw",
+			"id":"next@n_AOzFw@n_W3yMv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_W3yMv",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a63152d49a5537e8c784d3b",
+	"lastModifiedBy":-1,
+	"lcName":"update asset",
+	"modifiedTime":1788252972816,
+	"name":"Update Asset",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rXVmS-1",
+			"id":"n_JhkiY",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"assetClass":{
+							"title":"Asset Class",
+							"type":"string"
+						},
+						"assetId":{
+							"title":"Asset Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"utility_by_unifyapps_send_mqtt_request",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rXVmS-1",
+			"id":"n_AOzFw",
+			"index":2,
+			"inputs":{
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"assetClass":{
+							"title":"Asset Class",
+							"type":"string"
+						},
+						"assetId":{
+							"title":"Asset Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"topicName":"{{ __RUN__.outputs.customerId }}/change_events",
+				"parameters":{
+					"assetClass":"{{ n_JhkiY.outputs.assetClass }}",
+					"assetId":"{{ n_JhkiY.outputs.assetId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Utility ",
+			"title":"Send Mqtt Request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rXVmS-1",
+			"id":"n_W3yMv",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde"
+	],
+	"version":9
+}
