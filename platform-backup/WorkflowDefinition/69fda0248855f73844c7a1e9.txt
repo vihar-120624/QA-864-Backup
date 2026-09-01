@@ -1,0 +1,738 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743636854,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743637208,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd95177b4b4aca57a2c2",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_2C8Vf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cceoB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cceoB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_JrfMk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_JrfMk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2Y72V",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2Y72V",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SRgwu",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69fda0248855f73844c7a1e9",
+	"lastModifiedBy":-1,
+	"lcName":"pii gliner",
+	"modifiedTime":1788252973064,
+	"name":"PII Gliner",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":818,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8lUyx-1",
+			"id":"n_2C8Vf",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"metadata",
+							"type":"object"
+						},
+						"proceed":{
+							"title":"Proceed",
+							"type":"boolean"
+						},
+						"redactions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"originalWord":{
+										"title":"Original Word",
+										"type":"string"
+									},
+									"redactedWord":{
+										"title":"Redacted Word",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Redactions",
+							"type":"array"
+						},
+						"text":{
+							"title":"Text",
+							"type":"string"
+						}
+					},
+					"required":[
+						"text",
+						"proceed"
+					],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"__ua_pii_mask_chunk_interface",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"currentRedactionMap":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"originalWord":{
+										"title":"Original Word",
+										"type":"string"
+									},
+									"redactedWord":{
+										"title":"Redacted Word",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Current Redaction Map",
+							"type":"array"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						},
+						"text":{
+							"title":"Text",
+							"type":"string"
+						}
+					},
+					"required":[
+						"text"
+					],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":775,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8lUyx-1",
+			"id":"n_cceoB",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chunkId":{
+										"title":"chunkId",
+										"type":"string"
+									},
+									"query":{
+										"title":"query",
+										"type":"string"
+									},
+									"sourceField":{
+										"title":"Source Field",
+										"type":"string"
+									},
+									"startOffset":{
+										"title":"startOffset",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"chunks",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"metadata",
+							"type":"object"
+						},
+						"text":{
+							"title":"Text",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def srcText = (binding.hasVariable(\"text\") && text != null) ? text.toString() : \"\"\ndef meta    = binding.hasVariable(\"metadata\") ? metadata : null\n\nint MAX_CHUNK = 400\nint MIN_CHUNK = 100\n\ndef out = []\nint chunkNum = 0\n\ndef splitField   // declare so closure can recurse safely if needed\nsplitField = { String fieldName, String fieldText ->\n    if (!fieldText) return\n    int n = fieldText.length()\n\n    if (n <= MAX_CHUNK) {\n        out << [chunkId: \"c${chunkNum}\".toString(), query: fieldText, startOffset: 0, sourceField: fieldName]\n        chunkNum++\n        return\n    }\n\n    int idx = 0\n    while (idx < n) {\n        int target = Math.min(idx + MAX_CHUNK, n)\n        int end = target\n\n        if (target < n) {\n            int searchFrom = idx + MIN_CHUNK\n            int best = -1\n\n            // 1) paragraph break\n            for (int i = target; i >= searchFrom; i--) {\n                if (fieldText.charAt(i) == (char)'\\n') { best = i + 1; break }\n            }\n            // 2) sentence break (. ! ? + space)\n            if (best < 0) {\n                for (int i = target; i >= searchFrom; i--) {\n                    char c = fieldText.charAt(i)\n                    if ((c == (char)'.' || c == (char)'!' || c == (char)'?') &&\n                        (i + 1 < n) && fieldText.charAt(i + 1) == (char)' ') {\n                        best = i + 1; break\n                    }\n                }\n            }\n            // 3) word break\n            if (best < 0) {\n                for (int i = target; i >= searchFrom; i--) {\n                    if (fieldText.charAt(i) == (char)' ') { best = i + 1; break }\n                }\n            }\n            if (best > 0) end = best\n        }\n        if (end <= idx) end = Math.min(idx + MAX_CHUNK, n)\n\n        out << [\n            chunkId    : \"c${chunkNum}\".toString(),\n            query      : fieldText.substring(idx, end),\n            startOffset: idx,\n            sourceField: fieldName\n        ]\n        chunkNum++\n        idx = end\n    }\n}\n\n// 1) top-level text\nsplitField(\"text\", srcText)\n\n// 2) metadata fields\nif (meta instanceof Map) {\n    if (meta.contentForGeneration) splitField(\"contentForGeneration\", meta.contentForGeneration.toString())\n    if (meta.rawText)              splitField(\"rawText\",              meta.rawText.toString())\n}\n\nreturn [chunks: out]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"metadata":"{{ n_2C8Vf.outputs.metadata }}",
+					"text":"{{ n_2C8Vf.outputs.text }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"textSplitter",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":627,
+				"resourceName":"custom_http_endpoint_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_8lUyx-1",
+			"id":"_JrfMk",
+			"index":3,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"body":{
+					"payloads":{
+						"items":{
+							"config":{
+								"labels_list":[
+									"person",
+									"email address",
+									"phone number",
+									"organization",
+									"address",
+									"passport number",
+									"credit card number",
+									"social security number",
+									"health insurance id number",
+									"date of birth",
+									"mobile phone number",
+									"bank account number",
+									"medication",
+									"cpf",
+									"driver's license number",
+									"tax identification number",
+									"medical condition",
+									"identity card number",
+									"national id number",
+									"ip address",
+									"iban",
+									"credit card expiration date",
+									"username",
+									"health insurance number",
+									"registration number",
+									"student id number",
+									"insurance number",
+									"flight number",
+									"landline phone number",
+									"blood type",
+									"cvv",
+									"reservation number",
+									"digital signature",
+									"social media handle",
+									"license plate number",
+									"cnpj",
+									"postal code",
+									"passport_number",
+									"serial number",
+									"vehicle registration number",
+									"credit card brand",
+									"fax number",
+									"visa number",
+									"insurance company",
+									"identity document number",
+									"transaction number",
+									"national health insurance number",
+									"cvc",
+									"birth certificate number",
+									"train ticket number",
+									"passport expiration date",
+									"social_security_number",
+									"imei number",
+									"ipv4 address",
+									"ipv6 address",
+									"pin code"
+								],
+								"threshold":0.5
+							},
+							"payloadId":"{{ n_cceoB.outputs.result.chunks[0].chunkId }}",
+							"query":"{{ n_cceoB.outputs.result.chunks[0].query }}"
+						},
+						"source":"{{ n_cceoB.outputs.result.chunks }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"httpMethod":"POST",
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/api/v2/gliner",
+				"responseSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"results":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"payloadId":{
+										"title":"payloadId",
+										"type":"string"
+									},
+									"payloadTags":{
+										"title":"payloadTags",
+										"type":"object"
+									},
+									"predictions":{
+										"additionalProperties":false,
+										"properties":{
+											"keywords":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"end":{
+															"title":"end",
+															"type":"integer"
+														},
+														"keyword":{
+															"title":"keyword",
+															"type":"string"
+														},
+														"label":{
+															"title":"label",
+															"type":"string"
+														},
+														"score":{
+															"title":"score",
+															"type":"number"
+														},
+														"start":{
+															"title":"start",
+															"type":"integer"
+														}
+													},
+													"type":"object"
+												},
+												"title":"keywords",
+												"type":"array"
+											}
+										},
+										"title":"predictions",
+										"type":"object"
+									}
+								},
+								"type":"object"
+							},
+							"title":"results",
+							"type":"array"
+						},
+						"status":{
+							"title":"status",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"baseUrl":"http://ai-gliner-pii-multi-global-svc:80",
+				"httpVersion":"HTTP_2",
+				"bodySchema":{
+					"additionalProperties":false,
+					"properties":{
+						"payloads":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"config":{
+										"additionalProperties":false,
+										"properties":{
+											"labels_list":{
+												"items":{
+													"type":"string"
+												},
+												"title":"labels_list",
+												"type":"array"
+											},
+											"threshold":{
+												"title":"threshold",
+												"type":"number"
+											}
+										},
+										"title":"config",
+										"type":"object"
+									},
+									"payloadId":{
+										"title":"payloadId",
+										"type":"string"
+									},
+									"payloadTags":{
+										"additionalProperties":false,
+										"properties":{
+											"index":{
+												"title":"Index",
+												"type":"integer"
+											},
+											"order":{
+												"title":"Order",
+												"type":"integer"
+											},
+											"text":{
+												"title":"Text",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"title":"Payload Tags",
+										"type":"object"
+									},
+									"query":{
+										"title":"query",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"payloads",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"responseContentType":"application/json",
+				"followRedirects":"NORMAL",
+				"authType":"CUSTOM",
+				"ignoreTrailingSlashes":false,
+				"requestContentType":"application/json",
+				"certificateType":"CERT_STRING"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":1.5,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":1000,
+					"maxDelay":3000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute REST request",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.current_map.items",
+					"root.parameters.gliner_response.items",
+					"root.parameters.chunks.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8lUyx-1",
+			"id":"n_2Y72V",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"masked_text":{
+							"title":"masked_text",
+							"type":"string"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"metadata",
+							"type":"object"
+						},
+						"proceed":{
+							"title":"proceed",
+							"type":"boolean"
+						},
+						"redactions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"originalWord":{
+										"title":"originalWord",
+										"type":"string"
+									},
+									"redactedWord":{
+										"title":"redactedWord",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Redactions",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"chunks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"chunks",
+							"type":"array"
+						},
+						"current_map":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"current_map",
+							"type":"array"
+						},
+						"gliner_response":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"gliner_response",
+							"type":"array"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"metadata",
+							"type":"object"
+						},
+						"text":{
+							"title":"text",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def srcText    = (binding.hasVariable(\"text\") && text != null) ? text.toString() : \"\"\ndef glinerResp = binding.hasVariable(\"gliner_response\") ? gliner_response : null\ndef currentMap = (binding.hasVariable(\"current_map\") && current_map != null) ? current_map : []\ndef chunkList  = (binding.hasVariable(\"chunks\") && chunks != null) ? chunks : []\ndef meta       = binding.hasVariable(\"metadata\") ? metadata : null\n\ndef starsFor = { String s -> \"*\" * (s?.length() ?: 0) }\n\n// ---------- assemble the source texts we need to mask ----------\ndef sourceTexts = [:]\nsourceTexts[\"text\"] = srcText\nif (meta instanceof Map) {\n    if (meta.contentForGeneration) sourceTexts[\"contentForGeneration\"] = meta.contentForGeneration.toString()\n    if (meta.rawText)              sourceTexts[\"rawText\"]              = meta.rawText.toString()\n}\n\n// ---------- chunkId -> {startOffset, sourceField} ----------\ndef chunkInfo = [:]\nchunkList.each { c ->\n    if (c instanceof Map && c.chunkId) {\n        chunkInfo[c.chunkId.toString()] = [\n            startOffset: (c.startOffset ?: 0) as int,\n            sourceField: (c.sourceField ?: \"text\").toString()\n        ]\n    }\n}\n\n// ---------- Phase 1: group GLiNER detections by source field ----------\ndef detectionsByField = [:]\nsourceTexts.keySet().each { detectionsByField[it] = [] }\n\nif (glinerResp instanceof List) {\n    glinerResp.each { resultItem ->\n        if (!(resultItem instanceof Map)) return\n        def pid  = resultItem.payloadId?.toString()\n        def info = chunkInfo[pid]\n        if (!info) return\n        int offset    = info.startOffset as int\n        String field  = info.sourceField as String\n        def fieldText = sourceTexts[field] ?: \"\"\n        int fieldLen  = fieldText.length()\n\n        def kws = (resultItem?.predictions?.keywords instanceof List) ? resultItem.predictions.keywords : []\n        kws.each { kw ->\n            if (!(kw instanceof Map)) return\n            int rs = (kw.start ?: 0) as int\n            int re = (kw.end   ?: 0) as int\n            if (rs < 0 || re <= rs) return\n            int absS = offset + rs\n            int absE = offset + re\n            if (absS < 0 || absE > fieldLen) return\n            def score = 0.0 as BigDecimal\n            try { score = (kw.score != null) ? (kw.score as BigDecimal) : (0.0 as BigDecimal) } catch (ignored) {}\n            (detectionsByField[field] as List) << [\n                start: absS, end: absE, score: score, text: fieldText.substring(absS, absE)\n            ]\n        }\n    }\n}\n\n// ---------- Phase 2: build the universe of known PII (currentMap + all detections everywhere) ----------\ndef fullRedactions  = []\ndef knownOrigsLower = new HashSet()\n(currentMap ?: []).each { entry ->\n    if (!(entry instanceof Map)) return\n    def orig = entry.originalWord?.toString()\n    if (!orig) return\n    fullRedactions << [\n        originalWord: orig,\n        redactedWord: (entry.redactedWord?.toString() ?: starsFor(orig))\n    ]\n    knownOrigsLower << orig.toLowerCase()\n}\ndetectionsByField.values().each { dets ->\n    dets.each { d ->\n        def origText  = d.text.toString()\n        def origLower = origText.toLowerCase()\n        if (!knownOrigsLower.contains(origLower)) {\n            fullRedactions << [originalWord: origText, redactedWord: starsFor(origText)]\n            knownOrigsLower << origLower\n        }\n    }\n}\n\n// ---------- Phase 3: mask each field independently ----------\ndef maskOneField = { String original, List dets ->\n    if (!original) return original\n    def detections = (dets ?: []).collect { it }\n\n    // pre-scan: any known PII string also gets caught here, even if GLiNER missed it in this field\n    def lowerText = original.toLowerCase()\n    knownOrigsLower.each { origLower ->\n        if (!origLower) return\n        int from = 0\n        while (true) {\n            int idx = lowerText.indexOf(origLower, from)\n            if (idx < 0) break\n            int endIdx = idx + origLower.length()\n            def overlap = detections.find { d -> !(endIdx <= (d.start as int) || idx >= (d.end as int)) }\n            if (overlap == null) {\n                detections << [\n                    start: idx,\n                    end  : endIdx,\n                    score: 1.0 as BigDecimal,\n                    text : original.substring(idx, endIdx)\n                ]\n            }\n            from = endIdx\n        }\n    }\n\n    // resolve overlaps (keep higher score)\n    detections = detections.sort { it.start as int }\n    def kept = []\n    detections.each { d ->\n        def conflict = kept.find { k -> !((d.end as int) <= (k.start as int) || (d.start as int) >= (k.end as int)) }\n        if (conflict == null) {\n            kept << d\n        } else if ((d.score as BigDecimal) > (conflict.score as BigDecimal)) {\n            kept.remove(conflict)\n            kept << d\n        }\n    }\n\n    // apply replacements (sort start DESC)\n    def result = original\n    kept.sort { -((it.start as int)) }.each { d ->\n        int s = d.start as int\n        int e = d.end as int\n        if (s >= 0 && e <= result.length() && e >= s) {\n            result = result.substring(0, s) + (\"*\" * (e - s)) + result.substring(e)\n        }\n    }\n    return result\n}\n\ndef maskedResults = [:]\nsourceTexts.each { field, txt ->\n    maskedResults[field] = maskOneField(txt, detectionsByField[field])\n}\n\n// ---------- build updated metadata ----------\ndef updatedMeta = meta\nif (meta instanceof Map) {\n    updatedMeta = new LinkedHashMap(meta)\n    if (maskedResults.containsKey(\"contentForGeneration\")) {\n        updatedMeta.contentForGeneration = maskedResults[\"contentForGeneration\"]\n    }\n    if (maskedResults.containsKey(\"rawText\")) {\n        updatedMeta.rawText = maskedResults[\"rawText\"]\n    }\n}\n\nreturn [\n    masked_text: maskedResults[\"text\"] ?: srcText,\n    redactions : fullRedactions,\n    proceed    : true,\n    metadata   : updatedMeta\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"chunks":{
+						"items":"{{ n_cceoB.outputs.result.chunks[0] }}",
+						"source":"{{ n_cceoB.outputs.result.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"current_map":{
+						"items":"{{ n_2C8Vf.outputs.currentRedactionMap[0] }}",
+						"source":"{{ n_2C8Vf.outputs.currentRedactionMap }}",
+						"ua:type":"mappedArray"
+					},
+					"gliner_response":{
+						"items":"{{ _JrfMk.outputs.result.results[0] }}",
+						"source":"{{ _JrfMk.outputs.result.results }}",
+						"ua:type":"mappedArray"
+					},
+					"metadata":"{{ n_2C8Vf.outputs.metadata }}",
+					"text":"{{ n_2C8Vf.outputs.text }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":852,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8lUyx-1",
+			"id":"n_SRgwu",
+			"index":5,
+			"inputs":{
+				"result":{
+					"metadata":"{{ n_2Y72V.outputs.result.metadata }}",
+					"proceed":true,
+					"text":"{{ n_2Y72V.outputs.result.masked_text }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":9
+}
