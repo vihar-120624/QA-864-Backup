@@ -1,0 +1,512 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743835425,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743835485,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece5b9d7c534668ef8f46",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":18
+	},
+	"edges":[
+		{
+			"fromNodeId":"NVLFE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DS4VJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DS4VJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S00Jo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S00Jo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sGa6x",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sGa6x",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"KP9cp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"KP9cp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2E84s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2E84s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"cKuWx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"cKuWx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"L2sH0",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"681c81e891321b2f5fc0983c",
+	"lastModifiedBy":-1,
+	"lcName":"publish tool app block",
+	"modifiedTime":1788252973251,
+	"name":"Publish Tool App Block",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"NVLFE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"iconId":{
+							"title":"Icon Id",
+							"type":"string"
+						},
+						"toolName":{
+							"title":"Tool Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":453,
+				"resourceName":"standard_entities_lookup_entities",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"n_DS4VJ",
+			"index":2,
+			"inputs":{
+				"keys":[
+					"Executing"
+				],
+				"lookupType":"ENTITY_ID:e_translations",
+				"type":"ByKeys"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"Executing_{{ __USER__.outputs.locale }}",
+					"enabled":true,
+					"timeToLive":"60",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Lookup Request",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":452,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"n_S00Jo",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"translatedText":{
+							"title":"Translated Text",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if (!binding.hasVariable('response')) {\n  response = [:]\n}\n\n\ndef translatedText = response?.objects?.Executing?.properties?.label\n\nif (translatedText == null || translatedText == \"\") {\n    translatedText = \"Executing\"\n}\n\n\nreturn [translatedText : translatedText]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"response":"{{ n_DS4VJ.outputs.response }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":685,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"n_sGa6x",
+			"index":4,
+			"inputs":{
+				"object_type":"service_hub_case",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ NVLFE.outputs.caseId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.citations.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":119,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"KP9cp",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"coPilotBlocks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Co Pilot Blocks",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"iconId":{
+							"title":"Icon Id",
+							"type":"string"
+						},
+						"toolName":{
+							"title":"Tool Name",
+							"type":"string"
+						},
+						"translatedText":{
+							"title":"Translated Text",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"\ndef coPilotBlocks = []\n\ndef toolBlock = [\n    \"blockType\": \"Typography\",\n    \"data\": [\n        \"text\": translatedText\n    ],\n    \"appearance\": [\n        \"variant\": \"text-xs\",\n        \"color\": \"text-quaternary\",\n        \"styles\": [\n                \"margin\": [\n                    \"t\": \"mt-xs\"\n                ]\n            ]\n    ]\n]\n\ncoPilotBlocks.add(toolBlock)\ncoPilotBlocks.add([\n    \"blockType\": \"Citation\",\n    \"data\": [\n        \"citations\": [\n            [\n                \"appName\": appName,\n                \"name\": toolName,\n                \"icon\":binding.hasVariable(\"iconId\")?iconId:\"\"\n            ]\n        ]\n    ]\n])\n\n\nreturn [\"coPilotBlocks\": coPilotBlocks]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"appName":"{{ NVLFE.outputs.appName }}",
+					"iconId":"{{ NVLFE.outputs.iconId }}",
+					"toolName":"{{ NVLFE.outputs.toolName }}",
+					"translatedText":"{{ n_S00Jo.outputs.result.translatedText }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":577,
+				"resourceName":"variable_by_unifyapps_set_session_variable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"n_2E84s",
+			"index":6,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"messageSubType":{
+							"title":"Message Sub Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"messageSubType":"FIXED_SYSTEM_THOUGHT"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"messageSubType":{
+							"title":"Message Sub Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Set Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"conv_ai_by_unifyapps",
+				"resourceVersion":108,
+				"resourceName":"conv_ai_by_unifyapps_publish_response",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"cKuWx",
+			"index":7,
+			"inputs":{
+				"callableInterfaceId":"__ua__publish_response_interface",
+				"defaultFallbackWorkflowId":"66fbed229edc4e0b6303cefd",
+				"parameters":{
+					"async":false,
+					"caseId":"{{ NVLFE.outputs.caseId  }}",
+					"coPilotBlocks":{
+						"items":"{{ KP9cp.outputs.result.coPilotBlocks[0] }}",
+						"source":"{{ KP9cp.outputs.result.coPilotBlocks }}",
+						"ua:type":"mappedArray"
+					},
+					"publishToEndUser":true,
+					"responses":[
+						{
+							"language":"en"
+						}
+					],
+					"temporaryMessage":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Conversation AI by UnifyApps",
+			"title":"Publish Response",
+			"type":"CALL_INTERFACE_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"4ZR9C-1",
+			"id":"L2sH0",
+			"index":8,
+			"inputs":{
+				"result":{
+					"messageId":"{{ cKuWx.outputs.messageId }}",
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":20
+}
