@@ -1,0 +1,601 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744045575,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744045800,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf2dcee862008d74d04a",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":31
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_A3rxS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FeUgW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FeUgW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_5iPjK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_5iPjK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YDCpl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YDCpl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pub4M",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pub4M",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"fuLyt",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"fuLyt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_POMRK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pub4M",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_POMRK",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a1c5d3bc9286e386686221f",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | onedrive | folder",
+	"modifiedTime":1788252972492,
+	"name":"Knowledge Indexer | Onedrive | Folder",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":744,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QCo7N-1",
+			"id":"n_A3rxS",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"686e0f90c92a3538c991f984",
+				"setup":{
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"integer"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						},
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"uniqueEntityId"
+					],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QCo7N-1",
+			"id":"n_FeUgW",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"author":{
+							"title":"author",
+							"type":"string"
+						},
+						"authorEmail":{
+							"title":"authorEmail",
+							"type":"string"
+						},
+						"createdBy":{
+							"title":"Created By",
+							"type":"string"
+						},
+						"createdByEmail":{
+							"title":"Created By Email",
+							"type":"string"
+						},
+						"createdTime":{
+							"title":"Created Time",
+							"type":"string"
+						},
+						"folder":{
+							"title":"Folder",
+							"type":"string"
+						},
+						"folderDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Folder Details",
+							"type":"object"
+						},
+						"modifiedBy":{
+							"title":"Modified By",
+							"type":"string"
+						},
+						"modifiedByEmail":{
+							"title":"Modified By Email",
+							"type":"string"
+						},
+						"modifiedTime":{
+							"title":"modifiedTime",
+							"type":"string"
+						},
+						"name":{
+							"title":"name",
+							"type":"string"
+						},
+						"parentName":{
+							"title":"Parent Name",
+							"type":"string"
+						},
+						"parentPath":{
+							"title":"Parent Path",
+							"type":"string"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						},
+						"size":{
+							"title":"size",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return sourceResponse",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"sourceResponse":"{{ n_A3rxS.outputs.sourceResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Input extracting",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QCo7N-1",
+			"id":"_5iPjK",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"author":{
+							"title":"Author",
+							"type":"string"
+						},
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						},
+						"childCount":{
+							"title":"Child Count",
+							"type":"integer"
+						},
+						"createdBy":{
+							"title":"Created By",
+							"type":"string"
+						},
+						"createdByEmail":{
+							"title":"Created By Email",
+							"type":"string"
+						},
+						"creationDateTime":{
+							"title":"Creation Date Time",
+							"type":"string"
+						},
+						"editCount":{
+							"title":"Edit Count",
+							"type":"integer"
+						},
+						"folder":{
+							"title":"Folder",
+							"type":"string"
+						},
+						"mimeType":{
+							"title":"Mime Type",
+							"type":"string"
+						},
+						"modifiedBy":{
+							"title":"Modified By",
+							"type":"string"
+						},
+						"modifiedByEmail":{
+							"title":"Modified By Email",
+							"type":"string"
+						},
+						"modifiedTime":{
+							"title":"Modified Time",
+							"type":"string"
+						},
+						"name":{
+							"title":"Name",
+							"type":"string"
+						},
+						"parentName":{
+							"title":"Parent Name",
+							"type":"string"
+						},
+						"parentPath":{
+							"title":"Parent Path",
+							"type":"string"
+						},
+						"previewCount":{
+							"title":"Preview Count",
+							"type":"integer"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"size":{
+							"title":"Size",
+							"type":"string"
+						},
+						"viewCount":{
+							"title":"Access Count",
+							"type":"integer"
+						},
+						"webViewLink":{
+							"title":"Web View Link",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('name') && name ? [\"title\": name] : [:])\nchunkMetadata << (binding.hasVariable('name') && name ? [\"name\": name] : [:])\nchunkMetadata << (binding.hasVariable('webViewLink') && webViewLink ? [\"referenceUrl\": webViewLink] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << [\"appName\" : \"microsoft_onedrive\"]\nchunkMetadata << (binding.hasVariable('folder') && folder ? [\"folderName\": folder] : [:])\nchunkMetadata << (binding.hasVariable('author') && author ? [\"author\": author] : [:])\nchunkMetadata << (binding.hasVariable('creationDateTime') && creationDateTime ? [\"createdAt\": creationDateTime] : [:])\nchunkMetadata << (binding.hasVariable('modifiedTime') && modifiedTime ? [\"modifiedAt\": modifiedTime] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\nchunkMetadata << (binding.hasVariable('parentName') && parentName ? [\"parentName\": parentName] : [:])\nchunkMetadata << (binding.hasVariable('parentPath') && parentPath ? [\"parentPath\": parentPath] : [:])\nchunkMetadata << [\"resourceType\" : \"folder\"]\nchunkMetadata << [\"childCount\" : (binding.hasVariable('childCount') && childCount) ? childCount : 0]\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
+				"compile_static":false,
+				"isAsync":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"author":"{{ n_FeUgW.outputs.result.author }}",
+					"authorEmail":"{{ n_FeUgW.outputs.result.authorEmail }}",
+					"childCount":"{{ n_A3rxS.outputs.metadata.childCount }}",
+					"createdBy":"{{ n_A3rxS.outputs.metadata.createdBy }}",
+					"createdByEmail":"{{ n_A3rxS.outputs.metadata.createdByEmail }}",
+					"creationDateTime":"{{ n_FeUgW.outputs.result.createdTime }}",
+					"editCount":"{{ n_A3rxS.outputs.metadata.editCount }}",
+					"folder":"{{ n_A3rxS.outputs.metadata.folderName }}",
+					"mimeType":"{{ n_FeUgW.outputs.result.mimeType }}",
+					"modifiedBy":"{{ n_A3rxS.outputs.metadata.modifiedBy }}",
+					"modifiedByEmail":"{{ n_A3rxS.outputs.metadata.modifiedByEmail }}",
+					"modifiedTime":"{{ n_FeUgW.outputs.result.modifiedTime }}",
+					"name":"{{ n_FeUgW.outputs.result.name }}",
+					"parentName":"{{ n_A3rxS.outputs.metadata.parentName }}",
+					"parentPath":"{{ n_A3rxS.outputs.metadata.parentPath }}",
+					"previewCount":"{{ n_A3rxS.outputs.metadata.previewCount }}",
+					"size":"{{ n_FeUgW.outputs.result.size }}",
+					"viewCount":"{{ n_A3rxS.outputs.metadata.viewCount }}",
+					"webViewLink":"{{ n_FeUgW.outputs.result.referenceUrl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Create chunk metadata",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QCo7N-1",
+			"id":"n_YDCpl",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"text":{
+										"title":"Text",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Chunks",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def metadata = binding.hasVariable('metadata') ? metadata : [:]\n\ndef name = metadata.name ?: metadata.title ?: 'Unknown'\ndef folder = metadata.folderName ?: metadata.parentName ?: 'Unknown'\ndef createdBy = metadata.createdBy ?: 'Unknown'\ndef createdByEmail = metadata.createdByEmail ?: ''\ndef modifiedBy = metadata.modifiedBy ?: 'Unknown'\ndef modifiedByEmail = metadata.modifiedByEmail ?: ''\ndef webViewLink = metadata.referenceUrl ?: metadata.webViewLink ?: 'N/A'\ndef resourceType = metadata.resourceType ?: 'item'\ndef appName = metadata.appName ?: 'Unknown'\n\ndef formatDate = { ts ->\n    try {\n        long millis = (ts instanceof Number) ? ts.longValue() : Long.parseLong(ts.toString())\n        new Date(millis).format(\"MMM dd, yyyy 'at' hh:mm a\", TimeZone.getTimeZone('UTC'))\n    } catch (Exception e) {\n        'Unknown'\n    }\n}\n\ndef createdAt = metadata.createdAt ? formatDate(metadata.createdAt) : 'Unknown'\ndef modifiedAt = metadata.modifiedAt ? formatDate(metadata.modifiedAt) : 'Unknown'\n\ndef sizeKB = metadata.size ? \"${(metadata.size / 1024).round(1)} KB\" : null\n\ndef text = \"\\\"${name}\\\" is a ${resourceType} located in the \\\"${folder}\\\" folder (source: ${appName}).\" +\n    \"\\n\\nIt was created by ${createdBy} (${createdByEmail}) on ${createdAt}, and last modified by ${modifiedBy} (${modifiedByEmail}) on ${modifiedAt}.\" +\n    \"\\n\\nIt contains ${metadata.childCount ?: 0} item(s)${sizeKB ? \", has a size of ${sizeKB},\" : \"\"} and can be accessed at: ${webViewLink}\"\n\ndef chunks = [\n    [text: text.toString()]\n]\n\nreturn [\"chunks\": chunks]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"metadata":"{{ _5iPjK.outputs.result.chunkMetadata }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":439,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QCo7N-1",
+			"id":"n_pub4M",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_YDCpl.outputs.result.chunks }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pub4M@_QCo7N-1@y",
+			"id":"fuLyt",
+			"index":6,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ n_FeUgW.outputs.result.author }}",
+					"chunkMetadata":"{{ _5iPjK.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"chunkMetadata":"{{ _5iPjK.outputs.result.chunkMetadata }}",
+							"data":"{{ n_YDCpl.outputs.result.chunks[0].text }}",
+							"sharedWithIds":{
+								"items":"{{ n_A3rxS.outputs.sharedWithIds[0] }}",
+								"source":"{{ n_A3rxS.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_YDCpl.outputs.result.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_A3rxS.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ n_A3rxS.outputs.knowledgeVersion }}",
+					"uniqueEntityId":"{{ n_A3rxS.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Indexer With RBAC",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QCo7N-1",
+			"id":"n_POMRK",
+			"index":7,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":33
+}
