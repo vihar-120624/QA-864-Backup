@@ -1,0 +1,2094 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743891616,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743892248,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece949d7c534668efa0cd",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":101
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_start",
+			"id":"next@n_start@n_window",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_window",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_window",
+			"id":"next@n_window@n_Ys3Ev",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ys3Ev",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev",
+			"id":"branch@n_Ys3Ev@n_Ys3Ev@1",
+			"name":"1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ys3Ev@1",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev@1",
+			"id":"next@n_Ys3Ev@1@n_kpiSqlBuild",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kpiSqlBuild",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kpiSqlBuild",
+			"id":"next@n_kpiSqlBuild@n_kpiSql",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kpiSql",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kpiSql",
+			"id":"next@n_kpiSql@n_kpiAssemble",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kpiAssemble",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev",
+			"id":"branch@n_Ys3Ev@n_Ys3Ev@2",
+			"name":"2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ys3Ev@2",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev@2",
+			"id":"next@n_Ys3Ev@2@n_graphSqlBuild",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_graphSqlBuild",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_graphSqlBuild",
+			"id":"next@n_graphSqlBuild@n_graphSql",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_graphSql",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_graphSql",
+			"id":"next@n_graphSql@n_graphAssemble",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_graphAssemble",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev",
+			"id":"branch@n_Ys3Ev@n_Ys3Ev@3",
+			"name":"3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ys3Ev@3",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev@3",
+			"id":"next@n_Ys3Ev@3@n_sqlBuild",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sqlBuild",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sqlBuild",
+			"id":"next@n_sqlBuild@n_agentSql",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_agentSql",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_agentSql",
+			"id":"next@n_agentSql@n_tableAssemble",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tableAssemble",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kpiAssemble",
+			"id":"next@n_kpiAssemble@n_stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_stop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_graphAssemble",
+			"id":"next@n_graphAssemble@n_stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_stop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tableAssemble",
+			"id":"next@n_tableAssemble@n_stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_stop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ys3Ev",
+			"id":"branch@n_Ys3Ev@n_stop",
+			"name":"default",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_stop",
+			"type":"branch"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a7f0397bf5ed320097fc920",
+	"lastModifiedBy":-1,
+	"lcName":"cost explorer kpis",
+	"modifiedTime":1788252971701,
+	"name":"Cost Explorer KPIs",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":572,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_start",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"agentBreakdown":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"agentCount":{
+										"title":"agentCount",
+										"type":"integer"
+									},
+									"agentId":{
+										"title":"agentId",
+										"type":"string"
+									},
+									"agentName":{
+										"title":"agentName",
+										"type":"string"
+									},
+									"children":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"agentCount":{
+													"title":"agentCount",
+													"type":"integer"
+												},
+												"agentId":{
+													"title":"agentId",
+													"type":"string"
+												},
+												"agentName":{
+													"title":"agentName",
+													"type":"string"
+												},
+												"costType":{
+													"title":"Cost Type",
+													"type":"string"
+												},
+												"eval":{
+													"title":"eval",
+													"type":"number"
+												},
+												"evalChange":{
+													"title":"evalChange",
+													"type":"number"
+												},
+												"governance":{
+													"title":"governance",
+													"type":"number"
+												},
+												"governanceChange":{
+													"title":"governanceChange",
+													"type":"number"
+												},
+												"llm":{
+													"title":"llm",
+													"type":"number"
+												},
+												"llmChange":{
+													"title":"llmChange",
+													"type":"number"
+												},
+												"owner":{
+													"title":"owner",
+													"type":"string"
+												},
+												"ownerId":{
+													"title":"ownerId",
+													"type":"string"
+												},
+												"perDay":{
+													"title":"perDay",
+													"type":"number"
+												},
+												"percentageChange":{
+													"title":"percentageChange",
+													"type":"number"
+												},
+												"platform":{
+													"title":"Platform",
+													"type":"string"
+												},
+												"share":{
+													"title":"share",
+													"type":"number"
+												},
+												"spans":{
+													"title":"spans",
+													"type":"integer"
+												},
+												"team":{
+													"title":"team",
+													"type":"string"
+												},
+												"tools":{
+													"title":"tools",
+													"type":"number"
+												},
+												"toolsChange":{
+													"title":"toolsChange",
+													"type":"number"
+												},
+												"totalSpend":{
+													"title":"totalSpend",
+													"type":"number"
+												},
+												"traces":{
+													"title":"traces",
+													"type":"integer"
+												},
+												"tracesChange":{
+													"title":"tracesChange",
+													"type":"number"
+												},
+												"unattributed":{
+													"title":"unattributed",
+													"type":"number"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"children",
+										"type":"array"
+									},
+									"costType":{
+										"title":"Cost Type",
+										"type":"string"
+									},
+									"eval":{
+										"title":"eval",
+										"type":"number"
+									},
+									"evalChange":{
+										"title":"evalChange",
+										"type":"number"
+									},
+									"governance":{
+										"title":"governance",
+										"type":"number"
+									},
+									"governanceChange":{
+										"title":"governanceChange",
+										"type":"number"
+									},
+									"llm":{
+										"title":"llm",
+										"type":"number"
+									},
+									"llmChange":{
+										"title":"llmChange",
+										"type":"number"
+									},
+									"owner":{
+										"title":"owner",
+										"type":"string"
+									},
+									"ownerId":{
+										"title":"ownerId",
+										"type":"string"
+									},
+									"perDay":{
+										"title":"perDay",
+										"type":"number"
+									},
+									"percentageChange":{
+										"title":"percentageChange",
+										"type":"number"
+									},
+									"platform":{
+										"title":"Platform",
+										"type":"string"
+									},
+									"share":{
+										"title":"share",
+										"type":"number"
+									},
+									"spans":{
+										"title":"spans",
+										"type":"integer"
+									},
+									"team":{
+										"title":"team",
+										"type":"string"
+									},
+									"tools":{
+										"title":"tools",
+										"type":"number"
+									},
+									"toolsChange":{
+										"title":"toolsChange",
+										"type":"number"
+									},
+									"totalSpend":{
+										"title":"totalSpend",
+										"type":"number"
+									},
+									"traces":{
+										"title":"traces",
+										"type":"integer"
+									},
+									"tracesChange":{
+										"title":"tracesChange",
+										"type":"number"
+									},
+									"unattributed":{
+										"title":"unattributed",
+										"type":"number"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"agentBreakdown",
+							"type":"array"
+						},
+						"dailySpendRate":{
+							"additionalProperties":false,
+							"properties":{
+								"currentValue":{
+									"title":"currentValue",
+									"type":"number"
+								},
+								"percentageChange":{
+									"title":"percentageChange",
+									"type":"number"
+								}
+							},
+							"title":"dailySpendRate",
+							"type":"object"
+						},
+						"dailySpendTrend":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"cumulativeCost":{
+										"title":"cumulativeCost",
+										"type":"number"
+									},
+									"dayCost":{
+										"title":"dayCost",
+										"type":"number"
+									},
+									"timestamp":{
+										"title":"timestamp",
+										"type":"integer"
+									}
+								},
+								"type":"object"
+							},
+							"title":"dailySpendTrend",
+							"type":"array"
+						},
+						"projected":{
+							"additionalProperties":false,
+							"properties":{
+								"basis":{
+									"title":"basis",
+									"type":"string"
+								},
+								"currentValue":{
+									"title":"currentValue",
+									"type":"number"
+								}
+							},
+							"title":"projected",
+							"type":"object"
+						},
+						"spendPerTrace":{
+							"additionalProperties":false,
+							"properties":{
+								"currentValue":{
+									"title":"currentValue",
+									"type":"number"
+								},
+								"percentageChange":{
+									"title":"percentageChange",
+									"type":"number"
+								}
+							},
+							"title":"spendPerTrace",
+							"type":"object"
+						},
+						"totalCount":{
+							"title":"Total Count",
+							"type":"integer"
+						},
+						"totalSpend":{
+							"additionalProperties":false,
+							"properties":{
+								"currentValue":{
+									"title":"currentValue",
+									"type":"number"
+								},
+								"percentageChange":{
+									"title":"percentageChange",
+									"type":"number"
+								}
+							},
+							"title":"totalSpend",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"endDate":{
+							"title":"End Date",
+							"type":"integer"
+						},
+						"filter":{
+							"additionalProperties":true,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"groupBy":{
+							"title":"Group By",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"sortBy":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Sort By",
+							"type":"array"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_window",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"daysElapsed":{
+							"title":"Days Elapsed",
+							"type":"integer"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"periodTotalDays":{
+							"title":"Period Total Days",
+							"type":"integer"
+						},
+						"prevEndTime":{
+							"title":"Prev End Time",
+							"type":"integer"
+						},
+						"prevStartTime":{
+							"title":"Prev Start Time",
+							"type":"integer"
+						},
+						"projectionBasis":{
+							"title":"Projection Basis",
+							"type":"string"
+						},
+						"region":{
+							"title":"Region",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"since":{
+							"title":"Since",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						},
+						"until":{
+							"title":"Until",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import groovy.time.TimeCategory\nimport java.time.*\n\n// ---- resolve window [startTime, endTime] ----\ndef startTime\ndef endTime\n\nif (binding.hasVariable('until') && until != null) {\n    endTime = until\n} else {\n    endTime = new Date().time\n}\n\nif (binding.hasVariable('since') && since != null) {\n    startTime = since\n} else {\n    use(TimeCategory) {\n        startTime = (new Date(endTime) - 30.days).time\n    }\n}\n\n// ---- timezone helpers ----\n// Fallback when the caller sends no timeZone. IST for now: the date picker sends LOCAL\n// midnight, so bucketing on UTC would leave a 5.5 h stub as the first bar of every chart.\n// Change this one constant if the default should follow the tenant instead.\nfinal String DEFAULT_TIME_ZONE = '+05:30'\n\ndef offsetMinutes(timezone) {\n    if (!timezone) return 0\n    def m = timezone =~ /([+-])(\\d{2}):(\\d{2})/\n    if (!m.find()) return 0\n    def sign  = m.group(1) == '-' ? -1 : 1\n    def hours = m.group(2).toInteger()\n    def mins  = m.group(3).toInteger()\n    return sign * (hours * 60 + mins)\n}\n\ndef userTimeZone = binding.hasVariable('timeZone') && timeZone\n        ? timeZone.replace('GMT', '')\n        : DEFAULT_TIME_ZONE\n\ndef gmtToAnyRegion(String gmt) {\n    if (!gmt) return 'UTC'\n    def offset = gmt.replace('GMT', '')\n    ZoneOffset target = ZoneOffset.of(offset)\n    Instant now = Instant.now()\n    def zone = ZoneId.getAvailableZoneIds().find { id ->\n        ZoneId.of(id).rules.getOffset(now) == target\n    }\n    return zone ?: 'UTC'\n}\n\ndef region = gmtToAnyRegion(userTimeZone)\n\n// timezone offset in millis (e.g. GMT+05:30 -> 19800000)\nlong offsetMillis = (offsetMinutes(userTimeZone) as long) * 60000L\n\nlong millisInDay = 24 * 60 * 60 * 1000\nlong daysBetween = ((endTime - startTime) / millisInDay) as long\n\n// elapsed days in the window, used as the Daily Spend Rate divisor (min 1)\nlong daysElapsed = Math.max(1L, Math.round((double)(endTime - startTime) / millisInDay))\n\n// previous window: same span, ends where current window starts (drives % change)\nlong span      = endTime - startTime\nlong prevEnd   = startTime\nlong prevStart = startTime - span\n\n// ---- projection period: month if window <= a month, else the year ----\nZoneId projZone = ZoneId.of(region)\ndef endDateLocal = Instant.ofEpochMilli(endTime).atZone(projZone).toLocalDate()\nlong monthLen = endDateLocal.lengthOfMonth()\nlong yearLen  = endDateLocal.lengthOfYear()\nString projectionBasis = (daysElapsed <= monthLen) ? 'month' : 'year'\nlong periodTotalDays   = (projectionBasis == 'month') ? monthLen : yearLen\n\nreturn [\n    \"startTime\"       : startTime,\n    \"endTime\"         : endTime,\n    \"region\"          : region,\n    \"offsetMillis\"    : offsetMillis,\n    \"prevStartTime\"   : prevStart,\n    \"prevEndTime\"     : prevEnd,\n    \"limit\"           : daysBetween + 1,\n    \"daysElapsed\"     : daysElapsed,\n    \"projectionBasis\" : projectionBasis,\n    \"periodTotalDays\" : periodTotalDays\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"since":"{{ n_start.outputs.startDate }}",
+					"timeZone":"{{ n_start.outputs.timeZone }}",
+					"until":"{{ n_start.outputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Resolve window + elapsed days",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_Ys3Ev",
+			"index":3,
+			"inputs":{
+				"branches":[
+					{
+						"id":"1",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"1"
+										},
+										"property":"1"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"KPIs"
+						}
+					},
+					{
+						"id":"2",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"1"
+										},
+										"property":"1"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"Graph"
+						}
+					},
+					{
+						"id":"3",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"1"
+										},
+										"property":"1"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"Agent Breakdown"
+						}
+					},
+					{
+						"id":"default"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Branch",
+			"title":"",
+			"type":"BRANCH"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@1",
+			"id":"n_Ys3Ev@1",
+			"index":4,
+			"inputs":{
+				"name":"KPIs",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"1"
+							},
+							"property":"1"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"Branch 1",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@1",
+			"id":"n_kpiSqlBuild",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"assetMode":{
+							"title":"Asset Mode",
+							"type":"string"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"prevStartTime":{
+							"title":"Prev Start Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"long curStart  = (binding.hasVariable('startTime')     && startTime     != null) ? startTime     as Long : 0L\nlong curEnd    = (binding.hasVariable('endTime')       && endTime       != null) ? endTime       as Long : 0L\nlong prevStart = (binding.hasVariable('prevStartTime') && prevStartTime != null) ? prevStartTime as Long : 0L\nString mode    = (binding.hasVariable('assetMode') && assetMode) ? assetMode.toString() : 'agent'\n\nString assetPredicate = (mode == 'llm') ? \"s._pr_assetType = 'llm'\" : \"COALESCE(s._pr_assetType, '') <> 'llm'\"\n\n// EVENT time, not ingest time - MUST match n_sqlBuild and n_graphSqlBuild exactly.\n// _pr_startTime is already epoch millis; s.timestamp is only a fallback for rows without it,\n// which would otherwise vanish (every comparison against NULL yields NULL).\nString STS = \"COALESCE(s._pr_startTime, UNIX_TIMESTAMP(s.timestamp) * 1000)\"\n\nString sql = \"\"\"\nWITH per_trace AS (\n  SELECT s._pr_traceId AS traceId,\n         MIN($STS) AS traceStart,\n         SUM(CASE WHEN UPPER(COALESCE(s._pr_currentType,'')) NOT IN ('AGENT','EVAL') THEN COALESCE(s._pr_cost,0) ELSE 0 END) AS leafCost,\n         SUM(CASE WHEN UPPER(COALESCE(s._pr_currentType,'')) = 'AGENT' THEN COALESCE(s._pr_cost,0) ELSE 0 END) AS rollupCost\n  FROM ENTITY_e_spans s\n  WHERE $STS >= $prevStart\n    AND $STS <= $curEnd\n    AND $assetPredicate\n    AND s._pr_aiAgentId IS NOT NULL\n  GROUP BY s._pr_aiAgentId, s._pr_traceId\n),\nscored AS (\n  SELECT traceId,\n         CASE WHEN leafCost > 0 THEN leafCost ELSE rollupCost END AS traceCost,\n         CASE WHEN traceStart >= $curStart THEN 1 ELSE 0 END AS isCur\n  FROM per_trace\n),\nspan_tot AS (\n  SELECT ROUND(SUM(CASE WHEN isCur=1 THEN traceCost ELSE 0 END),6) AS spanCur,\n         ROUND(SUM(CASE WHEN isCur=0 THEN traceCost ELSE 0 END),6) AS spanPrev,\n         COUNT(DISTINCT CASE WHEN isCur=1 THEN traceId END) AS traces,\n         COUNT(DISTINCT CASE WHEN isCur=0 THEN traceId END) AS prevTraces\n  FROM scored\n),\neval_tot AS (\n  SELECT ROUND(SUM(CASE WHEN UNIX_TIMESTAMP(t.timestamp) * 1000 >= $curStart THEN COALESCE(t._pr_totalMetricsCost,0) ELSE 0 END),6) AS evalCur,\n         ROUND(SUM(CASE WHEN UNIX_TIMESTAMP(t.timestamp) * 1000 <  $curStart THEN COALESCE(t._pr_totalMetricsCost,0) ELSE 0 END),6) AS evalPrev\n  FROM ENTITY_test_case_runs t\n  WHERE UNIX_TIMESTAMP(t.timestamp) * 1000 >= $prevStart\n    AND UNIX_TIMESTAMP(t.timestamp) * 1000 <= $curEnd\n    AND t._pr_aiAgentId IS NOT NULL\n)\nSELECT ROUND(st.spanCur  + COALESCE(ev.evalCur, 0), 6)  AS totalSpend,\n       ROUND(st.spanPrev + COALESCE(ev.evalPrev, 0), 6) AS prevTotal,\n       st.traces AS traces,\n       st.prevTraces AS prevTraces\nFROM span_tot st, eval_tot ev\"\"\"\n\nreturn [ \"sql\": sql ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"assetMode":"agent",
+					"endTime":"{{ n_window.outputs.result.endTime }}",
+					"prevStartTime":"{{ n_window.outputs.result.prevStartTime }}",
+					"startTime":"{{ n_window.outputs.result.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Build KPI SQL",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":854,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@1",
+			"id":"n_kpiSql",
+			"index":6,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"prevTotal":{
+									"title":"prevTotal",
+									"type":"number"
+								},
+								"prevTraces":{
+									"title":"prevTraces",
+									"type":"integer"
+								},
+								"totalSpend":{
+									"title":"totalSpend",
+									"type":"number"
+								},
+								"traces":{
+									"title":"traces",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_kpiSqlBuild.outputs.result.sql }}",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@1",
+			"id":"n_kpiAssemble",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"statCard":{
+							"additionalProperties":false,
+							"properties":{
+								"dailySpendRate":{
+									"additionalProperties":false,
+									"properties":{
+										"currentValue":{
+											"title":"currentValue",
+											"type":"number"
+										},
+										"percentageChange":{
+											"title":"percentageChange",
+											"type":"number"
+										}
+									},
+									"title":"dailySpendRate",
+									"type":"object"
+								},
+								"projected":{
+									"additionalProperties":false,
+									"properties":{
+										"basis":{
+											"title":"basis",
+											"type":"string"
+										},
+										"currentValue":{
+											"title":"currentValue",
+											"type":"number"
+										}
+									},
+									"title":"projected",
+									"type":"object"
+								},
+								"spendPerTrace":{
+									"additionalProperties":false,
+									"properties":{
+										"currentValue":{
+											"title":"currentValue",
+											"type":"number"
+										},
+										"percentageChange":{
+											"title":"percentageChange",
+											"type":"number"
+										}
+									},
+									"title":"spendPerTrace",
+									"type":"object"
+								},
+								"totalSpend":{
+									"additionalProperties":false,
+									"properties":{
+										"currentValue":{
+											"title":"currentValue",
+											"type":"number"
+										},
+										"percentageChange":{
+											"title":"percentageChange",
+											"type":"number"
+										}
+									},
+									"title":"totalSpend",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"statCard",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"daysElapsed":{
+							"title":"Days Elapsed",
+							"type":"integer"
+						},
+						"periodTotalDays":{
+							"title":"Period Total Days",
+							"type":"integer"
+						},
+						"prevTotal":{
+							"title":"Prev Total",
+							"type":"number"
+						},
+						"prevTraces":{
+							"title":"Prev Traces",
+							"type":"integer"
+						},
+						"projectionBasis":{
+							"title":"Projection Basis",
+							"type":"string"
+						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						},
+						"traceCount":{
+							"title":"Trace Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def total     = (binding.hasVariable('totalCost')   && totalCost   != null) ? totalCost   as Double : 0.0d\ndef prevTotal = (binding.hasVariable('prevTotal')   && prevTotal   != null) ? prevTotal   as Double : 0.0d\ndef traces    = (binding.hasVariable('traceCount')  && traceCount  != null) ? traceCount  as Long   : 0L\ndef prevTr    = (binding.hasVariable('prevTraces')  && prevTraces  != null) ? prevTraces  as Long   : 0L\ndef days      = (binding.hasVariable('daysElapsed') && daysElapsed != null && (daysElapsed as Long) > 0) ? daysElapsed as Long : 1L\n\n// Projection is always a flat 30-day run-rate, whatever period the user picked.\n// It no longer depends on the calendar month/year, so periodTotalDays and\n// projectionBasis are not read any more.\nfinal double PROJECTION_DAYS = 30.0d\n\ndef round2 = { d -> Math.round((d as Double) * 100.0d)    / 100.0d }\ndef round5 = { d -> Math.round((d as Double) * 100000.0d) / 100000.0d }\ndef r2n    = { d -> d == null ? null : round2(d) }\n\ndef totalPct = (prevTotal > 0.0d) ? ((total - prevTotal) / prevTotal * 100.0d) : null\n\ndef dailyRate    = total / days\ndef dailyRatePct = totalPct\n\ndef spt     = (traces > 0L) ? (total / (traces as Double)) : 0.0d\ndef prevSpt = (prevTr > 0L) ? (prevTotal / (prevTr as Double)) : 0.0d\ndef sptPct  = (prevSpt > 0.0d) ? ((spt - prevSpt) / prevSpt * 100.0d) : null\n\ndef projected = dailyRate * PROJECTION_DAYS\n\nreturn [\n    statCard: [\n        totalSpend     : [ currentValue: round2(total),     percentageChange: r2n(totalPct)     ],\n        dailySpendRate : [ currentValue: round2(dailyRate), percentageChange: r2n(dailyRatePct) ],\n        spendPerTrace  : [ currentValue: round5(spt),       percentageChange: r2n(sptPct)       ],\n        projected      : [ currentValue: round2(projected), basis: '30d' ]\n    ]\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"daysElapsed":"{{ n_window.outputs.result.daysElapsed }}",
+					"periodTotalDays":"{{ n_window.outputs.result.periodTotalDays }}",
+					"prevTotal":"{{ n_kpiSql.outputs.objects[0].columns.prevTotal }}",
+					"prevTraces":"{{ n_kpiSql.outputs.objects[0].columns.prevTraces }}",
+					"projectionBasis":"{{ n_window.outputs.result.projectionBasis }}",
+					"totalCost":"{{ n_kpiSql.outputs.objects[0].columns.totalSpend }}",
+					"traceCount":"{{ n_kpiSql.outputs.objects[0].columns.traces }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Assemble KPI stat cards",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@2",
+			"id":"n_Ys3Ev@2",
+			"index":8,
+			"inputs":{
+				"name":"Graph",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"1"
+							},
+							"property":"1"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"Branch 2",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@2",
+			"id":"n_graphSqlBuild",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"assetMode":{
+							"title":"Asset Mode",
+							"type":"string"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"long curStart = (binding.hasVariable('startTime')    && startTime    != null) ? startTime    as Long : 0L\nlong curEnd   = (binding.hasVariable('endTime')      && endTime      != null) ? endTime      as Long : 0L\nlong off      = (binding.hasVariable('offsetMillis') && offsetMillis != null) ? offsetMillis as Long : 0L\nString mode   = (binding.hasVariable('assetMode') && assetMode) ? assetMode.toString() : 'agent'\n\n// MUST mirror n_sqlBuild: event-time windowing, EVAL excluded from spans, eval added\n// from test_case_runs. UNION ALL is inside a CTE - only TOP-LEVEL unions are rejected.\nString assetPredicate = (mode == 'llm') ? \"s._pr_assetType = 'llm'\" : \"COALESCE(s._pr_assetType, '') <> 'llm'\"\n\n// EVENT time, not ingest time - identical constant in all three builders.\nString STS = \"COALESCE(s._pr_startTime, UNIX_TIMESTAMP(s.timestamp) * 1000)\"\n\n// traceStart now carries event time, so the day buckets follow with no change here.\nString daySpan = \"(FLOOR((traceStart + \" + off + \") / 86400000) * 86400000 - \" + off + \")\"\nString dayEval = \"(FLOOR((UNIX_TIMESTAMP(t.timestamp) * 1000 + \" + off + \") / 86400000) * 86400000 - \" + off + \")\"\n\nString sql = \"\"\"\nWITH per_trace AS (\n  SELECT s._pr_traceId AS traceId,\n         MIN($STS) AS traceStart,\n         SUM(CASE WHEN UPPER(COALESCE(s._pr_currentType,'')) NOT IN ('AGENT','EVAL') THEN COALESCE(s._pr_cost,0) ELSE 0 END) AS leafCost,\n         SUM(CASE WHEN UPPER(COALESCE(s._pr_currentType,'')) = 'AGENT' THEN COALESCE(s._pr_cost,0) ELSE 0 END) AS rollupCost\n  FROM ENTITY_e_spans s\n  WHERE $STS >= $curStart\n    AND $STS <= $curEnd\n    AND $assetPredicate\n    AND s._pr_aiAgentId IS NOT NULL\n  GROUP BY s._pr_aiAgentId, s._pr_traceId\n),\nday_costs AS (\n  SELECT $daySpan AS dayTs,\n         CASE WHEN leafCost > 0 THEN leafCost ELSE rollupCost END AS c\n  FROM per_trace\n  UNION ALL\n  SELECT $dayEval AS dayTs, COALESCE(t._pr_totalMetricsCost,0) AS c\n  FROM ENTITY_test_case_runs t\n  WHERE UNIX_TIMESTAMP(t.timestamp) * 1000 >= $curStart\n    AND UNIX_TIMESTAMP(t.timestamp) * 1000 <= $curEnd\n    AND t._pr_aiAgentId IS NOT NULL\n)\nSELECT dayTs, ROUND(SUM(c),6) AS dayCost\nFROM day_costs\nGROUP BY dayTs\nORDER BY dayTs\"\"\"\n\nreturn [ \"sql\": sql ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"assetMode":"agent",
+					"endTime":"{{ n_window.outputs.result.endTime }}",
+					"offsetMillis":"{{ n_window.outputs.result.offsetMillis }}",
+					"startTime":"{{ n_window.outputs.result.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Build daily-spend SQL (spans + eval)",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":854,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@2",
+			"id":"n_graphSql",
+			"index":10,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"dayCost":{
+									"title":"dayCost",
+									"type":"number"
+								},
+								"dayTs":{
+									"title":"dayTs",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_graphSqlBuild.outputs.result.sql }}",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@2",
+			"id":"n_graphAssemble",
+			"index":11,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"dailySpendTrend":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"cumulativeCost":{
+										"title":"cumulativeCost",
+										"type":"number"
+									},
+									"dayCost":{
+										"title":"dayCost",
+										"type":"number"
+									},
+									"timestamp":{
+										"title":"timestamp",
+										"type":"integer"
+									}
+								},
+								"type":"object"
+							},
+							"title":"dailySpendTrend",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"graph":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"dayCost":{
+										"title":"dayCost",
+										"type":"number"
+									},
+									"timestamp":{
+										"title":"timestamp",
+										"type":"integer"
+									}
+								},
+								"type":"object"
+							},
+							"title":"graph",
+							"type":"array"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// ---- daily-spend gap fill over a continuous local-midnight day axis ----\ndef rows     = (binding.hasVariable('graph')        && graph)        ? graph        : []\ndef winStart = (binding.hasVariable('startTime')    && startTime    != null) ? startTime    as Long : 0L\ndef winEnd   = (binding.hasVariable('endTime')      && endTime      != null) ? endTime      as Long : 0L\ndef tzOffset = (binding.hasVariable('offsetMillis') && offsetMillis != null) ? offsetMillis as Long : 0L\n\ndef DAY_MS = 86400000L\n\n// key each returned bucket by its day timestamp\ndef dataMap = [:]\nrows.each { row ->\n    if (!(row instanceof Map)) return\n    def ts = row.timestamp\n    if (ts != null) {\n        dataMap[ts as Long] = row\n    }\n}\n\n// walk every day from the window start (aligned to LOCAL midnight) to the end,\n// filling missing days with 0 and carrying a running cumulative total\ndef cumulative      = 0.0d\ndef dailySpendTrend = []\nif (winEnd > 0L) {\n    def cursor = ((winStart + tzOffset).intdiv(DAY_MS) * DAY_MS) - tzOffset\n    while (cursor <= winEnd) {\n        def row     = dataMap[cursor]\n        def dayCost = (row?.dayCost ?: 0.0d) as Double\n        cumulative += dayCost\n        dailySpendTrend << [timestamp: cursor, dayCost: dayCost, cumulativeCost: cumulative]\n        cursor += DAY_MS\n    }\n}\n\nreturn [ dailySpendTrend: dailySpendTrend ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"endTime":"{{ n_window.outputs.result.endTime }}",
+					"graph":{
+						"items":{
+							"dayCost":"{{ n_graphSql.outputs.objects[0].columns.dayCost }}",
+							"timestamp":"{{ n_graphSql.outputs.objects[0].columns.dayTs }}"
+						},
+						"source":"{{ n_graphSql.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"offsetMillis":"{{ n_window.outputs.result.offsetMillis }}",
+					"startTime":"{{ n_window.outputs.result.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Gap-fill daily spend trend",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@3",
+			"id":"n_Ys3Ev@3",
+			"index":12,
+			"inputs":{
+				"name":"Agent Breakdown",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"1"
+							},
+							"property":"1"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"Branch 3",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@3",
+			"id":"n_sqlBuild",
+			"index":13,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"dim":{
+							"title":"Dim",
+							"type":"string"
+						},
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"assetMode":{
+							"title":"Asset Mode",
+							"type":"string"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"groupBy":{
+							"title":"Group By",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"prevStartTime":{
+							"title":"Prev Start Time",
+							"type":"integer"
+						},
+						"sortBy":{
+							"title":"Sort By",
+							"type":"string"
+						},
+						"spanCondition":{
+							"title":"Span Condition",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"long curStart  = (binding.hasVariable('startTime')     && startTime     != null) ? startTime     as Long : 0L\nlong curEnd    = (binding.hasVariable('endTime')       && endTime       != null) ? endTime       as Long : 0L\nlong prevStart = (binding.hasVariable('prevStartTime') && prevStartTime != null) ? prevStartTime as Long : 0L\nString mode    = (binding.hasVariable('assetMode') && assetMode) ? assetMode.toString() : 'agent'\nString dim     = (binding.hasVariable('groupBy')   && groupBy)   ? groupBy.toString()   : 'agent'\n\nif (!(dim in ['agent', 'owner', 'costType', 'kpi'])) dim = 'agent'\n\nString assetPredicate = (mode == 'llm') ? \"s._pr_assetType = 'llm'\" : \"COALESCE(s._pr_assetType, '') <> 'llm'\"\n\n// This node returns EVERY row. Filtering, sorting, grouping and paging all happen in\n// n_tableAssemble, which re-sorts the whole list, so a sort here would have no effect on\n// what the user sees. The ORDER BY below is only so the query reads sensibly when run by\n// hand. If SQL-side paging is ever reinstated, the sort must come back with it - a LIMIT\n// without a matching ORDER BY returns arbitrary rows.\n\n// No closures interpolated into GStrings - this sandbox throws on ${closure(args)}.\nString CT   = \"UPPER(COALESCE(s._pr_currentType,''))\"\nString COST = \"COALESCE(s._pr_cost,0)\"\n// Spans with no agent id are excluded outright (see the IS NOT NULL below), so the agent key is\n// the raw column - there is no '__unattributed__' bucket.\nString AID  = \"s._pr_aiAgentId\"\n\n// EVENT time, not ingest time. _pr_startTime is when the span actually ran and is already epoch\n// millis, so it needs no UNIX_TIMESTAMP() wrapper. s.timestamp is only a fallback for the rows\n// with no _pr_startTime - without it those would vanish, since NULL comparisons yield NULL.\nString STS  = \"COALESCE(s._pr_startTime, UNIX_TIMESTAMP(s.timestamp) * 1000)\"\nString TTS  = \"UNIX_TIMESTAMP(t.timestamp) * 1000\"\nString TMC  = \"COALESCE(t._pr_totalMetricsCost,0)\"\n\nString bLeaf = \"SUM(CASE WHEN \" + CT + \" NOT IN ('AGENT','EVAL') THEN \" + COST + \" ELSE 0 END) AS leafCost\"\nString bRoll = \"SUM(CASE WHEN \" + CT + \" = 'AGENT' THEN \"        + COST + \" ELSE 0 END) AS rollupCost\"\nString bLlm  = \"SUM(CASE WHEN \" + CT + \" = 'LLM' THEN \"          + COST + \" ELSE 0 END) AS llmCost\"\nString bTool = \"SUM(CASE WHEN \" + CT + \" = 'TOOL' THEN \"         + COST + \" ELSE 0 END) AS toolCost\"\nString bGov  = \"SUM(CASE WHEN \" + CT + \" = 'GOVERNANCE' THEN \"   + COST + \" ELSE 0 END) AS govCost\"\n\nString curTrace   = \"SUM(CASE WHEN isCur=1 THEN traceCost ELSE 0 END)\"\nString prevTrace  = \"SUM(CASE WHEN isCur=0 THEN traceCost ELSE 0 END)\"\nString curLlm     = \"SUM(CASE WHEN isCur=1 THEN llmCost ELSE 0 END)\"\nString prevLlm    = \"SUM(CASE WHEN isCur=0 THEN llmCost ELSE 0 END)\"\nString curTool    = \"SUM(CASE WHEN isCur=1 THEN toolCost ELSE 0 END)\"\nString prevTool   = \"SUM(CASE WHEN isCur=0 THEN toolCost ELSE 0 END)\"\nString curGov     = \"SUM(CASE WHEN isCur=1 THEN govCost ELSE 0 END)\"\nString prevGov    = \"SUM(CASE WHEN isCur=0 THEN govCost ELSE 0 END)\"\nString curUnattr  = \"SUM(CASE WHEN isCur=1 THEN unattributed ELSE 0 END)\"\nString prevUnattr = \"SUM(CASE WHEN isCur=0 THEN unattributed ELSE 0 END)\"\nString curSpans   = \"SUM(CASE WHEN isCur=1 THEN spanCount ELSE 0 END)\"\n\n// Every term is >= 0, so one sum replaces the old OR-chain - and unlike the OR-chain it is\n// safe to append \"AND ...\" to (an AND would otherwise bind only to the last OR term).\nString ANY_ACTIVITY = \"COALESCE(sa.spendCur,0) + COALESCE(ev.evalCur,0)\\n\" +\n                      \"    + COALESCE(sa.spendPrev,0) + COALESCE(ev.evalPrev,0)\\n\" +\n                      \"    + COALESCE(sa.tracesCur,0) + COALESCE(sa.tracesPrev,0) > 0\"\n\nString prefix = \"\"\"\nWITH per_trace AS (\n  SELECT ${AID} AS agentId,\n         s._pr_traceId AS traceId,\n         MIN(${STS}) AS traceStart,\n         COUNT(*) AS spanCount,\n         ${bLeaf},\n         ${bRoll},\n         ${bLlm},\n         ${bTool},\n         ${bGov}\n  FROM ENTITY_e_spans s\n  WHERE ${STS} >= ${prevStart}\n    AND ${STS} <= ${curEnd}\n    AND ${assetPredicate}\n    AND ${AID} IS NOT NULL\n  GROUP BY ${AID}, s._pr_traceId\n),\nscored AS (\n  SELECT agentId, traceId, spanCount,\n         CASE WHEN leafCost > 0 THEN leafCost ELSE rollupCost END AS traceCost,\n         CASE WHEN leafCost > 0 THEN 0        ELSE rollupCost END AS unattributed,\n         llmCost, toolCost, govCost,\n         CASE WHEN traceStart >= ${curStart} THEN 1 ELSE 0 END AS isCur\n  FROM per_trace\n),\neval_tcr AS (\n  SELECT t._pr_aiAgentId AS agentId,\n         SUM(CASE WHEN ${TTS} >= ${curStart} THEN ${TMC} ELSE 0 END) AS evalCur,\n         SUM(CASE WHEN ${TTS} <  ${curStart} THEN ${TMC} ELSE 0 END) AS evalPrev\n  FROM ENTITY_test_case_runs t\n  WHERE ${TTS} >= ${prevStart}\n    AND ${TTS} <= ${curEnd}\n    AND t._pr_aiAgentId IS NOT NULL\n  GROUP BY t._pr_aiAgentId\n)\"\"\"\n\nString sql\nif (dim == 'kpi') {\n    sql = prefix + \"\"\",\nspan_tot AS (\n  SELECT ${curTrace} AS spendCur, ${prevTrace} AS spendPrev,\n         COUNT(DISTINCT CASE WHEN isCur=1 THEN traceId END) AS tracesCur,\n         COUNT(DISTINCT CASE WHEN isCur=0 THEN traceId END) AS tracesPrev\n  FROM scored\n),\neval_tot AS (\n  SELECT COALESCE(SUM(evalCur),0) AS evalCur, COALESCE(SUM(evalPrev),0) AS evalPrev FROM eval_tcr\n)\nSELECT ROUND(st.spendCur  + et.evalCur,  6) AS totalSpend,\n       ROUND(st.spendPrev + et.evalPrev, 6) AS prevTotal,\n       st.tracesCur  AS traces,\n       st.tracesPrev AS prevTraces\nFROM span_tot st CROSS JOIN eval_tot et\"\"\"\n} else {\n    sql = prefix + \"\"\",\nspan_agg AS (\n  SELECT agentId,\n         ${curTrace}  AS spendCur,  ${prevTrace}  AS spendPrev,\n         ${curLlm}    AS llmCur,    ${prevLlm}    AS llmPrev,\n         ${curTool}   AS toolCur,   ${prevTool}   AS toolPrev,\n         ${curGov}    AS govCur,    ${prevGov}    AS govPrev,\n         ${curUnattr} AS unattrCur, ${prevUnattr} AS unattrPrev,\n         COUNT(DISTINCT CASE WHEN isCur=1 THEN traceId END) AS tracesCur,\n         COUNT(DISTINCT CASE WHEN isCur=0 THEN traceId END) AS tracesPrev,\n         ${curSpans} AS spansCur\n  FROM scored\n  GROUP BY agentId\n),\nagent_keys AS (\n  SELECT agentId FROM span_agg\n  UNION\n  SELECT agentId FROM eval_tcr\n),\nprof_raw AS (\n  SELECT p.id AS agentId, p._pr_name AS nm, p._pr_ownerId AS oid,\n         p._pr_department AS dept, p._pr_applicationId AS app\n  FROM ENTITY_agent_profile p\n  WHERE p.deleted = false\n    AND p.id IS NOT NULL\n  UNION ALL\n  SELECT p._pr_external_agent_id, p._pr_name, p._pr_ownerId,\n         p._pr_department, p._pr_applicationId\n  FROM ENTITY_agent_profile p\n  WHERE p.deleted = false\n    AND NULLIF(TRIM(p._pr_external_agent_id), '') IS NOT NULL\n),\nprof AS (\n  SELECT agentId,\n         MIN(NULLIF(TRIM(nm), ''))   AS agentName,\n         MIN(NULLIF(TRIM(oid), ''))  AS ownerId,\n         MIN(NULLIF(TRIM(dept), '')) AS department,\n         MIN(NULLIF(TRIM(app), ''))  AS applicationId\n  FROM prof_raw\n  GROUP BY agentId\n)\nSELECT k.agentId AS agentId,\n       pr.agentName AS agentName,\n       COALESCE(pr.ownerId, '') AS ownerId,\n       COALESCE(u.name, u.email, '') AS owner,\n       COALESCE(pr.department, '') AS department,\n       ROUND(COALESCE(sa.spendCur,0)  + COALESCE(ev.evalCur,0),  6) AS totalCur,\n       ROUND(COALESCE(sa.spendPrev,0) + COALESCE(ev.evalPrev,0), 6) AS totalPrev,\n       ROUND(COALESCE(sa.llmCur,0),6)    AS llmCur,    ROUND(COALESCE(sa.llmPrev,0),6)    AS llmPrev,\n       ROUND(COALESCE(sa.toolCur,0),6)   AS toolCur,   ROUND(COALESCE(sa.toolPrev,0),6)   AS toolPrev,\n       ROUND(COALESCE(ev.evalCur,0),6)   AS evalCur,   ROUND(COALESCE(ev.evalPrev,0),6)   AS evalPrev,\n       ROUND(COALESCE(sa.govCur,0),6)    AS govCur,    ROUND(COALESCE(sa.govPrev,0),6)    AS govPrev,\n       ROUND(COALESCE(sa.unattrCur,0),6) AS unattrCur, ROUND(COALESCE(sa.unattrPrev,0),6) AS unattrPrev,\n       COALESCE(sa.tracesCur,0)  AS tracesCur,\n       COALESCE(sa.tracesPrev,0) AS tracesPrev,\n       COALESCE(sa.spansCur,0)   AS spansCur,\n       COALESCE(pr.applicationId, '') AS platform\nFROM agent_keys k\nLEFT JOIN span_agg sa ON sa.agentId = k.agentId\nLEFT JOIN eval_tcr ev ON ev.agentId = k.agentId\nLEFT JOIN prof pr     ON pr.agentId = k.agentId\nLEFT JOIN USER u      ON u.userId = pr.ownerId AND u.deleted = false\nWHERE ${ANY_ACTIVITY}\n   AND pr.agentName IS NOT NULL\nORDER BY totalCur DESC\"\"\"\n}\n\nreturn [ \"sql\": sql, \"dim\": dim ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"assetMode":"agent",
+					"endTime":"{{ n_window.outputs.result.endTime }}",
+					"filter":"{{ n_start.outputs.filter }}",
+					"groupBy":"{{ n_start.outputs.groupBy }}",
+					"limit":"{{ n_start.outputs.limit }}",
+					"offset":"{{ n_start.outputs.offset }}",
+					"prevStartTime":"{{ n_window.outputs.result.prevStartTime }}",
+					"sortBy":"{{ n_start.outputs.sortBy }}",
+					"spanCondition":"{{ n_start.outputs.filter }}",
+					"startTime":"{{ n_window.outputs.result.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Build agent-breakdown SQL",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":854,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@3",
+			"id":"n_agentSql",
+			"index":14,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"agentId":{
+									"title":"agentId",
+									"type":"string"
+								},
+								"agentName":{
+									"title":"agentName",
+									"type":"string"
+								},
+								"department":{
+									"title":"department",
+									"type":"string"
+								},
+								"evalCur":{
+									"title":"evalCur",
+									"type":"number"
+								},
+								"evalPrev":{
+									"title":"evalPrev",
+									"type":"number"
+								},
+								"govCur":{
+									"title":"govCur",
+									"type":"number"
+								},
+								"govPrev":{
+									"title":"govPrev",
+									"type":"number"
+								},
+								"llmCur":{
+									"title":"llmCur",
+									"type":"number"
+								},
+								"llmPrev":{
+									"title":"llmPrev",
+									"type":"number"
+								},
+								"owner":{
+									"title":"owner",
+									"type":"string"
+								},
+								"ownerId":{
+									"title":"ownerId",
+									"type":"string"
+								},
+								"platform":{
+									"title":"platform",
+									"type":"string"
+								},
+								"spansCur":{
+									"title":"spansCur",
+									"type":"integer"
+								},
+								"toolCur":{
+									"title":"toolCur",
+									"type":"number"
+								},
+								"toolPrev":{
+									"title":"toolPrev",
+									"type":"number"
+								},
+								"totalCur":{
+									"title":"totalCur",
+									"type":"number"
+								},
+								"totalPrev":{
+									"title":"totalPrev",
+									"type":"number"
+								},
+								"tracesCur":{
+									"title":"tracesCur",
+									"type":"integer"
+								},
+								"tracesPrev":{
+									"title":"tracesPrev",
+									"type":"integer"
+								},
+								"unattrCur":{
+									"title":"unattrCur",
+									"type":"number"
+								},
+								"unattrPrev":{
+									"title":"unattrPrev",
+									"type":"number"
+								}
+							},
+							"required":[],
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"query":"{{ n_sqlBuild.outputs.result.sql }}",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.rows.items.agentId",
+					"root.parameters.rows.items.agentName",
+					"root.parameters.rows.items.ownerId",
+					"root.parameters.rows.items.owner",
+					"root.parameters.rows.items.totalCur",
+					"root.parameters.rows.items.totalPrev",
+					"root.parameters.rows.items.llmCur",
+					"root.parameters.rows.items.llmPrev",
+					"root.parameters.rows.items.toolCur",
+					"root.parameters.rows.items.toolPrev",
+					"root.parameters.rows.items.evalCur",
+					"root.parameters.rows.items.evalPrev",
+					"root.parameters.rows.items.govCur",
+					"root.parameters.rows.items.govPrev",
+					"root.parameters.rows.items.unattrCur",
+					"root.parameters.rows.items.unattrPrev",
+					"root.parameters.rows.items.tracesCur",
+					"root.parameters.rows.items.tracesPrev",
+					"root.parameters.rows.items.spansCur",
+					"root.parameters.sortBy.items",
+					"root.parameters.rows.items.platform",
+					"root.parameters.rows.items.department"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ys3Ev@_dBomz-1@3",
+			"id":"n_tableAssemble",
+			"index":15,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"agentBreakdown":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"agentCount":{
+										"title":"agentCount",
+										"type":"integer"
+									},
+									"agentId":{
+										"title":"agentId",
+										"type":"string"
+									},
+									"agentName":{
+										"title":"agentName",
+										"type":"string"
+									},
+									"children":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"agentCount":{
+													"title":"agentCount",
+													"type":"integer"
+												},
+												"agentId":{
+													"title":"agentId",
+													"type":"string"
+												},
+												"agentName":{
+													"title":"agentName",
+													"type":"string"
+												},
+												"costType":{
+													"title":"costType",
+													"type":"string"
+												},
+												"department":{
+													"title":"department",
+													"type":"string"
+												},
+												"eval":{
+													"title":"eval",
+													"type":"number"
+												},
+												"evalChange":{
+													"title":"evalChange",
+													"type":"number"
+												},
+												"governance":{
+													"title":"governance",
+													"type":"number"
+												},
+												"governanceChange":{
+													"title":"governanceChange",
+													"type":"number"
+												},
+												"llm":{
+													"title":"llm",
+													"type":"number"
+												},
+												"llmChange":{
+													"title":"llmChange",
+													"type":"number"
+												},
+												"owner":{
+													"title":"owner",
+													"type":"string"
+												},
+												"ownerId":{
+													"title":"ownerId",
+													"type":"string"
+												},
+												"perDay":{
+													"title":"perDay",
+													"type":"number"
+												},
+												"percentageChange":{
+													"title":"percentageChange",
+													"type":"number"
+												},
+												"platform":{
+													"title":"platform",
+													"type":"string"
+												},
+												"share":{
+													"title":"share",
+													"type":"number"
+												},
+												"spans":{
+													"title":"spans",
+													"type":"integer"
+												},
+												"tools":{
+													"title":"tools",
+													"type":"number"
+												},
+												"toolsChange":{
+													"title":"toolsChange",
+													"type":"number"
+												},
+												"totalSpend":{
+													"title":"totalSpend",
+													"type":"number"
+												},
+												"traces":{
+													"title":"traces",
+													"type":"integer"
+												},
+												"tracesChange":{
+													"title":"tracesChange",
+													"type":"number"
+												},
+												"unattributed":{
+													"title":"unattributed",
+													"type":"number"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"children",
+										"type":"array"
+									},
+									"costType":{
+										"title":"costType",
+										"type":"string"
+									},
+									"department":{
+										"title":"department",
+										"type":"string"
+									},
+									"eval":{
+										"title":"eval",
+										"type":"number"
+									},
+									"evalChange":{
+										"title":"evalChange",
+										"type":"number"
+									},
+									"governance":{
+										"title":"governance",
+										"type":"number"
+									},
+									"governanceChange":{
+										"title":"governanceChange",
+										"type":"number"
+									},
+									"llm":{
+										"title":"llm",
+										"type":"number"
+									},
+									"llmChange":{
+										"title":"llmChange",
+										"type":"number"
+									},
+									"owner":{
+										"title":"owner",
+										"type":"string"
+									},
+									"ownerId":{
+										"title":"ownerId",
+										"type":"string"
+									},
+									"perDay":{
+										"title":"perDay",
+										"type":"number"
+									},
+									"percentageChange":{
+										"title":"percentageChange",
+										"type":"number"
+									},
+									"platform":{
+										"title":"platform",
+										"type":"string"
+									},
+									"share":{
+										"title":"share",
+										"type":"number"
+									},
+									"spans":{
+										"title":"spans",
+										"type":"integer"
+									},
+									"tools":{
+										"title":"tools",
+										"type":"number"
+									},
+									"toolsChange":{
+										"title":"toolsChange",
+										"type":"number"
+									},
+									"totalSpend":{
+										"title":"totalSpend",
+										"type":"number"
+									},
+									"traces":{
+										"title":"traces",
+										"type":"integer"
+									},
+									"tracesChange":{
+										"title":"tracesChange",
+										"type":"number"
+									},
+									"unattributed":{
+										"title":"unattributed",
+										"type":"number"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"agentBreakdown",
+							"type":"array"
+						},
+						"dim":{
+							"title":"dim",
+							"type":"string"
+						},
+						"totalCount":{
+							"title":"Total Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"daysElapsed":{
+							"title":"Days Elapsed",
+							"type":"integer"
+						},
+						"dim":{
+							"title":"Dim",
+							"type":"string"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"rows":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"agentId":{
+										"title":"agentId",
+										"type":"string"
+									},
+									"agentName":{
+										"title":"agentName",
+										"type":"string"
+									},
+									"department":{
+										"title":"department",
+										"type":"string"
+									},
+									"evalCur":{
+										"title":"evalCur",
+										"type":"number"
+									},
+									"evalPrev":{
+										"title":"evalPrev",
+										"type":"number"
+									},
+									"govCur":{
+										"title":"govCur",
+										"type":"number"
+									},
+									"govPrev":{
+										"title":"govPrev",
+										"type":"number"
+									},
+									"llmCur":{
+										"title":"llmCur",
+										"type":"number"
+									},
+									"llmPrev":{
+										"title":"llmPrev",
+										"type":"number"
+									},
+									"owner":{
+										"title":"owner",
+										"type":"string"
+									},
+									"ownerId":{
+										"title":"ownerId",
+										"type":"string"
+									},
+									"platform":{
+										"title":"platform",
+										"type":"string"
+									},
+									"spansCur":{
+										"title":"spansCur",
+										"type":"integer"
+									},
+									"toolCur":{
+										"title":"toolCur",
+										"type":"number"
+									},
+									"toolPrev":{
+										"title":"toolPrev",
+										"type":"number"
+									},
+									"totalCur":{
+										"title":"totalCur",
+										"type":"number"
+									},
+									"totalPrev":{
+										"title":"totalPrev",
+										"type":"number"
+									},
+									"tracesCur":{
+										"title":"tracesCur",
+										"type":"integer"
+									},
+									"tracesPrev":{
+										"title":"tracesPrev",
+										"type":"integer"
+									},
+									"unattrCur":{
+										"title":"unattrCur",
+										"type":"number"
+									},
+									"unattrPrev":{
+										"title":"unattrPrev",
+										"type":"number"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"rows",
+							"type":"array"
+						},
+						"sortBy":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Sort By",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// ===== UI filter tree evaluator ============================================\n// Branch node: {op:'AND'|'OR'|'NOT', values:[...]}   Leaf node: {field, op, values:[...]}\n// Every unknown/invalid case PASSES, so a new UI field or a bad regex can never blank\n// the table. Methods are compiled independently of statement order in a Groovy script.\ndef fnorm(v) { v == null ? '' : v.toString().trim().toLowerCase() }\ndef fnum(v)  {\n    try { String s = (v == null) ? '' : v.toString().trim(); return s ? (s as Double) : null }\n    catch (Exception ignored) { return null }\n}\n\n// Field id from the filter metadata -> the row values it tests.\n// 'ownerId' checks the display NAME first: users type \"vedant\", the column holds \"40579\".\ndef rowValuesFor(Map row, String f) {\n    switch (f) {\n        case 'ownerId': case 'owner':          return [row.owner, row.ownerId]\n        case 'applicationId': case 'platform': return [row.platform]\n        case 'department':        return [row.department]\n        case 'agentName': case 'name':         return [row.agentName, row.agentId]\n        case 'agentId':                        return [row.agentId]\n        case 'totalSpend':   return [row.totalCur]\n        case 'llm':          return [row.llmCur]\n        case 'tools':        return [row.toolCur]\n        case 'eval':         return [row.evalCur]\n        case 'governance':   return [row.govCur]\n        case 'unattributed': return [row.unattrCur]\n        case 'traces':       return [row.tracesCur]\n        case 'spans':        return [row.spansCur]\n        default: return null\n    }\n}\nboolean isNumericField(String f) {\n    return f in ['totalSpend','llm','tools','eval','governance','unattributed','traces','spans']\n}\nboolean regexHit(List rl, String pattern) {\n    try {\n        def p = java.util.regex.Pattern.compile(pattern, java.util.regex.Pattern.CASE_INSENSITIVE)\n        return rl.any { p.matcher(it).find() }\n    } catch (Exception ignored) { return true }\n}\n\nboolean leafMatches(Map node, Map row) {\n    String f = (node.field == null) ? '' : node.field.toString()\n    def rv = rowValuesFor(row, f)\n    if (rv == null) return true\n    String op = (node.op ?: 'ICONTAINS').toString().toUpperCase()\n    def raw = (node.values instanceof List) ? node.values : (node.values == null ? [] : [node.values])\n    List vals = raw.findAll { it != null && it.toString().trim() }\n\n    // presence operators carry no values, so they precede the empty-values check\n    boolean anyPresent = rv.any { it != null && it.toString().trim() }\n    if (op in ['IS_PRESENT','PRESENT','IS_NOT_EMPTY','NOT_NULL','IS_NOT_NULL']) return anyPresent\n    if (op in ['NOT_PRESENT','IS_EMPTY','IS_NULL','NULL'])                     return !anyPresent\n    if (!vals) return true                                   // still typing -> pass\n\n    if (isNumericField(f)) {\n        Double r = fnum(rv[0]); if (r == null) return false\n        Double a = fnum(vals[0])\n        Double b = (vals.size() > 1) ? fnum(vals[1]) : null\n        switch (op) {\n            case 'GT':      return a != null && r >  a\n            case 'GTE':     return a != null && r >= a\n            case 'LT':      return a != null && r <  a\n            case 'LTE':     return a != null && r <= a\n            case 'EQUAL': case 'EQUALS': case 'EQ': return a != null && r == a\n            case 'NOT_EQUAL': case 'NEQ':           return a != null && r != a\n            case 'BETWEEN': return a != null && b != null && r >= a && r <= b\n            case 'IN':      return vals.any { fnum(it) != null && r == fnum(it) }\n            case 'NOT_IN':  return !vals.any { fnum(it) != null && r == fnum(it) }\n            default:        return true\n        }\n    }\n\n    List rl = rv.collect { fnorm(it) }\n    List tl = vals.collect { fnorm(it) }\n    switch (op) {\n        case 'ICONTAINS': case 'CONTAINS':          return tl.any { t -> rl.any { it.contains(t) } }\n        case 'NOT_CONTAINS': case 'NOT_ICONTAINS':  return !tl.any { t -> rl.any { it.contains(t) } }\n        case 'EQUAL': case 'EQUALS': case 'EQ': case 'IEQUAL': case 'IN':\n                                                    return rl.any { tl.contains(it) }\n        case 'NOT_EQUAL': case 'NEQ': case 'NOT_IN':return !rl.any { tl.contains(it) }\n        case 'STARTS_WITH': case 'ISTARTS_WITH':    return tl.any { t -> rl.any { it.startsWith(t) } }\n        case 'ENDS_WITH': case 'IENDS_WITH':        return tl.any { t -> rl.any { it.endsWith(t) } }\n        case 'IREGEX': case 'REGEX': case 'MATCHES': case 'RLIKE':\n                                                    return tl.any { t -> regexHit(rl, t) }\n        case 'NOT_IREGEX': case 'NOT_REGEX': case 'NOT_MATCHES':\n                                                    return !tl.any { t -> regexHit(rl, t) }\n        default: return true\n    }\n}\n\nboolean matchesFilter(def node, Map row) {\n    if (!(node instanceof Map)) return true\n    if (node.field != null) return leafMatches(node, row)\n    List kids = (node.values instanceof List) ? node.values : []\n    if (!kids) return true\n    String op = (node.op ?: 'AND').toString().toUpperCase()\n    if (op == 'OR')  return kids.any  { matchesFilter(it, row) }\n    if (op == 'NOT') return !kids.any { matchesFilter(it, row) }\n    return kids.every { matchesFilter(it, row) }\n}\n// ===========================================================================\n\ndef rows      = (binding.hasVariable('rows') && rows) ? rows : []\nString dim    = (binding.hasVariable('dim')  && dim)  ? dim.toString() : 'agent'\n// true  -> SQL already sliced this page (agent dim, no filter, limit sent)\n// false -> SQL returned every row and this node owns the slicing\nboolean paged = (binding.hasVariable('paged') && paged != null) ? (paged as Boolean) : false\n\n// ---- SORT SPEC: always take the FIRST element of sortBy = [{field, order}] ----\nString sortField = 'totalSpend'\nString sortOrder = 'DESC'\nif (binding.hasVariable('sortBy') && sortBy != null) {\n    def spec = (sortBy instanceof List) ? (((List) sortBy).isEmpty() ? null : ((List) sortBy)[0])\n                                        : ((sortBy instanceof Map) ? sortBy : null)\n    if (spec instanceof Map) {\n        if (spec.field != null && spec.field.toString().trim()) sortField = spec.field.toString().trim()\n        if (spec.order != null && spec.order.toString().trim()) sortOrder = spec.order.toString().trim().toUpperCase()\n    }\n}\n// the 6 sortable fields declared in the filter metadata; anything else -> default\ndef SORTABLE = ['totalSpend','llm','tools','eval','share','traces'] as Set\nif (!SORTABLE.contains(sortField)) sortField = 'totalSpend'\nboolean asc = (sortOrder == 'ASC')\n\nlong lim   = (binding.hasVariable('limit')  && limit  != null && (limit  as Long) > 0) ? limit  as Long : 0L\nlong off   = (binding.hasVariable('offset') && offset != null && (offset as Long) > 0) ? offset as Long : 0L\nlong days  = (binding.hasVariable('daysElapsed') && daysElapsed != null && (daysElapsed as Long) > 0) ? daysElapsed as Long : 1L\n\ndef num = { v -> v == null ? 0.0d : (v as Double) }\ndef lng = { v -> v == null ? 0L   : (v as Long)   }\ndef stc = { v -> v == null ? ''   : (v as String) }\ndef r2  = { d -> Math.round((d as Double) * 100.0d) / 100.0d }\ndef pct = { c, p -> (p != null && (p as Double) > 0.0d) ? r2(((c as Double) - (p as Double)) / (p as Double) * 100.0d) : null }\ndef perDayOf = { c -> r2((c as Double) / (days as Double)) }\n\ndef A = rows.findAll { it instanceof Map && it.agentId != null }.collect { r ->\n    [ agentId: stc(r.agentId), agentName: stc(r.agentName ?: r.agentId), ownerId: stc(r.ownerId),\n      owner: stc(r.owner), department: stc(r.department), platform: stc(r.platform),\n      totalCur: num(r.totalCur), totalPrev: num(r.totalPrev),\n      llmCur: num(r.llmCur), llmPrev: num(r.llmPrev), toolCur: num(r.toolCur), toolPrev: num(r.toolPrev),\n      evalCur: num(r.evalCur), evalPrev: num(r.evalPrev), govCur: num(r.govCur), govPrev: num(r.govPrev),\n      unattrCur: num(r.unattrCur), unattrPrev: num(r.unattrPrev),\n      tracesCur: lng(r.tracesCur), tracesPrev: lng(r.tracesPrev), spansCur: lng(r.spansCur) ]\n}\n\n// ---- 1. FILTER -----------------------------------------------------------\n// Runs FIRST, before grand / grouping / totalCount / paginate. That one position keeps\n// every downstream number consistent: share re-normalises over the filtered set,\n// totalCount counts filtered rows, and the page is a slice of the filtered list.\n// n_sqlBuild guarantees paged == false whenever a filter is present, so A is complete here.\ndef filterTree = (binding.hasVariable('filter') && filter instanceof Map && filter.op) ? filter : null\nif (filterTree) A = A.findAll { matchesFilter(filterTree, it) }\n\n// ---- 2. TOTALS -----------------------------------------------------------\n// paged -> A is only one page, so the true totals come from the SQL window columns.\ndef firstRow = rows.find { it instanceof Map }\ndouble grand = 0.0d\nif (paged) {\n    grand = num(firstRow?.grandTotal)\n} else {\n    A.each { grand += (it.totalCur as Double) }\n}\ndef shareOf = { c -> grand > 0.0d ? r2((c as Double) / grand * 100.0d) : 0.0d }\ndef active  = { r -> (r.totalCur as Double) > 0.0d || (r.tracesCur as Long) > 0L }\ndef bySpendDesc = { a, b -> (b.totalSpend as Double) <=> (a.totalSpend as Double) }\ndef labelOf = { x -> (x.agentName ?: (x.owner ?: (x.costType ?: ''))) as String }\n\n// ---- 3. SORT -------------------------------------------------------------\n// Reads the chosen metric off an ASSEMBLED row (null -> 0, so it sinks on DESC / rises on ASC).\ndef sortVal = { m -> def v = m[sortField]; v == null ? 0.0d : (v as Double) }\n// primary = chosen field in chosen direction; deterministic tiebreak = spend desc, then name A->Z\ndef cmp = { a, b ->\n    int c = sortVal(a) <=> sortVal(b)\n    c = asc ? c : -c\n    if (c != 0) return c\n    int t = ((b.totalSpend ?: 0.0d) as Double) <=> ((a.totalSpend ?: 0.0d) as Double)\n    if (t != 0) return t\n    return labelOf(a).compareToIgnoreCase(labelOf(b))\n}\n\n// agentItem is reused as owner/costType CHILDREN. Children are returned WHOLE (never paginated),\n// so it carries NO totalCount. totalCount is added ONLY to the OUTER rows, at the very bottom.\ndef agentItem = { r ->\n    [ agentId: r.agentId, agentName: r.agentName, costType: null, owner: r.owner, ownerId: r.ownerId,\n      department: r.department, platform: r.platform, agentCount: 1L,\n      totalSpend: r2(r.totalCur), percentageChange: pct(r.totalCur, r.totalPrev),\n      llm: r2(r.llmCur), llmChange: pct(r.llmCur, r.llmPrev),\n      tools: r2(r.toolCur), toolsChange: pct(r.toolCur, r.toolPrev),\n      eval: r2(r.evalCur), evalChange: pct(r.evalCur, r.evalPrev),\n      governance: r2(r.govCur), governanceChange: pct(r.govCur, r.govPrev),\n      unattributed: r2(r.unattrCur),\n      traces: r.tracesCur, tracesChange: pct(r.tracesCur, r.tracesPrev),\n      spans: r.spansCur, perDay: null, share: shareOf(r.totalCur), children: [] ]\n}\n\ndef paginate = { list ->\n    if (lim <= 0L) return list\n    int from = (int) Math.min(off, (long) list.size())\n    int to   = (int) Math.min(off + lim, (long) list.size())\n    return list.subList(from, to)\n}\n\n// ---- 4. GROUP BY ---------------------------------------------------------\ndef out\nif (dim == 'owner') {\n    def groups = [:]\n    A.each { r -> def k = r.ownerId ? r.ownerId : '__unassigned__'; if (!groups.containsKey(k)) groups[k] = []; groups[k] << r }\n    out = groups.collect { k, ags ->\n        def S  = { f -> double t = 0.0d; ags.each { t += (it[f] as Double) }; t }\n        def SL = { f -> long   t = 0L;   ags.each { t += (it[f] as Long)   }; t }\n        def name = ags.find { it.owner }?.owner ?: 'Unassigned'\n        // OWNER CHILDREN: all active agents, returned whole (no pagination on children)\n        def kids = ags.findAll(active).collect(agentItem).sort(bySpendDesc)\n        // OWNER PARENT: no agentId/agentName - identity is owner / ownerId. agentCount = #agents in group.\n        [ agentId: null, agentName: null, costType: null, owner: name, ownerId: k,\n          department: (ags.find { it.department }?.department ?: ''), platform: (ags.find { it.platform }?.platform ?: ''),\n          agentCount: (long) ags.findAll(active).size(),\n          totalSpend: r2(S('totalCur')), percentageChange: pct(S('totalCur'), S('totalPrev')),\n          llm: r2(S('llmCur')), llmChange: pct(S('llmCur'), S('llmPrev')),\n          tools: r2(S('toolCur')), toolsChange: pct(S('toolCur'), S('toolPrev')),\n          eval: r2(S('evalCur')), evalChange: pct(S('evalCur'), S('evalPrev')),\n          governance: r2(S('govCur')), governanceChange: pct(S('govCur'), S('govPrev')),\n          unattributed: r2(S('unattrCur')),\n          traces: SL('tracesCur'), tracesChange: pct(S('tracesCur'), S('tracesPrev')),\n          spans: SL('spansCur'), perDay: null, share: shareOf(S('totalCur')), children: kids ]\n    }\n    out = out.sort(cmp)\n} else if (dim == 'costType') {\n    def cats = [ ['LLM','llm'], ['Tools','tool'], ['Eval','eval'], ['Governance','gov'], ['Unattributed','unattr'] ]\n    out = cats.collect { c ->\n        String nm = c[0]; String ck = c[1]\n        String curK = ck + 'Cur'; String prevK = ck + 'Prev'\n        double tot = 0.0d; double totPrev = 0.0d\n        A.each { tot += (it[curK] as Double); totPrev += (it[prevK] as Double) }\n        // costType CHILDREN: agents that spent in this bucket, returned whole\n        def kids = A.findAll { (it[curK] as Double) > 0.0d }.collect { r ->\n            [ agentId: r.agentId, agentName: r.agentName, costType: nm, owner: '', ownerId: '',\n              department: '', platform: '', agentCount: null,\n              totalSpend: r2(r[curK]), percentageChange: pct(r[curK], r[prevK]),\n              llm: null, llmChange: null, tools: null, toolsChange: null, eval: null, evalChange: null,\n              governance: null, governanceChange: null, unattributed: null,\n              traces: null, tracesChange: null, spans: null,\n              perDay: perDayOf(r[curK]), share: shareOf(r[curK]), children: [] ]\n        }.sort(bySpendDesc)\n        // costType PARENT: identity is the bucket (costType)\n        [ agentId: null, agentName: null, costType: nm, owner: '', ownerId: '',\n          department: '', platform: '', agentCount: null,\n          totalSpend: r2(tot), percentageChange: pct(tot, totPrev),\n          llm: null, llmChange: null, tools: null, toolsChange: null, eval: null, evalChange: null,\n          governance: null, governanceChange: null, unattributed: null,\n          traces: null, tracesChange: null, spans: null,\n          perDay: perDayOf(tot), share: shareOf(tot), children: kids ]\n    }.sort(cmp)\n} else {\n    out = A.findAll(active).collect(agentItem).sort(cmp)\n}\n\n// ---- 5. COUNT + PAGE -----------------------------------------------------\n// paged   -> totalRows is the full pre-slice count from the SQL window; do NOT slice again.\n// !paged  -> out holds every row, so count it here and slice here.\n// costType is a fixed 5-bucket set and is never sliced.\nint totalCount = paged ? ((firstRow?.totalRows ?: 0) as Integer) : out.size()\nout.each { it.totalCount = (long) totalCount }\nif (!paged && dim != 'costType') out = paginate(out)\n\nreturn [ agentBreakdown: out, dim: dim, totalCount: totalCount ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"daysElapsed":"{{ n_window.outputs.result.daysElapsed }}",
+					"dim":"{{ n_sqlBuild.outputs.result.dim }}",
+					"filter":"{{ n_start.outputs.filter }}",
+					"limit":"{{ n_start.outputs.limit }}",
+					"offset":"{{ n_start.outputs.offset }}",
+					"rows":{
+						"items":{
+							"agentId":"{{ n_agentSql.outputs.objects[0].columns.agentId }}",
+							"agentName":"{{ n_agentSql.outputs.objects[0].columns.agentName }}",
+							"department":"{{ n_agentSql.outputs.objects[0].columns.department }}",
+							"evalCur":"{{ n_agentSql.outputs.objects[0].columns.evalCur }}",
+							"evalPrev":"{{ n_agentSql.outputs.objects[0].columns.evalPrev }}",
+							"govCur":"{{ n_agentSql.outputs.objects[0].columns.govCur }}",
+							"govPrev":"{{ n_agentSql.outputs.objects[0].columns.govPrev }}",
+							"llmCur":"{{ n_agentSql.outputs.objects[0].columns.llmCur }}",
+							"llmPrev":"{{ n_agentSql.outputs.objects[0].columns.llmPrev }}",
+							"owner":"{{ n_agentSql.outputs.objects[0].columns.owner }}",
+							"ownerId":"{{ n_agentSql.outputs.objects[0].columns.ownerId }}",
+							"platform":"{{ n_agentSql.outputs.objects[0].columns.platform }}",
+							"spansCur":"{{ n_agentSql.outputs.objects[0].columns.spansCur }}",
+							"toolCur":"{{ n_agentSql.outputs.objects[0].columns.toolCur }}",
+							"toolPrev":"{{ n_agentSql.outputs.objects[0].columns.toolPrev }}",
+							"totalCur":"{{ n_agentSql.outputs.objects[0].columns.totalCur }}",
+							"totalPrev":"{{ n_agentSql.outputs.objects[0].columns.totalPrev }}",
+							"tracesCur":"{{ n_agentSql.outputs.objects[0].columns.tracesCur }}",
+							"tracesPrev":"{{ n_agentSql.outputs.objects[0].columns.tracesPrev }}",
+							"unattrCur":"{{ n_agentSql.outputs.objects[0].columns.unattrCur }}",
+							"unattrPrev":"{{ n_agentSql.outputs.objects[0].columns.unattrPrev }}"
+						},
+						"source":"{{ n_agentSql.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"sortBy":{
+						"items":"{{ n_start.outputs.sortBy[0] }}",
+						"source":"{{ n_start.outputs.sortBy }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Map SQL rows to agent breakdown",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":599,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_stop",
+			"index":16,
+			"inputs":{
+				"result":{
+					"agentBreakdown":{
+						"items":{
+							"agentCount":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].agentCount }}",
+							"agentId":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].agentId }}",
+							"agentName":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].agentName }}",
+							"children":{
+								"items":{
+									"agentCount":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].agentCount }}",
+									"agentId":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].agentId }}",
+									"agentName":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].agentName }}",
+									"costType":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].costType }}",
+									"eval":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].department }}",
+									"evalChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].departmentChange }}",
+									"governance":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].governance }}",
+									"governanceChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].governanceChange }}",
+									"llm":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].llm }}",
+									"llmChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].llmChange }}",
+									"owner":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].owner }}",
+									"ownerId":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].ownerId }}",
+									"perDay":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].perDay }}",
+									"percentageChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].percentageChange }}",
+									"platform":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].platform }}",
+									"share":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].share }}",
+									"spans":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].spans }}",
+									"team":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].team }}",
+									"tools":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].tools }}",
+									"toolsChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].toolsChange }}",
+									"totalSpend":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].totalSpend }}",
+									"traces":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].traces }}",
+									"tracesChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].tracesChange }}",
+									"unattributed":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children[0].unattributed }}"
+								},
+								"source":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].children }}",
+								"ua:type":"mappedArray"
+							},
+							"costType":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].costType }}",
+							"eval":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].department }}",
+							"evalChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].departmentChange }}",
+							"governance":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].governance }}",
+							"governanceChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].governanceChange }}",
+							"llm":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].llm }}",
+							"llmChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].llmChange }}",
+							"owner":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].owner }}",
+							"ownerId":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].ownerId }}",
+							"perDay":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].perDay }}",
+							"percentageChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].percentageChange }}",
+							"platform":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].platform }}",
+							"share":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].share }}",
+							"spans":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].spans }}",
+							"team":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].team }}",
+							"tools":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].tools }}",
+							"toolsChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].toolsChange }}",
+							"totalSpend":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].totalSpend }}",
+							"traces":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].traces }}",
+							"tracesChange":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].tracesChange }}",
+							"unattributed":"{{ n_tableAssemble.outputs.result.agentBreakdown[0].unattributed }}"
+						},
+						"source":"{{ n_tableAssemble.outputs.result.agentBreakdown }}",
+						"ua:type":"mappedArray"
+					},
+					"dailySpendRate":{
+						"currentValue":"{{ n_kpiAssemble.outputs.result.statCard.dailySpendRate.currentValue }}",
+						"percentageChange":"{{ n_kpiAssemble.outputs.result.statCard.dailySpendRate.percentageChange }}"
+					},
+					"dailySpendTrend":{
+						"items":{
+							"cumulativeCost":"{{ n_graphAssemble.outputs.result.dailySpendTrend[0].cumulativeCost }}",
+							"dayCost":"{{ n_graphAssemble.outputs.result.dailySpendTrend[0].dayCost }}",
+							"timestamp":"{{ n_graphAssemble.outputs.result.dailySpendTrend[0].timestamp }}"
+						},
+						"source":"{{ n_graphAssemble.outputs.result.dailySpendTrend }}",
+						"ua:type":"mappedArray"
+					},
+					"projected":{
+						"basis":"{{ n_kpiAssemble.outputs.result.statCard.projected.basis }}",
+						"currentValue":"{{ n_kpiAssemble.outputs.result.statCard.projected.currentValue }}"
+					},
+					"spendPerTrace":{
+						"currentValue":"{{ n_kpiAssemble.outputs.result.statCard.spendPerTrace.currentValue }}",
+						"percentageChange":"{{ n_kpiAssemble.outputs.result.statCard.spendPerTrace.percentageChange }}"
+					},
+					"totalCount":"{{ n_tableAssemble.outputs.result.totalCount }}",
+					"totalSpend":{
+						"currentValue":"{{ n_kpiAssemble.outputs.result.statCard.totalSpend.currentValue }}",
+						"percentageChange":"{{ n_kpiAssemble.outputs.result.statCard.totalSpend.percentageChange }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":103
+}
