@@ -1,0 +1,312 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743456824,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743457169,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecce153a823318abfba2a",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":11
+	},
+	"edges":[
+		{
+			"fromNodeId":"g0KvI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"I7Uto",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"I7Uto",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ZVRXK",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"ZVRXK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"bSaF9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"I7Uto",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"bSaF9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"bSaF9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"gsoIF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"gsoIF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"RwUG2",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"681a11f14489d04093fddcae",
+	"lastModifiedBy":-1,
+	"lcName":"voice agent executor",
+	"modifiedTime":1788252973060,
+	"name":"Voice Agent Executor",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":330,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"sxFYT-1",
+			"id":"g0KvI",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Messages",
+							"type":"array"
+						},
+						"session_id":{
+							"title":"Session Id",
+							"type":"string"
+						},
+						"triggerResponse":{
+							"title":"Trigger Response",
+							"type":"boolean"
+						},
+						"updateContext":{
+							"title":"Update Context",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":340,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"sxFYT-1",
+			"id":"I7Uto",
+			"index":0,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ g0KvI.outputs.updateContext }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":359,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"I7Uto@sxFYT-1@y",
+			"id":"ZVRXK",
+			"index":0,
+			"inputs":{
+				"automationId":"682765fa36516f034a828b0c",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ g0KvI.outputs.aiAgentId }}",
+					"caseId":"{{ g0KvI.outputs.caseId }}",
+					"sessionId":"{{ g0KvI.outputs.session_id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Update Context",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":345,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"sxFYT-1",
+			"id":"bSaF9",
+			"index":0,
+			"inputs":{
+				"automationId":"681a21997f252707eedcebe2",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"messages":{
+						"items":"{{ g0KvI.outputs.messages[0] }}",
+						"source":"{{ g0KvI.outputs.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"session_id":"{{ g0KvI.outputs.session_id }}",
+					"triggerResponse":"{{ g0KvI.outputs.triggerResponse }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"add messages to session",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":344,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"sxFYT-1",
+			"id":"gsoIF",
+			"index":0,
+			"inputs":{
+				"automationId":"6804db728588832203d32ebf",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"addPastConversation":false,
+					"room_name":"{{ g0KvI.outputs.session_id }}",
+					"session_id":"{{ g0KvI.outputs.session_id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"resume session",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":336,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"sxFYT-1",
+			"id":"RwUG2",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":13
+}
