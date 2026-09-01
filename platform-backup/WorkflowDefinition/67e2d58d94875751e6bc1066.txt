@@ -1,0 +1,1103 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743748658,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743748733,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece04177b4b4aca57b0ed",
+		"deploymentTag":"expose_token_threshold",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":17
+	},
+	"edges":[
+		{
+			"fromNodeId":"123Gl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"pamSx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pamSx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OYHC7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OYHC7",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_4WzIy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_4WzIy",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_WE56l",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_WE56l",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_DA4it",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_WE56l",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_uzrUa",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_4WzIy",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_3BPRv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OYHC7",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_au28e",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_au28e",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_k2ywP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_au28e",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_UAIio",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_DA4it",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ERBGF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_uzrUa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ERBGF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_3BPRv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ERBGF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_k2ywP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ERBGF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_UAIio",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ERBGF",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67e2d58d94875751e6bc1066",
+	"lastModifiedBy":-1,
+	"lcName":"getmodeldetailsfrommodelid",
+	"modifiedTime":1788252971418,
+	"name":"getModelDetailsFromModelId",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"VnH37-1",
+			"id":"123Gl",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"pdfConfig":{
+									"additionalProperties":false,
+									"properties":{
+										"count":{
+											"title":"Count",
+											"type":"integer"
+										},
+										"singleMessageLimit":{
+											"title":"Single Message Limit",
+											"type":"number"
+										}
+									},
+									"required":[],
+									"title":"Pdf Config",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"Attachment Config",
+							"type":"object"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"contextManagement":{
+							"additionalProperties":false,
+							"properties":{
+								"compactionSettings":{
+									"additionalProperties":false,
+									"properties":{
+										"absoluteTokensThreshold":{
+											"title":"Absolute Tokens Threshold",
+											"type":"integer"
+										}
+									},
+									"required":[],
+									"title":"Compaction Settings",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"Context Management",
+							"type":"object"
+						},
+						"inputModality":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Input Modality",
+							"type":"array"
+						},
+						"isMultipleToolCallEnabled":{
+							"title":"Is Multiple Tool Call Enabled",
+							"type":"boolean"
+						},
+						"isToolCallEnabled":{
+							"title":"Is Tool Call Enabled",
+							"type":"boolean"
+						},
+						"modelName":{
+							"title":"modelName",
+							"type":"string"
+						},
+						"outputModality":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Output Modality",
+							"type":"array"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"streamingDisabled":{
+							"title":"Streaming Disabled",
+							"type":"boolean"
+						},
+						"thoughtMethod":{
+							"title":"Thought Method",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						}
+					},
+					"required":[
+						"caseId",
+						"aiAgentId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":142,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"VnH37-1",
+			"id":"pamSx",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"absoluteTokensThreshold":{
+							"title":"Absolute Tokens Threshold",
+							"type":"integer"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"inputModality":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Input Modality",
+							"type":"array"
+						},
+						"isMultipleToolCallEnabled":{
+							"title":"Is Multiple Tool Call Enabled",
+							"type":"boolean"
+						},
+						"isToolCallEnabled":{
+							"title":"Is Tool Call Enabled",
+							"type":"boolean"
+						},
+						"modelName":{
+							"title":"modelName",
+							"type":"string"
+						},
+						"outputModality":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Output Modality",
+							"type":"array"
+						},
+						"pdfConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"count":{
+									"title":"Count",
+									"type":"integer"
+								},
+								"singleMessageLimit":{
+									"title":"Single Message Limit",
+									"type":"number"
+								}
+							},
+							"required":[],
+							"title":"Pdf Config",
+							"type":"object"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"streamingDisabled":{
+							"title":"Streaming Disabled",
+							"type":"boolean"
+						},
+						"thoughtMethod":{
+							"title":"Thought Method",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"streamingDisabled":false
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"absoluteTokensThreshold":{
+							"title":"Absolute Tokens Threshold",
+							"type":"integer"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"inputModality":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Input Modality",
+							"type":"array"
+						},
+						"isMultipleToolCallEnabled":{
+							"title":"Is Multiple Tool Call Enabled",
+							"type":"boolean"
+						},
+						"isToolCallEnabled":{
+							"title":"Is Tool Call Enabled",
+							"type":"boolean"
+						},
+						"modelName":{
+							"title":"modelName",
+							"type":"string"
+						},
+						"outputModality":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Output Modality",
+							"type":"array"
+						},
+						"pdfConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"count":{
+									"title":"Count",
+									"type":"integer"
+								},
+								"singleMessageLimit":{
+									"title":"Single Message Limit",
+									"type":"number"
+								}
+							},
+							"required":[],
+							"title":"Pdf Config",
+							"type":"object"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"streamingDisabled":{
+							"title":"Streaming Disabled",
+							"type":"boolean"
+						},
+						"thoughtMethod":{
+							"title":"Thought Method",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"modelName Provider",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"VnH37-1",
+			"id":"n_OYHC7",
+			"index":3,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ 123Gl.outputs.modelId }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":359,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_OYHC7@VnH37-1@success",
+			"id":"_4WzIy",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_OYHC7.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_4WzIy@n_OYHC7@VnH37-1@success@y",
+			"id":"_WE56l",
+			"index":5,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ __ENV__.outputs.AI_AGENT_DEFAULT_FALLBACK_MODEL }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":141,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WE56l@_4WzIy@n_OYHC7@VnH37-1@success@y@success",
+			"id":"_DA4it",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ pamSx.outputs.modelName }}",
+						"value":"{{ _WE56l.outputs.properties.model }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.inputModality }}",
+						"value":{
+							"items":"{{ _WE56l.outputs.properties.inputModality[0] }}",
+							"source":"{{ _WE56l.outputs.properties.inputModality }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.outputModality }}",
+						"value":{
+							"items":"{{ _WE56l.outputs.properties.outputModality[0] }}",
+							"source":"{{ _WE56l.outputs.properties.outputModality }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.connectionId }}",
+						"value":"{{ _WE56l.outputs.properties.connectionId }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.thoughtMethod }}",
+						"value":"{{ _WE56l.outputs.properties.thoughtMethod }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.isToolCallEnabled }}",
+						"value":"{{ _WE56l.outputs.properties.isToolCallEnabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.isMultipleToolCallEnabled }}",
+						"value":"{{ _WE56l.outputs.properties.isMultipleToolCallEnabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.streamingDisabled }}",
+						"value":"{{ _WE56l.outputs.properties.streamingDisabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.pdfConfig }}",
+						"value":{
+							"count":"{{ _WE56l.outputs.properties.attachmentConfig.pdfConfig.count }}",
+							"singleMessageLimit":"{{ _WE56l.outputs.properties.attachmentConfig.pdfConfig.singleMessageLimit }}"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.absoluteTokensThreshold }}",
+						"value":"{{ _WE56l.outputs.properties.contextManagement.compactionSettings.absoluteTokensThreshold }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"update ModelName Provider",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":141,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WE56l@_4WzIy@n_OYHC7@VnH37-1@success@y@error",
+			"id":"_uzrUa",
+			"index":7,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ pamSx.outputs.modelName }}",
+						"value":"anthropic.claude-3-5-sonnet-20240620-v1:0"
+					},
+					{
+						"source":"{{ pamSx.outputs.pdfConfig.singleMessageLimit }}",
+						"value":"amazon_bedrock"
+					},
+					{
+						"source":"{{ pamSx.outputs.inputModality }}",
+						"value":[
+							"text",
+							"image"
+						]
+					},
+					{
+						"source":"{{ pamSx.outputs.outputModality }}",
+						"value":[
+							"text"
+						]
+					},
+					{
+						"source":"{{ pamSx.outputs.thoughtMethod }}",
+						"value":"llmOutputText"
+					},
+					{
+						"source":"{{ pamSx.outputs.isToolCallEnabled }}",
+						"value":true
+					},
+					{
+						"source":"{{ pamSx.outputs.isMultipleToolCallEnabled }}",
+						"value":false
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"update ModelName Provider",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":141,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_4WzIy@n_OYHC7@VnH37-1@success@n",
+			"id":"_3BPRv",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ pamSx.outputs.modelName }}",
+						"value":"{{ n_OYHC7.outputs.properties.model }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.inputModality }}",
+						"value":{
+							"items":"{{ n_OYHC7.outputs.properties.inputModality[0] }}",
+							"source":"{{ n_OYHC7.outputs.properties.inputModality }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.outputModality }}",
+						"value":{
+							"items":"{{ n_OYHC7.outputs.properties.outputModality[0] }}",
+							"source":"{{ n_OYHC7.outputs.properties.outputModality }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.connectionId }}",
+						"value":"{{ n_OYHC7.outputs.properties.connectionId }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.thoughtMethod }}",
+						"value":"{{ n_OYHC7.outputs.properties.thoughtMethod }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.isToolCallEnabled }}",
+						"value":"{{ n_OYHC7.outputs.properties.isToolCallEnabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.isMultipleToolCallEnabled }}",
+						"value":"{{ n_OYHC7.outputs.properties.isMultipleToolCallEnabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.streamingDisabled }}",
+						"value":"{{ n_OYHC7.outputs.properties.streamingDisabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.pdfConfig }}",
+						"value":{
+							"count":"{{ n_OYHC7.outputs.properties.attachmentConfig.pdfConfig.count }}",
+							"singleMessageLimit":"{{ n_OYHC7.outputs.properties.attachmentConfig.pdfConfig.singleMessageLimit }}"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.absoluteTokensThreshold }}",
+						"value":"{{ n_OYHC7.outputs.properties.contextManagement.compactionSettings.absoluteTokensThreshold }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"update ModelName Provider",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_OYHC7@VnH37-1@error",
+			"id":"n_au28e",
+			"index":9,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ __ENV__.outputs.AI_AGENT_DEFAULT_FALLBACK_MODEL }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":141,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_au28e@n_OYHC7@VnH37-1@error@success",
+			"id":"_k2ywP",
+			"index":10,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ pamSx.outputs.modelName }}",
+						"value":"{{ n_au28e.outputs.properties.model }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.inputModality }}",
+						"value":{
+							"items":"{{ n_au28e.outputs.properties.inputModality[0] }}",
+							"source":"{{ n_au28e.outputs.properties.inputModality }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.outputModality }}",
+						"value":{
+							"items":"{{ n_au28e.outputs.properties.outputModality[0] }}",
+							"source":"{{ n_au28e.outputs.properties.outputModality }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.connectionId }}",
+						"value":"{{ n_au28e.outputs.properties.connectionId }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.thoughtMethod }}",
+						"value":"{{ n_au28e.outputs.properties.thoughtMethod }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.isToolCallEnabled }}",
+						"value":"{{ n_au28e.outputs.properties.isToolCallEnabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.isMultipleToolCallEnabled }}",
+						"value":"{{ n_au28e.outputs.properties.isMultipleToolCallEnabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.streamingDisabled }}",
+						"value":"{{ n_au28e.outputs.properties.streamingDisabled }}"
+					},
+					{
+						"source":"{{ pamSx.outputs.pdfConfig }}",
+						"value":{
+							"count":"{{ n_au28e.outputs.properties.attachmentConfig.pdfConfig.count }}",
+							"singleMessageLimit":"{{ n_au28e.outputs.properties.attachmentConfig.pdfConfig.singleMessageLimit }}"
+						}
+					},
+					{
+						"source":"{{ pamSx.outputs.absoluteTokensThreshold }}",
+						"value":"{{ n_au28e.outputs.properties.contextManagement.compactionSettings.absoluteTokensThreshold }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"update ModelName Provider",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":141,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_au28e@n_OYHC7@VnH37-1@error@error",
+			"id":"_UAIio",
+			"index":11,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ pamSx.outputs.modelName }}",
+						"value":"anthropic.claude-3-5-sonnet-20240620-v1:0"
+					},
+					{
+						"source":"{{ pamSx.outputs.pdfConfig.singleMessageLimit }}",
+						"value":"amazon_bedrock"
+					},
+					{
+						"source":"{{ pamSx.outputs.inputModality }}",
+						"value":[
+							"text",
+							"image"
+						]
+					},
+					{
+						"source":"{{ pamSx.outputs.outputModality }}",
+						"value":[
+							"text"
+						]
+					},
+					{
+						"source":"{{ pamSx.outputs.thoughtMethod }}",
+						"value":"llmOutputText"
+					},
+					{
+						"source":"{{ pamSx.outputs.isToolCallEnabled }}",
+						"value":true
+					},
+					{
+						"source":"{{ pamSx.outputs.isMultipleToolCallEnabled }}",
+						"value":false
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"update ModelName Provider",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"VnH37-1",
+			"id":"ERBGF",
+			"index":12,
+			"inputs":{
+				"result":{
+					"attachmentConfig":{
+						"pdfConfig":{
+							"count":"{{ pamSx.outputs.pdfConfig.count }}",
+							"singleMessageLimit":"{{ pamSx.outputs.pdfConfig.singleMessageLimit }}"
+						}
+					},
+					"connectionId":"{{ pamSx.outputs.connectionId }}",
+					"contextManagement":{
+						"compactionSettings":{
+							"absoluteTokensThreshold":"{{ pamSx.outputs.absoluteTokensThreshold }}"
+						}
+					},
+					"inputModality":{
+						"items":"{{ pamSx.outputs.inputModality[0] }}",
+						"source":"{{ pamSx.outputs.inputModality }}",
+						"ua:type":"mappedArray"
+					},
+					"isMultipleToolCallEnabled":"{{ pamSx.outputs.isMultipleToolCallEnabled }}",
+					"isToolCallEnabled":"{{ pamSx.outputs.isToolCallEnabled }}",
+					"modelName":"{{ pamSx.outputs.modelName }}",
+					"outputModality":{
+						"items":"{{ pamSx.outputs.outputModality[0] }}",
+						"source":"{{ pamSx.outputs.outputModality }}",
+						"ua:type":"mappedArray"
+					},
+					"provider":"{{ pamSx.outputs.pdfConfig.singleMessageLimit }}",
+					"streamingDisabled":"{{ pamSx.outputs.streamingDisabled }}",
+					"thoughtMethod":"{{ pamSx.outputs.thoughtMethod }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Team",
+		"Internal"
+	],
+	"version":19
+}
