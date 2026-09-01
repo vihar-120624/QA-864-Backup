@@ -1,0 +1,214 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744338309,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744339098,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed052ba51514edfc806c7",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":15
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_yjC51",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_eG4zH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_eG4zH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZYHRr",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6867ed5ad467b02057cb4ac8",
+	"lastModifiedBy":-1,
+	"lcName":"get nextfiretime",
+	"modifiedTime":1788252971503,
+	"name":"Get nextFireTime",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":444,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_U3AnM-1",
+			"id":"n_yjC51",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"nextFireTime":{
+							"title":"Next Fire Time",
+							"type":"string"
+						}
+					},
+					"required":[
+						"nextFireTime"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"duration":{
+							"title":"Duration",
+							"type":"integer"
+						},
+						"expression":{
+							"title":"Expression",
+							"type":"string"
+						},
+						"referenceEpoch":{
+							"title":"Reference Epoch",
+							"type":"integer"
+						},
+						"unit":{
+							"title":"Unit",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_U3AnM-1",
+			"id":"n_eG4zH",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"nextFireTime":{
+							"title":"Next Fire Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"duration":{
+							"title":"Duration",
+							"type":"integer"
+						},
+						"expression":{
+							"title":"Expression",
+							"type":"string"
+						},
+						"refEpoch":{
+							"title":"Ref Epoch",
+							"type":"integer"
+						},
+						"unit":{
+							"title":"Unit",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.LocalDateTime\nimport java.time.ZoneId\nimport java.time.Instant\nimport java.time.ZoneOffset\nimport java.time.format.DateTimeFormatter\n\ndef getNextEpochMillis(duration, unit, referenceEpoch) {\n    def startTime = LocalDateTime.ofInstant(\n        Instant.ofEpochMilli(referenceEpoch), \n        ZoneId.systemDefault()\n    )\n    def futureTime\n    def durationLong = duration.toLong()\n\n    if (unit == 'SECONDS') {\n        futureTime = startTime.plusSeconds(durationLong)\n    } else if (unit == 'MINUTES') {\n        futureTime = startTime.plusMinutes(durationLong)\n    } else if (unit == 'HOURS') {\n        futureTime = startTime.plusHours(durationLong)\n    } else if (unit == 'DAYS') {\n        futureTime = startTime.plusDays(durationLong)\n    } else if (unit == 'WEEKS') {\n        futureTime = startTime.plusWeeks(durationLong)\n    } else if (unit == 'MONTHS') {\n        futureTime = startTime.plusMonths(durationLong)\n    }else {\n        throw new IllegalArgumentException(\"Unsupported unit: $unit\")\n    }\n\n    return futureTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()\n}\n\ndef getNextFireTime(expression) {\n    def exp = com.unifyapps.infra.utils.cron.CronUtils.parseUnixToQuartz(expression)\n    return com.unifyapps.infra.utils.cron.CronUtils.getNextExecutionTime(exp)\n}\n\n\ndef epochTime\nif (binding.hasVariable('expression')) {\n    epochTime = getNextFireTime(expression)\n} else if (binding.hasVariable(\"duration\") && binding.hasVariable(\"unit\")) {\n    def referenceEpoch = (binding.hasVariable(\"refEpoch\")) ? refEpoch : System.currentTimeMillis()\n    epochTime = getNextEpochMillis(duration, unit, referenceEpoch)\n} else {\n    return [:]\n}\n\nString nextFireTime = Instant.ofEpochMilli(epochTime)\n                .atZone(ZoneOffset.systemDefault()) \n                .format(DateTimeFormatter.ISO_INSTANT); \n\nreturn [\"nextFireTime\": nextFireTime]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"duration":"{{ n_yjC51.outputs.duration }}",
+					"expression":"{{ n_yjC51.outputs.expression }}",
+					"refEpoch":"{{ n_yjC51.outputs.referenceEpoch }}",
+					"unit":"{{ n_yjC51.outputs.unit }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculating next schedule time",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_U3AnM-1",
+			"id":"n_ZYHRr",
+			"index":3,
+			"inputs":{
+				"result":{
+					"nextFireTime":"{{ n_eG4zH.outputs.result.nextFireTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2",
+		"release_27jan"
+	],
+	"version":17
+}
