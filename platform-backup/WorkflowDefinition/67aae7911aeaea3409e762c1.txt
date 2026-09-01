@@ -1,0 +1,568 @@
+{
+	"appsUsed":[
+		"microsoft_sentinel"
+	],
+	"createdTime":1787743755645,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743755742,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece0b9d7c534668ef772b",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":156
+	},
+	"edges":[
+		{
+			"fromNodeId":"IKgIs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"YtAM7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"YtAM7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"iohkb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"iohkb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"DH2M5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"DH2M5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"JYlQn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"JYlQn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"9CpZa",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"9CpZa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"NQbnz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"NQbnz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"BI26L",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67aae7911aeaea3409e762c1",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | microsoft sentinel | fetch incident",
+	"modifiedTime":1788252971891,
+	"name":"Knowledge Indexer | Microsoft Sentinel | Fetch Incident",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":57,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"IKgIs",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cursorObject":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"cursorObject",
+							"type":"object"
+						},
+						"lastSyncTime":{
+							"title":"Last Sync Time",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"674855d2634d220ea5dd2d71",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":58,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"YtAM7",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"email":{
+							"title":"Email",
+							"type":"string"
+						},
+						"incidentId":{
+							"title":"Incident Id",
+							"type":"string"
+						},
+						"resourceGroupName":{
+							"title":"Resource Group Name",
+							"type":"string"
+						},
+						"subscriptionId":{
+							"title":"Subscription Id",
+							"type":"string"
+						},
+						"workspaceName":{
+							"title":"Workspace Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"resourceGroupName",
+						"workspaceName",
+						"subscriptionId",
+						"incidentId",
+						"email"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						}
+					},
+					"required":[
+						"inputs"
+					],
+					"type":"object"
+				},
+				"code":"if(!binding.hasVariable('inputs')){\n  return [:]\n}\nreturn inputs",
+				"compile_static":false,
+				"parameters":{
+					"inputs":"{{ IKgIs.outputs.inputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"inputs",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_sentinel",
+				"resourceVersion":8,
+				"connectionId":"67aaf5323ceecb0692a33140",
+				"resourceName":"microsoft_sentinel_get_incident",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"iohkb",
+			"index":0,
+			"inputs":{
+				"apiVersion":"2024-09-01",
+				"resourceGroupName":"{{ YtAM7.outputs.result.resourceGroupName }}",
+				"workspaceName":"{{ YtAM7.outputs.result.workspaceName }}",
+				"incidentId":"{{ YtAM7.outputs.result.incidentId }}",
+				"subscriptionId":"{{ YtAM7.outputs.result.subscriptionId }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft Sentinel",
+			"title":"Get incident",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":58,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"DH2M5",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"data":{
+							"title":"Data",
+							"type":"string"
+						}
+					},
+					"required":[
+						"data"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"etag":{
+							"title":"Etag",
+							"type":"string"
+						},
+						"id":{
+							"title":"Id",
+							"type":"string"
+						},
+						"name":{
+							"title":"Name",
+							"type":"string"
+						},
+						"properties":{
+							"title":"Properties",
+							"type":"string"
+						},
+						"systemData":{
+							"title":"System Data",
+							"type":"string"
+						},
+						"type":{
+							"title":"Type",
+							"type":"string"
+						}
+					},
+					"required":[
+						"name",
+						"properties",
+						"systemData",
+						"type",
+						"id",
+						"etag"
+					],
+					"type":"object"
+				},
+				"code":"def convertToString(data, indent=\" \") {\n    if (data instanceof Map) {\n        if(data==[:]){\n            return \"not given, \"\n        }\n        return data.findAll { key, value -> value != null || value != \"\" }\n               .collect { key, value -> \"${indent}${key} is ${convertToString(value, indent)}\" }\n               .join(\", \")\n    } else if (data instanceof List) {\n        if(data.size()==0){\n            return \"not given, \"\n        }\n        return data.collect { item -> convertToString(item, indent) }.join(\", \")\n    } else {\n        return data?.toString() ?: \"not given, \"\n    }\n}\ndef systemDataPart=binding.hasVariable(\"systemData\") && systemData?\"System Data is \"+convertToString(systemData):null\ndef namePart=binding.hasVariable(\"name\") && name?\"Name is \"+convertToString(name):null\ndef typePart=binding.hasVariable(\"type\") && type?\"Type is \"+convertToString(type):null\ndef etagPart=binding.hasVariable(\"etag\") && etag?\"ETag is \"+convertToString(etag):null\ndef idPart=binding.hasVariable(\"id\") && id?\"ID is \"+convertToString(id):null\ndef workspacePart=binding.hasVariable(\"workspace\") && workspace?workspace.toString():null\ndef data=\"The incident is in \"+workspacePart+\" workspace, \"+namePart+\", \"+convertToString(properties)+\", \"+systemDataPart+\", \"+typePart+\", \"+idPart+\", \"+etagPart\n\nreturn data",
+				"compile_static":false,
+				"parameters":{
+					"etag":"{{ iohkb.outputs.etag }}",
+					"id":"{{ iohkb.outputs.id }}",
+					"name":"{{ iohkb.outputs.name }}",
+					"properties":"{{ iohkb.outputs.properties }}",
+					"systemData":"{{ iohkb.outputs.systemData }}",
+					"type":"{{ iohkb.outputs.type }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"index data",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":65,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"JYlQn",
+			"index":0,
+			"inputs":{
+				"automationId":"67b7429e13f6b44c9caf86bb",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"email":"{{ YtAM7.outputs.result.email }}",
+					"incidentId":"{{ YtAM7.outputs.result.incidentId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"get user sharedIDs",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":58,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"9CpZa",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"createdOn":{
+							"title":"Created On",
+							"type":"string"
+						},
+						"incidentId":{
+							"title":"Incident Id",
+							"type":"string"
+						},
+						"modifiedOn":{
+							"title":"Modified On",
+							"type":"string"
+						},
+						"name":{
+							"title":"Name",
+							"type":"string"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						},
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\ndef chunkMetadata = [:]\nchunkMetadata << [\"appName\": \"microsoft_sentinel\"]\nchunkMetadata << [\"id\": incidentId]\nchunkMetadata << [\"referenceUrl\": referenceUrl]\nchunkMetadata << [\"status\": status]\nif (createdOn) {\n    OffsetDateTime dateTime = OffsetDateTime.parse(createdOn, DateTimeFormatter.ISO_OFFSET_DATE_TIME)\n    long epochMillis = dateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdOn\": epochMillis]\n}\nif (modifiedOn) {\n    OffsetDateTime dateTime = OffsetDateTime.parse(modifiedOn, DateTimeFormatter.ISO_OFFSET_DATE_TIME)\n    long epochMillis = dateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedOn\": epochMillis]\n    chunkMetadata << [\"date\":epochMillis]\n}\n// chunkMetadata << [\"createdOn\": createdOn]\n// chunkMetadata << [\"modifiedOn\": modifiedOn]\nchunkMetadata << [\"name\": name]\nreturn [\"chunkMetadata\": chunkMetadata]",
+				"compile_static":false,
+				"parameters":{
+					"createdOn":"{{ iohkb.outputs.properties.createdTimeUtc }}",
+					"incidentId":"{{ iohkb.outputs.id }}",
+					"modifiedOn":"{{ iohkb.outputs.properties.lastModifiedTimeUtc }}",
+					"name":"{{ iohkb.outputs.properties.title }}",
+					"referenceUrl":"{{ iohkb.outputs.properties.incidentUrl }}",
+					"status":"{{ iohkb.outputs.properties.status }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"chunk metadata",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":72,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"NQbnz",
+			"index":0,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ __USER__.outputs.contactDetails.email }}",
+					"chunkMetadata":"{{ 9CpZa.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"data":"{{ DH2M5.outputs.result }}",
+							"sharedWithIds":{
+								"items":"{{ JYlQn.outputs.sharedWithIds[0] }}",
+								"source":"{{ JYlQn.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ IKgIs.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ IKgIs.outputs.knowledge.readVersion }}",
+					"uniqueEntityId":"{{ iohkb.outputs.name }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"indexer",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":59,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PQwcU-1",
+			"id":"BI26L",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_sentinel"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":158
+}
