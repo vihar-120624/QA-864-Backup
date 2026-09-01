@@ -1,0 +1,208 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743846462,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743846535,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece669d7c534668ef91b3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":13
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Xt9nC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_t33k7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_t33k7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QkVLV",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6891c27402123667884464db",
+	"lastModifiedBy":-1,
+	"lcName":"deep research tool | answer generator",
+	"modifiedTime":1788252971551,
+	"name":"Deep Research Tool | Answer Generator",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_2jBY2-1",
+			"id":"n_Xt9nC",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"finalAnswer":{
+							"title":"Final Answer",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"CountryForLocalisedSearch":{
+							"title":"Country For Localised Search",
+							"type":"string"
+						},
+						"DateMonthWeekYearUnitdmwy":{
+							"title":"Dmwy",
+							"type":"string"
+						},
+						"agentID":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"caseID":{
+							"title":"Case ID",
+							"type":"string"
+						},
+						"modelID":{
+							"title":"Model ID",
+							"type":"string"
+						},
+						"numSearches":{
+							"title":"Num Searches",
+							"type":"integer"
+						},
+						"searchResultsFromPastDays":{
+							"title":"Search Results From Past Days",
+							"type":"integer"
+						},
+						"search_query":{
+							"title":"Search Query",
+							"type":"string"
+						},
+						"summarizeRequired":{
+							"title":"Summarize Required",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"search query",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":464,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_2jBY2-1",
+			"id":"n_t33k7",
+			"index":2,
+			"inputs":{
+				"automationId":"68d3d9ed7c21d0726bbce050",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"DateMonthWeeksYearsDMWY":"{{ n_Xt9nC.outputs.DateMonthWeekYearUnitdmwy }}",
+					"SearchResultsFromNumberOfPastDMWY":"{{ n_Xt9nC.outputs.searchResultsFromPastDays }}",
+					"agentID":"{{ n_Xt9nC.outputs.DateMonthWeekYearUnitdmwy }}",
+					"caseId":"{{ n_Xt9nC.outputs.caseID }}",
+					"countryForLocalisedSearch":"{{ n_Xt9nC.outputs.CountryForLocalisedSearch }}",
+					"modelID":"{{ n_Xt9nC.outputs.modelID }}",
+					"numSearches":"{{ n_Xt9nC.outputs.numSearches }}",
+					"query":"{{ n_Xt9nC.outputs.search_query }}",
+					"summarizeReqd":"{{ n_Xt9nC.outputs.summarizeRequired }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"websearch",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_2jBY2-1",
+			"id":"n_QkVLV",
+			"index":3,
+			"inputs":{
+				"result":{
+					"finalAnswer":"{{ n_t33k7.outputs.finalAnswer }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":15
+}
