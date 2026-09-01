@@ -1,0 +1,646 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743854847,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743854960,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece6e177b4b4aca57b9e2",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":2
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_DsvPg",
+			"id":"next@n_DsvPg@n_lleaN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lleaN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lleaN",
+			"id":"next@n_lleaN@n_qvvSe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qvvSe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qvvSe",
+			"id":"next@n_qvvSe@n_rafsx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rafsx",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a5255a7528c7250943b31f5",
+	"lastModifiedBy":-1,
+	"lcName":"attachment collector from message",
+	"modifiedTime":1788252972136,
+	"name":"attachment collector from message",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1635,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_3EOyh-1",
+			"id":"n_DsvPg",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"files":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"attachmentId":{
+										"title":"attachmentId",
+										"type":"string"
+									},
+									"chatId":{
+										"title":"chatId",
+										"type":"string"
+									},
+									"content":{
+										"title":"Content",
+										"type":"string"
+									},
+									"contentType":{
+										"title":"contentType",
+										"type":"string"
+									},
+									"contentUrl":{
+										"title":"contentUrl",
+										"type":"string"
+									},
+									"fileName":{
+										"title":"fileName",
+										"type":"string"
+									},
+									"messageId":{
+										"title":"messageId",
+										"type":"string"
+									},
+									"uniqueEntityId":{
+										"title":"Unique Entity Id",
+										"type":"string"
+									},
+									"userEmail":{
+										"title":"User Email",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"files",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"attachments":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"title":"content",
+										"type":"string"
+									},
+									"contentType":{
+										"title":"contentType",
+										"type":"string"
+									},
+									"contentUrl":{
+										"title":"contentUrl",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"teamsAppId":{
+										"title":"teamsAppId",
+										"type":"string"
+									},
+									"thumbnailUrl":{
+										"title":"thumbnailUrl",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"attachments",
+							"type":"array"
+						},
+						"chatId":{
+							"title":"Chat Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"userEmail":{
+							"title":"User Email",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":156,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_3EOyh-1",
+			"id":"n_lleaN",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						],
+						"ui:title":""
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"properties":{},
+												"type":"object"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"attachmentId":{
+											"title":"Attachment Id",
+											"type":"string"
+										},
+										"chatId":{
+											"title":"Chat Id",
+											"type":"string"
+										},
+										"content":{
+											"title":"Content",
+											"type":"string"
+										},
+										"contentType":{
+											"title":"Content Type",
+											"type":"string"
+										},
+										"contentUrl":{
+											"title":"Content Url",
+											"type":"string"
+										},
+										"fileName":{
+											"title":"File Name",
+											"type":"string"
+										},
+										"messageId":{
+											"title":"Message Id",
+											"type":"string"
+										},
+										"uniqueEntityId":{
+											"title":"Unique Entity Id",
+											"type":"string"
+										},
+										"userEmail":{
+											"title":"User Email",
+											"type":"string"
+										}
+									},
+									"required":[],
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									]
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
+						},
+						"ua:list_type":{
+							"default":"OBJECT",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"title":"List Type",
+							"type":"string"
+						},
+						"ua:title":{
+							"type":"string"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:title":"files",
+				"ua:list_type":"OBJECT"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"disableActions":true,
+							"items":{
+								"properties":{
+									"attachmentId":{
+										"title":"Attachment Id",
+										"type":"string"
+									},
+									"chatId":{
+										"title":"Chat Id",
+										"type":"string"
+									},
+									"content":{
+										"title":"Content",
+										"type":"string"
+									},
+									"contentType":{
+										"title":"Content Type",
+										"type":"string"
+									},
+									"contentUrl":{
+										"title":"Content Url",
+										"type":"string"
+									},
+									"fileName":{
+										"title":"File Name",
+										"type":"string"
+									},
+									"messageId":{
+										"title":"Message Id",
+										"type":"string"
+									},
+									"uniqueEntityId":{
+										"title":"Unique Entity Id",
+										"type":"string"
+									},
+									"userEmail":{
+										"title":"User Email",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"files",
+							"type":"array"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemsToAdd.items.messageId",
+					"root.itemsToAdd.items.chatId",
+					"root.itemsToAdd.items.fileName",
+					"root.itemsToAdd.items.contentUrl",
+					"root.itemsToAdd.items.contentType",
+					"root.itemsToAdd.items.attachmentId",
+					"root.itemsToAdd.items.content",
+					"root.itemsToAdd.items.uniqueEntityId",
+					"root.itemsToAdd.items.userEmail"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":157,
+				"resourceName":"variable_by_unifyapps_add_items_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_3EOyh-1",
+			"id":"n_qvvSe",
+			"index":3,
+			"inputs":{
+				"captureAddedItems":false,
+				"insertLocation":"END",
+				"itemsToAdd":{
+					"items":{
+						"attachmentId":"{{ n_DsvPg.outputs.attachments[0].id }}",
+						"chatId":"{{ n_DsvPg.outputs.chatId }}",
+						"content":"{{ n_DsvPg.outputs.attachments[0].content }}",
+						"contentType":"{{ n_DsvPg.outputs.attachments[0].contentType }}",
+						"contentUrl":"{{ n_DsvPg.outputs.attachments[0].contentUrl }}",
+						"fileName":"{{ n_DsvPg.outputs.attachments[0].name }}",
+						"messageId":"{{ n_DsvPg.outputs.messageId }}",
+						"uniqueEntityId":"{{ n_DsvPg.outputs.userId }}_{{ n_DsvPg.outputs.chatId }}_{{ n_DsvPg.outputs.messageId }}_{{ n_DsvPg.outputs.attachments[0].id }}",
+						"userEmail":"{{ n_DsvPg.outputs.userEmail }}"
+					},
+					"source":"{{ n_DsvPg.outputs.attachments }}",
+					"ua:type":"mappedArray"
+				},
+				"listName":"{{ n_lleaN.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add items to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.files.source",
+					"root.result.files.ua:type",
+					"root.result.files.items.messageId",
+					"root.result.files.items.chatId",
+					"root.result.files.items.fileName",
+					"root.result.files.items.contentUrl",
+					"root.result.files.items.contentType",
+					"root.result.files.items.attachmentId"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1636,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_3EOyh-1",
+			"id":"n_rafsx",
+			"index":4,
+			"inputs":{
+				"result":{
+					"files":{
+						"items":{
+							"attachmentId":"{{ n_lleaN.outputs.items[0].attachmentId }}",
+							"chatId":"{{ n_lleaN.outputs.items[0].chatId }}",
+							"content":"{{ n_lleaN.outputs.items[0].content }}",
+							"contentType":"{{ n_lleaN.outputs.items[0].contentType }}",
+							"contentUrl":"{{ n_lleaN.outputs.items[0].contentUrl }}",
+							"fileName":"{{ n_lleaN.outputs.items[0].fileName }}",
+							"messageId":"{{ n_lleaN.outputs.items[0].messageId }}",
+							"uniqueEntityId":"{{ n_lleaN.outputs.items[0].uniqueEntityId }}",
+							"userEmail":"{{ n_lleaN.outputs.items[0].userEmail }}"
+						},
+						"source":"{{ n_lleaN.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":4
+}
