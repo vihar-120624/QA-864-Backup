@@ -1,0 +1,475 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743784582,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743784669,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece2845d2142160e6e11a",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":295
+	},
+	"edges":[
+		{
+			"fromNodeId":"BXOwt",
+			"id":"next@BXOwt@n_uwaNo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uwaNo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uwaNo",
+			"id":"next@n_uwaNo@BLh1W",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"BLh1W",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"BLh1W",
+			"id":"next@BLh1W@3qBfx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"3qBfx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"3qBfx",
+			"id":"next@3qBfx@lmqhl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lmqhl",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"680bb38e89c13d6ab6b7babe",
+	"lastModifiedBy":-1,
+	"lcName":"llm cost calculator",
+	"modifiedTime":1788252971544,
+	"name":"LLM Cost Calculator",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":295,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"BXOwt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadCost":{
+							"title":"cacheReadCost",
+							"type":"number"
+						},
+						"cacheWriteCost":{
+							"title":"cacheWriteCost",
+							"type":"number"
+						},
+						"inputTokenCost":{
+							"title":"Input Token Cost",
+							"type":"number"
+						},
+						"outputTokenCost":{
+							"title":"Output Token Cost",
+							"type":"number"
+						},
+						"totalCost":{
+							"title":"totalCost",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"inputTokens":{
+							"title":"inputTokens",
+							"type":"integer"
+						},
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						},
+						"outputTokens":{
+							"title":"outputTokens",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"n_uwaNo",
+			"index":2,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ BXOwt.outputs.modelId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":302,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"BLh1W",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_uwaNo.outputs.properties.model }}"
+							},
+							"property":"properties_model"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"model",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_uwaNo.outputs.properties.model }}",
+					"enabled":false,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.modelLevelPricing.pricing",
+					"root.parameters.modelLevelPricing.longContextPricing",
+					"root.parameters.globalModelPricing.pricing",
+					"root.parameters.globalModelPricing.longContextPricing"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":299,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"3qBfx",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadCost":{
+							"title":"Cache Read Cost",
+							"type":"number"
+						},
+						"cacheWriteCost":{
+							"title":"Cache Write Cost",
+							"type":"number"
+						},
+						"inputCost":{
+							"title":"inputCost",
+							"type":"number"
+						},
+						"outputCost":{
+							"title":"outputCost",
+							"type":"number"
+						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheReadTokenCost":{
+							"title":"Cache Read Token Cost",
+							"type":"number"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteTokenCost":{
+							"title":"Cache Write Token Cost",
+							"type":"number"
+						},
+						"globalModelPricing":{
+							"additionalProperties":false,
+							"properties":{
+								"longContextPricing":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Long Context Pricing",
+									"type":"object"
+								},
+								"pricing":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Pricing",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"Global Model Pricing",
+							"type":"object"
+						},
+						"inputTokenCost":{
+							"title":"inputTokenCost",
+							"type":"number"
+						},
+						"inputTokens":{
+							"title":"inputTokens",
+							"type":"integer"
+						},
+						"modelLevelPricing":{
+							"additionalProperties":false,
+							"properties":{
+								"longContextPricing":{
+									"title":"longContextPricing",
+									"type":"object"
+								},
+								"pricing":{
+									"title":"pricing",
+									"type":"object"
+								}
+							},
+							"type":"object"
+						},
+						"outputTokenCost":{
+							"title":"outputTokenCost",
+							"type":"number"
+						},
+						"outputTokens":{
+							"title":"outputTokens",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// Reads one text rate (e.g. input.text) out of a pricing block; null when absent or malformed\ndef rateOf(block, group) {\n    if (!(block instanceof Map)) {\n        return null\n    }\n    def rates = block[group]\n    def value = rates instanceof Map ? rates['text'] : null\n    return value instanceof Number ? value : null\n}\n\n// Field-level precedence: model level first, then global level, else no price\ndef pickRate(modelBlock, globalBlock, group) {\n    def rate = rateOf(modelBlock, group)\n    return rate != null ? rate : (rateOf(globalBlock, group) ?: 0)\n}\n\n// Reads the long-context threshold out of a block; null when absent or malformed\ndef thresholdOf(block) {\n    def value = block instanceof Map ? block['threshold'] : null\n    return value instanceof Number ? value : null\n}\n\n// ---- 1. Read the two pricing sources from the binding ----\ndef modelCfg  = binding.hasVariable('modelLevelPricing')  && modelLevelPricing  instanceof Map ? modelLevelPricing  : [:]\ndef globalCfg = binding.hasVariable('globalModelPricing') && globalModelPricing instanceof Map ? globalModelPricing : [:]\n\n// Keep the two levels separate so every field can fall back on its own\ndef modelBase  = modelCfg['pricing']\ndef globalBase = globalCfg['pricing']\ndef modelLong  = modelCfg['longContextPricing']\ndef globalLong = globalCfg['longContextPricing']\n\n// ---- 2. Fetch input tokens FIRST so they can be evaluated against the threshold ----\ndef inputTokens = binding.hasVariable('inputTokens') ? (inputTokens ?: 0) : 0\n\n// ---- 3. Threshold follows the same model-first rule ----\ndef threshold = thresholdOf(modelLong)\nif (threshold == null) {\n    threshold = thresholdOf(globalLong)\n}\n\n// ---- 4. Pick the tier strictly on input tokens, keeping both levels of that tier ----\ndef useLongContext = threshold != null && inputTokens > threshold\ndef modelActive    = useLongContext ? modelLong  : modelBase\ndef globalActive   = useLongContext ? globalLong : globalBase\n\n// ---- 5. Resolve each rate independently: model level -> global level -> 0 ----\ndef inputTokenCost     = pickRate(modelActive, globalActive, 'input')\ndef outputTokenCost    = pickRate(modelActive, globalActive, 'output')\ndef cacheReadCostRate  = pickRate(modelActive, globalActive, 'cacheread')\ndef cacheWriteCostRate = pickRate(modelActive, globalActive, 'cachewrite')\n\n// ---- 6. Fetch the remaining token counts ----\ndef outputTokens     = binding.hasVariable('outputTokens')          ? (outputTokens ?: 0)          : 0\ndef cacheReadTokens  = binding.hasVariable('cacheReadInputTokens')  ? (cacheReadInputTokens ?: 0)  : 0\ndef cacheWriteTokens = binding.hasVariable('cacheWriteInputTokens') ? (cacheWriteInputTokens ?: 0) : 0\n\n// ---- 7. Adjust input tokens (remove cached tokens from the standard billable input) ----\ndef effectiveInputTokens = inputTokens - cacheReadTokens - cacheWriteTokens\nif (effectiveInputTokens < 0) {\n    effectiveInputTokens = 0\n}\n\nif (outputTokens < 0) {\n    outputTokens = 0\n}\n\n// ---- 8. Cost calculations (per million tokens) ----\ndef inputCost      = effectiveInputTokens * inputTokenCost / 1_000_000\ndef outputCost     = outputTokens * outputTokenCost / 1_000_000\ndef cacheReadCost  = cacheReadTokens * cacheReadCostRate / 1_000_000\ndef cacheWriteCost = cacheWriteTokens * cacheWriteCostRate / 1_000_000\n\ndef totalCost = inputCost + outputCost + cacheReadCost + cacheWriteCost\n\nreturn [\n    \"inputCost\"     : inputCost,\n    \"outputCost\"    : outputCost,\n    \"cacheReadCost\" : cacheReadCost,\n    \"cacheWriteCost\": cacheWriteCost,\n    \"totalCost\"     : totalCost,\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cacheReadInputTokens":"{{ BXOwt.outputs.cacheReadInputTokens }}",
+					"cacheReadTokenCost":"{{ BLh1W.outputs.properties.Pricing.cacheread.text }}",
+					"cacheWriteInputTokens":"{{ BXOwt.outputs.cacheWriteInputTokens }}",
+					"cacheWriteTokenCost":"{{ BLh1W.outputs.properties.Pricing.cachewrite.text }}",
+					"globalModelPricing":{
+						"longContextPricing":"{{ BLh1W.outputs.properties.longContextPricing }}",
+						"pricing":"{{ BLh1W.outputs.properties.Pricing }}"
+					},
+					"inputTokenCost":"{{ BLh1W.outputs.properties.Pricing.input.text }}",
+					"inputTokens":"{{ BXOwt.outputs.inputTokens }}",
+					"modelLevelPricing":{
+						"longContextPricing":"{{ n_uwaNo.outputs.properties.longContextPricing }}",
+						"pricing":"{{ n_uwaNo.outputs.properties.Pricing }}"
+					},
+					"outputTokenCost":"{{ BLh1W.outputs.properties.Pricing.output.text }}",
+					"outputTokens":"{{ BXOwt.outputs.outputTokens }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":301,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"lmqhl",
+			"index":5,
+			"inputs":{
+				"result":{
+					"cacheReadCost":"{{ 3qBfx.outputs.result.cacheReadCost }}",
+					"cacheWriteCost":"{{ 3qBfx.outputs.result.cacheWriteCost }}",
+					"inputTokenCost":"{{ 3qBfx.outputs.result.inputCost }}",
+					"outputTokenCost":"{{ 3qBfx.outputs.result.outputCost }}",
+					"totalCost":"{{ 3qBfx.outputs.result.totalCost }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":true,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":297
+}
