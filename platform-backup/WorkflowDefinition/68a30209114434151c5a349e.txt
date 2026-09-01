@@ -1,0 +1,112 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743498349,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743498551,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd0a4cdb0358b9df225c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_vFsB5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_psVmn",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68a30209114434151c5a349e",
+	"lastModifiedBy":-1,
+	"lcName":"[a2a] on a2a updated",
+	"modifiedTime":1788252972727,
+	"name":"[A2A] On A2A Updated",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":316,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HRFaA-1",
+			"id":"n_vFsB5",
+			"index":1,
+			"inputs":{
+				"object_type":"e_a2a_server"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":817,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HRFaA-1",
+			"id":"n_psVmn",
+			"index":2,
+			"inputs":{
+				"automationId":"68a2cf744a22b207e50752bc",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"serverId":"{{ n_vFsB5.outputs.id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"a2a"
+	],
+	"version":9
+}
