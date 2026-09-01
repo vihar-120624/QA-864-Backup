@@ -1,0 +1,316 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744655549,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744655647,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed18fcee862008d75c4c1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":65
+	},
+	"edges":[
+		{
+			"fromNodeId":"4aY8o",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"LQTfr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"LQTfr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"50jmT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"50jmT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"sMdDO",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"66e66413824afd000487e21b",
+	"lastModifiedBy":-1,
+	"lcName":"observability | analytics metrics",
+	"modifiedTime":1788252971325,
+	"name":"Observability | Analytics Metrics",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":52,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"fenGp-1",
+			"id":"4aY8o",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"avgSessionDuration":{
+							"title":"Avg Session Duration",
+							"type":"string"
+						},
+						"avgTokenUsed":{
+							"title":"Avg Token Used",
+							"type":"string"
+						},
+						"totalSessions":{
+							"title":"Total Sessions",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":58,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"fenGp-1",
+			"id":"LQTfr",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sqlQuery":{
+							"title":"sqlQuery",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"string"
+						},
+						"timestampEnd":{
+							"title":"Timestamp End",
+							"type":"string"
+						},
+						"timestampStart":{
+							"title":"Timestamp Start",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.text.SimpleDateFormat\nimport java.util.TimeZone\nimport java.util.Date\n\ndef generateQuery(aiAgentId, startTime, endTime, timestampStart, timestampEnd, limit, offset) {\n    return \"SELECT *, AVG(TotalTokensUsed) OVER() AS AvgTokens, AVG(SessionDuration) OVER() As AvgSessionDuration FROM (SELECT sessionId AS SessionID, SUM(tokenUsed) AS TotalTokensUsed, MIN(startTime) AS StartTime, MAX(endTime) AS EndTime, (MAX(endTime) - MIN(startTime)) AS SessionDuration, COUNT(*) OVER() AS TotalSessions FROM (SELECT wv.id AS Id, we.startTime AS StartTime, we.endTime AS EndTime, CAST(wv.payload -> 'payload.tokensUsed' AS int) AS TokenUsed, caseId AS SessionID FROM WORKFLOW_NODE_EXECUTION wne JOIN WORKFLOW_VARIABLE wv ON wv.id = (CASE WHEN wne.rootExecutionInstanceId IS NULL THEN CONCAT_WS('/', wne.executionInstanceId, wne.executionInstanceId, wne.currentNodeId, 'outputs') ELSE CONCAT_WS('/', wne.rootExecutionInstanceId, wne.executionInstanceId, wne.currentNodeId, 'outputs') END) JOIN WORKFLOW_EXECUTION we ON (wne.executionInstanceId = we.id OR wne.rootExecutionInstanceId = we.rootExecutionInstanceId OR wne.parentExecutionInstanceId = we.id OR wne.rootExecutionInstanceId = we.id) WHERE aiAgentId = '\" + aiAgentId + \"' AND caseId IS NOT NULL AND wne.entryTime BETWEEN \" + startTime + \" AND \" + endTime + \" AND we.startTime BETWEEN \" + startTime + \" AND \" + endTime + \" AND we.workflowId in ('66ac70650f725f5b425d12d8', '66966960e8797a59f4a46292') AND wne.workflowId in ('66ac70650f725f5b425d12d8', '66966960e8797a59f4a46292') AND currentNodeId in ('27dr9', 'vBzOH')) AS AB WHERE SessionID IS NOT NULL GROUP BY SessionID) AS T ORDER BY StartTime DESC LIMIT \" + offset + \", \" + limit + \";\"\n}\n\ndef getEpoch(timestamp) {\n    def format = new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSSX\")\n    format.setTimeZone(TimeZone.getTimeZone(\"UTC\"))\n    return format.parse(timestamp).getTime()\n}\n\ndef startTime = getEpoch(timestampStart)\ndef endTime = getEpoch(timestampEnd)\n\ndef sqlQuery = generateQuery(agentId, startTime, endTime, timestampStart, timestampEnd, limit, offset)\nreturn [sqlQuery: sqlQuery]",
+				"compile_static":false,
+				"isAsync":false,
+				"parameters":{
+					"agentId":"{{ 4aY8o.outputs.agentId }}",
+					"limit":"{{ 4aY8o.outputs.limit }}",
+					"offset":"{{ 4aY8o.outputs.offset }}",
+					"timestampEnd":"{{ 4aY8o.outputs.endTime }}",
+					"timestampStart":"{{ 4aY8o.outputs.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":18,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"fenGp-1",
+			"id":"50jmT",
+			"index":0,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"AvgSessionDuration":{
+									"title":"AvgSessionDuration",
+									"type":"number"
+								},
+								"AvgTokens":{
+									"title":"AvgTokens",
+									"type":"integer"
+								},
+								"EndTime":{
+									"title":"EndTime",
+									"type":"integer"
+								},
+								"SessionDuration":{
+									"title":"SessionDuration",
+									"type":"integer"
+								},
+								"SessionID":{
+									"title":"SessionID",
+									"type":"string"
+								},
+								"StartTime":{
+									"title":"StartTime",
+									"type":"integer"
+								},
+								"TotalSessions":{
+									"title":"TotalSessions",
+									"type":"integer"
+								},
+								"TotalTokensUsed":{
+									"title":"TotalTokensUsed",
+									"type":"integer"
+								}
+							},
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ LQTfr.outputs.result.sqlQuery }}",
+				"group":"PLATFORM"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"fenGp-1",
+			"id":"sMdDO",
+			"index":0,
+			"inputs":{
+				"result":{
+					"avgSessionDuration":"{{ 50jmT.outputs.objects[0].columns.AvgSessionDuration }}",
+					"avgTokenUsed":"{{ 50jmT.outputs.objects[0].columns.AvgTokens }}",
+					"sessions":{
+						"items":{
+							"customerName":"{{ y0Cab.outputs.result.sessions[0].customerProfileName }}",
+							"customerProfileId":"{{ y0Cab.outputs.result.sessions[0].customerProfileId }}",
+							"lastResponseTime":"{{ y0Cab.outputs.result.sessions[0].endTime }}",
+							"sessionId":"{{ y0Cab.outputs.result.sessions[0].sessionID }}",
+							"sessionTime":"{{ y0Cab.outputs.result.sessions[0].sessionDuration }}",
+							"startTime":"{{ y0Cab.outputs.result.sessions[0].startTime }}",
+							"tokenUsed":"{{ y0Cab.outputs.result.sessions[0].totalTokensUsed }}"
+						},
+						"source":"{{ y0Cab.outputs.result.sessions }}",
+						"ua:type":"mappedArray"
+					},
+					"totalSessions":"{{ 50jmT.outputs.objects[0].columns.TotalSessions }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":67
+}
