@@ -1,0 +1,537 @@
+{
+	"appsUsed":[
+		"gitlab"
+	],
+	"createdTime":1787743849359,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743849617,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece6945d2142160e6e747",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":64
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_1YoH5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Qdu3C",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Qdu3C",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ga3Zp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ga3Zp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"VciuA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"VciuA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xYDVi",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xYDVi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_uuB76",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_uuB76",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_suDyD",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6979a0f4f767a26303af9ff4",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | gitlab | blob",
+	"modifiedTime":1788252971664,
+	"name":"Knowledge Downloader | Gitlab | blob",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":444,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"n_1YoH5",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"baseUrl":{
+							"title":"Base Url",
+							"type":"string"
+						},
+						"blobName":{
+							"title":"Blob Name",
+							"type":"string"
+						},
+						"blobPath":{
+							"title":"Blob Path",
+							"type":"string"
+						},
+						"blobSha":{
+							"title":"Blob Sha",
+							"type":"string"
+						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"projectId":{
+							"title":"Project Id",
+							"type":"string"
+						},
+						"reference":{
+							"title":"Reference",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"gitlab",
+				"resourceVersion":3612,
+				"connectionId":"697323e9da059813f7fb96d8",
+				"resourceName":"gitlab_get_file_in_repository",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"n_Qdu3C",
+			"index":2,
+			"inputs":{
+				"file_path":"{{ n_1YoH5.outputs.blobPath }}",
+				"ref":"{{ n_1YoH5.outputs.reference }}",
+				"id":"Vimal1705/abc"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"duration":"1",
+					"enabled":false,
+					"threshold":"100",
+					"unit":"MINUTES",
+					"waitForNextWindow":true
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":60000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"GitLab",
+			"title":"Get file in repository",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"gitlab",
+				"resourceVersion":3603,
+				"connectionId":"697323e9da059813f7fb96d8",
+				"resourceName":"gitlab_get_commit",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"n_Ga3Zp",
+			"index":3,
+			"inputs":{
+				"id":"{{ n_1YoH5.outputs.projectId }}",
+				"sha":"{{ n_Qdu3C.outputs.last_commit_id }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"duration":"1",
+					"enabled":true,
+					"threshold":"100",
+					"unit":"MINUTES",
+					"waitForNextWindow":true
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":4,
+					"enabled":true,
+					"initialDelay":10000,
+					"maxDelay":2
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"GitLab",
+			"title":"Get commit",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"VciuA",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"base64Content":{
+							"title":"Base 64 Content",
+							"type":"string"
+						},
+						"modifiedBy":{
+							"title":"Modified By",
+							"type":"string"
+						},
+						"modifiedTime":{
+							"title":"Modified Time",
+							"type":"string"
+						},
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response') && response){\n  sourceResponse = response\n}\nif(binding.hasVariable('modifiedBy') && modifiedBy){\n  sourceResponse['modifiedBy'] = modifiedBy\n}\nif(binding.hasVariable('modifiedTime') && modifiedTime){\n  sourceResponse['modifiedTime'] = modifiedTime\n}\nif(binding.hasVariable('base64Content') && base64Content){\n  sourceResponse['base64Content'] = base64Content\n}\nreturn ['sourceResponse' : sourceResponse]",
+				"compile_static":false,
+				"isAsync":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"base64Content":"{{ n_Qdu3C.outputs.content }}",
+					"modifiedBy":"{{ n_Ga3Zp.outputs.author_email }}",
+					"modifiedTime":"{{ n_Ga3Zp.outputs.authored_date }}",
+					"response":"{{ n_1YoH5.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"sourceResponse",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":774,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"n_xYDVi",
+			"index":5,
+			"inputs":{
+				"callableInterfaceId":"69463cac91a45a6faf92f4f2",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"fallbackWorkflowId":"69862acd6208311ff6c13c6a",
+				"parameters":{
+					"sourceResponse":"{{ VciuA.outputs.result.sourceResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":459,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"_uuB76",
+			"index":6,
+			"inputs":{
+				"automationId":"6867a54b78989b484e92345e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"knowledgeId":"{{ n_1YoH5.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_1YoH5.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ n_1YoH5.outputs.indexingVersion }}",
+					"metadata":"{{ n_xYDVi.outputs.chunkMetadata }}",
+					"resourceType":"gitBlob",
+					"sharedWithIds":{
+						"items":"{{ n_1YoH5.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_1YoH5.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"sourceResponse":"{{ VciuA.outputs.result.sourceResponse }}",
+					"uniqueEntityId":"{{ n_1YoH5.outputs.blobPath }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Store Raw Data",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KHpbz-1",
+			"id":"n_suDyD",
+			"index":7,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"gitlab"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":66
+}
