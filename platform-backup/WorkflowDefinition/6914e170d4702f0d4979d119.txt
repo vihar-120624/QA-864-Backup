@@ -1,0 +1,250 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743954534,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743954673,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8eced245d2142160e6f6b7",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":9
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_pHxyq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6iGYP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6iGYP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iAfBX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iAfBX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pLL3H",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pLL3H",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_37CY5",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6914e170d4702f0d4979d119",
+	"lastModifiedBy":-1,
+	"lcName":"get deployment jstack",
+	"modifiedTime":1788252973095,
+	"name":"Get Deployment Jstack",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":39,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sNQkT-1",
+			"id":"n_pHxyq",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						}
+					},
+					"required":[
+						"fileDetails"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"deploymentName":{
+							"title":"Deployment Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"deploymentName",
+						"connectionId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":39,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sNQkT-1",
+			"id":"n_6iGYP",
+			"index":2,
+			"inputs":{
+				"automationId":"691389170f51da3d178c871b",
+				"runtimeConnections":{
+					"kubernetes":"{{ n_pHxyq.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"deploymentName":"{{ n_pHxyq.outputs.deploymentName }}",
+					"namespace":"unifyapps"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":39,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sNQkT-1",
+			"id":"n_iAfBX",
+			"index":3,
+			"inputs":{
+				"automationId":"687947f31d11809b87f096d9",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"app":"{{ n_6iGYP.outputs.appName }}",
+					"container":"{{ n_6iGYP.outputs.containerName }}",
+					"deploymentName":"{{ n_pHxyq.outputs.deploymentName }}",
+					"namespace":"unifyapps",
+					"tier":"{{ n_6iGYP.outputs.tier }}",
+					"type":"THREAD_DUMPS"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":27,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sNQkT-1",
+			"id":"n_pLL3H",
+			"index":4,
+			"inputs":{
+				"uploadPublic":false,
+				"fileName":"{{ n_pHxyq.outputs.deploymentName }}-jstack.zip",
+				"mimeType":"application/zip",
+				"url":"{{ n_iAfBX.outputs.threadDumps }}",
+				"option":"url"
+			},
+			"skip":false,
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":39,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sNQkT-1",
+			"id":"n_37CY5",
+			"index":5,
+			"inputs":{
+				"result":{
+					"fileDetails":"{{ n_pLL3H.outputs.fileDetails }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":11
+}
