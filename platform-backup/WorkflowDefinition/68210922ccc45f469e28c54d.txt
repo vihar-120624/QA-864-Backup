@@ -1,0 +1,224 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743873375,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743873420,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece81177b4b4aca57bbbe",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":14
+	},
+	"edges":[
+		{
+			"fromNodeId":"ago2B",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_z4Kvr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_z4Kvr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"txS1x",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68210922ccc45f469e28c54d",
+	"lastModifiedBy":-1,
+	"lcName":"default channel specific case management (create case)",
+	"modifiedTime":1788252971849,
+	"name":"Default Channel Specific Case Management (Create case)",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":336,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Ah50M-1",
+			"id":"ago2B",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"createdCase":{
+							"title":"Created Case",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"6820f6dbccc45f469e28bd52",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						},
+						"channelSpecificMessageId":{
+							"title":"channelSpecificMessageId",
+							"type":"string"
+						},
+						"channelSpecificUserId":{
+							"title":"channelSpecificUserId",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"toCustomerUserId":{
+							"title":"To Customer User Id",
+							"type":"string"
+						},
+						"triggerInput":{
+							"title":"triggerInput",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.requiredSkills.items.skill",
+					"root.record.requiredSkills.items.skillCategory",
+					"root.record.requiredSkills.items.op",
+					"root.record.customProperties.awbNumber",
+					"root.record.customProperties.finoCustom.items.mainGrievance",
+					"root.record.customProperties.finoCustom.items.subGrievance",
+					"root.record.customProperties.finoCustom.items.deliveryChannel",
+					"root.record.customProperties.finoCustom.items.compaintMode",
+					"root.record.assignmentDetails.assigneeId",
+					"root.record.assignmentDetails.assigneeType",
+					"root.record.additional.aiAgentId",
+					"root.record.additional.lastAssociatedMassageType",
+					"root.record.additional.isBookmarked",
+					"root.record.additional.shouldSummarise",
+					"root.record.additional.latestExecutionId",
+					"root.record.additional.generatingResponse"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2052,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Ah50M-1",
+			"id":"_z4Kvr",
+			"index":0,
+			"inputs":{
+				"object_type":"service_hub_case",
+				"record":{
+					"additional":{
+						"aiAgentId":"{{ ago2B.outputs.toCustomerUserId }}",
+						"generatingResponse":false,
+						"isBookmarked":false
+					},
+					"channelName":"{{ ago2B.outputs.channelName }}",
+					"customProperties":{
+						"channelName":"{{ ago2B.outputs.channelName }}"
+					},
+					"fromCustomerUserId":"{{ ago2B.outputs.fromCustomerUserId }}",
+					"toCustomerUserId":"{{ ago2B.outputs.toCustomerUserId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":349,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Ah50M-1",
+			"id":"txS1x",
+			"index":0,
+			"inputs":{
+				"result":{
+					"caseId":"{{ _z4Kvr.outputs.id }}",
+					"createdCase":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":16
+}
