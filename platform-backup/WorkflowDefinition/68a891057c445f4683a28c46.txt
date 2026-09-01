@@ -1,0 +1,925 @@
+{
+	"appsUsed":[
+		"ibm_db2"
+	],
+	"createdTime":1787743882191,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743883813,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece8b177b4b4aca57bc1d",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":79
+	},
+	"description":"Child Automation",
+	"edges":[
+		{
+			"fromNodeId":"n_lzFtQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PdHdG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PdHdG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rJsAz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rJsAz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uxjQa",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_uxjQa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_JBJTe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_JBJTe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_E8Mq8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_E8Mq8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_w1n7W",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_w1n7W",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_6dG6E",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_6dG6E",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8oJ0Z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8oJ0Z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Istdb",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Istdb",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_ARNT9",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_ARNT9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_F6Qdt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_F6Qdt",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_JiGmV",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_F6Qdt",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_JhkF0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Istdb",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_c9DAm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_JiGmV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uUYpg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_JhkF0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uUYpg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_c9DAm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uUYpg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uUYpg",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8oJ0Z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8oJ0Z",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rJsAz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rJsAz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mHqAS",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68a891057c445f4683a28c46",
+	"lastModifiedBy":-1,
+	"lcName":"ph - db2",
+	"modifiedTime":1788252972747,
+	"name":"PH - DB2",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":11,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_psfsS-1",
+			"id":"n_lzFtQ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"epoch":{
+							"title":"Epoch",
+							"type":"number"
+						}
+					},
+					"required":[
+						"epoch"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":85,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_psfsS-1",
+			"id":"n_PdHdG",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_lzFtQ.outputs.epoch }}"
+							},
+							"property":"properties_epoch"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"CCC"
+							},
+							"property":"properties_problemCode"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"invoice_recon_information",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"page":{
+					"limit":1000,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":11,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_psfsS-1",
+			"id":"n_rJsAz",
+			"index":3,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_PdHdG.outputs.objects }}",
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":11,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rJsAz@_psfsS-1@l",
+			"id":"n_uxjQa",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"poNumber":{
+							"title":"Po Number",
+							"type":"integer"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"poNumber":"=VALUE({{ n_rJsAz.outputs.item.properties.po }})"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"poNumber":{
+							"title":"Po Number",
+							"type":"integer"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"ibm_db2",
+				"resourceVersion":146,
+				"connectionId":"68a7221ecb64a7ce0db4abe8",
+				"resourceName":"ibm_db2_execute_sql",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rJsAz@_psfsS-1@l",
+			"id":"_JBJTe",
+			"index":5,
+			"inputs":{
+				"objectSourceResourceName":"ibm_db2_execute_sql_metadata",
+				"sql":"SELECT SEQ_NBR, RPR_DTL_TXT FROM LOWES.T1483_TP_PAY_HST WHERE E058_PO_NBR = {{ n_uxjQa.outputs.poNumber }}"
+			},
+			"skip":false,
+			"subTitle":"IBM DB2",
+			"title":"Execute a SQL statement",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":11,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rJsAz@_psfsS-1@l",
+			"id":"_E8Mq8",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"lines":{
+							"title":"Lines",
+							"type":"string"
+						}
+					},
+					"required":[
+						"lines"
+					],
+					"type":"object"
+				},
+				"configurationMode":"DEFAULT",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"in_data":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"In Data",
+							"type":"array"
+						}
+					},
+					"required":[
+						"in_data"
+					],
+					"type":"object"
+				},
+				"code":"lines = [row[\"RPR_DTL_TXT\"] for row in in_data]\r\nlines = \"\\n\".join(lines)\r\nresult = {\"lines\": lines}",
+				"isAsync":false,
+				"python_version":"3.12",
+				"parameters":{
+					"in_data":{
+						"source":"{{ _JBJTe.outputs.rows }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":11,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rJsAz@_psfsS-1@l",
+			"id":"_w1n7W",
+			"index":7,
+			"inputs":{
+				"automationId":"66dfd76eb70dad256986b784",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"content":"# You are a helpful text parser.\n* User provides you with a structured representation of a legacy-style corporate payment history report here it is - {{ _E8Mq8.outputs.result.lines }}, originally formatted as a sequence of monospaced text lines. The structure is designed for human-readable reporting, not for direct machine parsing.\nYour goal is to parse the payment history text to extract structured data.\n\n\n# This is a structured representation of a legacy-style corporate payment history report, formatted as a sequence of monospaced text lines. The structure of text is designed for human-readable reporting, not for direct machine parsing. To extract structured data, an LLM would need to:\n\n\n* Recognize patterns across lines (e.g., invoice number, date, amount)\n* Group related lines into logical blocks (e.g., one payment record spans multiple lines)\n* Ignore decorative or empty lines\n\n\n# Top-Level Structure\n{\n\"header\": { ... },\n\"commonInfo\": { ... },\n\"ddaTransactions\": [ ... ],\n\"purchaseClearing\": [ ... ],\n\"sosFileInfo\": [ ... ]\n}\n\n\n#Section Breakdown\n\n\n* header: Metadata about the report itself\n- Includes report number, PO number, run date/time, page number, and processor name\n* commonInfo: Summary of a specific PO and invoice\n- Contains PO and vendor numbers, invoice details, gross amount, and problem description\n* ddaTransactions: Array of detailed payment records\n- Each object includes invoice number/date/amount, vendor info, voucher details, check info, account number, and product group\n* purchaseClearing: Vendor-level reconciliation data for received goods\n- Includes store number, week-ending date, receiving report number/date, voucher date, vendor name, invoice cost, actual cost, and variance metrics\n* sosFileInfo: Summary of store-level sales and cost data\n- Includes store number, invoice number, transaction date, selling price, estimated cost, profit metrics, and invoice cost breakdowns\n\n\n# Only respond with the structured output that is extracted - do not include other text like \"Here is the structured data extracted from your payment history report:\"\n\n\n# Keep all the fields in the Top-Level structure. If data isn't available, then leave it empty but don't remove the field.\n\n\n# Examples of the user input text and the extracted output\n\n\n* Example 1\n\n\n1REPORT NO - DTCR370A 289142444 LOWE'S COMPANIES, INC. CORPORATE TRADE PAYABLES DATE RUN: 08/22/25 \nPAGE NO - 52,959 DISCREPANCY TRACKING CONTROL SYSTEM TIME RUN: 02:04:58 \nPREVIOUS PAYMENT HISTORY \nPROCESSOR NAME: JANE DOE \n0 \nCOMMON INFORMATION \n0 PO PO VENDOR INVOICE INVOICE GROSS PROBLEM CODE \nNUMBER DATE NUMBER NUMBER DATE AMOUNT DESCRIPTION \n0 289142444 00/00/00 00000 00/00/00 0.00 NO DESCRIPTION FOUND \n0 DDA INFORMATION / ACCOUNT NUMBER DISTRIBUTION \n0 INVOICE INVOICE INVOICE VENDOR VENDOR VOUCHER VOUCHER VOUCHER CHECK CHECK ACCOUNT PROD TYP\nNUMBER DATE AMOUNT NUMBER NAME NUMBER/LINE DATE AMOUNT NUMBER DATE NUMBER GROUP \n\n3471983 25/08/04 494.55 113694 MILGARD WI AH0372 001 25/08/13 494.55 000000000 00/00/00 252710440000000 513506 \nST:2527 RR NUM: 81066 RR DATE: 00/00/00 RR AMOUNT: 16,314.89 ROLL/BATCH: 00000/000 \n\n3458888 25/07/26 15,080.70 113694 MILGARD WI AI9406 001 25/08/13 15,080.70 000000000 00/00/00 252710440000000 513506 \nST:2527 RR NUM: 81066 RR DATE: 00/00/00 RR AMOUNT: 16,314.89 ROLL/BATCH: 00000/000 \n\n3412105 25/06/27 739.64 113694 MILGARD WI AJ8823 001 25/08/13 739.64 700012444 25/08/13 252710440000000 513506 \nST:2527 RR NUM: 81066 RR DATE: 00/00/00 RR AMOUNT: 16,314.89 ROLL/BATCH: 00000/000 \n0 PURCHASE CLEARING/INFORMATION \n0 W/E RR RR VOUCHER INVOICE ACTUAL PERCENT \nSTORE DATE NUMBER DATE DATE VENDOR NAME COST COST VARIANCE VARIANCE \n\n2527 08/15/25 00000 07115 00711 244.71- 244.71- 0.00 0.0 \n0 SOS FILE INFORMATION \n0 INVOICE TRANS SELLING ESTIMATED CLEARED PERCENT OUTSTANDING TOTAL \nSTORE NUMBER DATE PRICE COST INVOICE COST PROFIT PROFIT INVOICE COST INVOICE COST \n\n2527 81066 25/05/28 19,250.24 16,314.89 2,935.35 15.2 0.00 \n2527 00000 25/08/13 16,314.89 16,314.89- 0.0 0.00 16,314.89 \n19,250.24 16,314.89 16,314.89 2,935.35 15.2 0.00 16,314.89 \n\n\n\n{\"header\": {\"reportNumber\": \"DTCR370A\", \"poNumber\": \"289142444\", \"dateRun\": \"08/22/25\", \"pageNumber\": \"52,959\", \"timeRun\": \"02:04:58\", \"processorName\": \"JANE DOE\"}, \"commonInfo\": {\"poNumber\": \"289142444\", \"poDate\": \"00/00/00\", \"vendorNumber\": \"00000\", \"invoiceNumber\": \"00/00/00\", \"invoiceDate\": \"\", \"grossAmount\": \"0.00\", \"problemDescription\": \"NO DESCRIPTION FOUND\"}, \"ddaTransactions\": [{\"invoiceNumber\": \"3471983\", \"invoiceDate\": \"25/08/04\", \"invoiceAmount\": \"494.55\", \"vendorNumber\": \"113694\", \"vendorName\": \"MILGARD WI\", \"voucherNumberLine\": \"AH0372 001\", \"voucherDate\": \"25/08/13\", \"voucherAmount\": \"494.55\", \"checkNumber\": \"000000000\", \"checkDate\": \"00/00/00\", \"accountNumber\": \"252710440000000\", \"productGroup\": \"513506\"}, {\"invoiceNumber\": \"3458888\", \"invoiceDate\": \"25/07/26\", \"invoiceAmount\": \"15,080.70\", \"vendorNumber\": \"113694\", \"vendorName\": \"MILGARD WI\", \"voucherNumberLine\": \"AI9406 001\", \"voucherDate\": \"25/08/13\", \"voucherAmount\": \"15,080.70\", \"checkNumber\": \"000000000\", \"checkDate\": \"00/00/00\", \"accountNumber\": \"252710440000000\", \"productGroup\": \"513506\"}, {\"invoiceNumber\": \"3412105\", \"invoiceDate\": \"25/06/27\", \"invoiceAmount\": \"739.64\", \"vendorNumber\": \"113694\", \"vendorName\": \"MILGARD WI\", \"voucherNumberLine\": \"AJ8823 001\", \"voucherDate\": \"25/08/13\", \"voucherAmount\": \"739.64\", \"checkNumber\": \"700012444\", \"checkDate\": \"25/08/13\", \"accountNumber\": \"252710440000000\", \"productGroup\": \"513506\"}], \"purchaseClearing\": [{\"store\": \"2527\", \"weDate\": \"08/15/25\", \"rrNumber\": \"00000\", \"rrDate\": \"07115\", \"voucherDate\": \"00711\", \"vendorName\": \"\", \"invoiceCost\": \"244.71-\", \"actualCost\": \"244.71-\", \"varianceAmount\": \"0.00\", \"variancePercent\": \"0.0\"}], \"sosFileInfo\": [{\"store\": \"2527\", \"invoiceNumber\": \"81066\", \"transDate\": \"25/05/28\", \"sellingPrice\": \"19,250.24\", \"estimatedCost\": \"16,314.89\", \"clearedInvoiceCost\": \"2,935.35\", \"profitAmount\": \"15.2\", \"profitPercent\": \"0.00\", \"outstandingInvoiceCost\": \"\", \"totalInvoiceCost\": \"\"}]}\n\n\n\n* Example 2\n\n\n1REPORT NO - DTCR370A 288968096 LOWE'S COMPANIES, INC. CORPORATE TRADE PAYABLES DATE RUN: 08/22/25 \nPAGE NO - 33,991 DISCREPANCY TRACKING CONTROL SYSTEM TIME RUN: 02:04:58 \nPREVIOUS PAYMENT HISTORY \nPROCESSOR NAME: JANE DOE \n0 \nCOMMON INFORMATION \n0 PO PO VENDOR INVOICE INVOICE GROSS PROBLEM CODE \nNUMBER DATE NUMBER NUMBER DATE AMOUNT DESCRIPTION \n0 288968096 00/00/00 00000 00/00/00 0.00 NO DESCRIPTION FOUND \n0 DDA INFORMATION / ACCOUNT NUMBER DISTRIBUTION \n0 INVOICE INVOICE INVOICE VENDOR VENDOR VOUCHER VOUCHER VOUCHER CHECK CHECK ACCOUNT PROD TYP\nNUMBER DATE AMOUNT NUMBER NAME NUMBER/LINE DATE AMOUNT NUMBER DATE NUMBER GROUP \n\n8105655844 25/06/09 1,834.00 14331 WHIRLPOOL AB4277 001 25/08/08 1,834.00 000000000 25/08/11 150210440000000 511020 \nST:3508 RR NUM: 88766 RR DATE: 00/00/00 RR AMOUNT: 917.00 ROLL/BATCH: 00000/000 \n0 PURCHASE CLEARING/INFORMATION \n0 W/E RR RR VOUCHER INVOICE ACTUAL PERCENT \nSTORE DATE NUMBER DATE DATE VENDOR NAME COST COST VARIANCE VARIANCE \n\n3508 08/15/25 00000 06275 00627 37.02- 37.02- 0.00 0.0 \n0 SOS FILE INFORMATION \n0 INVOICE TRANS SELLING ESTIMATED CLEARED PERCENT OUTSTANDING TOTAL \nSTORE NUMBER DATE PRICE COST INVOICE COST PROFIT PROFIT INVOICE COST INVOICE COST \n\n1502 88766 25/05/26 2,096.00 1,834.00 262.00 12.5 0.00 \n1502 00000 25/08/08 1,834.00 1,834.00- 0.0 0.00 1,834.00 \n2,096.00 1,834.00 1,834.00 262.00 12.5 0.00 1,834.00 \n\n\n{\"header\": {\"reportNumber\": \"DTCR370A\", \"poNumber\": \"288968096\", \"dateRun\": \"08/22/25\", \"pageNumber\": \"33,991\", \"timeRun\": \"02:04:58\", \"processorName\": \"JANE DOE\"}, \"commonInfo\": {\"poNumber\": \"288968096\", \"poDate\": \"00/00/00\", \"vendorNumber\": \"00000\", \"invoiceNumber\": \"00/00/00\", \"invoiceDate\": \"\", \"grossAmount\": \"0.00\", \"problemDescription\": \"NO DESCRIPTION FOUND\"}, \"ddaTransactions\": [{\"invoiceNumber\": \"8105655844\", \"invoiceDate\": \"25/06/09\", \"invoiceAmount\": \"1,834.00\", \"vendorNumber\": \"14331\", \"vendorName\": \"WHIRLPOOL\", \"voucherNumberLine\": \"AB4277 001\", \"voucherDate\": \"25/08/08\", \"voucherAmount\": \"1,834.00\", \"checkNumber\": \"000000000\", \"checkDate\": \"25/08/11\", \"accountNumber\": \"150210440000000\", \"productGroup\": \"511020\"}], \"purchaseClearing\": [{\"store\": \"3508\", \"weDate\": \"08/15/25\", \"rrNumber\": \"00000\", \"rrDate\": \"06275\", \"voucherDate\": \"00627\", \"vendorName\": \"\", \"invoiceCost\": \"37.02-\", \"actualCost\": \"37.02-\", \"varianceAmount\": \"0.00\", \"variancePercent\": \"0.0\"}], \"sosFileInfo\": [{\"store\": \"1502\", \"invoiceNumber\": \"88766\", \"transDate\": \"25/05/26\", \"sellingPrice\": \"2,096.00\", \"estimatedCost\": \"1,834.00\", \"clearedInvoiceCost\": \"262.00\", \"profitAmount\": \"12.5\", \"profitPercent\": \"0.00\", \"outstandingInvoiceCost\": \"\", \"totalInvoiceCost\": \"\"}]}\n\n\n* Example 3\n\n\n1REPORT NO - DTCR370A 291452167 LOWE'S COMPANIES, INC. CORPORATE TRADE PAYABLES DATE RUN: 08/22/25 \nPAGE NO - 89,612 DISCREPANCY TRACKING CONTROL SYSTEM TIME RUN: 02:04:58 \nPREVIOUS PAYMENT HISTORY \nPROCESSOR NAME: JANE DOE \n0 \nCOMMON INFORMATION \n0 PO PO VENDOR INVOICE INVOICE GROSS PROBLEM CODE \nNUMBER DATE NUMBER NUMBER DATE AMOUNT DESCRIPTION \n0 291452167 00/00/00 00000 00/00/00 0.00 NO DESCRIPTION FOUND \n0\n0 PURCHASE CLEARING/INFORMATION \n0 W/E RR RR VOUCHER INVOICE ACTUAL PERCENT \nSTORE DATE NUMBER DATE DATE VENDOR NAME COST COST VARIANCE VARIANCE \n\n1783 08/15/25 00001 07155 00814 SCRUGGS CONCRETE COM 3,312.10 3,312.10 0.00 0.0 \n\n\n\n{\"header\": {\"reportNumber\": \"DTCR370A\", \"poNumber\": \"291452167\", \"dateRun\": \"08/22/25\", \"pageNumber\": \"89,612\", \"timeRun\": \"02:04:58\", \"processorName\": \"JANE DOE\"}, \"commonInfo\": {\"poNumber\": \"291452167\", \"poDate\": \"00/00/00\", \"vendorNumber\": \"00000\", \"invoiceNumber\": \"00/00/00\", \"invoiceDate\": \"\", \"grossAmount\": \"0.00\", \"problemDescription\": \"NO DESCRIPTION FOUND\"}, \"ddaTransactions\": [], \"purchaseClearing\": [{\"store\": \"1783\", \"weDate\": \"08/15/25\", \"rrNumber\": \"00001\", \"rrDate\": \"07155\", \"voucherDate\": \"00814\", \"vendorName\": \"SCRUGGS CONCRETE COM\", \"invoiceCost\": \"3,312.10\", \"actualCost\": \"3,312.10\", \"varianceAmount\": \"0.00\", \"variancePercent\": \"0.0\"}], \"sosFileInfo\": []}\n\n\n\n* Example 4\n\n\n1REPORT NO - DTCR370A 287091428 LOWE'S COMPANIES, INC. CORPORATE TRADE PAYABLES DATE RUN: 08/22/25 \nPAGE NO - 57,126 DISCREPANCY TRACKING CONTROL SYSTEM TIME RUN: 02:04:58 \nPREVIOUS PAYMENT HISTORY \nPROCESSOR NAME: JANE DOE \n0 \nCOMMON INFORMATION \n0 PO PO VENDOR INVOICE INVOICE GROSS PROBLEM CODE \nNUMBER DATE NUMBER NUMBER DATE AMOUNT DESCRIPTION \n0 287091428 00/00/00 00000 00/00/00 0.00 NO DESCRIPTION FOUND \n0 DDA INFORMATION / ACCOUNT NUMBER DISTRIBUTION \n0 INVOICE INVOICE INVOICE VENDOR VENDOR VOUCHER VOUCHER VOUCHER CHECK CHECK ACCOUNT PROD TYP\nNUMBER DATE AMOUNT NUMBER NAME NUMBER/LINE DATE AMOUNT NUMBER DATE NUMBER GROUP \n\nI920639 25/06/18 3,500.00 115268 OHIO MULCH AI1464 001 25/08/18 3,500.00 000000000 00/00/00 047410440000000 051790 \nST:0474 RR NUM: 82198 RR DATE: 00/00/00 RR AMOUNT: 44,805.60 ROLL/BATCH: 00000/000 \n\nI920365 25/06/11 9,956.80 115268 OHIO MULCH AI3446 001 25/08/18 9,956.80 000000000 00/00/00 047410440000000 051790 \nST:0474 RR NUM: 82198 RR DATE: 00/00/00 RR AMOUNT: 44,805.60 ROLL/BATCH: 00000/000 \n\nI920277 25/06/06 10,579.10 115268 OHIO MULCH AI7177 001 25/08/20 10,579.10 000000000 00/00/00 047410440000000 517902 \nST:0474 RR NUM: 82198 RR DATE: 00/00/00 RR AMOUNT: 44,805.60 ROLL/BATCH: 00000/000 \n\nI920295 25/06/06 10,579.10 115268 OHIO MULCH AI7178 001 25/08/18 10,579.10 000000000 00/00/00 047410440000000 051790 \nST:0474 RR NUM: 82198 RR DATE: 00/00/00 RR AMOUNT: 44,805.60 ROLL/BATCH: 00000/000 \n\nI919319 25/05/19 10,190.60 115268 OHIO MULCH AJ2885 001 25/08/18 10,190.60 600086799 25/08/18 047410440000000 051790 \nST:0474 DN544898 DT 1 010 80- RR NUM: 82198 RR DATE: 00/00/00 RR AMOUNT: 44,805.60 ROLL/BATCH: 00000/000 \n0 SOS FILE INFORMATION \n0 INVOICE TRANS SELLING ESTIMATED CLEARED PERCENT OUTSTANDING TOTAL \nSTORE NUMBER DATE PRICE COST INVOICE COST PROFIT PROFIT INVOICE COST INVOICE COST \n\n474 82198 25/04/29 49,140.00 44,805.60 4,334.40 8.8 0.00 \n49,140.00 44,805.60 4,334.40 8.8 0.00 \n\n\n\n{\"header\": {\"reportNumber\": \"DTCR370A\", \"poNumber\": \"287091428\", \"dateRun\": \"08/22/25\", \"pageNumber\": \"57,126\", \"timeRun\": \"02:04:58\", \"processorName\": \"JANE DOE\"}, \"commonInfo\": {\"poNumber\": \"287091428\", \"poDate\": \"00/00/00\", \"vendorNumber\": \"00000\", \"invoiceNumber\": \"00/00/00\", \"invoiceDate\": \"\", \"grossAmount\": \"0.00\", \"problemDescription\": \"NO DESCRIPTION FOUND\"}, \"ddaTransactions\": [{\"invoiceNumber\": \"I920639\", \"invoiceDate\": \"25/06/18\", \"invoiceAmount\": \"3,500.00\", \"vendorNumber\": \"115268\", \"vendorName\": \"OHIO MULCH\", \"voucherNumberLine\": \"AI1464 001\", \"voucherDate\": \"25/08/18\", \"voucherAmount\": \"3,500.00\", \"checkNumber\": \"000000000\", \"checkDate\": \"00/00/00\", \"accountNumber\": \"047410440000000\", \"productGroup\": \"051790\"}, {\"invoiceNumber\": \"I920365\", \"invoiceDate\": \"25/06/11\", \"invoiceAmount\": \"9,956.80\", \"vendorNumber\": \"115268\", \"vendorName\": \"OHIO MULCH\", \"voucherNumberLine\": \"AI3446 001\", \"voucherDate\": \"25/08/18\", \"voucherAmount\": \"9,956.80\", \"checkNumber\": \"000000000\", \"checkDate\": \"00/00/00\", \"accountNumber\": \"047410440000000\", \"productGroup\": \"051790\"}, {\"invoiceNumber\": \"I920277\", \"invoiceDate\": \"25/06/06\", \"invoiceAmount\": \"10,579.10\", \"vendorNumber\": \"115268\", \"vendorName\": \"OHIO MULCH\", \"voucherNumberLine\": \"AI7177 001\", \"voucherDate\": \"25/08/20\", \"voucherAmount\": \"10,579.10\", \"checkNumber\": \"000000000\", \"checkDate\": \"00/00/00\", \"accountNumber\": \"047410440000000\", \"productGroup\": \"517902\"}, {\"invoiceNumber\": \"I920295\", \"invoiceDate\": \"25/06/06\", \"invoiceAmount\": \"10,579.10\", \"vendorNumber\": \"115268\", \"vendorName\": \"OHIO MULCH\", \"voucherNumberLine\": \"AI7178 001\", \"voucherDate\": \"25/08/18\", \"voucherAmount\": \"10,579.10\", \"checkNumber\": \"000000000\", \"checkDate\": \"00/00/00\", \"accountNumber\": \"047410440000000\", \"productGroup\": \"051790\"}, {\"invoiceNumber\": \"I919319\", \"invoiceDate\": \"25/05/19\", \"invoiceAmount\": \"10,190.60\", \"vendorNumber\": \"115268\", \"vendorName\": \"OHIO MULCH\", \"voucherNumberLine\": \"AJ2885 001\", \"voucherDate\": \"25/08/18\", \"voucherAmount\": \"10,190.60\", \"checkNumber\": \"600086799\", \"checkDate\": \"25/08/18\", \"accountNumber\": \"047410440000000\", \"productGroup\": \"051790\"}], \"purchaseClearing\": [], \"sosFileInfo\": [{\"store\": \"474\", \"invoiceNumber\": \"82198\", \"transDate\": \"25/04/29\", \"sellingPrice\": \"49,140.00\", \"estimatedCost\": \"44,805.60\", \"clearedInvoiceCost\": \"4,334.40\", \"profitAmount\": \"8.8\", \"profitPercent\": \"0.00\", \"outstandingInvoiceCost\": \"\", \"totalInvoiceCost\": \"\"}]}\n\n\n* Example 5\n\n\n1REPORT NO - DTCR370A 288578554 LOWE'S COMPANIES, INC. CORPORATE TRADE PAYABLES DATE RUN: 08/22/25 \nPAGE NO - 91,745 DISCREPANCY TRACKING CONTROL SYSTEM TIME RUN: 02:04:58 \nPREVIOUS PAYMENT HISTORY \nPROCESSOR NAME: JANE DOE \n0 \nCOMMON INFORMATION \n0 PO PO VENDOR INVOICE INVOICE GROSS PROBLEM CODE \nNUMBER DATE NUMBER NUMBER DATE AMOUNT DESCRIPTION \n0 288578554 00/00/00 00000 00/00/00 0.00 NO DESCRIPTION FOUND \n0 DDA INFORMATION / ACCOUNT NUMBER DISTRIBUTION \n0 INVOICE INVOICE INVOICE VENDOR VENDOR VOUCHER VOUCHER VOUCHER CHECK CHECK ACCOUNT PROD TYP\nNUMBER DATE AMOUNT NUMBER NAME NUMBER/LINE DATE AMOUNT NUMBER DATE NUMBER GROUP \n\n18818207 25/07/25 2,937.53 67546 PELLA CORP AF0080 001 25/08/13 2,937.53 700013041 25/08/18 073310440000000 513506 \nST:0733 DN545053 DT 1 348 21- RR NUM: 84750 RR DATE: 00/00/00 RR AMOUNT: 2,937.53 ROLL/BATCH: 00000/000 \n0 PURCHASE CLEARING/INFORMATION \n0 W/E RR RR VOUCHER INVOICE ACTUAL PERCENT \nSTORE DATE NUMBER DATE DATE VENDOR NAME COST COST VARIANCE VARIANCE \n\n0733 08/15/25 00000 08085 00808 73.46- 73.46- 0.00 0.0 \n0 SOS FILE INFORMATION \n0 INVOICE TRANS SELLING ESTIMATED CLEARED PERCENT OUTSTANDING TOTAL \nSTORE NUMBER DATE PRICE COST INVOICE COST PROFIT PROFIT INVOICE COST INVOICE COST \n\n733 84750 25/05/20 7,430.60 4,285.74 3,144.86 42.3 0.00 \n733 00000 25/08/13 2,937.53 2,937.53- 0.0 0.00 2,937.53 \n733 76329 25/08/05 1,663.28- 959.32- 703.96- 42.3 0.00 \n733 89475 25/08/08 856.68- 494.10- 362.58- 42.3 0.00 \n4,910.64 2,832.32 2,937.53 1,973.11 40.1 0.00 2,937.53 \n\n\n\n{\"header\": {\"reportNumber\": \"DTCR370A\", \"poNumber\": \"288578554\", \"dateRun\": \"08/22/25\", \"pageNumber\": \"91,745\", \"timeRun\": \"02:04:58\", \"processorName\": \"JANE DOE\"}, \"commonInfo\": {\"poNumber\": \"288578554\", \"poDate\": \"00/00/00\", \"vendorNumber\": \"00000\", \"invoiceNumber\": \"00/00/00\", \"invoiceDate\": \"\", \"grossAmount\": \"0.00\", \"problemDescription\": \"NO DESCRIPTION FOUND\"}, \"ddaTransactions\": [{\"invoiceNumber\": \"18818207\", \"invoiceDate\": \"25/07/25\", \"invoiceAmount\": \"2,937.53\", \"vendorNumber\": \"67546\", \"vendorName\": \"PELLA CORP\", \"voucherNumberLine\": \"AF0080 001\", \"voucherDate\": \"25/08/13\", \"voucherAmount\": \"2,937.53\", \"checkNumber\": \"700013041\", \"checkDate\": \"25/08/18\", \"accountNumber\": \"073310440000000\", \"productGroup\": \"513506\"}], \"purchaseClearing\": [{\"store\": \"0733\", \"weDate\": \"08/15/25\", \"rrNumber\": \"00000\", \"rrDate\": \"08085\", \"voucherDate\": \"00808\", \"vendorName\": \"\", \"invoiceCost\": \"73.46-\", \"actualCost\": \"73.46-\", \"varianceAmount\": \"0.00\", \"variancePercent\": \"0.0\"}], \"sosFileInfo\": [{\"store\": \"733\", \"invoiceNumber\": \"84750\", \"transDate\": \"25/05/20\", \"sellingPrice\": \"7,430.60\", \"estimatedCost\": \"4,285.74\", \"clearedInvoiceCost\": \"3,144.86\", \"profitAmount\": \"42.3\", \"profitPercent\": \"0.00\", \"outstandingInvoiceCost\": \"\", \"totalInvoiceCost\": \"\"}]}\n\n",
+					"modelId":"e_68946ed43348fa10cc35e41b",
+					"response_format":"text",
+					"type":"text"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":11,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rJsAz@_psfsS-1@l",
+			"id":"_6dG6E",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"dda":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"accountNumber":{
+										"title":"accountNumber",
+										"type":"string"
+									},
+									"checkDate":{
+										"title":"checkDate",
+										"type":"string"
+									},
+									"checkNumber":{
+										"title":"checkNumber",
+										"type":"string"
+									},
+									"invoiceAmount":{
+										"title":"invoiceAmount",
+										"type":"string"
+									},
+									"invoiceDate":{
+										"title":"invoiceDate",
+										"type":"string"
+									},
+									"invoiceNumber":{
+										"title":"invoiceNumber",
+										"type":"string"
+									},
+									"productGroup":{
+										"title":"productGroup",
+										"type":"string"
+									},
+									"vendorName":{
+										"title":"vendorName",
+										"type":"string"
+									},
+									"vendorNumber":{
+										"title":"vendorNumber",
+										"type":"string"
+									},
+									"voucherAmount":{
+										"title":"voucherAmount",
+										"type":"string"
+									},
+									"voucherDate":{
+										"title":"voucherDate",
+										"type":"string"
+									},
+									"voucherNumberLine":{
+										"title":"voucherNumberLine",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"dda",
+							"type":"array"
+						},
+						"sos":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"estimatedCost":{
+										"title":"Estimated Cost",
+										"type":"string"
+									},
+									"sellingPrice":{
+										"title":"Selling Price",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Sos",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"configurationMode":"DEFAULT",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"structured_data":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Structured Data",
+							"type":"object"
+						}
+					},
+					"required":[
+						"structured_data"
+					],
+					"type":"object"
+				},
+				"code":"import json\r\n \r\ndata = json.loads(structured_data.replace(\"'\", '\"'))\r\n \r\n# Filter out objects where both checkDate and checkNumber are empty\r\n\r\nfiltered_dda = [\r\n\r\n    transaction for transaction in data['ddaTransactions']\r\n\r\n    if not (transaction['checkDate'] == \"\" and transaction['checkNumber'] == \"\")\r\n\r\n]\r\n\r\nfiltered_sos = [\r\n    {\r\n        \"sellingPrice\": transaction[\"sellingPrice\"],\r\n        \"estimatedCost\": transaction[\"estimatedCost\"]\r\n    } for transaction in data['sosFileInfo']\r\n]\r\n \r\nresult = {\"dda\": filtered_dda, \"sos\": filtered_sos}\r\n ",
+				"isAsync":false,
+				"python_version":"3.12",
+				"parameters":{
+					"structured_data":"{{ _w1n7W.outputs.llmResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":11,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rJsAz@_psfsS-1@l",
+			"id":"n_8oJ0Z",
+			"index":9,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ _6dG6E.outputs.result.dda }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":11,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_8oJ0Z@n_rJsAz@_psfsS-1@l@l",
+			"id":"n_Istdb",
+			"index":10,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_8oJ0Z.outputs.item.invoiceAmount }}"
+					},
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_8oJ0Z.outputs.item.checkDate }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":85,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Istdb@n_8oJ0Z@n_rJsAz@_psfsS-1@l@l@y",
+			"id":"_ARNT9",
+			"index":11,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_rJsAz.outputs.item.properties.po }}"
+							},
+							"property":"properties_PONumber"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_8oJ0Z.outputs.item.accountNumber }}"
+							},
+							"property":"properties_accountNumber"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_8oJ0Z.outputs.item.vendorNumber }}"
+							},
+							"property":"properties_vendorNumber"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_8oJ0Z.outputs.item.invoiceNumber }}"
+							},
+							"property":"properties_invoiceNumber"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"ph_db_2",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"page":{
+					"limit":2000,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":11,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Istdb@n_8oJ0Z@n_rJsAz@_psfsS-1@l@l@y",
+			"id":"_F6Qdt",
+			"index":12,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ _ARNT9.outputs.properties.PONumber }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":85,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_F6Qdt@n_Istdb@n_8oJ0Z@n_rJsAz@_psfsS-1@l@l@y@y",
+			"id":"_JiGmV",
+			"index":13,
+			"inputs":{
+				"recordId":"{{ _ARNT9.outputs.id }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"ph_db_2",
+				"record":{
+					"PONumber":"{{ n_rJsAz.outputs.item.properties.po }}",
+					"accountNumber":"{{ n_8oJ0Z.outputs.item.accountNumber }}",
+					"checkDate":"{{ n_8oJ0Z.outputs.item.checkDate }}",
+					"checkNumber":"{{ n_8oJ0Z.outputs.item.checkNumber }}",
+					"epoch":"{{ n_lzFtQ.outputs.epoch }}",
+					"estimatedCost":"{{ _6dG6E.outputs.result.sos[0].estimatedCost }}",
+					"invoiceAmount":"{{ n_8oJ0Z.outputs.item.invoiceAmount }}",
+					"invoiceDate":"{{ n_8oJ0Z.outputs.item.invoiceDate }}",
+					"invoiceNumber":"{{ n_8oJ0Z.outputs.item.invoiceNumber }}",
+					"sellingPrice":"{{ _6dG6E.outputs.result.sos[0].sellingPrice }}",
+					"vendorName":"{{ n_8oJ0Z.outputs.item.vendorName }}",
+					"vendorNumber":"{{ n_8oJ0Z.outputs.item.vendorNumber }}",
+					"voucherAmount":"{{ n_8oJ0Z.outputs.item.voucherAmount }}",
+					"voucherDate":"{{ n_8oJ0Z.outputs.item.voucherDate }}",
+					"voucherNumberLine":"{{ n_8oJ0Z.outputs.item.voucherNumberLine }}"
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":85,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_F6Qdt@n_Istdb@n_8oJ0Z@n_rJsAz@_psfsS-1@l@l@y@n",
+			"id":"_JhkF0",
+			"index":14,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"ph_db_2",
+				"record":{
+					"PONumber":"{{ n_rJsAz.outputs.item.properties.po }}",
+					"accountNumber":"{{ n_8oJ0Z.outputs.item.accountNumber }}",
+					"checkDate":"{{ n_8oJ0Z.outputs.item.checkDate }}",
+					"checkNumber":"{{ n_8oJ0Z.outputs.item.checkNumber }}",
+					"epoch":"{{ n_lzFtQ.outputs.epoch }}",
+					"estimatedCost":"{{ _6dG6E.outputs.result.sos[0].estimatedCost }}",
+					"invoiceAmount":"{{ n_8oJ0Z.outputs.item.invoiceAmount }}",
+					"invoiceDate":"{{ n_8oJ0Z.outputs.item.invoiceDate }}",
+					"invoiceNumber":"{{ n_8oJ0Z.outputs.item.invoiceNumber }}",
+					"productGroup":"{{ n_8oJ0Z.outputs.item.productGroup }}",
+					"sellingPrice":"{{ _6dG6E.outputs.result.sos[0].sellingPrice }}",
+					"vendorName":"{{ n_8oJ0Z.outputs.item.vendorName }}",
+					"vendorNumber":"{{ n_8oJ0Z.outputs.item.vendorNumber }}",
+					"voucherAmount":"{{ n_8oJ0Z.outputs.item.voucherAmount }}",
+					"voucherDate":"{{ n_8oJ0Z.outputs.item.voucherDate }}",
+					"voucherNumberLine":"{{ n_8oJ0Z.outputs.item.voucherNumberLine }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"continue",
+				"resourceVersion":11,
+				"resourceName":"continue",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Istdb@n_8oJ0Z@n_rJsAz@_psfsS-1@l@l@n",
+			"id":"n_c9DAm",
+			"index":15,
+			"inputs":{
+				"loop":"n_8oJ0Z"
+			},
+			"skip":false,
+			"subTitle":"Continue",
+			"title":"Continue",
+			"type":"CONTINUE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":85,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_8oJ0Z@n_rJsAz@_psfsS-1@l@l",
+			"id":"n_uUYpg",
+			"index":16,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"ph_db_2",
+				"record":{
+					"PONumber":"{{ n_rJsAz.outputs.item.properties.po }}",
+					"accountNumber":"{{ n_8oJ0Z.outputs.item.accountNumber }}",
+					"checkDate":"{{ n_8oJ0Z.outputs.item.checkDate }}",
+					"checkNumber":"{{ n_8oJ0Z.outputs.item.checkNumber }}",
+					"invoiceAmount":"{{ n_8oJ0Z.outputs.item.invoiceAmount }}",
+					"invoiceDate":"{{ n_8oJ0Z.outputs.item.invoiceDate }}",
+					"invoiceNumber":"{{ n_8oJ0Z.outputs.item.invoiceNumber }}",
+					"productGroup":"{{ n_8oJ0Z.outputs.item.productGroup }}",
+					"vendorName":"{{ n_8oJ0Z.outputs.item.vendorName }}",
+					"vendorNumber":"{{ n_8oJ0Z.outputs.item.vendorNumber }}",
+					"voucherAmount":"{{ n_8oJ0Z.outputs.item.voucherAmount }}",
+					"voucherDate":"{{ n_8oJ0Z.outputs.item.voucherDate }}",
+					"voucherNumberLine":"{{ n_8oJ0Z.outputs.item.voucherNumberLine }}"
+				}
+			},
+			"skip":true,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":11,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_psfsS-1",
+			"id":"n_mHqAS",
+			"index":17,
+			"inputs":{
+				"result":{
+					"result":"200"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":81
+}
