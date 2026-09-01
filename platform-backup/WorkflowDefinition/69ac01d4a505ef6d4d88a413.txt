@@ -1,0 +1,267 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744111807,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744112165,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf70cee862008d74e09b",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_UHDN1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_q0EKQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_q0EKQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0rmRl",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69ac01d4a505ef6d4d88a413",
+	"lastModifiedBy":-1,
+	"lcName":"alerts | trigger ",
+	"modifiedTime":1788252972430,
+	"name":"alerts | trigger ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1093,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Da56G-1",
+			"id":"n_UHDN1",
+			"index":1,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"NOT_EQUAL",
+								"value":"{{ n_UHDN1.outputs.before.properties.enabled }}"
+							},
+							"property":"{{ n_UHDN1.outputs.object.properties.enabled }}"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"FAILED"
+									},
+									"property":"{{ n_UHDN1.outputs.object.properties.status }}"
+								},
+								{
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"FAILED"
+									},
+									"property":"{{ n_UHDN1.outputs.before.properties.status }}"
+								}
+							],
+							"operator":"AND"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"DRAFT"
+									},
+									"property":"{{ n_UHDN1.outputs.object.properties.status }}"
+								},
+								{
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"DRAFT"
+									},
+									"property":"{{ n_UHDN1.outputs.before.properties.status }}"
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"OR"
+				},
+				"object_type":"knowledge"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":815,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Da56G-1",
+			"id":"n_q0EKQ",
+			"index":2,
+			"inputs":{
+				"automationId":"69a2af209acb6560f604a245",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"newAlerts":{
+						"items":{
+							"actions":{
+								"items":{
+									"customActionConfig":{
+										"context":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].customActionConfig.context }}",
+										"inputs":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].customActionConfig.inputs }}"
+									},
+									"emailIds":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].emailIds }}",
+									"scheduleType":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].scheduleType }}",
+									"type":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].type }}",
+									"userGroupIds":{
+										"items":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].userGroupIds[0] }}",
+										"source":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].userGroupIds }}",
+										"ua:type":"mappedArray"
+									},
+									"userIds":{
+										"items":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].userIds[0] }}",
+										"source":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions[0].userIds }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].actions }}",
+								"ua:type":"mappedArray"
+							},
+							"alertAfterSyncingFor":{
+								"interval":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].alertAfterSyncingFor.interval }}",
+								"unit":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].alertAfterSyncingFor.unit }}"
+							},
+							"alertId":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].alertId }}",
+							"enable":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].enabled }}",
+							"knowledgeId":"{{ n_UHDN1.outputs.object.id }}",
+							"repeatAlertEvery":{
+								"interval":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].repeatAlertEvery.interval }}",
+								"unit":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].repeatAlertEvery.unit }}"
+							},
+							"scope":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].scope }}",
+							"triggerCondition":"{{ n_UHDN1.outputs.object.properties.settings.alerts[0].triggerCondition }}"
+						},
+						"source":"{{ n_UHDN1.outputs.object.properties.settings.alerts }}",
+						"ua:type":"mappedArray"
+					},
+					"oldAlerts":{
+						"items":{
+							"actions":{
+								"items":{
+									"customActionConfig":{
+										"context":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].customActionConfig.context }}",
+										"inputs":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].customActionConfig.inputs }}"
+									},
+									"emailIds":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].emailIds }}",
+									"scheduleType":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].scheduleType }}",
+									"type":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].type }}",
+									"userGroupIds":{
+										"items":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].userGroupIds[0] }}",
+										"source":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].userGroupIds }}",
+										"ua:type":"mappedArray"
+									},
+									"userIds":{
+										"items":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].userIds[0] }}",
+										"source":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions[0].userIds }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].actions }}",
+								"ua:type":"mappedArray"
+							},
+							"alertAfterSyncingFor":{
+								"interval":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].alertAfterSyncingFor.interval }}",
+								"unit":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].alertAfterSyncingFor.unit }}"
+							},
+							"alertId":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].alertId }}",
+							"enable":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].enabled }}",
+							"knowledgeId":"{{ n_UHDN1.outputs.before.id }}",
+							"repeatAlertEvery":{
+								"interval":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].repeatAlertEvery.interval }}",
+								"unit":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].repeatAlertEvery.unit }}"
+							},
+							"scope":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].scope }}",
+							"triggerCondition":"{{ n_UHDN1.outputs.before.properties.settings.alerts[0].triggerCondition }}"
+						},
+						"source":"{{ n_UHDN1.outputs.before.properties.settings.alerts }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Da56G-1",
+			"id":"n_0rmRl",
+			"index":3,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":9
+}
