@@ -1,0 +1,125 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743650091,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743650151,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecda245d2142160e6d394",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_5pibp",
+			"id":"next@n_5pibp@n_3Ooo0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3Ooo0",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69d75b35d4feab3e78120e75",
+	"lastModifiedBy":-1,
+	"lcName":"ai | enterprise chat on user login create memory profile",
+	"modifiedTime":1788252973033,
+	"name":"AI | Enterprise Chat On User login create memory profile",
+	"nodes":[
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":4696,
+				"resourceName":"standard_entities_on_user_create"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_gRDic-1",
+			"id":"n_5pibp",
+			"index":1,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"ua-enterprise-chat"
+							},
+							"property":"{{ n_5pibp.outputs.applicationId }}"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"On user create",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":12903,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_gRDic-1",
+			"id":"n_3Ooo0",
+			"index":2,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"user_memory_profile_disabled",
+				"skipIfBlank":false,
+				"record":{
+					"isDisabled":true,
+					"userId":"{{ n_5pibp.outputs.id }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":10
+}
