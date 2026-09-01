@@ -1,0 +1,570 @@
+{
+	"appsUsed":[
+		"microsoft_onedrive"
+	],
+	"createdTime":1787743865157,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743865348,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece799d7c534668ef9756",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":98
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_zOhOM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_lX2vf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_lX2vf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qDyRb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qDyRb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bK4pO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bK4pO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CgYYn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CgYYn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tPRge",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tPRge",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kKbUH",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_kKbUH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_imXVf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tPRge",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_imXVf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_imXVf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_suDyD",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68bef42fb2d57b3b8f06258d",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | onedrive | file wrapper",
+	"modifiedTime":1788252972077,
+	"name":"Knowledge Downloader | OneDrive | File wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_zOhOM",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"downloadedEntities":{
+							"title":"Downloaded Entities",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"connectionId":{
+							"title":"connectionId",
+							"type":"string"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"fileName":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"indexingVersion",
+							"type":"integer"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"maxModifiedTime":{
+							"title":"Max Modified Time",
+							"type":"integer"
+						},
+						"parentPath":{
+							"title":"Parent Path",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":451,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"_lX2vf",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"path":{
+							"additionalProperties":false,
+							"properties":{
+								"id":{
+									"title":"Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Path",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileName":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"folderPath":{
+							"title":"Folder Path",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"isFile":{
+							"title":"Is File",
+							"type":"boolean"
+						},
+						"parentPath":{
+							"title":"Parent Path",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def encodedFolderPath\ndef path = [:]\n\ndef filePath\n\nif(binding.hasVariable('isFile') && binding.hasVariable('inputs')){\n    if(isFile == true){\n        path[\"id\"] = inputs.path.id\n        return [\"path\": path]\n    }\n}\n\nif (binding.hasVariable('parentPath') && binding.hasVariable('fileName')) {\n    def cleanPath\n    if (binding.hasVariable('folderPath') && folderPath == \"root\") {\n        cleanPath = parentPath?.replaceFirst(\"^/drive/root:\", \"\")\n    } else {\n        cleanPath = parentPath?.replaceFirst(\"^/drive/root:/\", \"\")\n    }\n\n    if (!cleanPath) {\n        filePath = fileName\n    } else {\n        filePath = cleanPath + \"/\" + fileName\n    }\n} else if (binding.hasVariable('fileName')) {\n    filePath = fileName\n} else {\n    filePath = \"\"\n}\n\nencodedFolderPath = encodeUrl(filePath)\n\npath[\"id\"] = encodedFolderPath\n\nreturn [\"path\": path]\n\ndef encodeUrl(String url) {\n    if (!url) return \"\"\n    def encoded = URLEncoder.encode(url, 'UTF-8')\n    return encoded.replace('+', '%20')\n}\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileName":"{{ n_zOhOM.outputs.fileName }}",
+					"folderPath":"{{ n_zOhOM.outputs.inputs.folderPath }}",
+					"inputs":"{{ n_zOhOM.outputs.inputs }}",
+					"isFile":"{{ n_zOhOM.outputs.inputs.isFile }}",
+					"parentPath":"{{ n_zOhOM.outputs.parentPath }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"extract file path",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_onedrive",
+				"resourceVersion":559,
+				"connectionId":"6a293abe83613400d9373e32",
+				"resourceName":"microsoft_onedrive_get_drive_item_metadata",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_qDyRb",
+			"index":3,
+			"inputs":{
+				"path":"{{ _lX2vf.outputs.result.path }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft OneDrive",
+			"title":"Get file metadata",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_onedrive",
+				"resourceVersion":559,
+				"connectionId":"6a293abe83613400d9373e32",
+				"resourceName":"microsoft_onedrive_download_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_bK4pO",
+			"index":4,
+			"inputs":{
+				"path":"{{ _lX2vf.outputs.result.path }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft OneDrive",
+			"title":"Download file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":449,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_CgYYn",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"isAllowed":{
+							"title":"Is Allowed",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"currentTimeEpoch":{
+							"title":"Current Time Epoch",
+							"type":"string"
+						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"maxLastModifiedTime":{
+							"title":"Max Last Modified Time",
+							"type":"integer"
+						},
+						"properties":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Properties",
+							"type":"object"
+						},
+						"startTimeEpoch":{
+							"title":"Start Time Epoch",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.text.SimpleDateFormat\nimport java.util.TimeZone\nimport java.time.*\nimport java.time.format.DateTimeFormatter\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef allowed = true\ndef startTime\n\nif(binding.hasVariable('startTimeEpoch')){\n  startTime = startTimeEpoch\n}\n\nif (binding.hasVariable('inputs')) {\n  if (inputs.fileType != null && inputs.fileType instanceof List && (!inputs.fileType.isEmpty())) {\n    allowed = allowed && inputs.fileType.any { it == properties?.file?.mimeType }\n  }\n  if (inputs.nameContains != null){\n    allowed = allowed && (properties.name != null && properties.name.contains(inputs.nameContains))\n  }\n  if (inputs.author != null){\n    allowed = allowed && (inputs.author.equals(properties?.createdBy?.user?.email))\n  }\n  if (inputs.fileSize != null){\n    allowed = allowed && (properties.size <= inputs.fileSize)\n  }\n}\n\nif(binding.hasVariable('grabberType') && grabberType.contains(\"backward_\")){\n  return ['isAllowed':allowed]\n}\n\nif(binding.hasVariable('maxLastModifiedTime')){\n    startTime = maxLastModifiedTime\n} \n\nif(binding.hasVariable('currentTimeEpoch') && binding.hasVariable('startTimeEpoch')){\n  def fileModifiedTimeStr = properties.lastModifiedDateTime\n  if (fileModifiedTimeStr) {\n    def fileModifiedTimeEpoch = Instant.parse(fileModifiedTimeStr).toEpochMilli()\n\n    if (!(fileModifiedTimeEpoch >= startTime && fileModifiedTimeEpoch <= currentTimeEpoch)) {\n      allowed = false\n    }\n  }\n}\n\nreturn ['isAllowed':allowed]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"currentTimeEpoch":"{{ n_zOhOM.outputs.downloaderConfig.currentTimeEpoch }}",
+					"grabberType":"{{ n_zOhOM.outputs.downloaderConfig.grabberType }}",
+					"inputs":"{{ n_zOhOM.outputs.inputs }}",
+					"maxLastModifiedTime":"{{ n_zOhOM.outputs.maxModifiedTime }}",
+					"properties":"{{ n_qDyRb.outputs }}",
+					"startTimeEpoch":"{{ n_zOhOM.outputs.downloaderConfig.startTimeEpoch }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"filter files by sortingOrder & time",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":438,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_tPRge",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_CgYYn.outputs.result.isAllowed }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"isAllowed?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":455,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_tPRge@_9gT73-1@y",
+			"id":"n_kKbUH",
+			"index":7,
+			"inputs":{
+				"result":{
+					"downloadedEntities":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_imXVf",
+			"index":8,
+			"inputs":{
+				"automationId":"68bef57db2d57b3b8f063b3b",
+				"runtimeConnections":{
+					"microsoft_onedrive":"{{ n_zOhOM.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"connectionId":"{{ n_zOhOM.outputs.connectionId }}",
+					"downloaderConfig":"{{ n_zOhOM.outputs.downloaderConfig }}",
+					"fileDetails":"{{ n_bK4pO.outputs.file }}",
+					"fileMetadata":"{{ n_qDyRb.outputs }}",
+					"filePath":"{{ _lX2vf.outputs.result.path }}",
+					"indexingVersion":"{{ n_zOhOM.outputs.indexingVersion }}",
+					"knowledgeId":"{{ n_zOhOM.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_zOhOM.outputs.knowledgeSetId }}",
+					"uniqueEntityId":"{{ n_qDyRb.outputs.id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Store in rawKnowledge",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9gT73-1",
+			"id":"n_suDyD",
+			"index":9,
+			"inputs":{
+				"result":{
+					"downloadedEntities":1
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_onedrive"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2",
+		"release_27jan",
+		"msft_connectors"
+	],
+	"version":100
+}
