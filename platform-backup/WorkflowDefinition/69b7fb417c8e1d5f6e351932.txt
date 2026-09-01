@@ -1,0 +1,524 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744717022,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744717292,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1cdba51514edfc81e36",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":22
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_ecWL2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_l6w2w",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_l6w2w",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HwVpq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HwVpq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gMJYd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gMJYd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Mot0A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Mot0A",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RU7jS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RU7jS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_j5WJe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_j5WJe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5UKmX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5UKmX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GflJ7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GflJ7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MgXAH",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69b7fb417c8e1d5f6e351932",
+	"lastModifiedBy":-1,
+	"lcName":"auto create index & entity type",
+	"modifiedTime":1788252972776,
+	"name":"Auto Create Index & Entity Type",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":20,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_ecWL2",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"entityTypeId":{
+							"title":"Entity Type Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":57,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_l6w2w",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"personal"
+							},
+							"property":"properties_knowledgeType"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"knowledge_store_metadata",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Personal Entity Type",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3,
+				"resourceName":"storage_by_unifyapps_get_object_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_HwVpq",
+			"index":3,
+			"inputs":{
+				"object_type":"{{ n_l6w2w.outputs.properties.entityType }}"
+			},
+			"skip":false,
+			"subTitle":"Fetch Object",
+			"title":"Get object by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":56,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_gMJYd",
+			"index":4,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"personal_index_number",
+				"skipIfBlank":false
+			},
+			"skip":false,
+			"subTitle":"Get New Index Number",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1856,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_Mot0A",
+			"index":5,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"entityTypeId":{
+							"title":"Entity Type Id",
+							"type":"string"
+						},
+						"indexName":{
+							"title":"Index Name",
+							"type":"string"
+						},
+						"knowledgeType":{
+							"title":"Knowledge Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"indexName":"=CONCATENATE(\"knowledge_vector_store_open_ai_3072_personal_\",{{ n_gMJYd.outputs.properties.number }},\"_1_v1\")",
+				"entityTypeId":"=CONCATENATE(\"knowledge_vector_store_open_ai_3072_personal_\",{{ n_gMJYd.outputs.properties.number }})",
+				"knowledgeType":"personal"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"entityTypeId":{
+							"title":"Entity Type Id",
+							"type":"string"
+						},
+						"indexName":{
+							"title":"Index Name",
+							"type":"string"
+						},
+						"knowledgeType":{
+							"title":"Knowledge Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variables",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":16,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_RU7jS",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"entityType":{
+							"title":"Entity Type",
+							"type":"string"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"indexName":{
+							"title":"Index Name",
+							"type":"string"
+						},
+						"layout":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Layout",
+							"type":"object"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						},
+						"schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Schema",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef schema = binding.getVariable(\"schema\")\ndef layout = binding.getVariable(\"layout\")\n\ndef metadataOrig = binding.getVariable(\"metadata\")\n\n// Create a copy of metadata\ndef metadata = metadataOrig ? new HashMap<>(metadataOrig) : [:]\n\n// Create a copy of storeDetails\ndef storeDetailsOrig = metadataOrig ? metadataOrig[\"storeDetails\"] : null\ndef storeDetails = storeDetailsOrig ? new HashMap<>(storeDetailsOrig) : [:]\n\n// Modify safely\nstoreDetails[\"indexName\"] = binding.getVariable(\"indexName\")\nmetadata[\"storeDetails\"] = storeDetails\n\ndef resourceType = storeDetails[\"resourceType\"]\n\ndef entityType = [\n    \"schema\": schema,\n    \"layout\": layout,\n    \"metadata\": metadata\n]\n\nreturn [\n    \"entityType\": JsonUtils.toJson(entityType),\n    \"resourceType\": resourceType\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"indexName":"{{ n_Mot0A.outputs.indexName }}",
+					"layout":"{{ n_HwVpq.outputs.input.layout }}",
+					"metadata":"{{ n_HwVpq.outputs.metadata }}",
+					"schema":"{{ n_HwVpq.outputs.schema.schema }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"New Entity Type",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2381,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_j5WJe",
+			"index":7,
+			"inputs":{
+				"automationId":"69c24c425f3934781a511e97",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"indexName":"{{ n_HwVpq.outputs.metadata.storeDetails.indexName }}",
+					"resourceType":"{{ n_RU7jS.outputs.result.resourceType }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Get Mappings/Settings",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1857,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_5UKmX",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"index":{
+							"title":"Index",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"indexName":{
+							"title":"Index Name",
+							"type":"string"
+						},
+						"result":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef result = binding.hasVariable(\"result\") ? binding.getVariable(\"result\") : [:]\ndef indexName = binding.hasVariable(\"indexName\") ? binding.getVariable(\"indexName\") : \"\"\n\nif (result.size() == 0 || indexName == \"\") {\n  return [\"index\": \"\"]\n}\n\ndef indexObj = result[indexName]\nreturn [\"index\": JsonUtils.toJson(indexObj)]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"indexName":"{{ n_HwVpq.outputs.metadata.storeDetails.indexName }}",
+					"result":"{{ n_j5WJe.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"New Index",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2381,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_GflJ7",
+			"index":9,
+			"inputs":{
+				"automationId":"69c2eb73489d966aa4036d44",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"parameters":{
+					"entityType":"{{ n_RU7jS.outputs.result.entityType }}",
+					"entityTypeId":"{{ n_Mot0A.outputs.entityTypeId }}",
+					"index":"{{ n_5UKmX.outputs.result.index }}",
+					"indexName":"{{ n_Mot0A.outputs.indexName }}",
+					"knowledgeType":"{{ n_Mot0A.outputs.knowledgeType }}",
+					"resourceType":"{{ n_RU7jS.outputs.result.resourceType }}",
+					"skipAutoIncrement":true
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Setup Index & Entity Type",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":20,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BFpoD-1",
+			"id":"n_MgXAH",
+			"index":10,
+			"inputs":{
+				"result":{
+					"entityTypeId":"{{ n_Mot0A.outputs.entityTypeId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":24
+}
