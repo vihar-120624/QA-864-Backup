@@ -1,0 +1,227 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743520914,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743521029,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd204cdb0358b9df251e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":17
+	},
+	"edges":[
+		{
+			"fromNodeId":"g56tG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"GSZye",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"GSZye",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"H4MKV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"H4MKV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_3haaS",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"677f7b4ce7997102f93924c2",
+	"lastModifiedBy":-1,
+	"lcName":"ai agent on update handler",
+	"modifiedTime":1788252972068,
+	"name":"AI Agent on Update Handler",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"g56tG",
+			"index":1,
+			"inputs":{
+				"object_type":"ai_agent"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"bICld-1",
+			"id":"GSZye",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ g56tG.outputs.object.id }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"customer_profile",
+				"record":{
+					"channelName":"universal",
+					"channelSpecificId":"{{ g56tG.outputs.object.id }}",
+					"email":"{{ g56tG.outputs.object.properties.name }}",
+					"name":"{{ g56tG.outputs.object.properties.name }}",
+					"profileImageUrl":"{{ g56tG.outputs.object.properties.avatarUrl }}"
+				},
+				"upsert":true
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"caches_by_unifyapps",
+				"resourceVersion":54,
+				"resourceName":"caches_by_unifyapps_evict_node_cache",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"H4MKV",
+			"index":3,
+			"inputs":{
+				"automation_id":"67a48d37f8f1744841dabb63",
+				"cache_key":"{{ g56tG.outputs.object.id }}",
+				"node_id":"mtswW"
+			},
+			"skip":false,
+			"subTitle":"Caches by UnifyApps",
+			"title":"Evict node cache",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"caches_by_unifyapps",
+				"resourceVersion":54,
+				"resourceName":"caches_by_unifyapps_evict_node_cache",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"_3haaS",
+			"index":4,
+			"inputs":{
+				"automation_id":"67a48d37f8f1744841dabb63",
+				"cache_key":"{{ g56tG.outputs.object.id }}",
+				"node_id":"n_GJKY4"
+			},
+			"skip":false,
+			"subTitle":"Caches by UnifyApps",
+			"title":"Evict node cache",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Team"
+	],
+	"version":19
+}
