@@ -1,0 +1,1566 @@
+{
+	"appsUsed":[
+		"amazon_bedrock"
+	],
+	"createdTime":1787743887426,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743887677,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece8f9d7c534668ef9dfd",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":114
+	},
+	"edges":[
+		{
+			"fromNodeId":"CpGDp",
+			"id":"next@CpGDp@hCOtX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"hCOtX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"hCOtX",
+			"id":"next@hCOtX@n_hxDj3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hxDj3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_hxDj3",
+			"id":"next@n_hxDj3@n_vg3rb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vg3rb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vg3rb",
+			"id":"if@n_vg3rb@n_6HB0M",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6HB0M",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_6HB0M",
+			"id":"next@n_6HB0M@n_NanTs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NanTs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NanTs",
+			"id":"next@n_NanTs@n_6Sw99",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6Sw99",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vg3rb",
+			"id":"next@n_vg3rb@n_6Sw99",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6Sw99",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6Sw99",
+			"id":"next@n_6Sw99@oefeP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"oefeP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"oefeP",
+			"id":"next@oefeP@n_YHzB4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YHzB4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YHzB4",
+			"id":"next@n_YHzB4@n_drPIX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_drPIX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_drPIX",
+			"id":"next@n_drPIX@n_zFeM2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zFeM2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zFeM2",
+			"id":"next@n_zFeM2@_SuppW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_SuppW",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68563ae35c09f7272fc39057",
+	"lastModifiedBy":-1,
+	"lcName":"call bedrock - generic",
+	"modifiedTime":1788252972948,
+	"name":"Call Bedrock - Generic",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":280,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"CpGDp",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"cacheReadInputToken":{
+							"title":"Cache Read Input Token",
+							"type":"number"
+						},
+						"cacheWriteInputToken":{
+							"title":"Cache Write Input Token",
+							"type":"number"
+						},
+						"citations":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"title":"Content",
+										"type":"string"
+									},
+									"iconUrl":{
+										"title":"Icon Url",
+										"type":"string"
+									},
+									"title":{
+										"title":"Title",
+										"type":"string"
+									},
+									"webUrl":{
+										"title":"Web Url",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Citations",
+							"type":"array"
+						},
+						"finish_reason":{
+							"title":"finish_reason",
+							"type":"string"
+						},
+						"guardrailHit":{
+							"title":"guardrailHit",
+							"type":"boolean"
+						},
+						"imageFileObjects":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"size":{
+										"title":"Size",
+										"type":"number"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Image File Objects",
+							"type":"array"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"number"
+						},
+						"output":{
+							"title":"output",
+							"type":"string"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"number"
+						},
+						"thinkingSignature":{
+							"title":"Thinking Signature",
+							"type":"string"
+						},
+						"tool_calls":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"arguments":{
+										"title":"arguments",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"thinkingSignature":{
+										"title":"Thinking Signature",
+										"type":"string"
+									},
+									"toolId":{
+										"title":"Tool Id",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"tool_calls",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"__ua__call_llm_model_interface",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentpromptCachingSettings":{
+							"additionalProperties":false,
+							"properties":{
+								"enablePromptCaching":{
+									"title":"enable prompt caching",
+									"type":"boolean"
+								},
+								"minCharactersBeforeNewCheckPoint":{
+									"title":"min Characters Before New Check Point",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Agent promptCachingSettings",
+							"type":"object"
+						},
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"currentTaskId":{
+							"title":"currentTaskId",
+							"type":"string"
+						},
+						"deferToolLoading":{
+							"title":"Defer Tool Loading",
+							"type":"boolean"
+						},
+						"effort":{
+							"title":"effort",
+							"type":"string"
+						},
+						"enable_fine_grained_tool_streaming":{
+							"title":"Enable Fine Grained Tool Streaming",
+							"type":"boolean"
+						},
+						"frequency_penalty":{
+							"title":"frequency_penalty",
+							"type":"integer"
+						},
+						"isMultipleToolCallEnabled":{
+							"title":"Is Multiple Tool Call Enabled",
+							"type":"boolean"
+						},
+						"isToolCallEnabled":{
+							"title":"Is Tool Call Enabled",
+							"type":"boolean"
+						},
+						"logprobs":{
+							"title":"logprobs",
+							"type":"boolean"
+						},
+						"max_tokens":{
+							"title":"max_tokens",
+							"type":"integer"
+						},
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"content":{
+													"title":"content",
+													"type":"string"
+												},
+												"id":{
+													"title":"id",
+													"type":"string"
+												},
+												"image_url":{
+													"additionalProperties":false,
+													"properties":{
+														"detail":{
+															"title":"detail",
+															"type":"string"
+														},
+														"url":{
+															"title":"url",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"image_url",
+													"type":"object"
+												},
+												"input":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"input",
+													"type":"object"
+												},
+												"name":{
+													"title":"name",
+													"type":"string"
+												},
+												"source":{
+													"additionalProperties":false,
+													"properties":{
+														"detail":{
+															"title":"detail",
+															"type":"string"
+														},
+														"image_data":{
+															"title":"image_data",
+															"type":"string"
+														},
+														"image_type":{
+															"title":"image_type",
+															"type":"string"
+														},
+														"media_type":{
+															"title":"media_type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"Source",
+													"type":"object"
+												},
+												"text":{
+													"title":"text",
+													"type":"string"
+												},
+												"thinkingSignature":{
+													"title":"Thinking Signature",
+													"type":"string"
+												},
+												"tool_use_id":{
+													"title":"tool_use_id",
+													"type":"string"
+												},
+												"type":{
+													"default":"text",
+													"title":"type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"required":[],
+										"title":"content",
+										"type":"array"
+									},
+									"role":{
+										"default":"user",
+										"title":"role",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"required":[],
+							"title":"messages",
+							"type":"array"
+						},
+						"model":{
+							"title":"model",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model ID",
+							"type":"string"
+						},
+						"on_error_config":{
+							"additionalProperties":false,
+							"properties":{
+								"error_msg":{
+									"title":"error_msg",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"on_error_config",
+							"type":"object"
+						},
+						"presence_penalty":{
+							"title":"presence_penalty",
+							"type":"integer"
+						},
+						"promptCaching":{
+							"title":"promptCaching",
+							"type":"boolean"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"request_timeout":{
+							"title":"request_timeout",
+							"type":"integer"
+						},
+						"response_format":{
+							"additionalProperties":false,
+							"properties":{
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"schema":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Schema",
+									"type":"object"
+								},
+								"type":{
+									"title":"type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"response_format",
+							"type":"object"
+						},
+						"retry_config":{
+							"additionalProperties":false,
+							"properties":{
+								"backoff_factor":{
+									"title":"backoff_factor",
+									"type":"integer"
+								},
+								"initial_delay":{
+									"title":"initial_delay",
+									"type":"integer"
+								},
+								"max_delay":{
+									"title":"max_delay",
+									"type":"integer"
+								},
+								"num_retry":{
+									"title":"num_retry",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"retry_config",
+							"type":"object"
+						},
+						"serviceTier":{
+							"title":"serviceTier",
+							"type":"string"
+						},
+						"sessionId":{
+							"title":"Session Id",
+							"type":"string"
+						},
+						"stream":{
+							"title":"stream",
+							"type":"boolean"
+						},
+						"systemPrompt":{
+							"title":"System Prompt",
+							"type":"string"
+						},
+						"temperature":{
+							"title":"temperature",
+							"type":"integer"
+						},
+						"thinkingConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"includeThoughts":{
+									"title":"Include Thoughts",
+									"type":"boolean"
+								},
+								"thinkingBudget":{
+									"title":"Thinking Budget",
+									"type":"integer"
+								},
+								"thinkingLevel":{
+									"title":"Thinking Level",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Thinking Config",
+							"type":"object"
+						},
+						"thoughtMethod":{
+							"title":"Thought Method",
+							"type":"string"
+						},
+						"tools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"function":{
+										"additionalProperties":false,
+										"properties":{
+											"description":{
+												"title":"Description",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											},
+											"parameters":{
+												"additionalProperties":false,
+												"properties":{},
+												"title":"Parameters",
+												"type":"object"
+											}
+										},
+										"required":[],
+										"title":"Function",
+										"type":"object"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tools",
+							"type":"array"
+						},
+						"top_k":{
+							"title":"top_k",
+							"type":"integer"
+						},
+						"top_p":{
+							"title":"top_p",
+							"type":"integer"
+						},
+						"useProviderWebSearch":{
+							"title":"Use Provider Web Search",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":353,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"hCOtX",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"answer":{
+							"title":"Answer",
+							"type":"string"
+						},
+						"currentState":{
+							"title":"currentState",
+							"type":"string"
+						},
+						"isLastSlash":{
+							"title":"isLastSlash",
+							"type":"boolean"
+						},
+						"messageState":{
+							"title":"Message State",
+							"type":"string"
+						},
+						"partialBuffer":{
+							"title":"partialBuffer",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"messageState":"STREAMING_STARTED",
+				"currentState":"MESSAGE_START",
+				"isLastSlash":false
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"answer":{
+							"title":"Answer",
+							"type":"string"
+						},
+						"currentState":{
+							"title":"currentState",
+							"type":"string"
+						},
+						"isLastSlash":{
+							"title":"isLastSlash",
+							"type":"boolean"
+						},
+						"messageState":{
+							"title":"Message State",
+							"type":"string"
+						},
+						"partialBuffer":{
+							"title":"partialBuffer",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":615,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"n_hxDj3",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"name":{
+							"title":"name",
+							"type":"string"
+						},
+						"schema":{
+							"title":"schema",
+							"type":"object"
+						},
+						"strict":{
+							"title":"strict",
+							"type":"boolean"
+						},
+						"type":{
+							"title":"Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"type":"{{ CpGDp.outputs.response_format.type }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"name":{
+							"title":"name",
+							"type":"string"
+						},
+						"schema":{
+							"title":"schema",
+							"type":"object"
+						},
+						"strict":{
+							"title":"strict",
+							"type":"boolean"
+						},
+						"type":{
+							"title":"Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":450,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"n_vg3rb",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ CpGDp.outputs.response_format.schema }}"
+					},
+					{
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"text"
+						},
+						"property":"{{ CpGDp.outputs.response_format.type }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":661,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_vg3rb@kQqTJ-1@y",
+			"id":"n_6HB0M",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"outputSchema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Output Schema",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Schema",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if(!binding.hasVariable('schema')) return ['outputSchema' : []]\nif (schema.containsKey(\"ua:modal\")) {\n    schema.remove(\"ua:modal\")\n}\n\ndef properties = [:]\ndef requiredFields = []\n\nschema.each { key, value ->\n\n    // Copy existing field config\n    def fieldConfig = [:] + value\n\n    // Add description if missing\n    if (!fieldConfig.containsKey(\"description\")) {\n        fieldConfig[\"description\"] = key.replaceAll(\"_\", \" \")\n    }\n\n    properties[key] = fieldConfig\n    requiredFields << key\n}\n\ndef outputConfig = [\n    format: [\n        type  : \"json_schema\",\n        schema: [\n            type                 : \"object\",\n            properties           : properties,\n            required             : requiredFields,\n            additionalProperties : false\n        ]\n    ]\n]\n\nreturn ['outputSchema' : outputConfig]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"schema":"{{ CpGDp.outputs.response_format.schema.properties }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":601,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_vg3rb@kQqTJ-1@y",
+			"id":"n_NanTs",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_hxDj3.outputs.schema }}",
+						"value":"{{ n_6HB0M.outputs.result.outputSchema }}"
+					},
+					{
+						"source":"{{ n_hxDj3.outputs.name }}",
+						"value":"temp"
+					},
+					{
+						"source":"{{ n_hxDj3.outputs.type }}",
+						"value":"json_schema"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":824,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"n_6Sw99",
+			"index":7,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ CpGDp.outputs.modelId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"GetAgentModelCached",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.top_p",
+					"root.parameters.response_format.type",
+					"root.parameters.frequency_penalty",
+					"root.parameters.request_timeout",
+					"root.parameters.provider",
+					"root.parameters.max_tokens",
+					"root.parameters.presence_penalty",
+					"root.parameters.temperature",
+					"root.parameters.messages.source",
+					"root.parameters.messages.ua:type",
+					"root.parameters.messages.items.role",
+					"root.parameters.messages.items.content.source",
+					"root.parameters.messages.items.content.ua:type",
+					"root.parameters.messages.items.content.items.text",
+					"root.parameters.messages.items.content.items.type",
+					"root.parameters.messages.items.content.items.image_url.url",
+					"root.parameters.messages.items.content.items.image_url.detail",
+					"root.parameters.messages.items.content.items.source.image_type",
+					"root.parameters.messages.items.content.items.source.media_type",
+					"root.parameters.messages.items.content.items.source.image_data",
+					"root.parameters.messages.items.content.items.source.detail",
+					"root.parameters.messages.items.content.items.tool_use_id",
+					"root.parameters.messages.items.content.items.content",
+					"root.parameters.messages.items.content.items.name",
+					"root.parameters.messages.items.content.items.id",
+					"root.parameters.model",
+					"root.parameters.logprobs",
+					"root.parameters.on_error_config.error_msg",
+					"root.parameters.retry_config.initial_delay",
+					"root.parameters.retry_config.num_retry",
+					"root.parameters.retry_config.max_delay",
+					"root.parameters.retry_config.backoff_factor",
+					"root.parameters.top_k",
+					"root.parameters.tools.source",
+					"root.parameters.tools.ua:type",
+					"root.parameters.tools.items.type",
+					"root.parameters.tools.items.function.name",
+					"root.parameters.tools.items.function.description",
+					"root.parameters.systemPrompt",
+					"root.parameters.sessionId",
+					"root.parameters.modelId",
+					"root.parameters.stream",
+					"root.parameters.top_p",
+					"root.parameters.response_format.type",
+					"root.parameters.frequency_penalty",
+					"root.parameters.request_timeout",
+					"root.parameters.provider",
+					"root.parameters.max_tokens",
+					"root.parameters.presence_penalty",
+					"root.parameters.temperature",
+					"root.parameters.messages.source",
+					"root.parameters.messages.ua:type",
+					"root.parameters.messages.items.role",
+					"root.parameters.messages.items.content.source",
+					"root.parameters.messages.items.content.ua:type",
+					"root.parameters.messages.items.content.items.text",
+					"root.parameters.messages.items.content.items.type",
+					"root.parameters.messages.items.content.items.image_url.url",
+					"root.parameters.messages.items.content.items.image_url.detail",
+					"root.parameters.messages.items.content.items.source.image_type",
+					"root.parameters.messages.items.content.items.source.media_type",
+					"root.parameters.messages.items.content.items.source.image_data",
+					"root.parameters.messages.items.content.items.source.detail",
+					"root.parameters.messages.items.content.items.tool_use_id",
+					"root.parameters.messages.items.content.items.content",
+					"root.parameters.messages.items.content.items.name",
+					"root.parameters.messages.items.content.items.id",
+					"root.parameters.model",
+					"root.parameters.logprobs",
+					"root.parameters.on_error_config.error_msg",
+					"root.parameters.retry_config.initial_delay",
+					"root.parameters.retry_config.num_retry",
+					"root.parameters.retry_config.max_delay",
+					"root.parameters.retry_config.backoff_factor",
+					"root.parameters.top_k",
+					"root.parameters.tools.source",
+					"root.parameters.tools.ua:type",
+					"root.parameters.tools.items.type",
+					"root.parameters.tools.items.function.name",
+					"root.parameters.tools.items.function.description",
+					"root.parameters.systemPrompt",
+					"root.parameters.sessionId"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":161,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"oefeP",
+			"index":8,
+			"inputs":{
+				"callableInterfaceId":"67e72b531506404d8d5e331f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"llama"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e72a29e21aa01f098c7e95"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"mistral"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								}
+							],
+							"operator":"OR"
+						},
+						"workflowId":"67e72e651506404d8d5e33c3"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"deepseek"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								},
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"oss"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								}
+							],
+							"operator":"OR"
+						},
+						"workflowId":"67e7a035fcdf70510c337688"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"claude"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67eab481d10e187ea2b053c2"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"nova"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6842ddecacc4634effb2f11f"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"gemma"
+									},
+									"property":"=LOWER({{ CpGDp.outputs.model }})"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6a084a5bb3340756bf2294ac"
+					}
+				],
+				"fallbackWorkflowId":"67e7a035fcdf70510c337688",
+				"parameters":{
+					"agentpromptCachingSettings":{
+						"enablePromptCaching":"{{ CpGDp.outputs.agentpromptCachingSettings.enablePromptCaching }}",
+						"minCharactersBeforeNewCheckPoint":"{{ CpGDp.outputs.agentpromptCachingSettings.minCharactersBeforeNewCheckPoint }}"
+					},
+					"effort":"{{ CpGDp.outputs.effort }}",
+					"frequency_penalty":"{{ CpGDp.outputs.frequency_penalty }}",
+					"isMultipleToolCallEnabled":"{{ CpGDp.outputs.isMultipleToolCallEnabled }}",
+					"isToolCallEnabled":"{{ CpGDp.outputs.isToolCallEnabled }}",
+					"logprobs":"{{ CpGDp.outputs.logprobs }}",
+					"max_tokens":"{{ CpGDp.outputs.max_tokens }}",
+					"messages":{
+						"items":{
+							"content":{
+								"items":{
+									"content":"{{ CpGDp.outputs.messages[0].content[0].content }}",
+									"id":"{{ CpGDp.outputs.messages[0].content[0].id }}",
+									"image_url":{
+										"detail":"{{ CpGDp.outputs.messages[0].content[0].image_url.detail }}",
+										"url":"{{ CpGDp.outputs.messages[0].content[0].image_url.url }}"
+									},
+									"input":"{{ CpGDp.outputs.messages[0].content[0].input }}",
+									"name":"{{ CpGDp.outputs.messages[0].content[0].name }}",
+									"source":{
+										"detail":"{{ CpGDp.outputs.messages[0].content[0].source.detail }}",
+										"image_data":"{{ CpGDp.outputs.messages[0].content[0].source.image_data }}",
+										"image_type":"{{ CpGDp.outputs.messages[0].content[0].source.image_type }}",
+										"media_type":"{{ CpGDp.outputs.messages[0].content[0].source.media_type }}"
+									},
+									"text":"{{ CpGDp.outputs.messages[0].content[0].text }}",
+									"thinkingSignature":"{{ CpGDp.outputs.messages[0].content[0].thinkingSignature }}",
+									"tool_use_id":"{{ CpGDp.outputs.messages[0].content[0].tool_use_id }}",
+									"type":"{{ CpGDp.outputs.messages[0].content[0].type }}"
+								},
+								"source":"{{ CpGDp.outputs.messages[0].content }}",
+								"ua:type":"mappedArray"
+							},
+							"role":"{{ CpGDp.outputs.messages[0].role }}"
+						},
+						"source":"{{ CpGDp.outputs.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"model":"{{ CpGDp.outputs.model }}",
+					"modelId":"{{ CpGDp.outputs.modelId }}",
+					"modelpromptCachingEnabled":"{{ CpGDp.outputs.promptCaching }}",
+					"on_error_config":{
+						"error_msg":"{{ CpGDp.outputs.on_error_config.error_msg }}"
+					},
+					"presence_penalty":"{{ CpGDp.outputs.presence_penalty }}",
+					"provider":"{{ CpGDp.outputs.provider }}",
+					"request_timeout":"{{ CpGDp.outputs.request_timeout }}",
+					"response_format":{
+						"format":{
+							"schema":"{{ CpGDp.outputs.response_format.schema }}",
+							"type":"{{ n_hxDj3.outputs.type }}"
+						}
+					},
+					"retry_config":{
+						"backoff_factor":"{{ CpGDp.outputs.retry_config.backoff_factor }}",
+						"initial_delay":"{{ CpGDp.outputs.retry_config.initial_delay }}",
+						"max_delay":"{{ CpGDp.outputs.retry_config.max_delay }}",
+						"num_retry":"{{ CpGDp.outputs.retry_config.num_retry }}"
+					},
+					"sessionId":"{{ CpGDp.outputs.sessionId }}",
+					"stream":"{{ CpGDp.outputs.stream }}",
+					"systemPrompt":"{{ CpGDp.outputs.systemPrompt }}",
+					"temperature":"{{ CpGDp.outputs.temperature }}",
+					"thinkingConfig":{
+						"includeThoughts":"{{ CpGDp.outputs.thinkingConfig.includeThoughts }}",
+						"thinkingBudget":"{{ CpGDp.outputs.thinkingConfig.thinkingBudget }}",
+						"thinkingLevel":"{{ CpGDp.outputs.thinkingConfig.thinkingLevel }}"
+					},
+					"thoughtMethod":"{{ CpGDp.outputs.thoughtMethod }}",
+					"tools":{
+						"items":{
+							"function":{
+								"description":"{{ CpGDp.outputs.tools[0].function.description }}",
+								"name":"{{ CpGDp.outputs.tools[0].function.name }}",
+								"parameters":"{{ CpGDp.outputs.tools[0].function.parameters }}"
+							},
+							"type":"{{ CpGDp.outputs.tools[0].type }}"
+						},
+						"source":"{{ CpGDp.outputs.tools }}",
+						"ua:type":"mappedArray"
+					},
+					"top_k":"{{ CpGDp.outputs.top_k }}",
+					"top_p":"{{ CpGDp.outputs.top_p }}",
+					"useProviderWebSearch":"{{ CpGDp.outputs.useProviderWebSearch }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Create LLM Payload Schema",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"amazon_bedrock",
+				"resourceVersion":1847,
+				"connectionId":"683020ca44e4f747c6415668",
+				"resourceName":"amazon_bedrock_send_message_generic",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"n_YHzB4",
+			"index":9,
+			"inputs":{
+				"guardrailTrace":"ENABLED",
+				"modelId":"{{ CpGDp.outputs.model }}",
+				"payload":"{{ oefeP.outputs.payload }}",
+				"performAsync":false,
+				"guardrailVersion":"{{ n_6Sw99.outputs.guardrailVersion }}",
+				"guardrailIdentifier":"{{ n_6Sw99.outputs.guardrailIdentifier }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":1000,
+					"maxDelay":16000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Amazon Bedrock",
+			"title":"Send message using custom payload",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":735,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"n_drPIX",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"guardrailHit":{
+							"title":"Guardrail Hit",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"bedrockTrace":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Bedrock Trace",
+							"type":"object"
+						},
+						"guardrailAction":{
+							"title":"guardrailAction",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def guardrailAction = binding.hasVariable(\"guardrailAction\") ? guardrailAction : null\ndef bedrockTrace = binding.hasVariable(\"bedrockTrace\") ? bedrockTrace : null\n\ndef actions = []\n\ndef collectActions\ncollectActions = { obj ->\n    if (obj instanceof Map) {\n        obj.each { k, v ->\n            if (k == \"action\" && v != null) {\n                actions << v.toString()\n            } else {\n                collectActions(v)\n            }\n        }\n    } else if (obj instanceof Collection) {\n        obj.each { item ->\n            collectActions(item)\n        }\n    }\n}\n\ncollectActions(bedrockTrace)\n\n// true only when guardrail intervened for something other than anonymization\ndef onlyAnonymized =\n        actions &&\n        actions.every { it.equalsIgnoreCase(\"ANONYMIZED\") }\n\nreturn [\n    \"guardrailHit\": guardrailAction == \"INTERVENED\" && !onlyAnonymized\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"bedrockTrace":"{{ n_YHzB4.outputs.amazon-bedrock-trace }}",
+					"guardrailAction":"{{ n_YHzB4.outputs.amazon-bedrock-guardrailAction }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.content.items",
+					"root.parameters.choices.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"n_zFeM2",
+			"index":11,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"llmResponse":{
+							"title":"llmResponse",
+							"type":"string"
+						},
+						"signature":{
+							"title":"signature",
+							"type":"string"
+						},
+						"tool_use":{
+							"additionalProperties":false,
+							"properties":{
+								"id":{
+									"title":"id",
+									"type":"string"
+								},
+								"input":{
+									"title":"input",
+									"type":"string"
+								},
+								"name":{
+									"title":"name",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"tool_use",
+							"type":"object"
+						},
+						"tool_uses":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"input":{
+										"title":"Input",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tool Uses",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"choices":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"choices",
+							"type":"array"
+						},
+						"content":{
+							"items":{
+								"type":"object"
+							},
+							"title":"content",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def content = binding.hasVariable(\"content\") ? binding.getVariable(\"content\") : []\ndef choices = binding.hasVariable(\"choices\") ? binding.getVariable(\"choices\") : []\ndef llmResponse = \"\"\ndef signature = null\ndef tool_uses = []\n\n// Search for thinking objects\ncontent.forEach { object ->\n  if (object.type == \"thinking\") {\n    llmResponse += \"<think>\" + object.thinking + \"</think>\\n\"\n    signature = object.signature\n  }\n}\n\ncontent.forEach { object ->\n  if (object.type == \"text\") {\n    llmResponse += object.text\n  }\n}\n\n// Collect all tool_use blocks (Anthropic native format)\ncontent.forEach { object ->\n  if (object.type == \"tool_use\") {\n    tool_uses << [\n      id   : object.id,\n      name : object.name,\n      input: object.input\n    ]\n  }\n}\n\n// Fallback to OpenAI-compatible choices format\nif (llmResponse == \"\" && tool_uses.isEmpty()) {\n  llmResponse = choices?.getAt(0)?.message?.content ?: \"\"\n  def toolCalls = choices?.getAt(0)?.message?.tool_calls ?: []\n  toolCalls.forEach { tc ->\n    tool_uses << [\n      id   : tc?.id,\n      name : tc?.function?.name,\n      input: tc?.function?.arguments\n    ]\n  }\n}\n\n// Normalize all tool inputs to JSON strings\ntool_uses = tool_uses.collect { tool_use ->\n  def normalizedInput\n  if (tool_use[\"input\"] instanceof String) {\n    normalizedInput = com.unifyapps.infra.utils.JsonUtils.toJson(\n      com.unifyapps.infra.utils.JsonUtils.fromJson(tool_use[\"input\"], Map.class)\n    )\n  } else if (tool_use[\"input\"] != null) {\n    normalizedInput = com.unifyapps.infra.utils.JsonUtils.toJson(tool_use[\"input\"])\n  } else {\n    normalizedInput = null\n  }\n  return [\n    id   : tool_use[\"id\"],\n    name : tool_use[\"name\"],\n    input: normalizedInput\n  ]\n}\n\n// Keep tool_use (singular) as first entry for backward compatibility, or empty map if none\ndef tool_use = tool_uses.isEmpty() ? [:] : tool_uses[0]\n\nreturn [\n  llmResponse: llmResponse,\n  tool_use   : tool_use,\n  tool_uses  : tool_uses,\n  signature  : signature\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"choices":{
+						"items":"{{ n_YHzB4.outputs.choices[0] }}",
+						"source":"{{ n_YHzB4.outputs.choices }}",
+						"ua:type":"mappedArray"
+					},
+					"content":{
+						"items":"{{ n_YHzB4.outputs.content[0] }}",
+						"source":"{{ n_YHzB4.outputs.content }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"GenericOutput",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":77,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kQqTJ-1",
+			"id":"_SuppW",
+			"index":12,
+			"inputs":{
+				"result":{
+					"cacheReadInputToken":"{{ n_YHzB4.outputs.usage.cache_read_input_tokens }}",
+					"cacheWriteInputToken":"{{ n_YHzB4.outputs.usage.cache_creation_input_tokens }}",
+					"finish_reason":"{{ n_YHzB4.outputs.stop_reason }}",
+					"guardrailHit":"{{ n_drPIX.outputs.result.guardrailHit }}",
+					"inputTokens":"=SUM({{ n_YHzB4.outputs.usage.input_tokens }},{{ n_YHzB4.outputs.usage.cache_read_input_tokens }},{{ n_YHzB4.outputs.usage.cache_creation_input_tokens }})",
+					"output":"{{ n_zFeM2.outputs.result.llmResponse }}",
+					"outputTokens":"{{ n_YHzB4.outputs.usage.output_tokens }}",
+					"thinkingSignature":"{{ n_zFeM2.outputs.result.signature }}",
+					"tool_calls":{
+						"items":{
+							"arguments":"{{ n_zFeM2.outputs.result.tool_uses[0].input }}",
+							"name":"{{ n_zFeM2.outputs.result.tool_uses[0].name }}",
+							"toolId":"{{ n_zFeM2.outputs.result.tool_uses[0].id }}"
+						},
+						"source":"{{ n_zFeM2.outputs.result.tool_uses }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"amazon_bedrock"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":116
+}
