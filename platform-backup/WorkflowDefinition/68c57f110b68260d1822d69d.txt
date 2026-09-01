@@ -1,0 +1,183 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743998377,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743998878,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecefe45d2142160e702d6",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_nQsjJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"xqmhc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"xqmhc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lr0VH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"lr0VH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"jocpy",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68c57f110b68260d1822d69d",
+	"lastModifiedBy":-1,
+	"lcName":"[mcp server] new agent mcp",
+	"modifiedTime":1788252972164,
+	"name":"[MCP Server] New Agent MCP",
+	"nodes":[
+		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":440,
+				"resourceName":"webhooks_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Fz2ZA-1",
+			"id":"n_nQsjJ",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
+			"skip":false,
+			"subTitle":"Webhook",
+			"title":"New event",
+			"trigger":{
+				"type":"WEBHOOK"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":7,
+				"resourceName":"standard_entities_create_api_collection",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Fz2ZA-1",
+			"id":"xqmhc",
+			"index":2,
+			"inputs":{
+				"path":"agent-mcp",
+				"includeVersionInPath":false,
+				"name":"agent-mcp",
+				"description":"Agent MCP"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Group",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":127,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Fz2ZA-1",
+			"id":"lr0VH",
+			"index":3,
+			"inputs":{
+				"path":"{agentId}/sse",
+				"automation":"68c5a5101239937cc2555056",
+				"endpointType":"REST",
+				"name":"SSE",
+				"active":true,
+				"description":"SSE API Endpoint for Agent MCP Server",
+				"httpMethod":"GET",
+				"collectionId":"{{ xqmhc.outputs.id }}",
+				"resourceType":"CALLABLE_WORKFLOW"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":127,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Fz2ZA-1",
+			"id":"jocpy",
+			"index":4,
+			"inputs":{
+				"path":"{agentId}/messages",
+				"automation":"68c5afad1239937cc2559ff5",
+				"endpointType":"REST",
+				"name":"JSON-RPC",
+				"active":true,
+				"description":"JSON-RPC API Endpoint for Agent MCP Server",
+				"httpMethod":"POST",
+				"collectionId":"{{ xqmhc.outputs.id }}",
+				"resourceType":"CALLABLE_WORKFLOW"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"MCP Server"
+	],
+	"version":10
+}
