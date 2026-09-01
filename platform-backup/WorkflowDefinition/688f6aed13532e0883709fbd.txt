@@ -1,0 +1,450 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744449503,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744449572,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed0c1ba51514edfc81176",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":28
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sbkRO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"rB2hc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"rB2hc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"1WPP3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"1WPP3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_g5IO9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_g5IO9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gEPVH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gEPVH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Ca68R",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"688f6aed13532e0883709fbd",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | gong | calls transcripts task",
+	"modifiedTime":1788252973048,
+	"name":"Knowledge Downloader | Gong | Calls Transcripts Task",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":436,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_sbkRO",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"entityCount":{
+							"title":"Entity Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"686af1b917f4c626f9b30e71",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"integer"
+								},
+								"grabberType":{
+									"title":"Grabber Type",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"indexingVersion":{
+									"title":"Indexing Version",
+									"type":"integer"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":9,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"rB2hc",
+			"index":2,
+			"inputs":{
+				"automationId":"6849c5b74fe6b40b6afead98",
+				"runtimeConnections":{
+					"gong":"{{ n_sbkRO.outputs.knowledge.applicationInfo.context.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Content SharedWithIds",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.downloadDuration.startTimeEpoch",
+					"root.parameters.downloadDuration.currentTimeEpoch",
+					"root.parameters.sharedWithIds.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"1WPP3",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"newInputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"New Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"downloadDuration":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Download Duration",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.*\n\ndef convertToUnixTimestamp = { isoTimestamp ->\n    isoTimestamp ? Instant.parse(isoTimestamp).toEpochMilli() : null\n}\n\nif (!binding.hasVariable(\"inputs\")) {\n    return [:]\n}\n\ndef newInputs = new HashMap<>(inputs)\n\nif (newInputs?.timeRange?.fromDateTime) {\n    newInputs.timeRange.fromDateTime = (convertToUnixTimestamp(newInputs.timeRange.fromDateTime) / 1000).longValue()\n}\n\nif (newInputs?.timeRange?.toDateTime) {\n    newInputs.timeRange.toDateTime = (convertToUnixTimestamp(newInputs.timeRange.toDateTime) / 1000).longValue()\n}\n\nif(binding.hasVariable('sharedWithIds')){\n    newInputs[\"sharedWithIds\"] = sharedWithIds\n}\n\nreturn [\"newInputs\": newInputs]\n",
+				"compile_static":false,
+				"parameters":{
+					"downloadDuration":{
+						"currentTimeEpoch":"{{ n_sbkRO.outputs.downloaderConfig.currentTimeEpoch }}",
+						"startTimeEpoch":"{{ n_sbkRO.outputs.downloaderConfig.startTimeEpoch }}"
+					},
+					"inputs":"{{ n_sbkRO.outputs.inputs }}",
+					"sharedWithIds":{
+						"items":"{{ rB2hc.outputs.sharedWithIds[0] }}",
+						"source":"{{ rB2hc.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Input parsing",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.importerParams.aiAgentId",
+					"root.records.items.importerParams.knowledgeId",
+					"root.records.items.importerParams.inputs",
+					"root.records.items.importerParams.knowledge",
+					"root.records.items.importerParams.downloaderConfig.startTimeEpoch",
+					"root.records.items.importerParams.downloaderConfig.currentTimeEpoch",
+					"root.records.items.importerParams.downloaderConfig.grabberType",
+					"root.records.items.downloaderAutomation",
+					"root.records.items.knowledgeId",
+					"root.records.items.importerConnections",
+					"root.records.items.syncMode",
+					"root.records.items.parentEntityId"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":442,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"_g5IO9",
+			"index":4,
+			"inputs":{
+				"object_type":"knowledge_downloader_entities",
+				"records":{
+					"items":{
+						"downloaderAutomation":"688f6b4d13532e088370a029",
+						"importerConnections":"{{ n_sbkRO.outputs.importerConnections }}",
+						"importerParams":{
+							"aiAgentId":"{{ n_sbkRO.outputs.aiAgentId }}",
+							"downloaderConfig":{
+								"currentTimeEpoch":"{{ n_sbkRO.outputs.downloaderConfig.currentTimeEpoch }}",
+								"grabberType":"{{ n_sbkRO.outputs.downloaderConfig.grabberType }}",
+								"startTimeEpoch":"{{ n_sbkRO.outputs.downloaderConfig.startTimeEpoch }}"
+							},
+							"inputs":"{{ 1WPP3.outputs.result.newInputs }}",
+							"knowledge":"{{ n_sbkRO.outputs.knowledge }}",
+							"knowledgeId":"{{ n_sbkRO.outputs.knowledgeId }}"
+						},
+						"knowledgeId":"{{ n_sbkRO.outputs.knowledgeId }}",
+						"parentEntityId":"688f6aed13532e0883709fbd"
+					},
+					"ua:type":"mappedArray"
+				}
+			},
+			"skip":false,
+			"subTitle":"Added downloaded entities",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":460,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_gEPVH",
+			"index":5,
+			"inputs":{
+				"automationId":"686e32e346d5ef287e56f8fb",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"parameters":{
+					"grabberType":"{{ n_sbkRO.outputs.downloaderConfig.grabberType }}",
+					"knowledge":"{{ n_sbkRO.outputs.knowledge }}",
+					"knowledgeId":"{{ n_sbkRO.outputs.knowledgeId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Call Downloader Task (Async)",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":9,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"Ca68R",
+			"index":6,
+			"inputs":{
+				"result":{
+					"entityCount":1
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":true,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":30
+}
