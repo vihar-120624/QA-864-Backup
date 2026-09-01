@@ -1,0 +1,420 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743514165,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743514455,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd1a53a823318abfc12e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":13
+	},
+	"edges":[
+		{
+			"fromNodeId":"_3L5Uf",
+			"id":"next@_3L5Uf@n_nsShL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nsShL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nsShL",
+			"id":"next@n_nsShL@n_6MUJq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6MUJq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6MUJq",
+			"id":"if@n_6MUJq@n_AKvW8",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AKvW8",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_6MUJq",
+			"id":"next@n_6MUJq@n_eKeqm",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_eKeqm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AKvW8",
+			"id":"next@n_AKvW8@n_exDLl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_exDLl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_eKeqm",
+			"id":"next@n_eKeqm@n_exDLl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_exDLl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_exDLl",
+			"id":"next@n_exDLl@_2Hryh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_2Hryh",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a7b0a88b0e78170b67b44b1",
+	"lastModifiedBy":-1,
+	"lcName":"audit reports realtime custom interface wrapper | gdrive",
+	"modifiedTime":1788252972179,
+	"name":"Audit reports Realtime Custom Interface Wrapper | Gdrive",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_KHru7@n_CAI1J@_OnOvv-1@l@l",
+			"id":"_3L5Uf",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"recordIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Record Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeInput":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Knowledge Input",
+							"type":"object"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"string"
+						},
+						"recordIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Record Ids",
+							"type":"array"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						},
+						"webhookRawData":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Webhook Raw Data",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1377,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_KHru7@n_CAI1J@_OnOvv-1@l@l",
+			"id":"n_nsShL",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error",
+							"type":"object"
+						},
+						"permitId":{
+							"title":"Permit Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"permitId"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"knowledgeId"
+					],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.logging.LogLevel\nimport com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle\nimport com.unifyapps.infra.redis.RedisClient\nimport org.redisson.api.RPermitExpirableSemaphore;\nimport org.redisson.api.RSemaphore;\nimport org.redisson.api.RedissonClient;\nimport com.unifyapps.infra.utils.context.UserContext\nimport com.unifyapps.infra.utils.retry.RetryUtils\n\nimport java.util.function.Supplier;\n\ndef appName = \"gdrive\"\ndef bulkheadLimit = 100\ndef semaphoreKey = \"knowledge_downloader_realtime_\" + appName + \"_\" + knowledgeId\n\nString permitId;\nString error;\n\ntry {\n    InstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\n    com.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\n    resolvedConfig.setEnabled(true);\n    resolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\n    resolvedConfig.setMaxLeaseTime(21600000);  // 6 * 3600 = 6 hours\n    resolvedConfig.setMaxLeaseTimeUnit(\"MILLISECONDS\");\n    resolvedConfig.setMaxWaitDuration(1);\n    Bulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\n\n    def redisTemplate = redisFactory.get().getRedisTemplate(UserContext.getCurrentCustomerId(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\n    RedissonClient client = redisTemplate.getRedissonClient();\n    permitId = RetryUtils.getWithConstantBackoff(() -> {\n        String semaphoreKeyInternal = redisTemplate.getKeyPrefix() + \"Bulkhead/workflow/\" + semaphoreKey + \"/semaphore\"\n\n        RPermitExpirableSemaphore semaphore = client.getPermitExpirableSemaphore(semaphoreKeyInternal);\n        semaphore.setPermits(bulkheadLimit)\n        return bulkhead.acquire(semaphoreKey);\n    }, (_, throwable) -> {\n        boolean retry = throwable != null;\n        if (retry) {\n            LOGGER.log(LogLevel.WARN, \"Retrying release of permit for bulkhead {} key {}\", name, key);\n            return true;\n        }\n        return false;\n    }, 100L, 3);\n}\ncatch (Exception e) {\n    error = com.unifyapps.infra.utils.ExceptionUtils.getStackTrace(e)\n}\n\nreturn ['permitId': permitId, 'error': error];",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"knowledgeId":"{{ _3L5Uf.outputs.knowledgeId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Acquire app permit",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":70,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_KHru7@n_CAI1J@_OnOvv-1@l@l",
+			"id":"n_6MUJq",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_nsShL.outputs.result.permitId }}"
+					}
+				],
+				"operator":"OR"
+			},
+			"skip":false,
+			"subTitle":"Acquired?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":825,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6MUJq@n_KHru7@n_CAI1J@_OnOvv-1@l@l@y",
+			"id":"n_AKvW8",
+			"index":4,
+			"inputs":{
+				"numberOfRecordsToUpdate":"MULTIPLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"IN",
+								"value":"{{ _3L5Uf.outputs.recordIds }}"
+							},
+							"property":"properties_recordId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"purview_webhook_raw_data_store",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.status",
+						"setValue":"QUEUED"
+					}
+				],
+				"page":{
+					"limit":2000,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":317,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6MUJq@n_KHru7@n_CAI1J@_OnOvv-1@l@l@n",
+			"id":"n_eKeqm",
+			"index":5,
+			"inputs":{
+				"result":{
+					"recordIds":{
+						"items":"{{ n_3cjRt.outputs.items[0] }}",
+						"source":"{{ n_3cjRt.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":355,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_KHru7@n_CAI1J@_OnOvv-1@l@l",
+			"id":"n_exDLl",
+			"index":6,
+			"inputs":{
+				"automationId":"6a7b2b5850242e6cc801f3af",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"connectionId":"{{ _3L5Uf.outputs.connectionId }}",
+					"knowledgeId":"{{ _3L5Uf.outputs.knowledgeId }}",
+					"knowledgeInputs":"{{ _3L5Uf.outputs.knowledgeInput }}",
+					"knowledgeSetId":"{{ _3L5Uf.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ _3L5Uf.outputs.knowledgeVersion }}",
+					"permitId":"{{ n_nsShL.outputs.result.permitId }}",
+					"userId":"{{ _3L5Uf.outputs.userId }}",
+					"webhookRawData":{
+						"items":"{{ _3L5Uf.outputs.webhookRawData[0] }}",
+						"source":"{{ _3L5Uf.outputs.webhookRawData }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_KHru7@n_CAI1J@_OnOvv-1@l@l",
+			"id":"_2Hryh",
+			"index":7,
+			"inputs":{
+				"result":{
+					"recordIds":{
+						"items":"{{ _3L5Uf.outputs.recordIds[0] }}",
+						"source":"{{ _3L5Uf.outputs.recordIds }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":15
+}
