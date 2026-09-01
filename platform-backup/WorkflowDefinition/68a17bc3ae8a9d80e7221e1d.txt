@@ -1,0 +1,550 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743567229,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743567418,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd4f53a823318abfc838",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":24
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_nX32z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0cCpp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0cCpp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KQ2bW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KQ2bW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ckrR0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ckrR0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VdW3z",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68a17bc3ae8a9d80e7221e1d",
+	"lastModifiedBy":-1,
+	"lcName":"metering | models | metered usage | by model",
+	"modifiedTime":1788252973189,
+	"name":"Metering | Models | Metered Usage | By Model",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":103,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EZf1B-1",
+			"id":"n_nX32z",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"modelUsage":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"inputTokens":{
+										"title":"Input Tokens",
+										"type":"integer"
+									},
+									"latency":{
+										"title":"Latency",
+										"type":"number"
+									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
+									},
+									"modelName":{
+										"title":"Model Name",
+										"type":"string"
+									},
+									"outputTokens":{
+										"title":"Output Tokens",
+										"type":"integer"
+									},
+									"requests":{
+										"title":"Requests",
+										"type":"integer"
+									},
+									"totalCost":{
+										"title":"Total Cost",
+										"type":"number"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Model Usage",
+							"type":"array"
+						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						},
+						"totalInputTokens":{
+							"title":"Total Input Tokens",
+							"type":"integer"
+						},
+						"totalOutputTokens":{
+							"title":"Total Output Tokens",
+							"type":"integer"
+						},
+						"totalReq":{
+							"title":"Total Req",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"date":{
+							"title":"Date",
+							"type":"string"
+						},
+						"endDate":{
+							"title":"End Date",
+							"type":"string"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"search":{
+							"title":"Search",
+							"type":"string"
+						},
+						"sort":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Sort",
+							"type":"object"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"string"
+						}
+					},
+					"required":[
+						"startDate",
+						"endDate",
+						"date"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":103,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EZf1B-1",
+			"id":"n_0cCpp",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"endEpoch":{
+							"title":"End Epoch",
+							"type":"integer"
+						},
+						"endOfDateEpoch":{
+							"title":"End Of Date Epoch",
+							"type":"integer"
+						},
+						"startEpoch":{
+							"title":"Start Epoch",
+							"type":"integer"
+						},
+						"startOfDateEpoch":{
+							"title":"Start Of Date Epoch",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"startEpoch",
+						"endEpoch",
+						"startOfDateEpoch",
+						"endOfDateEpoch"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"date":{
+							"title":"Date",
+							"type":"string"
+						},
+						"endDate":{
+							"title":"End Date",
+							"type":"string"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"string"
+						}
+					},
+					"required":[
+						"startDate",
+						"endDate",
+						"date"
+					],
+					"type":"object"
+				},
+				"code":"import java.time.ZonedDateTime\nimport java.time.*\nimport java.time.format.DateTimeFormatter\ndef startDate=binding.hasVariable(\"startDate\")?startDate:null\ndef endDate=binding.hasVariable(\"endDate\")?endDate:null\ndef date=binding.hasVariable(\"date\")?date:null\n\ndef getEpochMillis(String timestamp) {\n    if (!timestamp) return null\n    return ZonedDateTime.parse(timestamp, DateTimeFormatter.ISO_DATE_TIME).toInstant().toEpochMilli()\n}\n\ndef getDefaultStartEndTimes() {\n    def now = ZonedDateTime.now(ZoneOffset.UTC)\n    def sevenDaysAgo = now.minusDays(7)\n    return [sevenDaysAgo.toInstant().toEpochMilli(), now.toInstant().toEpochMilli()]\n}\n\n\n\ndef getStartEndEpochMillis(String dateStr, String zoneId = \"UTC\") {\n    def formatter = DateTimeFormatter.ofPattern(\"yyyy-MM-dd\")\n    def localDate = LocalDate.parse(dateStr, formatter)\n\n    def startOfDay = localDate.atStartOfDay(ZoneId.of(zoneId))\n    def endOfDay = localDate.atTime(LocalTime.MAX).atZone(ZoneId.of(zoneId))\n\n    return [\n        startOfDay.toInstant().toEpochMilli(),\n        endOfDay.toInstant().toEpochMilli()\n    ]\n}\n\ndef (startOfDateEpoch, endOfDateEpoch) = getStartEndEpochMillis(date, \"UTC\")\n\n\ndef startEpoch = getEpochMillis(startDate)\ndef endEpoch = getEpochMillis(endDate)\n\nif (startEpoch == null || endEpoch == null) {\n    def (defaultStart, defaultEnd) = getDefaultStartEndTimes()\n    startEpoch =  defaultStart\n    endEpoch = defaultEnd\n}\n\n// def generateSql(startEpoch,endEpoch,date)\n// {\n\n//     return \"SELECT SUM(_pr_cost) as totalCost, SUM(_pr_inputToken) as inputTokens,SUM(_pr_outputToken) as outputTokens,COUNT(*) as requests, CAST(AVG(_pr_llmTimeTaken) AS STRING) AS latency, _pr_modelId as modelId FROM ENTITY_e_traces WHERE createdTime BETWEEN ${startEpoch} AND ${endEpoch} AND DATE(FROM_UNIXTIME(createdTime / 1000)) = '${date}' AND _pr_modelId  IS NOT NULL AND _pr_toolName IS NULL GROUP BY modelId\".toString()\n// }\nreturn [\"startEpoch\":startEpoch,\"endEpoch\":endEpoch,\"startOfDateEpoch\":startOfDateEpoch,\"endOfDateEpoch\":endOfDateEpoch]\n",
+				"compile_static":false,
+				"parameters":{
+					"date":"{{ n_nX32z.outputs.date }}",
+					"endDate":"{{ n_nX32z.outputs.endDate }}",
+					"startDate":"{{ n_nX32z.outputs.startDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":104,
+				"resourceName":"analytics_by_unifyapps_query_reports",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EZf1B-1",
+			"id":"n_KQ2bW",
+			"index":3,
+			"inputs":{
+				"filter":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"MISSING"
+							},
+							"property":"ENTITY_e_traces=::=toolName"
+						},
+						{
+							"filter":{
+								"operator":"EXISTS"
+							},
+							"property":"ENTITY_e_traces=::=modelId"
+						},
+						{
+							"resolvedFilter":{
+								"filter":"{{ n_nX32z.outputs.filter }}"
+							}
+						},
+						{
+							"filter":{
+								"operator":"EXISTS"
+							},
+							"property":"ENTITY_ai_agent_llm_model=::=name"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"6851442f9e30586f552a6d73"
+									},
+									"property":"ENTITY_e_traces=::=fromAutomationId"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"66ac70650f725f5b425d12d8"
+									},
+									"property":"ENTITY_e_traces=::=fromAutomationId"
+								}
+							],
+							"operator":"OR"
+						},
+						{
+							"filter":{
+								"operator":"MISSING"
+							},
+							"property":"ENTITY_e_traces=::=llmErrorType"
+						}
+					],
+					"operator":"AND"
+				},
+				"projections":[
+					{
+						"aggregationFunction":"SUM",
+						"alias":"totalCost",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_traces=::=cost"
+					},
+					{
+						"aggregationFunction":"SUM",
+						"alias":"outputTokens",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_traces=::=outputToken"
+					},
+					{
+						"aggregationFunction":"SUM",
+						"alias":"inputTokens",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_traces=::=inputToken"
+					},
+					{
+						"aggregationFunction":"AVG",
+						"alias":"latency",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_traces=::=llmTimeTaken"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"alias":"modelId",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_traces=::=modelId"
+					},
+					{
+						"aggregationFunction":"COUNT",
+						"alias":"requests",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_traces=::=ID"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"alias":"modelName",
+						"includePercentageChange":false,
+						"name":"ENTITY_ai_agent_llm_model=::=name"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"alias":"userId",
+						"includePercentageChange":false,
+						"name":"USER=::=DELETED"
+					}
+				],
+				"searchField":{
+					"expression":"{{ n_nX32z.outputs.search }}",
+					"fields":[
+						"ENTITY_ai_agent_llm_model=::=name"
+					]
+				},
+				"entityType":"ENTITY_e_traces",
+				"page":{
+					"limit":"{{ n_nX32z.outputs.limit }}",
+					"offset":"{{ n_nX32z.outputs.offset }}"
+				},
+				"sorts":[
+					{
+						"additionalSorts":"{{ n_nX32z.outputs.sort }}"
+					}
+				],
+				"timeFilter":{
+					"since":"{{ n_0cCpp.outputs.result.startOfDateEpoch }}",
+					"timeField":"ENTITY_e_traces=::=CREATED_TIME",
+					"until":"{{ n_0cCpp.outputs.result.endOfDateEpoch }}"
+				},
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Analytics Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.modelRes.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":103,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EZf1B-1",
+			"id":"n_ckrR0",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						},
+						"totalInputTokens":{
+							"title":"Total Input Tokens",
+							"type":"integer"
+						},
+						"totalOutputTokens":{
+							"title":"Total Output Tokens",
+							"type":"integer"
+						},
+						"totalReq":{
+							"title":"Total Req",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"modelRes":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Model Res",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def modelRes=binding.hasVariable(\"modelRes\")?modelRes:[]\ndef totalInputTokens=0\ndef totalOutputTokens=0\ndef totalReq=0\ndef totalCost=0\n\nmodelRes.each { res->\n  totalCost+=res?.totalCost?:0\n  totalInputTokens+=res?.inputTokens?:0\n  totalOutputTokens+=res?.outputTokens?:0\n  totalReq+=res?.requests?:0\n}\nreturn [\"totalCost\":totalCost,\"totalInputTokens\":totalInputTokens,\"totalOutputTokens\":totalOutputTokens,\"totalReq\":totalReq]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"modelRes":{
+						"items":"{{ n_KQ2bW.outputs.objects[0].columns }}",
+						"source":"{{ n_KQ2bW.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":104,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EZf1B-1",
+			"id":"n_VdW3z",
+			"index":5,
+			"inputs":{
+				"result":{
+					"modelUsage":{
+						"items":{
+							"inputTokens":"{{ n_KQ2bW.outputs.objects[0].columns.inputTokens }}",
+							"latency":"{{ n_KQ2bW.outputs.objects[0].columns.latency }}",
+							"modelId":"{{ n_KQ2bW.outputs.objects[0].columns.modelId }}",
+							"modelName":"{{ n_KQ2bW.outputs.objects[0].columns.modelName }}",
+							"outputTokens":"{{ n_KQ2bW.outputs.objects[0].columns.outputTokens }}",
+							"requests":"{{ n_KQ2bW.outputs.objects[0].columns.requests }}",
+							"totalCost":"{{ n_KQ2bW.outputs.objects[0].columns.totalCost }}"
+						},
+						"source":"{{ n_KQ2bW.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"totalCost":"{{ n_ckrR0.outputs.result.totalCost }}",
+					"totalInputTokens":"{{ n_ckrR0.outputs.result.totalInputTokens }}",
+					"totalOutputTokens":"{{ n_ckrR0.outputs.result.totalOutputTokens }}",
+					"totalReq":"{{ n_ckrR0.outputs.result.totalReq }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":26
+}
