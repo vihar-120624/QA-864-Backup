@@ -1,0 +1,280 @@
+{
+	"createdTime":1787743242529,
+	"deleted":false,
+	"description":"Extract Document Details using OCR using given model",
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"__ua__call_ocr_extraction",
+	"input":{
+		"type":"SCHEMA",
+		"dynamic":false,
+		"schema":{
+			"layout":{
+				"azureApiVersion":{
+					"ui:help":"Azure API version, e.g. 2024-11-30."
+				},
+				"azureModelId":{
+					"ui:help":"Azure model id, e.g. prebuilt-layout. Defaults to prebuilt-layout."
+				},
+				"connectionId":{
+					"ui:help":"Select the Azure Document Intelligence connection to authenticate the extraction with.",
+					"ui:options":{
+						"ua:applicationName":"azure_document_intelligence",
+						"ua:payload":{
+							"filter":{
+								"field":"appName",
+								"op":"EQUAL",
+								"values":[
+									"azure_document_intelligence"
+								]
+							},
+							"lookupType":"CONNECTION",
+							"type":"ByQuery"
+						}
+					},
+					"ui:placeholder":"Select Connection",
+					"ui:title":"Connection",
+					"ui:widget":"LookupWidget"
+				},
+				"features":{
+					"ui:help":"Azure analyse features, e.g. queryFields. Sent only when set."
+				},
+				"hybrid":{
+					"ui:help":"Feed the extracted text to the LLM as extra context. Only applies when Azure Document Intelligence is on."
+				},
+				"modelId":{
+					"ui:options":{
+						"ua:payload":{
+							"filter":{
+								"field":"properties.modelGroup",
+								"op":"IN",
+								"values":[
+									"textExtraction",
+									"TEXT_EXTRACTION"
+								]
+							},
+							"lookupType":"ENTITY_ID:ai_agent_llm_model",
+							"page":{
+								"limit":100,
+								"offset":0
+							},
+							"query":"",
+							"sorts":[
+								{
+									"field":"lcName",
+									"order":"ASC"
+								}
+							],
+							"type":"ByQuery"
+						}
+					},
+					"ui:widget":"LookupWidget"
+				},
+				"queryFields":{
+					"ui:help":"Comma-separated fields to extract. Requires Features to include queryFields."
+				}
+			},
+			"additionalProperties":false,
+			"type":"object",
+			"ua:modal":{
+				"field_type":"STRING",
+				"is_optional":true
+			},
+			"properties":{
+				"azureApiVersion":{
+					"title":"Azure API Version",
+					"type":"string"
+				},
+				"azureDI":{
+					"title":"Use Azure Document Intelligence",
+					"type":"boolean"
+				},
+				"azureModelId":{
+					"title":"Azure Model",
+					"type":"string"
+				},
+				"connectionId":{
+					"title":"Azure Document Intelligence Connection",
+					"type":"string"
+				},
+				"enhanceImage":{
+					"title":"Enhance Image",
+					"type":"boolean"
+				},
+				"features":{
+					"title":"Features",
+					"type":"string"
+				},
+				"files":{
+					"items":{
+						"additionalProperties":false,
+						"properties":{
+							"fileObject":{
+								"additionalProperties":false,
+								"properties":{
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"title":"File Object",
+								"type":"object"
+							},
+							"mimeType":{
+								"title":"Mime Type",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					},
+					"title":"Files",
+					"type":"array"
+				},
+				"hybrid":{
+					"title":"Azure DI + LLM Hybrid",
+					"type":"boolean"
+				},
+				"includePageText":{
+					"title":"Include Page Text",
+					"type":"boolean"
+				},
+				"methodForReadingPDF":{
+					"default":"pdf_by_unifyapps",
+					"title":"Method For Reading PDF",
+					"type":"string"
+				},
+				"modelId":{
+					"title":"modelId",
+					"type":"string"
+				},
+				"processAsPdf":{
+					"title":"Sent File Directly to LLM",
+					"type":"boolean"
+				},
+				"prompt":{
+					"title":"prompt",
+					"type":"string"
+				},
+				"queryFields":{
+					"title":"Query Fields",
+					"type":"string"
+				},
+				"response_format":{
+					"title":"response_format",
+					"type":"string"
+				},
+				"systemPrompt":{
+					"title":"systemPrompt",
+					"type":"string"
+				},
+				"templateId":{
+					"title":"templateId",
+					"type":"string"
+				}
+			},
+			"required":[]
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"ocr document details extraction",
+	"modifiedTime":1788252971958,
+	"name":"OCR Document Details Extraction",
+	"output":{
+		"type":"SCHEMA",
+		"dynamic":false,
+		"schema":{
+			"additionalProperties":false,
+			"type":"object",
+			"ua:modal":{
+				"field_type":"STRING",
+				"is_optional":true
+			},
+			"properties":{
+				"content":{
+					"items":{
+						"additionalProperties":false,
+						"properties":{
+							"source":{
+								"additionalProperties":false,
+								"properties":{
+									"data":{
+										"title":"Data",
+										"type":"string"
+									},
+									"media_type":{
+										"title":"media_type",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"title":"source",
+								"type":"object"
+							},
+							"text":{
+								"title":"text",
+								"type":"string"
+							},
+							"type":{
+								"title":"type",
+								"type":"string"
+							}
+						},
+						"type":"object"
+					},
+					"title":"content",
+					"type":"array"
+				},
+				"errMsg":{
+					"title":"Err Msg",
+					"type":"string"
+				},
+				"inputTokens":{
+					"title":"inputTokens",
+					"type":"integer"
+				},
+				"output":{
+					"title":"output",
+					"type":"string"
+				},
+				"outputTokens":{
+					"title":"outputTokens",
+					"type":"integer"
+				},
+				"status":{
+					"title":"status",
+					"type":"string"
+				}
+			},
+			"required":[]
+		}
+	},
+	"ownerUserId":-1,
+	"standard":true,
+	"version":15
+}
