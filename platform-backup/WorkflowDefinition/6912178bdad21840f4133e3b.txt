@@ -1,0 +1,319 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743784687,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743784744,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece2845d2142160e6e11c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":5
+	},
+	"edges":[
+		{
+			"fromNodeId":"_mwaGR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iL0yk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iL0yk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jpCbR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jpCbR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_c4Mp7",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6912178bdad21840f4133e3b",
+	"lastModifiedBy":-1,
+	"lcName":"remove user from group",
+	"modifiedTime":1788252972599,
+	"name":"Remove User From Group",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EwgUA@n_PwR3s@_VKTeT-1@y@l",
+			"id":"_mwaGR",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"dynamicUserGroups":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Dynamic User Groups",
+							"type":"array"
+						},
+						"staticUserGroups":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Static User Groups",
+							"type":"array"
+						},
+						"userGroup":{
+							"title":"User Group",
+							"type":"string"
+						},
+						"userGroups":{
+							"items":{
+								"type":"string"
+							},
+							"title":"User Groups",
+							"type":"array"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.userGroups.items",
+					"root.parameters.dynamicUserGroups.items",
+					"root.parameters.staticUserGroups.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":599,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EwgUA@n_PwR3s@_VKTeT-1@y@l",
+			"id":"n_iL0yk",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"groups":{
+							"additionalProperties":false,
+							"properties":{
+								"dynamicUserGroups":{
+									"items":{
+										"type":"string"
+									},
+									"title":"dynamicUserGroups",
+									"type":"array"
+								},
+								"staticUserGroups":{
+									"items":{
+										"type":"string"
+									},
+									"title":"staticUserGroups",
+									"type":"array"
+								},
+								"userGroups":{
+									"items":{
+										"type":"string"
+									},
+									"title":"userGroups",
+									"type":"array"
+								}
+							},
+							"title":"groups",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"dynamicUserGroups":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Dynamic User Groups",
+							"type":"array"
+						},
+						"staticUserGroups":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Static User Groups",
+							"type":"array"
+						},
+						"userGroup":{
+							"title":"User Group",
+							"type":"string"
+						},
+						"userGroups":{
+							"items":{
+								"type":"string"
+							},
+							"title":"User Groups",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def removeUserGroup(userGroup, userGroups, dynamicUserGroups, staticUserGroups) {\n    [userGroups, dynamicUserGroups, staticUserGroups].each { list ->\n        list.removeAll { it == userGroup }\n    }\n    return [\n        userGroups: userGroups,\n        dynamicUserGroups: dynamicUserGroups,\n        staticUserGroups: staticUserGroups\n    ]\n}\n\nif (!binding.hasVariable('userGroup')) {\n    userGroup = \"\"\n}\nif (!binding.hasVariable('userGroups')) {\n    userGroups = []\n}\nif (!binding.hasVariable('dynamicUserGroups')) {\n    dynamicUserGroups = []\n}\nif (!binding.hasVariable('staticUserGroups')) {\n    staticUserGroups = []\n}\n\n// Call the function and return the result map\ndef result = removeUserGroup(userGroup, userGroups, dynamicUserGroups, staticUserGroups)\nreturn [\"groups\":result]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"dynamicUserGroups":{
+						"items":"{{ _mwaGR.outputs.dynamicUserGroups[0] }}",
+						"source":"{{ _mwaGR.outputs.dynamicUserGroups }}",
+						"ua:type":"mappedArray"
+					},
+					"staticUserGroups":{
+						"items":"{{ _mwaGR.outputs.staticUserGroups[0] }}",
+						"source":"{{ _mwaGR.outputs.staticUserGroups }}",
+						"ua:type":"mappedArray"
+					},
+					"userGroup":"{{ _mwaGR.outputs.userGroup }}",
+					"userGroups":{
+						"items":"{{ _mwaGR.outputs.userGroups[0] }}",
+						"source":"{{ _mwaGR.outputs.userGroups }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":756,
+				"resourceName":"standard_entities_update_user",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EwgUA@n_PwR3s@_VKTeT-1@y@l",
+			"id":"n_jpCbR",
+			"index":3,
+			"inputs":{
+				"updateFields":[
+					{
+						"fieldName":"userGroups",
+						"setValue":"{{ n_iL0yk.outputs.result.groups.userGroups }}"
+					},
+					{
+						"fieldName":"dynamicUserGroups",
+						"setValue":"{{ n_iL0yk.outputs.result.groups.dynamicUserGroups }}"
+					},
+					{
+						"fieldName":"staticUserGroups",
+						"setValue":"{{ n_iL0yk.outputs.result.groups.staticUserGroups }}"
+					}
+				],
+				"applicationId":"",
+				"user":"{{ _mwaGR.outputs.userId }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Update User",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EwgUA@n_PwR3s@_VKTeT-1@y@l",
+			"id":"_c4Mp7",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":7
+}
