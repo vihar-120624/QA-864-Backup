@@ -1,0 +1,251 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744080467,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744080555,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf50ba51514edfc7e88c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":5
+	},
+	"edges":[
+		{
+			"fromNodeId":"_nDbmo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"2w8YY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"2w8YY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_l3LJe",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68fdceccff97b736e67e5d3e",
+	"lastModifiedBy":-1,
+	"lcName":"streaming accumulator | create message block",
+	"modifiedTime":1788252971595,
+	"name":"Streaming Accumulator | Create message block",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2rwpu@eNwVI@kpc1k@wonjF@L5wao-1@l@n@y@y",
+			"id":"_nDbmo",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"appendBlock":{
+							"title":"appendBlock",
+							"type":"boolean"
+						},
+						"textBlock":{
+							"title":"textBlock",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"items":{
+							"disableActions":true,
+							"items":{
+								"properties":{},
+								"type":"object"
+							},
+							"title":"coPilotBlocks",
+							"type":"array"
+						},
+						"messageContent":{
+							"title":"Message Content",
+							"type":"string"
+						},
+						"messageCreatedTime":{
+							"title":"Message Created Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.coPilotBlocks.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":72,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2rwpu@eNwVI@kpc1k@wonjF@L5wao-1@l@n@y@y",
+			"id":"2w8YY",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appendBlock":{
+							"title":"Append Block",
+							"type":"boolean"
+						},
+						"textBlock":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Text Block",
+							"type":"object"
+						}
+					},
+					"required":[
+						"textBlock",
+						"appendBlock"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"coPilotBlocks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Co Pilot Blocks",
+							"type":"array"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"messageContent":{
+							"title":"Message Content",
+							"type":"string"
+						},
+						"messageCreatedTime":{
+							"title":"Message Created Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def text = \"\"\ndef appendBlock = false\ndef textBlock = null;\nif(binding.hasVariable('messageContent')) {\n appendBlock = true\n textBlock = [\"blockType\":\"Typography\", \"data\":[\"type\":\"MARKDOWN\", \"text\":messageContent]]\n} \n\nreturn [\"textBlock\": textBlock, \"appendBlock\":appendBlock]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"caseId":"{{ _nDbmo.outputs.caseId  }}",
+					"coPilotBlocks":{
+						"items":"{{ _nDbmo.outputs.items[0]  }}",
+						"source":"{{ _nDbmo.outputs.items  }}",
+						"ua:type":"mappedArray"
+					},
+					"fromCustomerUserId":"{{ _nDbmo.outputs.fromCustomerUserId  }}",
+					"messageContent":"{{ _nDbmo.outputs.messageContent  }}",
+					"messageCreatedTime":"{{ _nDbmo.outputs.messageCreatedTime  }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"create message block",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2rwpu@eNwVI@kpc1k@wonjF@L5wao-1@l@n@y@y",
+			"id":"_l3LJe",
+			"index":3,
+			"inputs":{
+				"result":{
+					"appendBlock":"{{ 2w8YY.outputs.result.appendBlock }}",
+					"textBlock":"{{ 2w8YY.outputs.result.textBlock }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Internal"
+	],
+	"version":7
+}
