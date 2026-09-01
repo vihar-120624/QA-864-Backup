@@ -1,0 +1,626 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743794801,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743794883,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece3245d2142160e6e2c3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":58
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sWwdn",
+			"id":"next@n_sWwdn@n_TQMGC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TQMGC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TQMGC",
+			"id":"if@n_TQMGC@n_KwX2a",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KwX2a",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_KwX2a",
+			"id":"next@n_KwX2a@n_98EWk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_98EWk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TQMGC",
+			"id":"next@n_TQMGC@n_98EWk",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_98EWk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_98EWk",
+			"id":"next@n_98EWk@n_XHGXV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XHGXV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_XHGXV",
+			"id":"next@n_XHGXV@n_w1lsq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_w1lsq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_w1lsq",
+			"id":"next@n_w1lsq@n_wI7da",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wI7da",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wI7da",
+			"id":"next@n_wI7da@n_gdF8L",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gdF8L",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gdF8L",
+			"id":"next@n_gdF8L@n_bHhqA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bHhqA",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a3ff50bacf2391ffc8a22ec",
+	"lastModifiedBy":-1,
+	"lcName":"lowes | all knowledge sources",
+	"modifiedTime":1788252971973,
+	"name":"Lowes | All Knowledge sources",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1278,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_sWwdn",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"knowledgeList":{
+							"items":{
+								"properties":{
+									"changeRate":{
+										"title":"Change Rate",
+										"type":"string"
+									},
+									"id":{
+										"type":"string"
+									},
+									"itemCrawled":{
+										"title":"Item Crawled",
+										"type":"integer"
+									},
+									"itemFailed":{
+										"title":"Item Failed",
+										"type":"integer"
+									},
+									"itemSynced":{
+										"type":"integer"
+									},
+									"syncInProgress":{
+										"title":"Sync In Progress",
+										"type":"boolean"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"type":"array"
+						},
+						"totalKnowledge":{
+							"title":"Total Knowledge",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":57,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_TQMGC",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_sWwdn.outputs.knowledgeIds[0] }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1319,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_TQMGC@_Lqtyh-1@y",
+			"id":"n_KwX2a",
+			"index":3,
+			"inputs":{
+				"result":{
+					"totalKnowledge":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.list.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1002,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_98EWk",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"previousTime":{
+							"title":"Previous Time",
+							"type":"number"
+						},
+						"size":{
+							"title":"Size",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"list":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"List",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def currentTime = System.currentTimeMillis()\ndef previousTime = currentTime - (24 * 60 * 60 * 1000)\nreturn [\"previousTime\" : previousTime,\n        \"size\" : list.size()]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"list":{
+						"items":"{{ n_sWwdn.outputs.knowledgeIds[0] }}",
+						"source":"{{ n_sWwdn.outputs.knowledgeIds }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.kId.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1002,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_XHGXV",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"ids":{
+							"title":"Ids",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"kId":{
+							"items":{
+								"type":"string"
+							},
+							"title":"K Id",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [\n  \"ids\": kId.collect { \"'${it}'\" }.join(',')\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"kId":{
+						"items":"{{ n_sWwdn.outputs.knowledgeIds[0] }}",
+						"source":"{{ n_sWwdn.outputs.knowledgeIds }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":979,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_w1lsq",
+			"index":6,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"change_rate":{
+							"title":"Change Rate",
+							"type":"number"
+						},
+						"item_crawled":{
+							"title":"Item Crawled",
+							"type":"integer"
+						},
+						"item_failed":{
+							"title":"Item Failed",
+							"type":"integer"
+						},
+						"item_synced":{
+							"title":"Item Synced",
+							"type":"number"
+						},
+						"knowledge_id":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"query":"SELECT\n    _pr_knowledgeId AS knowledge_id,\n    COUNT(*) AS item_crawled,\n    SUM(CASE WHEN _pr_status = 'PROCESSED' THEN 1 ELSE 0 END) AS item_synced,\n    SUM(CASE WHEN _pr_status = 'FAILED' THEN 1 ELSE 0 END) AS item_failed,\n    SUM(\n        CASE\n            WHEN createdTime >= {{ n_98EWk.outputs.result.previousTime }}\n            THEN 1\n            ELSE 0\n        END\n    ) AS change_rate\nFROM ENTITY_knowledge_raw_data_store\nWHERE _pr_knowledgeId IN ({{ n_XHGXV.outputs.result.ids }})\n  AND deleted = false\nGROUP BY _pr_knowledgeId;",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":992,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_wI7da",
+			"index":7,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"query":"SELECT\n    _pr_knowledgeId AS knowledge_id,\n    COUNT(*) > 0 AS syncInProgress\nFROM ENTITY_knowledge_state_cursor\nWHERE _pr_knowledgeId IN ({{ n_XHGXV.outputs.result.ids }})\n  AND _pr_scheduled = true\n  AND _pr_status IN ('WAITING_FOR_PERMIT', 'QUEUED', 'IN_PROGRESS')\nGROUP BY _pr_knowledgeId;",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.list1.items",
+					"root.parameters.list2.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_gdF8L",
+			"index":8,
+			"inputs":{
+				"output":{
+					"properties":{
+						"knowledgeList":{
+							"items":{
+								"properties":{
+									"changeRate":{
+										"type":"number"
+									},
+									"id":{
+										"type":"string"
+									},
+									"itemCrawled":{
+										"title":"Item Crawled",
+										"type":"integer"
+									},
+									"itemFailed":{
+										"title":"Item Failed",
+										"type":"integer"
+									},
+									"itemSynced":{
+										"type":"integer"
+									},
+									"syncInProgress":{
+										"title":"Sync In Progress",
+										"type":"boolean"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"list1":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"List 1",
+							"type":"array"
+						},
+						"list2":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"List 2",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// list1 = Metrics list\n// list2 = Sync-in-progress list\n\ndef syncMap = [:]\n\nif (binding.hasVariable(\"list2\")) {\n    (list2 ?: []).each { row ->\n        def cols = row?.columns\n        if (cols?.knowledge_id) {\n            syncMap[cols.knowledge_id] = cols.syncInProgress in [true, 1, \"1\", \"true\"]\n        }\n    }\n}\n\ndef result = []\n\nif (binding.hasVariable(\"list1\")) {\n    result = (list1 ?: []).collect { row ->\n        def cols = row?.columns ?: [:]\n\n        [\n            id             : cols.knowledge_id ?: \"\",\n            syncInProgress : syncMap[cols.knowledge_id] ?: false,\n            itemSynced     : cols.item_synced ?: 0,\n            changeRate     : cols.change_rate ?: 0,\n            itemCrawled : cols.item_crawled ?: 0,\n            itemFailed : cols.item_failed ?: 0\n        ]\n    }\n}\n\nreturn [\n    \"knowledgeList\": result\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"list1":{
+						"items":"{{ n_w1lsq.outputs.objects[0] }}",
+						"source":"{{ n_w1lsq.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"list2":{
+						"items":"{{ n_wI7da.outputs.objects[0] }}",
+						"source":"{{ n_wI7da.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1278,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Lqtyh-1",
+			"id":"n_bHhqA",
+			"index":9,
+			"inputs":{
+				"result":{
+					"Result":{
+						"items":"{{ n_DfukX.outputs.result.finalResult[0] }}",
+						"source":"{{ n_DfukX.outputs.result.finalResult }}",
+						"ua:type":"mappedArray"
+					},
+					"Total_Knowledge":"{{ n_98EWk.outputs.result.size }}",
+					"knowledgeList":{
+						"items":{
+							"actionName":"{{ n_kgttZ.outputs.result.knowledgeList[0].actionName }}",
+							"changeRate":"{{ n_gdF8L.outputs.result.knowledgeList[0].changeRate }}/day",
+							"id":"{{ n_gdF8L.outputs.result.knowledgeList[0].id }}",
+							"itemCrawled":"{{ n_gdF8L.outputs.result.knowledgeList[0].itemCrawled }}",
+							"itemFailed":"{{ n_gdF8L.outputs.result.knowledgeList[0].itemFailed }}",
+							"itemSynced":"{{ n_gdF8L.outputs.result.knowledgeList[0].itemSynced }}",
+							"name":"{{ n_kgttZ.outputs.result.knowledgeList[0].name }}",
+							"syncInProgress":"{{ n_gdF8L.outputs.result.knowledgeList[0].syncInProgress }}",
+							"tags":{
+								"items":"{{ n_kgttZ.outputs.result.knowledgeList[0].tags[0] }}",
+								"source":"{{ n_kgttZ.outputs.result.knowledgeList[0].tags }}",
+								"ua:type":"mappedArray"
+							},
+							"type":"{{ n_kgttZ.outputs.result.knowledgeList[0].type }}",
+							"userId":"{{ n_kgttZ.outputs.result.knowledgeList[0].userId }}"
+						},
+						"source":"{{ n_gdF8L.outputs.result.knowledgeList }}",
+						"ua:type":"mappedArray"
+					},
+					"totalKnowledge":"{{ n_98EWk.outputs.result.size }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":60
+}
