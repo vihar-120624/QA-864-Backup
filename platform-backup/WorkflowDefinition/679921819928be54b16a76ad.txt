@@ -1,0 +1,347 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743826606,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743826709,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece52177b4b4aca57b7d9",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":35
+	},
+	"edges":[
+		{
+			"fromNodeId":"vuV0v",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"E2ZCl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"E2ZCl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"SYt01",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"SYt01",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"rTCkZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"rTCkZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"DbOjq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"DbOjq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"nzFT1",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"679921819928be54b16a76ad",
+	"lastModifiedBy":-1,
+	"lcName":"publish fan message to custom chat",
+	"modifiedTime":1788252972966,
+	"name":"Publish Fan Message to Custom Chat",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":23,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"39bgw-1",
+			"id":"vuV0v",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"messageContent":{
+							"title":"Message Content",
+							"type":"string"
+						}
+					},
+					"required":[
+						"caseId",
+						"fromCustomerUserId",
+						"messageContent"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"39bgw-1",
+			"id":"E2ZCl",
+			"index":0,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"39bgw-1",
+			"id":"SYt01",
+			"index":0,
+			"inputs":{
+				"object_type":"service_hub_case",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"id":"{{ vuV0v.outputs.caseId }}",
+				"readThroughSessionVariables":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.cc.items.name",
+					"root.record.cc.items.email",
+					"root.record.bcc.items.name",
+					"root.record.bcc.items.email",
+					"root.record.content.text",
+					"root.record.content.type",
+					"root.record.content.html",
+					"root.record.content.choices.items",
+					"root.record.content.coPilotBlocks.blocks.items",
+					"root.record.content.coPilotBlocks.role",
+					"root.record.content.choiceList.items.id",
+					"root.record.content.choiceList.items.title",
+					"root.record.content.choiceList.items.url",
+					"root.record.content.interfaceDetails.interfaceId",
+					"root.record.content.interfaceDetails.pageId",
+					"root.record.content.interfaceDetails.slug",
+					"root.record.content.interfaceDetails.pageInputs",
+					"root.record.content.agentResponse.rawLLMResponse",
+					"root.record.content.agentResponse.ExecutionOutput",
+					"root.record.content.agentResponse.thought",
+					"root.record.to.items.name",
+					"root.record.to.items.email",
+					"root.record.feedback.userFeedback",
+					"root.record.feedback.feedbackCategories.items",
+					"root.record.feedback.reaction",
+					"root.record.additional.contextMessageId",
+					"root.record.additional.rephrasedUserMessage",
+					"root.record.additional.sqlQuery",
+					"root.record.additional.platformUserId",
+					"root.record.additional.temporaryMessage",
+					"root.record.additional.internalMessageType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"39bgw-1",
+			"id":"rTCkZ",
+			"index":0,
+			"inputs":{
+				"object_type":"service_hub_message",
+				"record":{
+					"accountId":"NA",
+					"caseId":"{{ vuV0v.outputs.caseId }}",
+					"channelName":"{{ SYt01.outputs.properties.channelName }}",
+					"content":{
+						"text":"{{ vuV0v.outputs.messageContent }}",
+						"type":"text"
+					},
+					"fromCustomerUserId":"{{ vuV0v.outputs.fromCustomerUserId }}",
+					"fromCustomerUserIdentityId":"{{ vuV0v.outputs.fromCustomerUserId }}",
+					"messageId":"{{ __RUN__.outputs.executionId }}",
+					"toCustomerUserId":"{{ SYt01.outputs.properties.fromCustomerUserId }}",
+					"toCustomerUserIdentityId":"{{ SYt01.outputs.properties.fromCustomerUserId }}",
+					"type":"fan",
+					"uniqueId":"{{ __RUN__.outputs.executionId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":23,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"39bgw-1",
+			"id":"DbOjq",
+			"index":0,
+			"inputs":{
+				"automationId":"671517263313c52c4d507cdd",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ vuV0v.outputs.caseId }}",
+					"messageId":"{{ rTCkZ.outputs.id }}",
+					"userId":"{{ SYt01.outputs.properties.fromCustomerUserId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":23,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"39bgw-1",
+			"id":"nzFT1",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":37
+}
