@@ -1,0 +1,126 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743854645,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743854764,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece6e177b4b4aca57b9d1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":181
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_y9KIE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7sxD7",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6911ae889633ca36009f65e2",
+	"lastModifiedBy":-1,
+	"lcName":"realtime people indexer | platform | on delete",
+	"modifiedTime":1788252973160,
+	"name":"Realtime People Indexer | Platform | On Delete",
+	"nodes":[
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":807,
+				"resourceName":"standard_entities_on_user_delete"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5HDX5-1",
+			"id":"n_y9KIE",
+			"index":1,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"unify_platform"
+							},
+							"property":"{{ __ENV__.outputs.PLATFORM_PEOPLE_KNOWLEDGE_APPLICATION_ID }}"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __ENV__.outputs.PLATFORM_PEOPLE_KNOWLEDGE_APPLICATION_ID }}"
+							},
+							"property":"{{ n_y9KIE.outputs.applicationId }}"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"On user delete",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":531,
+				"resourceName":"storage_by_unifyapps_delete_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5HDX5-1",
+			"id":"n_7sxD7",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"ai_agent_people",
+				"entityId":"{{ n_y9KIE.outputs.contactDetails.email }}"
+			},
+			"skip":false,
+			"subTitle":"Remove People Entry",
+			"title":"Delete record by ID",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":183
+}
