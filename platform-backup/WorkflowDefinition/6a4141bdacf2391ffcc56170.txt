@@ -1,0 +1,215 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743974660,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743974966,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecee6ba51514edfc7df09",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":30
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_CjfPZ",
+			"id":"next@n_CjfPZ@n_6Gr8O",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6Gr8O",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6Gr8O",
+			"id":"next@n_6Gr8O@n_iY5Kd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iY5Kd",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a4141bdacf2391ffcc56170",
+	"lastModifiedBy":-1,
+	"lcName":"lowes | items crawled over time",
+	"modifiedTime":1788252973151,
+	"name":"Lowes | Items Crawled over time",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1278,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HyQIY-1",
+			"id":"n_CjfPZ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"chartData":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"count":{
+										"title":"Count",
+										"type":"number"
+									},
+									"endTime":{
+										"title":"End Time",
+										"type":"integer"
+									},
+									"startTime":{
+										"title":"Start Time",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Chart Data",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"number"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"partition":{
+							"title":"Partition",
+							"type":"number"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":993,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HyQIY-1",
+			"id":"n_6Gr8O",
+			"index":2,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"data_count":{
+							"title":"Data Count",
+							"type":"number"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"query":"WITH counts AS (\n    SELECT\n        FLOOR(\n            (\n                createdTime - {{ n_CjfPZ.outputs.startTime }}\n            ) * {{ n_CjfPZ.outputs.partition }}\n            / (\n                {{ n_CjfPZ.outputs.endTime }} - {{ n_CjfPZ.outputs.startTime }}\n            )\n        ) AS bucket_index,\n        COUNT(*) AS data_count\n    FROM ENTITY_knowledge_raw_data_store\n    WHERE\n        _pr_knowledgeId = '{{ n_CjfPZ.outputs.knowledgeId }}'\n        AND deleted = false\n        AND createdTime >= {{ n_CjfPZ.outputs.startTime }}\n        AND createdTime < {{ n_CjfPZ.outputs.endTime }}\n    GROUP BY\n        FLOOR(\n            (\n                createdTime - {{ n_CjfPZ.outputs.startTime }}\n            ) * {{ n_CjfPZ.outputs.partition }}\n            / (\n                {{ n_CjfPZ.outputs.endTime }} - {{ n_CjfPZ.outputs.startTime }}\n            )\n        )\n)\n\nSELECT\n    CAST(\n        {{ n_CjfPZ.outputs.startTime }}\n        + g.generate_series\n          * (\n                {{ n_CjfPZ.outputs.endTime }}\n                - {{ n_CjfPZ.outputs.startTime }}\n            )\n          / {{ n_CjfPZ.outputs.partition }}\n        AS BIGINT\n    ) AS startTime,\n\n    CAST(\n        CASE\n            WHEN g.generate_series = {{ n_CjfPZ.outputs.partition }} - 1\n            THEN {{ n_CjfPZ.outputs.endTime }}\n            ELSE\n                {{ n_CjfPZ.outputs.startTime }}\n                + (g.generate_series + 1)\n                  * (\n                        {{ n_CjfPZ.outputs.endTime }}\n                        - {{ n_CjfPZ.outputs.startTime }}\n                    )\n                  / {{ n_CjfPZ.outputs.partition }}\n        END\n        AS BIGINT\n    ) AS endTime,\n\n    COALESCE(c.data_count, 0) AS count\n\nFROM TABLE(\n    generate_series(\n        0,\n        {{ n_CjfPZ.outputs.partition }} - 1\n    )\n) g\n\nLEFT JOIN counts c\n    ON c.bucket_index = g.generate_series\n\nORDER BY\n    g.generate_series;",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1297,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HyQIY-1",
+			"id":"n_iY5Kd",
+			"index":3,
+			"inputs":{
+				"result":{
+					"chartData":{
+						"items":{
+							"count":"{{ n_6Gr8O.outputs.objects[0].columns.count }}",
+							"endTime":"{{ n_6Gr8O.outputs.objects[0].columns.endTime }}",
+							"startTime":"{{ n_6Gr8O.outputs.objects[0].columns.startTime }}"
+						},
+						"source":"{{ n_6Gr8O.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":32
+}
