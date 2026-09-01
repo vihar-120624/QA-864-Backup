@@ -1,0 +1,831 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744579719,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744580013,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1432889f9507f121843",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":17
+	},
+	"edges":[
+		{
+			"fromNodeId":"lgMZn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vdWdW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vdWdW",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LSL8G",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_LSL8G",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NvoL8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LSL8G",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V9CSH",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_vdWdW",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CMlR4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CMlR4",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Cw5jX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CMlR4",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yCDhl",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_NvoL8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"5a1RM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_V9CSH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"5a1RM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Cw5jX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"5a1RM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yCDhl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"5a1RM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"5a1RM",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"TCmuo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"5a1RM",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"xRt5N",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"TCmuo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"OXLjy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"xRt5N",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"OXLjy",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6836fb3865c3754d2eb5136f",
+	"lastModifiedBy":-1,
+	"lcName":"graphrag | upsert graph (hybrid) | signal wrapper",
+	"modifiedTime":1788252972619,
+	"name":"GraphRAG | Upsert Graph (hybrid) | Signal Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":383,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AMBzt-1",
+			"id":"lgMZn",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"batchSize":{
+							"title":"Batch Size",
+							"type":"integer"
+						},
+						"edges":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Edges",
+							"type":"array"
+						},
+						"graphId":{
+							"title":"Graph Id",
+							"type":"string"
+						},
+						"knowledgeID":{
+							"title":"Knowledge ID",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"integer"
+						},
+						"nodes":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"description":{
+										"title":"Description",
+										"type":"string"
+									},
+									"knowledgeID":{
+										"title":"Knowledge ID",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"sourceChunkID":{
+										"title":"Source Chunk ID",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Nodes",
+							"type":"array"
+						},
+						"signalProperties":{
+							"additionalProperties":false,
+							"properties":{
+								"signalId":{
+									"title":"signalId",
+									"type":"string"
+								},
+								"waitingInstanceId":{
+									"title":"waitingInstanceId",
+									"type":"string"
+								},
+								"waitingInstanceRunTimeType":{
+									"title":"waitingInstanceRunTimeType",
+									"type":"string"
+								}
+							},
+							"type":"object"
+						},
+						"version":{
+							"title":"Version",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":99,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AMBzt-1",
+			"id":"n_vdWdW",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"1"
+						},
+						"property":"{{ lgMZn.outputs.version }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"2"
+						},
+						"property":"1"
+					}
+				],
+				"operator":"OR"
+			},
+			"skip":false,
+			"subTitle":"v1 or v2",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":104,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_vdWdW@AMBzt-1@y",
+			"id":"n_LSL8G",
+			"index":3,
+			"inputs":{
+				"automationId":"68fb4257ecc44120a88dbfb5",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"batchSize":"{{ lgMZn.outputs.batchSize }}",
+					"entities":{
+						"items":{
+							"description":"{{ lgMZn.outputs.nodes[0].description }}",
+							"knowledgeID":"{{ lgMZn.outputs.nodes[0].knowledgeID }}",
+							"name":"{{ lgMZn.outputs.nodes[0].name }}",
+							"sourceChunkID":"{{ lgMZn.outputs.nodes[0].sourceChunkID }}",
+							"type":"{{ lgMZn.outputs.nodes[0].type }}"
+						},
+						"source":"{{ lgMZn.outputs.nodes }}",
+						"ua:type":"mappedArray"
+					},
+					"graphId":"{{ lgMZn.outputs.graphId }}",
+					"knowledgeID":"{{ lgMZn.outputs.knowledgeID }}",
+					"knowledgeVersion":"{{ lgMZn.outputs.knowledgeVersion }}",
+					"relationships":{
+						"items":"{{ lgMZn.outputs.edges[0] }}",
+						"source":"{{ lgMZn.outputs.edges }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":99,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LSL8G@n_vdWdW@AMBzt-1@y@success",
+			"id":"n_NvoL8",
+			"index":4,
+			"inputs":{
+				"automation_id":"6835668650b3973ae9e37c54",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ lgMZn.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ lgMZn.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ lgMZn.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"nodeIds":{
+						"items":"{{ n_LSL8G.outputs.nodeIDs[0] }}",
+						"source":"{{ n_LSL8G.outputs.nodeIDs }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"nodeId":"Qnyhq"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":99,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LSL8G@n_vdWdW@AMBzt-1@y@error",
+			"id":"n_V9CSH",
+			"index":5,
+			"inputs":{
+				"automation_id":"6835668650b3973ae9e37c54",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ lgMZn.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ lgMZn.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ lgMZn.outputs.signalProperties.signalId }}",
+				"nodeId":"Qnyhq"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":104,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_vdWdW@AMBzt-1@n",
+			"id":"n_CMlR4",
+			"index":6,
+			"inputs":{
+				"automationId":"68e8a9594b25513cf10f207f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"batchSize":"{{ lgMZn.outputs.batchSize }}",
+					"entities":{
+						"items":{
+							"description":"{{ lgMZn.outputs.nodes[0].description }}",
+							"knowledgeID":"{{ lgMZn.outputs.nodes[0].knowledgeID }}",
+							"name":"{{ lgMZn.outputs.nodes[0].name }}",
+							"sourceChunkID":"{{ lgMZn.outputs.nodes[0].sourceChunkID }}",
+							"type":"{{ lgMZn.outputs.nodes[0].type }}"
+						},
+						"source":"{{ lgMZn.outputs.nodes }}",
+						"ua:type":"mappedArray"
+					},
+					"graphId":"{{ lgMZn.outputs.graphId }}",
+					"knowledgeID":"{{ lgMZn.outputs.knowledgeID }}",
+					"knowledgeVersion":"{{ lgMZn.outputs.knowledgeVersion }}",
+					"relationships":{
+						"items":"{{ lgMZn.outputs.edges[0] }}",
+						"source":"{{ lgMZn.outputs.edges }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":99,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_CMlR4@n_vdWdW@AMBzt-1@n@success",
+			"id":"n_Cw5jX",
+			"index":7,
+			"inputs":{
+				"automation_id":"6835668650b3973ae9e37c54",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ lgMZn.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ lgMZn.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ lgMZn.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"nodeIds":{
+						"items":"{{ n_CMlR4.outputs.nodeIDs[0] }}",
+						"source":"{{ n_CMlR4.outputs.nodeIDs }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"nodeId":"Qnyhq"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":99,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_CMlR4@n_vdWdW@AMBzt-1@n@error",
+			"id":"n_yCDhl",
+			"index":8,
+			"inputs":{
+				"automation_id":"6835668650b3973ae9e37c54",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ lgMZn.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ lgMZn.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ lgMZn.outputs.signalProperties.signalId }}",
+				"nodeId":"Qnyhq"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":397,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"AMBzt-1",
+			"id":"5a1RM",
+			"index":9,
+			"inputs":{
+				"automationId":"67acf79bd8c1996958569131",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"batchSize":"{{ lgMZn.outputs.batchSize }}",
+					"entities":{
+						"items":"{{ lgMZn.outputs.nodes[0] }}",
+						"source":"{{ lgMZn.outputs.nodes }}",
+						"ua:type":"mappedArray"
+					},
+					"graphId":"{{ lgMZn.outputs.graphId }}",
+					"relationships":{
+						"items":"{{ lgMZn.outputs.edges[0] }}",
+						"source":"{{ lgMZn.outputs.edges }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":true,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":388,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"5a1RM@AMBzt-1@success",
+			"id":"TCmuo",
+			"index":10,
+			"inputs":{
+				"automation_id":"6835668650b3973ae9e37c54",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ lgMZn.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ lgMZn.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ lgMZn.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"nodeIds":{
+						"items":"{{ 5a1RM.outputs.nodeIDs[0] }}",
+						"source":"{{ 5a1RM.outputs.nodeIDs }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"nodeId":"Qnyhq"
+			},
+			"skip":true,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":388,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"5a1RM@AMBzt-1@error",
+			"id":"xRt5N",
+			"index":11,
+			"inputs":{
+				"automation_id":"6835668650b3973ae9e37c54",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ lgMZn.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ lgMZn.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ lgMZn.outputs.signalProperties.signalId }}",
+				"nodeId":"Qnyhq"
+			},
+			"skip":true,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":389,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AMBzt-1",
+			"id":"OXLjy",
+			"index":12,
+			"inputs":{
+				"result":{
+					"status":"ok"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":19
+}
