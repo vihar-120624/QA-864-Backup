@@ -1,0 +1,316 @@
+{
+	"appsUsed":[
+		"openai"
+	],
+	"createdTime":1787743692613,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743692730,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdcc177b4b4aca57a948",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":11
+	},
+	"edges":[
+		{
+			"fromNodeId":"HSmgY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"cBL8t",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"cBL8t",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"kS1Z3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"kS1Z3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"kaoRy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"kaoRy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"a0ISQ",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"682765fa36516f034a828b0c",
+	"lastModifiedBy":-1,
+	"lcName":"update openai voice session",
+	"modifiedTime":1788252971984,
+	"name":"Update OpenAI Voice Session",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":345,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Vt3UX-1",
+			"id":"HSmgY",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"sessionId":{
+							"title":"Session Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":631,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"Vt3UX-1",
+			"id":"cBL8t",
+			"index":0,
+			"inputs":{
+				"automationId":"67834374fc387b38c73b7972",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"parameters":{
+					"agentId":"{{ HSmgY.outputs.aiAgentId }}",
+					"caseId":"{{ HSmgY.outputs.caseId }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false
+				},
+				"logConfig":{
+					"enabled":false
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false
+				}
+			},
+			"skip":false,
+			"subTitle":"System prompt builder",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.tools.items.id",
+					"root.parameters.tools.items.name",
+					"root.parameters.tools.items.description",
+					"root.parameters.tools.items.toolInputSchema"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":656,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Vt3UX-1",
+			"id":"kS1Z3",
+			"index":0,
+			"inputs":{
+				"output":{
+					"$comment":"tools",
+					"$ref":"#/definitions/entity|e_code_snippet|e_67a48c5cc6ba6e3a57165fee"
+				},
+				"input":{
+					"$comment":"tools",
+					"$ref":"#/definitions/entity|e_code_snippet|e_67a48c5cc6ba6e3a57165fee"
+				},
+				"code":"def directTools = [\"think\", \"Clarify\", \"SetSlot\"]\ndef ignoredTools = [\"Clarify\", \"think\"]\n\nif (!binding.hasVariable(\"tools\")) {\n  return [:]\n}\n\n// not adding thoughts since generating random thoughts for now\n\n// tools.each { tool -> \n//   if (directTools.contains(tool?.id)){\n//     return\n//   }\n//   def toolSchema = tool?.get(\"toolInputSchema\",[:])\n//   if (toolSchema.properties == null) {\n//     toolSchema.properties = [:]\n//   }\n//   if (toolSchema.required == null) {\n//     toolSchema.required = []\n//   }\n\n//   toolSchema.properties << [ \n//     \"toolThought\" : [\n//       \"type\" : \"string\",\n//       \"description\" : \"Thought for executing the tool, Use clear and simple language, Address your thoughts to the user in a conversational manner, referring to them as 'you' rather than 'the user'. This should be user facing directly do not mention the tool Id that we would like to call, you can give some human readable name to it. This thought should also be in the same language as that of the user.\"\n//     ]\n//   ]\n//   toolSchema.required << \"toolThought\"\n//   tool.toolInputSchema = toolSchema\n// }\n\ntools = tools.findAll { !ignoredTools.contains(it.id) }\nreturn [\"tools\": tools]",
+				"compile_static":false,
+				"parameters":{
+					"tools":{
+						"items":{
+							"description":"{{ cBL8t.outputs.availableTools[0].description }}",
+							"id":"{{ cBL8t.outputs.availableTools[0].id }}",
+							"name":"{{ cBL8t.outputs.availableTools[0].name }}",
+							"toolInputSchema":"{{ cBL8t.outputs.availableTools[0].toolInputSchema }}"
+						},
+						"source":"{{ cBL8t.outputs.availableTools }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Add thought in schema",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.item.content.items"
+				]
+			},
+			"context":{
+				"appName":"openai",
+				"resourceVersion":120,
+				"connectionId":"6803b3b6931eb527949e8fee",
+				"resourceName":"openai_realtime_send_message",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Vt3UX-1",
+			"id":"kaoRy",
+			"index":0,
+			"inputs":{
+				"session":{
+					"instructions":"{{ cBL8t.outputs.systemPrompt }}",
+					"tools":{
+						"items":{
+							"description":"{{ kS1Z3.outputs.result.tools[0].description }}",
+							"name":"{{ kS1Z3.outputs.result.tools[0].name }}",
+							"parameters":"{{ kS1Z3.outputs.result.tools[0].toolInputSchema }}",
+							"type":"function"
+						},
+						"source":"{{ kS1Z3.outputs.result.tools }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"session_id":"{{ HSmgY.outputs.sessionId }}",
+				"type":"session.update"
+			},
+			"skip":false,
+			"subTitle":"Session update",
+			"title":"Send Message to OpenAI Realtime",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":351,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Vt3UX-1",
+			"id":"a0ISQ",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"openai"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":13
+}
