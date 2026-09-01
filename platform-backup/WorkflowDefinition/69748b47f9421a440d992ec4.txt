@@ -1,0 +1,288 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743935783,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743935973,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecebf45d2142160e6f2c9",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":3
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_AVi9y",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vRiPp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vRiPp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_T2cOh",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69748b47f9421a440d992ec4",
+	"lastModifiedBy":-1,
+	"lcName":"generic fetch embeddings wrapper",
+	"modifiedTime":1788252972075,
+	"name":"Generic Fetch Embeddings Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":730,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7HtSM-1",
+			"id":"n_AVi9y",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"embedding_batch":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"embeddings":{
+										"items":{
+											"type":"number"
+										},
+										"title":"embeddings",
+										"type":"array"
+									},
+									"index":{
+										"title":"index",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"embedding_batch",
+							"type":"array"
+						},
+						"embeddings":{
+							"items":{
+								"type":"object"
+							},
+							"title":"embeddings",
+							"type":"array"
+						},
+						"executionInstanceId":{
+							"title":"executionInstanceId",
+							"type":"string"
+						},
+						"usage":{
+							"additionalProperties":false,
+							"properties":{
+								"inputTokens":{
+									"title":"inputTokens",
+									"type":"integer"
+								},
+								"outputTokens":{
+									"title":"outputTokens",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"usage",
+							"type":"object"
+						},
+						"usedModelId":{
+							"title":"usedModelId",
+							"type":"string"
+						}
+					},
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"__ua__generic_fetch_embedding",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"imageFile":{
+							"title":"imageFile",
+							"type":"object"
+						},
+						"imageFileBatch":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"imageFileBatch",
+							"type":"array"
+						},
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						},
+						"step":{
+							"title":"step",
+							"type":"string"
+						},
+						"text_batch":{
+							"items":{
+								"type":"string"
+							},
+							"title":"text_batch",
+							"type":"array"
+						},
+						"userQuery":{
+							"title":"userQuery",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":778,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7HtSM-1",
+			"id":"n_vRiPp",
+			"index":2,
+			"inputs":{
+				"automationId":"6784b9216fb83f0972c5625d",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ n_AVi9y.outputs.caseId }}",
+					"imageFile":"{{ n_AVi9y.outputs.imageFile }}",
+					"imageFileBatch":{
+						"items":"{{ n_AVi9y.outputs.imageFileBatch[0] }}",
+						"source":"{{ n_AVi9y.outputs.imageFileBatch }}",
+						"ua:type":"mappedArray"
+					},
+					"modelId":"{{ n_AVi9y.outputs.modelId }}",
+					"step":"{{ n_AVi9y.outputs.step }}",
+					"text_batch":{
+						"items":"{{ n_AVi9y.outputs.text_batch[0] }}",
+						"source":"{{ n_AVi9y.outputs.text_batch }}",
+						"ua:type":"mappedArray"
+					},
+					"userQuery":"{{ n_AVi9y.outputs.userQuery }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Generic Fetch Embeddings",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":764,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7HtSM-1",
+			"id":"n_T2cOh",
+			"index":3,
+			"inputs":{
+				"result":{
+					"embedding_batch":{
+						"items":{
+							"embeddings":{
+								"items":"{{ n_vRiPp.outputs.embedding_batch[0].embeddings[0] }}",
+								"source":"{{ n_vRiPp.outputs.embedding_batch[0].embeddings }}",
+								"ua:type":"mappedArray"
+							},
+							"index":"{{ n_vRiPp.outputs.embedding_batch[0].index }}"
+						},
+						"source":"{{ n_vRiPp.outputs.embedding_batch }}",
+						"ua:type":"mappedArray"
+					},
+					"embeddings":{
+						"items":"{{ n_vRiPp.outputs.embeddings[0] }}",
+						"source":"{{ n_vRiPp.outputs.embeddings }}",
+						"ua:type":"mappedArray"
+					},
+					"executionInstanceId":"{{ n_vRiPp.outputs.executionInstanceId }}",
+					"usage":{
+						"inputTokens":"{{ n_vRiPp.outputs.usage.inputTokens }}",
+						"outputTokens":"{{ n_vRiPp.outputs.usage.outputTokens }}"
+					},
+					"usedModelId":"{{ n_vRiPp.outputs.usedModelId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":5
+}
