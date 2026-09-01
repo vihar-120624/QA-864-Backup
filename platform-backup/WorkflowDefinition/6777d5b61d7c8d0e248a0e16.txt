@@ -1,0 +1,576 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744007020,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744007286,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf07ba51514edfc7e212",
+		"deploymentTag":"ignore_attachments_mssg",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":101
+	},
+	"edges":[
+		{
+			"fromNodeId":"_9DRV6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_f6OoD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_f6OoD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_acHEF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_acHEF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9QKWI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9QKWI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_STvdz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_STvdz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_eH5rE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_eH5rE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_uv1mK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_uv1mK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_tmRjL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_tmRjL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_a05CO",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6777d5b61d7c8d0e248a0e16",
+	"lastModifiedBy":-1,
+	"lcName":"latency tracking automation",
+	"modifiedTime":1788252973181,
+	"name":"Latency tracking automation",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":19,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_9DRV6",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"responseTimeExceededList":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"aiAgentId":{
+										"title":"Ai Agent Id",
+										"type":"string"
+									},
+									"caseId":{
+										"title":"Case Id",
+										"type":"string"
+									},
+									"fanMessageId":{
+										"title":"Fan Message Id",
+										"type":"string"
+									},
+									"timeSplit":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{},
+											"type":"object"
+										},
+										"title":"Time Split",
+										"type":"array"
+									},
+									"timeTaken":{
+										"title":"Time Taken",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Response Time Exceeded List",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"caseId",
+						"messageId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":19,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_f6OoD",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _9DRV6.outputs.caseId }}"
+							},
+							"property":"properties_caseId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"service_hub_message",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"sortBy":[
+					{
+						"field":"cTm",
+						"order":"ASC"
+					}
+				],
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":true,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":19,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_acHEF",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"details":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Details",
+							"type":"array"
+						},
+						"endTime":{
+							"title":"End Time",
+							"type":"string"
+						},
+						"fanMessageDetail":{
+							"title":"Fan Message Detail",
+							"type":"string"
+						},
+						"messageDetail":{
+							"title":"Message Detail",
+							"type":"string"
+						},
+						"requestedMessageTime":{
+							"title":"Requested Message Time",
+							"type":"string"
+						},
+						"slowMessages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"messageId":{
+										"title":"Message Id",
+										"type":"string"
+									},
+									"timeSplit":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{},
+											"type":"object"
+										},
+										"title":"Time Split",
+										"type":"array"
+									},
+									"timeTaken":{
+										"title":"Time Taken",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Slow Messages",
+							"type":"array"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"string"
+						}
+					},
+					"required":[
+						"details",
+						"startTime",
+						"endTime",
+						"requestedMessageTime",
+						"messageDetail",
+						"fanMessageDetail"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"messages":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Messages",
+							"type":"array"
+						},
+						"requestedMessageId":{
+							"title":"Requested Message Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"messages",
+						"requestedMessageId"
+					],
+					"type":"object"
+				},
+				"code":"def fanCount = 0\ndef brandCount = 0\ndef lastFanMessageTime = 0\ndef lastMessageTime = 0\ndef startTime = 0\ndef endTime = 0\ndef timeCaptured = false\ndef requestedMessageTime = 0\ndef messageDetail = \"\"\ndef fanMessageDetail = \"\"\ndef aiAgentId = \"\"\ndef lastFanMessageId\n\ndef details = []\ndef caseSlowMessages = [:]\ndef responseTimeDetails = [:]\n\ndef caseId = null\ndef slowMessagesList = []\ndef botResponses = []\n\nfor (msg in messages) {\n    \n    def type = msg.properties.type\n    if (type == \"fan\" && aiAgentId == \"\") {\n        aiAgentId = msg.properties?.toCustomerUserId\n    }\n\n    if (type == \"fan\" && fanCount == 0 && msg.properties?.hasAttachments == true) {\n        continue\n    }\n\n    if (caseId == null && msg.properties?.caseId) {\n        caseId = msg.properties.caseId\n    }\n\n    if (msg.properties.type != \"fan\") {\n        ++brandCount\n        if (lastFanMessageTime > 0) {\n            def timeTaken = msg.createdTime - lastMessageTime\n            def timeFromLastFan = msg.createdTime - lastFanMessageTime\n            def toolName = msg?.properties?.content?.agentResponse?.toolUseDetails?.toolName\n            def text = msg.properties?.content?.text\n            def content\n\n            def copilotBlocks = msg?.properties?.content?.coPilotBlocks\n            if (copilotBlocks != null) {\n                if (copilotBlocks.toString().contains(\"Searching\")) {\n                    content = \"Searching\"\n                }\n                if (copilotBlocks.toString().contains(\"Reading\")) {\n                    content = \"Reading\"\n                }\n                if (copilotBlocks.toString().containsIgnoreCase(\"chart\")) {\n                    content = \"Charts\"\n                }\n            }\n\n            if (text == null && toolName == null && content == null) {   // ignore extra bot message \n                continue;\n            }\n\n            if(toolName != null) {\n                if (toolName == 'PublishCitations') {\n                    content = \"FinalAnswer & \" + toolName\n                } else {\n                    content = \"ToolCallMsg: \" + toolName\n                }\n            }\n\n            if (content == null || content.isBlank()) {\n                content = \"FinalAnswer: \" + text\n            }\n\n            def contentLength = Math.min(30, content.length())\n            content = content.substring(0, contentLength)\n\n            String detail = \"Brand Message \" + brandCount + \" time taken is \" + timeTaken + \" \" + content\n            if (timeTaken > 1000) {\n                detail += \" msg: \"\n                if (text != null) {\n                    def maxLength = Math.min(20, text.length())\n                    detail += text.substring(0, maxLength)\n                }\n                detail += \" \" + msg.createdTime\n            }\n\n            if ((!binding.hasVariable('requestedMessageId') || msg.id == requestedMessageId) && !timeCaptured) {\n                startTime = lastFanMessageTime\n                endTime = msg.createdTime\n                requestedMessageTime = timeTaken\n                timeCaptured = true\n                messageDetail = detail\n                fanMessageDetail = details.last()\n            }\n\n            if (msg?.properties?.additional?.internalMessageType == \"THOUGHT\" ||\n                    msg?.properties?.additional?.internalMessageType == \"AGENT_INTERNAL_RESPONSE\") {\n            } else {\n                detail += (\" time from lastFanMessage \" + timeFromLastFan)\n\n                if (timeFromLastFan > 5000 && content.startsWith(\"FinalAnswer\")) {\n                    def parentMessageId = msg.properties?.additional?.parentMessageId\n\n                    slowMessagesList.add([\n                            messageId: parentMessageId,\n                            timeTaken: timeFromLastFan,\n                            brandMessageCount: brandCount,\n                            timeSplit: botResponses\n                    ])\n                }\n            }\n            details.add(detail)\n            botResponses << [ \"content\" : content , \"timeTaken\" : timeTaken ]\n        }\n    } else {\n        ++fanCount\n        lastFanMessageTime = msg.createdTime\n        lastFanMessageId = msg.id\n        botResponses = []\n        details.add(\"fanMessage \" + fanCount + \" id: \" + msg.id + \" \" + msg.createdTime)\n    }\n\n    if (lastFanMessageId != null) {\n        responseTimeDetails << [(lastFanMessageId) : botResponses]\n    }\n    lastMessageTime = msg.createdTime\n}\n\nif (caseId && slowMessagesList.size() > 0) {\n    caseSlowMessages[caseId] = slowMessagesList\n}\n\nreturn [\n        \"details\": details,\n        \"startTime\": startTime,\n        \"endTime\": endTime,\n        \"requestedMessageTime\": requestedMessageTime,\n        \"messageDetail\": messageDetail,\n        \"fanMessageDetail\": fanMessageDetail,\n        \"caseId\": caseId,\n        \"slowMessages\": slowMessagesList,\n        \"aiAgentId\": aiAgentId,\n        \"responseTimeDetails\" : responseTimeDetails\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"caseId":"{{ _9DRV6.outputs.caseId }}",
+					"messages":{
+						"items":"{{ _f6OoD.outputs.objects[0] }}",
+						"source":"{{ _f6OoD.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"requestedMessageId":"{{ _9DRV6.outputs.messageId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":163,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"n_9QKWI",
+			"index":4,
+			"inputs":{
+				"result":{
+					"responseTimeExceededList":{
+						"items":{
+							"aiAgentId":"{{ _acHEF.outputs.result.aiAgentId }}",
+							"caseId":"{{ _9DRV6.outputs.caseId }}",
+							"fanMessageId":"{{ _acHEF.outputs.result.slowMessages[0].messageId }}",
+							"timeSplit":{
+								"items":"{{ _acHEF.outputs.result.slowMessages[0].timeSplit[0] }}",
+								"source":"{{ _acHEF.outputs.result.slowMessages[0].timeSplit }}",
+								"ua:type":"mappedArray"
+							},
+							"timeTaken":"{{ _acHEF.outputs.result.slowMessages[0].timeTaken }}"
+						},
+						"source":"{{ _acHEF.outputs.result.slowMessages }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"n_STvdz",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":22,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_eH5rE",
+			"index":6,
+			"inputs":{
+				"query":"SELECT\nwne.id, wne.entryTime, wne.exitTime, wne.currentNodeAppName, wne.workflowId, wne.currentNodeId, (wne.exitTime - wne.entryTime) as executionTime\nFROM\nWORKFLOW_NODE_EXECUTION AS wne\nJOIN\n(\nSELECT\nid\nFROM\nWORKFLOW_EXECUTION AS we\nWHERE\nCAST(we.startNodeOutput -> 'caseId' AS CHAR) = '{{ _9DRV6.outputs.caseId }}'\nORDER BY\nstartTime ASC\n) AS filtered_we\nON\nwne.executionInstanceId = filtered_we.id\nWHERE ((wne.entryTime > {{ _acHEF.outputs.result.startTime }} AND wne.exitTime < {{ _acHEF.outputs.result.endTime }}) OR (wne.entryTime > {{ _acHEF.outputs.result.startTime }} AND wne.entryTime <  {{ _acHEF.outputs.result.endTime }} AND wne.currentNodeAppName=\"conv_ai_by_unifyapps\"))\nORDER BY wne.entryTime ASC",
+				"group":"PLATFORM"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":22,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_uv1mK",
+			"index":7,
+			"inputs":{
+				"query":"SELECT id, startTime, executionTime, rootExecutionInstanceId,runTimeType, workflowId FROM WORKFLOW_EXECUTION as we WHERE ( ( CAST( we.startNodeOutput -> 'caseId' AS STRING ) = '{{ _9DRV6.outputs.caseId }}' ) AND startTime > {{ _acHEF.outputs.result.startTime }} AND startTime < {{ _acHEF.outputs.result.endTime }} ) ORDER BY startTime ASC",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.objects.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":22,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_tmRjL",
+			"index":8,
+			"inputs":{
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"fanMessageDetail":{
+							"title":"Fan Message Detail",
+							"type":"string"
+						},
+						"messageDetail":{
+							"title":"Message Detail",
+							"type":"string"
+						},
+						"objects":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"objects",
+							"type":"array"
+						},
+						"timeTaken":{
+							"title":"Time Taken",
+							"type":"string"
+						},
+						"workflowObjs":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Workflow Objs",
+							"type":"array"
+						}
+					},
+					"required":[
+						"timeTaken",
+						"caseId",
+						"messageDetail",
+						"fanMessageDetail",
+						"workflowObjs"
+					],
+					"type":"object"
+				},
+				"code":"def llmTime = 0\ndef flowStarted = false;\ndef flowTime = 0;\ndef flowPublishTime = 0;\nSet<String> includedWorkflows = []\ndef removedWorkflows = [ \"66fbed229edc4e0b6303cefd\",\n      \"673ede10befa5e1573509632\",\n      \"66ab98083d73300e63962287\",\n      \"67401fb6a28c4a295d14cd30\",\n      \"66d1673d9627d00147081244\"]\ndef includedNodes = []\ndef entireFlowcaptured = false;\nfor(obj in objects){\n  if(obj.columns.currentNodeId == \"_q2m8t\"){\n    llmTime = llmTime + obj.columns.exitTime - obj.columns.entryTime\n  } \n   if(obj.columns.currentNodeId == \"T41Bo\") {\n    flowStarted = true;\n    continue;\n   }\n\n   if(flowStarted == true) {\n  \n    if(\"66fbed229edc4e0b6303cefd\".equals(obj.columns.workflowId)){\n      flowPublishTime = obj.columns.exitTime - obj.columns.entryTime\n      continue\n    }\n\n    if(entireFlowcaptured!= true && obj.columns?.currentNodeAppName!= \"callables\") {\n    flowTime = flowTime + obj.columns.exitTime - obj.columns.entryTime\n    includedWorkflows.add(obj.columns.workflowId)\n    includedNodes.add(obj.columns.currentNodeId)\n    }\n   }\n\n   if(obj.columns.currentNodeId == \"_W6VAk\"){\n    flowTime = obj.columns.exitTime - obj.columns.entryTime;\n    entireFlowcaptured =true;\n   }\n}\n\n\nreturn [\"caseId\": caseId, \"fanMessageDetail\": fanMessageDetail, \"messageDetail\": messageDetail, \"totalTimeTaken\" :  timeTaken, \"llmTime\": llmTime, \"flowTime\": flowTime, \"internalTimeIncludingPublish\": timeTaken - llmTime - flowTime - flowPublishTime, \"flowStarted\": flowStarted, \"entireFlowcaptured\": entireFlowcaptured, \"includedNodes\": includedNodes, \"includedWorkflows\": includedWorkflows]",
+				"compile_static":false,
+				"parameters":{
+					"caseId":"{{ _9DRV6.outputs.caseId }}",
+					"fanMessageDetail":"{{ _acHEF.outputs.result.fanMessageDetail }}",
+					"messageDetail":"{{ _acHEF.outputs.result.messageDetail }}",
+					"objects":{
+						"items":"{{ _eH5rE.outputs.objects[0] }}",
+						"source":"{{ _eH5rE.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"timeTaken":"{{ _acHEF.outputs.result.requestedMessageTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":19,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PaZkJ-1",
+			"id":"_a05CO",
+			"index":9,
+			"inputs":{
+				"result":{
+					"details":"{{ _acHEF.outputs.result.details }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":103
+}
