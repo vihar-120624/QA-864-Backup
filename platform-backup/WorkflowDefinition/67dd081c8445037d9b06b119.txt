@@ -1,0 +1,745 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743558774,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743558958,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd463f7ad93bb16746e6",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":57
+	},
+	"edges":[
+		{
+			"fromNodeId":"5bATh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"IOyq9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"IOyq9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"CjJ4s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"CjJ4s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"TUgkl",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67dd081c8445037d9b06b119",
+	"lastModifiedBy":-1,
+	"lcName":"ai eval | ai as judge evaluator",
+	"modifiedTime":1788252972272,
+	"name":"AI Eval | AI As Judge Evaluator",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":415,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"DrOWd-1",
+			"id":"5bATh",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"reason":{
+							"title":"Reason",
+							"type":"string"
+						},
+						"score":{
+							"title":"Score",
+							"type":"number"
+						},
+						"tokensUsed":{
+							"title":"Tokens Used",
+							"type":"number"
+						}
+					},
+					"required":[
+						"score",
+						"reason",
+						"cost"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"criteria":{
+							"title":"Evaluation Criteria",
+							"type":"string"
+						},
+						"evaluationParameters":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Evaluation Parameters",
+							"type":"array"
+						},
+						"evaluationScale":{
+							"items":{
+								"type":"number"
+							},
+							"title":"Evaluation Scale",
+							"type":"array"
+						},
+						"evaluationSteps":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Evaluation Steps",
+							"type":"array"
+						},
+						"experimentId":{
+							"title":"Experiment Id",
+							"type":"string"
+						},
+						"metricId":{
+							"title":"Metric Id",
+							"type":"string"
+						},
+						"metricType":{
+							"title":"Metric Type",
+							"type":"string"
+						},
+						"model":{
+							"title":"Model",
+							"type":"string"
+						},
+						"runId":{
+							"title":"Run Id",
+							"type":"string"
+						},
+						"scaleType":{
+							"title":"Scale Type",
+							"type":"string"
+						},
+						"testCase":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Test Case",
+							"type":"object"
+						},
+						"testCaseId":{
+							"title":"Test Case Id",
+							"type":"string"
+						},
+						"testCaseType":{
+							"title":"Test Case Type",
+							"type":"string"
+						}
+					},
+					"required":[
+						"model",
+						"evaluationParameters",
+						"testCase",
+						"metricType",
+						"evaluationScale",
+						"scaleType",
+						"testCaseId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":161,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"DrOWd-1",
+			"id":"IOyq9",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"scoreRange":{
+							"title":"Score Range",
+							"type":"string"
+						}
+					},
+					"required":[
+						"scoreRange"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"scale":{
+							"items":{
+								"type":"number"
+							},
+							"title":"Scale",
+							"type":"array"
+						},
+						"type":{
+							"title":"Type",
+							"type":"string"
+						}
+					},
+					"required":[
+						"scale",
+						"type"
+					],
+					"type":"object"
+				},
+				"code":"String range = '0.0 - 1.0'\nif (type == 'SCALE') {\n    range = String.format(\"%.1f - %.1f\", scale.get(0).toDouble(), scale.get(1).toDouble())\n}\n\nreturn ['scoreRange': range]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"scale":{
+						"items":"{{ 5bATh.outputs.evaluationScale[0] }}",
+						"source":"{{ 5bATh.outputs.evaluationScale }}",
+						"ua:type":"mappedArray"
+					},
+					"type":"{{ 5bATh.outputs.scaleType }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":160,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"DrOWd-1",
+			"id":"CjJ4s",
+			"index":3,
+			"inputs":{
+				"callableInterfaceId":"67e2b5d9e1d4f12ce20011f0",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"callableInterfaces":[
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"G-EVAL"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"LLM"
+									},
+									"property":"{{ 5bATh.outputs.testCaseType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e29909b7d2dd451ebaaf36"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"BIAS"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e11b0b7810a05ba5c0a4ff"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"TOXICITY"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e14752d5ff3e69decc14f6"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"HALLUCINATION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e130267b581f53850cf787"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"PROMPT_ALIGNMENT"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e14eb30d68ab0f1e732348"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"ANSWER_RELEVANCY"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e267460260917d9fbb6a5d"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"FAITHFULNESS"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e288d0bb5c3c51ededeabc"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"TASK_COMPLETION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e269a2455dc33dfe5cc653"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"COSINE_SIMILARITY"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"683ae4b77f57df17f4818a47"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"BERT_SCORE"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"683bec009a3289636f25372e"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"KNOWLEDGE_RETENTION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6846f31237a4d938a3f8cdd5"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"ROLE_ADHERENCE"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6846ef870851243c0b7550ff"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"MISSING"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CONVERSATIONAL"
+									},
+									"property":"{{ 5bATh.outputs.testCaseType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"684a64da4d25095fbbf65a59"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"USER_FRUSTRATION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680a35e6fac64d2823be7581"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"TOOL_CORRECTNESS"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680e285779c07b58ae998d26"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"SUMMARIZATION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680b4a974103ca6e4cde1e53"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"SQL_GENERATION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680b2456c1a5ea436052c2bc"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"QA"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680b1fba28a37355040a88c8"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"JSON_CORRECTNESS"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"67e2d9d194875751e6bc1ad9"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CONVERSATION_RELEVANCY"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"68471587bdab1d6e93e1ce7c"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CONVERSATION_COMPLETENESS"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6846f16737a4d938a3f8cc03"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CONTEXTUAL_PRECISION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"681c615250405d05bc668207"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CONTEXTUAL_RELEVANCY"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"681ca4b4ec9dcf420327d350"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CODE_GENERATION"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680a3628fac64d2823be773c"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CITATION_EVALS"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680b629e25da79166ed85547"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"AI_VS_HUMAN"
+									},
+									"property":"{{ 5bATh.outputs.metricType }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"680a4a1524121404989c755a"
+					}
+				],
+				"fallbackWorkflowId":"67e29909b7d2dd451ebaaf36",
+				"parameters":{
+					"criteria":"{{ 5bATh.outputs.criteria }}",
+					"evaluationParameters":{
+						"items":"{{ 5bATh.outputs.evaluationParameters[0] }}",
+						"source":"{{ 5bATh.outputs.evaluationParameters }}",
+						"ua:type":"mappedArray"
+					},
+					"evaluationSteps":{
+						"items":"{{ 5bATh.outputs.evaluationSteps[0] }}",
+						"source":"{{ 5bATh.outputs.evaluationSteps }}",
+						"ua:type":"mappedArray"
+					},
+					"experimentId":"{{ 5bATh.outputs.experimentId }}",
+					"metricId":"{{ 5bATh.outputs.metricId }}",
+					"model":"{{ 5bATh.outputs.model }}",
+					"runId":"{{ 5bATh.outputs.runId }}",
+					"scoreRange":"{{ IOyq9.outputs.result.scoreRange }}",
+					"scoringInstruction":"{{ IOyq9.outputs.result.scoreRange }}",
+					"testCase":"{{ 5bATh.outputs.testCase }}",
+					"testCaseId":"{{ 5bATh.outputs.testCaseId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":418,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"DrOWd-1",
+			"id":"TUgkl",
+			"index":4,
+			"inputs":{
+				"result":{
+					"cost":"{{ CjJ4s.outputs.cost }}",
+					"reason":"{{ CjJ4s.outputs.reason }}",
+					"score":"{{ CjJ4s.outputs.score }}",
+					"tokensUsed":"{{ CjJ4s.outputs.tokensUsed }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":59
+}
