@@ -1,5 +1,5 @@
 {
-	"columnCounts":45,
+	"columnCounts":47,
 	"createdTime":1787737370618,
 	"deleted":false,
 	"grants":{
@@ -41,9 +41,7 @@
 				"startTime",
 				"endTime",
 				"latency",
-				"assetType",
-				"testcaseRunId",
-				"isEvaluated"
+				"assetType"
 			]
 		},
 		"schema":{
@@ -67,6 +65,16 @@
 					"searchable":true,
 					"sortable":false,
 					"title":"App Name",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"assetId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Asset Id",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -255,15 +263,14 @@
 					"type":"number",
 					"uniqueKey":false
 				},
-				"isEvaluated":{
-					"default":false,
+				"knowledgeId":{
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
-					"sortable":true,
-					"title":"Is Evaluated",
-					"type":"boolean",
+					"sortable":false,
+					"title":"Knowledge Id",
+					"type":"string",
 					"uniqueKey":false
 				},
 				"latency":{
@@ -458,16 +465,6 @@
 					"searchable":true,
 					"sortable":false,
 					"title":"Success",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"testcaseRunId":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Testcase Run Id",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -548,6 +545,7 @@
 		"filterableFields":[
 			"aiAgentId",
 			"appName",
+			"assetId",
 			"assetType",
 			"billableInputTokens",
 			"cacheReadCost",
@@ -566,7 +564,7 @@
 			"inputPayload",
 			"inputToken",
 			"inputTokenCost",
-			"isEvaluated",
+			"knowledgeId",
 			"latency",
 			"messageId",
 			"model",
@@ -586,11 +584,12 @@
 			"sessionId",
 			"startTime",
 			"success",
-			"testcaseRunId",
 			"toolName",
 			"traceAgentType",
 			"traceId",
-			"userId"
+			"userId",
+			"routineId",
+			"routineRunId"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -617,6 +616,7 @@
 		"searchableFields":[
 			"aiAgentId",
 			"appName",
+			"assetId",
 			"assetType",
 			"billableInputTokens",
 			"cacheReadCost",
@@ -635,7 +635,7 @@
 			"inputPayload",
 			"inputToken",
 			"inputTokenCost",
-			"isEvaluated",
+			"knowledgeId",
 			"latency",
 			"messageId",
 			"model",
@@ -654,7 +654,6 @@
 			"sessionId",
 			"startTime",
 			"success",
-			"testcaseRunId",
 			"toolName",
 			"traceAgentType",
 			"traceId",
@@ -691,7 +690,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788260347481,
+	"modifiedTime":1788351396925,
 	"name":"e_spans",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -720,6 +719,16 @@
 					"searchable":true,
 					"sortable":false,
 					"title":"App Name",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"assetId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Asset Id",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -908,15 +917,14 @@
 					"type":"number",
 					"uniqueKey":false
 				},
-				"isEvaluated":{
-					"default":false,
+				"knowledgeId":{
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
-					"sortable":true,
-					"title":"Is Evaluated",
-					"type":"boolean",
+					"sortable":false,
+					"title":"Knowledge Id",
+					"type":"string",
 					"uniqueKey":false
 				},
 				"latency":{
@@ -1114,16 +1122,6 @@
 					"type":"string",
 					"uniqueKey":false
 				},
-				"testcaseRunId":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Testcase Run Id",
-					"type":"string",
-					"uniqueKey":false
-				},
 				"toolName":{
 					"filterable":true,
 					"nameField":false,
@@ -1163,11 +1161,21 @@
 					"title":"User Id",
 					"type":"number",
 					"uniqueKey":false
+				},
+				"routineId":{
+					"type":"string",
+					"title":"Routine Id",
+					"filterable":true
+				},
+				"routineRunId":{
+					"type":"string",
+					"title":"Routine Run Id",
+					"filterable":true
 				}
 			},
 			"required":[]
 		}
 	},
 	"standard":true,
-	"version":4
+	"version":7
 }
