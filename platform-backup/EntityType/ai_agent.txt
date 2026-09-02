@@ -3623,7 +3623,58 @@
 									"audio",
 									"code"
 								]
-							}
+							},
+							"documentParsingConfig":{
+								"agenticParsingModel":{},
+								"appName":{
+									"ui:order":[
+										"agenticParsingModel"
+									]
+								},
+								"automationId":{
+									"ui:order":[
+										"agenticParsingModel",
+										"appName"
+									]
+								},
+								"connectionId":{
+									"ui:order":[
+										"agenticParsingModel",
+										"appName",
+										"automationId"
+									]
+								},
+								"type":{
+									"ui:order":[
+										"agenticParsingModel",
+										"appName",
+										"automationId",
+										"connectionId"
+									]
+								},
+								"ui:order":[
+									"agenticParsingModel",
+									"appName",
+									"automationId",
+									"connectionId",
+									"type",
+									"version"
+								],
+								"version":{
+									"ui:order":[
+										"agenticParsingModel",
+										"appName",
+										"automationId",
+										"connectionId",
+										"type"
+									]
+								}
+							},
+							"ui:order":[
+								"contentTypeConfig",
+								"mimeType",
+								"documentParsingConfig"
+							]
 						}
 					},
 					"ui:order":[
@@ -5090,6 +5141,15 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"agentKind":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Agent Kind",
+					"type":"string"
+				},
 				"agentModeSupported":{
 					"filterable":true,
 					"format":"multi-select",
@@ -5121,15 +5181,6 @@
 					"searchable":true,
 					"sortable":true,
 					"title":"Agent Type",
-					"type":"string"
-				},
-				"agentKind":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Agent Kind",
 					"type":"string"
 				},
 				"appendSummaryMessage":{
@@ -7842,6 +7893,80 @@
 												"required":[],
 												"type":"object"
 											},
+											"documentParsingConfig":{
+												"additionalProperties":false,
+												"filterable":false,
+												"nameField":false,
+												"primaryKey":false,
+												"properties":{
+													"agenticParsingModel":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Agentic Parsing Model",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"appName":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"App Name",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"automationId":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Automation Id",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"connectionId":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Connection Id",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"type":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Type",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"version":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Version",
+														"type":"string",
+														"uniqueKey":false
+													}
+												},
+												"required":[],
+												"searchable":false,
+												"sortable":false,
+												"title":"Document Parsing Config",
+												"type":"object",
+												"uniqueKey":false
+											},
 											"mimeType":{
 												"items":{
 													"type":"string"
@@ -7849,6 +7974,7 @@
 												"type":"array"
 											}
 										},
+										"required":[],
 										"type":"object"
 									},
 									"type":"array"
@@ -10244,7 +10370,7 @@
 				"status":"SUCCESS"
 			},
 			{
-				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_2\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_2\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1788283915, \"i\": 1835}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1788283915, \"i\": 1835}}}",
+				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_2\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_2\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1788364975, \"i\": 4002}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1788364975, \"i\": 4002}}}",
 				"indexFieldMetadataList":[
 					{
 						"field":"id",
@@ -10265,9 +10391,9 @@
 		],
 		"external":true,
 		"filterableFields":[
+			"agentKind",
 			"agentModeSupported",
 			"agentType",
-			"agentKind",
 			"appendSummaryMessage",
 			"auditAutomationId",
 			"contextManagement",
@@ -10560,9 +10686,9 @@
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
 		"searchableFields":[
+			"agentKind",
 			"agentModeSupported",
 			"agentType",
-			"agentKind",
 			"appendSummaryMessage",
 			"auditAutomationId",
 			"contextManagement.removePastConversationKnowledgeChunks",
@@ -10731,7 +10857,7 @@
 		],
 		"versioningEnabled":true
 	},
-	"modifiedTime":1788283915748,
+	"modifiedTime":1788364975408,
 	"name":"Agent",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -10752,6 +10878,15 @@
 					"title":"Add Context Automation Id",
 					"type":"string",
 					"uniqueKey":false
+				},
+				"agentKind":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Agent Kind",
+					"type":"string"
 				},
 				"agentModeSupported":{
 					"filterable":true,
@@ -10784,15 +10919,6 @@
 					"searchable":true,
 					"sortable":true,
 					"title":"Agent Type",
-					"type":"string"
-				},
-				"agentKind":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Agent Kind",
 					"type":"string"
 				},
 				"appendSummaryMessage":{
@@ -13505,6 +13631,80 @@
 												"required":[],
 												"type":"object"
 											},
+											"documentParsingConfig":{
+												"additionalProperties":false,
+												"filterable":false,
+												"nameField":false,
+												"primaryKey":false,
+												"properties":{
+													"agenticParsingModel":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Agentic Parsing Model",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"appName":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"App Name",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"automationId":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Automation Id",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"connectionId":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Connection Id",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"type":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Type",
+														"type":"string",
+														"uniqueKey":false
+													},
+													"version":{
+														"filterable":false,
+														"nameField":false,
+														"primaryKey":false,
+														"searchable":false,
+														"sortable":false,
+														"title":"Version",
+														"type":"string",
+														"uniqueKey":false
+													}
+												},
+												"required":[],
+												"searchable":false,
+												"sortable":false,
+												"title":"Document Parsing Config",
+												"type":"object",
+												"uniqueKey":false
+											},
 											"mimeType":{
 												"items":{
 													"type":"string"
@@ -13512,6 +13712,7 @@
 												"type":"array"
 											}
 										},
+										"required":[],
 										"type":"object"
 									},
 									"type":"array"
@@ -15881,5 +16082,5 @@
 		}
 	},
 	"standard":true,
-	"version":649
+	"version":650
 }
