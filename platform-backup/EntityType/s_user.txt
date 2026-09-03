@@ -1,0 +1,760 @@
+{
+	"columnCounts":14,
+	"createdTime":1787737372163,
+	"deleted":false,
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"A"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"s_user",
+	"input":{
+		"type":"SCHEMA_AND_LAYOUT",
+		"dynamic":false,
+		"layout":{
+			"password":{
+				"ui:widget":"password"
+			},
+			"staticUserGroups":{
+				"ui:widget":"hidden"
+			},
+			"id":{
+				"ui:widget":"hidden"
+			},
+			"dynamicUserGroups":{
+				"ui:widget":"hidden"
+			}
+		},
+		"schema":{
+			"additionalProperties":false,
+			"title":"User",
+			"type":"object",
+			"properties":{
+				"id":{
+					"type":"string",
+					"title":"User Id"
+				},
+				"name":{
+					"type":"string",
+					"title":"Name",
+					"minLength":1,
+					"maxLength":100
+				},
+				"username":{
+					"type":"string",
+					"title":"Username",
+					"minLength":1,
+					"maxLength":100
+				},
+				"password":{
+					"type":"string",
+					"title":"Password"
+				},
+				"contactDetails":{
+					"type":"object",
+					"title":"contact",
+					"additionalProperties":false,
+					"properties":{
+						"email":{
+							"type":"string",
+							"title":"Email",
+							"format":"email"
+						},
+						"phoneNumber":{
+							"type":"string",
+							"title":"Phone Number"
+						}
+					}
+				},
+				"applicationId":{
+					"type":"string",
+					"title":"Application ID"
+				},
+				"state":{
+					"type":"string",
+					"title":"State",
+					"oneOf":[
+						{
+							"const":"ACTIVE",
+							"title":"Active"
+						},
+						{
+							"const":"LOCKED",
+							"title":"Locked"
+						},
+						{
+							"const":"DORMANT",
+							"title":"Dormant"
+						},
+						{
+							"const":"DISABLED",
+							"title":"Disabled"
+						},
+						{
+							"const":"DELETED",
+							"title":"Deleted"
+						}
+					]
+				},
+				"userSessionType":{
+					"type":"string",
+					"title":"User Session Type",
+					"oneOf":[
+						{
+							"const":"CLIENT",
+							"title":"Client"
+						},
+						{
+							"const":"PLATFORM",
+							"title":"Platform"
+						}
+					]
+				},
+				"locale":{
+					"type":"string",
+					"title":"Language",
+					"oneOf":[
+						{
+							"const":"ar-AE",
+							"title":"Arabic (العربية)"
+						},
+						{
+							"const":"ar-SA",
+							"title":"Arabic - Saudi Arabia (العربية - السعودية)"
+						},
+						{
+							"const":"as",
+							"title":"Assamese (অসমীয়া)"
+						},
+						{
+							"const":"bn",
+							"title":"Bengali (বাংলা)"
+						},
+						{
+							"const":"brx",
+							"title":"Bodo (बड़ो)"
+						},
+						{
+							"const":"zh-CN",
+							"title":"Chinese (中文)"
+						},
+						{
+							"const":"doi",
+							"title":"Dogri (डोगरी)"
+						},
+						{
+							"const":"nl-NL",
+							"title":"Dutch (Nederlands)"
+						},
+						{
+							"const":"en-GB",
+							"title":"English (UK)"
+						},
+						{
+							"const":"en-IN",
+							"title":"English (India)"
+						},
+						{
+							"const":"en-US",
+							"title":"English"
+						},
+						{
+							"const":"gu",
+							"title":"Gujarati (ગુજરાતી)"
+						},
+						{
+							"const":"fa",
+							"title":"Persian (فارسی)"
+						},
+						{
+							"const":"fr-FR",
+							"title":"French (Français)"
+						},
+						{
+							"const":"el",
+							"title":"Greek (Ελληνικά)"
+						},
+						{
+							"const":"de-DE",
+							"title":"German (Deutsch)"
+						},
+						{
+							"const":"he",
+							"title":"Hebrew (עברית)"
+						},
+						{
+							"const":"hi",
+							"title":"Hindi (हिन्दी)"
+						},
+						{
+							"const":"hu",
+							"title":"Hungarian (Magyar)"
+						},
+						{
+							"const":"it-IT",
+							"title":"Italian (Italiano)"
+						},
+						{
+							"const":"ja",
+							"title":"Japanese (日本語)"
+						},
+						{
+							"const":"jv",
+							"title":"Javanese (Basa Jawa)"
+						},
+						{
+							"const":"kn",
+							"title":"Kannada (ಕನ್ನಡ)"
+						},
+						{
+							"const":"ks",
+							"title":"Kashmiri (كأشُر)"
+						},
+						{
+							"const":"kok",
+							"title":"Konkani (कोंकणी)"
+						},
+						{
+							"const":"ko",
+							"title":"Korean (한국어)"
+						},
+						{
+							"const":"mai",
+							"title":"Maithili (मैथिली)"
+						},
+						{
+							"const":"ml",
+							"title":"Malayalam (മലയാളം)"
+						},
+						{
+							"const":"mni",
+							"title":"Manipuri (মৈতৈলোন্)"
+						},
+						{
+							"const":"mr",
+							"title":"Marathi (मराठी)"
+						},
+						{
+							"const":"ne",
+							"title":"Nepali (नेपाली)"
+						},
+						{
+							"const":"or",
+							"title":"Odia (ଓଡ଼ିଆ)"
+						},
+						{
+							"const":"pa-IN",
+							"title":"Punjabi (ਪੰਜਾਬੀ)"
+						},
+						{
+							"const":"pl",
+							"title":"Polish (Polski)"
+						},
+						{
+							"const":"pt",
+							"title":"Portuguese (Português)"
+						},
+						{
+							"const":"ro",
+							"title":"Romanian (Română)"
+						},
+						{
+							"const":"ru",
+							"title":"Russian (Русский)"
+						},
+						{
+							"const":"sa",
+							"title":"Sanskrit (संस्कृतम्)"
+						},
+						{
+							"const":"sat",
+							"title":"Santhali (ᱥᱟᱱᱛᱟᱲᱤ)"
+						},
+						{
+							"const":"sd",
+							"title":"Sindhi (سنڌي)"
+						},
+						{
+							"const":"es-ES",
+							"title":"Spanish (Español)"
+						},
+						{
+							"const":"ta",
+							"title":"Tamil (தமிழ்)"
+						},
+						{
+							"const":"te-IN",
+							"title":"Telugu (తెలుగు)"
+						},
+						{
+							"const":"tr",
+							"title":"Turkish (Türkçe)"
+						},
+						{
+							"const":"uk",
+							"title":"Ukrainian (Українська)"
+						},
+						{
+							"const":"ur",
+							"title":"Urdu (اردو)"
+						},
+						{
+							"const":"vi",
+							"title":"Vietnamese (Tiếng Việt)"
+						}
+					]
+				},
+				"firstLogin":{
+					"type":"boolean",
+					"title":"First Login"
+				},
+				"testUser":{
+					"type":"boolean",
+					"title":"Test User",
+					"default":false
+				},
+				"customProperties":{
+					"type":"object",
+					"title":"Custom Attributes",
+					"additionalProperties":true
+				},
+				"dynamicUserGroups":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					},
+					"filterable":true
+				},
+				"staticUserGroups":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					},
+					"filterable":true
+				}
+			},
+			"required":[
+				"name",
+				"username",
+				"password",
+				"state"
+			]
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"users",
+	"metadata":{
+		"auditable":false,
+		"autoGeneratedFields":[
+			
+		],
+		"cacheable":false,
+		"captureActivity":false,
+		"captureReferences":false,
+		"captureReporting":false,
+		"dateFields":[
+			
+		],
+		"deployable":false,
+		"encryptedFields":[
+			
+		],
+		"external":false,
+		"filterableFields":[
+			"id",
+			"name",
+			"username",
+			"contactDetails.phoneNumber",
+			"contactDetails.email",
+			"applicationId",
+			"state",
+			"userSessionType",
+			"locale",
+			"firstLogin",
+			"testUser",
+			"dynamicUserGroups",
+			"staticUserGroups"
+		],
+		"graphType":"LEGACY_MDM",
+		"hasTimeSeriesRecords":true,
+		"hashedFields":[
+			
+		],
+		"includeInDependency":false,
+		"nameField":"",
+		"partFields":[
+			
+		],
+		"piiFields":[
+			
+		],
+		"primaryKeyField":"",
+		"referenceKeys":[
+			
+		],
+		"scdType2Enabled":false,
+		"schemaValidationEnabled":true,
+		"searchableFields":[
+			
+		],
+		"sessionBackedStorageEnabled":false,
+		"skipConfigSyncIfModified":false,
+		"skipDeletedEntityBackup":false,
+		"skipIndexLimitValidation":false,
+		"skipPermissionCheckForAggregation":false,
+		"skipPermissionsFilter":true,
+		"skipReportingEventsOrdering":false,
+		"skipRoutineLoad":false,
+		"skipTotalHitsInAggregation":false,
+		"skipVersionIncrementOnUpdate":false,
+		"supportsDistinctValues":false,
+		"supportsWebhook":false,
+		"syncFromSourceCustomer":false,
+		"translationsEnabled":false,
+		"uniqueKeyFields":[
+			
+		],
+		"urlValidationEnabledFields":[
+			
+		],
+		"useCachedEntityStoreForAutomations":false,
+		"userLevelEncryption":false,
+		"vectorFields":[
+			
+		],
+		"versioningEnabled":false
+	},
+	"modifiedTime":1788432780474,
+	"name":"Users",
+	"ownerUserId":-1,
+	"packaged":false,
+	"schema":{
+		"type":"SCHEMA",
+		"dynamic":false,
+		"schema":{
+			"additionalProperties":false,
+			"title":"User",
+			"type":"object",
+			"properties":{
+				"id":{
+					"type":"string",
+					"title":"User Id"
+				},
+				"name":{
+					"type":"string",
+					"title":"Name",
+					"minLength":1,
+					"maxLength":100
+				},
+				"username":{
+					"type":"string",
+					"title":"Username",
+					"minLength":1,
+					"maxLength":100
+				},
+				"password":{
+					"type":"string",
+					"title":"Password",
+					"filterable":false
+				},
+				"contactDetails":{
+					"type":"object",
+					"title":"contact",
+					"additionalProperties":false,
+					"filterable":false,
+					"properties":{
+						"email":{
+							"type":"string",
+							"title":"Email",
+							"format":"email"
+						},
+						"phoneNumber":{
+							"type":"string",
+							"title":"Phone Number"
+						}
+					}
+				},
+				"applicationId":{
+					"type":"string",
+					"title":"Application ID"
+				},
+				"state":{
+					"type":"string",
+					"title":"State",
+					"oneOf":[
+						{
+							"const":"ACTIVE",
+							"title":"Active"
+						},
+						{
+							"const":"LOCKED",
+							"title":"Locked"
+						},
+						{
+							"const":"DORMANT",
+							"title":"Dormant"
+						},
+						{
+							"const":"DISABLED",
+							"title":"Disabled"
+						},
+						{
+							"const":"DELETED",
+							"title":"Deleted"
+						}
+					]
+				},
+				"userSessionType":{
+					"type":"string",
+					"title":"User Session Type",
+					"oneOf":[
+						{
+							"const":"CLIENT",
+							"title":"Client"
+						},
+						{
+							"const":"PLATFORM",
+							"title":"Platform"
+						}
+					]
+				},
+				"locale":{
+					"type":"string",
+					"title":"Language",
+					"oneOf":[
+						{
+							"const":"ar-AE",
+							"title":"Arabic (العربية)"
+						},
+						{
+							"const":"ar-SA",
+							"title":"Arabic - Saudi Arabia (العربية - السعودية)"
+						},
+						{
+							"const":"as",
+							"title":"Assamese (অসমীয়া)"
+						},
+						{
+							"const":"bn",
+							"title":"Bengali (বাংলা)"
+						},
+						{
+							"const":"brx",
+							"title":"Bodo (बड़ो)"
+						},
+						{
+							"const":"zh-CN",
+							"title":"Chinese (中文)"
+						},
+						{
+							"const":"doi",
+							"title":"Dogri (डोगरी)"
+						},
+						{
+							"const":"nl-NL",
+							"title":"Dutch (Nederlands)"
+						},
+						{
+							"const":"en-GB",
+							"title":"English (UK)"
+						},
+						{
+							"const":"en-IN",
+							"title":"English (India)"
+						},
+						{
+							"const":"en-US",
+							"title":"English"
+						},
+						{
+							"const":"gu",
+							"title":"Gujarati (ગુજરાતી)"
+						},
+						{
+							"const":"fa",
+							"title":"Persian (فارسی)"
+						},
+						{
+							"const":"fr-FR",
+							"title":"French (Français)"
+						},
+						{
+							"const":"el",
+							"title":"Greek (Ελληνικά)"
+						},
+						{
+							"const":"de-DE",
+							"title":"German (Deutsch)"
+						},
+						{
+							"const":"he",
+							"title":"Hebrew (עברית)"
+						},
+						{
+							"const":"hi",
+							"title":"Hindi (हिन्दी)"
+						},
+						{
+							"const":"hu",
+							"title":"Hungarian (Magyar)"
+						},
+						{
+							"const":"it-IT",
+							"title":"Italian (Italiano)"
+						},
+						{
+							"const":"ja",
+							"title":"Japanese (日本語)"
+						},
+						{
+							"const":"jv",
+							"title":"Javanese (Basa Jawa)"
+						},
+						{
+							"const":"kn",
+							"title":"Kannada (ಕನ್ನಡ)"
+						},
+						{
+							"const":"ks",
+							"title":"Kashmiri (كأشُر)"
+						},
+						{
+							"const":"kok",
+							"title":"Konkani (कोंकणी)"
+						},
+						{
+							"const":"ko",
+							"title":"Korean (한국어)"
+						},
+						{
+							"const":"mai",
+							"title":"Maithili (मैथिली)"
+						},
+						{
+							"const":"ml",
+							"title":"Malayalam (മലയാളം)"
+						},
+						{
+							"const":"mni",
+							"title":"Manipuri (মৈতৈলোন্)"
+						},
+						{
+							"const":"mr",
+							"title":"Marathi (मराठी)"
+						},
+						{
+							"const":"ne",
+							"title":"Nepali (नेपाली)"
+						},
+						{
+							"const":"or",
+							"title":"Odia (ଓଡ଼ିଆ)"
+						},
+						{
+							"const":"pa-IN",
+							"title":"Punjabi (ਪੰਜਾਬੀ)"
+						},
+						{
+							"const":"pl",
+							"title":"Polish (Polski)"
+						},
+						{
+							"const":"pt",
+							"title":"Portuguese (Português)"
+						},
+						{
+							"const":"ro",
+							"title":"Romanian (Română)"
+						},
+						{
+							"const":"ru",
+							"title":"Russian (Русский)"
+						},
+						{
+							"const":"sa",
+							"title":"Sanskrit (संस्कृतम्)"
+						},
+						{
+							"const":"sat",
+							"title":"Santhali (ᱥᱟᱱᱛᱟᱲᱤ)"
+						},
+						{
+							"const":"sd",
+							"title":"Sindhi (سنڌي)"
+						},
+						{
+							"const":"es-ES",
+							"title":"Spanish (Español)"
+						},
+						{
+							"const":"ta",
+							"title":"Tamil (தமிழ்)"
+						},
+						{
+							"const":"te-IN",
+							"title":"Telugu (తెలుగు)"
+						},
+						{
+							"const":"tr",
+							"title":"Turkish (Türkçe)"
+						},
+						{
+							"const":"uk",
+							"title":"Ukrainian (Українська)"
+						},
+						{
+							"const":"ur",
+							"title":"Urdu (اردو)"
+						},
+						{
+							"const":"vi",
+							"title":"Vietnamese (Tiếng Việt)"
+						}
+					]
+				},
+				"firstLogin":{
+					"type":"boolean",
+					"title":"First Login"
+				},
+				"testUser":{
+					"type":"boolean",
+					"title":"Test User",
+					"default":false
+				},
+				"customProperties":{
+					"type":"object",
+					"additionalProperties":true,
+					"title":"Custom Attributes",
+					"filterable":false
+				},
+				"dynamicUserGroups":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					},
+					"filterable":true
+				},
+				"staticUserGroups":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					},
+					"filterable":true
+				}
+			},
+			"required":[
+				"name",
+				"username",
+				"password",
+				"state"
+			]
+		}
+	},
+	"standard":true,
+	"version":2
+}
