@@ -1,5 +1,5 @@
 {
-	"columnCounts":35,
+	"columnCounts":37,
 	"createdTime":1787743326131,
 	"deleted":false,
 	"grants":{
@@ -774,6 +774,49 @@
 					"sortable":false,
 					"title":"Waiting Instance Run Time Type",
 					"type":"string"
+				},
+				"memoryContext":{
+					"additionalProperties":true,
+					"properties":{
+						"memory":{
+							"title":"memory",
+							"type":"string"
+						},
+						"memoryId":{
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Memory Id",
+							"type":"string",
+							"uniqueKey":false
+						},
+						"memoryType":{
+							"title":"memoryType",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"promptGuardrail":{
+					"additionalProperties":true,
+					"properties":{
+						"block":{
+							"title":"block",
+							"type":"boolean"
+						},
+						"blockedMessage":{
+							"title":"blockedMessage",
+							"type":"string"
+						},
+						"executionState":{
+							"title":"executionState",
+							"type":"string"
+						}
+					},
+					"type":"object"
 				}
 			},
 			"required":[
@@ -818,13 +861,22 @@
 			"teamAIAgentId",
 			"triggerDetails.triggeredByAgentDetails.teamType",
 			"triggeringInstanceId",
-			"waitingInstanceId"
+			"waitingInstanceId",
+			"memoryContext",
+			"memoryContext.memory",
+			"memoryContext.memoryType",
+			"memoryContext.memoryId",
+			"promptGuardrail",
+			"promptGuardrail.executionState",
+			"promptGuardrail.block",
+			"promptGuardrail.blockedMessage"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
 		"hashedFields":[
 			
 		],
+		"inaccessibleFromUI":false,
 		"includeInDependency":false,
 		"nameField":"",
 		"partFields":[
@@ -846,11 +898,13 @@
 			"nextAction",
 			"sandboxExecution.executionState",
 			"teamAIAgentId",
-			"triggerDetails.triggeredByAgentDetails.teamType"
+			"triggerDetails.triggeredByAgentDetails.teamType",
+			"memoryContext.memoryId"
 		],
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
 		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
 		"skipIndexLimitValidation":false,
 		"skipPermissionCheckForAggregation":false,
 		"skipPermissionsFilter":true,
@@ -879,7 +933,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788357436732,
+	"modifiedTime":1788603520842,
 	"name":"AI Agent Conversation State",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -1504,6 +1558,49 @@
 					"sortable":false,
 					"title":"Waiting Instance Run Time Type",
 					"type":"string"
+				},
+				"memoryContext":{
+					"additionalProperties":true,
+					"properties":{
+						"memory":{
+							"title":"memory",
+							"type":"string"
+						},
+						"memoryId":{
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Memory Id",
+							"type":"string",
+							"uniqueKey":false
+						},
+						"memoryType":{
+							"title":"memoryType",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"promptGuardrail":{
+					"additionalProperties":true,
+					"properties":{
+						"block":{
+							"title":"block",
+							"type":"boolean"
+						},
+						"blockedMessage":{
+							"title":"blockedMessage",
+							"type":"string"
+						},
+						"executionState":{
+							"title":"executionState",
+							"type":"string"
+						}
+					},
+					"type":"object"
 				}
 			},
 			"required":[
@@ -1512,5 +1609,5 @@
 		}
 	},
 	"standard":false,
-	"version":124
+	"version":125
 }
