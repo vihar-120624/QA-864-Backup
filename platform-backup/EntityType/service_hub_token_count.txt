@@ -1,5 +1,5 @@
 {
-	"columnCounts":12,
+	"columnCounts":13,
 	"createdTime":1788260308088,
 	"deleted":false,
 	"id":"service_hub_token_count",
@@ -15,11 +15,12 @@
 				"cacheReadInputTokens",
 				"cacheWriteInputTokens",
 				"aiAgentId",
-				"inputTokensCost",
-				"outputTokensCost",
 				"cacheReadCost",
 				"cacheWriteCost",
-				"totalCost"
+				"cost",
+				"inputCost",
+				"outputCost",
+				"modelId"
 			]
 		},
 		"schema":{
@@ -86,6 +87,26 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"cost":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Cost",
+					"type":"number",
+					"uniqueKey":false
+				},
+				"inputCost":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Input Cost",
+					"type":"number",
+					"uniqueKey":false
+				},
 				"inputToken":{
 					"filterable":true,
 					"nameField":false,
@@ -94,16 +115,6 @@
 					"sortable":true,
 					"title":"Input Token",
 					"type":"integer",
-					"uniqueKey":false
-				},
-				"inputTokensCost":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Input Tokens Cost",
-					"type":"number",
 					"uniqueKey":false
 				},
 				"messageId":{
@@ -116,6 +127,26 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"modelId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Model Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"outputCost":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Output Cost",
+					"type":"number",
+					"uniqueKey":false
+				},
 				"outputToken":{
 					"filterable":true,
 					"nameField":false,
@@ -124,26 +155,6 @@
 					"sortable":true,
 					"title":"Output Token",
 					"type":"integer",
-					"uniqueKey":false
-				},
-				"outputTokensCost":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Output Tokens Cost",
-					"type":"number",
-					"uniqueKey":false
-				},
-				"totalCost":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Total Cost",
-					"type":"number",
 					"uniqueKey":false
 				}
 			},
@@ -196,8 +207,12 @@
 			"cacheReadInputTokens",
 			"cacheWriteInputTokens",
 			"caseId",
+			"cost",
+			"inputCost",
 			"inputToken",
 			"messageId",
+			"modelId",
+			"outputCost",
 			"outputToken"
 		],
 		"graphType":"LEGACY_MDM",
@@ -205,6 +220,7 @@
 		"hashedFields":[
 			
 		],
+		"inaccessibleFromUI":false,
 		"includeInDependency":false,
 		"nameField":"",
 		"partFields":[
@@ -224,13 +240,18 @@
 			"cacheReadInputTokens",
 			"cacheWriteInputTokens",
 			"caseId",
+			"cost",
+			"inputCost",
 			"inputToken",
 			"messageId",
+			"modelId",
+			"outputCost",
 			"outputToken"
 		],
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
 		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
 		"skipIndexLimitValidation":false,
 		"skipPermissionCheckForAggregation":false,
 		"skipPermissionsFilter":false,
@@ -259,10 +280,10 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788260311328,
+	"modifiedTime":1788628969830,
 	"name":"ServiceHub_Token_Count",
 	"ownerUserId":-1,
-	"packaged":false,
+	"packaged":true,
 	"pluralName":"ServiceHub_Token_Count",
 	"schema":{
 		"type":"SCHEMA",
@@ -331,6 +352,26 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"cost":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Cost",
+					"type":"number",
+					"uniqueKey":false
+				},
+				"inputCost":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Input Cost",
+					"type":"number",
+					"uniqueKey":false
+				},
 				"inputToken":{
 					"filterable":true,
 					"nameField":false,
@@ -339,16 +380,6 @@
 					"sortable":true,
 					"title":"Input Token",
 					"type":"integer",
-					"uniqueKey":false
-				},
-				"inputTokensCost":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Input Tokens Cost",
-					"type":"number",
 					"uniqueKey":false
 				},
 				"messageId":{
@@ -361,6 +392,26 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"modelId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Model Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"outputCost":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Output Cost",
+					"type":"number",
+					"uniqueKey":false
+				},
 				"outputToken":{
 					"filterable":true,
 					"nameField":false,
@@ -370,34 +421,14 @@
 					"title":"Output Token",
 					"type":"integer",
 					"uniqueKey":false
-				},
-				"outputTokensCost":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Output Tokens Cost",
-					"type":"number",
-					"uniqueKey":false
-				},
-				"totalCost":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Total Cost",
-					"type":"number",
-					"uniqueKey":false
 				}
 			},
 			"required":[]
 		}
 	},
-	"standard":false,
+	"standard":true,
 	"tags":[
 		
 	],
-	"version":6
+	"version":7
 }
