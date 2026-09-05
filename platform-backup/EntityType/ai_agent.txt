@@ -6129,6 +6129,17 @@
 						"webSearch":{
 							"title":"webSearch",
 							"type":"boolean"
+						},
+						"readDocument":{
+							"default":true,
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Read Document",
+							"type":"boolean",
+							"uniqueKey":false
 						}
 					},
 					"required":[],
@@ -7167,6 +7178,17 @@
 									"sortable":false,
 									"title":"Processing Method",
 									"type":"string"
+								},
+								"excludeCustomMetadataFilterGeneration":{
+									"default":false,
+									"filterable":true,
+									"nameField":false,
+									"primaryKey":false,
+									"searchable":false,
+									"sortable":false,
+									"title":"Exclude Custom Metadata Filter Generation",
+									"type":"boolean",
+									"uniqueKey":false
 								}
 							},
 							"required":[],
@@ -8682,6 +8704,17 @@
 							"sortable":false,
 							"title":"User Input Processing Settings",
 							"type":"object"
+						},
+						"takeFilterFromReferfromKnowledgeTool":{
+							"default":false,
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Take Filter From Referfrom Knowledge Tool",
+							"type":"boolean",
+							"uniqueKey":false
 						}
 					},
 					"required":[],
@@ -10370,7 +10403,7 @@
 				"status":"SUCCESS"
 			},
 			{
-				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_2\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_2\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1788364975, \"i\": 4002}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1788364975, \"i\": 4002}}}",
+				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_2\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_2\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1788603396, \"i\": 3297}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1788603396, \"i\": 3297}}}",
 				"indexFieldMetadataList":[
 					{
 						"field":"id",
@@ -10411,6 +10444,7 @@
 			"defaultTools",
 			"defaultTools.createDocx",
 			"defaultTools.ingestKnowledge",
+			"defaultTools.readDocument",
 			"defaultTools.createFile",
 			"defaultTools.clarifyFromUser",
 			"defaultTools.executeCodeInSandbox",
@@ -10521,6 +10555,7 @@
 			"indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.maxChunkSize",
 			"indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.thresholdType",
 			"indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.algorithm",
+			"indexingSettings.metadata.excludeCustomMetadataFilterGeneration",
 			"indexingSettings.retentionPeriodInMonths",
 			"indexingSettings.chunkingSettings",
 			"indexingSettings.chunkingSettings.chunkingAlgorithm",
@@ -10572,6 +10607,7 @@
 			"preProcessingSettings.preReferFromKnowledge",
 			"preProcessingSettings.reRankingSettings",
 			"preProcessingSettings.reRankingSettings.disableReRanking",
+			"preProcessingSettings.takeFilterFromReferfromKnowledgeTool",
 			"preProcessingSettings.userInputProcessingSettings.storeUserQueryEmbedding",
 			"preProcessingSettings.systemPromptSetting",
 			"preProcessingSettings.queryRephrasingModel",
@@ -10671,6 +10707,7 @@
 		"hashedFields":[
 			
 		],
+		"inaccessibleFromUI":false,
 		"includeInDependency":false,
 		"nameField":"name",
 		"partFields":[
@@ -10695,6 +10732,7 @@
 			"contextManagement.dynamic_context",
 			"deepResearchSettings.postProcessingAutomationId",
 			"defaultTools.createDocx",
+			"defaultTools.readDocument",
 			"defaultTools.createFile",
 			"defaultTools.executeCodeInSandbox",
 			"defaultTools.todo_tool",
@@ -10757,6 +10795,7 @@
 			"preProcessingSettings.excludeKnowledgeOnAttachment",
 			"preProcessingSettings.preAnalyseAttachmentEnabled",
 			"preProcessingSettings.preReferFromKnowledge",
+			"preProcessingSettings.takeFilterFromReferfromKnowledgeTool",
 			"preProcessingSettings.userInputProcessingSettings.storeUserQueryEmbedding",
 			"preProcessingSettings.preSplittingToImageEnabled",
 			"promptCachingSettings",
@@ -10826,6 +10865,7 @@
 		"sessionBackedStorageEnabled":true,
 		"skipConfigSyncIfModified":false,
 		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
 		"skipIndexLimitValidation":true,
 		"skipPermissionCheckForAggregation":false,
 		"skipPermissionsFilter":false,
@@ -10857,7 +10897,7 @@
 		],
 		"versioningEnabled":true
 	},
-	"modifiedTime":1788364975408,
+	"modifiedTime":1788603396938,
 	"name":"Agent",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -11867,6 +11907,17 @@
 						"webSearch":{
 							"title":"webSearch",
 							"type":"boolean"
+						},
+						"readDocument":{
+							"default":true,
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Read Document",
+							"type":"boolean",
+							"uniqueKey":false
 						}
 					},
 					"required":[],
@@ -12905,6 +12956,17 @@
 									"sortable":false,
 									"title":"Processing Method",
 									"type":"string"
+								},
+								"excludeCustomMetadataFilterGeneration":{
+									"default":false,
+									"filterable":true,
+									"nameField":false,
+									"primaryKey":false,
+									"searchable":false,
+									"sortable":false,
+									"title":"Exclude Custom Metadata Filter Generation",
+									"type":"boolean",
+									"uniqueKey":false
 								}
 							},
 							"required":[],
@@ -14420,6 +14482,17 @@
 							"sortable":false,
 							"title":"User Input Processing Settings",
 							"type":"object"
+						},
+						"takeFilterFromReferfromKnowledgeTool":{
+							"default":false,
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Take Filter From Referfrom Knowledge Tool",
+							"type":"boolean",
+							"uniqueKey":false
 						}
 					},
 					"required":[],
@@ -16082,5 +16155,5 @@
 		}
 	},
 	"standard":true,
-	"version":650
+	"version":651
 }
