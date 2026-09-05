@@ -1,0 +1,170 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1788597738266,
+	"deleted":false,
+	"deployedWorkflowVersion":5,
+	"deploymentSource":{
+		"changesetRequestId":"6a9bd5e8efb4b309173dc804",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"iUqrD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Qxjby",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Qxjby",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lVojc",
+			"type":"next"
+		}
+	],
+	"id":"6a9bd5ea5513103565cf63d7",
+	"lastModifiedBy":-1,
+	"lcName":"localization | translate labels for low code application",
+	"modifiedTime":1788597738267,
+	"name":"Localization | Translate Labels For Low code Application",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":184,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"u5Zqc-1",
+			"id":"iUqrD",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"interfaceComponentId":{
+							"title":"Interface Component Id",
+							"type":"string"
+						},
+						"interfaceId":{
+							"title":"interfaceId",
+							"type":"string"
+						},
+						"requestedLocale":{
+							"title":"requestedLocale",
+							"type":"string"
+						},
+						"sourceLocale":{
+							"title":"sourceLocale",
+							"type":"string"
+						},
+						"translateInterface":{
+							"title":"Translate Interface",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":197,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"u5Zqc-1",
+			"id":"Qxjby",
+			"index":2,
+			"inputs":{
+				"automationId":"6777e89d7d111e73d7ddebfe",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"parameters":{
+					"interfaceComponentId":"{{ iUqrD.outputs.interfaceComponentId }}",
+					"interfaceId":"{{ iUqrD.outputs.interfaceId }}",
+					"requestedLocale":"{{ iUqrD.outputs.requestedLocale }}",
+					"sourceLocale":"{{ iUqrD.outputs.sourceLocale }}",
+					"translateInterface":"{{ iUqrD.outputs.translateInterface }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Translate async",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":172,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"u5Zqc-1",
+			"id":"lVojc",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"auto-translate"
+	],
+	"version":0,
+	"workflowDefinitionId":"6777e5ae7d111e73d7dde885",
+	"workflowVersion":26
+}
