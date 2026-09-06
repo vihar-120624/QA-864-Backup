@@ -1,5 +1,5 @@
 {
-	"columnCounts":10,
+	"columnCounts":12,
 	"createdTime":1787743339452,
 	"deleted":false,
 	"grants":{
@@ -27,8 +27,15 @@
 				"autoRegister",
 				"syncFrequency",
 				"ownerId",
-				"lastSyncTime"
-			]
+				"lastSyncTime",
+				"connectionName",
+				"errorDetails"
+			],
+			"errorDetails":{
+				"ui:order":[
+					"errorMessage"
+				]
+			}
 		},
 		"schema":{
 			"additionalProperties":false,
@@ -78,6 +85,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"connectionName":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Connection Name",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"connectionType":{
 					"filterable":true,
 					"format":"single-select",
@@ -97,6 +114,30 @@
 					"sortable":false,
 					"title":"Connection Type",
 					"type":"string",
+					"uniqueKey":false
+				},
+				"errorDetails":{
+					"additionalProperties":false,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{
+						"errorMessage":{
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Error Message",
+							"type":"string",
+							"uniqueKey":false
+						}
+					},
+					"required":[],
+					"searchable":true,
+					"sortable":true,
+					"title":"Error Details",
+					"type":"object",
 					"uniqueKey":false
 				},
 				"isInitialSyncInProgress":{
@@ -207,6 +248,8 @@
 			"application",
 			"connection",
 			"connectionType",
+			"errorDetails",
+			"errorDetails.errorMessage",
 			"lastSyncTime",
 			"ownerId",
 			"status"
@@ -234,7 +277,10 @@
 		"searchableFields":[
 			"application",
 			"connection",
+			"connectionName",
 			"connectionType",
+			"errorDetails",
+			"errorDetails.errorMessage",
 			"lastSyncTime",
 			"ownerId",
 			"status"
@@ -271,7 +317,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788502353174,
+	"modifiedTime":1788709372037,
 	"name":"agent_profile_group",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -327,6 +373,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"connectionName":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Connection Name",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"connectionType":{
 					"filterable":true,
 					"format":"single-select",
@@ -346,6 +402,30 @@
 					"sortable":false,
 					"title":"Connection Type",
 					"type":"string",
+					"uniqueKey":false
+				},
+				"errorDetails":{
+					"additionalProperties":false,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{
+						"errorMessage":{
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":true,
+							"title":"Error Message",
+							"type":"string",
+							"uniqueKey":false
+						}
+					},
+					"required":[],
+					"searchable":true,
+					"sortable":true,
+					"title":"Error Details",
+					"type":"object",
 					"uniqueKey":false
 				},
 				"isInitialSyncInProgress":{
@@ -437,5 +517,5 @@
 	"tags":[
 		
 	],
-	"version":7
+	"version":8
 }
