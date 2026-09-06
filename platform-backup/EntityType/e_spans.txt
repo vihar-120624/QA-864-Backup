@@ -1,5 +1,5 @@
 {
-	"columnCounts":47,
+	"columnCounts":48,
 	"createdTime":1787737370618,
 	"deleted":false,
 	"grants":{
@@ -41,7 +41,9 @@
 				"startTime",
 				"endTime",
 				"latency",
-				"assetType"
+				"assetType",
+				"testcaseRunId",
+				"isEvaluated"
 			]
 		},
 		"schema":{
@@ -188,6 +190,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"providerCallId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Provider Call Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"fanCustomerProfileId":{
 					"filterable":true,
 					"nameField":false,
@@ -261,6 +273,17 @@
 					"sortable":false,
 					"title":"Input Token Cost",
 					"type":"number",
+					"uniqueKey":false
+				},
+				"isEvaluated":{
+					"default":false,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Is Evaluated",
+					"type":"boolean",
 					"uniqueKey":false
 				},
 				"knowledgeId":{
@@ -468,6 +491,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"testcaseRunId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Testcase Run Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"toolName":{
 					"filterable":true,
 					"nameField":false,
@@ -557,6 +590,7 @@
 			"currentType",
 			"endTime",
 			"executionInstanceId",
+			"providerCallId",
 			"fanCustomerProfileId",
 			"finish_reason",
 			"fromAutomationId",
@@ -564,6 +598,7 @@
 			"inputPayload",
 			"inputToken",
 			"inputTokenCost",
+			"isEvaluated",
 			"knowledgeId",
 			"latency",
 			"messageId",
@@ -584,18 +619,18 @@
 			"sessionId",
 			"startTime",
 			"success",
+			"testcaseRunId",
 			"toolName",
 			"traceAgentType",
 			"traceId",
-			"userId",
-			"routineId",
-			"routineRunId"
+			"userId"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
 		"hashedFields":[
 			
 		],
+		"inaccessibleFromUI":false,
 		"includeInDependency":false,
 		"nameField":"",
 		"partFields":[
@@ -628,6 +663,7 @@
 			"currentType",
 			"endTime",
 			"executionInstanceId",
+			"providerCallId",
 			"fanCustomerProfileId",
 			"finish_reason",
 			"fromAutomationId",
@@ -635,6 +671,7 @@
 			"inputPayload",
 			"inputToken",
 			"inputTokenCost",
+			"isEvaluated",
 			"knowledgeId",
 			"latency",
 			"messageId",
@@ -654,6 +691,7 @@
 			"sessionId",
 			"startTime",
 			"success",
+			"testcaseRunId",
 			"toolName",
 			"traceAgentType",
 			"traceId",
@@ -662,6 +700,7 @@
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
 		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
 		"skipIndexLimitValidation":false,
 		"skipPermissionCheckForAggregation":false,
 		"skipPermissionsFilter":false,
@@ -690,7 +729,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788351396925,
+	"modifiedTime":1788675282789,
 	"name":"e_spans",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -842,6 +881,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"providerCallId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Provider Call Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"fanCustomerProfileId":{
 					"filterable":true,
 					"nameField":false,
@@ -915,6 +964,17 @@
 					"sortable":false,
 					"title":"Input Token Cost",
 					"type":"number",
+					"uniqueKey":false
+				},
+				"isEvaluated":{
+					"default":false,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Is Evaluated",
+					"type":"boolean",
 					"uniqueKey":false
 				},
 				"knowledgeId":{
@@ -1122,6 +1182,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"testcaseRunId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Testcase Run Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"toolName":{
 					"filterable":true,
 					"nameField":false,
@@ -1161,21 +1231,11 @@
 					"title":"User Id",
 					"type":"number",
 					"uniqueKey":false
-				},
-				"routineId":{
-					"type":"string",
-					"title":"Routine Id",
-					"filterable":true
-				},
-				"routineRunId":{
-					"type":"string",
-					"title":"Routine Run Id",
-					"filterable":true
 				}
 			},
 			"required":[]
 		}
 	},
 	"standard":true,
-	"version":7
+	"version":9
 }
