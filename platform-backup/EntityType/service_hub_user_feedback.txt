@@ -1,0 +1,682 @@
+{
+	"columnCounts":12,
+	"createdTime":1787743337535,
+	"deleted":false,
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"A"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"service_hub_user_feedback",
+	"input":{
+		"type":"SCHEMA_AND_LAYOUT",
+		"dynamic":false,
+		"layout":{
+			"additional":{
+				"groupReactions":{
+					"items":{
+						"reaction":{
+							"ui:order":[
+								"aiAgentId",
+								"userId"
+							]
+						},
+						"ui:order":[
+							"aiAgentId",
+							"userId",
+							"reaction"
+						],
+						"userId":{
+							"ui:order":[
+								"aiAgentId"
+							]
+						}
+					}
+				},
+				"ui:order":[
+					"aiAgentId",
+					"groupReactions"
+				]
+			},
+			"feedbackCategories":{
+				"items":{},
+				"ui:widget":"MultiSelectWidget"
+			},
+			"ui:order":[
+				"userFeedback",
+				"reaction",
+				"feedbackCategories",
+				"messageId",
+				"additional",
+				"processing_status",
+				"fanMessageId",
+				"commentSentimentLabelFromLLM",
+				"attachments",
+				"positiveFeedbackCategories",
+				"includeSessionDetails",
+				"rawFeedbackCategories"
+			],
+			"positiveFeedbackCategories":{
+				"items":{},
+				"ui:widget":"MultiSelectWidget"
+			}
+		},
+		"schema":{
+			"additionalProperties":false,
+			"type":"object",
+			"properties":{
+				"additional":{
+					"additionalProperties":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{
+						"aiAgentId":{
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":false,
+							"sortable":false,
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"groupReactions":{
+							"filterable":false,
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"reaction":{
+										"filterable":false,
+										"nameField":false,
+										"primaryKey":false,
+										"searchable":false,
+										"sortable":false,
+										"title":"Reaction",
+										"type":"string",
+										"uniqueKey":false
+									},
+									"userId":{
+										"filterable":false,
+										"nameField":false,
+										"primaryKey":false,
+										"searchable":false,
+										"sortable":false,
+										"title":"User Id",
+										"type":"string",
+										"uniqueKey":false
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":false,
+							"sortable":false,
+							"title":"Group Reactions",
+							"type":"array",
+							"uniqueKey":false
+						}
+					},
+					"required":[],
+					"searchable":false,
+					"sortable":false,
+					"title":"Additional",
+					"type":"object"
+				},
+				"attachments":{
+					"filterable":false,
+					"items":{
+						"additionalProperties":true,
+						"properties":{},
+						"type":"object"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Attachments",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"commentSentimentLabelFromLLM":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Comment Sentiment Label From LLM",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"fanMessageId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Fan Message Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"feedbackCategories":{
+					"format":"multi-select",
+					"items":{
+						"oneOf":[
+							{
+								"const":"INACCURATE_INFORMATION",
+								"title":"Inaccurate information"
+							},
+							{
+								"const":"AMBIGOUS_RESPONSE",
+								"title":"Unclear or confusing response"
+							},
+							{
+								"const":"IS_NOT_RELEVANT",
+								"title":"Not relevant to my query"
+							},
+							{
+								"const":"INAPPROPRIATE_CONTENT",
+								"title":"Inappropriate content"
+							},
+							{
+								"const":"INCOMPLETE_RESPONSE",
+								"title":"Incomplete response"
+							},
+							{
+								"const":"FORMATTING_ISSUE",
+								"title":"Formatting issues"
+							},
+							{
+								"const":"OUTDATED_INFORMATION",
+								"title":"Outdated information"
+							},
+							{
+								"const":"NOT_RELEVANT_OR_CONTEXTUAL",
+								"title":"Not relevant or contextual"
+							},
+							{
+								"const":"WRONG_CITATIONS",
+								"title":"Wrong Citations"
+							},
+							{
+								"const":"TOO_GENERIC",
+								"title":"Too generic"
+							},
+							{
+								"const":"TOO_VERBOSE",
+								"title":"Too verbose"
+							},
+							{
+								"const":"NO_ANSWER",
+								"title":"No answer"
+							},
+							{
+								"const":"MISSING_CITATIONS",
+								"title":"Missing citation or source"
+							},
+							{
+								"const":"OTHER",
+								"title":"Other"
+							}
+						],
+						"type":"string"
+					},
+					"title":"feedbackCategories",
+					"type":"array"
+				},
+				"includeSessionDetails":{
+					"default":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Include Session Details",
+					"type":"boolean",
+					"uniqueKey":false
+				},
+				"messageId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Message Id",
+					"type":"string"
+				},
+				"positiveFeedbackCategories":{
+					"filterable":false,
+					"format":"multi-select",
+					"items":{
+						"oneOf":[
+							{
+								"const":"THOROUGH_RESPONSE",
+								"title":"Thorough response"
+							},
+							{
+								"const":"ACCURATE_RESPONSE",
+								"title":"Accurate response"
+							},
+							{
+								"const":"BETTER_STRUCTURED",
+								"title":"Better structured"
+							},
+							{
+								"const":"RELEVANT_FOR_ME",
+								"title":"Relevant for me"
+							},
+							{
+								"const":"CONCISE_AND_TO_THE_POINT",
+								"title":"Concise and to the point"
+							},
+							{
+								"const":"CONTEXTUAL_RESPONSE",
+								"title":"Contextual response"
+							}
+						],
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Positive Feedback Categories",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"processing_status":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"processing_status",
+					"type":"string"
+				},
+				"rawFeedbackCategories":{
+					"filterable":true,
+					"items":{
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Raw Feedback Categories",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"reaction":{
+					"title":"reaction",
+					"type":"string"
+				},
+				"userFeedback":{
+					"title":"userFeedback",
+					"type":"string"
+				}
+			},
+			"required":[]
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"servicehub_userfeedback",
+	"metadata":{
+		"auditable":false,
+		"autoGeneratedFields":[
+			
+		],
+		"cacheable":false,
+		"captureActivity":false,
+		"captureReferences":false,
+		"captureReporting":true,
+		"dateFields":[
+			
+		],
+		"deployable":false,
+		"encryptedFields":[
+			
+		],
+		"external":true,
+		"filterableFields":[
+			"additional.aiAgentId",
+			"commentSentimentLabelFromLLM",
+			"fanMessageId",
+			"feedbackCategories",
+			"messageId",
+			"processing_status",
+			"rawFeedbackCategories",
+			"reaction",
+			"userFeedback"
+		],
+		"graphType":"LEGACY_MDM",
+		"hasTimeSeriesRecords":true,
+		"hashedFields":[
+			
+		],
+		"inaccessibleFromUI":false,
+		"includeInDependency":false,
+		"nameField":"",
+		"partFields":[
+			
+		],
+		"piiFields":[
+			
+		],
+		"primaryKeyField":"",
+		"referenceKeys":[
+			
+		],
+		"scdType2Enabled":false,
+		"schemaValidationEnabled":true,
+		"searchableFields":[
+			"commentSentimentLabelFromLLM",
+			"processing_status",
+			"rawFeedbackCategories"
+		],
+		"sessionBackedStorageEnabled":false,
+		"skipConfigSyncIfModified":false,
+		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
+		"skipIndexLimitValidation":false,
+		"skipPermissionCheckForAggregation":false,
+		"skipPermissionsFilter":true,
+		"skipReportingEventsOrdering":false,
+		"skipRoutineLoad":false,
+		"skipTotalHitsInAggregation":false,
+		"skipVersionIncrementOnUpdate":false,
+		"storeDetails":{
+			"store":"MONGO",
+			"uniqueKeySupported":true
+		},
+		"supportsDistinctValues":false,
+		"supportsWebhook":true,
+		"syncFromSourceCustomer":false,
+		"translationsEnabled":false,
+		"uniqueKeyFields":[
+			
+		],
+		"urlValidationEnabledFields":[
+			
+		],
+		"useCachedEntityStoreForAutomations":false,
+		"userLevelEncryption":false,
+		"vectorFields":[
+			
+		],
+		"versioningEnabled":false
+	},
+	"modifiedTime":1788777778442,
+	"name":"ServiceHub_userFeedback",
+	"ownerUserId":-1,
+	"packaged":true,
+	"pluralName":"ServiceHub_userFeedback",
+	"schema":{
+		"type":"SCHEMA",
+		"dynamic":false,
+		"schema":{
+			"additionalProperties":false,
+			"type":"object",
+			"properties":{
+				"additional":{
+					"additionalProperties":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{
+						"aiAgentId":{
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":false,
+							"sortable":false,
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"groupReactions":{
+							"filterable":false,
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"reaction":{
+										"filterable":false,
+										"nameField":false,
+										"primaryKey":false,
+										"searchable":false,
+										"sortable":false,
+										"title":"Reaction",
+										"type":"string",
+										"uniqueKey":false
+									},
+									"userId":{
+										"filterable":false,
+										"nameField":false,
+										"primaryKey":false,
+										"searchable":false,
+										"sortable":false,
+										"title":"User Id",
+										"type":"string",
+										"uniqueKey":false
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":false,
+							"sortable":false,
+							"title":"Group Reactions",
+							"type":"array",
+							"uniqueKey":false
+						}
+					},
+					"required":[],
+					"searchable":false,
+					"sortable":false,
+					"title":"Additional",
+					"type":"object"
+				},
+				"attachments":{
+					"filterable":false,
+					"items":{
+						"additionalProperties":true,
+						"properties":{},
+						"type":"object"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Attachments",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"commentSentimentLabelFromLLM":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Comment Sentiment Label From LLM",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"fanMessageId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Fan Message Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"feedbackCategories":{
+					"format":"multi-select",
+					"items":{
+						"oneOf":[
+							{
+								"const":"INACCURATE_INFORMATION",
+								"title":"Inaccurate information"
+							},
+							{
+								"const":"AMBIGOUS_RESPONSE",
+								"title":"Unclear or confusing response"
+							},
+							{
+								"const":"IS_NOT_RELEVANT",
+								"title":"Not relevant to my query"
+							},
+							{
+								"const":"INAPPROPRIATE_CONTENT",
+								"title":"Inappropriate content"
+							},
+							{
+								"const":"INCOMPLETE_RESPONSE",
+								"title":"Incomplete response"
+							},
+							{
+								"const":"FORMATTING_ISSUE",
+								"title":"Formatting issues"
+							},
+							{
+								"const":"OUTDATED_INFORMATION",
+								"title":"Outdated information"
+							},
+							{
+								"const":"NOT_RELEVANT_OR_CONTEXTUAL",
+								"title":"Not relevant or contextual"
+							},
+							{
+								"const":"WRONG_CITATIONS",
+								"title":"Wrong Citations"
+							},
+							{
+								"const":"TOO_GENERIC",
+								"title":"Too generic"
+							},
+							{
+								"const":"TOO_VERBOSE",
+								"title":"Too verbose"
+							},
+							{
+								"const":"NO_ANSWER",
+								"title":"No answer"
+							},
+							{
+								"const":"MISSING_CITATIONS",
+								"title":"Missing citation or source"
+							},
+							{
+								"const":"OTHER",
+								"title":"Other"
+							}
+						],
+						"type":"string"
+					},
+					"title":"feedbackCategories",
+					"type":"array"
+				},
+				"includeSessionDetails":{
+					"default":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Include Session Details",
+					"type":"boolean",
+					"uniqueKey":false
+				},
+				"messageId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Message Id",
+					"type":"string"
+				},
+				"positiveFeedbackCategories":{
+					"filterable":false,
+					"format":"multi-select",
+					"items":{
+						"oneOf":[
+							{
+								"const":"THOROUGH_RESPONSE",
+								"title":"Thorough response"
+							},
+							{
+								"const":"ACCURATE_RESPONSE",
+								"title":"Accurate response"
+							},
+							{
+								"const":"BETTER_STRUCTURED",
+								"title":"Better structured"
+							},
+							{
+								"const":"RELEVANT_FOR_ME",
+								"title":"Relevant for me"
+							},
+							{
+								"const":"CONCISE_AND_TO_THE_POINT",
+								"title":"Concise and to the point"
+							},
+							{
+								"const":"CONTEXTUAL_RESPONSE",
+								"title":"Contextual response"
+							}
+						],
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Positive Feedback Categories",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"processing_status":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"processing_status",
+					"type":"string"
+				},
+				"rawFeedbackCategories":{
+					"filterable":true,
+					"items":{
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Raw Feedback Categories",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"reaction":{
+					"title":"reaction",
+					"type":"string"
+				},
+				"userFeedback":{
+					"title":"userFeedback",
+					"type":"string"
+				}
+			},
+			"required":[]
+		}
+	},
+	"standard":true,
+	"version":65
+}
