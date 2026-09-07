@@ -1,5 +1,5 @@
 {
-	"columnCounts":10,
+	"columnCounts":12,
 	"createdTime":1787743331641,
 	"deleted":false,
 	"grants":{
@@ -17,18 +17,33 @@
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
-			"previewImageFile":{},
+			"pageInputs":{
+				"ui:order":[
+					"artifactId",
+					"title",
+					"description",
+					"count",
+					"previewUrl",
+					"downloadUrl",
+					"fileType",
+					"fileSize",
+					"canvasType",
+					"currentVersion"
+				]
+			},
 			"ui:order":[
+				"agentId",
+				"artifactLcName",
+				"artifactName",
+				"artifactType",
 				"caseId",
 				"messageId",
 				"pageInputs",
-				"agentId",
 				"previewImageFile",
 				"previewImagePath",
-				"artifactType",
-				"artifactName",
 				"uniqueName",
-				"artifactLcName"
+				"versionDetails",
+				"sessionId"
 			]
 		},
 		"schema":{
@@ -88,6 +103,42 @@
 					"type":"string"
 				},
 				"pageInputs":{
+					"additionalProperties":true,
+					"properties":{
+						"artifactId":{
+							"type":"string"
+						},
+						"canvasType":{
+							"type":"string"
+						},
+						"count":{
+							"type":"string"
+						},
+						"currentVersion":{
+							"type":"integer"
+						},
+						"description":{
+							"type":"object"
+						},
+						"downloadUrl":{
+							"type":"string"
+						},
+						"fileSize":{
+							"type":"string"
+						},
+						"fileType":{
+							"type":"string"
+						},
+						"previewUrl":{
+							"type":"string"
+						},
+						"title":{
+							"filterable":true,
+							"title":"Title",
+							"type":"string"
+						}
+					},
+					"required":[],
 					"searchable":true,
 					"title":"pageInputs",
 					"type":"object"
@@ -115,6 +166,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"sessionId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Session Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"uniqueName":{
 					"filterable":true,
 					"nameField":false,
@@ -124,6 +185,24 @@
 					"title":"Unique Name",
 					"type":"string",
 					"uniqueKey":false
+				},
+				"versionDetails":{
+					"items":{
+						"additionalProperties":false,
+						"properties":{
+							"commitHash":{
+								"title":"commitHash",
+								"type":"string"
+							},
+							"entityVersion":{
+								"title":"entityVersion",
+								"type":"integer"
+							}
+						},
+						"type":"object"
+					},
+					"title":"versionDetails",
+					"type":"array"
 				}
 			},
 			"required":[]
@@ -156,14 +235,29 @@
 			"caseId",
 			"messageId",
 			"pageInputs",
+			"pageInputs.previewUrl",
+			"pageInputs.fileSize",
+			"pageInputs.count",
+			"pageInputs.downloadUrl",
+			"pageInputs.description",
+			"pageInputs.artifactId",
+			"pageInputs.canvasType",
+			"pageInputs.title",
+			"pageInputs.currentVersion",
+			"pageInputs.fileType",
 			"previewImagePath",
-			"uniqueName"
+			"sessionId",
+			"uniqueName",
+			"versionDetails",
+			"versionDetails.entityVersion",
+			"versionDetails.commitHash"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
 		"hashedFields":[
 			
 		],
+		"inaccessibleFromUI":false,
 		"includeInDependency":false,
 		"nameField":"",
 		"partFields":[
@@ -186,11 +280,13 @@
 			"caseId",
 			"messageId",
 			"pageInputs",
+			"sessionId",
 			"uniqueName"
 		],
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
 		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
 		"skipIndexLimitValidation":false,
 		"skipPermissionCheckForAggregation":false,
 		"skipPermissionsFilter":false,
@@ -219,7 +315,7 @@
 		],
 		"versioningEnabled":true
 	},
-	"modifiedTime":1788260338523,
+	"modifiedTime":1788780732845,
 	"name":"Artifact Details",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -284,6 +380,42 @@
 					"type":"string"
 				},
 				"pageInputs":{
+					"additionalProperties":true,
+					"properties":{
+						"artifactId":{
+							"type":"string"
+						},
+						"canvasType":{
+							"type":"string"
+						},
+						"count":{
+							"type":"string"
+						},
+						"currentVersion":{
+							"type":"integer"
+						},
+						"description":{
+							"type":"object"
+						},
+						"downloadUrl":{
+							"type":"string"
+						},
+						"fileSize":{
+							"type":"string"
+						},
+						"fileType":{
+							"type":"string"
+						},
+						"previewUrl":{
+							"type":"string"
+						},
+						"title":{
+							"filterable":true,
+							"title":"Title",
+							"type":"string"
+						}
+					},
+					"required":[],
 					"searchable":true,
 					"title":"pageInputs",
 					"type":"object"
@@ -311,6 +443,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"sessionId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"Session Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"uniqueName":{
 					"filterable":true,
 					"nameField":false,
@@ -320,6 +462,24 @@
 					"title":"Unique Name",
 					"type":"string",
 					"uniqueKey":false
+				},
+				"versionDetails":{
+					"items":{
+						"additionalProperties":false,
+						"properties":{
+							"commitHash":{
+								"title":"commitHash",
+								"type":"string"
+							},
+							"entityVersion":{
+								"title":"entityVersion",
+								"type":"integer"
+							}
+						},
+						"type":"object"
+					},
+					"title":"versionDetails",
+					"type":"array"
 				}
 			},
 			"required":[]
@@ -329,5 +489,5 @@
 	"tags":[
 		
 	],
-	"version":26
+	"version":27
 }
