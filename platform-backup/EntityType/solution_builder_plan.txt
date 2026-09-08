@@ -1,5 +1,5 @@
 {
-	"columnCounts":4,
+	"columnCounts":5,
 	"createdTime":1788754842445,
 	"deleted":false,
 	"description":"",
@@ -8,11 +8,49 @@
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
+			"workflowBriefs":{
+				"items":{
+					"briefBody":{
+						"ui:order":[
+							"name",
+							"stubId",
+							"triggerType",
+							"dependsOn"
+						]
+					},
+					"dependsOn":{
+						"ui:order":[
+							"name",
+							"stubId",
+							"triggerType"
+						]
+					},
+					"stubId":{
+						"ui:order":[
+							"name"
+						]
+					},
+					"triggerType":{
+						"ui:order":[
+							"name",
+							"stubId"
+						]
+					},
+					"ui:order":[
+						"name",
+						"stubId",
+						"triggerType",
+						"dependsOn",
+						"briefBody"
+					]
+				}
+			},
 			"ui:order":[
 				"caseId",
 				"plan",
-				"workflow_brief",
-				"app_brief"
+				"app_brief",
+				"manifest",
+				"workflowBriefs"
 			]
 		},
 		"schema":{
@@ -37,6 +75,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"manifest":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Manifest",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"plan":{
 					"filterable":true,
 					"help":"Clear Plan to Create the Application In Markdown",
@@ -44,14 +92,78 @@
 					"title":"plan",
 					"type":"string"
 				},
-				"workflow_brief":{
+				"workflowBriefs":{
 					"filterable":true,
+					"items":{
+						"additionalProperties":false,
+						"properties":{
+							"briefBody":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Brief Body",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"dependsOn":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Depends On",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"name":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Name",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"stubId":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Stub Id",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"triggerType":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Trigger Type",
+								"type":"string",
+								"uniqueKey":false
+							}
+						},
+						"required":[
+							"stubId",
+							"triggerType",
+							"briefBody"
+						],
+						"type":"object"
+					},
 					"nameField":false,
 					"primaryKey":false,
+					"required":[
+						"name"
+					],
 					"searchable":false,
 					"sortable":false,
-					"title":"Workflow Brief",
-					"type":"string",
+					"title":"Workflow Briefs",
+					"type":"array",
 					"uniqueKey":false
 				}
 			},
@@ -82,8 +194,14 @@
 		"filterableFields":[
 			"app_brief",
 			"caseId",
+			"manifest",
 			"plan",
-			"workflow_brief"
+			"workflowBriefs",
+			"workflowBriefs.briefBody",
+			"workflowBriefs.dependsOn",
+			"workflowBriefs.name",
+			"workflowBriefs.triggerType",
+			"workflowBriefs.stubId"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -141,7 +259,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788754842457,
+	"modifiedTime":1788891418978,
 	"name":"Solution builder plans",
 	"ownerUserId":-1,
 	"packaged":false,
@@ -171,6 +289,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"manifest":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Manifest",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"plan":{
 					"filterable":true,
 					"help":"Clear Plan to Create the Application In Markdown",
@@ -178,14 +306,78 @@
 					"title":"plan",
 					"type":"string"
 				},
-				"workflow_brief":{
+				"workflowBriefs":{
 					"filterable":true,
+					"items":{
+						"additionalProperties":false,
+						"properties":{
+							"briefBody":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Brief Body",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"dependsOn":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Depends On",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"name":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Name",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"stubId":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Stub Id",
+								"type":"string",
+								"uniqueKey":false
+							},
+							"triggerType":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":false,
+								"sortable":false,
+								"title":"Trigger Type",
+								"type":"string",
+								"uniqueKey":false
+							}
+						},
+						"required":[
+							"stubId",
+							"triggerType",
+							"briefBody"
+						],
+						"type":"object"
+					},
 					"nameField":false,
 					"primaryKey":false,
+					"required":[
+						"name"
+					],
 					"searchable":false,
 					"sortable":false,
-					"title":"Workflow Brief",
-					"type":"string",
+					"title":"Workflow Briefs",
+					"type":"array",
 					"uniqueKey":false
 				}
 			},
@@ -198,5 +390,5 @@
 	"tags":[
 		"solution-builder"
 	],
-	"version":5
+	"version":6
 }
