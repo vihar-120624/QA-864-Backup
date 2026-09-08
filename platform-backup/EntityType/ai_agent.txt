@@ -876,7 +876,9 @@
 				"secureRuns",
 				"shouldSummarise",
 				"skillIds",
-				"appendSummaryMessage"
+				"appendSummaryMessage",
+				"agentKind",
+				"indexAttachmentDisabled"
 			],
 			"loggingSettings":{
 				"enableRunLogging":{
@@ -904,7 +906,8 @@
 				},
 				"ui:order":[
 					"enablePromptCaching",
-					"minCharactersBeforeNewCheckPoint"
+					"minCharactersBeforeNewCheckPoint",
+					"prompt_cache_options"
 				]
 			},
 			"deepResearchSettings":{
@@ -1070,7 +1073,12 @@
 						"enabled",
 						"sttProvider",
 						"language",
-						"providerDetails"
+						"providerDetails",
+						"activation_threshold",
+						"min_silence_duration",
+						"min_speech_duration",
+						"prefix_padding_duration",
+						"type"
 					]
 				}
 			},
@@ -1845,7 +1853,8 @@
 					"describeChart",
 					"extraChartNeeded",
 					"fewshotlimiter",
-					"enableSqlMetadataOverride"
+					"enableSqlMetadataOverride",
+					"customTemplateAutomationId"
 				],
 				"waterFallChartRequired":{
 					"ui:order":[
@@ -3205,7 +3214,8 @@
 						"model",
 						"parameters",
 						"processingMethod",
-						"enrichmentStrategies"
+						"enrichmentStrategies",
+						"excludeCustomMetadataFilterGeneration"
 					]
 				},
 				"piiMasking":{
@@ -3812,7 +3822,10 @@
 						"agenticModelId",
 						"crawlScope",
 						"extractFiles",
-						"fileExtractionScope"
+						"fileExtractionScope",
+						"allLinks",
+						"sameDomain",
+						"samePath"
 					]
 				}
 			},
@@ -4320,7 +4333,8 @@
 					"excludeKnowledgeOnAttachment",
 					"chunkPostRetrievalFilteringAutomationId",
 					"chunkPreRetrievalFilteringAutomationId",
-					"removePastConversationKnowledgeChunks"
+					"removePastConversationKnowledgeChunks",
+					"takeFilterFromReferfromKnowledgeTool"
 				],
 				"useHyDE":{
 					"ui:order":[
@@ -5116,7 +5130,8 @@
 					"createPDF",
 					"CompleteDocumentContext",
 					"saveInstantMemoryTool",
-					"planTool"
+					"planTool",
+					"readDocument"
 				]
 			},
 			"defaultEnabledTools":{
@@ -10411,7 +10426,7 @@
 				"status":"SUCCESS"
 			},
 			{
-				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_2\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_2\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1788631373, \"i\": 2739}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1788631373, \"i\": 2739}}}",
+				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_2\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_2\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1788889132, \"i\": 437}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1788889132, \"i\": 437}}}",
 				"indexFieldMetadataList":[
 					{
 						"field":"id",
@@ -10905,7 +10920,7 @@
 		],
 		"versioningEnabled":true
 	},
-	"modifiedTime":1788631373212,
+	"modifiedTime":1788889132848,
 	"name":"Agent",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -16171,5 +16186,5 @@
 		}
 	},
 	"standard":true,
-	"version":652
+	"version":653
 }
