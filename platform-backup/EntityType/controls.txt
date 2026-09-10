@@ -1,6 +1,6 @@
 {
-	"columnCounts":12,
-	"createdTime":1787743339452,
+	"columnCounts":16,
+	"createdTime":1787743323858,
 	"deleted":false,
 	"grants":{
 		"configs":[
@@ -12,220 +12,239 @@
 			}
 		]
 	},
-	"id":"agent_profile_group",
+	"id":"controls",
 	"input":{
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
 			"ui:order":[
-				"application",
-				"connection",
-				"connectionType",
-				"status",
-				"agentIds",
-				"isInitialSyncInProgress",
-				"autoRegister",
-				"syncFrequency",
-				"ownerId",
-				"lastSyncTime",
-				"connectionName",
-				"errorDetails"
-			],
-			"errorDetails":{
-				"ui:order":[
-					"errorMessage"
-				]
-			}
+				"appliedTo",
+				"checkType",
+				"appliedOn",
+				"outputType",
+				"confidenceThreshold",
+				"checkSeverity",
+				"actionType",
+				"additional",
+				"name",
+				"description",
+				"severityModel",
+				"llmModel",
+				"enabled",
+				"breachOn",
+				"severityLevel",
+				"accessibleTo"
+			]
 		},
 		"schema":{
-			"additionalProperties":false,
+			"additionalProperties":true,
 			"type":"object",
 			"properties":{
-				"agentIds":{
-					"filterable":false,
+				"accessibleTo":{
+					"filterable":true,
 					"items":{
 						"type":"string"
 					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":false,
-					"sortable":false,
-					"title":"Agent Ids",
+					"sortable":true,
+					"title":"Accessible To",
 					"type":"array",
 					"uniqueKey":false
 				},
-				"application":{
-					"filterable":true,
-					"foreignKey":{
-						"reference":"CUSTOM_WORKFLOW_LOOKUP",
-						"options":{
-							"workflowId":"6aa15c8c55c9f52942e3fe15"
-						}
-					},
-					"foreignKeyConstraintEnforced":false,
-					"format":"single-select",
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Application",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"autoRegister":{
-					"default":false,
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Auto Register",
-					"type":"boolean",
-					"uniqueKey":false
-				},
-				"connection":{
+				"actionType":{
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Connection",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"connectionName":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Connection Name",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"connectionType":{
-					"filterable":true,
-					"format":"single-select",
-					"nameField":false,
-					"oneOf":[
-						{
-							"const":"control",
-							"title":"Control"
-						},
-						{
-							"const":"observe",
-							"title":"Observe"
-						}
-					],
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Connection Type",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"errorDetails":{
-					"additionalProperties":false,
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"properties":{
-						"errorMessage":{
-							"filterable":true,
-							"nameField":false,
-							"primaryKey":false,
-							"searchable":true,
-							"sortable":true,
-							"title":"Error Message",
-							"type":"string",
-							"uniqueKey":false
-						}
-					},
-					"required":[],
 					"searchable":true,
 					"sortable":true,
-					"title":"Error Details",
+					"title":"Action Type",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"additional":{
+					"additionalProperties":true,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"searchable":true,
+					"sortable":true,
+					"title":"Additional",
 					"type":"object",
 					"uniqueKey":false
 				},
-				"isInitialSyncInProgress":{
+				"appliedOn":{
+					"filterable":true,
+					"items":{
+						"anyOf":[
+							{
+								"const":"user_input",
+								"title":"User input"
+							},
+							{
+								"const":"agent_output",
+								"title":"Agent output"
+							},
+							{
+								"const":"tool_input",
+								"title":"Tool input"
+							},
+							{
+								"const":"tool_output",
+								"title":"Tool output"
+							}
+						],
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Applied On",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"appliedTo":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Applied To",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"breachOn":{
 					"default":false,
 					"filterable":false,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":false,
 					"sortable":false,
-					"title":"Is Initial Sync In Progress",
+					"title":"Breach On",
 					"type":"boolean",
 					"uniqueKey":false
 				},
-				"lastSyncTime":{
+				"checkSeverity":{
+					"default":false,
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"Last Sync Time",
-					"type":"string",
+					"title":"Check Severity",
+					"type":"boolean",
 					"uniqueKey":false
 				},
-				"ownerId":{
+				"checkType":{
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"Owner Id",
+					"title":"Check Type",
 					"type":"string",
 					"uniqueKey":false
 				},
-				"status":{
+				"confidenceThreshold":{
 					"filterable":true,
-					"format":"single-select",
 					"nameField":false,
-					"oneOf":[
-						{
-							"const":"connected",
-							"title":"Connected"
-						},
-						{
-							"const":"paused",
-							"title":"Paused"
-						},
-						{
-							"const":"syncError",
-							"title":"Sync error"
-						}
-					],
 					"primaryKey":false,
 					"searchable":true,
+					"sortable":true,
+					"title":"Confidence Threshold",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"description":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Description",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"enabled":{
+					"default":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
 					"sortable":false,
-					"title":"Status",
+					"title":"Enabled",
+					"type":"boolean",
+					"uniqueKey":false
+				},
+				"llmModel":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"LLM Model",
 					"type":"string",
 					"uniqueKey":false
 				},
-				"syncFrequency":{
+				"name":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Name",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"outputType":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"OutputType",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"severityLevel":{
 					"filterable":false,
 					"format":"single-select",
 					"nameField":false,
 					"oneOf":[
 						{
-							"const":"hourly",
-							"title":"Hourly"
+							"const":"critical",
+							"title":"Critical"
 						},
 						{
-							"const":"daily",
-							"title":"Daily"
+							"const":"high",
+							"title":"High"
 						},
 						{
-							"const":"weekly",
-							"title":"Weekly"
+							"const":"medium",
+							"title":"Medium"
+						},
+						{
+							"const":"low",
+							"title":"Low"
 						}
 					],
 					"primaryKey":false,
 					"searchable":false,
 					"sortable":false,
-					"title":"Sync Frequency",
+					"title":"Severity Level",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"severityModel":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Severity Model",
 					"type":"string",
 					"uniqueKey":false
 				}
@@ -234,7 +253,7 @@
 		}
 	},
 	"lastModifiedBy":-1,
-	"lcName":"agent_profile_group",
+	"lcName":"controls",
 	"metadata":{
 		"auditable":false,
 		"autoGeneratedFields":[
@@ -244,6 +263,22 @@
 		"captureActivity":false,
 		"captureReferences":false,
 		"captureReporting":false,
+		"customIndexDefinitions":[
+			{
+				"indexFieldMetadataList":[
+					{
+						"field":"id",
+						"type":-1
+					},
+					{
+						"field":"properties.appliedOn",
+						"type":-1
+					}
+				],
+				"name":"index_1",
+				"status":"SUCCESS"
+			}
+		],
 		"dateFields":[
 			
 		],
@@ -253,14 +288,19 @@
 		],
 		"external":false,
 		"filterableFields":[
-			"application",
-			"connection",
-			"connectionType",
-			"errorDetails",
-			"errorDetails.errorMessage",
-			"lastSyncTime",
-			"ownerId",
-			"status"
+			"accessibleTo",
+			"actionType",
+			"additional",
+			"appliedOn",
+			"appliedTo",
+			"checkSeverity",
+			"checkType",
+			"confidenceThreshold",
+			"description",
+			"llmModel",
+			"name",
+			"outputType",
+			"severityModel"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -283,15 +323,18 @@
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
 		"searchableFields":[
-			"application",
-			"connection",
-			"connectionName",
-			"connectionType",
-			"errorDetails",
-			"errorDetails.errorMessage",
-			"lastSyncTime",
-			"ownerId",
-			"status"
+			"actionType",
+			"additional",
+			"appliedOn",
+			"appliedTo",
+			"checkSeverity",
+			"checkType",
+			"confidenceThreshold",
+			"description",
+			"llmModel",
+			"name",
+			"outputType",
+			"severityModel"
 		],
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
@@ -325,203 +368,223 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789018013951,
-	"name":"agent_profile_group",
+	"modifiedTime":1789018045643,
+	"name":"Controls",
 	"ownerUserId":-1,
 	"packaged":true,
-	"pluralName":"agent_profile_group",
+	"pluralName":"Controls",
 	"schema":{
 		"type":"SCHEMA",
 		"dynamic":false,
 		"schema":{
-			"additionalProperties":false,
+			"additionalProperties":true,
 			"type":"object",
 			"properties":{
-				"agentIds":{
-					"filterable":false,
+				"accessibleTo":{
+					"filterable":true,
 					"items":{
 						"type":"string"
 					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":false,
-					"sortable":false,
-					"title":"Agent Ids",
+					"sortable":true,
+					"title":"Accessible To",
 					"type":"array",
 					"uniqueKey":false
 				},
-				"application":{
-					"filterable":true,
-					"foreignKey":{
-						"reference":"CUSTOM_WORKFLOW_LOOKUP",
-						"options":{
-							"workflowId":"6aa15c8c55c9f52942e3fe15"
-						}
-					},
-					"foreignKeyConstraintEnforced":false,
-					"format":"single-select",
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Application",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"autoRegister":{
-					"default":false,
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Auto Register",
-					"type":"boolean",
-					"uniqueKey":false
-				},
-				"connection":{
+				"actionType":{
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Connection",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"connectionName":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Connection Name",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"connectionType":{
-					"filterable":true,
-					"format":"single-select",
-					"nameField":false,
-					"oneOf":[
-						{
-							"const":"control",
-							"title":"Control"
-						},
-						{
-							"const":"observe",
-							"title":"Observe"
-						}
-					],
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":false,
-					"title":"Connection Type",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"errorDetails":{
-					"additionalProperties":false,
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"properties":{
-						"errorMessage":{
-							"filterable":true,
-							"nameField":false,
-							"primaryKey":false,
-							"searchable":true,
-							"sortable":true,
-							"title":"Error Message",
-							"type":"string",
-							"uniqueKey":false
-						}
-					},
-					"required":[],
 					"searchable":true,
 					"sortable":true,
-					"title":"Error Details",
+					"title":"Action Type",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"additional":{
+					"additionalProperties":true,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"searchable":true,
+					"sortable":true,
+					"title":"Additional",
 					"type":"object",
 					"uniqueKey":false
 				},
-				"isInitialSyncInProgress":{
+				"appliedOn":{
+					"filterable":true,
+					"items":{
+						"anyOf":[
+							{
+								"const":"user_input",
+								"title":"User input"
+							},
+							{
+								"const":"agent_output",
+								"title":"Agent output"
+							},
+							{
+								"const":"tool_input",
+								"title":"Tool input"
+							},
+							{
+								"const":"tool_output",
+								"title":"Tool output"
+							}
+						],
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Applied On",
+					"type":"array",
+					"uniqueKey":false
+				},
+				"appliedTo":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Applied To",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"breachOn":{
 					"default":false,
 					"filterable":false,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":false,
 					"sortable":false,
-					"title":"Is Initial Sync In Progress",
+					"title":"Breach On",
 					"type":"boolean",
 					"uniqueKey":false
 				},
-				"lastSyncTime":{
+				"checkSeverity":{
+					"default":false,
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"Last Sync Time",
-					"type":"string",
+					"title":"Check Severity",
+					"type":"boolean",
 					"uniqueKey":false
 				},
-				"ownerId":{
+				"checkType":{
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"Owner Id",
+					"title":"Check Type",
 					"type":"string",
 					"uniqueKey":false
 				},
-				"status":{
+				"confidenceThreshold":{
 					"filterable":true,
-					"format":"single-select",
 					"nameField":false,
-					"oneOf":[
-						{
-							"const":"connected",
-							"title":"Connected"
-						},
-						{
-							"const":"paused",
-							"title":"Paused"
-						},
-						{
-							"const":"syncError",
-							"title":"Sync error"
-						}
-					],
 					"primaryKey":false,
 					"searchable":true,
+					"sortable":true,
+					"title":"Confidence Threshold",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"description":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Description",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"enabled":{
+					"default":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
 					"sortable":false,
-					"title":"Status",
+					"title":"Enabled",
+					"type":"boolean",
+					"uniqueKey":false
+				},
+				"llmModel":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"LLM Model",
 					"type":"string",
 					"uniqueKey":false
 				},
-				"syncFrequency":{
+				"name":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Name",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"outputType":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"OutputType",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"severityLevel":{
 					"filterable":false,
 					"format":"single-select",
 					"nameField":false,
 					"oneOf":[
 						{
-							"const":"hourly",
-							"title":"Hourly"
+							"const":"critical",
+							"title":"Critical"
 						},
 						{
-							"const":"daily",
-							"title":"Daily"
+							"const":"high",
+							"title":"High"
 						},
 						{
-							"const":"weekly",
-							"title":"Weekly"
+							"const":"medium",
+							"title":"Medium"
+						},
+						{
+							"const":"low",
+							"title":"Low"
 						}
 					],
 					"primaryKey":false,
 					"searchable":false,
 					"sortable":false,
-					"title":"Sync Frequency",
+					"title":"Severity Level",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"severityModel":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Severity Model",
 					"type":"string",
 					"uniqueKey":false
 				}
@@ -533,5 +596,5 @@
 	"tags":[
 		
 	],
-	"version":9
+	"version":28
 }
