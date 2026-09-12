@@ -1,0 +1,346 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744706466,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Oivss",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0Kd9I",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0Kd9I",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZGPFk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZGPFk",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IvHjL",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_IvHjL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TiHkN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZGPFk",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TiHkN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TiHkN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8Ie50",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed1c22889f9507f122126",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | blob | blob wrapper",
+	"modifiedTime":1787744706467,
+	"name":"Knowledge Downloader | Blob | Blob Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":694,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XDP4C-1",
+			"id":"n_Oivss",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"blobName":{
+							"title":"Blob Name",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"containerName":{
+							"title":"Container Name",
+							"type":"string"
+						},
+						"currentTimeEpoch":{
+							"title":"Current Time Epoch",
+							"type":"integer"
+						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"startTimeEpoch":{
+							"title":"Start Time Epoch",
+							"type":"integer"
+						},
+						"timeLastModified":{
+							"title":"Time Last Modified",
+							"type":"string"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"connectionId",
+						"containerName",
+						"timeLastModified"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":660,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XDP4C-1",
+			"id":"n_0Kd9I",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"isAllowed":{
+							"title":"Is Allowed",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"currentTimeEpoch":{
+							"title":"Current Time Epoch",
+							"type":"integer"
+						},
+						"lastModifiedTime":{
+							"title":"Last Modified Time",
+							"type":"string"
+						},
+						"startTimeEpoch":{
+							"title":"Start Time Epoch",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"currentTimeEpoch",
+						"startTimeEpoch",
+						"lastModifiedTime"
+					],
+					"type":"object"
+				},
+				"code":"import java.time.ZonedDateTime\nimport java.time.format.DateTimeFormatter\nimport java.time.ZoneOffset\n\ndef formatter = DateTimeFormatter.RFC_1123_DATE_TIME\ndef zdt = ZonedDateTime.parse(lastModifiedTime, formatter)\n\nlong lastModifiedTimeEpoch = zdt.toInstant().toEpochMilli()\n\nif(startTimeEpoch <= lastModifiedTimeEpoch && currentTimeEpoch >= lastModifiedTimeEpoch){\n  return [\"isAllowed\":true]\n}\n\nreturn [\"isAllowed\":false]\n\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"currentTimeEpoch":"{{ n_Oivss.outputs.currentTimeEpoch }}",
+					"lastModifiedTime":"{{ n_Oivss.outputs.timeLastModified }}",
+					"startTimeEpoch":"{{ n_Oivss.outputs.startTimeEpoch }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":450,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XDP4C-1",
+			"id":"n_ZGPFk",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_0Kd9I.outputs.result.isAllowed }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":721,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_ZGPFk@_XDP4C-1@y",
+			"id":"n_IvHjL",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":735,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XDP4C-1",
+			"id":"n_TiHkN",
+			"index":5,
+			"inputs":{
+				"automationId":"695d10144a6cd262dc90e37d",
+				"runtimeConnections":{
+					"azure_blob":"{{ n_Oivss.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"blobName":"{{ n_Oivss.outputs.blobName }}",
+					"containerName":"{{ n_Oivss.outputs.containerName }}",
+					"indexingVersion":"{{ n_Oivss.outputs.indexingVersion }}",
+					"knowledgeId":"{{ n_Oivss.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_Oivss.outputs.knowledgeSetId }}",
+					"uniqueEntityId":"{{ n_Oivss.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":721,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XDP4C-1",
+			"id":"n_8Ie50",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":0,
+	"workflowDefinitionId":"695d750091ac2d31422a2030",
+	"workflowVersion":5
+}
