@@ -1,0 +1,355 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743992262,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743992466,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecef8cee862008d74cbd8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":298
+	},
+	"edges":[
+		{
+			"fromNodeId":"xbGpP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lyRnh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lyRnh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cBF3C",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cBF3C",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ARmHl",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"66af3ff4cd79b321cb478a37",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer  with rbac",
+	"modifiedTime":1788252972119,
+	"name":"Knowledge Indexer  With RBAC",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":46,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"iCsKl-1",
+			"id":"xbGpP",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Chunk Ids",
+							"type":"array"
+						},
+						"response":{
+							"default":false,
+							"title":"Response",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"chunkIds"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"chunks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chunkMetadata":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"chunkMetadata",
+										"type":"object"
+									},
+									"data":{
+										"title":"Data",
+										"type":"string"
+									},
+									"sharedWithIds":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Shared With Ids",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"required":[
+								"data"
+							],
+							"title":"Chunks",
+							"type":"array"
+						},
+						"index":{
+							"title":"Index",
+							"type":"integer"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"number"
+						},
+						"mimeType":{
+							"title":"Mime Type",
+							"type":"string"
+						},
+						"sourceObject":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Object",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":526,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"iCsKl-1",
+			"id":"n_lyRnh",
+			"index":2,
+			"inputs":{
+				"code":"import com.unifyapps.infra.utils.EnvUtils;\nreturn ['host': EnvUtils.getHostName()]",
+				"compile_static":false,
+				"captureStdOutput":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":936,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"iCsKl-1",
+			"id":"n_cBF3C",
+			"index":3,
+			"inputs":{
+				"automationId":"69c413209c79a662475933c9",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"authorEmail":"{{ xbGpP.outputs.authorEmail }}",
+					"chunkMetadata":"{{ xbGpP.outputs.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"chunkMetadata":"{{ xbGpP.outputs.chunks[0].chunkMetadata }}",
+							"data":"{{ xbGpP.outputs.chunks[0].data }}",
+							"sharedWithIds":{
+								"items":"{{ xbGpP.outputs.chunks[0].sharedWithIds[0] }}",
+								"source":"{{ xbGpP.outputs.chunks[0].sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ xbGpP.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"index":"{{ xbGpP.outputs.index }}",
+					"knowledgeId":"{{ xbGpP.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ xbGpP.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ xbGpP.outputs.knowledgeVersion }}",
+					"mimeType":"{{ xbGpP.outputs.mimeType }}",
+					"sourceObject":"{{ xbGpP.outputs.sourceObject }}",
+					"uniqueEntityId":"{{ xbGpP.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":968,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"iCsKl-1",
+			"id":"n_ARmHl",
+			"index":4,
+			"inputs":{
+				"result":{
+					"chunkIds":{
+						"items":"{{ n_cBF3C.outputs.chunkIds[0] }}",
+						"source":"{{ n_cBF3C.outputs.chunkIds }}",
+						"ua:type":"mappedArray"
+					},
+					"response":"{{ n_cBF3C.outputs.response }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"RBAC"
+	],
+	"version":300
+}

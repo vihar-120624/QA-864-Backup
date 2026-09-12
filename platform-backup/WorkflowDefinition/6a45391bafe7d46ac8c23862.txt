@@ -1,0 +1,173 @@
+{
+	"appsUsed":[
+		"microsoft_sharepoint_graph"
+	],
+	"createdTime":1787743474257,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743474467,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8eccf24cdb0358b9df1f70",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":9
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_AQ9CO",
+			"id":"next@n_AQ9CO@n_1Y2ja",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1Y2ja",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1Y2ja",
+			"id":"next@n_1Y2ja@n_mU3cw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mU3cw",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a45391bafe7d46ac8c23862",
+	"lastModifiedBy":-1,
+	"lcName":"sharepoint graph | get item id",
+	"modifiedTime":1788252972125,
+	"name":"Sharepoint Graph | Get Item Id",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1315,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WGS5D-1",
+			"id":"n_AQ9CO",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"listId":{
+							"title":"List Id",
+							"type":"string"
+						},
+						"listItemUniqueId":{
+							"title":"List Item Unique Id",
+							"type":"string"
+						},
+						"siteId":{
+							"title":"Site Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"microsoft_sharepoint_graph",
+				"resourceVersion":40,
+				"connectionId":"6a2ab919308503370e167e10",
+				"resourceName":"microsoft_sharepoint_graph_get_drive_item_by_list_item_unique_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WGS5D-1",
+			"id":"n_1Y2ja",
+			"index":2,
+			"inputs":{
+				"listId":"{{ n_AQ9CO.outputs.listId }}",
+				"listItemUniqueId":"{{ n_AQ9CO.outputs.listItemUniqueId }}",
+				"siteId":"{{ n_AQ9CO.outputs.siteId }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft SharePoint (Graph APIs)",
+			"title":"Get drive item by list item unique ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1315,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WGS5D-1",
+			"id":"n_mU3cw",
+			"index":3,
+			"inputs":{
+				"result":{
+					"file":"{{ n_1Y2ja.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_sharepoint_graph"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":11
+}
