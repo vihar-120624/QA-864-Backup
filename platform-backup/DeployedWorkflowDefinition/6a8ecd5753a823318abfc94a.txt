@@ -1,0 +1,212 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743575148,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"zuMup",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_iTLsc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_iTLsc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_5ltkm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_5ltkm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"xqLuU",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd5753a823318abfc94a",
+	"lastModifiedBy":-1,
+	"lcName":"eval | experiment | export experiment runs",
+	"modifiedTime":1787743575149,
+	"name":"Eval | Experiment | Export Experiment Runs",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":385,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kvHi9-1",
+			"id":"zuMup",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"experimentId":{
+							"title":"Experiment Id",
+							"type":"string"
+						},
+						"fileType":{
+							"title":"File Type",
+							"type":"string"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"runId":{
+							"title":"Run Id",
+							"type":"string"
+						},
+						"runIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Run Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kvHi9-1",
+			"id":"_iTLsc",
+			"index":2,
+			"inputs":{
+				"automationId":"6921e7ec2787d00dba6f44b1",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"experimentId":"{{ zuMup.outputs.experimentId }}",
+					"filter":"{{ zuMup.outputs.filter }}",
+					"runId":"{{ zuMup.outputs.runId }}",
+					"runIds":{
+						"items":"{{ zuMup.outputs.runIds[0] }}",
+						"source":"{{ zuMup.outputs.runIds }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Get runIds to export",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kvHi9-1",
+			"id":"_5ltkm",
+			"index":3,
+			"inputs":{
+				"automationId":"6923f87071aecf43189ecc58",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"experimentId":"{{ zuMup.outputs.experimentId }}",
+					"fileType":"{{ zuMup.outputs.fileType }}",
+					"runIds":{
+						"items":"{{ _iTLsc.outputs.runIds[0] }}",
+						"source":"{{ _iTLsc.outputs.runIds }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Create excel file",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":391,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kvHi9-1",
+			"id":"xqLuU",
+			"index":4,
+			"inputs":{
+				"result":{
+					"result":"200"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"68388c4efdb35d0130406ed0",
+	"workflowVersion":68
+}
