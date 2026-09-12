@@ -1,0 +1,743 @@
+{
+	"appsUsed":[
+		"gmail"
+	],
+	"createdTime":1787743607677,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743608602,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd78177b4b4aca579e50",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":73
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sbkRO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Mj4vZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Mj4vZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kQ8DD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kQ8DD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PHZzz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PHZzz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JfF1A",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_JfF1A",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PHZzz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PHZzz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RuzrH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RuzrH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_q02fy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_q02fy",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_z5knT",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_z5knT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_agZAn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_q02fy",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_agZAn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_agZAn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Ca68R",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"695cc925947be8075e23457e",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | gmail | mails",
+	"modifiedTime":1788252972105,
+	"name":"Knowledge Downloader | Gmail | Mails",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":436,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_sbkRO",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloadedEntitiesCount":{
+							"title":"Downloaded Entities Count",
+							"type":"integer"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"knowledgeDownloadFinished":{
+							"title":"Knowledge Download Finished",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"6854484ac68462013926b9cf",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"integer"
+								},
+								"grabberType":{
+									"title":"Grabber Type",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"indexingVersion":{
+									"title":"Indexing Version",
+									"type":"integer"
+								},
+								"knowledgeSetId":{
+									"title":"Knowledge Set Id",
+									"type":"string"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.downloaderConfig.startTimeEpoch",
+					"root.parameters.downloaderConfig.currentTimeEpoch"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":115,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"Mj4vZ",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"mappedInputs":{
+							"additionalProperties":false,
+							"properties":{
+								"endDate":{
+									"title":"End Date",
+									"type":"integer"
+								},
+								"includeAttachments":{
+									"title":"Include Attachments",
+									"type":"boolean"
+								},
+								"query":{
+									"title":"Query",
+									"type":"string"
+								},
+								"startDate":{
+									"title":"Start Date",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"mappedInputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// import java.time.*\n// import java.time.format.DateTimeFormatter\n\n// String epochMillisToDate(long epochMillis, String zoneId = \"UTC\") {\n//   return Instant.ofEpochMilli(epochMillis)\n//         .atZone(ZoneId.of(zoneId))\n//         .format(DateTimeFormatter.ofPattern(\"yyyy/MM/dd\"))\n// }\n\n// def mappedInputs = [:]\n\n// if(binding.hasVariable('cursor') && cursor[\"nextPageToken\"]) {\n//   mappedInputs << [\"nextPageToken\": cursor[\"nextPageToken\"]]\n// }\n\n// def startTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"startTimeEpoch\",0L) : 0L\n\n// def userSpecifiedStartDate = 0L\n// if (inputs?.dateRange?.from) {\n//   userSpecifiedStartDate = LocalDate.parse(inputs.dateRange.from)\n//     .atStartOfDay(ZoneId.of(\"UTC\"))\n//     .toInstant()\n//     .toEpochMilli()\n// }\n\n// if(startTimeEpoch || userSpecifiedStartDate) {\n//   mappedInputs << [\"startDate\": epochMillisToDate(Math.max(userSpecifiedStartDate, startTimeEpoch).longValue())]\n//   mappedInputs << [\"startTimeEpoch\": Math.max(userSpecifiedStartDate, startTimeEpoch).longValue()]\n// }\n// else {\n//   mappedInputs << [\"startDate\": \"1970/01/01\"]\n//   mappedInputs << [\"startTimeEpoch\": 0]\n// }\n\n// def currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"currentTimeEpoch\",0L) : 0L\n\n// def userSpecifiedEndDate = 0L\n// if (inputs?.dateRange?.to) {\n//   userSpecifiedEndDate = LocalDate.parse(inputs.dateRange.to)\n//     .atStartOfDay(ZoneId.of(\"UTC\"))\n//     .toInstant()\n//     .toEpochMilli()\n// }\n\n// long ONE_DAY_MILLIS = 24L * 60 * 60 * 1000\n\n// if(userSpecifiedEndDate && userSpecifiedEndDate < currentTimeEpoch) {\n//   mappedInputs << [\"endDate\": epochMillisToDate(userSpecifiedEndDate + ONE_DAY_MILLIS)]\n// }\n// else {\n//   mappedInputs << [\"endDate\": epochMillisToDate(currentTimeEpoch + ONE_DAY_MILLIS)]\n// }\n\n\nimport java.lang.Math\nimport java.time.*\n\ndef inputs = binding.hasVariable(\"inputs\") ? inputs : [:]\ndef startTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"startTimeEpoch\",0) : 0\ndef startTimeEpochInSeconds = (startTimeEpoch/1000).longValue()\ndef currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"currentTimeEpoch\", 0) : 0\ndef currentTimeEpochInSeconds = (currentTimeEpoch/1000).longValue()\n\ndef userSpecifiedStartDate = 0L\nif (inputs?.dateRange?.from) {\n  userSpecifiedStartDate = Instant.parse(inputs.dateRange.from)\n    .getEpochSecond()\n}\n\ndef userSpecifiedEndDate = currentTimeEpochInSeconds\nif(inputs?.dateRange?.to) {\n  userSpecifiedEndDate = Instant.parse(inputs.dateRange.to)\n    .getEpochSecond()\n}\n\ndef startDate = Math.max(userSpecifiedStartDate, startTimeEpochInSeconds).longValue()\ndef endDate = Math.min(userSpecifiedEndDate, currentTimeEpochInSeconds).longValue()\n\ndef mappedInputs = [:]\n\nmappedInputs << [\n    \"startDate\": startDate, \n    \"endDate\": endDate\n]\n\n// If cursor exists\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.startTime != null) {\n        mappedInputs.startDate = cursor.startTime\n    }\n    \n    if (cursor?.endTime != null) {\n        mappedInputs.endDate = cursor.endTime\n    }\n}\n\nmappedInputs << [\"includeAttachments\": inputs?.includeAttachments ?: false]\n\n// Create query to filter\ndef folderName = inputs?.folderName ?: \"\"\ndef domain = inputs?.domain ?: \"\"\ndef queryStartDate = mappedInputs[\"startDate\"]\ndef queryEndDate = mappedInputs[\"endDate\"]\n\nList<String> queryParts = []\n\nif (folderName && folderName != \"\") {\n    queryParts << \"label:${folderName}\"\n}\n\nif (domain) {\n    queryParts << \"from:${domain}\"\n}\n\nif (queryStartDate) {\n    queryParts << \"after:${queryStartDate}\"\n}\n\nif (queryEndDate) {\n    queryParts << \"before:${queryEndDate}\"\n}\n\ndef query = queryParts.join(\" \")\nmappedInputs << [\"query\": query]\n\nreturn ['mappedInputs': mappedInputs]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cursor":"{{ n_sbkRO.outputs.cursor }}",
+					"downloaderConfig":{
+						"currentTimeEpoch":"{{ n_sbkRO.outputs.downloaderConfig.currentTimeEpoch }}",
+						"startTimeEpoch":"{{ n_sbkRO.outputs.downloaderConfig.startTimeEpoch }}"
+					},
+					"inputs":"{{ n_sbkRO.outputs.inputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Resolve inputs",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"gmail",
+				"resourceVersion":2618,
+				"connectionId":"698707ecec6c473392ce1013",
+				"resourceName":"gmail_list_emails",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_kQ8DD",
+			"index":3,
+			"inputs":{
+				"query":"{{ Mj4vZ.outputs.result.mappedInputs.query }}",
+				"count":150
+			},
+			"skip":false,
+			"subTitle":"Gmail",
+			"title":"List Emails",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":455,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_PHZzz",
+			"index":4,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_kQ8DD.outputs.messages }}",
+				"captureIterations":false,
+				"batchSize":30
+			},
+			"skip":false,
+			"subTitle":"Batch (30)",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":450,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_PHZzz@_h5oNB-1@l",
+			"id":"n_JfF1A",
+			"index":5,
+			"inputs":{
+				"automationId":"695cdd2ac3bb14711567ed85",
+				"runtimeConnections":{
+					"gmail":"{{ n_sbkRO.outputs.knowledge.applicationInfo.context.connectionId }}",
+					"okta":"{{ n_sbkRO.outputs.knowledge.applicationInfo.context.connectionId }}"
+				},
+				"synchronous":true,
+				"distributeWorkflowLoad":false,
+				"parametersList":{
+					"items":{
+						"Id":"{{ n_PHZzz.outputs.item[0].id }}",
+						"includeAttachments":"{{ Mj4vZ.outputs.result.mappedInputs.includeAttachments }}",
+						"knowledge":{
+							"indexingVersion":"{{ n_sbkRO.outputs.knowledge.indexingVersion }}"
+						},
+						"knowledgeId":"{{ n_sbkRO.outputs.knowledgeId }}",
+						"knowledgeSetId":"{{ n_sbkRO.outputs.knowledge.knowledgeSetId }}"
+					},
+					"source":"{{ n_PHZzz.outputs.item }}",
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Knowledge Downloader | Gmail | Mail",
+			"title":"Call automation (batch)",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.messages.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":686,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_RuzrH",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"lastMessageId":{
+							"title":"Last Message Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Messages",
+							"type":"array"
+						},
+						"nextPageToken":{
+							"title":"Next Page Token",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def lastMessageId = \"\"\n\nif(binding.hasVariable('messages') && messages.size() > 0) {\n  lastMessageId = messages[-1].id\n}\n\ndef hasMore = binding.hasVariable('nextPageToken') ? true : false\n\nreturn [\n  \"lastMessageId\": lastMessageId,\n  \"hasMore\": hasMore\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"messages":{
+						"items":"{{ n_kQ8DD.outputs.messages[0] }}",
+						"source":"{{ n_kQ8DD.outputs.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"nextPageToken":"{{ n_kQ8DD.outputs.nextPageToken }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"hasMore and lastMessageId",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":450,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"n_q02fy",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_RuzrH.outputs.result.lastMessageId }}"
+					},
+					{
+						"filter":{
+							"operator":"GT",
+							"value":"0"
+						},
+						"property":"=LEN({{ n_RuzrH.outputs.result.lastMessageId }})"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"gmail",
+				"resourceVersion":2643,
+				"connectionId":"696f7ed9bc0f6a7688374f82",
+				"resourceName":"gmail_get_message",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_q02fy@_h5oNB-1@y",
+			"id":"n_z5knT",
+			"index":8,
+			"inputs":{
+				"format":"full",
+				"id":"{{ n_RuzrH.outputs.result.lastMessageId }}"
+			},
+			"skip":false,
+			"subTitle":"Gmail",
+			"title":"Get message",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.messages.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"_agZAn",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"knowledgeDownloadFinished":{
+							"title":"Knowledge Download Finished",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"apiEndDate":{
+							"title":"Api End Date",
+							"type":"integer"
+						},
+						"apiStartDate":{
+							"title":"Api Start Date",
+							"type":"integer"
+						},
+						"channelApiHasMore":{
+							"title":"Channel Api Has More",
+							"type":"boolean"
+						},
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"lastMessageTime":{
+							"title":"Last Message Time",
+							"type":"string"
+						},
+						"userSpecifiedEndTime":{
+							"title":"User Specified End Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def startTime = null\ndef endTime = null\ndef nextStartTime = null\n\ndef startTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"startTimeEpoch\", 0) : 0\ndef startTimeEpochInSeconds = (startTimeEpoch / 1000).longValue()\ndef currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"currentTimeEpoch\", 0) : 0\ndef currentTimeEpochInSeconds = (currentTimeEpoch / 1000).longValue()\n\ndef lastMessageTime = (binding.hasVariable('lastMessageTime') && lastMessageTime != \"\") ? (lastMessageTime.toLong() / 1000) : null\n\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.startTime != null) {\n        startTime = cursor.startTime\n    }\n    if (cursor?.endTime != null) {\n        endTime = cursor.endTime\n    }\n    if (cursor?.nextStartTime != null) {\n        nextStartTime = cursor.nextStartTime\n    }\n}\n\nif (startTime == null) {\n    startTime = apiStartDate\n}\nif (nextStartTime == null) {\n    nextStartTime = apiEndDate\n}\n\nboolean hasMore = channelApiHasMore ?: false\n\nif (hasMore) {\n    endTime = lastMessageTime\n} else {\n    startTime = nextStartTime\n    endTime = null\n    nextStartTime = null\n}\n\nboolean userSpecifiedTimeReached = binding.hasVariable(\"userSpecifiedEndTime\") ? (currentTimeEpochInSeconds > userSpecifiedEndTime) : false\n\nreturn [\n    \"cursor\": [\n        \"startTime\": startTime,           // Oldest boundary (lower bound)\n        \"endTime\": endTime,               // Current position or completion point\n        \"nextStartTime\": nextStartTime    // Next batch starts from here\n    ],\n    \"hasMore\": hasMore,\n    \"knowledgeDownloadFinished\": !channelApiHasMore && userSpecifiedTimeReached\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"apiEndDate":"{{ Mj4vZ.outputs.result.mappedInputs.endDate }}",
+					"apiStartDate":"{{ Mj4vZ.outputs.result.mappedInputs.startDate }}",
+					"channelApiHasMore":"{{ n_RuzrH.outputs.result.hasMore }}",
+					"cursor":"{{ n_sbkRO.outputs.cursor }}",
+					"downloaderConfig":"{{ n_sbkRO.outputs.downloaderConfig }}",
+					"lastMessageTime":"{{ n_z5knT.outputs.internalDate }}",
+					"userSpecifiedEndTime":"{{ n_sbkRO.outputs.inputs.dateRange.to }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Get cursor",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":9,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_h5oNB-1",
+			"id":"Ca68R",
+			"index":10,
+			"inputs":{
+				"result":{
+					"cursor":"{{ _agZAn.outputs.result.cursor }}",
+					"downloadedEntitiesCount":"=LEN({{ n_kQ8DD.outputs.messages }})",
+					"hasMore":"{{ _agZAn.outputs.result.hasMore }}",
+					"knowledgeDownloadFinished":"{{ _agZAn.outputs.result.knowledgeDownloadFinished }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"gmail"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":75
+}
