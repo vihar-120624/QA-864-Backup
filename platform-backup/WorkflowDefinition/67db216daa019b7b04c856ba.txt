@@ -1,0 +1,367 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743996663,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743996981,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecefccee862008d74cc04",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":12
+	},
+	"edges":[
+		{
+			"fromNodeId":"TncNH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Jeqbj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Jeqbj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"k20gV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"k20gV",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"7amEC",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"7amEC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"JUSHi",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"k20gV",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"JUSHi",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"JUSHi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MO75Z",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67db216daa019b7b04c856ba",
+	"lastModifiedBy":-1,
+	"lcName":"construct knowledge input",
+	"modifiedTime":1788252972090,
+	"name":"Construct Knowledge Input",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":151,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"dp9Fe-1",
+			"id":"TncNH",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"importerParams":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Params",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":151,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"dp9Fe-1",
+			"id":"Jeqbj",
+			"index":0,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ TncNH.outputs.knowledgeId }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"knowledge",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":148,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"dp9Fe-1",
+			"id":"k20gV",
+			"index":0,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"URL"
+						},
+						"property":"{{ Jeqbj.outputs.properties.fileDetails.sourceType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":146,
+				"resourceName":"utility_by_unifyapps_create_unifyapps_file_from_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"k20gV@dp9Fe-1@y",
+			"id":"7amEC",
+			"index":0,
+			"inputs":{
+				"url":"{{ Jeqbj.outputs.properties.fileDetails.url }}"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Create UnifyApps file from url",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":151,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"dp9Fe-1",
+			"id":"JUSHi",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"importerParams":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Params",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"applicationInfo":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Application Info",
+							"type":"object"
+						},
+						"dataCatalogInfo":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Data Catalog Info",
+							"type":"object"
+						},
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"fileDetailsFromPath":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details From Path",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"sourceType":{
+							"title":"Source Type",
+							"type":"string"
+						},
+						"websiteImportInfo":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Website Import Info",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"\ndef importerParams = [\n    \"knowledgeId\": knowledgeId, \n]\ndef importerConnections = [:]\nswitch(sourceType) {\n  case \"APPLICATION\":\n    if (binding.hasVariable('applicationInfo') && applicationInfo != null) {\n        importerParams.put(\"inputs\", applicationInfo.inputs)\n        importerParams.putAll(inputs)\n        if (applicationInfo?.context?.connectionId != null) {\n          importerConnections << [(applicationInfo.context.appName): applicationInfo.context.connectionId]\n        }\n    }\n    break\n  case \"WEBSITE\":\n    if (binding.hasVariable(\"websiteImportInfo\")){\n      importerParams << [\n        \"specific_webpages\": websiteImportInfo.specific_webpages,\n        \"url_list\": websiteImportInfo.url_list?:[],\n        \"max_depth\": websiteImportInfo.max_depth,\n      ]\n    }\n    break\n  case \"FILE\":\n    def finalFileDetails = fileDetails;\n    if(fileDetails?.sourceType == \"URL\") {\n        finalFileDetails = new HashMap<>(fileDetailsFromPath)\n        finalFileDetails.put(\"fileType\", fileDetails.fileType)\n    }\n    importerParams << [\n        \"knowledge_id\": knowledgeId,\n        \"fileDetails\": binding.hasVariable('fileDetails') ? [\n            \"name\": finalFileDetails.name,\n            \"source\": finalFileDetails.source,\n            \"fileType\": finalFileDetails.fileType,\n            \"sourceType\":finalFileDetails.sourceType\n        ] : null\n    ]\n    if (!finalFileDetails.containsKey(\"sourceType\")){\n        importerParams.fileDetails[\"sourceType\"] = \"CLOUD_STORAGE\"\n    }\n    break\n  case \"DATA_CATALOG\":\n    importerParams << [\n    \"knowledge_id\": knowledgeId,\n    \"dataCatalogInfo\": binding.hasVariable('dataCatalogInfo') ? [\n        \"id\": dataCatalogInfo.id\n        ] : null\n    ]\n}\n\nreturn [\n    \"importerParams\": importerParams,\n    \"importerConnections\": importerConnections\n]",
+				"compile_static":false,
+				"parameters":{
+					"applicationInfo":"{{ Jeqbj.outputs.properties.applicationInfo }}",
+					"dataCatalogInfo":"{{ Jeqbj.outputs.properties.dataCatalogInfo }}",
+					"fileDetails":"{{ Jeqbj.outputs.properties.fileDetails }}",
+					"fileDetailsFromPath":"{{ 7amEC.outputs.file }}",
+					"knowledgeId":"{{ TncNH.outputs.knowledgeId }}",
+					"sourceType":"{{ Jeqbj.outputs.properties.sourceType }}",
+					"websiteImportInfo":"{{ Jeqbj.outputs.properties.websiteImportInfo }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":154,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"dp9Fe-1",
+			"id":"MO75Z",
+			"index":0,
+			"inputs":{
+				"result":{
+					"importerConnections":"{{ JUSHi.outputs.result.importerConnections }}",
+					"importerParams":"{{ JUSHi.outputs.result.importerParams }}",
+					"knowledgeId":"{{ TncNH.outputs.knowledgeId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":14
+}
