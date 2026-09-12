@@ -1,0 +1,396 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743436166,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743436365,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecccc3f7ad93bb1670d16",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_vPkGE",
+			"id":"next@n_vPkGE@n_6Qeyd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6Qeyd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6Qeyd",
+			"id":"next@n_6Qeyd@n_CaK62",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CaK62",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CaK62",
+			"id":"next@n_CaK62@n_xPnu8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xPnu8",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a54928d290afb0922483be2",
+	"lastModifiedBy":-1,
+	"lcName":"text2sql - ui | retrievetablesfromknowledgeid",
+	"modifiedTime":1788252972156,
+	"name":"Text2Sql - UI | RetrieveTablesFromKnowledgeId",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":218,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7CaUX-1",
+			"id":"n_vPkGE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"listMetadata":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"recordId":{
+										"title":"Record Id",
+										"type":"string"
+									},
+									"tableDesc":{
+										"title":"Table Desc",
+										"type":"string"
+									},
+									"tableNameUI":{
+										"title":"Table Name UI",
+										"type":"string"
+									},
+									"tablePrimaryKey":{
+										"title":"Table Primary Key",
+										"type":"string"
+									},
+									"table_id":{
+										"title":"Table Id",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"List Metadata",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeID":{
+							"title":"Knowledge ID",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":218,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7CaUX-1",
+			"id":"n_6Qeyd",
+			"index":2,
+			"inputs":{
+				"automationId":"69159bf1d199a2695ded8885",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"knowledgeId":"{{ n_vPkGE.outputs.knowledgeID }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.listMetadata.items.knowledgeId",
+					"root.parameters.listMetadata.items.metadata",
+					"root.parameters.listMetadata.items.metadataSource",
+					"root.parameters.listMetadata.items.label",
+					"root.parameters.listMetadata.items.type",
+					"root.parameters.listMetadata.items.table_id",
+					"root.parameters.listMetadata.items.tableName",
+					"root.parameters.listMetadata.items.columnName",
+					"root.parameters.listMetadata.items.desc",
+					"root.parameters.listMetadata.items.tableDesc",
+					"root.parameters.listMetadata.items.tableNameUI",
+					"root.parameters.listMetadata.items.recordId",
+					"root.parameters.listMetadata.source",
+					"root.parameters.listMetadata.ua:type",
+					"root.parameters.listMetadata.items.knowledgeId",
+					"root.parameters.listMetadata.items.metadata",
+					"root.parameters.listMetadata.items.metadataSource",
+					"root.parameters.listMetadata.items.label",
+					"root.parameters.listMetadata.items.type",
+					"root.parameters.listMetadata.items.table_id",
+					"root.parameters.listMetadata.items.tableName",
+					"root.parameters.listMetadata.items.columnName",
+					"root.parameters.listMetadata.items.desc",
+					"root.parameters.listMetadata.items.tableDesc",
+					"root.parameters.listMetadata.items.tableNameUI",
+					"root.parameters.listMetadata.items.recordId"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7CaUX-1",
+			"id":"n_CaK62",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"listMetadata":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"recordId":{
+										"title":"Record Id",
+										"type":"string"
+									},
+									"tableDesc":{
+										"title":"Table Desc",
+										"type":"string"
+									},
+									"tableNameUI":{
+										"title":"Table Name UI",
+										"type":"string"
+									},
+									"tablePrimaryKey":{
+										"title":"Table Primary Key",
+										"type":"string"
+									},
+									"table_id":{
+										"title":"Table Id",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"List Metadata",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"listMetadata":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"columnName":{
+										"title":"columnName",
+										"type":"string"
+									},
+									"desc":{
+										"title":"desc",
+										"type":"string"
+									},
+									"knowledgeId":{
+										"title":"knowledgeId",
+										"type":"string"
+									},
+									"label":{
+										"title":"label",
+										"type":"string"
+									},
+									"metadata":{
+										"title":"metadata",
+										"type":"string"
+									},
+									"metadataSource":{
+										"title":"metadataSource",
+										"type":"string"
+									},
+									"recordId":{
+										"title":"recordId",
+										"type":"string"
+									},
+									"tableDesc":{
+										"title":"tableDesc",
+										"type":"string"
+									},
+									"tableName":{
+										"title":"tableName",
+										"type":"string"
+									},
+									"tableNameUI":{
+										"title":"tableNameUI",
+										"type":"string"
+									},
+									"table_id":{
+										"title":"table_id",
+										"type":"string"
+									},
+									"type":{
+										"title":"type",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"listMetadata",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"code":"def result = []\n\ndef items = []\n\nif (listMetadata != null) {\n    if (listMetadata instanceof Map) {\n        items = [listMetadata]\n    } else if (listMetadata instanceof List) {\n        items = listMetadata\n    }\n}\n\nif (!items.isEmpty()) {\n    def seenTableIds = new LinkedHashSet()\n\n    items.each { item ->\n        def record = (item instanceof Map.Entry) ? item.value : item\n        def tableId = record?.table_id\n\n        if (tableId != null && tableId.toString().trim() && !seenTableIds.contains(tableId)) {\n            seenTableIds.add(tableId)\n\n            result << [\n                table_id        : tableId,\n                tableNameUI     : record?.tableNameUI ?: \"\",\n                tablePrimaryKey : record?.tablePrimaryKey ?: \"\",\n                recordId        : record?.recordId ?: \"\",\n                tableDesc       : record?.tableDesc ?: \"\"\n            ]\n        }\n    }\n}\n\nreturn [\n    \"listMetadata\" : result\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"listMetadata":{
+						"items":{
+							"columnName":"{{ n_6Qeyd.outputs.listMetadata[0].columnName }}",
+							"desc":"{{ n_6Qeyd.outputs.listMetadata[0].desc }}",
+							"knowledgeId":"{{ n_6Qeyd.outputs.listMetadata[0].knowledgeId }}",
+							"label":"{{ n_6Qeyd.outputs.listMetadata[0].label }}",
+							"metadata":"{{ n_6Qeyd.outputs.listMetadata[0].metadata }}",
+							"metadataSource":"{{ n_6Qeyd.outputs.listMetadata[0].metadataSource }}",
+							"recordId":"{{ n_6Qeyd.outputs.listMetadata[0].recordId }}",
+							"tableDesc":"{{ n_6Qeyd.outputs.listMetadata[0].tableDesc }}",
+							"tableName":"{{ n_6Qeyd.outputs.listMetadata[0].tableName }}",
+							"tableNameUI":"{{ n_6Qeyd.outputs.listMetadata[0].tableNameUI }}",
+							"table_id":"{{ n_6Qeyd.outputs.listMetadata[0].table_id }}",
+							"type":"{{ n_6Qeyd.outputs.listMetadata[0].type }}"
+						},
+						"source":"{{ n_6Qeyd.outputs.listMetadata }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.listMetadata.source",
+					"root.result.listMetadata.ua:type",
+					"root.result.listMetadata.items.table_id",
+					"root.result.listMetadata.items.tableNameUI",
+					"root.result.listMetadata.items.tablePrimaryKey",
+					"root.result.listMetadata.items.recordId",
+					"root.result.listMetadata.items.tableDesc"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":218,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7CaUX-1",
+			"id":"n_xPnu8",
+			"index":4,
+			"inputs":{
+				"result":{
+					"listMetadata":{
+						"items":{
+							"recordId":"{{ n_CaK62.outputs.result.listMetadata[0].recordId }}",
+							"tableDesc":"{{ n_CaK62.outputs.result.listMetadata[0].tableDesc }}",
+							"tableNameUI":"{{ n_CaK62.outputs.result.listMetadata[0].tableNameUI }}",
+							"tablePrimaryKey":"{{ n_CaK62.outputs.result.listMetadata[0].tablePrimaryKey }}",
+							"table_id":"{{ n_CaK62.outputs.result.listMetadata[0].table_id }}"
+						},
+						"source":"{{ n_CaK62.outputs.result.listMetadata }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":10
+}
