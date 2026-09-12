@@ -1,0 +1,1737 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743676610,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_BKkh9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7rXn2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7rXn2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zJKDm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zJKDm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_n4X1z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_n4X1z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_L75Qp",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_L75Qp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_w7rNZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_w7rNZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qhRyV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qhRyV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_Yu5K3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_Yu5K3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yvaay",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yvaay",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_0UGdX",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_0UGdX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NAxvB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NAxvB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZELCP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZELCP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6NhAc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6NhAc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iag7y",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iag7y",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Jeu0M",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Jeu0M",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sp84m",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sp84m",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PIH5m",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yvaay",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PIH5m",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PIH5m",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_n4X1z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_n4X1z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_9fahb",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecdbc9d7c534668ef61e8",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | ms teams | specific users | all chats | user",
+	"modifiedTime":1787743676612,
+	"name":"Knowledge Downloader | MS Teams | Specific Users | All Chats | User",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_on6OG@_0Eotf-1@l",
+			"id":"_BKkh9",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"chatIds":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chatId":{
+										"title":"Chat Id",
+										"type":"string"
+									},
+									"chatTopic":{
+										"title":"Chat Topic",
+										"type":"string"
+									},
+									"chatType":{
+										"title":"Chat Type",
+										"type":"string"
+									},
+									"meetingInfo":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Meeting Info",
+										"type":"object"
+									},
+									"participantEmails":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Participant Emails",
+										"type":"array"
+									},
+									"participants":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Participants",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Chat Ids",
+							"type":"array"
+						},
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"excludeOneOnOneChats":{
+							"title":"Exclude One On One Chats",
+							"type":"boolean"
+						},
+						"importarParams":{
+							"additionalProperties":false,
+							"properties":{
+								"aiAgentId":{
+									"title":"Ai Agent Id",
+									"type":"string"
+								},
+								"downloaderConfig":{
+									"additionalProperties":false,
+									"properties":{
+										"currentEpochMillis":{
+											"title":"Current Epoch Millis",
+											"type":"integer"
+										},
+										"grabberType":{
+											"title":"Grabber Type",
+											"type":"string"
+										},
+										"startTimeEpoch":{
+											"title":"Start Time Epoch",
+											"type":"integer"
+										}
+									},
+									"required":[],
+									"title":"Downloader Config",
+									"type":"object"
+								},
+								"knowledge":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Knowledge",
+									"type":"object"
+								},
+								"knowledgeId":{
+									"title":"Knowledge Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Importar Params",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"includeGroupChats":{
+							"title":"Include Group Chats",
+							"type":"boolean"
+						},
+						"includeMeetingChats":{
+							"title":"Include Meeting Chats",
+							"type":"boolean"
+						},
+						"includeOneOnOneChats":{
+							"title":"Include One On One Chats",
+							"type":"boolean"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"integer"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"newFlow":{
+							"title":"New Flow",
+							"type":"boolean"
+						},
+						"sentDate":{
+							"title":"Sent Date",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":638,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_on6OG@_0Eotf-1@l",
+			"id":"n_7rXn2",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						],
+						"ui:title":""
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"properties":{},
+												"type":"object"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"chatId":{
+											"title":"Chat Id",
+											"type":"string"
+										},
+										"chatTopic":{
+											"title":"Chat Topic",
+											"type":"string"
+										},
+										"chatType":{
+											"title":"Chat Type",
+											"type":"string"
+										},
+										"meetingInfo":{
+											"additionalProperties":false,
+											"properties":{},
+											"title":"Meeting Info",
+											"type":"object"
+										},
+										"participantEmails":{
+											"items":{
+												"type":"string"
+											},
+											"title":"Participant Emails",
+											"type":"array"
+										},
+										"participants":{
+											"items":{
+												"type":"string"
+											},
+											"title":"Participants",
+											"type":"array"
+										}
+									},
+									"required":[],
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									]
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
+						},
+						"ua:list_type":{
+							"default":"OBJECT",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"title":"List Type",
+							"type":"string"
+						},
+						"ua:title":{
+							"type":"string"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:title":"chatIds",
+				"ua:list_type":"OBJECT"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"disableActions":true,
+							"items":{
+								"properties":{
+									"chatId":{
+										"title":"Chat Id",
+										"type":"string"
+									},
+									"chatTopic":{
+										"title":"Chat Topic",
+										"type":"string"
+									},
+									"chatType":{
+										"title":"Chat Type",
+										"type":"string"
+									},
+									"meetingInfo":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Meeting Info",
+										"type":"object"
+									},
+									"participantEmails":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Participant Emails",
+										"type":"array"
+									},
+									"participants":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Participants",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"chatIds",
+							"type":"array"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":643,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_on6OG@_0Eotf-1@l",
+			"id":"n_zJKDm",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"nextLink":{
+							"title":"Next Link",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"count":0,
+				"hasMore":true
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"nextLink":{
+							"title":"Next Link",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":465,
+				"resourceName":"loop_while",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_on6OG@_0Eotf-1@l",
+			"id":"n_n4X1z",
+			"index":4,
+			"inputs":{
+				"condition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"{{ n_zJKDm.outputs.hasMore }}"
+						}
+					],
+					"operator":"AND"
+				},
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"While loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"microsoft_teams",
+				"resourceVersion":12,
+				"connectionId":"6a10089208ca6a228b002018",
+				"resourceName":"microsoft_teams_list_chats_by_user",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_n4X1z@n_on6OG@_0Eotf-1@l@l",
+			"id":"n_L75Qp",
+			"index":5,
+			"inputs":{
+				"skipToken":"{{ n_zJKDm.outputs.nextLink }}",
+				"limit":50,
+				"userId":"{{ _BKkh9.outputs.userId }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":3000,
+					"maxDelay":3000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Microsoft Teams",
+			"title":"List Chats By User",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.chats.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":604,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_n4X1z@n_on6OG@_0Eotf-1@l@l",
+			"id":"n_w7rNZ",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"filteredChats":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chatType":{
+										"title":"Chat Type",
+										"type":"string"
+									},
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"members":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"displayName":{
+													"title":"Display Name",
+													"type":"string"
+												},
+												"email":{
+													"title":"Email",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"Members",
+										"type":"array"
+									},
+									"onlineMeetingInfo":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Online Meeting Info",
+										"type":"object"
+									},
+									"topic":{
+										"title":"Topic",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Filtered Chats",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"chats":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Chats",
+							"type":"array"
+						},
+						"includeGroupChats":{
+							"title":"Include Group Chats",
+							"type":"boolean"
+						},
+						"includeMeetingChats":{
+							"title":"Include Meeting Chats",
+							"type":"boolean"
+						},
+						"includeOneOnOneChats":{
+							"title":"Include One On One Chats",
+							"type":"boolean"
+						},
+						"sentDate":{
+							"title":"Sent Date",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def chatList = []\nif (binding.hasVariable('chats') && chats instanceof List) {\n    chatList = chats\n}\n\ndef isOn = { v -> v == null || v == true || (v instanceof String && v.equalsIgnoreCase(\"true\")) }\n\ndef oneOnOneOn = isOn(binding.hasVariable('includeOneOnOneChats') ? includeOneOnOneChats : null)\ndef groupOn    = isOn(binding.hasVariable('includeGroupChats') ? includeGroupChats : null)\ndef meetingOn  = isOn(binding.hasVariable('includeMeetingChats') ? includeMeetingChats : null)\n\ndef filteredChats\nif (oneOnOneOn && groupOn && meetingOn) {\n    filteredChats = chatList\n} else {\n    def allowedTypes = []\n    if (oneOnOneOn) allowedTypes << \"oneOnOne\"\n    if (groupOn)    allowedTypes << \"group\"\n    if (meetingOn)  allowedTypes << \"meeting\"\n\n    filteredChats = chatList.findAll { chat ->\n        chat instanceof Map && allowedTypes.contains(chat.get(\"chatType\"))\n    }\n}\n\nreturn [\n    \"filteredChats\": filteredChats,\n    \"count\": filteredChats.size()\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"chats":{
+						"items":"{{ n_L75Qp.outputs.value[0] }}",
+						"source":"{{ n_L75Qp.outputs.value }}",
+						"ua:type":"mappedArray"
+					},
+					"includeGroupChats":"{{ _BKkh9.outputs.includeGroupChats }}",
+					"includeMeetingChats":"{{ _BKkh9.outputs.includeMeetingChats }}",
+					"includeOneOnOneChats":"{{ _BKkh9.outputs.includeOneOnOneChats }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemsToAdd.items.participants.items",
+					"root.itemsToAdd.items.participantEmails.items",
+					"root.itemsToAdd.items.chatId",
+					"root.itemsToAdd.items.chatTopic",
+					"root.itemsToAdd.items.chatType",
+					"root.itemsToAdd.items.meetingInfo"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":632,
+				"resourceName":"variable_by_unifyapps_add_items_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_n4X1z@n_on6OG@_0Eotf-1@l@l",
+			"id":"n_qhRyV",
+			"index":7,
+			"inputs":{
+				"captureAddedItems":false,
+				"insertLocation":"END",
+				"itemsToAdd":{
+					"items":{
+						"chatId":"{{ n_w7rNZ.outputs.result.filteredChats[0].id }}",
+						"chatTopic":"{{ n_w7rNZ.outputs.result.filteredChats[0].topic }}",
+						"chatType":"{{ n_w7rNZ.outputs.result.filteredChats[0].chatType }}",
+						"meetingInfo":"{{ n_w7rNZ.outputs.result.filteredChats[0].onlineMeetingInfo }}",
+						"participantEmails":{
+							"items":"{{ n_w7rNZ.outputs.result.filteredChats[0].members[0].email }}",
+							"source":"{{ n_w7rNZ.outputs.result.filteredChats[0].members }}",
+							"ua:type":"mappedArray"
+						},
+						"participants":{
+							"items":"{{ n_w7rNZ.outputs.result.filteredChats[0].members[0].displayName }}",
+							"source":"{{ n_w7rNZ.outputs.result.filteredChats[0].members }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"source":"{{ n_w7rNZ.outputs.result.filteredChats }}",
+					"ua:type":"mappedArray"
+				},
+				"listName":"{{ n_7rXn2.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add items to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.messages.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_n4X1z@n_on6OG@_0Eotf-1@l@l",
+			"id":"_Yu5K3",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"nextLink":{
+							"title":"Next Link",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"chatMsgApiNextLink":{
+							"title":"Chat Msg Api Next Link",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"boolean hasMore = false\nhasMore = (binding.hasVariable('chatMsgApiNextLink') && chatMsgApiNextLink)\ndef afterCursor\nif(hasMore) {\n    def queryParams = chatMsgApiNextLink.split(\"\\\\?\", 2)[1]\n    def params = queryParams.split(\"&\")\n\n    for (param in params) {\n        def keyValue = param.split(\"=\", 2) \n        if (keyValue[0].toLowerCase() == \"\\$skiptoken\") {\n            afterCursor = URLDecoder.decode(keyValue[1], \"UTF-8\")\n            break\n        }\n    }\n}\n\nreturn [\n    \"nextLink\": hasMore ? afterCursor : null,\n    \"hasMore\" : hasMore\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"chatMsgApiNextLink":"{{ n_L75Qp.outputs.nextLink }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Get cursor",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":37,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_n4X1z@n_on6OG@_0Eotf-1@l@l",
+			"id":"n_yvaay",
+			"index":9,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ _BKkh9.outputs.newFlow }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.chatIds.items",
+					"root.parameters.selectedChatIds.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":63,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"_0UGdX",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chatIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Chat Ids",
+							"type":"array"
+						},
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"filteredChats":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chatId":{
+										"title":"Chat Id",
+										"type":"string"
+									},
+									"chatTopic":{
+										"title":"Chat Topic",
+										"type":"string"
+									},
+									"chatType":{
+										"title":"Chat Type",
+										"type":"string"
+									},
+									"meetingInfo":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Meeting Info",
+										"type":"object"
+									},
+									"participantEmails":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Participant Emails",
+										"type":"array"
+									},
+									"participants":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Participants",
+										"type":"array"
+									},
+									"sentDate":{
+										"title":"Sent Date",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Filtered Chats",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"chatIds":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Chat Ids",
+							"type":"array"
+						},
+						"selectedChatIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Selected Chat Ids",
+							"type":"array"
+						},
+						"sentDate":{
+							"title":"Sent Date",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.text.SimpleDateFormat\nimport java.util.Date\n\ndef getTimestampMillis(String timestamp, String dateFormat) {\n    long timestampMillis = 0\n    if (timestamp != null && timestamp.toString().trim() != \"\") {\n        try {\n            def format = new SimpleDateFormat(dateFormat)\n            def date = format.parse(timestamp.toString().trim())\n            timestampMillis = date.getTime()\n        } catch (Exception e) {\n           \n        }\n    }\n    return timestampMillis\n}\n\n\ndef chatDataList = []\nif (binding.hasVariable(\"chatIds\") && chatIds != null && chatIds instanceof List) {\n    chatDataList = chatIds\n}\n\n// selectedChatIds — chat ID strings selected by user in knowledge source\ndef selectedIdsList = []\nif (binding.hasVariable(\"selectedChatIds\") && selectedChatIds != null && selectedChatIds instanceof List) {\n    selectedIdsList = selectedChatIds\n}\n\n// sentDate\ndef sentDate = binding.hasVariable(\"sentDate\") && sentDate ? sentDate : null\ndef dateFormat = \"yyyy-MM-dd\"\ndef sentEpoch = getTimestampMillis(sentDate?.toString(), dateFormat)\n\n// Build Set for fast lookup\ndef selectedSet = selectedIdsList.toSet()\n\ndef filteredChats = []\n\nfor (chatObj in chatDataList) {\n    if (chatObj instanceof Map) {\n        def chatId = chatObj.get(\"chatId\")\n\n        // If selectedChatIds is empty include all, otherwise filter\n        if (selectedSet.isEmpty() || selectedSet.contains(chatId)) {\n            def chat = new LinkedHashMap<>()\n            chat.put(\"chatId\", chatId)\n            chat.put(\"participants\", chatObj.get(\"participants\") ?: [])\n            chat.put(\"participantEmails\", chatObj.get(\"participantEmails\") ?: [])\n            if (chatObj.containsKey('chatTopic')) {\n                chat.put('chatTopic', chatObj.get('topic'))\n            }\n            if (chatObj.containsKey('chatType')) {\n                chat.put('chatType', chatObj.get('chatType'))\n            }\n            if (chatObj.containsKey('meetingInfo')) {\n                chat.put('meetingInfo', chatObj.get('meetingInfo'))\n            }\n            chat.put(\"sentDate\", sentEpoch)\n            filteredChats << chat\n        }\n    }\n}\n\n// Collect just the chat IDs from the filtered chats\ndef chatIdList = filteredChats.collect { it.get(\"chatId\") }\n\nreturn [\n    \"filteredChats\": filteredChats,\n    \"chatIds\": chatIdList,\n    \"count\": filteredChats.size()\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"chatIds":{
+						"items":"{{ n_7rXn2.outputs.items[0] }}",
+						"source":"{{ n_7rXn2.outputs.items }}",
+						"ua:type":"mappedArray"
+					},
+					"sentDate":"{{ _BKkh9.outputs.sentDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Input Creation & filter Chat Ids",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":60,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"n_NAxvB",
+			"index":11,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_zJKDm.outputs.count }}",
+						"value":"=SUM({{ n_zJKDm.outputs.count }},{{ n_w7rNZ.outputs.result.count }}*2)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":318,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"n_ZELCP",
+			"index":12,
+			"inputs":{
+				"automationId":"6a0b811a9528c1685dc2057a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"downloaderAutomation":"68bc13f3d2ebf433acbbe900",
+					"downloaderParams":{
+						"items":{
+							"accountId":"{{ _BKkh9.outputs.userId }}",
+							"inputs":"{{ _0UGdX.outputs.result.filteredChats[0] }}",
+							"parentEntityId":"{{ _0UGdX.outputs.result.filteredChats[0].chatId }}"
+						},
+						"source":"{{ _0UGdX.outputs.result.filteredChats }}",
+						"ua:type":"mappedArray"
+					},
+					"importerConnections":"{{ _BKkh9.outputs.importerConnections }}",
+					"importerParams":{
+						"aiAgentId":"{{ _BKkh9.outputs.importarParams.aiAgentId }}",
+						"downloaderConfig":{
+							"currentTimeEpoch":"{{ _BKkh9.outputs.importarParams.downloaderConfig.currentEpochMillis }}",
+							"grabberType":"{{ _BKkh9.outputs.importarParams.downloaderConfig.grabberType }}",
+							"startTimeEpoch":"{{ _BKkh9.outputs.importarParams.downloaderConfig.startTimeEpoch }}"
+						},
+						"knowledge":"{{ _BKkh9.outputs.importarParams.knowledge }}",
+						"knowledgeId":"{{ _BKkh9.outputs.importarParams.knowledgeId }}"
+					},
+					"knowledgeId":"{{ _BKkh9.outputs.knowledgeId }}",
+					"loadTestingEnabled":false
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":2,
+					"enabled":true,
+					"initialDelay":3000,
+					"maxDelay":3000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Chat",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":318,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"n_6NhAc",
+			"index":13,
+			"inputs":{
+				"automationId":"6a0b811a9528c1685dc2057a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"downloaderAutomation":"6a1d6a99bace2753bf3c5da8",
+					"downloaderParams":{
+						"items":{
+							"accountId":"{{ _BKkh9.outputs.userId }}",
+							"inputs":"{{ _0UGdX.outputs.result.filteredChats[0] }}",
+							"parentEntityId":"{{ _0UGdX.outputs.result.filteredChats[0].chatId }}_tab"
+						},
+						"source":"{{ _0UGdX.outputs.result.filteredChats }}",
+						"ua:type":"mappedArray"
+					},
+					"importerConnections":"{{ _BKkh9.outputs.importerConnections }}",
+					"importerParams":{
+						"aiAgentId":"{{ _BKkh9.outputs.importarParams.aiAgentId }}",
+						"downloaderConfig":{
+							"currentTimeEpoch":"{{ _BKkh9.outputs.importarParams.downloaderConfig.currentEpochMillis }}",
+							"grabberType":"{{ _BKkh9.outputs.importarParams.downloaderConfig.grabberType }}",
+							"startTimeEpoch":"{{ _BKkh9.outputs.importarParams.downloaderConfig.startTimeEpoch }}"
+						},
+						"knowledge":"{{ _BKkh9.outputs.importarParams.knowledge }}",
+						"knowledgeId":"{{ _BKkh9.outputs.importarParams.knowledgeId }}"
+					},
+					"knowledgeId":"{{ _BKkh9.outputs.knowledgeId }}",
+					"loadTestingEnabled":false
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":2,
+					"enabled":true,
+					"initialDelay":3000,
+					"maxDelay":3000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Tab",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":787,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"n_iag7y",
+			"index":14,
+			"inputs":{
+				"automationId":"6a1f3591930fa238c5e2a962",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"chatInputs":{
+						"items":"{{ _0UGdX.outputs.result.filteredChats[0] }}",
+						"source":"{{ _0UGdX.outputs.result.filteredChats }}",
+						"ua:type":"mappedArray"
+					},
+					"indexingVersion":"{{ _BKkh9.outputs.indexingVersion }}",
+					"isChat":true,
+					"knowledgeId":"{{ _BKkh9.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ _BKkh9.outputs.knowledgeSetId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Parent Metadata",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1700,
+				"resourceName":"storage_by_unifyapps_upsert_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"n_Jeu0M",
+			"index":15,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"microsoft_teams_rbac_store",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.userId",
+						"setValue":"{{ _BKkh9.outputs.userId }}"
+					},
+					{
+						"actionType":"ADD_TO_SET",
+						"fieldName":"properties.chats",
+						"setValue":"{{ _0UGdX.outputs.result.chatIds }}"
+					}
+				],
+				"id":"{{ _BKkh9.outputs.userId }}",
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Upsert Record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":60,
+				"resourceName":"variable_by_unifyapps_clear_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yvaay@n_n4X1z@n_on6OG@_0Eotf-1@l@l@y",
+			"id":"n_sp84m",
+			"index":16,
+			"inputs":{
+				"listName":"{{ n_7rXn2.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Remove all items from list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":629,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_n4X1z@n_on6OG@_0Eotf-1@l@l",
+			"id":"n_PIH5m",
+			"index":17,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_zJKDm.outputs.hasMore }}",
+						"value":"{{ _Yu5K3.outputs.result.hasMore }}"
+					},
+					{
+						"source":"{{ n_zJKDm.outputs.nextLink }}",
+						"value":"{{ _Yu5K3.outputs.result.nextLink }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_on6OG@_0Eotf-1@l",
+			"id":"_9fahb",
+			"index":18,
+			"inputs":{
+				"result":{
+					"chatIds":{
+						"items":{
+							"chatId":"{{ n_7rXn2.outputs.items[0].chatId }}",
+							"chatTopic":"{{ n_7rXn2.outputs.items[0].chatTopic }}",
+							"chatType":"{{ n_7rXn2.outputs.items[0].chatType }}",
+							"meetingInfo":"{{ n_7rXn2.outputs.items[0].meetingInfo }}",
+							"participantEmails":{
+								"items":"{{ n_7rXn2.outputs.items[0].participantEmails[0] }}",
+								"source":"{{ n_7rXn2.outputs.items[0].participantEmails }}",
+								"ua:type":"mappedArray"
+							},
+							"participants":{
+								"items":"{{ n_7rXn2.outputs.items[0].participants[0] }}",
+								"source":"{{ n_7rXn2.outputs.items[0].participants }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_7rXn2.outputs.items }}",
+						"ua:type":"mappedArray"
+					},
+					"count":"{{ n_zJKDm.outputs.count }}",
+					"userId":"{{ _BKkh9.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"runtimeConnectionAppNames":[
+		"microsoft_teams"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a0ae7991c5a1b0246b07481",
+	"workflowVersion":33
+}

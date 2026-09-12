@@ -1,0 +1,460 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743678969,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"description":"Receives an optional endpointId. If provided, updates the existing API endpoint via the update callable; otherwise creates a new one via the create callable. Returns the result of whichever operation ran.",
+	"edges":[
+		{
+			"fromNodeId":"n_StArT",
+			"id":"next@n_StArT@n_VrRes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VrRes",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VrRes",
+			"id":"next@n_VrRes@n_IfChk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfChk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfChk",
+			"id":"if@n_IfChk@n_UpdCl",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UpdCl",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_UpdCl",
+			"id":"next@n_UpdCl@n_UpdVr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UpdVr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfChk",
+			"id":"next@n_IfChk@n_CrtCl",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CrtCl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CrtCl",
+			"id":"next@n_CrtCl@n_CNIuy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CNIuy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CNIuy",
+			"id":"next@n_CNIuy@n_CrtVr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CrtVr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UpdVr",
+			"id":"next@n_UpdVr@n_RtEnd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtEnd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CrtVr",
+			"id":"next@n_CrtVr@n_RtEnd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtEnd",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecdbe9d7c534668ef61fa",
+	"lastModifiedBy":-1,
+	"lcName":"create or update api endpoint",
+	"modifiedTime":1787743678971,
+	"name":"Create or Update API Endpoint",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_StArT",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"apiDescription":{
+							"title":"Api Description",
+							"type":"string"
+						},
+						"apiGroupId":{
+							"title":"Api Group Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"downstreamurl":{
+							"title":"Downstream Url",
+							"type":"string"
+						},
+						"endpointId":{
+							"title":"Endpoint Id",
+							"type":"string"
+						},
+						"endpointName":{
+							"title":"Endpoint Name",
+							"type":"string"
+						},
+						"httpMethod":{
+							"title":"Http Method",
+							"type":"string"
+						},
+						"methods":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Methods",
+							"type":"array"
+						},
+						"path":{
+							"title":"Path",
+							"type":"string"
+						},
+						"requestType":{
+							"title":"Request Type",
+							"type":"string"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"workflowId":{
+							"title":"Workflow Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_VrRes",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Create result variable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_IfChk",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_StArT.outputs.endpointId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfChk@root_id-1@y",
+			"id":"n_UpdCl",
+			"index":4,
+			"inputs":{
+				"automationId":"6a64c6da8fe2900ead3588dc",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"downstreamurl":"{{ n_StArT.outputs.downstreamurl }}",
+					"endpointId":"{{ n_StArT.outputs.endpointId }}",
+					"endpointName":"{{ n_StArT.outputs.endpointName }}",
+					"methods":{
+						"items":"{{ n_StArT.outputs.methods[0] }}",
+						"source":"{{ n_StArT.outputs.methods }}",
+						"ua:type":"mappedArray"
+					},
+					"path":"{{ n_StArT.outputs.path }}",
+					"workflowId":"{{ n_StArT.outputs.workflowId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call update api endpoint",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfChk@root_id-1@y",
+			"id":"n_UpdVr",
+			"index":5,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_VrRes.outputs.result }}",
+						"value":"{{ n_UpdCl.outputs.result }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Set result from update",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfChk@root_id-1@n",
+			"id":"n_CrtCl",
+			"index":6,
+			"inputs":{
+				"automationId":"6a634ce8e4608705b6072644",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"apiDescription":"{{ n_StArT.outputs.apiDescription }}",
+					"apiGroupId":"{{ n_StArT.outputs.apiGroupId }}",
+					"downstreamurl":"{{ n_StArT.outputs.downstreamurl }}",
+					"endpointName":"{{ n_StArT.outputs.endpointName }}",
+					"httpMethod":"{{ n_StArT.outputs.httpMethod }}",
+					"path":"{{ n_StArT.outputs.path }}",
+					"requestType":"{{ n_StArT.outputs.requestType }}",
+					"resourceType":"{{ n_StArT.outputs.resourceType }}",
+					"workflowId":"{{ n_StArT.outputs.workflowId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call create api endpoint",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfChk@root_id-1@n",
+			"id":"n_CNIuy",
+			"index":7,
+			"inputs":{
+				"automationId":"6a68c838d4560209e944783a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"assetClass":"API_ENDPOINT",
+					"assetId":"{{ n_CrtCl.outputs.endpointDetails.id }}",
+					"caseId":"{{ n_StArT.outputs.caseId }}",
+					"parentId":"{{ n_StArT.outputs.apiGroupId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfChk@root_id-1@n",
+			"id":"n_CrtVr",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_VrRes.outputs.result }}",
+						"value":"{{ n_CrtCl.outputs.endpointDetails }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Set result from create",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_RtEnd",
+			"index":9,
+			"inputs":{
+				"result":{
+					"result":"{{ n_VrRes.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde-api-manager",
+		"ai-fde"
+	],
+	"version":0,
+	"workflowDefinitionId":"6a676b3d8166536c473ef3df",
+	"workflowVersion":18
+}
