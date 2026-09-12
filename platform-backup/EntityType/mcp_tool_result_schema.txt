@@ -1,0 +1,367 @@
+{
+	"columnCounts":0,
+	"createdTime":1787737371408,
+	"deleted":false,
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"A"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"mcp_tool_result_schema",
+	"input":{
+		"type":"SCHEMA_AND_LAYOUT",
+		"dynamic":false,
+		"layout":{},
+		"schema":{
+			"type":"object",
+			"properties":{
+				"_meta":{
+					"additionalProperties":{},
+					"description":"This property is reserved for attaching additional metadata to responses.",
+					"type":"object"
+				},
+				"content":{
+					"items":{
+						"dependencies":{
+							"type":{
+								"oneOf":[
+									{
+										"properties":{
+											"annotations":{
+												"properties":{
+													"audience":{
+														"description":"Describes who the intended customer of this object or data is.",
+														"items":{
+															"properties":{
+																"Role":{
+																	"enum":[
+																		"assistant",
+																		"user"
+																	],
+																	"type":"string"
+																}
+															},
+															"type":"object"
+														},
+														"type":"array"
+													},
+													"priority":{
+														"description":"Describes how important this data is for operating the server. From 0 to 1.",
+														"maximum":1,
+														"minimum":0,
+														"type":"number"
+													}
+												},
+												"type":"object"
+											},
+											"text":{
+												"description":"The text content of the message.",
+												"type":"string"
+											},
+											"type":{
+												"enum":[
+													"text"
+												]
+											}
+										},
+										"required":[
+											"text"
+										]
+									},
+									{
+										"properties":{
+											"annotations":{
+												"properties":{
+													"audience":{
+														"description":"Describes who the intended customer of this object or data is.",
+														"items":{
+															"properties":{
+																"Role":{
+																	"enum":[
+																		"assistant",
+																		"user"
+																	],
+																	"type":"string"
+																}
+															},
+															"type":"object"
+														},
+														"type":"array"
+													},
+													"priority":{
+														"description":"Describes how important this data is for operating the server. From 0 to 1.",
+														"maximum":1,
+														"minimum":0,
+														"type":"number"
+													}
+												},
+												"type":"object"
+											},
+											"data":{
+												"description":"The base64-encoded image data.",
+												"type":"string"
+											},
+											"mimeType":{
+												"description":"The MIME type of the image. Different providers may support different image types.",
+												"type":"string"
+											},
+											"type":{
+												"enum":[
+													"image"
+												]
+											}
+										},
+										"required":[
+											"data",
+											"mimeType"
+										]
+									},
+									{
+										"properties":{
+											"annotations":{
+												"properties":{
+													"audience":{
+														"description":"Describes who the intended customer of this object or data is.",
+														"items":{
+															"properties":{
+																"Role":{
+																	"enum":[
+																		"assistant",
+																		"user"
+																	],
+																	"type":"string"
+																}
+															},
+															"type":"object"
+														},
+														"type":"array"
+													},
+													"priority":{
+														"description":"Describes how important this data is for operating the server. From 0 to 1.",
+														"maximum":1,
+														"minimum":0,
+														"type":"number"
+													}
+												},
+												"type":"object"
+											},
+											"resource":{
+												"dependencies":{
+													"type":{
+														"oneOf":[
+															{
+																"properties":{
+																	"TextResourceContents":{
+																		"properties":{
+																			"mimeType":{
+																				"description":"The MIME type of this resource, if known.",
+																				"type":"string"
+																			},
+																			"text":{
+																				"description":"The text of the item. This must only be set if the item can actually be represented as text (not binary data).",
+																				"type":"string"
+																			},
+																			"uri":{
+																				"description":"The URI of this resource.",
+																				"type":"string"
+																			}
+																		},
+																		"required":[
+																			"text",
+																			"uri"
+																		],
+																		"type":"object"
+																	},
+																	"type":{
+																		"enum":[
+																			"Text"
+																		]
+																	}
+																}
+															},
+															{
+																"properties":{
+																	"BlobResourceContents":{
+																		"properties":{
+																			"blob":{
+																				"description":"A base64-encoded string representing the binary data of the item.",
+																				"type":"string"
+																			},
+																			"mimeType":{
+																				"description":"The MIME type of this resource, if known.",
+																				"type":"string"
+																			},
+																			"uri":{
+																				"description":"The URI of this resource.",
+																				"type":"string"
+																			}
+																		},
+																		"required":[
+																			"blob",
+																			"uri"
+																		],
+																		"type":"object"
+																	},
+																	"type":{
+																		"enum":[
+																			"Blob"
+																		]
+																	}
+																}
+															}
+														]
+													}
+												},
+												"properties":{
+													"type":{
+														"enum":[
+															"Text",
+															"Blob"
+														],
+														"type":"string"
+													}
+												},
+												"type":"object"
+											},
+											"type":{
+												"enum":[
+													"resource"
+												]
+											}
+										},
+										"required":[
+											"resource"
+										]
+									}
+								]
+							}
+						},
+						"properties":{
+							"type":{
+								"default":"text",
+								"oneOf":[
+									{
+										"const":"text",
+										"title":"Text Content"
+									},
+									{
+										"const":"image",
+										"title":"Image Content"
+									},
+									{
+										"const":"resource",
+										"title":"Embedded Resource"
+									}
+								],
+								"type":"string"
+							}
+						},
+						"type":"object"
+					},
+					"type":"array"
+				},
+				"isError":{
+					"default":false,
+					"description":"Whether the tool call ended in an error.",
+					"type":"boolean"
+				}
+			},
+			"required":[
+				"content"
+			]
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"mcp tool result schema",
+	"metadata":{
+		"auditable":false,
+		"autoGeneratedFields":[
+			
+		],
+		"cacheable":false,
+		"captureActivity":false,
+		"captureReferences":false,
+		"captureReporting":false,
+		"dateFields":[
+			
+		],
+		"deployable":false,
+		"encryptedFields":[
+			
+		],
+		"external":false,
+		"filterableFields":[
+			
+		],
+		"graphType":"LEGACY_MDM",
+		"hasTimeSeriesRecords":true,
+		"hashedFields":[
+			
+		],
+		"inaccessibleFromUI":false,
+		"includeInDependency":false,
+		"nameField":"",
+		"partFields":[
+			
+		],
+		"piiFields":[
+			
+		],
+		"primaryKeyField":"",
+		"referenceKeys":[
+			
+		],
+		"scdType2Enabled":false,
+		"schemaValidationEnabled":true,
+		"searchableFields":[
+			
+		],
+		"sessionBackedStorageEnabled":false,
+		"skipConfigSyncIfModified":false,
+		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
+		"skipIndexLimitValidation":false,
+		"skipPermissionCheckForAggregation":false,
+		"skipPermissionsFilter":false,
+		"skipReportingEventsOrdering":false,
+		"skipRoutineLoad":false,
+		"skipTotalHitsInAggregation":false,
+		"skipVersionIncrementOnUpdate":false,
+		"storeDetails":{
+			"store":"MONGO",
+			"uniqueKeySupported":true
+		},
+		"supportsDistinctValues":false,
+		"supportsWebhook":false,
+		"syncFromSourceCustomer":false,
+		"translationsEnabled":false,
+		"uniqueKeyFields":[
+			
+		],
+		"urlValidationEnabledFields":[
+			
+		],
+		"useCachedEntityStoreForAutomations":false,
+		"userLevelEncryption":false,
+		"vectorFields":[
+			
+		],
+		"versioningEnabled":false
+	},
+	"modifiedTime":1787743262208,
+	"name":"MCP Tool Result Schema",
+	"ownerUserId":-1,
+	"packaged":true,
+	"pluralName":"MCP Tool Result Schemas",
+	"schema":{
+		"type":"SCHEMA",
+		"dynamic":false
+	},
+	"standard":true,
+	"version":1
+}
