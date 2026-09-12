@@ -1,0 +1,134 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743816352,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743816399,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece4845d2142160e6e550",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":182
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_A72CQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uObXQ",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69104ec0f56923794f37bb71",
+	"lastModifiedBy":-1,
+	"lcName":"realtime people indexer | platform | on create",
+	"modifiedTime":1788252971710,
+	"name":"Realtime People Indexer | Platform | On Create",
+	"nodes":[
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":809,
+				"resourceName":"standard_entities_on_user_create"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KyfaL-1",
+			"id":"n_A72CQ",
+			"index":1,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"unify_platform"
+							},
+							"property":"{{ __ENV__.outputs.PLATFORM_PEOPLE_KNOWLEDGE_APPLICATION_ID }}"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __ENV__.outputs.PLATFORM_PEOPLE_KNOWLEDGE_APPLICATION_ID }}"
+							},
+							"property":"{{ n_A72CQ.outputs.applicationId }}"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"On user create",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_KyfaL-1",
+			"id":"n_uObXQ",
+			"index":2,
+			"inputs":{
+				"automationId":"685561bad46eee0b43a5492d",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"platform",
+					"email":"{{ n_A72CQ.outputs.contactDetails.email }}",
+					"sourceUserId":"{{ n_A72CQ.outputs.id }}",
+					"sourceUserInfo":"{{ n_A72CQ.outputs }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Index People From Knowledge",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":184
+}
