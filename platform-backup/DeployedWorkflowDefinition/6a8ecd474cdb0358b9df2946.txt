@@ -1,0 +1,232 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743559708,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"HViyt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"RQqJg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"RQqJg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"cQynS",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd474cdb0358b9df2946",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | bitbucket server | index a single repository (batch wrapper)",
+	"modifiedTime":1787743559714,
+	"name":"Knowledge Indexer | Bitbucket Server | Index a single repository (batch wrapper)",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":677,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"1cgMs-1",
+			"id":"HViyt",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{
+								"modelId":{
+									"title":"Model Id",
+									"type":"string"
+								},
+								"path":{
+									"title":"Path",
+									"type":"string"
+								},
+								"projectId":{
+									"title":"projectId",
+									"type":"string"
+								},
+								"repoId":{
+									"title":"Repo Id",
+									"type":"string"
+								},
+								"sharedWithIds":{
+									"items":{
+										"type":"string"
+									},
+									"title":"Shared With Ids",
+									"type":"array"
+								},
+								"summarizeCode":{
+									"title":"Summarize Code",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"sharedWithIds"
+							],
+							"title":"inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"connectionId",
+													"type":"string"
+												}
+											},
+											"title":"context",
+											"type":"object"
+										}
+									},
+									"title":"applicationInfo",
+									"type":"object"
+								},
+								"lastSyncTime":{
+									"title":"Last Sync Time",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":702,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"1cgMs-1",
+			"id":"RQqJg",
+			"index":0,
+			"inputs":{
+				"automationId":"682ba6507f7eb34f85b49c96",
+				"runtimeConnections":{
+					"bitbucket_server":"{{ HViyt.outputs.knowledge.applicationInfo.context.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ HViyt.outputs.aiAgentId }}",
+					"inputs":"{{ HViyt.outputs.inputs }}",
+					"knowledge":{
+						"applicationInfo":{
+							"context":{
+								"connectionId":"{{ HViyt.outputs.knowledge.applicationInfo.context.connectionId }}"
+							}
+						},
+						"lastSyncTime":"{{ HViyt.outputs.knowledge.lastSyncTime }}",
+						"readVersion":"{{ HViyt.outputs.knowledge.readVersion }}"
+					},
+					"knowledgeId":"{{ HViyt.outputs.knowledgeId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":687,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"1cgMs-1",
+			"id":"cQynS",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":"{{ RQqJg.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"682ba86d7f7eb34f85b4b646",
+	"workflowVersion":5
+}
