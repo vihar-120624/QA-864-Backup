@@ -1,0 +1,203 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743784950,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_yejwK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_f7uHe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_f7uHe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rFcBj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rFcBj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9aZQQ",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece2845d2142160e6e132",
+	"lastModifiedBy":-1,
+	"lcName":"create runtime connection | es",
+	"modifiedTime":1787743784951,
+	"name":"Create Runtime Connection | ES",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1860,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_CEYvr-1",
+			"id":"n_yejwK",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiagentId":{
+							"title":"Aiagent Id",
+							"type":"string"
+						},
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":3816,
+				"resourceName":"standard_entities_get_connections",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_CEYvr-1",
+			"id":"n_f7uHe",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_yejwK.outputs.appName }}"
+							},
+							"property":"appName"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __RUN__.outputs.userId }}"
+							},
+							"property":"oUId"
+						}
+					],
+					"operator":"AND"
+				},
+				"offset":0,
+				"size":1
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get connections",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1073,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_CEYvr-1",
+			"id":"n_rFcBj",
+			"index":3,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"run_time_connection_store",
+				"skipIfBlank":false,
+				"record":{
+					"aiAgentId":"{{ n_yejwK.outputs.aiagentId }}",
+					"appName":"{{ n_yejwK.outputs.appName }}",
+					"connectionId":"{{ n_f7uHe.outputs.connections[0].id }}",
+					"userId":"{{ __RUN__.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1897,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_CEYvr-1",
+			"id":"n_9aZQQ",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"697712d9f9618b5b2d12e142",
+	"workflowVersion":19
+}
