@@ -1,0 +1,279 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743884648,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_ZKs3M",
+			"id":"next@n_ZKs3M@n_yDQVm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yDQVm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yDQVm",
+			"id":"next@n_yDQVm@n_0L6Nd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0L6Nd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0L6Nd",
+			"id":"next@n_0L6Nd@n_S7Nlv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S7Nlv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S7Nlv",
+			"id":"next@n_S7Nlv@n_yeXBS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yeXBS",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece8c9d7c534668ef9d5e",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | fetch connector",
+	"modifiedTime":1787743884649,
+	"name":"ENTERPRISE SEARCH | Fetch Connector",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":967,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wW28i-1",
+			"id":"n_ZKs3M",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"documentationLink":{
+							"title":"Documentation Link",
+							"type":"string"
+						},
+						"runTimeConnectionEnabled":{
+							"title":"Run Time Connection Enabled",
+							"type":"boolean"
+						},
+						"tools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Tools",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"topicId":{
+							"title":"Topic Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1116,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wW28i-1",
+			"id":"n_yDQVm",
+			"index":2,
+			"inputs":{
+				"object_type":"e_topic_ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_ZKs3M.outputs.topicId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1617,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wW28i-1",
+			"id":"n_0L6Nd",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_ZKs3M.outputs.topicId }}"
+							},
+							"property":"properties_topicId"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_action_ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wW28i-1",
+			"id":"n_S7Nlv",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_yDQVm.outputs.properties.name }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_topic_app_library",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":990,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wW28i-1",
+			"id":"n_yeXBS",
+			"index":5,
+			"inputs":{
+				"result":{
+					"appName":"{{ n_yDQVm.outputs.properties.name }}",
+					"connectionId":"{{ n_yDQVm.outputs.properties.connectionId }}",
+					"documentationLink":"{{ n_S7Nlv.outputs.properties.documentationLink }}",
+					"runTimeConnectionEnabled":"{{ n_yDQVm.outputs.properties.runTimeConnectionEnabled }}",
+					"tools":{
+						"items":"{{ n_0L6Nd.outputs.objects[0].properties }}",
+						"source":"{{ n_0L6Nd.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a5526d43adb0346190f789a",
+	"workflowVersion":34
+}
