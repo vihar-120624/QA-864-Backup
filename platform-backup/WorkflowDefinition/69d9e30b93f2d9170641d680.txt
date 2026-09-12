@@ -1,0 +1,527 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743811664,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743811726,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece43177b4b4aca57b576",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":11
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_AiiAO",
+			"id":"next@n_AiiAO@n_1MJcI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1MJcI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1MJcI",
+			"id":"next@n_1MJcI@n_0sCBp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0sCBp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0sCBp",
+			"id":"next@n_0sCBp@n_yHJxf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yHJxf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yHJxf",
+			"id":"next@n_yHJxf@n_gypV3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gypV3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gypV3",
+			"id":"if@n_gypV3@n_8h4va",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8h4va",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_8h4va",
+			"id":"next@n_8h4va@n_Zikzr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Zikzr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gypV3",
+			"id":"next@n_gypV3@n_aZTby",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aZTby",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69d9e30b93f2d9170641d680",
+	"lastModifiedBy":-1,
+	"lcName":"simple agent builder | fetch all details of agent",
+	"modifiedTime":1788252972835,
+	"name":"Simple Agent Builder | Fetch all Details of Agent",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":470,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Po5jd-1",
+			"id":"n_AiiAO",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"AIAgentName":{
+							"title":"AI Agent Name",
+							"type":"string"
+						},
+						"Instructions":{
+							"title":"Instructions",
+							"type":"string"
+						},
+						"agentType":{
+							"title":"Agent Type",
+							"type":"string"
+						},
+						"aiAgentDescription":{
+							"title":"Ai Agent Description",
+							"type":"string"
+						},
+						"defaultTools":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Default Tools",
+							"type":"object"
+						},
+						"goal":{
+							"title":"Goal",
+							"type":"string"
+						},
+						"knowledgeDetails":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Details",
+							"type":"array"
+						},
+						"role":{
+							"title":"Role",
+							"type":"string"
+						},
+						"tasksDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"properties":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Properties",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tasks Details",
+							"type":"array"
+						},
+						"toolDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"properties":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Properties",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tool Details",
+							"type":"array"
+						}
+					},
+					"required":[
+						"Instructions",
+						"toolDetails",
+						"knowledgeDetails",
+						"AIAgentName",
+						"defaultTools",
+						"aiAgentDescription"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"aiAgentId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1033,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Po5jd-1",
+			"id":"n_1MJcI",
+			"index":2,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_AiiAO.outputs.aiAgentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Agent Details",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1033,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Po5jd-1",
+			"id":"n_0sCBp",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_AiiAO.outputs.aiAgentId }}"
+							},
+							"property":"properties_aiAgentId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"GLOBAL"
+							},
+							"property":"properties_topicId"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_action_ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch all Tools",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1033,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Po5jd-1",
+			"id":"n_yHJxf",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_AiiAO.outputs.aiAgentId }}"
+							},
+							"property":"properties_aiAgentId"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"knowledge",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Knowledge",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":58,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Po5jd-1",
+			"id":"n_gypV3",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"ai-agent"
+						},
+						"property":"{{ n_1MJcI.outputs.properties.agentType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2520,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_gypV3@_Po5jd-1@y",
+			"id":"n_8h4va",
+			"index":6,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_AiiAO.outputs.aiAgentId }}"
+							},
+							"property":"properties_aiAgentId"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_topic_ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":470,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_gypV3@_Po5jd-1@y",
+			"id":"n_Zikzr",
+			"index":7,
+			"inputs":{
+				"result":{
+					"AIAgentName":"{{ n_1MJcI.outputs.properties.name }}",
+					"Instructions":"{{ n_1MJcI.outputs.properties.instructions }}",
+					"agentType":"Advanced Agent",
+					"aiAgentDescription":"{{ n_1MJcI.outputs.properties.description }}",
+					"defaultTools":"{{ n_1MJcI.outputs.properties.defaultTools }}",
+					"goal":"{{ n_1MJcI.outputs.properties.goal }}",
+					"knowledgeDetails":{
+						"items":"{{ n_yHJxf.outputs.objects[0].properties }}",
+						"source":"{{ n_yHJxf.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"role":"{{ n_1MJcI.outputs.properties.role }}",
+					"tasksDetails":{
+						"items":{
+							"id":"{{ n_8h4va.outputs.objects[0].id }}",
+							"properties":"{{ n_8h4va.outputs.objects[0].properties }}"
+						},
+						"source":"{{ n_8h4va.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"toolDetails":{
+						"items":{
+							"id":"{{ n_0sCBp.outputs.objects[0].id }}",
+							"properties":"{{ n_0sCBp.outputs.objects[0].properties }}"
+						},
+						"source":"{{ n_0sCBp.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":470,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_gypV3@_Po5jd-1@n",
+			"id":"n_aZTby",
+			"index":8,
+			"inputs":{
+				"result":{
+					"AIAgentName":"{{ n_1MJcI.outputs.properties.name }}",
+					"Instructions":"{{ n_1MJcI.outputs.properties.instructions }}",
+					"agentType":"Simple Agent",
+					"aiAgentDescription":"{{ n_1MJcI.outputs.properties.description }}",
+					"defaultTools":"{{ n_1MJcI.outputs.properties.defaultTools }}",
+					"knowledgeDetails":{
+						"items":"{{ n_yHJxf.outputs.objects[0].properties }}",
+						"source":"{{ n_yHJxf.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"toolDetails":{
+						"items":{
+							"id":"{{ n_0sCBp.outputs.objects[0].id }}",
+							"properties":"{{ n_0sCBp.outputs.objects[0].properties }}"
+						},
+						"source":"{{ n_0sCBp.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent Team",
+		"text-to-agent"
+	],
+	"version":13
+}
