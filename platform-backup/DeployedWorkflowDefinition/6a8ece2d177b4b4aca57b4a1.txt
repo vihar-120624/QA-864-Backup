@@ -1,0 +1,235 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743789061,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_nrDAp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nnxYB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nnxYB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_J4TRw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_J4TRw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pvwQQ",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece2d177b4b4aca57b4a1",
+	"lastModifiedBy":-1,
+	"lcName":"check asset permissions",
+	"modifiedTime":1787743789063,
+	"name":"Check asset permissions",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":617,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_blBTF-1",
+			"id":"n_nrDAp",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"editAccess":{
+							"title":"Edit Access",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"id":{
+							"title":"Id",
+							"type":"string"
+						},
+						"objectType":{
+							"title":"Object Type",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":944,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_blBTF-1",
+			"id":"n_nnxYB",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_nrDAp.outputs.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"{{ n_nrDAp.outputs.objectType }}",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":true,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.currentUserPermissions.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":624,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_blBTF-1",
+			"id":"n_J4TRw",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"editAccess":{
+							"title":"Edit Access",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"currentUserPermissions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Current User Permissions",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if(!this.binding.hasVariable('currentUserPermissions')) {currentUserPermissions = []}\ndef editAccess = false\n\nif(currentUserPermissions.contains(\"EDIT\")){\n  editAccess = true\n}\n\nreturn [\n  editAccess : editAccess\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"currentUserPermissions":{
+						"items":"{{ n_nnxYB.outputs.currentUserPermissions[0] }}",
+						"source":"{{ n_nnxYB.outputs.currentUserPermissions }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"get Permissions",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":644,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_blBTF-1",
+			"id":"n_pvwQQ",
+			"index":4,
+			"inputs":{
+				"result":{
+					"editAccess":"{{ n_J4TRw.outputs.result.editAccess }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"6916be9f1640352c5d8abb5b",
+	"workflowVersion":5
+}

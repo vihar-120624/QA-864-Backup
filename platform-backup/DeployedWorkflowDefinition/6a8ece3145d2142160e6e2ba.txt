@@ -1,0 +1,312 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743793878,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"Q5cvw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"20YxB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"20YxB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"g2laT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"g2laT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Y0ZAQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Y0ZAQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"w3Ytc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"w3Ytc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"TL3Ej",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"TL3Ej",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"YoSGP",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece3145d2142160e6e2ba",
+	"lastModifiedBy":-1,
+	"lcName":"slack schedule intermediate messages",
+	"modifiedTime":1787743793879,
+	"name":"Slack Schedule Intermediate messages",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":52,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"Q5cvw",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"channel":{
+							"title":"channel",
+							"type":"string"
+						},
+						"eventId":{
+							"title":"eventId",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"20YxB",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"epoch_1":{
+							"title":"Epoch 1",
+							"type":"number"
+						},
+						"epoch_2":{
+							"title":"Epoch 2",
+							"type":"string"
+						},
+						"epoch_3":{
+							"title":"Epoch 3",
+							"type":"string"
+						},
+						"epoch_4":{
+							"title":"Epoch 4",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def now = new Date()\ndef epoch_1 = now.getTime() + 1000\ndef epoch_2 = now.getTime() + 6000\ndef epoch_3 = now.getTime() + 11000\ndef epoch_4 = now.getTime() + 15000\nreturn ['epoch_1': epoch_1, 'epoch_2': epoch_2, 'epoch_3': epoch_3, 'epoch_4': epoch_4]",
+				"isAsync":false
+			},
+			"skip":false,
+			"subTitle":"Code By UnifyApps",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":62,
+				"resourceName":"callables_schedule_a_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"g2laT",
+			"index":0,
+			"inputs":{
+				"automation_id":"66ec95c7f5dd5b60ca19527a",
+				"start_time":"{{ 20YxB.outputs.result.epoch_1 }}",
+				"schedule_type":"ONE_TIME",
+				"cancel_existing":true,
+				"parameters":{
+					"channel":"{{ Q5cvw.outputs.channel }}",
+					"eventId":"{{ Q5cvw.outputs.eventId }}",
+					"message":"🔍 Analyzing input..."
+				},
+				"schedule_name":"{{ Q5cvw.outputs.eventId }}_1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":62,
+				"resourceName":"callables_schedule_a_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"Y0ZAQ",
+			"index":0,
+			"inputs":{
+				"automation_id":"66ec95c7f5dd5b60ca19527a",
+				"start_time":"{{ 20YxB.outputs.result.epoch_2 }}",
+				"schedule_type":"ONE_TIME",
+				"cancel_existing":true,
+				"parameters":{
+					"channel":"{{ Q5cvw.outputs.channel }}",
+					"eventId":"{{ Q5cvw.outputs.eventId }}",
+					"message":"🔄 Evaluating context..."
+				},
+				"schedule_name":"{{ Q5cvw.outputs.eventId }}_2"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":62,
+				"resourceName":"callables_schedule_a_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"w3Ytc",
+			"index":0,
+			"inputs":{
+				"automation_id":"66ec95c7f5dd5b60ca19527a",
+				"start_time":"{{ 20YxB.outputs.result.epoch_3 }}",
+				"schedule_type":"ONE_TIME",
+				"cancel_existing":true,
+				"parameters":{
+					"channel":"{{ Q5cvw.outputs.channel }}",
+					"eventId":"{{ Q5cvw.outputs.eventId }}",
+					"message":"🛡️ Validating guardrails..."
+				},
+				"schedule_name":"{{ Q5cvw.outputs.eventId }}_3"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":62,
+				"resourceName":"callables_schedule_a_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"TL3Ej",
+			"index":0,
+			"inputs":{
+				"automation_id":"66ec95c7f5dd5b60ca19527a",
+				"start_time":"{{ 20YxB.outputs.result.epoch_4 }}",
+				"schedule_type":"ONE_TIME",
+				"cancel_existing":true,
+				"parameters":{
+					"channel":"{{ Q5cvw.outputs.channel }}",
+					"eventId":"{{ Q5cvw.outputs.eventId }}",
+					"message":"✍️ Generating response..."
+				},
+				"schedule_name":"{{ Q5cvw.outputs.eventId }}_4"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"LN5nL-1",
+			"id":"YoSGP",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"66eb1eb00218a31ea6a5e00c",
+	"workflowVersion":8
+}
