@@ -1,0 +1,188 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744006218,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_6tZCK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_k81OO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_k81OO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_NfNZ2",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecf06cee862008d74ccb1",
+	"lastModifiedBy":-1,
+	"lcName":"fetch sharings in batch",
+	"modifiedTime":1787744006220,
+	"name":"Fetch Sharings in Batch",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yuSVj@_FENAP-1@l",
+			"id":"_6tZCK",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"extraKnowledgeSetIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Extra Knowledge Set Ids",
+							"type":"array"
+						},
+						"globalMetadataFilterEnabled":{
+							"title":"Global Metadata Filter Enabled",
+							"type":"boolean"
+						},
+						"knowledgeIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Ids",
+							"type":"array"
+						},
+						"knowledgeSetIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Set Ids",
+							"type":"array"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":957,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yuSVj@_FENAP-1@l",
+			"id":"n_k81OO",
+			"index":2,
+			"inputs":{
+				"automationId":"694656eb99ed7e22633b7698",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"runInUserContext":"{{ _6tZCK.outputs.userId }}",
+				"parameters":{
+					"fetchFromStarrocks":true
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Populate single users sharing",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yuSVj@_FENAP-1@l",
+			"id":"_NfNZ2",
+			"index":3,
+			"inputs":{
+				"result":{
+					"extraKnowledgeSetIds":{
+						"items":"{{ n_k81OO.outputs.extraKnowledgeSets[0] }}",
+						"source":"{{ n_k81OO.outputs.extraKnowledgeSets }}",
+						"ua:type":"mappedArray"
+					},
+					"globalMetadataFilterEnabled":"{{ n_k81OO.outputs.globalMetadataFilterEnabled }}",
+					"knowledgeIds":{
+						"items":"{{ n_k81OO.outputs.knowledgeIds[0] }}",
+						"source":"{{ n_k81OO.outputs.knowledgeIds }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeSetIds":{
+						"items":"{{ n_k81OO.outputs.knowledgeSetIds[0] }}",
+						"source":"{{ n_k81OO.outputs.knowledgeSetIds }}",
+						"ua:type":"mappedArray"
+					},
+					"userId":"{{ _6tZCK.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69465a4799ed7e22633b99fe",
+	"workflowVersion":33
+}
