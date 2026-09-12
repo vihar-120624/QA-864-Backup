@@ -1,0 +1,394 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743838734,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743838774,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece5e45d2142160e6e656",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"VurtA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Txwcr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Txwcr",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"o0Zwl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Txwcr",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_Vxoi5",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"o0Zwl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"7cY4a",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_Vxoi5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"7cY4a",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"684fceac5ae1b66e4745e406",
+	"lastModifiedBy":-1,
+	"lcName":"simple call llm | signal wrapper",
+	"modifiedTime":1788252973064,
+	"name":"Simple Call LLM | Signal Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":52,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"legJW-1",
+			"id":"VurtA",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"inputTokenCost":{
+							"title":"Input Token Cost",
+							"type":"number"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"integer"
+						},
+						"llmResponse":{
+							"title":"llmResponse",
+							"type":"string"
+						},
+						"outputTokenCost":{
+							"title":"Output Token Cost",
+							"type":"number"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"AI Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"content":{
+							"title":"content",
+							"type":"string"
+						},
+						"image_url":{
+							"title":"Image Url",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						},
+						"response_format":{
+							"default":"text",
+							"title":"response_format",
+							"type":"string"
+						},
+						"signalProperties":{
+							"additionalProperties":false,
+							"properties":{
+								"automationId":{
+									"title":"Automation Id",
+									"type":"string"
+								},
+								"nodeId":{
+									"title":"Node Id",
+									"type":"string"
+								},
+								"signalId":{
+									"title":"Signal Id",
+									"type":"string"
+								},
+								"waitingInstanceId":{
+									"title":"Waiting Instance Id",
+									"type":"string"
+								},
+								"waitingInstanceRunTimeType":{
+									"title":"Waiting Instance Run Time Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Signal Properties",
+							"type":"object"
+						},
+						"type":{
+							"default":"text",
+							"help":"text/image_url",
+							"title":"type",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.modelId",
+					"root.parameters.caseId",
+					"root.parameters.aiAgentId",
+					"root.parameters.content",
+					"root.parameters.image_url",
+					"root.parameters.type",
+					"root.parameters.response_format"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"legJW-1",
+			"id":"n_Txwcr",
+			"index":0,
+			"inputs":{
+				"automationId":"66dfd76eb70dad256986b784",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ VurtA.outputs.aiAgentId }}",
+					"caseId":"{{ VurtA.outputs.caseId }}",
+					"content":"{{ VurtA.outputs.content }}",
+					"image_url":"{{ VurtA.outputs.image_url }}",
+					"modelId":"{{ VurtA.outputs.modelId }}",
+					"response_format":"{{ VurtA.outputs.response_format }}",
+					"type":"{{ VurtA.outputs.type }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Simple Call LLM",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":382,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Txwcr@legJW-1@success",
+			"id":"o0Zwl",
+			"index":0,
+			"inputs":{
+				"automation_id":"{{ VurtA.outputs.signalProperties.automationId }}",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ VurtA.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ VurtA.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ VurtA.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"signal_payload":"{{ n_Txwcr.outputs }}",
+					"signal_timeout":false
+				},
+				"nodeId":"{{ VurtA.outputs.signalProperties.nodeId }}"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.nodeIds.items"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":382,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Txwcr@legJW-1@error",
+			"id":"_Vxoi5",
+			"index":0,
+			"inputs":{
+				"automation_id":"{{ VurtA.outputs.signalProperties.automationId }}",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ VurtA.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ VurtA.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ VurtA.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"signal_payload":"{{ n_Txwcr.outputs }}",
+					"signal_timeout":false
+				},
+				"nodeId":"{{ VurtA.outputs.signalProperties.nodeId }}"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"legJW-1",
+			"id":"7cY4a",
+			"index":0,
+			"inputs":{
+				"result":{
+					"inputTokenCost":"{{ 2Vkdh.outputs.inputTokenCost }}",
+					"inputTokens":"{{ 2Vkdh.outputs.inputTokens }}",
+					"llmResponse":"{{ 2Vkdh.outputs.llmResponse }}",
+					"outputTokenCost":"{{ 2Vkdh.outputs.outputTokenCost }}",
+					"outputTokens":"{{ 2Vkdh.outputs.outputTokens }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":9
+}
