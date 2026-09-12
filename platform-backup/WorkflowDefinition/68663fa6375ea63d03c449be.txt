@@ -1,0 +1,504 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743551866,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743552202,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd403f7ad93bb1674587",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":16
+	},
+	"edges":[
+		{
+			"fromNodeId":"_W9xca",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QIrgy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QIrgy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V61gJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_V61gJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XWhDL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_XWhDL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_loFC0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_loFC0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_o11rI",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68663fa6375ea63d03c449be",
+	"lastModifiedBy":-1,
+	"lcName":"trigger interface and get user inputs wrapper",
+	"modifiedTime":1788252971960,
+	"name":"Trigger Interface and Get User Inputs Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":435,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IdCmG-1",
+			"id":"_W9xca",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"userInput":{
+							"title":"User Input",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"__ua__trigger_interface_by_unifyapps",
+				"setup":{
+					"additionalProperties":false,
+					"layout":{
+						"caseId":{
+							"ui:help":"Enter the case id.",
+							"ui:title":"Case id"
+						},
+						"interfaceDescription":{
+							"ui:help":"Enter the description of the interface.",
+							"ui:title":"Interface Description"
+						},
+						"interfaceDetails":{
+							"interfaceId":{
+								"ua:allowCustom":true,
+								"ui:options":{
+									"multiple":false,
+									"ua:payload":{
+										"filter":{
+											"op":"AND",
+											"values":[
+												{
+													"field":"properties_name",
+													"op":"EXISTS"
+												},
+												{
+													"field":"properties_name",
+													"op":"NOT_EQUAL",
+													"values":[
+														""
+													]
+												}
+											]
+										},
+										"lookupType":"ENTITY_ID:e_interface",
+										"type":"ByQuery"
+									},
+									"ua:response-accessor":{
+										"id":"id",
+										"name":"properties.name"
+									}
+								},
+								"ui:title":"Application",
+								"ui:widget":"LookupWidget"
+							},
+							"pageId":{
+								"ua:allowCustom":true,
+								"ui:options":{
+									"multiple":false,
+									"ua:dependent_fields":[
+										"parameters.interfaceDetails.interfaceId"
+									],
+									"ua:payload":{
+										"filter":{
+											"op":"AND",
+											"values":[
+												{
+													"field":"properties_name",
+													"op":"EXISTS"
+												},
+												{
+													"field":"properties_name",
+													"op":"NOT_EQUAL",
+													"values":[
+														""
+													]
+												},
+												{
+													"field":"properties_interfaceId",
+													"op":"EQUAL",
+													"values":[
+														"{{parameters.interfaceDetails.interfaceId}}"
+													]
+												}
+											]
+										},
+										"lookupType":"ENTITY_ID:e_component",
+										"type":"ByQuery"
+									},
+									"ua:refreshable":false,
+									"ua:response-accessor":{
+										"id":"id",
+										"name":"properties.name"
+									}
+								},
+								"ui:title":"Page ID",
+								"ui:widget":"LookupWidget"
+							},
+							"pageInputs":{
+								"ui:help":"Enter the page inputs.",
+								"ui:title":"Page Input"
+							},
+							"slug":{
+								"ui:help":"Enter the slug for the interface.",
+								"ui:title":"Slug"
+							},
+							"ui:help":"Enter interface details.",
+							"ui:title":"Interface Details",
+							"waitForUserInput":{
+								"ui:help":"Enter true if waiting for user response, otherwise enter false.",
+								"ui:title":"Wait for user input"
+							}
+						}
+					},
+					"properties":{
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"displayMode":{
+							"title":"displayMode",
+							"type":"string"
+						},
+						"interfaceDescription":{
+							"title":"interfaceDescription",
+							"type":"string"
+						},
+						"interfaceDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"interfaceId":{
+									"title":"interfaceId",
+									"type":"string"
+								},
+								"locale":{
+									"title":"locale",
+									"type":"string"
+								},
+								"pageId":{
+									"title":"pageId",
+									"type":"string"
+								},
+								"pageInputs":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"pageInputs",
+									"type":"object"
+								},
+								"slug":{
+									"title":"slug",
+									"type":"string"
+								},
+								"whitelistInteractions":{
+									"title":"Whitelist Interactions",
+									"type":"boolean"
+								}
+							},
+							"required":[],
+							"title":"interfaceDetails",
+							"type":"object"
+						},
+						"publishAsThought":{
+							"title":"Publish As Thought",
+							"type":"boolean"
+						},
+						"waitForUserInput":{
+							"title":"waitForUserInput",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":726,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IdCmG-1",
+			"id":"n_QIrgy",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2791,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IdCmG-1",
+			"id":"n_V61gJ",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _W9xca.outputs.interfaceDetails.interfaceId }}"
+							},
+							"property":"properties_interfaceId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _W9xca.outputs.interfaceDetails.pageId }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_component",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":801,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IdCmG-1",
+			"id":"n_XWhDL",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"slug":{
+							"title":"Slug",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Output",
+							"type":"object"
+						},
+						"sessionCaseId":{
+							"title":"Session Case Id",
+							"type":"string"
+						},
+						"userCaseId":{
+							"title":"User Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def slug = ''\nif (binding.hasVariable('output') && output?.properties && output?.properties?.slug) {\n    \n    slug = output?.properties?.slug\n}\n\ndef caseId = ''\nif (binding.hasVariable('userCaseId') && userCaseId) {\n    caseId = userCaseId\n} else if (binding.hasVariable('sessionCaseId')) {\n    caseId = sessionCaseId\n}\n\nreturn ['slug': slug, 'caseId': caseId]",
+				"compile_static":false,
+				"parameters":{
+					"output":"{{ n_V61gJ.outputs }}",
+					"sessionCaseId":"{{ n_QIrgy.outputs.caseId }}",
+					"userCaseId":"{{ _W9xca.outputs.caseId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":459,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IdCmG-1",
+			"id":"n_loFC0",
+			"index":5,
+			"inputs":{
+				"automationId":"671250dbc3a6281db1ab47af",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"parameters":{
+					"caseId":"{{ n_XWhDL.outputs.result.caseId }}",
+					"displayMode":"{{ _W9xca.outputs.displayMode }}",
+					"interfaceDescription":"{{ _W9xca.outputs.interfaceDescription }}",
+					"interfaceDetails":{
+						"interfaceId":"{{ _W9xca.outputs.interfaceDetails.interfaceId }}",
+						"pageId":"{{ _W9xca.outputs.interfaceDetails.pageId }}",
+						"pageInputs":"{{ _W9xca.outputs.interfaceDetails.pageInputs }}",
+						"slug":"{{ n_XWhDL.outputs.result.slug }}",
+						"whitelistInteractions":"{{ _W9xca.outputs.interfaceDetails.whitelistInteractions }}"
+					},
+					"publishAsThought":"{{ _W9xca.outputs.publishAsThought }}",
+					"waitForUserInput":"{{ _W9xca.outputs.waitForUserInput }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IdCmG-1",
+			"id":"_o11rI",
+			"index":6,
+			"inputs":{
+				"result":{
+					"messageId":"{{ n_loFC0.outputs.messageId }}",
+					"userInput":"{{ n_loFC0.outputs.userInput }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":18
+}
