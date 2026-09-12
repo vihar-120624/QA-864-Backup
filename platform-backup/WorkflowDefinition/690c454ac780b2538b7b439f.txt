@@ -1,0 +1,1082 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743776241,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743776403,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece2045d2142160e6e04e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_PKXJO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RP39Z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RP39Z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qE8xQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qE8xQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PrgzP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PrgzP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IkdUA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IkdUA",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_KFcfk",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_KFcfk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_GOeF3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_GOeF3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_IsKMP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_IsKMP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dv6yO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IkdUA",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dv6yO",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"690c454ac780b2538b7b439f",
+	"lastModifiedBy":-1,
+	"lcName":"create agent ",
+	"modifiedTime":1788252971643,
+	"name":"Create Agent ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":613,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5SzTW-1",
+			"id":"n_PKXJO",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"agentType":{
+								"default":"custom-gpt",
+								"title":"Agent Type",
+								"type":"string"
+							},
+							"allowAnonymousAccess":{
+								"title":"Allow Anonymous Access",
+								"type":"boolean"
+							},
+							"name":{
+								"default":" ",
+								"title":"Name",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"agentId":{
+									"title":"Agent Id",
+									"type":"string"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":567,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5SzTW-1",
+			"id":"n_RP39Z",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"agentType":{
+							"default":"custom-gpt",
+							"title":"Agent Type",
+							"type":"string"
+						},
+						"allowAnonymousAccess":{
+							"title":"Allow Anonymous Access",
+							"type":"boolean"
+						},
+						"name":{
+							"default":"Untitled Agent",
+							"title":"Name",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"allowAnonymousAccess":"{{ n_PKXJO.outputs.body.allowAnonymousAccess }}",
+				"agentType":"custom-gpt",
+				"name":"Untitled Agent"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"agentType":{
+							"default":"custom-gpt",
+							"title":"Agent Type",
+							"type":"string"
+						},
+						"allowAnonymousAccess":{
+							"title":"Allow Anonymous Access",
+							"type":"boolean"
+						},
+						"name":{
+							"default":"Untitled Agent",
+							"title":"Name",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1000,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5SzTW-1",
+			"id":"n_qE8xQ",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"GLOBAL"
+							},
+							"property":"properties_aiAgentId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_ai_agent_settings",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Global Settings",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.indexingSettings.vectorStore",
+					"root.record.indexingSettings.embeddingModel",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.image.textExtractionModel",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.image.processingMethod",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.tabularData.indexingType",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.embeddingType",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.chunkOverlap",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.delimiters.items",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.language",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.embeddingModel",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.maxChunkSize",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.thresholdType",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.text.algorithm",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.embeddingType",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.chunkOverlap",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.delimiters.items",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.processingMethod",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.language",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.transcriptionModel",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.embeddingModel",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.maxChunkSize",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.thresholdType",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.audio.algorithm",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.contentTypeConfig.code.codeDescriptionModel",
+					"root.record.indexingSettings.strategySettings.mimeTypeOverride.items.mimeType.items",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.image.textExtractionModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.image.processingMethod",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.tabularData.indexingType",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.embeddingType",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.chunkOverlap",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.delimiters.items",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.language",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.embeddingModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.maxChunkSize",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.thresholdType",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.algorithm",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.embeddingType",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.chunkOverlap",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.delimiters.items",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.processingMethod",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.language",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.transcriptionModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.embeddingModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.maxChunkSize",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.thresholdType",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.algorithm",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.documentParsing.type",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.documentParsing.documentParsingModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.code.codeDescriptionModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.type",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.agenticParsingModel",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.appName",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.connectionId",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.automationId",
+					"root.record.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.version",
+					"root.record.indexingSettings.strategySettings.metadataEnrichmentSettings.enabled",
+					"root.record.indexingSettings.strategySettings.metadataEnrichmentSettings.automations.items.entityId",
+					"root.record.indexingSettings.strategySettings.metadataEnrichmentSettings.automations.items.version",
+					"root.record.indexingSettings.strategySettings.graphRagSettings.enable",
+					"root.record.indexingSettings.strategySettings.contextualRetrievalSettings.enable",
+					"root.record.indexingSettings.strategySettings.contextualRetrievalSettings.modelId",
+					"root.record.indexingSettings.chunkingSettings.chunkingAlgorithm",
+					"root.record.indexingSettings.chunkingSettings.chunkOverlap",
+					"root.record.indexingSettings.chunkingSettings.delimiters.items",
+					"root.record.indexingSettings.chunkingSettings.language",
+					"root.record.indexingSettings.chunkingSettings.embeddingModel",
+					"root.record.indexingSettings.chunkingSettings.summarizingModel",
+					"root.record.indexingSettings.chunkingSettings.maxChunkSize",
+					"root.record.indexingSettings.chunkingSettings.thresholdType",
+					"root.record.indexingSettings.chunkingSettings.enableSummarize",
+					"root.record.indexingSettings.chunkingSettings.enableImageExtraction",
+					"root.record.indexingSettings.metadata.model",
+					"root.record.indexingSettings.metadata.parameters.items.name",
+					"root.record.indexingSettings.metadata.parameters.items.description",
+					"root.record.indexingSettings.metadata.parameters.items.isStandard",
+					"root.record.indexingSettings.metadata.processingMethod",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.processingMethod",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.model",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.automationId",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.version",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.parameters.items.name",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.parameters.items.description",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.parameters.items.isStandard",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.manualEnrichmentParameters.items.key",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.manualEnrichmentParameters.items.value",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.enrichmentInput",
+					"root.record.indexingSettings.metadata.enrichmentStrategies.items.automationInput",
+					"root.record.indexingSettings.graphRAGSettings.graphId",
+					"root.record.indexingSettings.graphRAGSettings.entityTypes.items",
+					"root.record.indexingSettings.graphRAGSettings.dedupSimilarityThreshold",
+					"root.record.indexingSettings.graphRAGSettings.exampleQueries.items",
+					"root.record.indexingSettings.graphRAGSettings.domainContext",
+					"root.record.indexingSettings.graphRAGSettings.enable",
+					"root.record.indexingSettings.vectorStoreConnectionId",
+					"root.record.indexingSettings.retentionPeriodInMonths",
+					"root.record.indexingSettings.retentionConfig.unit",
+					"root.record.indexingSettings.retentionConfig.duration",
+					"root.record.indexingSettings.retentionConfig.enabled",
+					"root.record.responsePostProcessingModel.answerPostProcessingModel",
+					"root.record.responsePostProcessingModel.guardRailModel",
+					"root.record.responseGenerationSettings.answerGenerationModel",
+					"root.record.responseGenerationSettings.language",
+					"root.record.responseGenerationSettings.tone",
+					"root.record.responseGenerationSettings.style",
+					"root.record.responseGenerationSettings.format",
+					"root.record.responseGenerationSettings.watermarkingConfig.enableWatermarking",
+					"root.record.responseGenerationSettings.watermarkingConfig.watermarkingTechnique",
+					"root.record.responseGenerationSettings.watermarkingConfig.watermarkingText",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.modelId",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.settings.topK",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.settings.presencePenalty",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.settings.temperature",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.settings.maxOutputTokens",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.settings.topP",
+					"root.record.responseGenerationSettings.answerGenerationModelSettings.settings.frequencyPenalty",
+					"root.record.responseGenerationSettings.streamingEnabled",
+					"root.record.responseGenerationSettings.ttsEnabled",
+					"root.record.responseGenerationSettings.disableThought",
+					"root.record.responseGenerationSettings.languageSettings.responseLanguagePreference",
+					"root.record.responseGenerationSettings.languageSettings.language",
+					"root.record.responseGenerationSettings.languageSettings.userQueryLanguageDetectionModel",
+					"root.record.responseGenerationSettings.chartInstructions",
+					"root.record.responseGenerationSettings.sqlSettings.sqlModel",
+					"root.record.responseGenerationSettings.chartGenerationSettings.chartGenerationModel",
+					"root.record.responseGenerationSettings.chartGenerationSettings.generateChartWithBlocks_NewVersion",
+					"root.record.responseGenerationSettings.chartGenerationSettings.storeInCopilotBlocks",
+					"root.record.responseGenerationSettings.graphRAGSettings.limitPageRankNodes",
+					"root.record.responseGenerationSettings.graphRAGSettings.limitSeedNodes",
+					"root.record.responseGenerationSettings.graphRAGSettings.limitChunks",
+					"root.record.responseGenerationSettings.graphRAGSettings.enabled",
+					"root.record.responseGenerationSettings.disableVoiceThought",
+					"root.record.responseGenerationSettings.skipSourceRBAC",
+					"root.record.responseGenerationSettings.disableInlineCitations",
+					"root.record.responseGenerationSettings.disableCitationReferenceUrl",
+					"root.record.responseGenerationSettings.disableSearchingReadingBlock",
+					"root.record.responseGenerationSettings.sendSuggestedQueries",
+					"root.record.responseGenerationSettings.readingBlockWithDetailedSources",
+					"root.record.responseGenerationSettings.disableResponseFormatting",
+					"root.record.responseGenerationSettings.agentTriggeredCountLimit",
+					"root.record.preProcessingSettings.queryRephrasingModel",
+					"root.record.preProcessingSettings.chunkRetrieval",
+					"root.record.preProcessingSettings.rankingModel",
+					"root.record.preProcessingSettings.disableGuardrail",
+					"root.record.preProcessingSettings.disableRephraser",
+					"root.record.preProcessingSettings.reRankingSettings.disableReRanking",
+					"root.record.preProcessingSettings.reRankingSettings.numberOfChunkAfterReRanking",
+					"root.record.preProcessingSettings.disableHyDE",
+					"root.record.preProcessingSettings.useHyDE",
+					"root.record.preProcessingSettings.maxRowLimitForSQL",
+					"root.record.preProcessingSettings.preFetchKnowledge",
+					"root.record.preProcessingSettings.enableRephraser",
+					"root.record.preProcessingSettings.userInputProcessingSettings.interfaceInputHanlder",
+					"root.record.preProcessingSettings.userInputProcessingSettings.userInputPreProcessor",
+					"root.record.preProcessingSettings.userInputProcessingSettings.storeUserQueryEmbedding",
+					"root.record.preProcessingSettings.disableKnowledgeQueryGeneration",
+					"root.record.preProcessingSettings.systemPromptSetting.addContextAutomationId",
+					"root.record.preProcessingSettings.knowledgeAccessScope",
+					"root.record.preProcessingSettings.enableKnowledgeTagsFiltering",
+					"root.record.preProcessingSettings.disableConvertToImages",
+					"root.record.preProcessingSettings.preAnalyseAttachmentEnabled",
+					"root.record.preProcessingSettings.preReferFromKnowledge",
+					"root.record.preProcessingSettings.enableToolsGuardrailWrapper",
+					"root.record.preProcessingSettings.removePastConversationKnowledgeChunks",
+					"root.record.preProcessingSettings.preSplittingToImageEnabled",
+					"root.record.preProcessingSettings.hybridSearch",
+					"root.record.preProcessingSettings.excludeKnowledgeOnAttachment",
+					"root.record.deployedOn.items",
+					"root.record.topicExecutionSettings.fetchFromKnowledgeEnabled",
+					"root.record.topicExecutionSettings.fetchFromPrevSessionsEnabled",
+					"root.record.topicExecutionSettings.topicSelectionModel",
+					"root.record.topicExecutionSettings.topicExecutionModel",
+					"root.record.topicExecutionSettings.agentExecutorEnabled",
+					"root.record.topicExecutionSettings.agentExecutorDisabled",
+					"root.record.topicExecutionSettings.thinkToolDisabled",
+					"root.record.topicExecutionSettings.topicAsTool",
+					"root.record.topicExecutionSettings.openDefaultVoiceAgent",
+					"root.record.topicExecutionSettings.voiceModeForAllModelsEnabled",
+					"root.record.topicExecutionSettings.hideInlineCitations",
+					"root.record.workflowGPTDetails.variablesSchema",
+					"root.record.workflowGPTDetails.steps.items.instructions",
+					"root.record.workflowGPTDetails.steps.items.nodes.items",
+					"root.record.workflowGPTDetails.workflowId",
+					"root.record.goalSummary.detailedSummary",
+					"root.record.goalSummary.briefSummary",
+					"root.record.conversationStarters.items",
+					"root.record.defaultTools.webSearch",
+					"root.record.defaultTools.deepResearch",
+					"root.record.defaultTools.analyseFile",
+					"root.record.defaultTools.createPDF",
+					"root.record.defaultTools.createPPTX",
+					"root.record.defaultTools.generateChartTool",
+					"root.record.defaultTools.createExcel",
+					"root.record.defaultTools.ingestKnowledge",
+					"root.record.defaultTools.clarifyFromUser",
+					"root.record.multiAgentConfig.associatedAgentIds.items",
+					"root.record.multiAgentConfig.associatedAgentConfigs.items.agentId",
+					"root.record.multiAgentConfig.associatedAgentConfigs.items.governanceConfig.filter",
+					"root.record.departments.items",
+					"root.record.voiceSettings.provider",
+					"root.record.voiceSettings.welcomeMessage",
+					"root.record.voiceSettings.llmInstructions",
+					"root.record.voiceSettings.localeVsInitialMuteDurationMs",
+					"root.record.longTermMemorySettings.enabled",
+					"root.record.longTermMemorySettings.limitMemoriesForDedup",
+					"root.record.longTermMemorySettings.limitRetrievalMemories",
+					"root.record.longTermMemorySettings.ProceduralMemoryRetrievalEnabled",
+					"root.record.evalMetricIds.items",
+					"root.record.textToSQLSettings.isOnlyTextToSQLAgent",
+					"root.record.textToSQLSettings.topicIdForOnlyText2SQL",
+					"root.record.textToSQLSettings.sqlAndChart1LLMCall_Variant",
+					"root.record.textToSQLSettings.AutomationIdForContextAdditionForSQLQueryGeneration",
+					"root.record.textToSQLSettings.DirectlyPublishTableIfHasMoreData",
+					"root.record.textToSQLSettings.fewShotExtraFilterNeeded",
+					"root.record.textToSQLSettings.AutomationIdForFewShotExtraFilter",
+					"root.record.textToSQLSettings.PublishAssumptionsTakenForSQLgeneration",
+					"root.record.textToSQLSettings.sourcesNeeded",
+					"root.record.textToSQLSettings.clarificationQuestionNeeded",
+					"root.record.textToSQLSettings.metadataFilteringAutomationId",
+					"root.record.teamManagerSettings.agentsAsTools",
+					"root.record.deepResearchSettings.WebSearchSummariserModel",
+					"root.record.deepResearchSettings.ExecutionModel",
+					"root.record.deepResearchSettings.searchEngineToUse",
+					"root.record.deepResearchSettings.WebScrappingEngine",
+					"root.record.deepResearchSettings.useProviderDeepResearch",
+					"root.record.websearchSettings.useProviderWebSearch",
+					"root.record.websearchSettings.webSearchProviderModel",
+					"root.record.websearchSettings.searchModelId",
+					"root.record.websearchSettings.scrapModelId",
+					"root.record.dictationSettings.enabled",
+					"root.record.dictationSettings.sttProvider",
+					"root.record.dictationSettings.language",
+					"root.record.dictationSettings.providerDetails",
+					"root.record.customProperties.iconPath",
+					"root.record.customProperties.bgColor",
+					"root.record.contextManagement.compactionSettings.enabled",
+					"root.record.contextManagement.compactionSettings.characterThreshold",
+					"root.record.contextManagement.compactionSettings.promptTemplateId",
+					"root.record.contextManagement.compactionSettings.compactionModel",
+					"root.record.contextManagement.compactionSettings.tokensThresholdPercentage",
+					"root.record.contextManagement.compactionSettings.absoluteTokensThreshold",
+					"root.record.contextManagement.compactionSettings.absoluteRecencyThreshold",
+					"root.record.contextManagement.compactionSettings.recencyThresholdPercentage",
+					"root.record.contextManagement.toonEnabled",
+					"root.record.loggingSettings.enableNodeLevelLogging",
+					"root.record.loggingSettings.enableRunLogging",
+					"root.record.loggingSettings.enableVariableLogging"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":899,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5SzTW-1",
+			"id":"n_PrgzP",
+			"index":4,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"ai_agent",
+				"skipIfBlank":false,
+				"record":{
+					"addContextAutomationId":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.systemPromptSetting.addContextAutomationId }}",
+					"agentType":"{{ n_RP39Z.outputs.agentType }}",
+					"archived":false,
+					"contextManagement":{
+						"compactionSettings":{
+							"enabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}"
+						},
+						"toonEnabled":false
+					},
+					"deepResearchSettings":{
+						"useProviderDeepResearch":false
+					},
+					"defaultTools":{
+						"analyseFile":true,
+						"clarifyFromUser":true,
+						"createExcel":false,
+						"createPDF":false,
+						"createPPTX":false,
+						"deepResearch":false,
+						"documentVision":false,
+						"generateChartTool":true,
+						"ingestKnowledge":true
+					},
+					"defaultToolsNotNeeded":false,
+					"dictationSettings":{
+						"enabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}",
+						"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.language }}",
+						"sttProvider":"BROWSER_API"
+					},
+					"enableDocumentVisionByDefault":false,
+					"indexingSettings":{
+						"chunkingSettings":{
+							"chunkOverlap":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.chunkOverlap }}",
+							"chunkingAlgorithm":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.chunkingAlgorithm }}",
+							"delimiters":{
+								"items":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.delimiters[0] }}",
+								"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.delimiters }}",
+								"ua:type":"mappedArray"
+							},
+							"embeddingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.embeddingModel }}",
+							"enableImageExtraction":false,
+							"enableSummarize":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.enableSummarize }}",
+							"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.language }}",
+							"maxChunkSize":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.maxChunkSize }}",
+							"summarizingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.summarizingModel }}",
+							"thresholdType":"{{ n_qE8xQ.outputs.properties.indexingSettings.chunkingSettings.thresholdType }}"
+						},
+						"embeddingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.embeddingModel }}",
+						"graphRAGSettings":{
+							"dedupSimilarityThreshold":0.975,
+							"enable":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}",
+							"graphId":"G_test2307"
+						},
+						"metadata":{
+							"model":"{{ n_qE8xQ.outputs.properties.indexingSettings.metadata.model }}",
+							"parameters":{
+								"items":{
+									"description":"{{ n_qE8xQ.outputs.properties.indexingSettings.metadata.paramaters[0].description }}",
+									"isStandard":"{{ n_qE8xQ.outputs.properties.indexingSettings.metadata.paramaters[0].isStandard }}",
+									"name":"{{ n_qE8xQ.outputs.properties.indexingSettings.metadata.paramaters[0].name }}"
+								},
+								"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.metadata.paramaters }}",
+								"ua:type":"mappedArray"
+							},
+							"processingMethod":"{{ n_qE8xQ.outputs.properties.indexingSettings.metadata.processingMethod }}"
+						},
+						"retentionConfig":{
+							"enabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}"
+						},
+						"strategySettings":{
+							"contextualRetrievalSettings":{
+								"enable":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}"
+							},
+							"defaultStrategy":{
+								"contentTypeConfig":{
+									"audio":{
+										"algorithm":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.algorithm }}",
+										"chunkOverlap":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.chunkOverlap }}",
+										"delimiters":{
+											"items":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.delimiters[0] }}",
+											"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.delimiters }}",
+											"ua:type":"mappedArray"
+										},
+										"embeddingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.embeddingModel }}",
+										"embeddingType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.embeddingType }}",
+										"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.language }}",
+										"maxChunkSize":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.maxChunkSize }}",
+										"processingMethod":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.processingMethod }}",
+										"thresholdType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.thresholdType }}",
+										"transcriptionModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.audio.transcriptionModel }}"
+									},
+									"code":{
+										"codeDescriptionModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.code.codeDescriptionModel }}"
+									},
+									"image":{
+										"processingMethod":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.image.processingMethod }}",
+										"textExtractionModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.image.textExtractionModel }}"
+									},
+									"tabularData":{
+										"indexingType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.tabularData.indexingType }}"
+									},
+									"text":{
+										"algorithm":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.algorithm }}",
+										"chunkOverlap":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.chunkOverlap }}",
+										"delimiters":{
+											"items":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.delimiters[0] }}",
+											"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.delimiters }}",
+											"ua:type":"mappedArray"
+										},
+										"embeddingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.embeddingModel }}",
+										"embeddingType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.embeddingType }}",
+										"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.language }}",
+										"maxChunkSize":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.maxChunkSize }}",
+										"thresholdType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.thresholdType }}"
+									}
+								}
+							},
+							"graphRagSettings":{
+								"enable":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}"
+							},
+							"metadataEnrichmentSettings":{
+								"enabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}"
+							},
+							"mimeTypeOverride":{
+								"items":{
+									"contentTypeConfig":{
+										"audio":{
+											"algorithm":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.algorithm }}",
+											"chunkOverlap":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.chunkOverlap }}",
+											"delimiters":{
+												"items":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.delimiters[0] }}",
+												"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.delimiters }}",
+												"ua:type":"mappedArray"
+											},
+											"embeddingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.embeddingModel }}",
+											"embeddingType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.embeddingType }}",
+											"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.language }}",
+											"maxChunkSize":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.maxChunkSize }}",
+											"processingMethod":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.processingMethod }}",
+											"thresholdType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.thresholdType }}",
+											"transcriptionModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.audio.transcriptionModel }}"
+										},
+										"code":{
+											"codeDescriptionModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.code.codeDescriptionModel }}"
+										},
+										"image":{
+											"processingMethod":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.image.processingMethod }}",
+											"textExtractionModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.image.textExtractionModel }}"
+										},
+										"tabularData":{
+											"indexingType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.tabularData.indexingType }}"
+										},
+										"text":{
+											"algorithm":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.algorithm }}",
+											"chunkOverlap":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.chunkOverlap }}",
+											"delimiters":{
+												"items":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.delimiters[0] }}",
+												"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.delimiters }}",
+												"ua:type":"mappedArray"
+											},
+											"embeddingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.embeddingModel }}",
+											"embeddingType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.embeddingType }}",
+											"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.language }}",
+											"maxChunkSize":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.maxChunkSize }}",
+											"thresholdType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.thresholdType }}"
+										}
+									},
+									"mimeType":{
+										"items":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].mimeType[0] }}",
+										"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].mimeType }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"vectorStore":"{{ n_qE8xQ.outputs.properties.indexingSettings.vectorStore }}"
+					},
+					"loggingSettings":{
+						"enableNodeLevelLogging":true,
+						"enableRunLogging":true,
+						"enableVariableLogging":true
+					},
+					"longTermMemorySettings":{
+						"enabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}"
+					},
+					"mcpEnabled":false,
+					"name":"{{ n_RP39Z.outputs.name }}",
+					"preProcessingSettings":{
+						"chunkRetrieval":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.chunkRetrieval }}",
+						"disableConvertToImages":false,
+						"disableGuardrail":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.disableGuardrail }}",
+						"disableHyDE":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.disableHyDE }}",
+						"disableKnowledgeQueryGeneration":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.disableKnowledgeQueryGeneration }}",
+						"disableRephraser":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.disableRephraser }}",
+						"enableKnowledgeTagsFiltering":false,
+						"enableRephraser":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.enableRephraser }}",
+						"enableToolsGuardrailWrapper":false,
+						"excludeKnowledgeOnAttachment":false,
+						"hybridSearch":false,
+						"maxRowLimitForSQL":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.maxRowLimitForSQL }}",
+						"preAnalyseAttachmentEnabled":false,
+						"preFetchKnowledge":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.preFetchKnowledge }}",
+						"preReferFromKnowledge":false,
+						"preSplittingToImageEnabled":false,
+						"queryRephrasingModel":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.queryRephrasingModel }}",
+						"rankingModel":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.rankingModel }}",
+						"reRankingSettings":{
+							"disableReRanking":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.reRankingSettings.disableReRanking }}",
+							"numberOfChunkAfterReRanking":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.reRankingSettings.numberOfChunkAfterReRanking }}"
+						},
+						"removePastConversationKnowledgeChunks":false,
+						"systemPromptSetting":{
+							"addContextAutomationId":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.systemPromptSetting.addContextAutomationId }}"
+						},
+						"useHyDE":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.useHyDE }}",
+						"userInputProcessingSettings":{
+							"interfaceInputHanlder":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.userInputProcessingSettings.interfaceInputHanlder }}",
+							"storeUserQueryEmbedding":false,
+							"userInputPreProcessor":"{{ n_qE8xQ.outputs.properties.preProcessingSettings.userInputProcessingSettings.userInputPreProcessor }}"
+						}
+					},
+					"responseGenerationSettings":{
+						"answerGenerationModel":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModel }}",
+						"answerGenerationModelSettings":{
+							"modelId":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.modelId }}",
+							"settings":{
+								"frequencyPenalty":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.settings.frequencyPenalty }}",
+								"maxOutputTokens":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.settings.maxOutputTokens }}",
+								"presencePenalty":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.settings.presencePenalty }}",
+								"temperature":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.settings.temperature }}",
+								"topK":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.settings.topK }}",
+								"topP":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.answerGenerationModelSettings.settings.topP }}"
+							}
+						},
+						"chartGenerationSettings":{
+							"chartGenerationModel":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.chartGenerationSettings.chartGenerationModel }}",
+							"generateChartWithBlocks_NewVersion":false,
+							"storeInCopilotBlocks":false
+						},
+						"chartInstructions":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.chartInstructions }}",
+						"disableCitationReferenceUrl":false,
+						"disableInlineCitations":false,
+						"disableResponseFormatting":false,
+						"disableSearchingReadingBlock":false,
+						"disableThought":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.disableThought }}",
+						"disableVoiceThought":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.disableVoiceThought }}",
+						"format":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.format }}",
+						"graphRAGSettings":{
+							"enabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.enabled }}",
+							"limitChunks":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.limitChunks }}",
+							"limitPageRankNodes":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.limitPageRankNodes }}",
+							"limitSeedNodes":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.graphRAGSettings.limitSeedNodes }}"
+						},
+						"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.language }}",
+						"languageSettings":{
+							"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.language }}",
+							"responseLanguagePreference":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.languageSettings.responseLanguagePreference }}",
+							"userQueryLanguageDetectionModel":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.languageSettings.userQueryLanguageDetectionModel }}"
+						},
+						"readingBlockWithDetailedSources":true,
+						"sendSuggestedQueries":false,
+						"skipSourceRBAC":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.skipSourceRBAC }}",
+						"sqlSettings":{
+							"sqlModel":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.sqlSettings.sqlModel }}"
+						},
+						"streamingEnabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.streamingEnabled }}",
+						"style":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.style }}",
+						"tone":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.tone }}",
+						"ttsEnabled":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.ttsEnabled }}",
+						"watermarkingConfig":{
+							"enableWatermarking":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.watermarkingConfig.enableWatermarking }}",
+							"watermarkingTechnique":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.watermarkingConfig.watermarkingTechnique }}",
+							"watermarkingText":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.watermarkingConfig.watermarkingText }}"
+						}
+					},
+					"summarise":false,
+					"teamManagerSettings":{
+						"agentsAsTools":false
+					},
+					"textToSQLSettings":{
+						"DirectlyPublishTableIfHasMoreData":false,
+						"PublishAssumptionsTakenForSQLgeneration":false,
+						"clarificationQuestionNeeded":false,
+						"fewShotExtraFilterNeeded":false,
+						"sourcesNeeded":false
+					},
+					"topicExecutionSettings":{
+						"agentExecutorDisabled":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.agentExecutorDisabled }}",
+						"agentExecutorEnabled":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.agentExecutorEnabled }}",
+						"fetchFromKnowledgeEnabled":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.fetchFromKnowledgeEnabled }}",
+						"fetchFromPrevSessionsEnabled":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.fetchFromPrevSessionsEnabled }}",
+						"hideInlineCitations":false,
+						"openDefaultVoiceAgent":false,
+						"thinkToolDisabled":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.thinkToolDisabled }}",
+						"topicAsTool":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.topicAsTool }}",
+						"topicExecutionModel":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.topicExecutionModel }}",
+						"topicSelectionModel":"{{ n_qE8xQ.outputs.properties.topicExecutionSettings.topicSelectionModel }}",
+						"voiceModeForAllModelsEnabled":false
+					},
+					"visibility":{
+						"type":"PRIVATE"
+					},
+					"websearchSettings":{
+						"useProviderWebSearch":false
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":447,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5SzTW-1",
+			"id":"n_IkdUA",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_RP39Z.outputs.allowAnonymousAccess }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":8126,
+				"resourceName":"standard_entities_fetch_roles",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IkdUA@_5SzTW-1@y",
+			"id":"_KFcfk",
+			"index":6,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"standardRole"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Fetch roles",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.roles.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IkdUA@_5SzTW-1@y",
+			"id":"_GOeF3",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"memberRoleId":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Member Role Id",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"roles":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Roles",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def memberRoleId = roles.find { it.name == \"Member\" }?.id\nreturn [ memberRoleId : [memberRoleId] ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"roles":{
+						"items":"{{ _KFcfk.outputs.roles[0] }}",
+						"source":"{{ _KFcfk.outputs.roles }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"get RoleId",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":776,
+				"resourceName":"storage_by_unifyapps_share_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IkdUA@_5SzTW-1@y",
+			"id":"_IsKMP",
+			"index":8,
+			"inputs":{
+				"filter":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_PrgzP.outputs.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"principal":"GLOBAL",
+				"object_type":"ai_agent",
+				"roles":"{{ _GOeF3.outputs.result.memberRoleId }}",
+				"operationType":"ADD"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Share records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":630,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5SzTW-1",
+			"id":"n_dv6yO",
+			"index":9,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"agentId":"{{ n_PrgzP.outputs.id }}",
+					"success":true
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":10
+}
