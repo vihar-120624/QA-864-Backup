@@ -1,0 +1,366 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743605137,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"dQtuo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"YxBXj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"YxBXj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"aLfmE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"aLfmE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"LjYF8",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd753f7ad93bb16755af",
+	"lastModifiedBy":-1,
+	"lcName":"create user knowledge",
+	"modifiedTime":1787743605138,
+	"name":"Create User Knowledge",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":637,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Jy2WO-1",
+			"id":"dQtuo",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"baseKnowledgeId":{
+							"title":"Base Knowledge Id",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"connectionId",
+						"baseKnowledgeId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2568,
+				"resourceName":"storage_by_unifyapps_get_records_by_ids",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Jy2WO-1",
+			"id":"YxBXj",
+			"index":0,
+			"inputs":{
+				"object_type":"knowledge",
+				"includeRoleMappings":false,
+				"ids":[
+					"{{ dQtuo.outputs.baseKnowledgeId }}"
+				],
+				"includeCurrentUserPermissions":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Get records by IDs",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.fileDetails.name",
+					"root.record.fileDetails.source",
+					"root.record.fileDetails.fileType",
+					"root.record.fileDetails.size",
+					"root.record.fileDetails.fileExtension",
+					"root.record.fileDetails.sourceType",
+					"root.record.fileDetails.url",
+					"root.record.websiteImportInfo.specificWebpages",
+					"root.record.websiteImportInfo.urlList.items",
+					"root.record.applicationInfo.inputs",
+					"root.record.applicationInfo.context.appName",
+					"root.record.applicationInfo.context.connectionId",
+					"root.record.applicationInfo.context.resourceName",
+					"root.record.refreshDetails.lastRefreshStartTime",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.image.textExtractionModel",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.image.processingMethod",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.tabularData.indexingType",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.embeddingType",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.chunkOverlap",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.delimiters.items",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.language",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.embeddingModel",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.maxChunkSize",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.thresholdType",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.text.algorithm",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.embeddingType",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.chunkOverlap",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.delimiters.items",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.processingMethod",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.language",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.transcriptionModel",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.embeddingModel",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.maxChunkSize",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.thresholdType",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.contentTypeConfig.audio.algorithm",
+					"root.record.settings.indexingStrategySettings.mimeTypeOverride.items.mimeType.items",
+					"root.record.settings.piiMasking.regex.enabled",
+					"root.record.settings.piiMasking.automations.enabled",
+					"root.record.settings.piiMasking.automations.ids.items",
+					"root.record.settings.piiMasking.piiByUA.enabled",
+					"root.record.settings.enrichment.enabled",
+					"root.record.settings.enrichment.processingMethod",
+					"root.record.settings.enrichment.model",
+					"root.record.settings.enrichment.parameters.items.name",
+					"root.record.settings.enrichment.parameters.items.description",
+					"root.record.additionalDetails.unifiedEntityModelId",
+					"root.record.additionalDetails.metadataIndexing",
+					"root.record.additionalDetails.embeddingModel",
+					"root.record.additionalDetails.knowledgeInstructionsForPrompt",
+					"root.record.dataCatalogInfo.id",
+					"root.record.accessibleTo.items",
+					"root.record.errorDetails.errorMessage"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2630,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Jy2WO-1",
+			"id":"aLfmE",
+			"index":0,
+			"inputs":{
+				"object_type":"knowledge",
+				"record":{
+					"additionalDetails":{
+						"embeddingModel":"{{ YxBXj.outputs.objects[0].properties.additionalDetails.embeddingModel }}",
+						"knowledgeInstructionsForPrompt":"{{ YxBXj.outputs.objects[0].properties.additionalDetails.knowledgeInstructionsForPrompt }}",
+						"metadataIndexing":"{{ YxBXj.outputs.objects[0].properties.additionalDetails.metadataIndexing }}",
+						"unifiedEntityModelId":"{{ YxBXj.outputs.objects[0].properties.additionalDetails.unifiedEntityModelId }}"
+					},
+					"applicationInfo":{
+						"context":{
+							"appName":"{{ YxBXj.outputs.objects[0].properties.applicationInfo.context.appName }}",
+							"connectionId":"{{ dQtuo.outputs.connectionId }}",
+							"resourceName":"{{ YxBXj.outputs.objects[0].properties.applicationInfo.context.resourceName }}"
+						},
+						"inputs":"{{ YxBXj.outputs.objects[0].properties.applicationInfo.inputs }}"
+					},
+					"baseKnowledgeId":"{{ dQtuo.outputs.baseKnowledgeId }}",
+					"customMetadata":{
+						"items":{
+							"name":"{{ YxBXj.outputs.objects[0].properties.customMetadata[0].name }}"
+						},
+						"source":"{{ YxBXj.outputs.objects[0].properties.customMetadata[0] }}",
+						"ua:type":"mappedArray"
+					},
+					"dataCatalogInfo":{
+						"id":"{{ YxBXj.outputs.objects[0].properties.dataCatalogInfo.id }}"
+					},
+					"description":"{{ YxBXj.outputs.objects[0].properties.description }}",
+					"enabled":true,
+					"name":"{{ YxBXj.outputs.objects[0].properties.name }}",
+					"refreshFrequency":"{{ YxBXj.outputs.objects[0].properties.refreshFrequency }}",
+					"runTimeConnectionEnabled":false,
+					"settings":{
+						"enrichment":{
+							"enabled":"{{ YxBXj.outputs.objects[0].properties.settings.enrichment.enabled }}",
+							"model":"{{ YxBXj.outputs.objects[0].properties.settings.enrichment.model }}",
+							"parameters":{
+								"items":{
+									"description":"{{ YxBXj.outputs.objects[0].properties.settings.enrichment.parameters[0].description }}",
+									"name":"{{ YxBXj.outputs.objects[0].properties.settings.enrichment.parameters[0].name }}"
+								},
+								"source":"{{ YxBXj.outputs.objects[0].properties.settings.enrichment.parameters }}",
+								"ua:type":"mappedArray"
+							},
+							"processingMethod":"{{ YxBXj.outputs.objects[0].properties.settings.enrichment.processingMethod }}"
+						},
+						"indexingStrategySettings":{
+							"mimeTypeOverride":{
+								"items":{
+									"contentTypeConfig":{
+										"audio":{
+											"algorithm":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.algorithm }}",
+											"chunkOverlap":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.chunkOverlap }}",
+											"delimiters":{
+												"items":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.delimiters[0] }}",
+												"source":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.delimiters }}",
+												"ua:type":"mappedArray"
+											},
+											"embeddingModel":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.embeddingModel }}",
+											"embeddingType":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.embeddingType }}",
+											"language":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.language }}",
+											"maxChunkSize":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.maxChunkSize }}",
+											"processingMethod":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.processingMethod }}",
+											"thresholdType":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.thresholdType }}",
+											"transcriptionModel":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.audio.transcriptionModel }}"
+										},
+										"image":{
+											"processingMethod":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.image.processingMethod }}",
+											"textExtractionModel":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.image.textExtractionModel }}"
+										},
+										"tabularData":{
+											"indexingType":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.tabularData.indexingType }}"
+										},
+										"text":{
+											"algorithm":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.algorithm }}",
+											"chunkOverlap":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.chunkOverlap }}",
+											"delimiters":{
+												"items":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.delimiters[0] }}",
+												"source":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.delimiters }}",
+												"ua:type":"mappedArray"
+											},
+											"embeddingModel":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.embeddingModel }}",
+											"embeddingType":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.embeddingType }}",
+											"language":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.language }}",
+											"maxChunkSize":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.maxChunkSize }}",
+											"thresholdType":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].contentTypeConfig.text.thresholdType }}"
+										}
+									},
+									"mimeType":{
+										"items":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].mimeType[0] }}",
+										"source":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride[0].mimeType }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ YxBXj.outputs.objects[0].properties.settings.indexingStrategySettings.mimeTypeOverride }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"piiMasking":{
+							"automations":{
+								"enabled":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.automations.enabled }}",
+								"ids":{
+									"items":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.automations.ids[0] }}",
+									"source":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.automations.ids }}",
+									"ua:type":"mappedArray"
+								}
+							},
+							"piiByUA":{
+								"enabled":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.piiByUA.enabled }}"
+							},
+							"regex":{
+								"enabled":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.regex.enabled }}",
+								"patterns":{
+									"items":{
+										"behaviour":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.regex.patterns[0].behaviour }}",
+										"name":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.regex.patterns[0].name }}",
+										"pattern":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.regex.patterns[0].pattern }}"
+									},
+									"source":"{{ YxBXj.outputs.objects[0].properties.settings.piiMasking.regex.patterns }}",
+									"ua:type":"mappedArray"
+								}
+							}
+						}
+					},
+					"sourceType":"{{ YxBXj.outputs.objects[0].properties.sourceType }}",
+					"status":"DRAFT"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":646,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Jy2WO-1",
+			"id":"LjYF8",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":0,
+	"workflowDefinitionId":"6816266db594df5762dee2e8",
+	"workflowVersion":42
+}
