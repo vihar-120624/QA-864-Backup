@@ -1,0 +1,271 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743805629,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743805802,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece3d177b4b4aca57b539",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":3
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sVV5k",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gbr3D",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gbr3D",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qVSpG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qVSpG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OSC6k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OSC6k",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_I2Ly7",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68ea85debdec112aba2a7b08",
+	"lastModifiedBy":-1,
+	"lcName":"workflow agent | improve with ai",
+	"modifiedTime":1788252971839,
+	"name":"Workflow Agent | Improve with AI",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":556,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1n3Ji-1",
+			"id":"n_sVV5k",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"rephrasedUserQuery":{
+							"title":"Rephrased User Query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						},
+						"userQuery":{
+							"title":"User Query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":989,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1n3Ji-1",
+			"id":"n_gbr3D",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"prompt":{
+							"title":"Prompt",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"userQuery":{
+							"title":"User Query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def userQuery = binding.hasVariable('userQuery') ? userQuery : \"\"\n\nreturn [\n  \"prompt\": \"\"\"You are a query rephraser assistant. \nYour task is to rephrase user queries to make them clearer, more structured, and grammatically correct — \nwithout changing their meaning or intent.\n\nGuidelines:\n1. Preserve the user’s original intent and domain context.\n2. Eliminate ambiguity, slang, filler words, or unnecessary verbosity.\n3. Normalize references (e.g., \"it\", \"that thing\") if context allows.\n4. Output a concise, professional, and natural rephrasing in plain English.\n5. Do not answer the query — just rephrase it.\n6. If the query is a command, keep it as a command but make it cleaner and more actionable.\n7. If the user input is incomplete or vague, infer the most likely intended meaning from the text.\n8. If you come across any placeholder written within double curly brackets (for example, a pill reference), leave it unchanged.\n\nReturn only the rephrased version. Do not include explanations or notes.\n\nUser Query : ${userQuery}\n\"\"\".toString()\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"userQuery":"{{ n_sVV5k.outputs.userQuery }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"create rephrase query prompt",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1085,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1n3Ji-1",
+			"id":"n_qVSpG",
+			"index":3,
+			"inputs":{
+				"automationId":"684fceac5ae1b66e4745e406",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"content":"{{ n_gbr3D.outputs.result.prompt }}",
+					"modelId":"{{ n_sVV5k.outputs.modelId }}",
+					"response_format":"text",
+					"signalProperties":{
+						"automationId":"{{ __RUN__.outputs.workflowId }}",
+						"nodeId":"n_OSC6k",
+						"waitingInstanceId":"{{ __RUN__.outputs.executionId }}",
+						"waitingInstanceRunTimeType":"{{ __RUN__.outputs.workflowRunTimeType }}"
+					},
+					"type":"text"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"LLM call to rephrase query",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":907,
+				"resourceName":"signals_by_unifyapps_wait_for_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1n3Ji-1",
+			"id":"n_OSC6k",
+			"index":4,
+			"inputs":{
+				"duration":"5min",
+				"unit":"MINUTES",
+				"signal_payload":{
+					"additionalProperties":false,
+					"properties":{
+						"llmResponse":{
+							"title":"Llm Response",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"waiting for LLM response",
+			"title":"Wait for signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1065,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1n3Ji-1",
+			"id":"n_I2Ly7",
+			"index":5,
+			"inputs":{
+				"result":{
+					"rephrasedUserQuery":"{{ n_OSC6k.outputs.signal_payload.llmResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":5
+}
