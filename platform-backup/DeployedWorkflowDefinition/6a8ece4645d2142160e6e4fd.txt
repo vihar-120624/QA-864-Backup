@@ -1,0 +1,671 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743814888,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"description":"create a new api endpoint",
+	"edges":[
+		{
+			"fromNodeId":"n_P3NDa",
+			"id":"next@n_P3NDa@n_x4VPE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_x4VPE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_x4VPE",
+			"id":"if@n_x4VPE@n_lQI0q",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lQI0q",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_lQI0q",
+			"id":"next@n_lQI0q@n_V5mXO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V5mXO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_V5mXO",
+			"id":"next@n_V5mXO@n_JKObc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JKObc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JKObc",
+			"id":"if@n_JKObc@n_dJSIB",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dJSIB",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_dJSIB",
+			"id":"next@n_dJSIB@n_VZJi7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VZJi7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JKObc",
+			"id":"next@n_JKObc@n_1eev3",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1eev3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1eev3",
+			"id":"next@n_1eev3@n_iBm29",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iBm29",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iBm29",
+			"id":"next@n_iBm29@n_dvZWM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dvZWM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_x4VPE",
+			"id":"next@n_x4VPE@n_6jZNf",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6jZNf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6jZNf",
+			"id":"next@n_6jZNf@n_OMmAC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OMmAC",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece4645d2142160e6e4fd",
+	"lastModifiedBy":-1,
+	"lcName":"create api endpoint",
+	"modifiedTime":1787743814889,
+	"name":"create api endpoint",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_YCzBe-1",
+			"id":"n_P3NDa",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"endpointDetails":{
+							"title":"endpointDetails",
+							"type":"object"
+						},
+						"errors":{
+							"title":"errors",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"apiDescription":{
+							"title":"apiDescription",
+							"type":"string"
+						},
+						"apiGroupId":{
+							"help":"ID of collection / api group",
+							"title":"apiGroupId",
+							"type":"string"
+						},
+						"downstreamurl":{
+							"title":"Downstreamurl",
+							"type":"string"
+						},
+						"endpointName":{
+							"title":"Endpoint Name",
+							"type":"string"
+						},
+						"httpMethod":{
+							"help":"GET, POST, PUT, DELETE, PATCH in capitals only",
+							"title":"httpMethod",
+							"type":"string"
+						},
+						"path":{
+							"title":"Path",
+							"type":"string"
+						},
+						"requestType":{
+							"help":"REST or SOAP in capital",
+							"title":"requestType",
+							"type":"string"
+						},
+						"resourceType":{
+							"help":"callable, external api",
+							"title":"resourceType",
+							"type":"string"
+						},
+						"workflowId":{
+							"title":"Workflow Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"apiGroupId",
+						"downstreamurl"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":5,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_YCzBe-1",
+			"id":"n_x4VPE",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_P3NDa.outputs.workflowId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":888,
+				"resourceName":"standard_entities_get_automation_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_x4VPE@_YCzBe-1@y",
+			"id":"n_lQI0q",
+			"index":3,
+			"inputs":{
+				"workflowIds":"{{ n_P3NDa.outputs.workflowId }}",
+				"includeVersion":false,
+				"includeEverything":true,
+				"includeNodesAndEdges":true
+			},
+			"skip":false,
+			"subTitle":"Standard entities by WurkNow",
+			"title":"Get automation details",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_x4VPE@_YCzBe-1@y",
+			"id":"n_V5mXO",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"firstNodeResourceName":{
+							"title":"First Node Resource Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"workflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def workflow = getBinding().hasVariable('workflow')\n        ? getBinding().getVariable('workflow')\n        : null\n\ndef firstNodeResourceName = workflow?.nodes?.getAt(0)?.context?.resourceName\n\nreturn ['firstNodeResourceName': firstNodeResourceName]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"workflow":"{{ n_lQI0q.outputs.automationDetails[0] }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code ",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":5,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_x4VPE@_YCzBe-1@y",
+			"id":"n_JKObc",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"callables_from_api"
+						},
+						"property":"{{ n_V5mXO.outputs.result.firstNodeResourceName }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":880,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_JKObc@n_x4VPE@_YCzBe-1@y@y",
+			"id":"n_dJSIB",
+			"index":6,
+			"inputs":{
+				"path":"{{ n_P3NDa.outputs.path }}",
+				"automation":"{{ n_P3NDa.outputs.workflowId }}",
+				"endpointType":"REST",
+				"resourceVersion":"",
+				"name":"{{ n_P3NDa.outputs.endpointName }}",
+				"active":true,
+				"description":"{{ n_P3NDa.outputs.apiDescription }}",
+				"httpMethod":"{{ n_P3NDa.outputs.httpMethod }}",
+				"collectionId":"{{ n_P3NDa.outputs.apiGroupId }}",
+				"resourceType":"CALLABLE_WORKFLOW"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by WurkNow",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_JKObc@n_x4VPE@_YCzBe-1@y@y",
+			"id":"n_VZJi7",
+			"index":7,
+			"inputs":{
+				"result":{
+					"endpointDetails":"{{ n_dJSIB.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_JKObc@n_x4VPE@_YCzBe-1@y@n",
+			"id":"n_1eev3",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"updatedWorkflowIds":{
+							"title":"Updated Workflow Ids",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"workflowId":{
+							"title":"Workflow Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// 'workflowId' is the input field you declared, bound directly into the script\ndef raw = binding.hasVariable('workflowId') ? binding.getVariable('workflowId') : null\n\ndef workflowIds\nif (raw == null || (raw instanceof String && !raw.trim())) {\n    workflowIds = []\n} else if (raw instanceof Collection) {\n    workflowIds = raw as List\n} else if (raw.getClass().isArray()) {\n    workflowIds = raw as List\n} else if (raw instanceof String && raw.trim().startsWith('[')) {\n    workflowIds = new groovy.json.JsonSlurper().parseText(raw.trim()) as List\n} else {\n    workflowIds = [raw]\n}\n\nreturn [\"updatedWorkflowIds\": workflowIds]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"workflowId":"{{ n_P3NDa.outputs.workflowId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code ",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":888,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_JKObc@n_x4VPE@_YCzBe-1@y@n",
+			"id":"n_iBm29",
+			"index":9,
+			"inputs":{
+				"path":"{{ n_P3NDa.outputs.path }}",
+				"name":"{{ n_P3NDa.outputs.endpointName }}",
+				"active":true,
+				"description":"{{ n_P3NDa.outputs.apiDescription }}",
+				"webhookWorkflows":"{{ n_1eev3.outputs.result.updatedWorkflowIds }}",
+				"httpMethod":"{{ n_P3NDa.outputs.httpMethod }}",
+				"collectionId":"{{ n_P3NDa.outputs.apiGroupId }}",
+				"resourceType":"WEBHOOK_WORKFLOW"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by WurkNow",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_JKObc@n_x4VPE@_YCzBe-1@y@n",
+			"id":"n_dvZWM",
+			"index":10,
+			"inputs":{
+				"result":{
+					"endpointDetails":"{{ n_iBm29.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":880,
+				"resourceName":"standard_entities_create_api_endpoint",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_x4VPE@_YCzBe-1@n",
+			"id":"n_6jZNf",
+			"index":11,
+			"inputs":{
+				"path":"{{ n_P3NDa.outputs.path }}",
+				"endpointType":"{{ n_P3NDa.outputs.requestType }}",
+				"resourceVersion":"",
+				"name":"{{ n_P3NDa.outputs.endpointName }}",
+				"southBoundAPI":{
+					"resourceType":"HTTP",
+					"url":"{{ n_P3NDa.outputs.downstreamurl }}"
+				},
+				"active":true,
+				"description":"{{ n_P3NDa.outputs.apiDescription }}",
+				"httpMethod":"{{ n_P3NDa.outputs.httpMethod }}",
+				"collectionId":"{{ n_P3NDa.outputs.apiGroupId }}",
+				"resourceType":"{{ n_P3NDa.outputs.resourceType }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by WurkNow",
+			"title":"Create API Endpoint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_x4VPE@_YCzBe-1@n",
+			"id":"n_OMmAC",
+			"index":12,
+			"inputs":{
+				"result":{
+					"endpointDetails":"{{ n_6jZNf.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde-api-manager",
+		"ai-fde"
+	],
+	"version":0,
+	"workflowDefinitionId":"6a634ce8e4608705b6072644",
+	"workflowVersion":27
+}
