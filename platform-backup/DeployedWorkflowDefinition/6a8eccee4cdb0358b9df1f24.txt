@@ -1,0 +1,1397 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743470213,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"description":"Callable automation that forwards inputs to the Workflow Update Pipeline automation, upserts the returned automation object, and publishes an MQTT notification on the workflow's topic.",
+	"edges":[
+		{
+			"fromNodeId":"n_sTaRt",
+			"id":"next@n_sTaRt@n_fAVgI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fAVgI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_fAVgI",
+			"id":"next@n_fAVgI@n_Gn0QR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Gn0QR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Gn0QR",
+			"id":"next@n_Gn0QR@n_q5osD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_q5osD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_q5osD",
+			"id":"next@n_q5osD@n_oC4kg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_oC4kg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_oC4kg",
+			"id":"next@n_oC4kg@n_WYqDl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WYqDl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WYqDl",
+			"id":"if@n_WYqDl@n_uhOKc",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uhOKc",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_uhOKc",
+			"id":"next@n_uhOKc@n_yV2rf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yV2rf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yV2rf",
+			"id":"next@n_yV2rf@n_UpAut",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UpAut",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WYqDl",
+			"id":"next@n_WYqDl@n_UpAut",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UpAut",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UpAut",
+			"id":"next@n_UpAut@n_v8utF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_v8utF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_v8utF",
+			"id":"next@n_v8utF@n_StOpp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_StOpp",
+			"type":"next"
+		}
+	],
+	"id":"6a8eccee4cdb0358b9df1f24",
+	"lastModifiedBy":-1,
+	"lcName":"update workflow",
+	"modifiedTime":1787743470216,
+	"name":"Update Workflow",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_sTaRt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"errorPayload":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Payload",
+							"type":"object"
+						},
+						"success":{
+							"title":"Success",
+							"type":"string"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"connectionMap":{
+							"additionalProperties":false,
+							"properties":{
+								"appName":{
+									"title":"App Name",
+									"type":"string"
+								},
+								"connectionId":{
+									"title":"Connection Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Connection Map",
+							"type":"object"
+						},
+						"host":{
+							"title":"Host",
+							"type":"string"
+						},
+						"insertNodes":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"afterNodeId":{
+										"title":"After Node Id",
+										"type":"string"
+									},
+									"branch":{
+										"title":"Branch",
+										"type":"string"
+									},
+									"nodes":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"additional":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Additional",
+													"type":"object"
+												},
+												"context":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Context",
+													"type":"object"
+												},
+												"debug":{
+													"title":"Debug",
+													"type":"boolean"
+												},
+												"dirty":{
+													"title":"Dirty",
+													"type":"boolean"
+												},
+												"errorSchema":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Error Schema",
+													"type":"object"
+												},
+												"fallbackMode":{
+													"title":"Fallback Mode",
+													"type":"string"
+												},
+												"groupId":{
+													"title":"Group Id",
+													"type":"string"
+												},
+												"id":{
+													"title":"Id",
+													"type":"string"
+												},
+												"inputSchema":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Input Schema",
+													"type":"object"
+												},
+												"inputs":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Inputs",
+													"type":"object"
+												},
+												"options":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Options",
+													"type":"object"
+												},
+												"outputSchema":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Output Schema",
+													"type":"object"
+												},
+												"skip":{
+													"title":"Skip",
+													"type":"boolean"
+												},
+												"subTitle":{
+													"title":"Sub Title",
+													"type":"string"
+												},
+												"title":{
+													"title":"Title",
+													"type":"string"
+												},
+												"trigger":{
+													"additionalProperties":false,
+													"properties":{
+														"type":{
+															"title":"Type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"Trigger",
+													"type":"object"
+												},
+												"type":{
+													"title":"Type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"Nodes",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Insert Nodes",
+							"type":"array"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{
+								"description":{
+									"title":"Description",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Metadata",
+							"type":"object"
+						},
+						"patchNodes":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"context":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Context",
+										"type":"object"
+									},
+									"fallbackMode":{
+										"title":"Fallback Mode",
+										"type":"string"
+									},
+									"inputSchema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Input Schema",
+										"type":"object"
+									},
+									"inputs":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Inputs",
+										"type":"object"
+									},
+									"nodeId":{
+										"title":"Node Id",
+										"type":"string"
+									},
+									"outputSchema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Output Schema",
+										"type":"object"
+									},
+									"skip":{
+										"title":"Skip",
+										"type":"boolean"
+									},
+									"subTitle":{
+										"title":"Sub Title",
+										"type":"string"
+									},
+									"title":{
+										"title":"Title",
+										"type":"string"
+									},
+									"trigger":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Trigger",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Patch Nodes",
+							"type":"array"
+						},
+						"removeNodeIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Remove Node Ids",
+							"type":"array"
+						},
+						"replaceEdges":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"conditionInputs":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Condition Inputs",
+										"type":"object"
+									},
+									"fromNodeId":{
+										"title":"From Node Id",
+										"type":"string"
+									},
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"metadata":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Metadata",
+										"type":"object"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"priority":{
+										"title":"Priority",
+										"type":"number"
+									},
+									"skip":{
+										"title":"Skip",
+										"type":"boolean"
+									},
+									"toNodeId":{
+										"title":"To Node Id",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Replace Edges",
+							"type":"array"
+						},
+						"workflowId":{
+							"title":"Workflow Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":1123,
+				"resourceName":"standard_entities_get_automation_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_fAVgI",
+			"index":2,
+			"inputs":{
+				"workflowIds":"{{ n_sTaRt.outputs.workflowId }}",
+				"includeVersion":false,
+				"includeEverything":true,
+				"includeNodesAndEdges":true
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get automation details",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"auth_by_unifyapps",
+				"resourceVersion":47,
+				"resourceName":"auth_by_unifyapps_create_user_session",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_Gn0QR",
+			"index":3,
+			"inputs":{
+				"sessionDuration":3600000
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":3,
+					"enabled":false,
+					"initialDelay":500,
+					"maxDelay":1000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Auth",
+			"title":"Create User Session",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":180,
+				"resourceName":"custom_http_endpoint_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_q5osD",
+			"index":4,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"body":{
+					"id":3,
+					"jsonrpc":"2.0",
+					"method":"tools/call",
+					"params":{
+						"arguments":{
+							"connectionMap":"{{ n_sTaRt.outputs.connectionMap }}",
+							"host":"{{ __RUN__.outputs.origin }}",
+							"insertNodes":{
+								"items":{
+									"afterNodeId":"{{ n_sTaRt.outputs.insertNodes[0].afterNodeId }}",
+									"branch":"{{ n_sTaRt.outputs.insertNodes[0].branch }}",
+									"nodes":{
+										"items":{
+											"additional":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].additional }}",
+											"context":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].context }}",
+											"debug":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].debug }}",
+											"dirty":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].dirty }}",
+											"errorSchema":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].errorSchema }}",
+											"fallbackMode":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].fallbackMode }}",
+											"groupId":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].groupId }}",
+											"id":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].id }}",
+											"inputSchema":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].inputSchema }}",
+											"inputs":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].inputs }}",
+											"options":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].options }}",
+											"outputSchema":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].outputSchema }}",
+											"skip":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].skip }}",
+											"subTitle":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].subTitle }}",
+											"title":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].title }}",
+											"trigger":{
+												"type":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].trigger.type }}"
+											},
+											"type":"{{ n_sTaRt.outputs.insertNodes[0].nodes[0].type }}"
+										},
+										"source":"{{ n_sTaRt.outputs.insertNodes[0].nodes }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_sTaRt.outputs.insertNodes }}",
+								"ua:type":"mappedArray"
+							},
+							"metadata":{
+								"description":"{{ n_sTaRt.outputs.metadata.description }}",
+								"name":"{{ n_sTaRt.outputs.metadata.name }}"
+							},
+							"patchNodes":{
+								"items":{
+									"context":"{{ n_sTaRt.outputs.patchNodes[0].context }}",
+									"fallbackMode":"{{ n_sTaRt.outputs.patchNodes[0].fallbackMode }}",
+									"inputSchema":"{{ n_sTaRt.outputs.patchNodes[0].inputSchema }}",
+									"inputs":"{{ n_sTaRt.outputs.patchNodes[0].inputs }}",
+									"nodeId":"{{ n_sTaRt.outputs.patchNodes[0].nodeId }}",
+									"outputSchema":"{{ n_sTaRt.outputs.patchNodes[0].outputSchema }}",
+									"skip":"{{ n_sTaRt.outputs.patchNodes[0].skip }}",
+									"subTitle":"{{ n_sTaRt.outputs.patchNodes[0].subTitle }}",
+									"title":"{{ n_sTaRt.outputs.patchNodes[0].title }}",
+									"trigger":"{{ n_sTaRt.outputs.patchNodes[0].trigger }}"
+								},
+								"source":"{{ n_sTaRt.outputs.patchNodes }}",
+								"ua:type":"mappedArray"
+							},
+							"removeNodeIds":{
+								"items":"{{ n_sTaRt.outputs.removeNodeIds[0] }}",
+								"source":"{{ n_sTaRt.outputs.removeNodeIds }}",
+								"ua:type":"mappedArray"
+							},
+							"replaceEdges":{
+								"items":{
+									"conditionInputs":"{{ n_sTaRt.outputs.replaceEdges[0].conditionInputs }}",
+									"fromNodeId":"{{ n_sTaRt.outputs.replaceEdges[0].fromNodeId }}",
+									"id":"{{ n_sTaRt.outputs.replaceEdges[0].id }}",
+									"metadata":"{{ n_sTaRt.outputs.replaceEdges[0].metadata }}",
+									"name":"{{ n_sTaRt.outputs.replaceEdges[0].name }}",
+									"priority":"{{ n_sTaRt.outputs.replaceEdges[0].priority }}",
+									"skip":"{{ n_sTaRt.outputs.replaceEdges[0].skip }}",
+									"toNodeId":"{{ n_sTaRt.outputs.replaceEdges[0].toNodeId }}",
+									"type":"{{ n_sTaRt.outputs.replaceEdges[0].type }}"
+								},
+								"source":"{{ n_sTaRt.outputs.replaceEdges }}",
+								"ua:type":"mappedArray"
+							},
+							"workflowDefinition":"{{ n_fAVgI.outputs.automationDetails[0] }}",
+							"workflowId":"{{ n_sTaRt.outputs.workflowId }}"
+						},
+						"name":"batch_upsert_nodes"
+					}
+				},
+				"httpMethod":"POST",
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/_internal/tools/batch_upsert_nodes",
+				"responseSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"id":{
+							"title":"id",
+							"type":"integer"
+						},
+						"jsonrpc":{
+							"title":"jsonrpc",
+							"type":"string"
+						},
+						"result":{
+							"additionalProperties":false,
+							"properties":{
+								"content":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"text":{
+												"title":"Text",
+												"type":"string"
+											},
+											"type":{
+												"title":"Type",
+												"type":"string"
+											}
+										},
+										"required":[
+											"type",
+											"text"
+										],
+										"type":"object"
+									},
+									"title":"content",
+									"type":"array"
+								},
+								"isError":{
+									"type":"boolean",
+									"title":"isError"
+								}
+							},
+							"title":"result",
+							"type":"object",
+							"required":[
+								"isError"
+							]
+						}
+					},
+					"type":"object"
+				},
+				"baseUrl":"http://llm-tools-mcp-global-svc",
+				"httpVersion":"HTTP_1_1",
+				"bodySchema":{
+					"additionalProperties":false,
+					"properties":{
+						"id":{
+							"title":"id",
+							"type":"integer"
+						},
+						"jsonrpc":{
+							"title":"jsonrpc",
+							"type":"string"
+						},
+						"method":{
+							"title":"method",
+							"type":"string"
+						},
+						"params":{
+							"additionalProperties":false,
+							"properties":{
+								"arguments":{
+									"additionalProperties":false,
+									"properties":{
+										"connectionMap":{
+											"additionalProperties":false,
+											"properties":{},
+											"title":"Connection Map",
+											"type":"object"
+										},
+										"host":{
+											"title":"host",
+											"type":"string"
+										},
+										"insertNodes":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"afterNodeId":{
+														"title":"After Node Id",
+														"type":"string"
+													},
+													"branch":{
+														"title":"Branch",
+														"type":"string"
+													},
+													"nodes":{
+														"items":{
+															"additionalProperties":false,
+															"properties":{
+																"additional":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Additional",
+																	"type":"object"
+																},
+																"context":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Context",
+																	"type":"object"
+																},
+																"debug":{
+																	"title":"Debug",
+																	"type":"boolean"
+																},
+																"dirty":{
+																	"title":"Dirty",
+																	"type":"boolean"
+																},
+																"errorSchema":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Error Schema",
+																	"type":"object"
+																},
+																"fallbackMode":{
+																	"title":"Fallback Mode",
+																	"type":"string"
+																},
+																"groupId":{
+																	"title":"Group Id",
+																	"type":"string"
+																},
+																"id":{
+																	"title":"Id",
+																	"type":"string"
+																},
+																"inputSchema":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Input Schema",
+																	"type":"object"
+																},
+																"inputs":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Inputs",
+																	"type":"object"
+																},
+																"options":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Options",
+																	"type":"object"
+																},
+																"outputSchema":{
+																	"additionalProperties":false,
+																	"properties":{},
+																	"title":"Output Schema",
+																	"type":"object"
+																},
+																"skip":{
+																	"title":"Skip",
+																	"type":"boolean"
+																},
+																"subTitle":{
+																	"title":"Sub Title",
+																	"type":"string"
+																},
+																"title":{
+																	"title":"Title",
+																	"type":"string"
+																},
+																"trigger":{
+																	"additionalProperties":false,
+																	"properties":{
+																		"type":{
+																			"title":"Type",
+																			"type":"string"
+																		}
+																	},
+																	"required":[],
+																	"title":"Trigger",
+																	"type":"object"
+																},
+																"type":{
+																	"title":"Type",
+																	"type":"string"
+																}
+															},
+															"required":[],
+															"type":"object"
+														},
+														"title":"Nodes",
+														"type":"array"
+													}
+												},
+												"required":[],
+												"type":"object"
+											},
+											"title":"Insert Nodes",
+											"type":"array"
+										},
+										"metadata":{
+											"additionalProperties":false,
+											"properties":{
+												"description":{
+													"title":"Description",
+													"type":"string"
+												},
+												"name":{
+													"title":"Name",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Metadata",
+											"type":"object"
+										},
+										"patchNodes":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"context":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Context",
+														"type":"object"
+													},
+													"fallbackMode":{
+														"title":"Fallback Mode",
+														"type":"string"
+													},
+													"inputSchema":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Input Schema",
+														"type":"object"
+													},
+													"inputs":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Inputs",
+														"type":"object"
+													},
+													"nodeId":{
+														"title":"Node Id",
+														"type":"string"
+													},
+													"outputSchema":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Output Schema",
+														"type":"object"
+													},
+													"skip":{
+														"title":"Skip",
+														"type":"boolean"
+													},
+													"subTitle":{
+														"title":"Sub Title",
+														"type":"string"
+													},
+													"title":{
+														"title":"Title",
+														"type":"string"
+													},
+													"trigger":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Trigger",
+														"type":"object"
+													}
+												},
+												"required":[],
+												"type":"object"
+											},
+											"title":"Patch Nodes",
+											"type":"array"
+										},
+										"removeNodeIds":{
+											"items":{
+												"type":"string"
+											},
+											"title":"Remove Node Ids",
+											"type":"array"
+										},
+										"replaceEdges":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"conditionInputs":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Condition Inputs",
+														"type":"object"
+													},
+													"fromNodeId":{
+														"title":"From Node Id",
+														"type":"string"
+													},
+													"id":{
+														"title":"Id",
+														"type":"string"
+													},
+													"metadata":{
+														"additionalProperties":false,
+														"properties":{},
+														"title":"Metadata",
+														"type":"object"
+													},
+													"name":{
+														"title":"Name",
+														"type":"string"
+													},
+													"priority":{
+														"title":"Priority",
+														"type":"number"
+													},
+													"skip":{
+														"title":"Skip",
+														"type":"boolean"
+													},
+													"toNodeId":{
+														"title":"To Node Id",
+														"type":"string"
+													},
+													"type":{
+														"title":"Type",
+														"type":"string"
+													}
+												},
+												"required":[],
+												"type":"object"
+											},
+											"title":"Replace Edges",
+											"type":"array"
+										},
+										"workflowDefinition":{
+											"additionalProperties":false,
+											"properties":{},
+											"title":"Workflow Definition",
+											"type":"object"
+										},
+										"workflowId":{
+											"title":"Workflow Id",
+											"type":"string"
+										}
+									},
+									"required":[],
+									"type":"object"
+								},
+								"name":{
+									"title":"name",
+									"type":"string"
+								}
+							},
+							"required":[
+								"arguments"
+							],
+							"type":"object"
+						}
+					},
+					"required":[
+						"params"
+					],
+					"type":"object"
+				},
+				"responseContentType":"application/json",
+				"followRedirects":"NORMAL",
+				"headersList":[
+					{
+						"key":"accept",
+						"value":"application/json, text/event-stream"
+					},
+					{
+						"key":"content-type",
+						"value":"application/json"
+					},
+					{
+						"key":"mcp-protocol-version",
+						"value":"2025-11-25"
+					},
+					{
+						"key":"Cookie",
+						"value":"_at={{ n_Gn0QR.outputs.sessionId }}"
+					}
+				],
+				"authType":"CUSTOM",
+				"ignoreTrailingSlashes":false,
+				"requestContentType":"application/json",
+				"certificateType":"CERT_STRING"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute REST request",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":909,
+				"resourceName":"utility_by_unifyapps_to_json_object",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_oC4kg",
+			"index":5,
+			"inputs":{
+				"jsonSchema":{
+					"$comment":"Sample Workflow Schema",
+					"$ref":"#/definitions/entity|e_code_snippet|e_69f0bfc6d9a3a953aea83498"
+				},
+				"jsonString":"{{ n_q5osD.outputs.result.result.content[0].text }}"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise string to JSON object",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":459,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_WYqDl",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_q5osD.outputs.result.result.isError }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"=TRUE"
+						},
+						"property":"{{ n_q5osD.outputs.result.result.isError }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":2768,
+				"connectionId":"682adda0b3d1743888ec45db",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_WYqDl@root_id-1@y",
+			"id":"n_uhOKc",
+			"index":7,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"Attach":[
+					{}
+				],
+				"channel":"C0B73011BCL",
+				"text":"Automation MCP Failed in \"Upsert Workflow\"\n\nError: \n```\n{{ n_q5osD.outputs.result.result.content[0].text }}\n```",
+				"mrkdwn":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":831,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_WYqDl@root_id-1@y",
+			"id":"n_yV2rf",
+			"index":8,
+			"inputs":{
+				"result":{
+					"errorPayload":"{{ n_oC4kg.outputs.result }}",
+					"success":"false"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceName":"standard_entities_upsert_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_UpAut",
+			"index":9,
+			"inputs":{
+				"workflowObject":"{{ n_oC4kg.outputs.result }}"
+			},
+			"skip":false,
+			"subTitle":"Standard Entities",
+			"title":"Upsert Automation",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.applicationId"
+				]
+			},
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":446,
+				"resourceName":"utility_by_unifyapps_send_mqtt_request",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_v8utF",
+			"index":10,
+			"inputs":{
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"refetch":{
+							"title":"Refetch",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"topicName":"FETCH_LATEST_WORKFLOW/{{ n_sTaRt.outputs.workflowId }}",
+				"parameters":{
+					"refetch":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Send Mqtt Request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_StOpp",
+			"index":11,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		"entity|e_code_snippet|e_69f0bfc6d9a3a953aea83498"
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"text-to-workflow",
+		"AI Generated"
+	],
+	"version":0,
+	"workflowDefinitionId":"69ef2996e9cdc45e60601cb3",
+	"workflowVersion":72
+}
