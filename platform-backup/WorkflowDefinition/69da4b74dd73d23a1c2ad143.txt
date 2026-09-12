@@ -1,0 +1,287 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743834088,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743834129,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece5a9d7c534668ef8e13",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sTaRt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FtEnt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FtEnt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtRes",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69da4b74dd73d23a1c2ad143",
+	"lastModifiedBy":-1,
+	"lcName":"fetch entities via standard entities",
+	"modifiedTime":1788252973019,
+	"name":"Fetch entities via Standard entities",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qR7mN-1",
+			"id":"n_sTaRt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{
+								"hasMore":{
+									"title":"hasMore",
+									"type":"boolean"
+								},
+								"objects":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"columns":{
+												"additionalProperties":false,
+												"properties":{
+													"description":{
+														"title":"description",
+														"type":"string"
+													},
+													"id":{
+														"title":"id",
+														"type":"string"
+													},
+													"lcName":{
+														"title":"lcName",
+														"type":"string"
+													},
+													"name":{
+														"title":"name",
+														"type":"string"
+													},
+													"standard":{
+														"title":"standard",
+														"type":"boolean"
+													}
+												},
+												"title":"columns",
+												"type":"object"
+											}
+										},
+										"type":"object"
+									},
+									"title":"objects",
+									"type":"array"
+								},
+								"total":{
+									"title":"Total",
+									"type":"number"
+								}
+							},
+							"required":[],
+							"title":"response",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"entitiesToRegexMatch":{
+							"help":"Provide a regex pattern to match against name and description to get available entities",
+							"title":"Entities To Regex Match",
+							"type":"string"
+						},
+						"limit":{
+							"help":"Limit for number of entities to fetch in this call",
+							"title":"Limit",
+							"type":"number"
+						},
+						"offset":{
+							"help":"Offset for pagination",
+							"title":"Offset",
+							"type":"number"
+						}
+					},
+					"required":[
+						"entitiesToRegexMatch",
+						"offset",
+						"limit"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceName":"standard_entities_fetch_entities",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qR7mN-1",
+			"id":"n_FtEnt",
+			"index":2,
+			"inputs":{
+				"filter":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"REGEX",
+								"value":"{{ n_sTaRt.outputs.entitiesToRegexMatch }}"
+							},
+							"property":"lcName"
+						},
+						{
+							"filter":{
+								"operator":"REGEX",
+								"value":"{{ n_sTaRt.outputs.entitiesToRegexMatch }}"
+							},
+							"property":"description"
+						}
+					],
+					"operator":"OR"
+				},
+				"projections":[
+					{
+						"aggregationFunction":"GROUP",
+						"name":"id"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"name":"name"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"name":"lcName"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"name":"description"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"name":"standard"
+					}
+				],
+				"entityType":"EntityType",
+				"includeTotalHits":true,
+				"page":{
+					"limit":"{{ n_sTaRt.outputs.limit }}",
+					"offset":"{{ n_sTaRt.outputs.offset }}"
+				},
+				"group":"STANDARD"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Fetch entities",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qR7mN-1",
+			"id":"n_RtRes",
+			"index":3,
+			"inputs":{
+				"result":{
+					"response":{
+						"hasMore":"{{ n_FtEnt.outputs.hasMore }}",
+						"objects":{
+							"items":{
+								"columns":{
+									"description":"{{ n_FtEnt.outputs.objects[0].columns.description }}",
+									"id":"{{ n_FtEnt.outputs.objects[0].columns.id }}",
+									"lcName":"{{ n_FtEnt.outputs.objects[0].columns.lcName }}",
+									"name":"{{ n_FtEnt.outputs.objects[0].columns.name }}",
+									"standard":"{{ n_FtEnt.outputs.objects[0].columns.standard }}"
+								}
+							},
+							"source":"{{ n_FtEnt.outputs.objects }}",
+							"ua:type":"mappedArray"
+						},
+						"total":"{{ n_FtEnt.outputs.total }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"e_69da4addb63af864fd104cbd",
+		"AI Generated",
+		"text-to-workflow"
+	],
+	"version":9
+}
