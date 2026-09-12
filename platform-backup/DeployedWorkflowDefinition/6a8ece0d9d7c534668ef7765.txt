@@ -1,0 +1,275 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743757107,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"4kKHi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"uTvTU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"uTvTU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"IYe05",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"IYe05",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ks0ke",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"ks0ke",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"4yWf2",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece0d9d7c534668ef7765",
+	"lastModifiedBy":-1,
+	"lcName":"prompt tester",
+	"modifiedTime":1787743757109,
+	"name":"Prompt Tester",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":46,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"GmVOq-1",
+			"id":"4kKHi",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"title":"Response",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"promptContent":{
+							"title":"Prompt Content",
+							"type":"string"
+						},
+						"promptVariables":{
+							"additionalProperties":false,
+							"properties":{
+								"modelId":{
+									"title":"Model Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"modelId"
+							],
+							"title":"Prompt Variables",
+							"type":"object"
+						},
+						"userQuery":{
+							"title":"User Query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"GmVOq-1",
+			"id":"uTvTU",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"modifiedPrompt":{
+							"title":"Modified Prompt",
+							"type":"string"
+						},
+						"variables":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Variables",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"promptContent":{
+							"title":"Prompt Content",
+							"type":"string"
+						},
+						"promptVariables":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Prompt Variables",
+							"type":"object"
+						},
+						"userQuery":{
+							"title":"User Query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def variables = [\"userQuery\": userQuery]\nvariables.putAll(promptVariables)\nif(promptContent.isEmpty()){\n    promptContent = \"Can you answer this question ?\" + userQuery \n}\nreturn [\"variables\": variables, \"modifiedPrompt\": promptContent]",
+				"isAsync":false,
+				"parameters":{
+					"promptContent":"{{ 4kKHi.outputs.promptContent }}",
+					"promptVariables":"{{ 4kKHi.outputs.promptVariables }}",
+					"userQuery":"{{ 4kKHi.outputs.userQuery }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code By UnifyApps",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"template_by_unifyapps",
+				"resourceVersion":77,
+				"resourceName":"template_by_unifyapps_compile_template",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"GmVOq-1",
+			"id":"IYe05",
+			"index":0,
+			"inputs":{
+				"input_schema":"{{ uTvTU.outputs.result.variables }}",
+				"template_content":"{{ uTvTU.outputs.result.modifiedPrompt }}",
+				"template_id":"test"
+			},
+			"skip":false,
+			"subTitle":"Template by UnifyApps",
+			"title":"Compile template",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"GmVOq-1",
+			"id":"ks0ke",
+			"index":0,
+			"inputs":{
+				"automationId":"66dfd76eb70dad256986b784",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ 4kKHi.outputs.aiAgentId }}",
+					"caseId":"{{ 4kKHi.outputs.caseId }}",
+					"content":"{{ IYe05.outputs.output }}",
+					"modelId":"{{ 4kKHi.outputs.promptVariables.modelId }}",
+					"type":"text"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":42,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"GmVOq-1",
+			"id":"4yWf2",
+			"index":0,
+			"inputs":{
+				"result":{
+					"response":"{{ ks0ke.outputs.llmResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":0,
+	"workflowDefinitionId":"66b216c8ab12d571b5b5393b",
+	"workflowVersion":26
+}
