@@ -1,0 +1,431 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743739856,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_phUSg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GyOMS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GyOMS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bRd10",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bRd10",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Vxm71",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Vxm71",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_M8qr2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_M8qr2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_icohi",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecdfb45d2142160e6dc6f",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | vsdx",
+	"modifiedTime":1787743739858,
+	"name":"Knowledge Indexer | vsdx",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":61,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TBvUz-1",
+			"id":"_phUSg",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"chunks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"metadata":{
+										"title":"metadata",
+										"type":"object"
+									},
+									"text":{
+										"title":"text",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"chunks",
+							"type":"array"
+						},
+						"links":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Links",
+							"type":"array"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"depth":{
+							"title":"Depth",
+							"type":"integer"
+						},
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"fileType",
+									"type":"string"
+								},
+								"name":{
+									"title":"name",
+									"type":"string"
+								},
+								"source":{
+									"title":"source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"sourceType",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"isDeepIndexing":{
+							"title":"Is Deep Indexing",
+							"type":"boolean"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"number"
+						},
+						"mimeType":{
+							"title":"Mime Type",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1552,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TBvUz-1",
+			"id":"n_GyOMS",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"newFileObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"newFileObj",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Obj",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"\n\nreturn [\n    newFileObj: [\n        \"ua:type\" : \"FILE\",\n        \"size\": fileObj.size,\n        \"source\": fileObj.source,\n        \"sourceType\": fileObj.sourceType,\n        \"fileType\" : fileObj.fileType\n    ]\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileObj":"{{ _phUSg.outputs.fileDetails }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":798,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TBvUz-1",
+			"id":"n_bRd10",
+			"index":3,
+			"inputs":{
+				"configurationMode":"DEFAULT",
+				"code":"\"\"\"\nVSDX → PDF\nRequires: LibreOffice\n\"\"\"\nimport os\nimport subprocess\nimport shutil\nfrom pathlib import Path\n\n\ndef is_libreoffice_available() -> bool:\n    try:\n        return subprocess.run([\"libreoffice\", \"--version\"], capture_output=True, timeout=10).returncode == 0\n    except Exception:\n        return False\n\n\ndef vsdx_to_pdf(vsdx_path: str, output_dir: str) -> str:\n    subprocess.run([\n        \"libreoffice\", \"--headless\", \"--convert-to\", \"pdf\",\n        \"--outdir\", output_dir, vsdx_path\n    ], check=True, capture_output=True)\n\n    pdf_path = os.path.join(output_dir, Path(vsdx_path).stem + \".pdf\")\n    if not os.path.exists(pdf_path):\n        raise FileNotFoundError(\"LibreOffice PDF conversion failed\")\n    return pdf_path\n\n\ndef main():\n    if not os.path.exists(input_vsdx_file):\n        raise FileNotFoundError(f\"Downloaded file not found at: {input_vsdx_file}\")\n\n    if not is_libreoffice_available():\n        raise Exception(\"LibreOffice not installed on this node\")\n\n    original_name = filesList[0][\"fileDetails\"].get(\"fileName\")\n\n    output_dir = \"output_files\"\n    os.makedirs(output_dir, exist_ok=True)\n\n    # VSDX → PDF\n    pdf_path = vsdx_to_pdf(input_vsdx_file, output_dir)\n    pdf_filename = Path(pdf_path).name\n\n    print(f\"Converted to PDF: {pdf_filename}\")\n\n    return {\n        \"originalFile\": original_name,\n        \"pdfFileName\": pdf_filename,\n        \"pdfPath\": pdf_path,\n    }\n\n\nresult = main()",
+				"filesList":[
+					{
+						"fileDetails":"{{ n_GyOMS.outputs.result.newFileObj }}",
+						"fileName":"input_vsdx_file"
+					}
+				],
+				"isAsync":false,
+				"python_version":"3.12",
+				"outputFilesGlob":"*",
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":775,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TBvUz-1",
+			"id":"n_Vxm71",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"outputFiles":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Output Files",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def outputFiles = binding.hasVariable(\"outputFiles\") ? binding.getVariable(\"outputFiles\") : [:]\n\ndef pdfFile = [:]\n\nif (outputFiles instanceof Map) {\n    def file = outputFiles.values()\n        .findAll { it instanceof Map }\n        .find { it.name?.endsWith(\".pdf\") }\n\n    if (file) {\n        pdfFile = [\n            sourceType: file.sourceType,\n            name      : file.name,\n            source    : file.source,\n            fileType  : file.fileType\n        ]\n    }\n}\n\nreturn ['file': pdfFile]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"outputFiles":"{{ n_bRd10.outputs.outputFiles }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":872,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TBvUz-1",
+			"id":"n_M8qr2",
+			"index":5,
+			"inputs":{
+				"automationId":"6708d0a1e5c64343ba9b24c8",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ _phUSg.outputs.authorEmail }}",
+					"chunkMetadata":"{{ _phUSg.outputs.chunkMetadata }}",
+					"depth":"{{ _phUSg.outputs.depth }}",
+					"fileDetails":{
+						"fileType":"{{ n_Vxm71.outputs.result.file.fileType }}",
+						"name":"{{ n_Vxm71.outputs.result.file.name }}",
+						"source":"{{ n_Vxm71.outputs.result.file.source }}",
+						"sourceType":"{{ n_Vxm71.outputs.result.file.sourceType }}"
+					},
+					"isDeepIndexing":"{{ _phUSg.outputs.isDeepIndexing }}",
+					"knowledgeId":"{{ _phUSg.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ _phUSg.outputs.knowledgeVersion }}",
+					"mimeType":"application/pdf",
+					"sharedWithIds":{
+						"items":"{{ _phUSg.outputs.sharedWithIds[0] }}",
+						"source":"{{ _phUSg.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"uniqueEntityId":"{{ _phUSg.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":65,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TBvUz-1",
+			"id":"_icohi",
+			"index":6,
+			"inputs":{
+				"result":{
+					"chunks":{
+						"items":{
+							"metadata":"{{ n_M8qr2.outputs.chunks[0].metadata }}",
+							"text":"{{ n_M8qr2.outputs.chunks[0].text }}"
+						},
+						"source":"{{ n_M8qr2.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"69fe1bb05b7305498559e036",
+	"workflowVersion":10
+}
