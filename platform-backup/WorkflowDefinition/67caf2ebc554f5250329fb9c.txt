@@ -1,0 +1,155 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743689676,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743689777,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdc99d7c534668ef6401",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":13
+	},
+	"edges":[
+		{
+			"fromNodeId":"tTJPs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"WK3pG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"WK3pG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"3wK80",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67caf2ebc554f5250329fb9c",
+	"lastModifiedBy":-1,
+	"lcName":"on new case created",
+	"modifiedTime":1788252971777,
+	"name":"On New Case Created",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":120,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JZTPZ-1",
+			"id":"tTJPs",
+			"index":0,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EXISTS"
+							},
+							"property":"{{ tTJPs.outputs.properties.additional.aiAgentId }}"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"service_hub_case"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.updateFields.items.fieldName",
+					"root.updateFields.items.actionType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":438,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JZTPZ-1",
+			"id":"WK3pG",
+			"index":0,
+			"inputs":{
+				"recordId":"{{ tTJPs.outputs.properties.fromCustomerUserId }}",
+				"writeThroughSessionVariables":true,
+				"object_type":"customer_profile",
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.additional.lastCreatedCaseId",
+						"setValue":"{{ tTJPs.outputs.id }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JZTPZ-1",
+			"id":"3wK80",
+			"index":0,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":15
+}

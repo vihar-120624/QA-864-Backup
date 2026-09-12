@@ -1,0 +1,138 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744699361,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744699601,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1bb2889f9507f1220fe",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":5
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_tnOaT",
+			"id":"next@n_tnOaT@n_kFK2L",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kFK2L",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kFK2L",
+			"id":"next@n_kFK2L@n_NWtt3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NWtt3",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a59d984deed8b7fe38f00c0",
+	"lastModifiedBy":-1,
+	"lcName":"lowes cg | delete done records",
+	"modifiedTime":1788252971780,
+	"name":"Lowes CG | Delete Done Records",
+	"nodes":[
+		{
+			"context":{
+				"appName":"schedule",
+				"resourceVersion":72,
+				"resourceName":"schedule_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vAQW1-1",
+			"id":"n_tnOaT",
+			"index":1,
+			"inputs":{
+				"cron":"INTERVAL",
+				"sequential":false,
+				"interval":15,
+				"frequency":"MINUTES"
+			},
+			"skip":false,
+			"subTitle":"Schedule",
+			"title":"New recurring event",
+			"trigger":{
+				"type":"SCHEDULED"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":1278,
+				"resourceName":"analytics_by_unifyapps_execute_update",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vAQW1-1",
+			"id":"n_kFK2L",
+			"index":2,
+			"inputs":{
+				"query":"DELETE FROM ENTITY_graph_record_queue_2\r\nWHERE _pr_status = 'DONE'\r\n  AND modifiedTime < (UNIX_TIMESTAMP() - 3600) * 1000;",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Update Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":1319,
+				"resourceName":"analytics_by_unifyapps_execute_update",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vAQW1-1",
+			"id":"n_NWtt3",
+			"index":3,
+			"inputs":{
+				"query":"UPDATE ENTITY_graph_record_queue_2\r\nSET _pr_status = 'PENDING',\r\n    modifiedTime = UNIX_TIMESTAMP() * 1000\r\nWHERE _pr_status = 'FAILED'\r\n  AND _pr_retryCount <= 3\r\n  AND modifiedTime >= (UNIX_TIMESTAMP() - 7200) * 1000\r\n  AND `timestamp` >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 DAY);\r\n",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Update Query",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":7
+}
