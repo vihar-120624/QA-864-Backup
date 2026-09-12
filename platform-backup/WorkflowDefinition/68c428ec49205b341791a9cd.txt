@@ -1,0 +1,308 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743765783,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743765874,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece159d7c534668ef77ac",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":15
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_OHdRz",
+			"id":"next@n_OHdRz@n_J3Uy9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_J3Uy9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_J3Uy9",
+			"id":"next@n_J3Uy9@n_zAPrX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zAPrX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zAPrX",
+			"id":"next@n_zAPrX@VzSm8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"VzSm8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"VzSm8",
+			"id":"next@VzSm8@n_V91Lr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V91Lr",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68c428ec49205b341791a9cd",
+	"lastModifiedBy":-1,
+	"lcName":"contextual retrieval indexer",
+	"modifiedTime":1788252971625,
+	"name":"Contextual Retrieval Indexer",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_DMc6j-1",
+			"id":"n_OHdRz",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"CHUNK_CONTENT":{
+							"title":"CHUNK CONTENT",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"CHUNK_CONTENT":{
+							"title":"CHUNK CONTENT",
+							"type":"string"
+						},
+						"DOCUMENT_NAME":{
+							"title":"DOCUMENT NAME",
+							"type":"string"
+						},
+						"WHOLE_DOCUMENT":{
+							"title":"WHOLE DOCUMENT",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"template_by_unifyapps",
+				"resourceVersion":439,
+				"resourceName":"template_by_unifyapps_compile_template",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_DMc6j-1",
+			"id":"n_J3Uy9",
+			"index":2,
+			"inputs":{
+				"input_schema":{
+					"CHUNK_CONTENT":"{{ n_OHdRz.outputs.CHUNK_CONTENT }}",
+					"DOCUMENT_NAME":"{{ n_OHdRz.outputs.DOCUMENT_NAME }}",
+					"WHOLE_DOCUMENT":"{{ n_OHdRz.outputs.WHOLE_DOCUMENT }}"
+				},
+				"template_id":"e_68c42830336a6c469cc7c161",
+				"nested_eval":false
+			},
+			"skip":false,
+			"subTitle":"Contextual Prompt",
+			"title":"Compile template",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":467,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_DMc6j-1",
+			"id":"n_zAPrX",
+			"index":3,
+			"inputs":{
+				"automationId":"66dfd76eb70dad256986b784",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"content":"{{ n_J3Uy9.outputs.output }}",
+					"modelId":"{{ n_OHdRz.outputs.modelId }}",
+					"response_format":"text",
+					"type":"text"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Simple Call LLM",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_DMc6j-1",
+			"id":"VzSm8",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"finalChunk":{
+							"title":"Final Chunk",
+							"type":"string"
+						}
+					},
+					"required":[
+						"finalChunk"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkContent":{
+							"title":"Chunk Content",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"summary":{
+							"title":"Summary",
+							"type":"string"
+						}
+					},
+					"required":[
+						"chunkContent",
+						"summary"
+					],
+					"type":"object"
+				},
+				"code":"def summary = binding.hasVariable(\"summary\") ? binding.getVariable(\"summary\") : \"\"\ndef chunkContent = binding.hasVariable(\"chunkContent\") ? binding.getVariable(\"chunkContent\") : \"\"\ndef chunkMetadata = binding.hasVariable(\"chunkMetadata\") ? binding.getVariable(\"chunkMetadata\") : [:]\n\ndef updatedChunkMetadata = new LinkedHashMap(chunkMetadata)\n\ndef existingContentForGeneration = updatedChunkMetadata.containsKey(\"contentForGeneration\") \n    ? updatedChunkMetadata.get(\"contentForGeneration\") \n    : chunkContent\n\nupdatedChunkMetadata[\"contentForGeneration\"] = [summary, existingContentForGeneration]\n    .findAll { it?.toString()?.trim() }\n    .join(\"\\n\")\n\nreturn [\n    finalChunk: [summary, chunkContent]\n        .findAll { it?.toString()?.trim() }\n        .join(\"\\n\"),\n    chunkMetadata: updatedChunkMetadata\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"chunkContent":"{{ n_OHdRz.outputs.CHUNK_CONTENT }}",
+					"chunkMetadata":"{{ n_OHdRz.outputs.chunkMetadata }}",
+					"summary":"{{ n_zAPrX.outputs.llmResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_DMc6j-1",
+			"id":"n_V91Lr",
+			"index":5,
+			"inputs":{
+				"result":{
+					"CHUNK_CONTENT":"{{ VzSm8.outputs.result.finalChunk }}",
+					"chunkMetadata":"{{ VzSm8.outputs.result.chunkMetadata }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":17
+}
