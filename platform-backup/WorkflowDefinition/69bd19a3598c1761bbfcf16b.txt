@@ -1,0 +1,218 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743949248,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743949348,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ececd45d2142160e6f689",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":4
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_wBvhe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6FURI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6FURI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cmDg4",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69bd19a3598c1761bbfcf16b",
+	"lastModifiedBy":-1,
+	"lcName":"generic trigger ai agent text2sql - wrapper",
+	"modifiedTime":1788252973583,
+	"name":"Generic Trigger AI Agent Text2Sql - wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"ai_evaluator_by_unifyapps",
+				"resourceVersion":416,
+				"resourceName":"ai_evaluator_by_unifyapps_trigger_task_execution"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rQuQ2-1",
+			"id":"n_wBvhe",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"actual_output":{
+							"type":"string"
+						},
+						"additional":{
+							"additionalProperties":true,
+							"title":"Additional Output Properties",
+							"type":"object"
+						},
+						"caseId":{
+							"type":"string"
+						},
+						"cost":{
+							"type":"number"
+						},
+						"messageId":{
+							"type":"string"
+						},
+						"metadataFields":{
+							"additionalProperties":true,
+							"title":"metadataFields",
+							"type":"object"
+						},
+						"retrieved_context":{
+							"type":"string"
+						},
+						"tools_called":{
+							"items":{
+								"type":"object"
+							},
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"properties":{
+						"additional":{
+							"additionalProperties":true,
+							"title":"Additional Input Properties",
+							"type":"object"
+						},
+						"context":{
+							"type":"string"
+						},
+						"expected_output":{
+							"type":"string"
+						},
+						"expected_tools":{
+							"items":{
+								"type":"object"
+							},
+							"type":"array"
+						},
+						"input":{
+							"type":"string"
+						},
+						"metadataFields":{
+							"additionalProperties":true,
+							"title":"metadataFields",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"AI Evaluator by UnifyApps",
+			"title":"Trigger task execution",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":819,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rQuQ2-1",
+			"id":"n_6FURI",
+			"index":2,
+			"inputs":{
+				"automationId":"69a1803871407351e6a7755c",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"agentId":"e_69d9f00a80651b54eae89f16",
+					"context":"{{ n_wBvhe.outputs.context }}",
+					"expected_output":"{{ n_wBvhe.outputs.expected_output }}",
+					"input":"{{ n_wBvhe.outputs.input }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"ai_evaluator_by_unifyapps",
+				"resourceVersion":391,
+				"resourceName":"ai_evaluator_by_unifyapps_return_response_to_task_execution",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rQuQ2-1",
+			"id":"n_cmDg4",
+			"index":3,
+			"inputs":{
+				"result":{
+					"actual_output":"{{ n_6FURI.outputs.actual_output }}",
+					"additional":"{{ n_6FURI.outputs.additional }}",
+					"caseId":"{{ n_6FURI.outputs.caseId }}",
+					"cost":"{{ n_6FURI.outputs.cost }}",
+					"messageId":"{{ n_6FURI.outputs.messageId }}",
+					"metadataFields":"{{ n_6FURI.outputs.additional }}",
+					"retrieved_context":"{{ n_6FURI.outputs.retrieved_context }}",
+					"tools_called":{
+						"items":"{{ n_6FURI.outputs.tools_called[0] }}",
+						"source":"{{ n_6FURI.outputs.tools_called }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"AI Evaluator by UnifyApps",
+			"title":"Respond to task execution",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":6
+}
