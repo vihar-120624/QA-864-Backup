@@ -1,0 +1,184 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743922576,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_R6jts",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qDFcr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qDFcr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_L4c0w",
+			"type":"next"
+		}
+	],
+	"id":"6a8eceb245d2142160e6eee2",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge rawdata validator",
+	"modifiedTime":1787743922577,
+	"name":"Knowledge RawData Validator",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2046,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwek-1",
+			"id":"n_R6jts",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"downloaderSuccess":{
+							"title":"Downloader Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"automationId":{
+							"title":"Automation Id",
+							"type":"string"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2048,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwek-1",
+			"id":"n_qDFcr",
+			"index":2,
+			"inputs":{
+				"automationId":"{{ n_R6jts.outputs.automationId }}",
+				"runtimeConnections":"{{ n_R6jts.outputs.importerConnections }}",
+				"synchronous":true,
+				"parameters":"{{ n_R6jts.outputs }}",
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2051,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwek-1",
+			"id":"n_L4c0w",
+			"index":3,
+			"inputs":{
+				"result":{
+					"downloaderSuccess":"{{ n_qDFcr.outputs.downloaderSuccess }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69c2b541f7fe27157cc5ef02",
+	"workflowVersion":6
+}

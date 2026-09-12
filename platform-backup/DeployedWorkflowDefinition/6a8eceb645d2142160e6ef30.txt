@@ -1,0 +1,221 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743926169,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"XOhMg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ZjtCc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"ZjtCc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"NMIB9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"NMIB9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"gYAIV",
+			"type":"next"
+		}
+	],
+	"id":"6a8eceb645d2142160e6ef30",
+	"lastModifiedBy":-1,
+	"lcName":"openai voicebot tts responder",
+	"modifiedTime":1787743926170,
+	"name":"Openai Voicebot TTS Responder",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":73,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IkcE3-1",
+			"id":"XOhMg",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"published":{
+							"title":"Published",
+							"type":"string"
+						}
+					},
+					"required":[
+						"published"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"room_name":{
+							"title":"Room Name",
+							"type":"string"
+						},
+						"session_id":{
+							"title":"Session Id",
+							"type":"string"
+						},
+						"text_content":{
+							"title":"Text Content",
+							"type":"string"
+						},
+						"tool_name":{
+							"title":"Tool Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"room_name",
+						"session_id",
+						"text_content",
+						"tool_name"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":73,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IkcE3-1",
+			"id":"ZjtCc",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"textMessage":{
+							"title":"Text Message",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"taskName":{
+							"title":"Task Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.util.Random\n\ndef toolName = binding.hasVariable('toolName') ? toolName : \"\"\n\ndef genericMessages = [\n    \"Please hold on while I process your request.\",\n    \"Give me a moment while I take care of that.\",\n    \"Let me handle that for you. This will just take a moment.\",\n    \"Working on your request now. Please wait a moment.\",\n    \"One moment please while I complete this step.\",\n    \"Processing your request. I’ll let you know once it's done.\"\n]\n\ndef random = new Random()\ndef index = random.nextInt(genericMessages.size())\ndef textMessage = genericMessages[index]\n\nreturn [\"textMessage\": textMessage]\n",
+				"compile_static":false,
+				"parameters":{
+					"taskName":"{{ XOhMg.outputs.tool_name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":358,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IkcE3-1",
+			"id":"NMIB9",
+			"index":0,
+			"inputs":{
+				"automationId":"68190d52e8a3ef233e40fc05",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"addToVoiceSession":false,
+					"event_id":"{{ __RUN__.outputs.executionId }}",
+					"session_id":"{{ XOhMg.outputs.session_id }}",
+					"text":"{{ ZjtCc.outputs.result.textMessage }}",
+					"thought":true
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"send audio message",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":74,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"IkcE3-1",
+			"id":"gYAIV",
+			"index":0,
+			"inputs":{
+				"result":{
+					"published":"done"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"6820ac7cb2489f003f8c4bcb",
+	"workflowVersion":32
+}
