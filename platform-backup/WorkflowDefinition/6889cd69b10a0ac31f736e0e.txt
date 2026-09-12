@@ -1,0 +1,155 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744649860,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744649964,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed189cee862008d75c2c8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":3
+	},
+	"edges":[
+		{
+			"fromNodeId":"g56tG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"H4MKV",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6889cd69b10a0ac31f736e0e",
+	"lastModifiedBy":-1,
+	"lcName":"prerequisite actions (ai agent) on update handler",
+	"modifiedTime":1788252972803,
+	"name":"Prerequisite Actions (AI Agent) on Update Handler",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"g56tG",
+			"index":1,
+			"inputs":{
+				"object_type":"e_prerequisite_task_ai_agent"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"caches_by_unifyapps",
+				"resourceVersion":54,
+				"resourceName":"caches_by_unifyapps_evict_node_cache",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"bICld-1",
+			"id":"H4MKV",
+			"index":2,
+			"inputs":{
+				"automation_id":"66966960e8797a59f4a46292",
+				"cache_key":"{{ g56tG.outputs.object.properties.aiAgentId }}",
+				"node_id":"ildZ2"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Caches by UnifyApps",
+			"title":"Evict node cache",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":5
+}
