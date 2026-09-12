@@ -1,0 +1,406 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743754717,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743754763,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece0a9d7c534668ef771e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":2
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_5BE4u",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QjPlN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QjPlN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8VJ7E",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69157e9f21314d74c48f9adc",
+	"lastModifiedBy":-1,
+	"lcName":"convert action to tool (batch) wrapper",
+	"modifiedTime":1788252972624,
+	"name":"Convert Action to Tool (Batch) Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":616,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WHAWt-1",
+			"id":"n_5BE4u",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"enableClarifyConnection":{
+							"title":"Enable Clarify Connection",
+							"type":"boolean"
+						},
+						"inaccessibleApps":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"appLookupResponse":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"App Lookup Response",
+										"type":"object"
+									},
+									"appName":{
+										"title":"App Name",
+										"type":"string"
+									},
+									"connectionLookupResponse":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Connection Lookup Response",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Inaccessible Apps",
+							"type":"array"
+						},
+						"isDynamicToolEnabled":{
+							"title":"Is Dynamic Tool Enabled",
+							"type":"boolean"
+						},
+						"lookups":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"context":{
+										"additionalProperties":false,
+										"properties":{
+											"appName":{
+												"title":"App Name",
+												"type":"string"
+											},
+											"connectionId":{
+												"title":"Connection Id",
+												"type":"string"
+											},
+											"resourceName":{
+												"title":"Resource Name",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"title":"Context",
+										"type":"object"
+									},
+									"inputSchema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Input Schema",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Lookups",
+							"type":"array"
+						},
+						"tools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"additional":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Additional",
+										"type":"object"
+									},
+									"description":{
+										"title":"Description",
+										"type":"string"
+									},
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"toolInputSchema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Tool Input Schema",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tools",
+							"type":"array"
+						},
+						"toolsWithLookup":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Tools With Lookup",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"context":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"context",
+							"type":"object"
+						},
+						"description":{
+							"title":"description",
+							"type":"string"
+						},
+						"id":{
+							"title":"id",
+							"type":"string"
+						},
+						"input":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"input",
+							"type":"object"
+						},
+						"name":{
+							"title":"name",
+							"type":"string"
+						},
+						"runTimeConnectionEnabled":{
+							"title":"runTimeConnectionEnabled",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":652,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_WHAWt-1",
+			"id":"n_QjPlN",
+			"index":2,
+			"inputs":{
+				"automationId":"68b0148974e2bb27bbdcee15",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_5BE4u.outputs.aiAgentId }}",
+					"caseId":"{{ n_5BE4u.outputs.caseId }}",
+					"context":"{{ n_5BE4u.outputs.context }}",
+					"description":"{{ n_5BE4u.outputs.description }}",
+					"id":"{{ n_5BE4u.outputs.id }}",
+					"input":"{{ n_5BE4u.outputs.input }}",
+					"name":"{{ n_5BE4u.outputs.name }}",
+					"runTimeConnectionEnabled":"{{ n_5BE4u.outputs.runTimeConnectionEnabled }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Convert Action to Tool (Batch)",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":643,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_WHAWt-1",
+			"id":"n_8VJ7E",
+			"index":3,
+			"inputs":{
+				"result":{
+					"enableClarifyConnection":"{{ n_QjPlN.outputs.enableClarifyConnection }}",
+					"inaccessibleApps":{
+						"items":{
+							"appLookupResponse":"{{ n_QjPlN.outputs.inaccessibleApps[0].appLookupResponse }}",
+							"appName":"{{ n_QjPlN.outputs.inaccessibleApps[0].appName }}",
+							"connectionLookupResponse":"{{ n_QjPlN.outputs.inaccessibleApps[0].connectionLookupResponse }}"
+						},
+						"source":"{{ n_QjPlN.outputs.inaccessibleApps }}",
+						"ua:type":"mappedArray"
+					},
+					"isDynamicToolEnabled":"{{ n_QjPlN.outputs.isDynamicToolEnabled }}",
+					"lookups":{
+						"items":{
+							"context":{
+								"appName":"{{ n_QjPlN.outputs.lookups[0].context.appName }}",
+								"connectionId":"{{ n_QjPlN.outputs.lookups[0].context.connnectionId }}",
+								"resourceName":"{{ n_QjPlN.outputs.lookups[0].context.resourceName }}"
+							},
+							"inputSchema":"{{ n_QjPlN.outputs.lookups[0].inputSchema }}"
+						},
+						"source":"{{ n_QjPlN.outputs.lookups }}",
+						"ua:type":"mappedArray"
+					},
+					"tools":{
+						"items":{
+							"additional":"{{ n_QjPlN.outputs.tools[0].additional }}",
+							"description":"{{ n_QjPlN.outputs.tools[0].description }}",
+							"id":"{{ n_QjPlN.outputs.tools[0].id }}",
+							"name":"{{ n_QjPlN.outputs.tools[0].name }}",
+							"toolInputSchema":"{{ n_QjPlN.outputs.tools[0].toolInputSchema }}"
+						},
+						"source":"{{ n_QjPlN.outputs.tools }}",
+						"ua:type":"mappedArray"
+					},
+					"toolsWithLookup":{
+						"items":"{{ n_QjPlN.outputs.toolsWithLookup[0] }}",
+						"source":"{{ n_QjPlN.outputs.toolsWithLookup }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":4
+}
