@@ -1,0 +1,109 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743552508,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_bSsdN",
+			"id":"next@n_bSsdN@n_RieM3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RieM3",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd403f7ad93bb16745ad",
+	"lastModifiedBy":-1,
+	"lcName":"governance frequently sync agents",
+	"modifiedTime":1787743552510,
+	"name":"Governance Frequently Sync Agents",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":14235,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lm9Al-1",
+			"id":"n_bSsdN",
+			"index":1,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"NOT_EQUAL",
+								"value":"{{ n_bSsdN.outputs.before.properties.syncFrequency }}"
+							},
+							"property":"{{ n_bSsdN.outputs.object.properties.syncFrequency }}"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"agent_profile_group"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2138,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lm9Al-1",
+			"id":"n_RieM3",
+			"index":2,
+			"inputs":{
+				"automationId":"6a61ffd7fe0faf23178c09f4",
+				"distributeLoad":false,
+				"runtimeConnections":{},
+				"synchronous":false,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"agentProfileGroupId":"{{ n_bSsdN.outputs.object.id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a57b805d6e3cb5400c18d3c",
+	"workflowVersion":14
+}
