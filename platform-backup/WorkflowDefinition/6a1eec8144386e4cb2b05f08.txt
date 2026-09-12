@@ -1,0 +1,675 @@
+{
+	"appsUsed":[
+		"microsoft_sharepoint"
+	],
+	"createdTime":1787744684569,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744684767,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1ac2889f9507f1220a3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":41
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_iHToz",
+			"id":"next@n_iHToz@n_ZdfBK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZdfBK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZdfBK",
+			"id":"next@n_ZdfBK@n_r6Uje",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_r6Uje",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_r6Uje",
+			"id":"next@n_r6Uje@n_gH7b8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gH7b8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gH7b8",
+			"id":"next@n_gH7b8@Sy86h",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Sy86h",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Sy86h",
+			"id":"next@Sy86h@n_YDCpl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YDCpl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YDCpl",
+			"id":"next@n_YDCpl@n_Q2PU5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Q2PU5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Q2PU5",
+			"id":"next@n_Q2PU5@n_7G1Sl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7G1Sl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7G1Sl",
+			"id":"next@n_7G1Sl@_Ixbns",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_Ixbns",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_Ixbns",
+			"id":"next@_Ixbns@n_wx0Md",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wx0Md",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a1eec8144386e4cb2b05f08",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | sharepoint | parent entity",
+	"modifiedTime":1788252972578,
+	"name":"Knowledge Downloader | Sharepoint | Parent Entity",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":769,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_iHToz",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"connectionId":{
+							"title":"connectionId",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"indexingVersion",
+							"type":"integer"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"knowledgeSetId",
+							"type":"string"
+						},
+						"siteName":{
+							"title":"Site Name",
+							"type":"string"
+						},
+						"siteType":{
+							"title":"siteType",
+							"type":"string"
+						},
+						"skipRawData":{
+							"title":"skipRawData",
+							"type":"boolean"
+						},
+						"uniqueId":{
+							"title":"uniqueId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"microsoft_sharepoint",
+				"resourceVersion":79,
+				"connectionId":"69f8a6f1bb37d358a9cf8afc",
+				"resourceName":"microsoft_sharepoint_get_folder_file_details_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_ZdfBK",
+			"index":2,
+			"inputs":{
+				"site_name":"{{ n_iHToz.outputs.siteName }}",
+				"itemId":"{{ n_iHToz.outputs.uniqueId }}",
+				"select":"folder",
+				"siteType":"{{ n_iHToz.outputs.siteType }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft SharePoint",
+			"title":"Get File / Folder details by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":206,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_r6Uje",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def fileObj = fileDetails?.d ?: fileDetails\n\n// Get metadata id safely\ndef metadataId = fileObj?.__metadata?.id\n\n// Extract tenant root only\ndef tenantRoot = metadataId.split(\"/sites/\")[0]\n\n// Get server relative URL\ndef serverRelativeUrl = fileObj?.ServerRelativeUrl\n\n// Final reference URL\nString referenceUrl = \"${tenantRoot}${serverRelativeUrl}?web=1\"\n\nreturn [\"referenceUrl\":referenceUrl]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileDetails":"{{ n_ZdfBK.outputs.d }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":787,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_gH7b8",
+			"index":4,
+			"inputs":{
+				"automationId":"6706607a3e9f3a45485f80de",
+				"runtimeConnections":{
+					"microsoft_sharepoint":"{{ n_iHToz.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"fileId":"{{ n_ZdfBK.outputs.d.UniqueId }}",
+					"filePath":"{{ n_ZdfBK.outputs.d.Name }}",
+					"siteType":"{{ n_iHToz.outputs.siteType }}",
+					"sitename":"{{ n_iHToz.outputs.siteName }}",
+					"type":"{{ n_iHToz.outputs.siteType }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.name",
+					"root.parameters.mimeType",
+					"root.parameters.id"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":63,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"Sy86h",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{
+								"appName":{
+									"title":"appName",
+									"type":"string"
+								},
+								"createdAt":{
+									"title":"createdAt",
+									"type":"integer"
+								},
+								"createdBy":{
+									"title":"createdBy",
+									"type":"string"
+								},
+								"createdByEmail":{
+									"title":"createdByEmail",
+									"type":"string"
+								},
+								"isVideo":{
+									"title":"isVideo",
+									"type":"boolean"
+								},
+								"mimeType":{
+									"title":"mimeType",
+									"type":"string"
+								},
+								"modifiedAt":{
+									"title":"modifiedAt",
+									"type":"integer"
+								},
+								"modifiedBy":{
+									"title":"modifiedBy",
+									"type":"string"
+								},
+								"modifiedByEmail":{
+									"title":"modifiedByEmail",
+									"type":"string"
+								},
+								"parentName":{
+									"title":"parentName",
+									"type":"string"
+								},
+								"parentPath":{
+									"title":"parentPath",
+									"type":"string"
+								},
+								"referenceUrl":{
+									"title":"referenceUrl",
+									"type":"string"
+								},
+								"resourceType":{
+									"title":"resourceType",
+									"type":"string"
+								},
+								"size":{
+									"title":"size",
+									"type":"integer"
+								},
+								"title":{
+									"title":"title",
+									"type":"string"
+								}
+							},
+							"title":"chunkMetadata",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"author":{
+							"title":"Author",
+							"type":"string"
+						},
+						"createdAt":{
+							"title":"Created At",
+							"type":"string"
+						},
+						"createdByEmail":{
+							"title":"Created By Email",
+							"type":"string"
+						},
+						"folderName":{
+							"title":"Folder Name",
+							"type":"string"
+						},
+						"id":{
+							"title":"Id",
+							"type":"string"
+						},
+						"itemCount":{
+							"title":"Item Count",
+							"type":"string"
+						},
+						"linkingUrl":{
+							"title":"Linking Url",
+							"type":"string"
+						},
+						"mimeType":{
+							"title":"Mimetype",
+							"type":"string"
+						},
+						"modifiedAt":{
+							"title":"Modified At",
+							"type":"string"
+						},
+						"modifiedBy":{
+							"title":"Modified By",
+							"type":"string"
+						},
+						"modifiedByEmail":{
+							"title":"Modified By Email",
+							"type":"string"
+						},
+						"name":{
+							"title":"Name",
+							"type":"string"
+						},
+						"size":{
+							"title":"Size",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.*\nimport java.time.Instant\n\ndef chunk_metadata = [:]\n\nchunk_metadata << [\"appName\": \"microsoft_sharepoint\"]\nchunk_metadata << [\"resourceType\": \"folder\"]\nchunk_metadata << (binding.hasVariable('name') ? [\"title\": name] : [:])\nchunk_metadata << (binding.hasVariable('name') ? [\"name\": name] : [:])\nchunk_metadata << (binding.hasVariable('createdAt') ? [\"createdAt\": Instant.parse(createdAt).toEpochMilli()] : [:])\nchunk_metadata << (binding.hasVariable('modifiedAt') ? [\"modifiedAt\": Instant.parse(modifiedAt).toEpochMilli()] : [:])\nchunk_metadata << (binding.hasVariable('author') ? [\"createdBy\": author] : [:])\nchunk_metadata << (binding.hasVariable('createdByEmail') ? [\"createdByEmail\": createdByEmail] : [:])\nchunk_metadata << (binding.hasVariable('modifiedBy') ? [\"modifiedBy\": modifiedBy] : [:])\nchunk_metadata << (binding.hasVariable('modifiedByEmail') ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunk_metadata << (binding.hasVariable('id') ? [\"uniqueId\": id] : [:])\n\n// chunk_metadata << [\"editCount\": (binding.hasVariable('editCount') && (editCount instanceof Number)) ? editCount as int : 0]\n// chunk_metadata << [\"viewCount\":(binding.hasVariable('viewCount') && (viewCount instanceof Number))? viewCount as int : 0]\nchunk_metadata << [\"itemCount\":(binding.hasVariable('itemCount') && (itemCount instanceof Number))? itemCount as int : 0]\n\n\nif(binding.hasVariable('linkingUrl') && linkingUrl != null && !linkingUrl.isEmpty()){\n  chunk_metadata << [\"referenceUrl\": linkingUrl]\n}\n// else if(binding.hasVariable('link') && link != null && !link.isEmpty()){\n//   chunk_metadata << [\"referenceUrl\": link]\n// }\n\nchunk_metadata << (binding.hasVariable('size') ? [\"size\": size] : [:])\nchunk_metadata << (binding.hasVariable('mimeType') ? [\"mimeType\": mimeType] : [:])\n\nif (binding.hasVariable('folderName')) {\n    def fullPath = folderName\n    \n    // Extract parentPath (everything except the filename)\n    def parentPath = fullPath.substring(0, fullPath.lastIndexOf('/') + 1)\n    chunk_metadata << [\"parentPath\": parentPath]\n    \n    // Extract parentName (immediate folder name before the file)\n    def pathWithoutFile = fullPath.substring(0, fullPath.lastIndexOf('/'))\n    def parentName = pathWithoutFile.substring(pathWithoutFile.lastIndexOf('/') + 1)\n    chunk_metadata << [\"parentName\": parentName]\n}\n\n// Detect common video formats\ndef ismp4 = (binding.hasVariable('link') && (link.toLowerCase() =~ /\\.(mp4|mov|avi|wmv|flv|mkm|webm|mpeg|mpg)$/).find())\nchunk_metadata << [\"isVideo\": ismp4]\n\nreturn [\"chunkMetadata\": chunk_metadata]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"createdAt":"{{ n_ZdfBK.outputs.d.TimeCreated }}",
+					"folderName":"{{ n_ZdfBK.outputs.d.ServerRelativeUrl }}",
+					"id":"{{ n_ZdfBK.outputs.d.UniqueId }}",
+					"itemCount":"{{ n_ZdfBK.outputs.d.ItemCount }}",
+					"linkingUrl":"{{ n_r6Uje.outputs.result.referenceUrl }}",
+					"mimeType":"Folder",
+					"modifiedAt":"{{ n_ZdfBK.outputs.d.TimeLastModified }}",
+					"name":"{{ n_ZdfBK.outputs.d.Name }}",
+					"size":"0"
+				}
+			},
+			"skip":false,
+			"subTitle":"Chunk Metadata",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_YDCpl",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkString":{
+							"title":"Chunk String",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def metadata = binding.hasVariable('metadata') ? metadata : [:]\n\nif (metadata.metadata instanceof Map) {\n    metadata = metadata.metadata as Map\n}\n\ndef name = metadata.name ?: metadata.title ?: 'Unknown'\ndef folder = metadata.folderName ?: metadata.parentName ?: 'Unknown'\ndef createdBy = metadata.createdBy ?: 'Unknown'\ndef createdByEmail = metadata.createdByEmail ?: ''\ndef modifiedBy = metadata.modifiedBy ?: 'Unknown'\ndef modifiedByEmail = metadata.modifiedByEmail ?: ''\ndef webViewLink = metadata.referenceUrl ?: metadata.webViewLink ?: 'N/A'\ndef resourceType = metadata.resourceType ?: 'item'\ndef appName = metadata.appName ?: 'Unknown'\n\ndef formatDate = { ts ->\n    if (ts == null) return 'Unknown'\n    try {\n        long millis = Long.parseLong(ts.toString())\n        def sdf = new java.text.SimpleDateFormat(\"MMM dd, yyyy 'at' hh:mm a\")\n        sdf.setTimeZone(TimeZone.getTimeZone('UTC'))\n        return sdf.format(new Date(millis))\n    } catch (Exception e) {\n        return 'Unknown'\n    }\n}\n\ndef createdAt = metadata.createdAt ? formatDate(metadata.createdAt) : 'Unknown'\ndef modifiedAt = metadata.modifiedAt ? formatDate(metadata.modifiedAt) : 'Unknown'\n\ndef sizeKB = null\nif (metadata.size != null) {\n    try {\n        long sizeBytes = (metadata.size instanceof Number)\n            ? metadata.size.longValue()\n            : metadata.size.toString().toLong()\n\n        sizeKB = sizeBytes > 0 ? \"${Math.round((sizeBytes / 1024.0) * 10) / 10.0} KB\" : null\n    } catch (Exception ignored) {\n        sizeKB = null\n    }\n}\n\ndef itemCount = metadata.childCount ?: metadata.itemCount ?: 0\n\ndef text = \"\\\"${name}\\\" is a ${resourceType} located in the \\\"${folder}\\\" folder (source: ${appName}).\" +\n    \"\\n\\nIt was created by ${createdBy}${createdByEmail ? \" (${createdByEmail})\" : \"\"} on ${createdAt}, and last modified by ${modifiedBy}${modifiedByEmail ? \" (${modifiedByEmail})\" : \"\"} on ${modifiedAt}.\" +\n    \"\\n\\nIt contains ${itemCount} item(s)\" +\n    (sizeKB ? \", has a size of ${sizeKB},\" : \".\") +\n    \" and can be accessed at: ${webViewLink}\"\n\nreturn [\"chunkString\": text.toString()]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"metadata":"{{ Sy86h.outputs.result.chunkMetadata }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_Q2PU5",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkString":{
+							"title":"Chunk String",
+							"type":"string"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def metadata = binding.hasVariable('metadata') ? metadata : [:]\ndef chunkString = binding.hasVariable('chunkString') ? chunkString : null\n\ndef sourceResponse = [:]\n\n// Merge all metadata fields\nif (metadata instanceof Map) {\n    sourceResponse.putAll(metadata)\n}\n\n// Merge chunkString fields\nif (chunkString instanceof Map) {\n    sourceResponse.putAll(chunkString)\n} else if (chunkString instanceof String) {\n    sourceResponse['chunkString'] = chunkString\n}\n\nreturn [\"sourceResponse\":sourceResponse]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"chunkString":"{{ n_YDCpl.outputs.result.chunkString }}",
+					"metadata":"{{ Sy86h.outputs.result.chunkMetadata }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"utility_by_unifyapps_date_to_epoch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_7G1Sl",
+			"index":8,
+			"inputs":{
+				"date":"{{ n_ZdfBK.outputs.d.TimeLastModified }}",
+				"epochUnit":"milliseconds"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Date to Epoch",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":459,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"_Ixbns",
+			"index":9,
+			"inputs":{
+				"automationId":"6867a54b78989b484e92345e",
+				"runtimeConnections":{},
+				"runtimeContext":"{{ n_iHToz.outputs.connectionId }}",
+				"synchronous":true,
+				"parameters":{
+					"isTypeFile":false,
+					"knowledgeId":"{{ n_iHToz.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_iHToz.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ n_iHToz.outputs.indexingVersion }}",
+					"metadata":"{{ Sy86h.outputs.result.chunkMetadata }}",
+					"modifiedTime":"{{ n_7G1Sl.outputs.epoch }}",
+					"resourceType":"folder",
+					"sharedWithIds":{
+						"items":"{{ n_gH7b8.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_gH7b8.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"sourceId":"{{ n_ZdfBK.outputs.d.UniqueId }}_{{ n_7G1Sl.outputs.epoch }}",
+					"sourceResponse":"{{ n_Q2PU5.outputs.result.sourceResponse }}",
+					"uniqueEntityId":"{{ n_ZdfBK.outputs.d.UniqueId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Store Raw Data",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":787,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EW8wg-1",
+			"id":"n_wx0Md",
+			"index":10,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_sharepoint"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":43
+}
