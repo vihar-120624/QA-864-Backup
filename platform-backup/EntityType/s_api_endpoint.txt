@@ -1,0 +1,1461 @@
+{
+	"columnCounts":4,
+	"createdTime":1787737371331,
+	"deleted":false,
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"A"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"s_api_endpoint",
+	"input":{
+		"type":"SCHEMA_AND_LAYOUT",
+		"dynamic":false,
+		"layout":{
+			"ui:globalOptions":{
+				"fieldTemplateLayout":"row"
+			},
+			"advancedSettings":{
+				"ui:title":"Advanced Settings",
+				"ui:description":"Configure advanced settings for the API",
+				"ui:icon":"SvgSettings01",
+				"retryConfig":{
+					"ua:options":{
+						"useDefaultFieldTemplate":true,
+						"disableBackground":true
+					},
+					"ui:label":false,
+					"ui:title":"Retry Configuration",
+					"ui:description":"Configure retry settings for the API",
+					"enabled":{
+						"ui:title":"Enable Retry",
+						"ui:description":"If enabled, the API will retry on failure"
+					},
+					"count":{
+						"ui:title":"Retry Count",
+						"ui:description":"Specify the no. of times to retry the API call",
+						"ui:placeholder":"Enter number of retries"
+					},
+					"initialDelay":{
+						"ui:title":"Initial Delay",
+						"ui:description":"This is the initial wait time before the first retry attempt, specified in milliseconds",
+						"ui:placeholder":"Enter initial delay in milliseconds"
+					},
+					"maxDelay":{
+						"ui:title":"Maximum Delay",
+						"ui:description":"This is the maximum wait time between retries, specified in milliseconds. It should be greater than or equal to the initial delay",
+						"ui:placeholder":"Enter maximum delay in milliseconds"
+					},
+					"backOffFactor":{
+						"ui:title":"Backoff Factor",
+						"ui:description":"Factor by which the delay increases with each retry",
+						"ui:placeholder":"Enter backoff factor"
+					}
+				}
+			},
+			"resources":{
+				"ui:title":"Resources",
+				"ui:description":"Define the resources to be called for this API",
+				"ui:icon":"SvgSettings01",
+				"ua:error":{
+					"if":""
+				},
+				"resourceIds":{
+					"ui:widget":"LookupWidget",
+					"ui:placeholder":"{{ resources.resourceType === \"LLM_MODEL\" ? \"Select a Model\" : (resources.resourceType === \"EVENT_STREAMS\" ? \"Select Event Streams\" : undefined) }}",
+					"ui:description":"{{ resources.resourceType === \"LLM_MODEL\" ? \"Pick the AI model that best suits your metadata extraction flow\" : (resources.resourceType === \"EVENT_STREAMS\" ? \"Select the event stream to execute\n\" : undefined) }}",
+					"ui:options":{
+						"className":"!flex-[3]",
+						"ua:payload":{
+							"type":"ByQuery",
+							"lookupType":"{{ resources.resourceType === \"LLM_MODEL\" ? \"ENTITY_ID:ai_agent_llm_model\" : (resources.resourceType === \"EVENT_STREAMS\" ? \"ENTITY\" : \"WORKFLOW_DEFINITION\") }}",
+							"fields":"{{ resources.resourceType === \"LLM_MODEL\" ? undefined : (resources.resourceType === \"EVENT_STREAMS\" ? [\"id\", \"properties.name\"] : [\"name\"]) }}",
+							"filter":"{{ (function (){ if (resources.resourceType === 'EVENT_STREAMS') return undefined; return { field: resources.resourceType === 'LLM_MODEL' ? 'properties.modelGroup' : 'properties.resourceType', op: 'IN', values: [resources.resourceType === 'LLM_MODEL' ? 'metadata enrichment' : 'CALLABLE'] }; })() }}",
+							"options":{
+								"entity_type":"{{ resources.resourceType === \"EVENT_STREAMS\" ? \"e_streams\" : undefined }}"
+							}
+						},
+						"multiple":"{{ resources.resourceType === \"CALLABLE_WORKFLOW\" || resources.resourceType === \"EVENT_STREAMS\" ? false : true }}",
+						"ua:response-accessor":{
+							"name":"{{ resources.resourceType === \"LLM_MODEL\" ? \"properties.name\" : (resources.resourceType === \"EVENT_STREAMS\" ? \"properties.name\" : \"name\") }}",
+							"iconUrl":"{{ resources.resourceType === \"LLM_MODEL\" ? \"properties.iconUrl\" : \"iconUrl\" }}"
+						},
+						"ua:disableClearable":"true"
+					}
+				},
+				"resourceVersions":{
+					"ui:widget":"EntityVersionWidget",
+					"ui:disabled":"{{ !resources.resourceIds }}",
+					"ui:title":"Version",
+					"ui:description":"Select the version of the {{moduleDefs.WORKFLOW_DEFINITION.name.toLowerCase()}}",
+					"ui:options":{
+						"ua:dependent_fields":[
+							"resourceIds"
+						],
+						"ua:dependencyChangeBehavior":"reset",
+						"ua:payload":{
+							"type":"ByQuery",
+							"lookupType":"DEPLOYED_WORKFLOW_VERSION",
+							"options":{
+								"workflowId":"{{ resources.resourceIds }}"
+							}
+						}
+					}
+				},
+				"path":{
+					"ui:placeholder":"users/{id}",
+					"ui:description":"Define a path for this API. It can include path parameters",
+					"ui:widget":"VariableMentionWidget",
+					"ua:error":{
+						"pattern":"<li>Path must start with a letter or number</li><li>Should not contain spaces</li><li>Special characters (@, &, *, //) are not allowed except for \"_\", \"-\", and \".\"</li>"
+					}
+				},
+				"supportedHttpMethods":{
+					"ui:description":"Select a HTTP method to use for this API",
+					"ui:placeholder":"Select a method",
+					"ui:widget":"MultiSelectWidget"
+				},
+				"llmRequestType":{
+					"ui:title":"LLM Request Type",
+					"ui:description":"Type of LLM Request",
+					"ui:placeholder":"Select a type"
+				},
+				"resourceType":{
+					"ui:description":"Select the type of resource",
+					"ui:placeholder":"Select a type"
+				},
+				"southBoundAPI":{
+					"ua:options":{
+						"useDefaultFieldTemplate":true,
+						"disableBackground":true
+					},
+					"ui:label":false,
+					"forwardAllPaths":{
+						"ui:description":"If enabled, all paths will be forwarded to the Downstream API"
+					},
+					"routeTransformer":{
+						"ui:title":"Enable header based routing",
+						"ui:description":"Configure downstream URLs based on header conditions",
+						"ui:widget":"ToggleWidget"
+					},
+					"headerConditions":{
+						"ui:title":"Header Conditions",
+						"ui:description":"Define separate downstream URLs for each condition",
+						"ui:addButtonTitle":"Add Condition",
+						"ua:addMappers":false,
+						"items":{
+							"headerKey":{
+								"ui:title":"Header name",
+								"ui:placeholder":"e.g. X-API-Version",
+								"ui:widget":"VariableMentionWidget",
+								"ua:fieldTemplateLayout":"column"
+							},
+							"headerValue":{
+								"ui:title":"Header value",
+								"ui:placeholder":"e.g. v2",
+								"ui:widget":"VariableMentionWidget",
+								"ua:fieldTemplateLayout":"column"
+							},
+							"downstreamUrl":{
+								"ui:title":"Downstream URL",
+								"ui:placeholder":"Enter URL",
+								"ui:widget":"VariableMentionWidget",
+								"ua:fieldTemplateLayout":"column"
+							},
+							"ui:layout":[
+								[
+									"headerKey",
+									"headerValue"
+								],
+								"downstreamUrl"
+							]
+						}
+					},
+					"url":{
+						"ui:title":"Downstream API URL",
+						"ui:description":"Enter the URL of the Downstream API",
+						"ui:placeholder":"Enter URL",
+						"ui:widget":"VariableMentionWidget"
+					},
+					"resourceType":{
+						"ui:description":"Select the type of resource",
+						"ui:placeholder":"Select a type"
+					},
+					"httpMethod":{
+						"ui:description":"Select the HTTP method to hit the Downstream API",
+						"ui:placeholder":"Select a method"
+					},
+					"httpVersion":{
+						"ui:description":"Select the HTTP version to use for the Downstream API",
+						"ui:placeholder":"Select a version"
+					},
+					"sslVerify":{
+						"ui:title":"SSL Certificate Verification",
+						"ui:description":"If enabled, SSL certificates are verified.",
+						"ui:widget":"ToggleWidget"
+					},
+					"followRedirects":{
+						"ui:title":"Follow Redirects",
+						"ui:description":"Select the redirect behavior for the Downstream API"
+					},
+					"ui:layout":[
+						"url",
+						"forwardAllPaths",
+						"routeTransformer",
+						[
+							"headerConditions"
+						],
+						"resourceType",
+						"httpMethod",
+						"httpVersion",
+						"sslVerify",
+						"followRedirects"
+					]
+				}
+			},
+			"details":{
+				"ui:title":"Details",
+				"ui:description":"Define a New API",
+				"ui:icon":"SvgNotificationText",
+				"name":{
+					"ui:title":"Name",
+					"ui:placeholder":"Enter a name for this API",
+					"ui:description":"Name of the API"
+				},
+				"tags":{
+					"ui:widget":"LookupWidget",
+					"ui:placeholder":"Select tags",
+					"ui:options":{
+						"ua:payload":{
+							"lookupType":"TAG",
+							"type":"ByQuery"
+						},
+						"multiple":true,
+						"createable":true
+					}
+				},
+				"description":{
+					"ui:widget":"textarea",
+					"ui:title":"Description",
+					"ui:placeholder":"Enter a description",
+					"ui:description":"Description of the API"
+				},
+				"ui:order":[
+					"name",
+					"projectId",
+					"tags",
+					"description"
+				]
+			},
+			"policyIds":{
+				"ua:options":{
+					"useDefaultFieldTemplate":true
+				},
+				"ui:field":"PoliciesField",
+				"ui:options":{
+					"ua:payload":{
+						"type":"ByQuery",
+						"lookupType":"API_POLICY",
+						"fields":[
+							"name"
+						]
+					},
+					"multiple":true,
+					"icon":"SvgCertificate02"
+				},
+				"ui:title":"Policies",
+				"ui:description":"These policies govern access to the API",
+				"ui:placeholder":"Choose a policy"
+			}
+		},
+		"schema":{
+			"type":"object",
+			"properties":{
+				"details":{
+					"type":"object",
+					"properties":{
+						"name":{
+							"type":"string"
+						},
+						"tags":{
+							"type":"array",
+							"title":"Tags",
+							"items":{
+								"type":"string"
+							}
+						},
+						"description":{
+							"type":"string"
+						}
+					},
+					"required":[
+						"name"
+					]
+				},
+				"resources":{
+					"type":"object",
+					"properties":{
+						"resourceType":{
+							"type":"string",
+							"title":"Resource Type",
+							"default":"CALLABLE_WORKFLOW",
+							"oneOf":[
+								{
+									"const":"CALLABLE_WORKFLOW",
+									"title":"Callable"
+								},
+								{
+									"const":"WEBHOOK_WORKFLOW",
+									"title":"Webhook"
+								},
+								{
+									"const":"LLM_MODEL",
+									"title":"LLM"
+								},
+								{
+									"const":"SOUTHBOUND_API",
+									"title":"External API"
+								},
+								{
+									"const":"EVENT_STREAMS",
+									"title":"Event Streams"
+								}
+							]
+						}
+					},
+					"required":[
+						"resourceType"
+					],
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"CALLABLE_WORKFLOW"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?:/$|(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*)$"
+									},
+									"endpointType":{
+										"type":"string",
+										"title":"Request Type",
+										"oneOf":[
+											{
+												"const":"REST",
+												"title":"REST"
+											},
+											{
+												"const":"SOAP",
+												"title":"SOAP"
+											}
+										],
+										"default":"REST"
+									},
+									"resourceIds":{
+										"type":"string",
+										"title":"{{moduleDefs.WORKFLOW_DEFINITION.name}}"
+									},
+									"resourceVersions":{
+										"type":"string",
+										"title":"Version"
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"DELETE",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								},
+								"required":[
+									"resourceIds",
+									"endpointType",
+									"supportedHttpMethods"
+								],
+								"allOf":[
+									{
+										"if":{
+											"properties":{
+												"endpointType":{
+													"const":"SOAP"
+												}
+											}
+										},
+										"then":{
+											"properties":{
+												"supportedHttpMethods":{
+													"type":"array",
+													"title":"Supported HTTP Methods",
+													"items":{
+														"type":"string",
+														"enum":[
+															"POST"
+														]
+													}
+												}
+											}
+										}
+									},
+									{
+										"if":{
+											"properties":{
+												"endpointType":{
+													"const":"REST"
+												}
+											}
+										},
+										"then":{
+											"properties":{
+												"supportedHttpMethods":{
+													"type":"array",
+													"title":"Supported HTTP Methods",
+													"items":{
+														"type":"string",
+														"enum":[
+															"GET",
+															"POST",
+															"PUT",
+															"DELETE",
+															"PATCH",
+															"HEAD"
+														]
+													}
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"WEBHOOK_WORKFLOW"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*$"
+									},
+									"resourceIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"{{moduleDefs.WORKFLOW_DEFINITION.pluralName}}"
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"DELETE",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								},
+								"required":[
+									"resourceIds",
+									"supportedHttpMethods"
+								]
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"LLM_MODEL"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*$"
+									},
+									"resourceIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"default":[
+											"e_66b2822745f17a17c0e7c28d"
+										],
+										"title":"LLM Model"
+									},
+									"llmRequestType":{
+										"type":"string",
+										"title":"LLM Request Type",
+										"description":"LLM Request Type",
+										"oneOf":[
+											{
+												"const":"CHAT",
+												"title":"Chat"
+											},
+											{
+												"const":"COMPLETION",
+												"title":"Completion"
+											}
+										]
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"SOUTHBOUND_API"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?:/$|(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*)$"
+									},
+									"southBoundAPI":{
+										"type":"object",
+										"properties":{
+											"url":{
+												"type":"string",
+												"title":"URL"
+											},
+											"forwardAllPaths":{
+												"type":"boolean",
+												"title":"Forward All Paths",
+												"default":false
+											},
+											"routeTransformer":{
+												"type":"boolean",
+												"default":false
+											},
+											"resourceType":{
+												"type":"string",
+												"title":"Resource Type",
+												"default":"HTTP",
+												"oneOf":[
+													{
+														"const":"HTTP",
+														"title":"HTTP/HTTPS"
+													},
+													{
+														"const":"GraphQL",
+														"title":"GraphQL"
+													}
+												]
+											},
+											"httpMethod":{
+												"type":"string",
+												"title":"HTTP Method",
+												"oneOf":[
+													{
+														"const":"GET",
+														"title":"GET"
+													},
+													{
+														"const":"POST",
+														"title":"POST"
+													},
+													{
+														"const":"PUT",
+														"title":"PUT"
+													},
+													{
+														"const":"DELETE",
+														"title":"DELETE"
+													},
+													{
+														"const":"PATCH",
+														"title":"PATCH"
+													},
+													{
+														"const":"HEAD",
+														"title":"HEAD"
+													}
+												]
+											},
+											"httpVersion":{
+												"type":"string",
+												"title":"HTTP Version",
+												"default":"HTTP_2",
+												"oneOf":[
+													{
+														"const":"HTTP_1_1",
+														"title":"HTTP/1.1"
+													},
+													{
+														"const":"HTTP_2",
+														"title":"HTTP/2"
+													}
+												]
+											},
+											"sslVerify":{
+												"type":"boolean",
+												"default":true
+											},
+											"followRedirects":{
+												"type":"string",
+												"title":"Follow Redirects",
+												"oneOf":[
+													{
+														"const":"NEVER",
+														"title":"Never"
+													},
+													{
+														"const":"ALWAYS",
+														"title":"Always"
+													},
+													{
+														"const":"NORMAL",
+														"title":"Normal"
+													}
+												],
+												"default":"NORMAL"
+											}
+										},
+										"required":[
+											"url"
+										],
+										"allOf":[
+											{
+												"if":{
+													"properties":{
+														"routeTransformer":{
+															"const":true
+														}
+													}
+												},
+												"then":{
+													"properties":{
+														"headerConditions":{
+															"type":"array",
+															"items":{
+																"type":"object",
+																"properties":{
+																	"headerKey":{
+																		"type":"string"
+																	},
+																	"headerValue":{
+																		"type":"string"
+																	},
+																	"downstreamUrl":{
+																		"type":"string"
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										]
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"DELETE",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								},
+								"required":[
+									"southBoundAPI",
+									"supportedHttpMethods"
+								]
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"EVENT_STREAMS"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*$"
+									},
+									"resourceIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"Event Stream"
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								}
+							}
+						}
+					]
+				},
+				"policyIds":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					}
+				},
+				"advancedSettings":{
+					"type":"object",
+					"properties":{
+						"retryConfig":{
+							"type":"object",
+							"title":"Retry Configuration",
+							"properties":{
+								"enabled":{
+									"type":"boolean",
+									"title":"Enable Retry",
+									"default":false
+								}
+							},
+							"required":[
+								"enabled"
+							],
+							"allOf":[
+								{
+									"if":{
+										"properties":{
+											"enabled":{
+												"const":true
+											}
+										}
+									},
+									"then":{
+										"properties":{
+											"count":{
+												"type":"integer",
+												"title":"Retry Count",
+												"default":1,
+												"minimum":1,
+												"maximum":5
+											},
+											"initialDelay":{
+												"type":"integer",
+												"title":"Initial Delay",
+												"default":100,
+												"minimum":100,
+												"maximum":10000
+											},
+											"maxDelay":{
+												"type":"integer",
+												"title":"Maximum Delay",
+												"default":100,
+												"minimum":100,
+												"maximum":30000
+											},
+											"backOffFactor":{
+												"type":"number",
+												"title":"Backoff Factor",
+												"default":1.0,
+												"minimum":1.0,
+												"maximum":5.0
+											}
+										},
+										"required":[
+											"count",
+											"initialDelay",
+											"maxDelay",
+											"backOffFactor"
+										]
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"apis",
+	"metadata":{
+		"auditable":false,
+		"autoGeneratedFields":[
+			
+		],
+		"cacheable":false,
+		"captureActivity":false,
+		"captureReferences":false,
+		"captureReporting":false,
+		"dateFields":[
+			
+		],
+		"deployable":false,
+		"encryptedFields":[
+			
+		],
+		"external":false,
+		"filterableFields":[
+			"details",
+			"details.name",
+			"details.description",
+			"resources",
+			"resources.resourceType",
+			"policyIds",
+			"advancedSettings",
+			"advancedSettings.retryConfig",
+			"advancedSettings.retryConfig.enabled"
+		],
+		"graphType":"LEGACY_MDM",
+		"hasTimeSeriesRecords":true,
+		"hashedFields":[
+			
+		],
+		"inaccessibleFromUI":false,
+		"includeInDependency":false,
+		"nameField":"",
+		"partFields":[
+			
+		],
+		"piiFields":[
+			
+		],
+		"primaryKeyField":"",
+		"referenceKeys":[
+			
+		],
+		"scdType2Enabled":false,
+		"schemaValidationEnabled":true,
+		"searchableFields":[
+			
+		],
+		"sessionBackedStorageEnabled":false,
+		"skipConfigSyncIfModified":false,
+		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
+		"skipIndexLimitValidation":false,
+		"skipPermissionCheckForAggregation":false,
+		"skipPermissionsFilter":true,
+		"skipReportingEventsOrdering":false,
+		"skipRoutineLoad":false,
+		"skipTotalHitsInAggregation":false,
+		"skipVersionIncrementOnUpdate":false,
+		"supportsDistinctValues":false,
+		"supportsWebhook":false,
+		"syncFromSourceCustomer":false,
+		"translationsEnabled":false,
+		"uniqueKeyFields":[
+			
+		],
+		"urlValidationEnabledFields":[
+			
+		],
+		"useCachedEntityStoreForAutomations":false,
+		"userLevelEncryption":false,
+		"vectorFields":[
+			
+		],
+		"versioningEnabled":false
+	},
+	"modifiedTime":1787737371331,
+	"name":"APIs",
+	"ownerUserId":-1,
+	"packaged":true,
+	"schema":{
+		"type":"SCHEMA",
+		"dynamic":false,
+		"schema":{
+			"type":"object",
+			"properties":{
+				"details":{
+					"type":"object",
+					"properties":{
+						"name":{
+							"type":"string"
+						},
+						"description":{
+							"type":"string"
+						}
+					},
+					"required":[
+						"name"
+					]
+				},
+				"resources":{
+					"type":"object",
+					"properties":{
+						"resourceType":{
+							"type":"string",
+							"title":"Resource Type",
+							"default":"CALLABLE_WORKFLOW",
+							"oneOf":[
+								{
+									"const":"CALLABLE_WORKFLOW",
+									"title":"Callable"
+								},
+								{
+									"const":"WEBHOOK_WORKFLOW",
+									"title":"Webhook"
+								},
+								{
+									"const":"LLM_MODEL",
+									"title":"LLM"
+								},
+								{
+									"const":"SOUTHBOUND_API",
+									"title":"External API"
+								},
+								{
+									"const":"EVENT_STREAMS",
+									"title":"Event Streams"
+								}
+							]
+						}
+					},
+					"required":[
+						"resourceType"
+					],
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"CALLABLE_WORKFLOW"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?:/$|(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*)$"
+									},
+									"endpointType":{
+										"type":"string",
+										"title":"Request Type",
+										"oneOf":[
+											{
+												"const":"REST",
+												"title":"REST"
+											},
+											{
+												"const":"SOAP",
+												"title":"SOAP"
+											}
+										],
+										"default":"REST"
+									},
+									"resourceIds":{
+										"type":"string",
+										"title":"{{moduleDefs.WORKFLOW_DEFINITION.name}}"
+									},
+									"resourceVersions":{
+										"type":"string",
+										"title":"Version"
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"DELETE",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								},
+								"required":[
+									"resourceIds",
+									"endpointType",
+									"supportedHttpMethods"
+								],
+								"allOf":[
+									{
+										"if":{
+											"properties":{
+												"endpointType":{
+													"const":"SOAP"
+												}
+											}
+										},
+										"then":{
+											"properties":{
+												"supportedHttpMethods":{
+													"type":"array",
+													"title":"Supported HTTP Methods",
+													"items":{
+														"type":"string",
+														"enum":[
+															"POST"
+														]
+													}
+												}
+											}
+										}
+									},
+									{
+										"if":{
+											"properties":{
+												"endpointType":{
+													"const":"REST"
+												}
+											}
+										},
+										"then":{
+											"properties":{
+												"supportedHttpMethods":{
+													"type":"array",
+													"title":"Supported HTTP Methods",
+													"items":{
+														"type":"string",
+														"enum":[
+															"GET",
+															"POST",
+															"PUT",
+															"DELETE",
+															"PATCH",
+															"HEAD"
+														]
+													}
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"WEBHOOK_WORKFLOW"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*$"
+									},
+									"resourceIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"{{moduleDefs.WORKFLOW_DEFINITION.pluralName}}"
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"DELETE",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								},
+								"required":[
+									"resourceIds",
+									"supportedHttpMethods"
+								]
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"LLM_MODEL"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*$"
+									},
+									"resourceIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"default":[
+											"e_66b2822745f17a17c0e7c28d"
+										],
+										"title":"LLM Model"
+									},
+									"llmRequestType":{
+										"type":"string",
+										"title":"LLM Request Type",
+										"description":"LLM Request Type",
+										"oneOf":[
+											{
+												"const":"CHAT",
+												"title":"Chat"
+											},
+											{
+												"const":"COMPLETION",
+												"title":"Completion"
+											}
+										]
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"SOUTHBOUND_API"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?:/$|(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*)$"
+									},
+									"southBoundAPI":{
+										"type":"object",
+										"properties":{
+											"url":{
+												"type":"string",
+												"title":"URL"
+											},
+											"forwardAllPaths":{
+												"type":"boolean",
+												"title":"Forward All Paths",
+												"default":false
+											},
+											"routeTransformer":{
+												"type":"boolean",
+												"default":false
+											},
+											"resourceType":{
+												"type":"string",
+												"title":"Resource Type",
+												"default":"HTTP",
+												"oneOf":[
+													{
+														"const":"HTTP",
+														"title":"HTTP/HTTPS"
+													},
+													{
+														"const":"GraphQL",
+														"title":"GraphQL"
+													}
+												]
+											},
+											"httpMethod":{
+												"type":"string",
+												"title":"HTTP Method",
+												"oneOf":[
+													{
+														"const":"GET",
+														"title":"GET"
+													},
+													{
+														"const":"POST",
+														"title":"POST"
+													},
+													{
+														"const":"PUT",
+														"title":"PUT"
+													},
+													{
+														"const":"DELETE",
+														"title":"DELETE"
+													},
+													{
+														"const":"PATCH",
+														"title":"PATCH"
+													},
+													{
+														"const":"HEAD",
+														"title":"HEAD"
+													}
+												]
+											},
+											"httpVersion":{
+												"type":"string",
+												"title":"HTTP Version",
+												"default":"HTTP_2",
+												"oneOf":[
+													{
+														"const":"HTTP_1_1",
+														"title":"HTTP/1.1"
+													},
+													{
+														"const":"HTTP_2",
+														"title":"HTTP/2"
+													}
+												]
+											},
+											"sslVerify":{
+												"type":"boolean",
+												"default":true
+											},
+											"followRedirects":{
+												"type":"string",
+												"title":"Follow Redirects",
+												"oneOf":[
+													{
+														"const":"NEVER",
+														"title":"Never"
+													},
+													{
+														"const":"ALWAYS",
+														"title":"Always"
+													},
+													{
+														"const":"NORMAL",
+														"title":"Normal"
+													}
+												],
+												"default":"NORMAL"
+											}
+										},
+										"required":[
+											"url"
+										],
+										"allOf":[
+											{
+												"if":{
+													"properties":{
+														"routeTransformer":{
+															"const":true
+														}
+													}
+												},
+												"then":{
+													"properties":{
+														"headerConditions":{
+															"type":"array",
+															"items":{
+																"type":"object",
+																"properties":{
+																	"headerKey":{
+																		"type":"string"
+																	},
+																	"headerValue":{
+																		"type":"string"
+																	},
+																	"downstreamUrl":{
+																		"type":"string"
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										]
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"DELETE",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								},
+								"required":[
+									"southBoundAPI",
+									"supportedHttpMethods"
+								]
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"resourceType":{
+										"const":"EVENT_STREAMS"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"path":{
+										"type":"string",
+										"title":"API Path",
+										"pattern":"^(?!.*//)(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\})(?:/(?:[a-zA-Z0-9_\\-\\{\\}.()%]+|\\*|\\{\\{ *[a-zA-Z_][a-zA-Z0-9_\\-.]* *\\}\\}))*$"
+									},
+									"resourceIds":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"Event Stream"
+									},
+									"supportedHttpMethods":{
+										"type":"array",
+										"title":"Supported HTTP Methods",
+										"items":{
+											"type":"string",
+											"enum":[
+												"GET",
+												"POST",
+												"PUT",
+												"PATCH",
+												"HEAD"
+											]
+										}
+									}
+								}
+							}
+						}
+					]
+				},
+				"policyIds":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					}
+				},
+				"advancedSettings":{
+					"type":"object",
+					"properties":{
+						"retryConfig":{
+							"type":"object",
+							"title":"Retry Configuration",
+							"properties":{
+								"enabled":{
+									"type":"boolean",
+									"title":"Enable Retry",
+									"default":false
+								}
+							},
+							"required":[
+								"enabled"
+							],
+							"allOf":[
+								{
+									"if":{
+										"properties":{
+											"enabled":{
+												"const":true
+											}
+										}
+									},
+									"then":{
+										"properties":{
+											"count":{
+												"type":"integer",
+												"title":"Retry Count",
+												"default":1,
+												"minimum":1,
+												"maximum":5
+											},
+											"initialDelay":{
+												"type":"integer",
+												"title":"Initial Delay",
+												"default":100,
+												"minimum":100,
+												"maximum":10000
+											},
+											"maxDelay":{
+												"type":"integer",
+												"title":"Maximum Delay",
+												"default":100,
+												"minimum":100,
+												"maximum":30000
+											},
+											"backOffFactor":{
+												"type":"number",
+												"title":"Backoff Factor",
+												"default":1.0,
+												"minimum":1.0,
+												"maximum":5.0
+											}
+										},
+										"required":[
+											"count",
+											"initialDelay",
+											"maxDelay",
+											"backOffFactor"
+										]
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"standard":true,
+	"version":1
+}
