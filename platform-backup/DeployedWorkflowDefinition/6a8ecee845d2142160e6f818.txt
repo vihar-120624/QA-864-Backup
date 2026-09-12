@@ -1,0 +1,147 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743976756,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_dxe21",
+			"id":"next@n_dxe21@n_5nses",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5nses",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5nses",
+			"id":"next@n_5nses@n_goVWX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_goVWX",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecee845d2142160e6f818",
+	"lastModifiedBy":-1,
+	"lcName":"get records by ids via storage",
+	"modifiedTime":1787743976758,
+	"name":"Get records by IDs via Storage",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_2c2kx-1",
+			"id":"n_dxe21",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":true,
+					"properties":{},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"ids":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Ids",
+							"type":"array"
+						},
+						"objectId":{
+							"title":"Object Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"objectId",
+						"ids"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":290,
+				"resourceName":"storage_by_unifyapps_get_records_by_ids",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_2c2kx-1",
+			"id":"n_5nses",
+			"index":2,
+			"inputs":{
+				"object_type":"{{ n_dxe21.outputs.objectId }}",
+				"ids":"{{ n_dxe21.outputs.ids }}"
+			},
+			"skip":false,
+			"subTitle":"Storage ",
+			"title":"Get records by IDs",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_2c2kx-1",
+			"id":"n_goVWX",
+			"index":3,
+			"inputs":{
+				"result":"{{ n_5nses.outputs }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde"
+	],
+	"version":0,
+	"workflowDefinitionId":"6a6c71d0e87e006fd0fcc2e5",
+	"workflowVersion":6
+}
