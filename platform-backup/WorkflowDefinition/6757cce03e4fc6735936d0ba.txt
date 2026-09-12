@@ -1,0 +1,272 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743909898,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743909942,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecea545d2142160e6ed08",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":7
+	},
+	"edges":[
+		{
+			"fromNodeId":"_Lmtpo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_rzJZp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_rzJZp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_K5zy0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_K5zy0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_zNdWn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_zNdWn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_GAnKl",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6757cce03e4fc6735936d0ba",
+	"lastModifiedBy":-1,
+	"lcName":"create pptx file | icon indexing",
+	"modifiedTime":1788252971218,
+	"name":"Create PPTX File | ICON Indexing",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":185,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mvFJO-1",
+			"id":"_Lmtpo",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"base64":{
+								"title":"Base 64",
+								"type":"string"
+							},
+							"icon_name":{
+								"title":"Icon Name",
+								"type":"string"
+							}
+						},
+						"required":[
+							"base64",
+							"icon_name"
+						],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"status":{
+									"title":"Status",
+									"type":"string"
+								}
+							},
+							"required":[
+								"status"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"name":"OK",
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":80,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mvFJO-1",
+			"id":"_rzJZp",
+			"index":2,
+			"inputs":{
+				"base64Content":"{{ _Lmtpo.outputs.body.base64 }}",
+				"fileName":"{{ _Lmtpo.outputs.body.icon_name }}.png",
+				"mimeType":"image/png",
+				"option":"base64Content"
+			},
+			"skip":false,
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":471,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mvFJO-1",
+			"id":"n_K5zy0",
+			"index":3,
+			"inputs":{
+				"automationId":"6784b9216fb83f0972c5625d",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"userQuery":"{{ _Lmtpo.outputs.body.icon_name }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.file.sourceType",
+					"root.record.file.name",
+					"root.record.file.source",
+					"root.record.file.fileType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2120,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mvFJO-1",
+			"id":"_zNdWn",
+			"index":4,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"text_to_ppt_icon",
+				"skipIfBlank":false,
+				"record":{
+					"file":{
+						"fileType":"{{ _rzJZp.outputs.fileDetails.fileType }}",
+						"name":"{{ _rzJZp.outputs.fileDetails.name }}",
+						"source":"{{ _rzJZp.outputs.fileDetails.source }}",
+						"sourceType":"{{ _rzJZp.outputs.fileDetails.sourceType }}"
+					},
+					"icon_embeddings":{
+						"items":"{{ n_K5zy0.outputs.embeddings[0] }}",
+						"source":"{{ n_K5zy0.outputs.embeddings }}",
+						"ua:type":"mappedArray"
+					},
+					"icon_name":"{{ _Lmtpo.outputs.body.icon_name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":131,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mvFJO-1",
+			"id":"_GAnKl",
+			"index":5,
+			"inputs":{
+				"responseName":"200_OK",
+				"body":{
+					"status":"OK"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":9
+}
