@@ -1,0 +1,569 @@
+{
+	"appsUsed":[
+		"bitbucket_server"
+	],
+	"createdTime":1787743825728,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743825948,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece5145d2142160e6e5e3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":18
+	},
+	"edges":[
+		{
+			"fromNodeId":"wm8oB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"TvjDx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"TvjDx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"R5eyY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"R5eyY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dwmHt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"dwmHt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"znNWe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"znNWe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"OC3mX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"OC3mX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"it56N",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"it56N",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"VRgt9",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"682ba11c7f7eb34f85b45ef2",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | bitbucket server | index pr (single)",
+	"modifiedTime":1788252971828,
+	"name":"Knowledge Indexer | Bitbucket Server | Index PR (single)",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":658,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"wm8oB",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cursorObject":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"cursorObject",
+							"type":"object"
+						},
+						"lastSyncTime":{
+							"title":"Last Sync Time",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"674855d2634d220ea5dd2d71",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":694,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"TvjDx",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"prId":{
+							"title":"Pr Id",
+							"type":"string"
+						},
+						"projectId":{
+							"title":"Project Id",
+							"type":"string"
+						},
+						"repoId":{
+							"title":"Repo Id",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inputs":{
+							"title":"Inputs",
+							"type":"string"
+						}
+					},
+					"required":[
+						"inputs"
+					],
+					"type":"object"
+				},
+				"code":"if(!binding.hasVariable('inputs')){\n  return [:]\n}\nreturn inputs;",
+				"compile_static":false,
+				"parameters":{
+					"inputs":"{{ wm8oB.outputs.inputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"bitbucket_server",
+				"resourceVersion":8,
+				"connectionId":"682af96ce8b30b0a1c8d9cf0",
+				"resourceName":"bitbucket_server_get_pull_requests",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"R5eyY",
+			"index":0,
+			"inputs":{
+				"projectKey":"{{ TvjDx.outputs.result.projectId }}",
+				"pullRequestId":"{{ TvjDx.outputs.result.prId }}",
+				"repositorySlug":"{{ TvjDx.outputs.result.repoId }}"
+			},
+			"skip":false,
+			"subTitle":"Bitbucket Server",
+			"title":"Get pull request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":440,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"dwmHt",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{
+								"prNo":{
+									"title":"Pr No",
+									"type":"string"
+								},
+								"projectId":{
+									"title":"Project Id",
+									"type":"string"
+								},
+								"repoId":{
+									"title":"Repo Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"repoId",
+								"prNo",
+								"projectId"
+							],
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"uniqueEntityId"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"prNo":{
+							"title":"Pr No",
+							"type":"string"
+						},
+						"projectId":{
+							"title":"Project Id",
+							"type":"string"
+						},
+						"pullReqObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Pull Req Obj",
+							"type":"object"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						},
+						"repoId":{
+							"title":"Repo Id",
+							"type":"string"
+						},
+						"title":{
+							"title":"Title",
+							"type":"string"
+						}
+					},
+					"required":[
+						"repoId",
+						"prNo",
+						"projectId",
+						"pullReqObj"
+					],
+					"type":"object"
+				},
+				"code":"def chunkMetadata = [:]\n\nchunkMetadata << [\"appName\" : \"bitbucket_server\"]\nchunkMetadata << (binding.hasVariable('title') && title ? [\"name\": title] : [:])\nchunkMetadata << (binding.hasVariable('projectId') && projectId ? [\"projectId\": projectId] : [:])\nchunkMetadata << (binding.hasVariable('repoId') && repoId ? [\"repoId\": repoId] : [:])\nchunkMetadata << (binding.hasVariable('prNo') && prNo ? [\"prNumber\": prNo.toString()] : [:])\n\ndef uniqueEntityId = ((projectId).toString() + \"_\" + (repoId).toString() + \"_\" + (prNo).toString())\nchunkMetadata << (binding.hasVariable('prNo') && prNo ? [\"uniqueEntityId\": uniqueEntityId] : [:])\n\nchunkMetadata << (binding.hasVariable('referenceUrl') && referenceUrl ? [\"referenceUrl\": referenceUrl] : [:])\n\nchunkMetadata << (binding.hasVariable('pullReqObj?.createdDate') && pullReqObj?.createdDate ? [\"createdTime\": pullReqObj?.createdDate.toString()] : [:])\nchunkMetadata << (binding.hasVariable('pullReqObj?.updatedDate') && pullReqObj?.updatedDate ? [\"modifiedTime\": pullReqObj?.updatedDate.toString()] : [:])\n\nreturn [\"chunkMetadata\":chunkMetadata, \"uniqueEntityId\": uniqueEntityId]",
+				"compile_static":false,
+				"parameters":{
+					"prNo":"{{ R5eyY.outputs.id }}",
+					"projectId":"{{ TvjDx.outputs.result.projectId }}",
+					"pullReqObj":"{{ R5eyY.outputs }}",
+					"referenceUrl":"{{ R5eyY.outputs.links.self[0].href }}",
+					"repoId":"{{ TvjDx.outputs.result.repoId }}",
+					"title":"{{ R5eyY.outputs.title }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Chunk Metadata",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":491,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"znNWe",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"data":{
+							"title":"Data",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"projectName":{
+							"title":"Project Name",
+							"type":"string"
+						},
+						"pullReqObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Pull Req Obj",
+							"type":"object"
+						},
+						"repoName":{
+							"title":"Repo Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"pullReqObj"
+					],
+					"type":"object"
+				},
+				"code":"\ndef closedPart = (pullReqObj?.closed) ? \"The Pull Request status is closed; \" : \"\"\ndef openPart = (pullReqObj?.open) ? \"The Pull Request status is open; \" : \"\"\ndef draftPart = (pullReqObj?.draft) ? \"The Pull Request status is draft; \" : \"\"\ndef description = (pullReqObj?.description) ?: (pullReqObj?.descriptionAsHtml) ?: null\ndef descriptionPart = (description) ? \"The Pull Request description is: ${description}; \" : \"The Pull Request's description is missing; \"\ndef titlePart = (pullReqObj?.title) ? \"The Pull Request title is: ${pullReqObj?.title}; \" : \"The Pull Request's title is missing; \"\ndef statePart = (pullReqObj?.state) ? \"The Pull Request's state is ${pullReqObj?.state}; \" : \"The Pull Request's state is missing; \"\ndef createdDatePart = (pullReqObj?.createdDate) ? \"The PR's created date in epoch form is: ${pullReqObj?.createdDate}; \" : \"The PR's created date is missing; \"\ndef closedDatePart = (pullReqObj?.closedDate) ? \"The PR's closed date in epoch form is: ${pullReqObj?.closedDate}; \" : \"The PR's closed date is missing\"; \ndef updatedDatePart = (pullReqObj?.updatedDate) ? \"The PR's updated date in epoch form is: ${pullReqObj?.updatedDate}; \" : \"The PR's updated date is missing\"; \ndef authorPart = (pullReqObj?.author?.user?.emailAddress) ? \"The PR's author is: ${pullReqObj?.author?.user?.emailAddress} ${pullReqObj?.author?.user?.displayName}; \" : \"The PR's author is missing; \"\n\n\ndef projectName = (binding.hasVariable('projectName')) ? \"The project name is: ${projectName}; \" : \"The project name is missing; \"\ndef repoName = (binding.hasVariable('repoName')) ? \"The repository name is: ${repoName}; \" : \"The repository name is missing; \"\n\n// def data = \"${closedPart}${openPart}${draftPart}${descriptionPart}${titlePart}${statePart}${createdDatePart}${closedDatePart}${updatedDatePart}${authorPart}\".toString()\ndef data = closedPart+openPart+draftPart+descriptionPart+titlePart+statePart+createdDatePart+closedDatePart+updatedDatePart+authorPart+projectName+repoName\n\nreturn [\"data\" : data.toString()]",
+				"compile_static":false,
+				"parameters":{
+					"projectName":"{{ TvjDx.outputs.result.projectId }}/{{ R5eyY.outputs.fromRef.repository.project.name }}",
+					"pullReqObj":"{{ R5eyY.outputs }}",
+					"repoName":"{{ TvjDx.outputs.result.repoId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Parse output",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":494,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"OC3mX",
+			"index":0,
+			"inputs":{
+				"automationId":"67091f09c6db330cf5b08ead",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"knowledgeId":"{{ wm8oB.outputs.knowledgeId  }}",
+					"text":"{{ znNWe.outputs.result.data }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Text chunker",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":494,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"it56N",
+			"index":0,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ R5eyY.outputs.author.user.emailAddress }}",
+					"chunkMetadata":"{{ dwmHt.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"chunkMetadata":"{{ dwmHt.outputs.result.chunkMetadata }}",
+							"data":"{{ OC3mX.outputs.chunks[0] }}",
+							"sharedWithIds":{
+								"items":"{{ TvjDx.outputs.result.sharedWithIds[0] }}",
+								"source":"{{ TvjDx.outputs.result.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ OC3mX.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ wm8oB.outputs.knowledgeId  }}",
+					"knowledgeVersion":"{{ wm8oB.outputs.knowledge.readVersion  }}",
+					"uniqueEntityId":"{{ dwmHt.outputs.result.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rdXmu@iQwuB@nDeds@AOIzJ@X7g2l-1@l@l@l@l",
+			"id":"VRgt9",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":"{{ it56N.outputs.response }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"bitbucket_server"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":20
+}
