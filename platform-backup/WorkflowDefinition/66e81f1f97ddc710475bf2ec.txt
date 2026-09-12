@@ -1,0 +1,307 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743841559,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743841757,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece6145d2142160e6e686",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":28
+	},
+	"edges":[
+		{
+			"fromNodeId":"dUEmn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"g4kXo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"g4kXo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Vn7HQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Vn7HQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"pTMLj",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"66e81f1f97ddc710475bf2ec",
+	"lastModifiedBy":-1,
+	"lcName":"[model_compare] init",
+	"modifiedTime":1788252973201,
+	"name":"[MODEL_COMPARE] Init",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":52,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lFGkj-1",
+			"id":"dUEmn",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"agentResponseMessageId":{
+							"title":"Agent Response Message Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"context":{
+							"additionalProperties":false,
+							"properties":{
+								"playgroundId":{
+									"title":"Playground Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Context",
+							"type":"object"
+						},
+						"messageCreatedTime":{
+							"title":"Message Created Time",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"messageId",
+							"type":"string"
+						},
+						"playgroundId":{
+							"title":"Playground Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"context":{
+							"additionalProperties":false,
+							"properties":{
+								"playgroundId":{
+									"title":"Playground Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Context",
+							"type":"object"
+						},
+						"copilotType":{
+							"title":"Copilot Type",
+							"type":"string"
+						},
+						"message":{
+							"title":"message",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						},
+						"playgroundId":{
+							"title":"Playground Id",
+							"type":"string"
+						},
+						"settings":{
+							"additionalProperties":false,
+							"properties":{
+								"frequencyPenalty":{
+									"title":"frequencyPenalty",
+									"type":"string"
+								},
+								"maxOutputTokens":{
+									"title":"maxOutputTokens",
+									"type":"string"
+								},
+								"presencePenalty":{
+									"title":"presencePenalty",
+									"type":"string"
+								},
+								"temperature":{
+									"title":"temperature",
+									"type":"string"
+								},
+								"topK":{
+									"title":"topK",
+									"type":"string"
+								},
+								"topP":{
+									"title":"topP",
+									"type":"string"
+								}
+							},
+							"title":"settings",
+							"type":"object"
+						},
+						"userId":{
+							"title":"userId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lFGkj-1",
+			"id":"g4kXo",
+			"index":0,
+			"inputs":{
+				"automationId":"66ab81a6a1c8b020e8374956",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"_ua_model_compare_",
+					"caseId":"{{ dUEmn.outputs.caseId }}",
+					"copilotType":"{{ dUEmn.outputs.copilotType }}",
+					"message":"{{ dUEmn.outputs.message }}",
+					"userId":"{{ dUEmn.outputs.userId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lFGkj-1",
+			"id":"Vn7HQ",
+			"index":0,
+			"inputs":{
+				"automationId":"67b4904faffe713b4ced2d1e",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"caseId":"{{ g4kXo.outputs.caseId }}",
+					"context":{
+						"playgroundId":"{{ dUEmn.outputs.playgroundId }}"
+					},
+					"copilotType":"MODEL_COMPARE",
+					"message":"{{ dUEmn.outputs.message }}",
+					"modelId":"{{ dUEmn.outputs.modelId }}",
+					"userId":"{{ dUEmn.outputs.userId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"lFGkj-1",
+			"id":"pTMLj",
+			"index":0,
+			"inputs":{
+				"result":{
+					"agentResponseMessageId":"{{ g4kXo.outputs.agentResponseMessageId }}",
+					"caseId":"{{ g4kXo.outputs.caseId }}",
+					"context":{
+						"playgroundId":"{{ dUEmn.outputs.context.playgroundId }}"
+					},
+					"messageCreatedTime":"{{ g4kXo.outputs.messageCreatedTime }}",
+					"messageId":"{{ g4kXo.outputs.messageId }}",
+					"playgroundId":"{{ dUEmn.outputs.playgroundId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":30
+}

@@ -1,0 +1,163 @@
+{
+	"appsUsed":[
+		"microsoft_sharepoint"
+	],
+	"createdTime":1787743933318,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743933507,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecebd45d2142160e6f1f3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":4
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_P6j9S",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZC5zy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZC5zy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZIVOA",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a1f086e44386e4cb2b97034",
+	"lastModifiedBy":-1,
+	"lcName":"get crawl | sharepoint | site",
+	"modifiedTime":1788252973197,
+	"name":"Get Crawl | Sharepoint | site",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":787,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hl6wH-1",
+			"id":"n_P6j9S",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"NoCrawl":{
+							"title":"No Crawl",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"siteName":{
+							"title":"Site Name",
+							"type":"string"
+						},
+						"siteType":{
+							"title":"Site Type",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"microsoft_sharepoint",
+				"resourceVersion":9,
+				"resourceName":"microsoft_sharepoint_get_site_nocrawl",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hl6wH-1",
+			"id":"n_ZC5zy",
+			"index":2,
+			"inputs":{
+				"site_name":"{{ n_P6j9S.outputs.siteName }}",
+				"siteType":"{{ n_P6j9S.outputs.siteType }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft SharePoint",
+			"title":"Get site NoCrawl",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":787,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hl6wH-1",
+			"id":"n_ZIVOA",
+			"index":3,
+			"inputs":{
+				"result":{
+					"NoCrawl":"{{ n_ZC5zy.outputs.d.NoCrawl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_sharepoint"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":6
+}
