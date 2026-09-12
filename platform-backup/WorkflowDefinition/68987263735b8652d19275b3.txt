@@ -1,0 +1,397 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743930077,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743930231,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8eceba45d2142160e6f0f5",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":41
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_z31nc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"1WPP3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"1WPP3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2FGms",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2FGms",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PAmPA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PAmPA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0ioY4",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68987263735b8652d19275b3",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | google drive | all files",
+	"modifiedTime":1788252972982,
+	"name":"Knowledge Downloader | Google Drive | All files",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":438,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nRSRD-1",
+			"id":"n_z31nc",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"entityCount":{
+							"title":"Entity Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"686af1b917f4c626f9b30e71",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"integer"
+								},
+								"grabberType":{
+									"title":"Grabber Type",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"indexingVersion":{
+									"title":"Indexing Version",
+									"type":"integer"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.downloadDuration.startTimeEpoch",
+					"root.parameters.downloadDuration.currentTimeEpoch"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nRSRD-1",
+			"id":"1WPP3",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"fileId":{
+							"title":"File Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"downloadDuration":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Download Duration",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if (!binding.hasVariable(\"inputs\")) {\n    return [:]\n}\ndef mappedInputs = [:]\n\nmappedInputs[\"fileId\"] = inputs?.fileId?.context.last().id\n\nreturn mappedInputs",
+				"compile_static":false,
+				"parameters":{
+					"downloadDuration":{
+						"currentTimeEpoch":"{{ n_z31nc.outputs.downloaderConfig.currentTimeEpoch }}",
+						"startTimeEpoch":"{{ n_z31nc.outputs.downloaderConfig.startTimeEpoch }}"
+					},
+					"inputs":"{{ n_z31nc.outputs.inputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Input parsing",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.importerParams.aiAgentId",
+					"root.record.importerParams.knowledgeId",
+					"root.record.importerParams.inputs",
+					"root.record.importerParams.knowledge",
+					"root.record.importerParams.downloaderConfig.startTimeEpoch",
+					"root.record.importerParams.downloaderConfig.currentTimeEpoch",
+					"root.record.importerParams.downloaderConfig.grabberType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":523,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nRSRD-1",
+			"id":"n_2FGms",
+			"index":3,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"knowledge_downloader_entities",
+				"record":{
+					"downloaderAutomation":"68a2cf8c4a22b207e507592e",
+					"importerConnections":"{{ n_z31nc.outputs.importerConnections }}",
+					"importerParams":{
+						"aiAgentId":"{{ n_z31nc.outputs.aiAgentId }}",
+						"downloaderConfig":{
+							"currentTimeEpoch":"{{ n_z31nc.outputs.downloaderConfig.currentTimeEpoch }}",
+							"grabberType":"{{ n_z31nc.outputs.downloaderConfig.grabberType }}",
+							"startTimeEpoch":"{{ n_z31nc.outputs.downloaderConfig.startTimeEpoch }}"
+						},
+						"inputs":"{{ 1WPP3.outputs.result }}",
+						"knowledge":"{{ n_z31nc.outputs.knowledge }}",
+						"knowledgeId":"{{ n_z31nc.outputs.knowledgeId }}"
+					},
+					"knowledgeId":"{{ n_z31nc.outputs.knowledgeId }}",
+					"parentEntityId":"{{ 1WPP3.outputs.result.fileId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Create Downloader Entities Record",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":460,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nRSRD-1",
+			"id":"n_PAmPA",
+			"index":4,
+			"inputs":{
+				"automationId":"686e32e346d5ef287e56f8fb",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"parameters":{
+					"grabberType":"{{ n_z31nc.outputs.downloaderConfig.grabberType }}",
+					"knowledge":"{{ n_z31nc.outputs.knowledge }}",
+					"knowledgeId":"{{ n_z31nc.outputs.knowledgeId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Call Task Downloader (async)",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nRSRD-1",
+			"id":"n_0ioY4",
+			"index":5,
+			"inputs":{
+				"result":{
+					"entityCount":1
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":43
+}
