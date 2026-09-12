@@ -1,0 +1,488 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743423829,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"8mT24",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_lQMD6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_lQMD6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_a4P2Z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_a4P2Z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"KtQQz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"KtQQz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_3BVRH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_3BVRH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"HsMf9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"HsMf9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"uJ7OJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"uJ7OJ",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"vxOzR",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"uJ7OJ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Km9Pz",
+			"type":"next"
+		}
+	],
+	"id":"6a8eccbf3f7ad93bb16708b1",
+	"lastModifiedBy":-1,
+	"lcName":"call agent api",
+	"modifiedTime":1787743423831,
+	"name":"Call Agent API",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":25,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"8mT24",
+			"index":0,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"SessionID":{
+								"title":"Session ID",
+								"type":"string"
+							},
+							"aiAgentId":{
+								"title":"Ai Agent Id",
+								"type":"string"
+							},
+							"userQuery":{
+								"title":"User Query",
+								"type":"string"
+							}
+						},
+						"required":[
+							"userQuery",
+							"SessionID",
+							"aiAgentId"
+						],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"agentResponse":{
+									"title":"Agent Response",
+									"type":"string"
+								},
+								"caseId":{
+									"title":"Case Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"agentResponse"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					},
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"caseId":{
+									"title":"Case Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"caseId"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":500,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":134,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"_lQMD6",
+			"index":0,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"accountId":{
+							"title":"Account Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"toCustomerUserId":{
+							"title":"To Customer User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"accountId":"API_AI_AGENT",
+				"caseId":"{{ 8mT24.outputs.body.SessionID }}",
+				"channelName":"API",
+				"fromCustomerUserId":"API_USER_{{ __RUN__.outputs.executionId }}",
+				"toCustomerUserId":"AI_AGENT_{{ 8mT24.outputs.body.SessionID }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"accountId":{
+							"title":"Account Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"channelName":{
+							"title":"Channel Name",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"toCustomerUserId":{
+							"title":"To Customer User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Useless",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":84,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"_a4P2Z",
+			"index":0,
+			"inputs":{
+				"automationId":"674afe5adefb851816d61959",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"attachments":{
+						"items":"{{ _MAiaR.outputs.items[0] }}",
+						"ua:type":"mappedArray"
+					},
+					"caseAssociationType":"PREVIOUS_FAN_MESSAGE",
+					"caseId":"{{ _lQMD6.outputs.caseId }}",
+					"channelName":"API_TEST",
+					"customerUserId":"123",
+					"fromCustomerUserId":"123",
+					"messageType":"FAN",
+					"text":"{{ 8mT24.outputs.body.userQuery }}",
+					"toCustomerUserId":"e_675d12a3811a3c4a299aff46",
+					"triggeredFromAutomationId":"{{ __RUN__.outputs.workflowId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Case Management",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":27,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"KtQQz",
+			"index":0,
+			"inputs":{
+				"object_type":"api_response",
+				"record":{
+					"caseId":"{{ _a4P2Z.outputs.caseId }}",
+					"flag":"True",
+					"userQuery":"{{ 8mT24.outputs.body.userQuery }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":526,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"_3BVRH",
+			"index":0,
+			"inputs":{
+				"recordId":"{{ _a4P2Z.outputs.caseId }}",
+				"object_type":"belcorp_customer_number",
+				"record":{
+					"caseId":"{{ _a4P2Z.outputs.caseId }}",
+					"channel":"AI_AGENT_TEST",
+					"countryCode":"PE",
+					"encryptedPhoneNumber":"W3EOeE0Ha1tT4g==",
+					"isDiamondConsultant":"false",
+					"phoneNumber":"997485332"
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":28,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"HsMf9",
+			"index":0,
+			"inputs":{
+				"automationId":"6761589c529264022c7d1650",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ 8mT24.outputs.body.aiAgentId }}",
+					"caseId":"{{ _a4P2Z.outputs.caseId }}",
+					"messageId":"{{ _a4P2Z.outputs.messageId }}",
+					"userQuery":"{{ 8mT24.outputs.body.userQuery }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Trigger Agent and wait for response",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":28,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hcAQ5-1",
+			"id":"uJ7OJ",
+			"index":0,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"CONTAINS",
+							"value":"Medios"
+						},
+						"property":"{{ HsMf9.outputs.textMessage }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"uJ7OJ@hcAQ5-1@y",
+			"id":"vxOzR",
+			"index":0,
+			"inputs":{
+				"responseName":"200_undefined",
+				"body":{
+					"agentResponse":"{{ HsMf9.outputs.textMessage }}",
+					"caseId":"{{ _a4P2Z.outputs.caseId }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":54,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"uJ7OJ@hcAQ5-1@n",
+			"id":"Km9Pz",
+			"index":0,
+			"inputs":{
+				"responseName":"500_undefined",
+				"body":{
+					"caseId":"{{ _a4P2Z.outputs.caseId }}"
+				},
+				"status":500
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{}
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"6789073d14d7fb7882cdaaad",
+	"workflowVersion":65
+}
