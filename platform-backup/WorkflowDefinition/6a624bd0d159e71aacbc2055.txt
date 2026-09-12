@@ -1,0 +1,221 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744055618,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744055949,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf372889f9507f11e81f",
+		"deploymentTag":"wrapper-pattern",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":57
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_OmmxA",
+			"id":"next@n_OmmxA@n_4uq5B",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4uq5B",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4uq5B",
+			"id":"next@n_4uq5B@n_ylCyg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ylCyg",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a624bd0d159e71aacbc2055",
+	"lastModifiedBy":-1,
+	"lcName":"(tool) describe sql table wrapper",
+	"modifiedTime":1788252972341,
+	"name":"(tool) Describe SQL Table Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1236,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QHqr5-1",
+			"id":"n_OmmxA",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"tableSchema"
+					],
+					"properties":{
+						"tableSchema":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"tableSchema"
+						},
+						"sampleData":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"sampleData"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"tableName",
+						"appName",
+						"connectionId"
+					],
+					"properties":{
+						"appName":{
+							"type":"string",
+							"title":"appName",
+							"help":"Name of the connector app (external DB service) ex. \"mysql\", \"oracledb\""
+						},
+						"tableName":{
+							"type":"string",
+							"title":"tableName"
+						},
+						"dbName":{
+							"type":"string",
+							"title":"Db Name"
+						},
+						"schemaName":{
+							"type":"string",
+							"title":"Schema Name"
+						},
+						"catalogName":{
+							"type":"string",
+							"title":"Catalog Name"
+						},
+						"connectionId":{
+							"type":"string",
+							"title":"connectionId"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":234,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QHqr5-1",
+			"id":"n_4uq5B",
+			"index":2,
+			"inputs":{
+				"automationId":"6a71b37484ee1c1575416b41",
+				"runtimeConnections":{
+					"mariadb":"{{ n_OmmxA.outputs.connectionId }}",
+					"snowflake":"{{ n_OmmxA.outputs.connectionId }}",
+					"redshift":"{{ n_OmmxA.outputs.connectionId }}",
+					"sqlserver":"{{ n_OmmxA.outputs.connectionId }}",
+					"trino":"{{ n_OmmxA.outputs.connectionId }}",
+					"teradata":"{{ n_OmmxA.outputs.connectionId }}",
+					"oracledb":"{{ n_OmmxA.outputs.connectionId }}",
+					"databricks":"{{ n_OmmxA.outputs.connectionId }}",
+					"mysql":"{{ n_OmmxA.outputs.connectionId }}",
+					"postgres":"{{ n_OmmxA.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"appName":"{{ n_OmmxA.outputs.appName }}",
+					"tableName":"{{ n_OmmxA.outputs.tableName }}",
+					"dbName":"{{ n_OmmxA.outputs.dbName }}",
+					"schemaName":"{{ n_OmmxA.outputs.schemaName }}",
+					"catalogName":"{{ n_OmmxA.outputs.catalogName }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1236,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QHqr5-1",
+			"id":"n_ylCyg",
+			"index":3,
+			"inputs":{
+				"result":{
+					"tableSchema":"{{ n_4uq5B.outputs.tableSchema }}",
+					"sampleData":"{{ n_4uq5B.outputs.sampleData }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"text-to-workflow"
+	],
+	"version":59
+}
