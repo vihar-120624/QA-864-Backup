@@ -1,0 +1,857 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743902671,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743902848,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece9e177b4b4aca57bd58",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":43
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_S53bq",
+			"id":"next@n_S53bq@n_NWJhY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NWJhY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NWJhY",
+			"id":"next@n_NWJhY@_o1G2f",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_o1G2f",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_o1G2f",
+			"id":"next@_o1G2f@n_iN1Bu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iN1Bu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iN1Bu",
+			"id":"branch@n_iN1Bu@n_iN1Bu@4",
+			"name":"4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iN1Bu@4",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_iN1Bu@4",
+			"id":"next@n_iN1Bu@4@n_WnNmV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WnNmV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WnNmV",
+			"id":"next@n_WnNmV@n_N83Gy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_N83Gy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iN1Bu",
+			"id":"branch@n_iN1Bu@n_iN1Bu@3",
+			"name":"3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iN1Bu@3",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_iN1Bu@3",
+			"id":"next@n_iN1Bu@3@n_vw8MC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vw8MC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_N83Gy",
+			"id":"next@n_N83Gy@n_f3wBx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_f3wBx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vw8MC",
+			"id":"next@n_vw8MC@n_f3wBx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_f3wBx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iN1Bu",
+			"id":"branch@n_iN1Bu@n_f3wBx",
+			"name":"default",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_f3wBx",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_f3wBx",
+			"id":"next@n_f3wBx@n_FctbD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FctbD",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a3e0819fef6297376aa97ed",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | feedback | feedback trend",
+	"modifiedTime":1788252971585,
+	"name":"Enterprise Search | Feedback | Feedback Trend",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":572,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_S53bq",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"percentageChangeTotalQueries":{
+							"title":"Percentage Change Total Queries",
+							"type":"number"
+						},
+						"percentageVsTime":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"downvoteCount":{
+										"title":"Downvote Count",
+										"type":"integer"
+									},
+									"queryCount":{
+										"title":"Query Count",
+										"type":"integer"
+									},
+									"timestamp":{
+										"title":"timestamp",
+										"type":"integer"
+									},
+									"upvoteCount":{
+										"title":"Upvote Count",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"percentageVsTime",
+							"type":"array"
+						},
+						"totalDownVoteCount":{
+							"title":"Total Down Vote Count",
+							"type":"integer"
+						},
+						"totalFeedbackCount":{
+							"title":"Total Feedback Count",
+							"type":"integer"
+						},
+						"totalQueryCount":{
+							"title":"Total Query Count",
+							"type":"integer"
+						},
+						"totalUpVoteCount":{
+							"title":"Total Up Vote Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"endDate":{
+							"title":"End Date",
+							"type":"integer"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":653,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_NWJhY",
+			"index":2,
+			"inputs":{
+				"automationId":"6a3e0856112708487115d403",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"filter":"{{ n_S53bq.outputs.filter }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Filter",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"_o1G2f",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"prevEndTime":{
+							"title":"Prev End Time",
+							"type":"integer"
+						},
+						"prevStartTime":{
+							"title":"Prev Start Time",
+							"type":"integer"
+						},
+						"region":{
+							"title":"Region",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"since":{
+							"title":"Since",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						},
+						"until":{
+							"title":"Until",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import groovy.time.TimeCategory\nimport java.time.*\n\ndef startTime\ndef endTime\n\nif (binding.hasVariable('until')) {\n    endTime = until\n} else {\n    endTime = new Date().time\n}\n\nif (binding.hasVariable('since')) {\n    startTime = since\n} else {\n    use(TimeCategory) {\n        startTime = (new Date(endTime) - 30.days).time\n    }\n}\n\ndef offsetMinutes(timezone) {\n    if (!timezone) return 0\n    def m = timezone =~ /([+-])(\\d{2}):(\\d{2})/\n    if (!m.find()) return 0\n\n    def sign = m.group(1) == '-' ? -1 : 1\n    def hours = m.group(2).toInteger()\n    def mins  = m.group(3).toInteger()\n\n    return sign * (hours * 60 + mins)\n}\n\ndef userTimeZone = binding.hasVariable('timeZone')\n        ? timeZone.replace('GMT', '')\n        : '+00:00'\n\ndef gmtToAnyRegion(String gmt) {\n    if (!gmt) return 'UTC'\n\n    def offset = gmt.replace('GMT', '')\n    ZoneOffset target = ZoneOffset.of(offset)\n    Instant now = Instant.now()\n\n    def zone = ZoneId.getAvailableZoneIds()\n            .find { id ->\n                ZoneId.of(id).rules.getOffset(now) == target\n            }\n\n    return zone ?: 'UTC'\n}\n\ndef gmtToAnyRegion = gmtToAnyRegion(userTimeZone)\n\n// Timezone offset in millis (e.g. GMT+05:30 -> 19800000)\nlong offsetMillis = (offsetMinutes(userTimeZone) as long) * 60000L\n\nlong millisInDay = 24 * 60 * 60 * 1000\nlong daysBetween = ((endTime - startTime) / millisInDay) as long\n\n// previous window: same span, ends where current starts\nlong span     = endTime - startTime\nlong prevEnd   = startTime          // endOfPrev = startOfCurrent\nlong prevStart = startTime - span   // startOfPrev = prevEnd - span\n\n\nreturn [\"startTime\": startTime, \"endTime\": endTime, \"region\": gmtToAnyRegion, \"offsetMillis\": offsetMillis, \"prevStartTime\": prevStart, \"prevEndTime\": prevEnd, \"limit\": daysBetween+1]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"since":"{{ n_S53bq.outputs.startDate }}",
+					"timeZone":"{{ n_S53bq.outputs.timeZone }}",
+					"until":"{{ n_S53bq.outputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculate StartTime and endTime",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_iN1Bu",
+			"index":4,
+			"inputs":{
+				"branches":[
+					{
+						"id":"4",
+						"inputs":{
+							"name":"Up Votes and Downvotes"
+						}
+					},
+					{
+						"id":"3",
+						"inputs":{
+							"name":"Total Searches and Percentage Change from Prev Window"
+						}
+					},
+					{
+						"id":"default"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Branch",
+			"title":"",
+			"type":"BRANCH"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_iN1Bu@_dBomz-1@4",
+			"id":"n_iN1Bu@4",
+			"index":5,
+			"inputs":{
+				"name":"Up Votes and Downvotes"
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":624,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_iN1Bu@_dBomz-1@4",
+			"id":"n_WnNmV",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fromTimeZone":{
+							"title":"From Time Zone",
+							"type":"string"
+						},
+						"sqlToTimeZone":{
+							"title":"Sql To Time Zone",
+							"type":"string"
+						},
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\n\ndef traceDynamicFilter = traceCond ? \" WHERE t.deleted = false AND \" + traceCond\n                                   : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\n\ndef sql =\n\"SELECT \" +\n\"UNIX_TIMESTAMP(\" +\n\"  CONVERT_TZ(\" +\n\"    DATE(CONVERT_TZ(f.timestamp, '\" + fromTimeZone + \"', '\" + sqlToTimeZone + \"')),\" +\n\"    '\" + sqlToTimeZone + \"', '\" + fromTimeZone + \"'\" +\n\"  )\" +\n\") * 1000 AS dayMillis, \" +\n\"COUNT(*) AS totalVotes, \" +\n\"SUM(CASE WHEN f._pr_reaction IN ('like','upvote', 'UPVOTE', 'Upvote', 'Like', 'LIKE') THEN 1 ELSE 0 END) AS upVotes, \" +\n\"SUM(CASE WHEN f._pr_reaction IN ('dislike','downvote', 'DOWNVOTE', 'Downvote', 'Dislike', 'DISLIKE') THEN 1 ELSE 0 END) AS downVotes \" +\n\"FROM ENTITY_service_hub_user_feedback f \" +\n\"JOIN ( \" +\n\"  SELECT DISTINCT filtered_t._pr_messageId AS messageId \" +\n\"  FROM (SELECT * FROM ENTITY_e_traces t \" + traceDynamicFilter + \") filtered_t \" +\n\"  JOIN (SELECT * FROM USER u \" + userDynamicFilter + \") filtered_u \" +\n\"    ON filtered_t._pr_userId = filtered_u.userId \" +\n\"  WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n\"    AND filtered_t._pr_messageId IS NOT NULL \" +\n\"    AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN :startTime AND :endTime \" +\n\") AS filtered_messages \" +\n\"  ON f._pr_fanMessageId = filtered_messages.messageId \" +\n\"JOIN ENTITY_service_hub_message shm_fan ON shm_fan.id = f._pr_fanMessageId \" +\n\"JOIN USER fb_u ON fb_u.userId = f.ownerUserId \" +\n\"WHERE f.deleted = FALSE \" +\n\"  AND shm_fan.deleted = false \" +\n\"  AND shm_fan._pr_type = 'fan' \" +\n\"  AND fb_u.deleted = false \" +\n\"  AND f.createdTime BETWEEN :startTime AND :endTime \" +\n\"GROUP BY dayMillis \" +\n\"ORDER BY dayMillis\"\n\n\nreturn [\"sql\": sql]\n\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fromTimeZone":"UTC",
+					"sqlToTimeZone":"{{ _o1G2f.outputs.result.region }}",
+					"traceCondition":"{{ n_NWJhY.outputs.traceCondition }}",
+					"userCondition":"{{ n_NWJhY.outputs.userCondition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Query",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":581,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_iN1Bu@_dBomz-1@4",
+			"id":"n_N83Gy",
+			"index":7,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"dayMillis":{
+									"title":"dayMillis",
+									"type":"integer"
+								},
+								"downVotes":{
+									"title":"downVotes",
+									"type":"integer"
+								},
+								"totalVotes":{
+									"title":"totalVotes",
+									"type":"integer"
+								},
+								"upVotes":{
+									"title":"upVotes",
+									"type":"integer"
+								}
+							},
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_WnNmV.outputs.result.sql }}",
+				"record":{
+					"endTime":"{{ _o1G2f.outputs.result.endTime }}",
+					"startTime":"{{ _o1G2f.outputs.result.startTime }}"
+				},
+				"params":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_iN1Bu@_dBomz-1@3",
+			"id":"n_iN1Bu@3",
+			"index":8,
+			"inputs":{
+				"name":"Total Searches and Percentage Change from Prev Window"
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":521,
+				"resourceName":"analytics_by_unifyapps_query_reports",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_iN1Bu@_dBomz-1@3",
+			"id":"n_vw8MC",
+			"index":9,
+			"inputs":{
+				"filter":{
+					"filters":[
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"66966960e8797a59f4a46292"
+									},
+									"property":"ENTITY_e_traces=::=fromAutomationId"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"66ac70650f725f5b425d12d8"
+									},
+									"property":"ENTITY_e_traces=::=fromAutomationId"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"6851442f9e30586f552a6d73"
+									},
+									"property":"ENTITY_e_traces=::=fromAutomationId"
+								}
+							],
+							"operator":"OR"
+						},
+						{
+							"resolvedFilter":{
+								"filter":"{{ n_S53bq.outputs.filter }}"
+							}
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"false"
+							},
+							"property":"USER=::=DELETED"
+						},
+						{
+							"filter":{
+								"operator":"EXISTS"
+							},
+							"property":"ENTITY_e_traces=::=messageId"
+						}
+					],
+					"operator":"AND"
+				},
+				"projections":[
+					{
+						"aggregationFunction":"DISTINCT_COUNT",
+						"alias":"queryCount",
+						"includePercentageChange":true,
+						"name":"ENTITY_e_traces=::=messageId"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"alias":"deleted",
+						"includePercentageChange":false,
+						"name":"USER=::=DELETED"
+					}
+				],
+				"entityType":"ENTITY_e_traces",
+				"sorts":[
+					{
+						"field":"timestamp",
+						"order":"ASC"
+					}
+				],
+				"timeFilter":{
+					"previousSince":"{{ _o1G2f.outputs.result.prevStartTime }}",
+					"previousUntil":"{{ _o1G2f.outputs.result.prevEndTime }}",
+					"since":"{{ _o1G2f.outputs.result.startTime }}",
+					"timeZone":"{{ n_S53bq.outputs.timeZone }}",
+					"until":"{{ _o1G2f.outputs.result.endTime }}"
+				},
+				"additionalProjections":[],
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"queryStateCard and per",
+			"title":"Analytics Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.votesVsTime.items.timestamp",
+					"root.parameters.votesVsTime.items.upvotes",
+					"root.parameters.votesVsTime.items.downvotes",
+					"root.parameters.votesVsTime.items.totalVotes"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_f3wBx",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"totalDownVoteCount":{
+							"title":"Total Down Vote Count",
+							"type":"integer"
+						},
+						"totalFeedbackCount":{
+							"title":"Total Feedback Count",
+							"type":"integer"
+						},
+						"totalUpVoteCount":{
+							"title":"Total Up Vote Count",
+							"type":"integer"
+						},
+						"voteVsTime":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"downvoteCount":{
+										"title":"Downvote Count",
+										"type":"integer"
+									},
+									"timestamp":{
+										"title":"timestamp",
+										"type":"integer"
+									},
+									"upvoteCount":{
+										"title":"Upvote Count",
+										"type":"integer"
+									},
+									"voteCount":{
+										"title":"Vote Count",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Vote Vs Time",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						},
+						"votesVsTime":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"downvotes":{
+										"title":"Downvotes",
+										"type":"integer"
+									},
+									"timestamp":{
+										"title":"Timestamp",
+										"type":"integer"
+									},
+									"totalVotes":{
+										"title":"Total Votes",
+										"type":"integer"
+									},
+									"upvotes":{
+										"title":"Upvotes",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Votes Vs Time",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def votes       = (binding.hasVariable('votesVsTime') && votesVsTime) ? votesVsTime : []\ndef startTime   = (binding.hasVariable('startTime') && startTime)   ? startTime   : 0L\ndef endTime     = (binding.hasVariable('endTime') && endTime)       ? endTime     : 0L\ndef offsetMillis = (binding.hasVariable('offsetMillis') && offsetMillis) ? offsetMillis : 0L\n\ndef DAY_MS = 86400000L\n\n// Align to the START OF DAY in the user's timezone (same key the SQL emits):\n//   floor((ts + offset) / DAY) * DAY - offset\ndef alignedStart = (((startTime + offsetMillis) / DAY_MS).toLong() * DAY_MS) - offsetMillis\n\n// Index SQL rows by their dayMillis key\ndef voteMap = votes.collectEntries { row -> [(row?.timestamp): row] }\n\n// Build the continuous, timezone-aligned day axis\ndef allDays = []\ndef cursor = alignedStart\nwhile (cursor <= endTime) {\n    allDays << cursor\n    cursor += DAY_MS\n}\n\ndef totalUpVoteCount   = 0\ndef totalDownVoteCount = 0\n\ndef metrics = allDays.collect { ts ->\n    def row       = voteMap.get(ts)          // null => missing day => zeros\n    def upVotes   = row?.upvotes    ?: 0\n    def downVotes = row?.downvotes  ?: 0\n    def total     = row?.totalVotes ?: 0\n\n    totalUpVoteCount   += upVotes\n    totalDownVoteCount += downVotes\n\n    [\n        timestamp    : ts,\n        upvoteCount  : upVotes,\n        downvoteCount: downVotes,\n        voteCount    : total\n    ]\n}\n\ndef totalFeedbackCount = totalUpVoteCount + totalDownVoteCount\n\nreturn [\n    \"totalUpVoteCount\"  : totalUpVoteCount,\n    \"totalDownVoteCount\": totalDownVoteCount,\n    \"totalFeedbackCount\": totalFeedbackCount,\n    \"voteVsTime\"        : metrics\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"endTime":"{{ _o1G2f.outputs.result.endTime }}",
+					"offsetMillis":"{{ _o1G2f.outputs.result.offsetMillis }}",
+					"startTime":"{{ _o1G2f.outputs.result.startTime }}",
+					"votesVsTime":{
+						"items":{
+							"downvotes":"{{ n_N83Gy.outputs.objects[0].columns.downVotes }}",
+							"timestamp":"{{ n_N83Gy.outputs.objects[0].columns.dayMillis }}",
+							"totalVotes":"{{ n_N83Gy.outputs.objects[0].columns.totalVotes }}",
+							"upvotes":"{{ n_N83Gy.outputs.objects[0].columns.upVotes }}"
+						},
+						"source":"{{ n_N83Gy.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Generate Final Output",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":599,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dBomz-1",
+			"id":"n_FctbD",
+			"index":11,
+			"inputs":{
+				"result":{
+					"percentageChangeTotalQueries":"{{ n_vw8MC.outputs.objects[0].columns.queryCount.percentageChange }}",
+					"percentageVsTime":{
+						"items":{
+							"downvoteCount":"{{ n_f3wBx.outputs.result.voteVsTime[0].downvoteCount }}",
+							"queryCount":"{{ n_f3wBx.outputs.result.voteVsTime[0].voteCount }}",
+							"timestamp":"{{ n_f3wBx.outputs.result.voteVsTime[0].timestamp }}",
+							"upvoteCount":"{{ n_f3wBx.outputs.result.voteVsTime[0].upvoteCount }}"
+						},
+						"source":"{{ n_f3wBx.outputs.result.voteVsTime }}",
+						"ua:type":"mappedArray"
+					},
+					"totalDownVoteCount":"{{ n_f3wBx.outputs.result.totalDownVoteCount }}",
+					"totalFeedbackCount":"{{ n_f3wBx.outputs.result.totalFeedbackCount }}",
+					"totalQueryCount":"{{ n_vw8MC.outputs.objects[0].columns.queryCount.currentValue }}",
+					"totalUpVoteCount":"{{ n_f3wBx.outputs.result.totalUpVoteCount }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":45
+}
