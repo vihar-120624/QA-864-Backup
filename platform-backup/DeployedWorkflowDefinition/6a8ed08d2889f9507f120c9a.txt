@@ -1,0 +1,191 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744397316,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_lVrYi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kxWmq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kxWmq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pilAG",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed08d2889f9507f120c9a",
+	"lastModifiedBy":-1,
+	"lcName":"pai | imperfect invoices",
+	"modifiedTime":1787744397319,
+	"name":"PAI | imperfect invoices",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2160,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_zamVQ-1",
+			"id":"n_lVrYi",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"Date":{
+							"title":"Date",
+							"type":"string"
+						},
+						"PO_number":{
+							"title":"PO Number",
+							"type":"string"
+						},
+						"file_name":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"matching_description":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Matching Description",
+							"type":"object"
+						},
+						"matching_score":{
+							"title":"Matching Score",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3904,
+				"resourceName":"storage_by_unifyapps_upsert_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_zamVQ-1",
+			"id":"n_kxWmq",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"pai_imperfect_invoices",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.po_number",
+						"setValue":"{{ n_lVrYi.outputs.PO_number }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.file_name",
+						"setValue":"{{ n_lVrYi.outputs.file_name }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.Date",
+						"setValue":"{{ n_lVrYi.outputs.Date }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.matching_score",
+						"setValue":"{{ n_lVrYi.outputs.matching_score }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.matching_description",
+						"setValue":"{{ n_lVrYi.outputs.matching_description }}"
+					}
+				],
+				"id":"{{ n_lVrYi.outputs.PO_number }}",
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Upsert Record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2166,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_zamVQ-1",
+			"id":"n_pilAG",
+			"index":3,
+			"inputs":{
+				"result":{
+					"status":"200"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69b95ac2ecbd180807b5c287",
+	"workflowVersion":10
+}

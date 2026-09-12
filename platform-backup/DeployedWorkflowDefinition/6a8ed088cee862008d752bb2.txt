@@ -1,0 +1,306 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744392167,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_QFrOG",
+			"id":"next@n_QFrOG@n_PaniX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PaniX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PaniX",
+			"id":"next@n_PaniX@n_m8gjV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_m8gjV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_m8gjV",
+			"id":"next@n_m8gjV@n_OFhFB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OFhFB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OFhFB",
+			"id":"loop@n_OFhFB@n_Fpamv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Fpamv",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Fpamv",
+			"id":"next@n_Fpamv@n_OFhFB",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OFhFB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OFhFB",
+			"id":"next@n_OFhFB@n_Qfzw2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Qfzw2",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed088cee862008d752bb2",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | share knowledge",
+	"modifiedTime":1787744392170,
+	"name":"Enterprise Search | Share Knowledge",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":993,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mAeTv-1",
+			"id":"n_QFrOG",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Ids",
+							"type":"array"
+						},
+						"spaceId":{
+							"title":"Space Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1174,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mAeTv-1",
+			"id":"n_PaniX",
+			"index":2,
+			"inputs":{
+				"object_type":"e_space",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_QFrOG.outputs.spaceId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":961,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mAeTv-1",
+			"id":"n_m8gjV",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"shareIdList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Share Id List",
+							"type":"array"
+						},
+						"userIdList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"User Id List",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"teamId1":{
+							"title":"Team Id 1",
+							"type":"string"
+						},
+						"teamId2":{
+							"title":"Team Id 2",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [shareIdList : [teamId1 ,teamId2 ],userIdList :[userId.toString()]]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"teamId1":"{{ n_PaniX.outputs.properties.staticUserGroupId }}",
+					"teamId2":"{{ n_PaniX.outputs.properties.dynamicUserGroupId }}",
+					"userId":"{{ n_PaniX.outputs.ownerUserId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":483,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mAeTv-1",
+			"id":"n_OFhFB",
+			"index":4,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_QFrOG.outputs.knowledgeIds }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":1592,
+				"resourceName":"standard_entities_share_entities",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_OFhFB@_mAeTv-1@l",
+			"id":"n_Fpamv",
+			"index":5,
+			"inputs":{
+				"assetId":"{{ n_OFhFB.outputs.item }}",
+				"roles":[
+					"6a5f34a93d5a15572a2b3f57"
+				],
+				"applicationId":"ua-enterprise-chat",
+				"shareType":"share",
+				"user":"{{ n_m8gjV.outputs.result.userIdList }}",
+				"assetType":"knowledge",
+				"group":"{{ n_m8gjV.outputs.result.shareIdList }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Share entities",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1016,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mAeTv-1",
+			"id":"n_Qfzw2",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a5a404d747c7a72bae7b84a",
+	"workflowVersion":15
+}
