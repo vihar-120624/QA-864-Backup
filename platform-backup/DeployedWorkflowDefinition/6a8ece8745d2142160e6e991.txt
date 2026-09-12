@@ -1,0 +1,741 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743879630,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_c9prY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dt2Gz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dt2Gz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XaCHZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_XaCHZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_vyqzU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_vyqzU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4SgaH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4SgaH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BG64a",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_BG64a",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4SgaH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4SgaH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YHXyy",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece8745d2142160e6e991",
+	"lastModifiedBy":-1,
+	"lcName":"search issues using jql | tool | enterprise agent",
+	"modifiedTime":1787743879632,
+	"name":"Search Issues using JQL | Tool | Enterprise Agent",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1207,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iKDUX-1",
+			"id":"n_c9prY",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"expand":{
+							"help":"Comma-separated list.",
+							"title":"Expand",
+							"type":"string"
+						},
+						"fields":{
+							"help":"A comma-separated list of fields to return for each issue. Defaults to *all which returns all fields.",
+							"title":"Fields",
+							"type":"string"
+						},
+						"jqlQueryString":{
+							"help":"Jira query string",
+							"title":"Jql Query String",
+							"type":"string"
+						},
+						"maxResults":{
+							"default":"10",
+							"help":"Maximum records to return per page. Must be an integer between 1 to 100.",
+							"title":"Max Results",
+							"type":"string"
+						},
+						"nextPageToken":{
+							"help":"Token to retrieve the next page of results.",
+							"title":"Next Page Token",
+							"type":"string"
+						},
+						"sampleProjectIssueType":{
+							"additionalProperties":false,
+							"help":"Select the project and issue type to retrieve custom fields for this issue.",
+							"properties":{
+								"issueType":{
+									"help":"Select issue type from the project.",
+									"title":"Issue Type",
+									"type":"string"
+								},
+								"project":{
+									"help":"Select project to retrieve issue types.",
+									"title":"Project",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Sample Project Issue Type",
+							"type":"object"
+						},
+						"startAt":{
+							"help":"For Offset",
+							"title":"Start At",
+							"type":"string"
+						}
+					},
+					"required":[
+						"jqlQueryString"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iKDUX-1",
+			"id":"n_dt2Gz",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"parallelToolCalled":{
+							"title":"Parallel Tool Called",
+							"type":"boolean"
+						},
+						"toolIndex":{
+							"title":"Tool Index",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"jira",
+				"resourceVersion":4513,
+				"connectionId":"6a1ef0b46e31737f43776f18",
+				"resourceName":"jira_search_issues_using_jql",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iKDUX-1",
+			"id":"n_XaCHZ",
+			"index":3,
+			"inputs":{
+				"sampleProjectIssueType":{
+					"issueType":"{{ n_c9prY.outputs.sampleProjectIssueType.issueType }}",
+					"project":"{{ n_c9prY.outputs.sampleProjectIssueType.project }}"
+				},
+				"expand":"{{ n_c9prY.outputs.expand }}",
+				"jql":"{{ n_c9prY.outputs.jqlQueryString }}",
+				"maxResults":10,
+				"nextPageToken":"{{ n_c9prY.outputs.nextPageToken }}",
+				"objectSourceResourceName":"jira_fetch_issue_schema",
+				"fields":"summary,status,assignee,priority,updated,issuetype,key,customfield_10038,parent,description,subtasks",
+				"startAt":"{{ n_c9prY.outputs.startAt }}"
+			},
+			"skip":false,
+			"subTitle":"Jira",
+			"title":"Search issues by JQL",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.sampleProjectIssueType.project",
+					"root.parameters.sampleProjectIssueType.issueType"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1527,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iKDUX-1",
+			"id":"_vyqzU",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"citations":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"caseId":{
+										"title":"caseId",
+										"type":"string"
+									},
+									"chunkId":{
+										"title":"chunkId",
+										"type":"string"
+									},
+									"chunkNumber":{
+										"title":"chunkNumber",
+										"type":"string"
+									},
+									"content":{
+										"title":"content",
+										"type":"string"
+									},
+									"messageId":{
+										"title":"messageId",
+										"type":"string"
+									},
+									"metadata":{
+										"additionalProperties":false,
+										"properties":{
+											"appName":{
+												"title":"appName",
+												"type":"string"
+											},
+											"assignee":{
+												"title":"assignee",
+												"type":"string"
+											},
+											"chunkContents":{
+												"items":{
+													"type":"string"
+												},
+												"title":"chunkContents",
+												"type":"array"
+											},
+											"chunkId":{
+												"title":"chunkId",
+												"type":"string"
+											},
+											"createdAt":{
+												"title":"createdAt",
+												"type":"string"
+											},
+											"issueKey":{
+												"title":"issueKey",
+												"type":"string"
+											},
+											"modifiedAt":{
+												"title":"modifiedAt",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"referenceUrl":{
+												"title":"referenceUrl",
+												"type":"string"
+											},
+											"status":{
+												"title":"status",
+												"type":"string"
+											},
+											"summary":{
+												"title":"summary",
+												"type":"string"
+											},
+											"uniqueEntityId":{
+												"title":"uniqueEntityId",
+												"type":"string"
+											}
+										},
+										"title":"metadata",
+										"type":"object"
+									},
+									"score":{
+										"title":"score",
+										"type":"integer"
+									},
+									"tableIsPublished":{
+										"title":"tableIsPublished",
+										"type":"boolean"
+									},
+									"uniqueEntityId":{
+										"title":"uniqueEntityId",
+										"type":"string"
+									},
+									"usageCount":{
+										"title":"usageCount",
+										"type":"integer"
+									}
+								},
+								"type":"object"
+							},
+							"title":"citations",
+							"type":"array"
+						},
+						"issues":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"assignee":{
+										"additionalProperties":false,
+										"properties":{
+											"accountId":{
+												"title":"accountId",
+												"type":"string"
+											},
+											"email":{
+												"title":"email",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											}
+										},
+										"title":"assignee",
+										"type":"object"
+									},
+									"chunkNumber":{
+										"title":"chunkNumber",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"issueType":{
+										"title":"issueType",
+										"type":"string"
+									},
+									"key":{
+										"title":"key",
+										"type":"string"
+									},
+									"priority":{
+										"title":"priority",
+										"type":"string"
+									},
+									"referenceUrl":{
+										"title":"referenceUrl",
+										"type":"string"
+									},
+									"status":{
+										"title":"status",
+										"type":"string"
+									},
+									"storyPoints":{
+										"title":"storyPoints",
+										"type":"string"
+									},
+									"summary":{
+										"title":"summary",
+										"type":"string"
+									},
+									"updatedAt":{
+										"title":"updatedAt",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"issues",
+							"type":"array"
+						},
+						"totalFetched":{
+							"title":"totalFetched",
+							"type":"string"
+						},
+						"totalIssues":{
+							"title":"totalIssues",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"apiResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Api Response",
+							"type":"object"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"expand":{
+							"title":"Expand",
+							"type":"string"
+						},
+						"fields":{
+							"title":"Fields",
+							"type":"string"
+						},
+						"jqlQueryString":{
+							"title":"Jql Query String",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"sampleProjectIssueType":{
+							"additionalProperties":false,
+							"properties":{
+								"issueType":{
+									"title":"Issue Type",
+									"type":"string"
+								},
+								"project":{
+									"title":"Project",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Sample Project Issue Type",
+							"type":"object"
+						},
+						"startChunkNumber":{
+							"title":"Start Chunk Number",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"jqlQueryString"
+					],
+					"type":"object"
+				},
+				"code":"import java.text.SimpleDateFormat\n\ndef buildReferenceUrl(String selfUrl, String key) {\n    if (!selfUrl || !key) {\n        return \"\"\n    }\n    // Extract base URL from the API self link (e.g., https://domain.atlassian.net)\n    def matcher = selfUrl =~ /^(https?:\\/\\/[^\\/]+)/\n    def baseUrl = matcher ? matcher[0][1] : \"\"\n    return baseUrl ? baseUrl + \"/jira/browse/\" + key : \"\"\n}\n\ndef parseJiraTime(String timeStr) {\n    if (!timeStr) return 0\n    try {\n        // Jira time format: 2026-06-07T23:17:11.735+0300\n        def sdf = new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")\n        return sdf.parse(timeStr).getTime()\n    } catch (Exception e) {\n        return 0\n    }\n}\n\ndef normalizeIssue(issue, chunkNumber) {\n    if (issue == null) {\n        return null\n    }\n\n    def fields = issue?.fields ?: [:]\n\n    return [\n        chunkNumber : chunkNumber,\n        id          : issue?.id ?: \"\",\n        key         : issue?.key ?: \"\",\n        summary     : fields?.summary ?: \"(No Summary)\",\n        issueType   : fields?.issuetype?.name ?: \"\",\n        assignee    : [\n            name    : fields?.assignee?.displayName ?: \"Unassigned\",\n            accountId: fields?.assignee?.accountId ?: \"\",\n            email   : fields?.assignee?.emailAddress ?: \"\"\n        ],\n        priority    : fields?.priority?.name ?: \"\",\n        status      : fields?.status?.name ?: \"\",\n        storyPoints : fields?.customfield_10038 ?: null,\n        updatedAt   : fields?.updated ?: \"\",\n        referenceUrl: buildReferenceUrl(issue?.self, issue?.key),\n        description : fields?.description ?: \"(No Description)\"\n    ]\n}\n\ndef buildCitation(issue, chunkNumber, caseId, messageId) {\n    def fields = issue?.fields ?: [:]\n    def key = issue?.key ?: \"\"\n    def summary = fields?.summary ?: \"(No Summary)\"\n    def status = fields?.status?.name ?: \"Unknown\"\n    def assignee = fields?.assignee?.displayName ?: \"Unassigned\"\n    def updatedStr = fields?.updated ?: \"\"\n    def issueId = issue?.id ?: \"\"\n    def description = fields?.description ?: \"(No Description)\"\n    \n    def updatedTime = parseJiraTime(updatedStr)\n    def chunkContent = \"Jira Issue \" + key + \" (\" + status + \") assigned to \" + assignee + \" - \" + summary\n\n    return [\n        chunkNumber      : chunkNumber,\n        score            : 0.0,\n        metadata         : [\n            appName        : \"jira\",\n            summary        : summary,\n            chunkContents  : [chunkContent],\n            chunkId        : issueId,\n            issueKey       : key,\n            status         : status,\n            assignee       : assignee,\n            referenceUrl   : buildReferenceUrl(issue?.self, key),\n            createdAt      : updatedTime, // Used as proxy if exact creation date isn't in scope\n            modifiedAt     : updatedTime,\n            name           : key + \": \" + summary,\n            uniqueEntityId : issueId,\n            description    : description\n        ],\n        caseId           : caseId,\n        messageId        : messageId,\n        tableIsPublished : false,\n        chunkId          : issueId,\n        content          : chunkContent,\n        usageCount       : 0,\n        uniqueEntityId   : issueId\n    ]\n}\n\n// Main\ndef apiResponse      = binding.hasVariable('apiResponse')      && apiResponse      != null ? apiResponse      : []\ndef startChunkNumber = binding.hasVariable('startChunkNumber') && startChunkNumber != null ? startChunkNumber : 1\ndef messageId        = binding.hasVariable('messageId')        && messageId        != null ? messageId        : \"\"\ndef caseId           = binding.hasVariable('caseId')           && caseId           != null ? caseId           : \"\"\ndef limit = (binding.hasVariable('limit') && limit != null && (limit as int) > 0) \n    ? (limit as int) \n    : 50\n\n// In the provided JSON, apiResponse is the actual array of Jira issues\ndef issues = apiResponse ?: []\n\n// Apply limit on the issues\ndef limitedIssues = issues.take(limit)\n\ndef results = []\ndef citations = []  \ndef chunkCounter = startChunkNumber as int\n\nlimitedIssues.each { issue ->\n    def normalizedIssue = normalizeIssue(issue, chunkCounter)\n    def issueCitation   = buildCitation(issue, chunkCounter, caseId, messageId)\n\n    results.add(normalizedIssue)\n    citations.add(issueCitation)  \n    chunkCounter++\n}\n\nreturn [\n    \"totalFetched\" : issues.size(),\n    \"totalIssues\"  : results.size(),\n    \"issues\"       : results,\n    \"citations\"    : citations\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"apiResponse":"{{ n_XaCHZ.outputs.issues }}",
+					"caseId":"{{ n_dt2Gz.outputs.caseId }}",
+					"expand":"{{ n_c9prY.outputs.expand }}",
+					"fields":"summary,status,assignee,priority,updated,issuetype,key,customfield_10038,description",
+					"jqlQueryString":"{{ n_c9prY.outputs.jqlQueryString }}",
+					"limit":"{{ n_c9prY.outputs.maxResults }}",
+					"messageId":"{{ n_dt2Gz.outputs.messageId }}",
+					"sampleProjectIssueType":{
+						"issueType":"{{ n_c9prY.outputs.sampleProjectIssueType.issueType }}",
+						"project":"{{ n_c9prY.outputs.sampleProjectIssueType.project }}"
+					},
+					"startChunkNumber":"=({{ n_dt2Gz.outputs.toolIndex }}*500)+1"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Generate Msg Data & citation",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":99,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iKDUX-1",
+			"id":"n_4SgaH",
+			"index":5,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ _vyqzU.outputs.result.citations }}",
+				"captureIterations":false,
+				"batchSize":25
+			},
+			"skip":false,
+			"subTitle":"Loop on Citations",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1208,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_4SgaH@_iKDUX-1@l",
+			"id":"n_BG64a",
+			"index":6,
+			"inputs":{
+				"automationId":"69c0fbda14773b659a234f6f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":{
+					"items":{
+						"caseId":"{{ n_4SgaH.outputs.item[0].caseId }}",
+						"chunkId":"{{ n_4SgaH.outputs.item[0].chunkId }}",
+						"chunkNumber":"{{ n_4SgaH.outputs.item[0].chunkNumber }}",
+						"content":"{{ n_4SgaH.outputs.item[0].content }}",
+						"messageId":"{{ n_4SgaH.outputs.item[0].messageId }}",
+						"metadata":"{{ n_4SgaH.outputs.item[0].metadata }}",
+						"score":"{{ n_4SgaH.outputs.item[0].score }}",
+						"tableIsPublished":"{{ n_4SgaH.outputs.item[0].tableIsPublished }}",
+						"uniqueEntityId":"{{ n_4SgaH.outputs.item[0].uniqueEntityId }}",
+						"usageCount":"{{ n_4SgaH.outputs.item[0].usageCount }}"
+					},
+					"source":"{{ n_4SgaH.outputs.item }}",
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Create Citations",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.issues.source",
+					"root.result.issues.ua:type",
+					"root.result.issues.items.expand",
+					"root.result.issues.items.id",
+					"root.result.issues.items.self",
+					"root.result.issues.items.key",
+					"root.result.issues.items.fields.summary",
+					"root.result.issues.items.fields.issuetype.self",
+					"root.result.issues.items.fields.issuetype.id",
+					"root.result.issues.items.fields.issuetype.description",
+					"root.result.issues.items.fields.issuetype.iconUrl",
+					"root.result.issues.items.fields.issuetype.name",
+					"root.result.issues.items.fields.issuetype.subtask",
+					"root.result.issues.items.fields.issuetype.avatarId",
+					"root.result.issues.items.fields.issuetype.hierarchyLevel",
+					"root.result.issues.items.fields.assignee.self",
+					"root.result.issues.items.fields.assignee.accountId",
+					"root.result.issues.items.fields.assignee.avatarUrls.48x48",
+					"root.result.issues.items.fields.assignee.avatarUrls.24x24",
+					"root.result.issues.items.fields.assignee.avatarUrls.16x16",
+					"root.result.issues.items.fields.assignee.avatarUrls.32x32",
+					"root.result.issues.items.fields.assignee.displayName",
+					"root.result.issues.items.fields.assignee.active",
+					"root.result.issues.items.fields.assignee.timeZone",
+					"root.result.issues.items.fields.assignee.accountType",
+					"root.result.issues.items.fields.assignee.emailAddress",
+					"root.result.issues.items.fields.priority.self",
+					"root.result.issues.items.fields.priority.iconUrl",
+					"root.result.issues.items.fields.priority.name",
+					"root.result.issues.items.fields.priority.id",
+					"root.result.issues.items.fields.updated",
+					"root.result.issues.items.fields.status.self",
+					"root.result.issues.items.fields.status.description",
+					"root.result.issues.items.fields.status.iconUrl",
+					"root.result.issues.items.fields.status.name",
+					"root.result.issues.items.fields.status.id",
+					"root.result.issues.items.fields.status.statusCategory.self",
+					"root.result.issues.items.fields.status.statusCategory.id",
+					"root.result.issues.items.fields.status.statusCategory.key",
+					"root.result.issues.items.fields.status.statusCategory.colorName",
+					"root.result.issues.items.fields.status.statusCategory.name",
+					"root.result.nextPageToken",
+					"root.result.isLast"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1208,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iKDUX-1",
+			"id":"n_YHXyy",
+			"index":7,
+			"inputs":{
+				"result":{
+					"result":"{{ _vyqzU.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a352d24b37f2a47c4499777",
+	"workflowVersion":7
+}
