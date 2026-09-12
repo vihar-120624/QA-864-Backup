@@ -1,0 +1,226 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743600067,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_5Rx5G",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mtK6G",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mtK6G",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uAbyV",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd703f7ad93bb16754c9",
+	"lastModifiedBy":-1,
+	"lcName":"attachment content extractor wrapper",
+	"modifiedTime":1787743600069,
+	"name":"Attachment Content Extractor Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2315,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_xXVsf-1",
+			"id":"n_5Rx5G",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"content":{
+							"title":"Content",
+							"type":"string"
+						},
+						"eventId":{
+							"title":"Event Id",
+							"type":"string"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"eventId":{
+							"title":"Event Id",
+							"type":"string"
+						},
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3041,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_xXVsf-1",
+			"id":"n_mtK6G",
+			"index":2,
+			"inputs":{
+				"automationId":"69c059c9e90d1a5d9e87dcd3",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"eventId":"{{ n_5Rx5G.outputs.eventId }}",
+					"fileDetails":"{{ n_5Rx5G.outputs.fileDetails }}",
+					"uniqueEntityId":"{{ n_5Rx5G.outputs.uniqueEntityId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2321,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_xXVsf-1",
+			"id":"n_uAbyV",
+			"index":3,
+			"inputs":{
+				"result":{
+					"content":"{{ n_mtK6G.outputs.content }}",
+					"eventId":"{{ n_5Rx5G.outputs.eventId }}",
+					"uniqueEntityId":"{{ n_5Rx5G.outputs.uniqueEntityId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69dfbda4ba71255550e5bc75",
+	"workflowVersion":10
+}
