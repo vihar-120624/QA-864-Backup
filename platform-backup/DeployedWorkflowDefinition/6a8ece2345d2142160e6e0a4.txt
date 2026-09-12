@@ -1,0 +1,757 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743779286,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_bAyGE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JacoV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JacoV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HbktZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HbktZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EbZA6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EbZA6",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GwCNl",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_GwCNl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WkHxW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EbZA6",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WkHxW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WkHxW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SBMAY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SBMAY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_c765t",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_c765t",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nzob0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nzob0",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SBMAY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SBMAY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WCjeP",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece2345d2142160e6e0a4",
+	"lastModifiedBy":-1,
+	"lcName":"tms po details (child)",
+	"modifiedTime":1787743779288,
+	"name":"TMS PO Details (Child)",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":12,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_bAyGE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"epoch":{
+							"title":"Epoch",
+							"type":"number"
+						},
+						"poNumber":{
+							"title":"Po Number",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"postgres",
+				"resourceVersion":263,
+				"connectionId":"68947f92cfc1450a879e0018",
+				"resourceName":"postgres_execute_sql",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_JacoV",
+			"index":2,
+			"inputs":{
+				"objectSourceResourceName":"postgres_execute_sql_metadata",
+				"response_schema":{
+					"additionalProperties":false,
+					"properties":{
+						"delivery_date":{
+							"title":"Delivery Date",
+							"type":"string"
+						},
+						"disp_status":{
+							"title":"Disp Status",
+							"type":"string"
+						},
+						"frg_mth":{
+							"title":"Frg Mth",
+							"type":"string"
+						},
+						"frg_typ":{
+							"title":"Frg Typ",
+							"type":"string"
+						},
+						"from_lct":{
+							"title":"From Lct",
+							"type":"string"
+						},
+						"from_name":{
+							"title":"From Name",
+							"type":"string"
+						},
+						"from_typ":{
+							"title":"From Typ",
+							"type":"string"
+						},
+						"ld_leg_id":{
+							"title":"Ld Leg Id",
+							"type":"string"
+						},
+						"next_lct":{
+							"title":"Next Lct",
+							"type":"string"
+						},
+						"po_nbr":{
+							"title":"Po Nbr",
+							"type":"number"
+						},
+						"pro_nbr":{
+							"title":"Pro Nbr",
+							"type":"string"
+						},
+						"scac":{
+							"title":"Scac",
+							"type":"string"
+						},
+						"shpm_id":{
+							"title":"Shpm Id",
+							"type":"string"
+						},
+						"shpm_num":{
+							"title":"Shpm Num",
+							"type":"number"
+						},
+						"svc_typ":{
+							"title":"Svc Typ",
+							"type":"string"
+						},
+						"to_lct":{
+							"title":"To Lct",
+							"type":"string"
+						},
+						"to_name":{
+							"title":"To Name",
+							"type":"string"
+						},
+						"to_type":{
+							"title":"To Type",
+							"type":"string"
+						},
+						"trlr_num":{
+							"title":"Trlr Num",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"sql":"select * from wp.spn_cns_shp where po_nbr= {{ n_bAyGE.outputs.poNumber }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":30000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"PostgreSQL",
+			"title":"Execute a SQL statement",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":204,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_HbktZ",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_bAyGE.outputs.poNumber }}"
+							},
+							"property":"properties_poNumber"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_bAyGE.outputs.epoch }}"
+							},
+							"property":"properties_epoch"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"tms_po_details",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":true,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":12,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_EbZA6",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_HbktZ.outputs.properties.poNumber }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":true,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":204,
+				"resourceName":"storage_by_unifyapps_delete_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EbZA6@_SX4SK-1@y",
+			"id":"n_GwCNl",
+			"index":5,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_bAyGE.outputs.epoch }}"
+							},
+							"property":"properties_epoch"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_bAyGE.outputs.poNumber }}"
+							},
+							"property":"properties_poNumber"
+						}
+					],
+					"operator":"AND"
+				},
+				"writeThroughSessionVariables":false,
+				"object_type":"tms_po_details",
+				"numberOfRecordsToDelete":"MULTIPLE",
+				"page":{
+					"limit":200000,
+					"offset":0
+				}
+			},
+			"skip":true,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":173,
+				"resourceName":"storage_by_unifyapps_delete_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_WkHxW",
+			"index":6,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_bAyGE.outputs.poNumber }}"
+							},
+							"property":"properties_poNumber"
+						}
+					],
+					"operator":"AND"
+				},
+				"writeThroughSessionVariables":false,
+				"object_type":"tms_po_details",
+				"numberOfRecordsToDelete":"MULTIPLE",
+				"page":{
+					"limit":200,
+					"offset":0
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":30000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":12,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_SBMAY",
+			"index":7,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_JacoV.outputs.rows }}",
+				"captureIterations":false,
+				"batchSize":100
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":204,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_SBMAY@_SX4SK-1@l",
+			"id":"n_c765t",
+			"index":8,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"tms_po_details",
+				"record":{
+					"deliveryDate":"{{ n_SBMAY.outputs.item.delivery_date }}",
+					"epoch":"{{ n_bAyGE.outputs.epoch }}",
+					"fromName":"{{ n_SBMAY.outputs.item.from_name }}",
+					"fromNumber":"{{ n_SBMAY.outputs.item.from_lct }}",
+					"fromType":"{{ n_SBMAY.outputs.item.from_typ }}",
+					"method":"{{ n_SBMAY.outputs.item.frg_mth }}",
+					"nextLocation":"{{ n_SBMAY.outputs.item.next_lct }}",
+					"poNumber":"{{ n_SBMAY.outputs.item.po_nbr }}",
+					"proNumber":"{{ n_SBMAY.outputs.item.pro_nbr }}",
+					"scac":"{{ n_SBMAY.outputs.item.scac }}",
+					"serviceType":"{{ n_SBMAY.outputs.item.svc_typ }}",
+					"tmsLegNumber":"{{ n_SBMAY.outputs.item.ld_leg_id }}",
+					"toLocation":"{{ n_SBMAY.outputs.item.to_lct }}",
+					"toName":"{{ n_SBMAY.outputs.item.to_name }}",
+					"trailerNumber":"{{ n_SBMAY.outputs.item.trlr_num }}"
+				}
+			},
+			"skip":true,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.poNumber",
+					"root.records.items.fromType",
+					"root.records.items.fromNumber",
+					"root.records.items.fromName",
+					"root.records.items.toName",
+					"root.records.items.nextLocation",
+					"root.records.items.method",
+					"root.records.items.scac",
+					"root.records.items.status",
+					"root.records.items.deliveryDate",
+					"root.records.items.epoch",
+					"root.records.items.tmsLegNumber",
+					"root.records.items.serviceType",
+					"root.records.items.toLocation",
+					"root.records.items.trailerNumber",
+					"root.records.items.proNumber"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":173,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_SBMAY@_SX4SK-1@l",
+			"id":"n_nzob0",
+			"index":9,
+			"inputs":{
+				"object_type":"tms_po_details",
+				"records":{
+					"items":{
+						"deliveryDate":"{{ n_SBMAY.outputs.item[0].delivery_date }}",
+						"epoch":"{{ n_bAyGE.outputs.epoch }}",
+						"fromName":"{{ n_SBMAY.outputs.item[0].from_name }}",
+						"fromNumber":"{{ n_SBMAY.outputs.item[0].from_lct }}",
+						"fromType":"{{ n_SBMAY.outputs.item[0].from_typ }}",
+						"method":"{{ n_SBMAY.outputs.item[0].frg_mth }}",
+						"nextLocation":"{{ n_SBMAY.outputs.item[0].next_lct }}",
+						"poNumber":"{{ n_SBMAY.outputs.item[0].po_nbr }}",
+						"proNumber":"{{ n_SBMAY.outputs.item[0].pro_nbr }}",
+						"scac":"{{ n_SBMAY.outputs.item[0].scac }}",
+						"serviceType":"{{ n_SBMAY.outputs.item[0].svc_typ }}",
+						"status":"{{ n_SBMAY.outputs.item[0].disp_status }}",
+						"tmsLegNumber":"{{ n_SBMAY.outputs.item[0].ld_leg_id }}",
+						"toLocation":"{{ n_SBMAY.outputs.item[0].to_lct }}",
+						"toName":"{{ n_SBMAY.outputs.item[0].to_name }}",
+						"trailerNumber":"{{ n_SBMAY.outputs.item[0].trlr_num }}"
+					},
+					"source":"{{ n_SBMAY.outputs.item }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":30000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":12,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SX4SK-1",
+			"id":"n_WCjeP",
+			"index":10,
+			"inputs":{
+				"result":{
+					"result":"200"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":true,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"68e7cfbc0839310ede3ab718",
+	"workflowVersion":31
+}
