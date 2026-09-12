@@ -1,0 +1,201 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743522528,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"zXvNm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"P874J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"P874J",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"LbHV7",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd224cdb0358b9df2539",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | jira | index issue in batch (wrapper)",
+	"modifiedTime":1787743522530,
+	"name":"Knowledge Indexer | JIRA | Index Issue in batch (Wrapper)",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":357,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Cho4a-1",
+			"id":"zXvNm",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"connectionId",
+													"type":"string"
+												}
+											},
+											"title":"context",
+											"type":"object"
+										}
+									},
+									"title":"applicationInfo",
+									"type":"object"
+								},
+								"lastSyncTime":{
+									"title":"Last Sync Time",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":371,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Cho4a-1",
+			"id":"P874J",
+			"index":0,
+			"inputs":{
+				"automationId":"67ab29fd4583846ca4b6d586",
+				"runtimeConnections":{
+					"jira":"{{ zXvNm.outputs.knowledge.applicationInfo.context.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ zXvNm.outputs.aiAgentId }}",
+					"inputs":"{{ zXvNm.outputs.inputs }}",
+					"knowledge":{
+						"applicationInfo":{
+							"context":{
+								"connectionId":"{{ zXvNm.outputs.knowledge.applicationInfo.context.connectionId }}"
+							}
+						},
+						"lastSyncTime":"{{ zXvNm.outputs.knowledge.lastSyncTime }}",
+						"readVersion":"{{ zXvNm.outputs.knowledge.readVersion }}"
+					},
+					"knowledgeId":"{{ zXvNm.outputs.knowledgeId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":363,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Cho4a-1",
+			"id":"LbHV7",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":"{{ P874J.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"682b78f07f7eb34f85b3dd28",
+	"workflowVersion":12
+}

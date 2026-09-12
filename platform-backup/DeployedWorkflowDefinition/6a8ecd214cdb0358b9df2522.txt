@@ -1,0 +1,223 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743521217,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_mdK2F",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_v36FR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_v36FR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UiP9L",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UiP9L",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GRwDS",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd214cdb0358b9df2522",
+	"lastModifiedBy":-1,
+	"lcName":"upload file to bucket",
+	"modifiedTime":1787743521218,
+	"name":"Upload file to bucket",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":620,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GH1Jm-1",
+			"id":"n_mdK2F",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"size":{
+									"title":"Size",
+									"type":"number"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"File Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":59,
+				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GH1Jm-1",
+			"id":"n_v36FR",
+			"index":2,
+			"inputs":{
+				"file":"{{ n_mdK2F.outputs.file }}",
+				"expiryTime":1
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate public file URL",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":24,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GH1Jm-1",
+			"id":"n_UiP9L",
+			"index":3,
+			"inputs":{
+				"fileName":"{{ n_mdK2F.outputs.file.name }}",
+				"url":"{{ n_v36FR.outputs.url }}",
+				"option":"url"
+			},
+			"skip":false,
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":647,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GH1Jm-1",
+			"id":"n_GRwDS",
+			"index":4,
+			"inputs":{
+				"result":{
+					"fileDetails":{
+						"fileType":"{{ n_UiP9L.outputs.fileDetails.fileType }}",
+						"name":"{{ n_UiP9L.outputs.fileDetails.name }}",
+						"size":"{{ n_UiP9L.outputs.fileDetails.size }}",
+						"source":"{{ n_UiP9L.outputs.fileDetails.source }}",
+						"sourceType":"{{ n_UiP9L.outputs.fileDetails.sourceType }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"692ae33ec2060f2cc2e8ff95",
+	"workflowVersion":1
+}

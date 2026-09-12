@@ -1,0 +1,245 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743521618,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"rSxcy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Oqpz0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Oqpz0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"EIzfe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"EIzfe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"pPudW",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecd2153a823318abfc237",
+	"lastModifiedBy":-1,
+	"lcName":"clarifyconnection tool",
+	"modifiedTime":1787743521619,
+	"name":"ClarifyConnection Tool",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":183,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"EGJGB-1",
+			"id":"rSxcy",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"toolOutput":{
+							"title":"toolOutput",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"679484ef9c8ab5620dca9609",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentResponseMessageId":{
+							"title":"Agent Response Message Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"executeUsingModel":{
+							"title":"Execute Using Model",
+							"type":"string"
+						},
+						"toolId":{
+							"title":"toolId",
+							"type":"string"
+						},
+						"toolInputs":{
+							"title":"toolInputs",
+							"type":"object"
+						},
+						"triggeredByAgentId":{
+							"title":"Triggered By Agent Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":11,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"EGJGB-1",
+			"id":"Oqpz0",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"toolInputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Inputs",
+							"type":"object"
+						}
+					},
+					"required":[
+						"toolInputs"
+					],
+					"type":"object"
+				},
+				"code":"if(!binding.hasVariable('toolInputs')){\n  return [:]\n}\nreturn [\"appName\": toolInputs.appName]",
+				"compile_static":false,
+				"parameters":{
+					"toolInputs":"{{ rSxcy.outputs.toolInputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Get appName",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":199,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"EGJGB-1",
+			"id":"EIzfe",
+			"index":0,
+			"inputs":{
+				"automationId":"67f8976fb643cc0d35c6a1bb",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"{{ Oqpz0.outputs.result.appName }}",
+					"caseId":"{{ rSxcy.outputs.caseId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"confirm connection",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":190,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"EGJGB-1",
+			"id":"pPudW",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true,
+					"toolOutput":"Connection Collected successfully from user"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"67f896b8b9f0db3c1460ad73",
+	"workflowVersion":9
+}
