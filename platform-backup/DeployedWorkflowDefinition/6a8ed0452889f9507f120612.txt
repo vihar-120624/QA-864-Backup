@@ -1,0 +1,551 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744325881,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_ZpIQA",
+			"id":"next@n_ZpIQA@n_WWe6t",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WWe6t",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WWe6t",
+			"id":"next@n_WWe6t@_o1G2f",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_o1G2f",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_o1G2f",
+			"id":"next@_o1G2f@n_sKHvq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sKHvq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sKHvq",
+			"id":"next@n_sKHvq@n_TxPaF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TxPaF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TxPaF",
+			"id":"next@n_TxPaF@n_HfMiK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HfMiK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HfMiK",
+			"id":"next@n_HfMiK@n_FctbD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FctbD",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed0452889f9507f120612",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | feedback |  negative feedback split",
+	"modifiedTime":1787744325883,
+	"name":"Enterprise Search | Feedback |  Negative Feedback Split",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":944,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"n_ZpIQA",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"categories":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"category":{
+										"title":"Category",
+										"type":"string"
+									},
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"percentage":{
+										"title":"Percentage",
+										"type":"number"
+									},
+									"units":{
+										"title":"Units",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Categories",
+							"type":"array"
+						},
+						"units":{
+							"title":"totalcount",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"endDate":{
+							"title":"End Date",
+							"type":"integer"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1005,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"n_WWe6t",
+			"index":2,
+			"inputs":{
+				"automationId":"6a3e0856112708487115d403",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"filter":"{{ n_ZpIQA.outputs.filter }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Filter",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"_o1G2f",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"region":{
+							"title":"Region",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"since":{
+							"title":"Since",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						},
+						"until":{
+							"title":"Until",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import groovy.time.TimeCategory\nimport java.time.*\n\ndef startTime\ndef endTime\n\nif (binding.hasVariable('until')) {\n    endTime = until\n} else {\n    endTime = new Date().time\n}\n\nif (binding.hasVariable('since')) {\n    startTime = since\n} else {\n    use(TimeCategory) {\n        startTime = (new Date(endTime) - 30.days).time\n    }\n}\n\ndef offsetMinutes(timezone) {\n    if (!timezone) return 0\n    def m = timezone =~ /([+-])(\\d{2}):(\\d{2})/\n    if (!m.find()) return 0\n\n    def sign = m.group(1) == '-' ? -1 : 1\n    def hours = m.group(2).toInteger()\n    def mins  = m.group(3).toInteger()\n\n    return sign * (hours * 60 + mins)\n}\n\ndef userTimeZone = binding.hasVariable('timeZone')\n        ? timeZone.replace('GMT', '')\n        : '+00:00'\n\ndef gmtToAnyRegion(String gmt) {\n    if (!gmt) return 'UTC'\n\n    def offset = gmt.replace('GMT', '')\n    ZoneOffset target = ZoneOffset.of(offset)\n    Instant now = Instant.now()\n\n    def zone = ZoneId.getAvailableZoneIds()\n            .find { id ->\n                ZoneId.of(id).rules.getOffset(now) == target\n            }\n\n    return zone ?: 'UTC'\n}\n\ndef gmtToAnyRegion = gmtToAnyRegion(userTimeZone)\n\nlong millisInDay = 24 * 60 * 60 * 1000\nlong daysBetween = ((endTime - startTime) / millisInDay) as long\n\nreturn [\"startTime\": startTime, \"endTime\": endTime, \"region\": gmtToAnyRegion, \"limit\": daysBetween+5]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"since":"{{ n_ZpIQA.outputs.startDate }}",
+					"timeZone":"{{ n_ZpIQA.outputs.timeZone }}",
+					"until":"{{ n_ZpIQA.outputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculate StartTime and endTime",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":921,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"n_sKHvq",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						},
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def startTime = binding.hasVariable(\"startTime\") ? startTime : 0\ndef endTime   = binding.hasVariable(\"endTime\")   ? endTime   : 0\n\ndef traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\n\ndef traceDynamicFilter = traceCond ? \" WHERE t.deleted = false AND \" + traceCond\n                                   : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\ndef sql =\n\"SELECT \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'INACCURATE_INFORMATION')    THEN 1 ELSE 0 END) AS INACCURATE_INFORMATION, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'FORMATTING_ISSUE')          THEN 1 ELSE 0 END) AS FORMATTING_ISSUE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'INCOMPLETE_RESPONSE')       THEN 1 ELSE 0 END) AS INCOMPLETE_RESPONSE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'NOT_RELEVANT_OR_CONTEXTUAL') THEN 1 ELSE 0 END) AS NOT_RELEVANT_OR_CONTEXTUAL, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'WRONG_CITATIONS')           THEN 1 ELSE 0 END) AS WRONG_CITATIONS, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'TOO_VERBOSE')               THEN 1 ELSE 0 END) AS TOO_VERBOSE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'TOO_GENERIC')               THEN 1 ELSE 0 END) AS TOO_GENERIC, \" +\n\"  SUM(CASE WHEN array_contains(_pr_feedbackCategories, 'OUTDATED_INFORMATION')      THEN 1 ELSE 0 END) AS OUTDATED_INFORMATION \" +\n\"FROM ENTITY_service_hub_user_feedback f \" +\n\"JOIN ( \" +\n\"  SELECT DISTINCT filtered_t._pr_messageId AS messageId \" +\n\"  FROM (SELECT * FROM ENTITY_e_traces t \" +\n     traceDynamicFilter +\n\"  ) filtered_t \" +\n\"  JOIN (SELECT * FROM USER u \" +\n     userDynamicFilter +\n\"  ) filtered_u \" +\n\"    ON filtered_t._pr_userId = filtered_u.userId \" +\n\"  WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n\"    AND filtered_t._pr_messageId IS NOT NULL \" +\n\"    AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN \" + startTime + \" AND \" + endTime + \" \" +\n\") AS filtered_messages \" +\n\"  ON f._pr_fanMessageId = filtered_messages.messageId \" +\n\"WHERE f.deleted= false AND f._pr_feedbackCategories IS NOT NULL \" +\n\"  AND f.createdTime BETWEEN \" + startTime + \" AND \" + endTime + \";\"\n\nreturn [\"sql\": sql]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"endTime":"{{ _o1G2f.outputs.result.endTime }}",
+					"startTime":"{{ _o1G2f.outputs.result.startTime }}",
+					"traceCondition":"{{ n_WWe6t.outputs.traceCondition }}",
+					"userCondition":"{{ n_WWe6t.outputs.userCondition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":1504,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"n_TxPaF",
+			"index":5,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"FORMATTING_ISSUE":{
+									"title":"FORMATTING_ISSUE",
+									"type":"integer"
+								},
+								"INACCURATE_INFORMATION":{
+									"title":"INACCURATE_INFORMATION",
+									"type":"integer"
+								},
+								"INCOMPLETE_RESPONSE":{
+									"title":"INCOMPLETE_RESPONSE",
+									"type":"integer"
+								},
+								"NOT_RELEVANT_OR_CONTEXTUAL":{
+									"title":"NOT_RELEVANT_OR_CONTEXTUAL",
+									"type":"integer"
+								},
+								"OUTDATED_INFORMATION":{
+									"title":"OUTDATED_INFORMATION",
+									"type":"integer"
+								},
+								"TOO_GENERIC":{
+									"title":"TOO_GENERIC",
+									"type":"integer"
+								},
+								"TOO_VERBOSE":{
+									"title":"TOO_VERBOSE",
+									"type":"integer"
+								},
+								"WRONG_CITATIONS":{
+									"title":"WRONG_CITATIONS",
+									"type":"integer"
+								}
+							},
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_sKHvq.outputs.result.sql }}",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1559,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"n_HfMiK",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"categories":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"category":{
+										"title":"Category",
+										"type":"string"
+									},
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"percentage":{
+										"title":"Percentage",
+										"type":"number"
+									},
+									"units":{
+										"title":"Units",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Categories",
+							"type":"array"
+						},
+						"totalCount":{
+							"title":"Total Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"FORMATTING_ISSUE":{
+							"title":"FORMATTING_ISSUE",
+							"type":"integer"
+						},
+						"INACCURATE_INFORMATION":{
+							"title":"INACCURATE_INFORMATION",
+							"type":"integer"
+						},
+						"INCOMPLETE_RESPONSE":{
+							"title":"INCOMPLETE_RESPONSE",
+							"type":"integer"
+						},
+						"NOT_RELEVANT_OR_CONTEXTUAL":{
+							"title":"NOT_RELEVANT_OR_CONTEXTUAL",
+							"type":"integer"
+						},
+						"OUTDATED_INFORMATION":{
+							"title":"OUTDATED_INFORMATION",
+							"type":"integer"
+						},
+						"TOO_GENERIC":{
+							"title":"TOO_GENERIC",
+							"type":"integer"
+						},
+						"TOO_VERBOSE":{
+							"title":"TOO_VERBOSE",
+							"type":"integer"
+						},
+						"WRONG_CITATIONS":{
+							"title":"WRONG_CITATIONS",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def OUTDATED_INFORMATION       = binding.hasVariable(\"OUTDATED_INFORMATION\")       ? OUTDATED_INFORMATION       : 0\ndef FORMATTING_ISSUE           = binding.hasVariable(\"FORMATTING_ISSUE\")           ? FORMATTING_ISSUE           : 0\ndef NOT_RELEVANT_OR_CONTEXTUAL = binding.hasVariable(\"NOT_RELEVANT_OR_CONTEXTUAL\") ? NOT_RELEVANT_OR_CONTEXTUAL : 0\ndef INACCURATE_INFORMATION     = binding.hasVariable(\"INACCURATE_INFORMATION\")     ? INACCURATE_INFORMATION     : 0\ndef WRONG_CITATIONS            = binding.hasVariable(\"WRONG_CITATIONS\")            ? WRONG_CITATIONS            : 0\ndef TOO_GENERIC                = binding.hasVariable(\"TOO_GENERIC\")                ? TOO_GENERIC                : 0\ndef TOO_VERBOSE                = binding.hasVariable(\"TOO_VERBOSE\")                ? TOO_VERBOSE                : 0\ndef INCOMPLETE_RESPONSE        = binding.hasVariable(\"INCOMPLETE_RESPONSE\")        ? INCOMPLETE_RESPONSE        : 0\n\ndef TOTAL_COUNT = OUTDATED_INFORMATION + FORMATTING_ISSUE + NOT_RELEVANT_OR_CONTEXTUAL + INACCURATE_INFORMATION + WRONG_CITATIONS + TOO_GENERIC + TOO_VERBOSE + INCOMPLETE_RESPONSE\n\ndef safePercent = { count ->\n    TOTAL_COUNT > 0 ? Math.round(count * 100.0 / TOTAL_COUNT) : 0\n}\n\ndef categories = [\n    [ id: \"INACCURATE_INFORMATION\",     category: \"Inaccurate Information\",     units: INACCURATE_INFORMATION,     percentage: safePercent(INACCURATE_INFORMATION)     ],\n    [ id: \"INCOMPLETE_RESPONSE\",        category: \"Incomplete Response\",        units: INCOMPLETE_RESPONSE,        percentage: safePercent(INCOMPLETE_RESPONSE)        ],\n    [ id: \"NOT_RELEVANT_OR_CONTEXTUAL\", category: \"Not Relevant Or Contextual\", units: NOT_RELEVANT_OR_CONTEXTUAL, percentage: safePercent(NOT_RELEVANT_OR_CONTEXTUAL) ],\n    [ id: \"OUTDATED_INFORMATION\",       category: \"Outdated Information\",       units: OUTDATED_INFORMATION,       percentage: safePercent(OUTDATED_INFORMATION)       ],\n    [ id: \"WRONG_CITATIONS\",            category: \"Wrong Citations\",            units: WRONG_CITATIONS,            percentage: safePercent(WRONG_CITATIONS)            ],\n    [ id: \"TOO_VERBOSE\",                category: \"Too Verbose\",                units: TOO_VERBOSE,                percentage: safePercent(TOO_VERBOSE)                ],\n    [ id: \"TOO_GENERIC\",                category: \"Too Generic\",                units: TOO_GENERIC,                percentage: safePercent(TOO_GENERIC)                ],\n    [ id: \"FORMATTING_ISSUE\",           category: \"Formatting Issue\",           units: FORMATTING_ISSUE,           percentage: safePercent(FORMATTING_ISSUE)           ]\n]\n\nreturn [\n    \"totalCount\" : TOTAL_COUNT,\n    \"categories\" : categories.findAll { it.units > 0 }.sort { -it.units }\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"FORMATTING_ISSUE":"{{ n_TxPaF.outputs.objects[0].columns.FORMATTING_ISSUE }}",
+					"INACCURATE_INFORMATION":"{{ n_TxPaF.outputs.objects[0].columns.INACCURATE_INFORMATION }}",
+					"INCOMPLETE_RESPONSE":"{{ n_TxPaF.outputs.objects[0].columns.INCOMPLETE_RESPONSE }}",
+					"NOT_RELEVANT_OR_CONTEXTUAL":"{{ n_TxPaF.outputs.objects[0].columns.NOT_RELEVANT_OR_CONTEXTUAL }}",
+					"OUTDATED_INFORMATION":"{{ n_TxPaF.outputs.objects[0].columns.OUTDATED_INFORMATION }}",
+					"TOO_GENERIC":"{{ n_TxPaF.outputs.objects[0].columns.TOO_GENERIC }}",
+					"TOO_VERBOSE":"{{ n_TxPaF.outputs.objects[0].columns.TOO_VERBOSE }}",
+					"WRONG_CITATIONS":"{{ n_TxPaF.outputs.objects[0].columns.WRONG_CITATIONS }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":599,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q9dJ4-1",
+			"id":"n_FctbD",
+			"index":7,
+			"inputs":{
+				"result":{
+					"categories":{
+						"items":{
+							"category":"{{ n_HfMiK.outputs.result.categories[0].category }}",
+							"id":"{{ n_HfMiK.outputs.result.categories[0].id }}",
+							"percentage":"{{ n_HfMiK.outputs.result.categories[0].percentage }}",
+							"units":"{{ n_HfMiK.outputs.result.categories[0].units }}"
+						},
+						"source":"{{ n_HfMiK.outputs.result.categories }}",
+						"ua:type":"mappedArray"
+					},
+					"units":"{{ n_HfMiK.outputs.result.totalCount }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a45001d1b4fbc6f5d6ddd89",
+	"workflowVersion":52
+}
