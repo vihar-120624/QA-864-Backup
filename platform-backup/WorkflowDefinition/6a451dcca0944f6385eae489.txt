@@ -1,0 +1,765 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744006768,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744006955,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf06cee862008d74ccc9",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":52
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_MM08P",
+			"id":"next@n_MM08P@n_NTRGL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NTRGL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NTRGL",
+			"id":"next@n_NTRGL@n_DfwQE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DfwQE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DfwQE",
+			"id":"next@n_DfwQE@n_jCqsy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jCqsy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jCqsy",
+			"id":"next@n_jCqsy@n_J73jT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_J73jT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_J73jT",
+			"id":"next@n_J73jT@n_vbUih",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vbUih",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vbUih",
+			"id":"next@n_vbUih@n_MvZJC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MvZJC",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a451dcca0944f6385eae489",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | feedback |  feedback by user",
+	"modifiedTime":1788252971394,
+	"name":"Enterprise Search | Feedback |  Feedback by User",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":944,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_MM08P",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"totalRecords":{
+							"title":"Total Records",
+							"type":"integer"
+						},
+						"userFeedback":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"dislikeCount":{
+										"title":"dislikeCount",
+										"type":"integer"
+									},
+									"likeCount":{
+										"title":"likeCount",
+										"type":"integer"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"satisfactionRate":{
+										"title":"satisfactionRate",
+										"type":"integer"
+									},
+									"totalCount":{
+										"title":"totalCount",
+										"type":"integer"
+									},
+									"totalUserQuery":{
+										"title":"totalUserQuery",
+										"type":"integer"
+									},
+									"userEmail":{
+										"title":"User Email",
+										"type":"string"
+									},
+									"userId":{
+										"title":"userId",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"userFeedback",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"endDate":{
+							"title":"End Date",
+							"type":"integer"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"search":{
+							"title":"Search",
+							"type":"string"
+						},
+						"sort":{
+							"additionalProperties":false,
+							"properties":{
+								"field":{
+									"title":"Field",
+									"type":"string"
+								},
+								"order":{
+									"title":"Order",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Sort",
+							"type":"object"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":653,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_NTRGL",
+			"index":2,
+			"inputs":{
+				"automationId":"6a3e0856112708487115d403",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"filter":"{{ n_MM08P.outputs.filter }}",
+					"userSearch":"{{ n_MM08P.outputs.search }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Filter",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_DfwQE",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"region":{
+							"title":"Region",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"since":{
+							"title":"Since",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						},
+						"until":{
+							"title":"Until",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import groovy.time.TimeCategory\nimport java.time.*\n\ndef startTime\ndef endTime\n\nif (binding.hasVariable('until')) {\n    endTime = until\n} else {\n    endTime = new Date().time\n}\n\nif (binding.hasVariable('since')) {\n    startTime = since\n} else {\n    use(TimeCategory) {\n        startTime = (new Date(endTime) - 30.days).time\n    }\n}\n\ndef offsetMinutes(timezone) {\n    if (!timezone) return 0\n    def m = timezone =~ /([+-])(\\d{2}):(\\d{2})/\n    if (!m.find()) return 0\n\n    def sign = m.group(1) == '-' ? -1 : 1\n    def hours = m.group(2).toInteger()\n    def mins  = m.group(3).toInteger()\n\n    return sign * (hours * 60 + mins)\n}\n\ndef userTimeZone = binding.hasVariable('timeZone')\n        ? timeZone.replace('GMT', '')\n        : '+00:00'\n\ndef gmtToAnyRegion(String gmt) {\n    if (!gmt) return 'UTC'\n\n    def offset = gmt.replace('GMT', '')\n    ZoneOffset target = ZoneOffset.of(offset)\n    Instant now = Instant.now()\n\n    def zone = ZoneId.getAvailableZoneIds()\n            .find { id ->\n                ZoneId.of(id).rules.getOffset(now) == target\n            }\n\n    return zone ?: 'UTC'\n}\n\ndef gmtToAnyRegion = gmtToAnyRegion(userTimeZone)\n\nlong millisInDay = 24 * 60 * 60 * 1000\n\ndef finalOffset = 0\nif (binding.hasVariable('offset') && offset != null) {\n    finalOffset = offset.toLong()\n}\n\ndef finalLimit = 20\nif (binding.hasVariable('limit') && limit != null) {\n    finalLimit = limit.toLong()\n}\n\nreturn [\"startTime\": startTime, \"endTime\": endTime, \"region\": gmtToAnyRegion, \"limit\": finalLimit, \"offset\": finalOffset]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"limit":"{{ n_MM08P.outputs.limit }}",
+					"offset":"{{ n_MM08P.outputs.offset }}",
+					"since":"{{ n_MM08P.outputs.startDate }}",
+					"timeZone":"{{ n_MM08P.outputs.timeZone }}",
+					"until":"{{ n_MM08P.outputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculate StartTime and endTime",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.sort.field",
+					"root.parameters.sort.order"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":921,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_jCqsy",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"fromTimeZone":{
+							"title":"From Time Zone",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"sort":{
+							"additionalProperties":false,
+							"properties":{
+								"field":{
+									"title":"Field",
+									"type":"string"
+								},
+								"order":{
+									"title":"Order",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Sort",
+							"type":"object"
+						},
+						"sqlToTimeZone":{
+							"title":"Sql To Time Zone",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						},
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						},
+						"userSearch":{
+							"title":"User Search",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def startTime   = binding.hasVariable(\"startTime\")   ? startTime   : 0\ndef endTime     = binding.hasVariable(\"endTime\")      ? endTime     : 0\ndef userCond    = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\ndef traceCond   = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userSearch  = (binding.hasVariable(\"userSearch\")     && userSearch)     ? userSearch.trim()     : \"\"\ndef limit       = binding.hasVariable(\"limit\")  && limit  != null ? limit  : 20\ndef offset      = binding.hasVariable(\"offset\") && offset != null ? offset : 0\n\ndef sortField = (binding.hasVariable(\"sort\") && sort && sort?.field) ? sort.field.trim() : \"totalCount\"\ndef sortOrder = (binding.hasVariable(\"sort\") && sort && sort?.order) ? sort.order.trim().toUpperCase() : \"DESC\"\n\ndef allowedFields = [\"totalUserQuery\", \"totalCount\", \"likeCount\", \"dislikeCount\", \"satisfactionRate\", \"name\"]\ndef allowedOrders = [\"ASC\", \"DESC\"]\nif (!allowedFields.contains(sortField)) sortField = \"totalCount\"\nif (!allowedOrders.contains(sortOrder)) sortOrder = \"DESC\"\n\ndef userDynamicFilter   = userCond   ? \" AND \" + userCond   : \"\"\ndef traceDynamicFilter  = traceCond  ? \" AND \" + traceCond  : \"\"\ndef userSearchFilter = \"\"\nif (userSearch) {\n    def transformed = userSearch.replaceAll(/(?i)(\\w+)\\s+LIKE\\s+'%([^']+)%'/) { full, col, val ->\n        \"LOWER(${col}) LIKE '%${val.toLowerCase()}%'\"\n    }\n    userSearchFilter = \" AND \" + transformed\n}\n\ndef sql =\n\"WITH filtered_message_ids AS ( \" +\n\"  SELECT DISTINCT t._pr_messageId AS fanMessageId \" +\n\"  FROM ENTITY_e_traces t \" +\n\"  WHERE t.deleted = FALSE \" +\n\"    AND t._pr_messageId IS NOT NULL \" +\n\"    AND t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n     traceDynamicFilter + \" \" +\n\"), \" +\n\"searches AS ( \" +\n\"  SELECT \" +\n\"    t.ownerUserId AS userId, \" +\n\"    COUNT(DISTINCT t._pr_messageId) AS totalUserQuery \" +\n\"  FROM ENTITY_e_traces t \" +\n\"  WHERE t.deleted = FALSE \" +\n\"    AND UNIX_TIMESTAMP(CONVERT_TZ(t.timestamp, '\" + fromTimeZone + \"', '\" + sqlToTimeZone + \"')) * 1000 BETWEEN \" + startTime + \" AND \" + endTime + \" \" +\n\"    AND t._pr_messageId IS NOT NULL \" +\n\"    AND t.ownerUserId IS NOT NULL \" +\n\"    AND t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n     traceDynamicFilter + \" \" +\n\"  GROUP BY t.ownerUserId \" +\n\"), \" +\n\"feedback AS ( \" +\n\"  SELECT \" +\n\"    f.ownerUserId AS userId, \" +\n\"    SUM(CASE WHEN f._pr_reaction IN ('like','upvote', 'UPVOTE', 'Upvote', 'Like', 'LIKE')      THEN 1 ELSE 0 END) AS likeCount, \" +\n\"    SUM(CASE WHEN f._pr_reaction IN ('dislike','downvote', 'DOWNVOTE', 'Downvote', 'Dislike', 'DISLIKE') THEN 1 ELSE 0 END) AS dislikeCount, \" +\n\"    COUNT(*) AS totalCount \" +\n\"  FROM ENTITY_service_hub_user_feedback f \" +\n\"  JOIN filtered_message_ids fmi ON fmi.fanMessageId = f._pr_fanMessageId \" +\n\"  WHERE f.deleted = FALSE \" +\n\"    AND f.createdTime BETWEEN \" + startTime + \" AND \" + endTime + \" \" +\n\"  GROUP BY f.ownerUserId \" +\n\") \" +\n\"SELECT \" +\n\"  u.userId AS userId, \" +\n\"  u.name AS name, \" +\n\"  u.email AS email, \" +\n\"  COALESCE(s.totalUserQuery, 0) AS totalUserQuery, \" +\n\"  COALESCE(fb.totalCount, 0) AS totalCount, \" +\n\"  COALESCE(fb.likeCount, 0) AS likeCount, \" +\n\"  COALESCE(fb.dislikeCount, 0) AS dislikeCount, \" +\n\"  CASE WHEN COALESCE(fb.totalCount, 0) = 0 THEN 0 \" +\n\"       ELSE ROUND(COALESCE(fb.likeCount, 0) * 100.0 / fb.totalCount, 0) END AS satisfactionRate, \" +\n\"  COUNT(*) OVER() AS totalRecords \" +\n\"FROM USER u \" +\n\"LEFT JOIN searches s ON s.userId = u.userId \" +\n\"LEFT JOIN feedback fb ON fb.userId = u.userId \" +\n\"WHERE u.deleted = false \" +\n     userDynamicFilter + \" \" +\n     userSearchFilter + \" \" +\n\"HAVING (COALESCE(s.totalUserQuery,0) > 0 AND COALESCE(fb.totalCount,0) > 0) \" +\n\"ORDER BY \" + sortField + \" \" + sortOrder + \" \" +\n\"LIMIT \" + limit + \" OFFSET \" + offset\n\nreturn [\"sql\": sql]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"endTime":"{{ n_DfwQE.outputs.result.endTime }}",
+					"fromTimeZone":"UTC",
+					"limit":"{{ n_DfwQE.outputs.result.limit }}",
+					"offset":"{{ n_DfwQE.outputs.result.offset }}",
+					"sort":{
+						"field":"{{ n_MM08P.outputs.sort.field }}",
+						"order":"{{ n_MM08P.outputs.sort.order }}"
+					},
+					"sqlToTimeZone":"{{ n_DfwQE.outputs.result.region }}",
+					"startTime":"{{ n_DfwQE.outputs.result.startTime }}",
+					"traceCondition":"{{ n_NTRGL.outputs.traceCondition }}",
+					"userCondition":"{{ n_NTRGL.outputs.userCondition }}",
+					"userSearch":"{{ n_NTRGL.outputs.userSearch }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":853,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_J73jT",
+			"index":5,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"dislikeCount":{
+									"title":"dislikeCount",
+									"type":"integer"
+								},
+								"email":{
+									"title":"Email",
+									"type":"string"
+								},
+								"likeCount":{
+									"title":"likeCount",
+									"type":"integer"
+								},
+								"name":{
+									"title":"name",
+									"type":"string"
+								},
+								"satisfactionRate":{
+									"title":"satisfactionRate",
+									"type":"integer"
+								},
+								"totalCount":{
+									"title":"totalCount",
+									"type":"integer"
+								},
+								"totalRecords":{
+									"title":"Total Records",
+									"type":"integer"
+								},
+								"totalUserQuery":{
+									"title":"totalUserQuery",
+									"type":"integer"
+								},
+								"userId":{
+									"title":"userId",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"query":"{{ n_jCqsy.outputs.result.sql }}",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.userFeedback.items.totalUserQuery",
+					"root.parameters.userFeedback.items.name",
+					"root.parameters.userFeedback.items.dislikeCount",
+					"root.parameters.userFeedback.items.likeCount",
+					"root.parameters.userFeedback.items.totalCount",
+					"root.parameters.userFeedback.items.userId",
+					"root.parameters.userFeedback.items.satisfactionRate",
+					"root.parameters.userFeedback.items.userEmail"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":922,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_vbUih",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"totalRecords":{
+							"title":"Total Records",
+							"type":"integer"
+						},
+						"userFeedback":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"dislikeCount":{
+										"title":"dislikeCount",
+										"type":"integer"
+									},
+									"likeCount":{
+										"title":"likeCount",
+										"type":"integer"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"satisfactionRate":{
+										"title":"satisfactionRate",
+										"type":"integer"
+									},
+									"totalCount":{
+										"title":"totalCount",
+										"type":"integer"
+									},
+									"totalUserQuery":{
+										"title":"totalUserQuery",
+										"type":"integer"
+									},
+									"userEmail":{
+										"title":"User Email",
+										"type":"string"
+									},
+									"userId":{
+										"title":"userId",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"userFeedback",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"totalRecords":{
+							"title":"Total Records",
+							"type":"integer"
+						},
+						"userFeedback":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"dislikeCount":{
+										"title":"dislikeCount",
+										"type":"integer"
+									},
+									"likeCount":{
+										"title":"likeCount",
+										"type":"integer"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"satisfactionRate":{
+										"title":"satisfactionRate",
+										"type":"integer"
+									},
+									"totalCount":{
+										"title":"totalCount",
+										"type":"integer"
+									},
+									"totalUserQuery":{
+										"title":"totalUserQuery",
+										"type":"integer"
+									},
+									"userEmail":{
+										"title":"User Email",
+										"type":"string"
+									},
+									"userId":{
+										"title":"userId",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"userFeedback",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def userFeedbackList = (binding.hasVariable('userFeedback') && userFeedback) ? userFeedback : []\ndef totalRecords = (binding.hasVariable('totalRecords') && totalRecords) ? totalRecords : 0\ndef result = userFeedbackList.collect { row ->\n    [\n        \"totalUserQuery\"   : (row?.totalUserQuery != null) ? row.totalUserQuery as Integer : 0,\n        \"name\"             : (row?.name != null) ? row.name.toString() : \"\",\n        \"dislikeCount\"     : (row?.dislikeCount != null) ? row.dislikeCount as Integer : 0,\n        \"likeCount\"        : (row?.likeCount != null) ? row.likeCount as Integer : 0,\n        \"totalCount\"       : (row?.totalCount != null) ? row.totalCount as Integer : 0,\n        \"userId\"           : (row?.userId != null) ? row.userId as Integer : 0,\n        \"satisfactionRate\" : (row?.satisfactionRate != null) ? row.satisfactionRate as Double : 0.0d,\n        \"userEmail\"        : (row?.userEmail != null) ? row.userEmail.toString() : \"\"\n    ]\n}\n\nreturn [\"userFeedback\": result, \"totalRecords\" : totalRecords]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"totalRecords":"{{ n_J73jT.outputs.objects[0].columns.totalRecords }}",
+					"userFeedback":{
+						"items":{
+							"dislikeCount":"{{ n_J73jT.outputs.objects[0].columns.dislikeCount }}",
+							"likeCount":"{{ n_J73jT.outputs.objects[0].columns.likeCount }}",
+							"name":"{{ n_J73jT.outputs.objects[0].columns.name }}",
+							"satisfactionRate":"{{ n_J73jT.outputs.objects[0].columns.satisfactionRate }}",
+							"totalCount":"{{ n_J73jT.outputs.objects[0].columns.totalCount }}",
+							"totalUserQuery":"{{ n_J73jT.outputs.objects[0].columns.totalUserQuery }}",
+							"userEmail":"{{ n_J73jT.outputs.objects[0].columns.email }}",
+							"userId":"{{ n_J73jT.outputs.objects[0].columns.userId }}"
+						},
+						"source":"{{ n_J73jT.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.userFeedback.source",
+					"root.result.userFeedback.ua:type",
+					"root.result.userFeedback.items.totalUserQuery",
+					"root.result.userFeedback.items.name",
+					"root.result.userFeedback.items.dislikeCount",
+					"root.result.userFeedback.items.likeCount",
+					"root.result.userFeedback.items.totalCount",
+					"root.result.userFeedback.items.userId",
+					"root.result.userFeedback.items.satisfactionRate",
+					"root.result.userFeedback.items.userEmail",
+					"root.result.userFeedback.source",
+					"root.result.userFeedback.ua:type",
+					"root.result.userFeedback.items.totalUserQuery",
+					"root.result.userFeedback.items.name",
+					"root.result.userFeedback.items.dislikeCount",
+					"root.result.userFeedback.items.likeCount",
+					"root.result.userFeedback.items.totalCount",
+					"root.result.userFeedback.items.userId",
+					"root.result.userFeedback.items.satisfactionRate",
+					"root.result.userFeedback.items.userEmail",
+					"root.result.userFeedback.source",
+					"root.result.userFeedback.ua:type",
+					"root.result.userFeedback.items.totalUserQuery",
+					"root.result.userFeedback.items.name",
+					"root.result.userFeedback.items.dislikeCount",
+					"root.result.userFeedback.items.likeCount",
+					"root.result.userFeedback.items.totalCount",
+					"root.result.userFeedback.items.userId",
+					"root.result.userFeedback.items.satisfactionRate",
+					"root.result.userFeedback.items.userEmail"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":967,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Odlbl-1",
+			"id":"n_MvZJC",
+			"index":7,
+			"inputs":{
+				"result":{
+					"totalRecords":"{{ n_vbUih.outputs.result.totalRecords }}",
+					"userFeedback":{
+						"items":{
+							"dislikeCount":"{{ n_vbUih.outputs.result.userFeedback[0].dislikeCount }}",
+							"likeCount":"{{ n_vbUih.outputs.result.userFeedback[0].likeCount }}",
+							"name":"{{ n_vbUih.outputs.result.userFeedback[0].name }}",
+							"satisfactionRate":"{{ n_vbUih.outputs.result.userFeedback[0].satisfactionRate }}",
+							"totalCount":"{{ n_vbUih.outputs.result.userFeedback[0].totalCount }}",
+							"totalUserQuery":"{{ n_vbUih.outputs.result.userFeedback[0].totalUserQuery }}",
+							"userEmail":"{{ n_vbUih.outputs.result.userFeedback[0].userEmail }}",
+							"userId":"{{ n_vbUih.outputs.result.userFeedback[0].userId }}"
+						},
+						"source":"{{ n_vbUih.outputs.result.userFeedback }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":54
+}
