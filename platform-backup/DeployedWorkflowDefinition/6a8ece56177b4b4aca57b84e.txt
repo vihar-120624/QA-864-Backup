@@ -1,0 +1,457 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743830952,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_qS60c",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_g4eHX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_g4eHX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_B5zD1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B5zD1",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_3ydpG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_3ydpG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1OR8b",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1OR8b",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0GOhe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B5zD1",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fsoDc",
+			"type":"error"
+		}
+	],
+	"id":"6a8ece56177b4b4aca57b84e",
+	"lastModifiedBy":-1,
+	"lcName":"excel to csv file indexing for sql",
+	"modifiedTime":1787743830954,
+	"name":"Excel To Csv File Indexing For SQL",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":641,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Kw1e5-1",
+			"id":"n_qS60c",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"unifiedEntityId":{
+							"title":"Unified Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File",
+							"type":"object"
+						},
+						"fileType":{
+							"title":"File Type",
+							"type":"string"
+						},
+						"sheetName":{
+							"title":"Sheet Name",
+							"type":"string"
+						},
+						"uemId":{
+							"title":"Uem Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":651,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Kw1e5-1",
+			"id":"n_g4eHX",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"sheetName":{
+							"title":"Sheet Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def generateRandomString() {\n    def chars = ('a'..'z') + ('A'..'Z')\n    def random = new Random()\n    def randomString = (1..5).collect {\n        chars[random.nextInt(chars.size())]\n    }.join()\n    return randomString\n}\n\ndef sheetName = binding.hasVariable('sheetName') ? sheetName : generateRandomString()\n\nif(binding.hasVariable('fileDetails')) {\n  fileDetails?.name = sheetName + \"_\" + fileDetails?.name\n  return [ 'file': fileDetails ]\n}\n\nreturn [ 'file': [] ]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileDetails":"{{ n_qS60c.outputs.file }}",
+					"sheetName":"{{ n_qS60c.outputs.sheetName }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":443,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_Kw1e5-1",
+			"id":"n_B5zD1",
+			"index":3,
+			"inputs":{
+				"automationId":"695f70b585a19d670e6c8186",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"file":"{{ n_qS60c.outputs.file }}",
+					"fileType":"{{ n_qS60c.outputs.fileType }}",
+					"sheetName":"{{ n_qS60c.outputs.sheetName }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":203,
+				"resourceName":"excel_by_unifyapps_convert_to_csv",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_B5zD1@_Kw1e5-1@success",
+			"id":"_3ydpG",
+			"index":4,
+			"inputs":{
+				"escapeChar":"\\",
+				"quoteChar":"\"",
+				"startFromRow":"{{ n_B5zD1.outputs.rowHavingHeaders }}",
+				"fileDetails":"{{ n_g4eHX.outputs.result.file }}",
+				"sheetName":"{{ n_qS60c.outputs.sheetName }}",
+				"delimiter":",",
+				"evaluateFormulae":false,
+				"fileType":"{{ n_qS60c.outputs.fileType }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":true,
+					"count":1,
+					"enabled":true,
+					"initialDelay":1000,
+					"maxDelay":10000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"Convert Excel to CSV",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":677,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_B5zD1@_Kw1e5-1@success",
+			"id":"n_1OR8b",
+			"index":5,
+			"inputs":{
+				"automationId":"6940181aef6ae121ce533c23",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"delimeter":",",
+					"fileDetails":"{{ _3ydpG.outputs.fileDetails }}",
+					"quoteCharacter":"\"",
+					"rowHavingHeader":"{{ n_B5zD1.outputs.rowHavingHeaders }}",
+					"sampleColumns":{
+						"items":"{{ n_B5zD1.outputs.sheetColumnName[0] }}",
+						"source":"{{ n_B5zD1.outputs.sheetColumnName }}",
+						"ua:type":"mappedArray"
+					},
+					"sampleRows":{
+						"items":"{{ n_B5zD1.outputs.rows[0] }}",
+						"source":"{{ n_B5zD1.outputs.rows }}",
+						"ua:type":"mappedArray"
+					},
+					"uemId":"{{ n_qS60c.outputs.uemId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"CSV File Indexing For SQL",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":668,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_B5zD1@_Kw1e5-1@success",
+			"id":"n_0GOhe",
+			"index":6,
+			"inputs":{
+				"result":{
+					"unifiedEntityId":"{{ n_1OR8b.outputs.unifiedEntityId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":668,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_B5zD1@_Kw1e5-1@error",
+			"id":"n_fsoDc",
+			"index":7,
+			"inputs":{
+				"result":{
+					"unifiedEntityId":"This sheet has no content"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"694035644901fc6eca5a324a",
+	"workflowVersion":41
+}
