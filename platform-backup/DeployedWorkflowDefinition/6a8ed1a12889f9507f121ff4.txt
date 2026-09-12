@@ -1,0 +1,256 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744673828,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_m9xYx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JT0L0",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed1a12889f9507f121ff4",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | import monday board",
+	"modifiedTime":1787744673829,
+	"name":"Knowledge Downloader | Import Monday Board",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":292,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0NqQO-1",
+			"id":"n_m9xYx",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"downloaderDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"downloaderAutomation":{
+										"title":"Downloader Automation",
+										"type":"string"
+									},
+									"downloaderParams":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"accountId":{
+													"title":"Account Id",
+													"type":"string"
+												},
+												"inputs":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Inputs",
+													"type":"object"
+												},
+												"parentEntityId":{
+													"title":"Parent Entity Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"Downloader Params",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Downloader Details",
+							"type":"array"
+						},
+						"entityCount":{
+							"title":"Entity Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"686af1b917f4c626f9b30e71",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"integer"
+								},
+								"grabberType":{
+									"title":"Grabber Type",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"indexingVersion":{
+									"title":"Indexing Version",
+									"type":"integer"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"loadTestingEnabled":{
+							"title":"Load Testing Enabled",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":292,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0NqQO-1",
+			"id":"n_JT0L0",
+			"index":2,
+			"inputs":{
+				"result":{
+					"downloaderDetails":[
+						{
+							"downloaderAutomation":"6a314a286daed012fd074f2d",
+							"downloaderParams":{
+								"items":{
+									"inputs":"{{ n_m9xYx.outputs.inputs }}",
+									"parentEntityId":"monday_{{ n_m9xYx.outputs.knowledgeId }}"
+								},
+								"ua:type":"mappedArray"
+							}
+						}
+					],
+					"entityCount":1
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a3148b64b87362070855832",
+	"workflowVersion":1
+}
