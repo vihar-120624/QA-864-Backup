@@ -1,0 +1,656 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743686652,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743686783,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdc6177b4b4aca57a8cf",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":97
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_TzklO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aqmpf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aqmpf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0QtYi",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0QtYi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_T0lug",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_T0lug",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0YfIA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0YfIA",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5Ihpj",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_5Ihpj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_xjx9c",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_xjx9c",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_vaeHr",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"_vaeHr",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_xjx9c",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_xjx9c",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QVHVj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QVHVj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Spy66",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iZzsB",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Spy66",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0YfIA",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Spy66",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Spy66",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iZzsB",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Spy66",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9IkEq",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6906f6a9ac38e058d877cc35",
+	"lastModifiedBy":-1,
+	"lcName":"markdown chunking",
+	"modifiedTime":1788252971478,
+	"name":"Markdown Chunking",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":593,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_TzklO",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"chunkMetadata",
+							"type":"object"
+						},
+						"file":{
+							"title":"file",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"knowledgeVersion",
+							"type":"integer"
+						},
+						"mimeType":{
+							"title":"Mime Type",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":650,
+				"resourceName":"utility_by_unifyapps_download_file_as_string",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_aqmpf",
+			"index":2,
+			"inputs":{
+				"file":"{{ n_TzklO.outputs.file }}",
+				"encoding":"utf8"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Download file as string",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":599,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_0QtYi",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunks":{
+							"items":{
+								"type":"string"
+							},
+							"title":"chunks",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"configurationMode":"TEMPLATE",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"markdown_text":{
+							"title":"markdown_text",
+							"type":"string"
+						},
+						"text_chunk_size":{
+							"title":"text_chunk_size",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"#import pypandoc\nimport markdown\nfrom bs4 import BeautifulSoup, NavigableString, Tag\nfrom collections import defaultdict\nfrom langchain_text_splitters import RecursiveCharacterTextSplitter\nfrom langchain_core.documents import Document\nimport re\n\ndef make_token_counter():\n    \"\"\"\n    Token estimator using ~4 characters per token.\n    This accounts for punctuation and special characters better.\n    \"\"\"\n    return lambda s: len(s) // 4\n\ndef build_tag_open(tag):\n    attrs_str = \"\"\n    for k, v in tag.attrs.items():\n        if isinstance(v, list):\n            v_str = \" \".join(v)\n        else:\n            v_str = v\n        attrs_str += f' {k}=\"{v_str}\"'\n    return f\"<{tag.name}{attrs_str}>\"\n\ndef chunk_table_with_header(table_tag, token_budget, min_rows_per_chunk=2, count_tokens=lambda s: len(s), hierarchy_prefix=\"\"):\n    \"\"\"\n    Yields HTML chunks of a table, each retaining header rows, sized by token budget.\n    Guarantees at least min_rows_per_chunk per chunk (even if it exceeds budget).\n    \"\"\"\n    thead = table_tag.find(\"thead\")\n    if thead:\n        headers = str(thead)\n        # All TRs that are NOT inside thead are data rows\n        data_rows = [tr for tr in table_tag.find_all(\"tr\") if tr.find_parent(\"thead\") is None]\n    else:\n        all_rows = table_tag.find_all(\"tr\")\n        headers = str(all_rows[0]) if all_rows else \"\"\n        data_rows = all_rows[1:] if len(all_rows) > 1 else []\n\n    i = 0\n    while i < len(data_rows):\n        chosen_rows = []\n        j = i\n        # Greedily add rows until we hit the budget, but ensure minimum rows\n        while j < len(data_rows):\n            candidate_rows = chosen_rows + [str(data_rows[j])]\n            chunk_html = \"<table>{}\\n{}\\n</table>\".format(headers, \"\\n\".join(candidate_rows))\n            total_tokens = count_tokens(hierarchy_prefix + chunk_html)\n            if total_tokens <= token_budget or len(candidate_rows) < min_rows_per_chunk:\n                chosen_rows = candidate_rows\n                j += 1\n            else:\n                break\n\n        if not chosen_rows:\n            # Fallback: force at least one row\n            chosen_rows = [str(data_rows[j])]\n            j += 1\n\n        yield \"<table>{}\\n{}\\n</table>\".format(headers, \"\\n\".join(chosen_rows))\n        i = j\n\n\ndef chunk_list(list_tag, token_budget, min_items_per_chunk=3, count_tokens=lambda s: len(s), hierarchy_prefix=\"\"):\n    \"\"\"\n    Yields HTML chunks of a list (ul/ol), sized by token budget.\n    Guarantees at least min_items_per_chunk per chunk (even if it exceeds budget).\n    \"\"\"\n    list_type = list_tag.name  # 'ul' or 'ol'\n    all_items = list_tag.find_all('li', recursive=False)\n\n    i = 0\n    while i < len(all_items):\n        chosen_items = []\n        j = i\n        while j < len(all_items):\n            candidate_items = chosen_items + [str(all_items[j])]\n            chunk_html = \"<{}>\\n{}\\n</{}>\".format(list_type, \"\\n\".join(candidate_items), list_type)\n            total_tokens = count_tokens(hierarchy_prefix + chunk_html)\n            if total_tokens <= token_budget or len(candidate_items) < min_items_per_chunk:\n                chosen_items = candidate_items\n                j += 1\n            else:\n                break\n\n        if not chosen_items:\n            chosen_items = [str(all_items[j])]\n            j += 1\n\n        yield \"<{}>\\n{}\\n</{}>\".format(list_type, \"\\n\".join(chosen_items), list_type)\n        i = j\n\ndef extract_code_language(pre_tag):\n    lang = None\n    code_el = pre_tag.find('code')\n    classes = []\n    if pre_tag.has_attr('class'):\n        classes += pre_tag['class']\n    if code_el and code_el.has_attr('class'):\n        classes += code_el['class']\n    for c in classes:\n        if isinstance(c, str) and c.startswith('language-'):\n            return c.split('language-', 1)[1]\n    if 'sourceCode' in classes:\n        for c in classes:\n            if c != 'sourceCode':\n                return c\n    # Fallback to common language names\n    common = {'python','javascript','js','ts','typescript','java','c','cpp','csharp','ruby','rust','go','bash','sh','shell','powershell','php','scala','kotlin','r','sql','html','css','xml','json','yaml','toml','markdown'}\n    for c in classes:\n        if isinstance(c, str) and c.lower() in common:\n            return c.lower()\n    return None\n\ndef walk_with_context(element, cur_context=None):\n    \"\"\"\n    Recursively traverse HTML, yielding (context, type, content) tuples.\n    `type` is 'text', 'table', or 'list'\n    `content` is text for 'text', or the Tag for 'table'/'list'\n    \"\"\"\n    if cur_context is None:\n        cur_context = []\n\n    if isinstance(element, NavigableString):\n        text = element.strip()\n        if text:\n            yield (list(cur_context), 'text', text)\n    elif isinstance(element, Tag):\n        if element.name == 'table':\n            yield (list(cur_context), 'table', element)\n            return  # Do NOT walk inside table\n        elif element.name in ['ul', 'ol']:\n            yield (list(cur_context), 'list', element)\n            return  # Do NOT walk inside list\n        elif element.name == 'pre':\n          # Treat entire code block as one chunk\n          yield (list(cur_context), 'code', element)\n          return  # Do NOT walk inside code block\n        else:\n            # Walk children, updating context when we see headings\n            local_context = list(cur_context)\n            for child in element.children:\n                if isinstance(child, Tag) and child.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:\n                    level = int(child.name[1])\n                    heading_text = child.get_text(strip=True)\n                    local_context = local_context[:level-1] + [heading_text]\n                    # Skip walking inside the heading itself\n                    continue\n                # Propagate the current local_context to siblings\n                yield from walk_with_context(child, local_context)\n\ndef format_hierarchy_prefix(context_tuple):\n    \"\"\"\n    Format the hierarchical context as a readable prefix.\n    Example: ['Main', 'Section 1', 'Subsection'] -> \"# Main\\n## Section 1\\n### Subsection\\n\\n\"\n    \"\"\"\n    if not context_tuple:\n        return \"\"\n    \n    lines = []\n    for i, heading in enumerate(context_tuple, 1):\n        lines.append(f\"{'#' * i} {heading}\")\n    \n    return \"\\n\".join(lines) + \"\\n\\n\"\n\ndef html_to_chunked_documents(html,\n                             min_table_chunk_size=2,\n                             min_list_chunk_size=3,\n                             text_chunk_size=2048,\n                             text_chunk_overlap=200,\n                             include_hierarchy_in_content=True):\n    \"\"\"\n    Convert HTML to chunked documents with hierarchical context preservation.\n    text_chunk_size and text_chunk_overlap are interpreted in tokens.\n    Table/list chunk sizes are dynamically chosen to fit the same token budget.\n    \"\"\"\n    count_tokens = make_token_counter()\n\n    soup = BeautifulSoup(html, \"html.parser\")\n    walker = walk_with_context(soup.body if soup.body else soup)\n\n    text_items, table_items, list_items, code_items = [], [], [], []\n    for context, typ, content in walker:\n        context_tuple = tuple(c for c in context if c)\n        if typ == 'text':\n            text_items.append((context_tuple, content))\n        elif typ == 'table':\n            table_items.append((context_tuple, content))\n        elif typ == 'list':\n            list_items.append((context_tuple, content))\n        elif typ == 'code':\n          code_items.append((context_tuple, content))\n\n    documents = []\n\n    # Text: token-based splitting\n    from collections import defaultdict\n    group_texts = defaultdict(list)\n    for context_key, text in text_items:\n        group_texts[context_key].append(text)\n\n    splitter = RecursiveCharacterTextSplitter(\n        chunk_size=text_chunk_size,\n        chunk_overlap=text_chunk_overlap,\n        length_function=count_tokens\n    )\n\n    code_splitter = RecursiveCharacterTextSplitter(\n        chunk_size=text_chunk_size/2,\n        chunk_overlap=0,\n        length_function=count_tokens\n    )\n\n    for context_key, texts in group_texts.items():\n        full_text = \"\\n\".join(texts)\n        section_path = \" > \".join(context_key) if context_key else \"No Section\"\n        metadata = {\n            \"section\": section_path,\n            \"type\": \"text\",\n            \"hierarchy_depth\": len(context_key)\n        }\n        for i, heading in enumerate(context_key, 1):\n            metadata[f\"h{i}\"] = heading\n\n        splits = splitter.create_documents([full_text], [metadata])\n\n        if include_hierarchy_in_content and context_key:\n            hierarchy_prefix = format_hierarchy_prefix(context_key)\n            for doc in splits:\n                doc.page_content = hierarchy_prefix + doc.page_content\n\n        documents.extend(splits)\n\n    # Tables: dynamic rows per chunk based on token budget\n    for context_key, table_tag in table_items:\n        section_path = \" > \".join(context_key) if context_key else \"No Section\"\n        metadata_base = {\n            \"section\": section_path,\n            \"type\": \"table\",\n            \"hierarchy_depth\": len(context_key)\n        }\n        for i, heading in enumerate(context_key, 1):\n            metadata_base[f\"h{i}\"] = heading\n\n        hierarchy_prefix = format_hierarchy_prefix(context_key) if (include_hierarchy_in_content and context_key) else \"\"\n\n        for chunk_idx, chunk_html in enumerate(\n            chunk_table_with_header(\n                table_tag=table_tag,\n                token_budget=text_chunk_size,\n                min_rows_per_chunk=min_table_chunk_size,\n                count_tokens=count_tokens,\n                hierarchy_prefix=hierarchy_prefix\n            )\n        ):\n            metadata = dict(metadata_base)\n            metadata[\"chunk_index\"] = chunk_idx\n            chunk_content = hierarchy_prefix + chunk_html\n            documents.append(Document(page_content=chunk_content, metadata=metadata))\n\n    # Lists: dynamic items per chunk based on token budget\n    for context_key, list_tag in list_items:\n        section_path = \" > \".join(context_key) if context_key else \"No Section\"\n        metadata_base = {\n            \"section\": section_path,\n            \"type\": \"list\",\n            \"list_type\": list_tag.name,\n            \"hierarchy_depth\": len(context_key)\n        }\n        for i, heading in enumerate(context_key, 1):\n            metadata_base[f\"h{i}\"] = heading\n\n        hierarchy_prefix = format_hierarchy_prefix(context_key) if (include_hierarchy_in_content and context_key) else \"\"\n\n        for chunk_idx, chunk_html in enumerate(\n            chunk_list(\n                list_tag=list_tag,\n                token_budget=text_chunk_size,\n                min_items_per_chunk=min_list_chunk_size,\n                count_tokens=count_tokens,\n                hierarchy_prefix=hierarchy_prefix\n            )\n        ):\n            metadata = dict(metadata_base)\n            metadata[\"chunk_index\"] = chunk_idx\n            chunk_content = hierarchy_prefix + chunk_html\n            documents.append(Document(page_content=chunk_content, metadata=metadata))\n\n    # Code blocks: enforce text_chunk_size as max (approx. tokens)\n    for context_key, pre_tag in code_items:\n        section_path = \" > \".join(context_key) if context_key else \"No Section\"\n        language = extract_code_language(pre_tag)\n        metadata_base = {\n            \"section\": section_path,\n            \"type\": \"code\",\n            \"language\": language,\n            \"hierarchy_depth\": len(context_key)\n        }\n        for i, heading in enumerate(context_key, 1):\n            metadata_base[f\"h{i}\"] = heading\n\n        hierarchy_prefix = format_hierarchy_prefix(context_key) if (include_hierarchy_in_content and context_key) else \"\"\n\n        # Extract inner code text and rebuild <pre><code> for each chunk\n        code_el = pre_tag.find('code')\n        pre_open = build_tag_open(pre_tag)\n        pre_close = f\"</{pre_tag.name}>\"\n\n        if code_el:\n            code_open = build_tag_open(code_el)\n            code_close = f\"</{code_el.name}>\"\n            inner_text = code_el.get_text()\n            def wrap_html(content):\n                return f\"{pre_open}{code_open}{content}{code_close}{pre_close}\"\n        else:\n            inner_text = pre_tag.get_text()\n            def wrap_html(content):\n                return f\"{pre_open}{content}{pre_close}\"\n\n        full_html = wrap_html(inner_text)\n        full_content = hierarchy_prefix + full_html\n\n        # If it already fits, keep a single chunk\n        if count_tokens(full_content) <= text_chunk_size:\n            documents.append(Document(page_content=full_content, metadata=metadata_base))\n        else:\n            # Otherwise, split the inner code text under the same token budget\n            code_chunks = code_splitter.split_text(inner_text)\n            for chunk_idx, code_part in enumerate(code_chunks):\n                html_chunk = wrap_html(code_part)\n                chunk_content = hierarchy_prefix + html_chunk\n                metadata = dict(metadata_base)\n                metadata[\"chunk_index\"] = chunk_idx\n                documents.append(Document(page_content=chunk_content, metadata=metadata))\n\n    return documents\n\n## Main Logic\n\n# using pypandoc\nif 'markdown_text' not in globals() and 'markdown_text' not in locals():\n    markdown_text = \"\"\n# html = pypandoc.convert_text(markdown_text, 'html', format='md',extra_args=['--no-highlight'])\n\nhtml = markdown.markdown(\n    markdown_text,\n    extensions=[\n        'tables',        # Support for tables\n        'fenced_code',   # Support for ```code blocks```\n        'codehilite',    # Code syntax highlighting\n        'nl2br',         # Newline to <br>\n        'sane_lists'     # Better list handling\n    ]\n)\n\n# print(\"=\"*60)\n# print(\"HTML STRUCTURE:\")\n# print(html)\n# print(\"=\"*60)\n\nif 'text_chunk_size' not in globals() and 'text_chunk_size' not in locals():\n    text_chunk_size = 4096\nelse:\n    text_chunk_size = int(text_chunk_size)\n\ntotal_doc_tokens = len(markdown_text) // 4\nfinal_chunks = []\n\nif(total_doc_tokens <= int(text_chunk_size)):\n    final_chunks.append(markdown_text)\nelse:\n    docs = html_to_chunked_documents(\n        html,\n        min_table_chunk_size=2,\n        min_list_chunk_size=3,\n        text_chunk_size=int(text_chunk_size),\n        text_chunk_overlap=512,\n        include_hierarchy_in_content=True\n    )\n    for i, d in enumerate(docs, 1):\n        final_chunks.append(d.page_content)\n\n\ncount_tokens = make_token_counter()\n\npost_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=int(text_chunk_size),\n    chunk_overlap=0,\n    length_function=count_tokens,\n)\n\nfixed_chunks = []\nfor idx, chunk in enumerate(final_chunks):\n    n_tokens = count_tokens(chunk)\n    if n_tokens <= int(text_chunk_size):\n        fixed_chunks.append(chunk)\n    else:\n        sub_chunks = post_splitter.split_text(chunk)\n        fixed_chunks.extend(sub_chunks)\n\nresult = {\n  \"chunks\": fixed_chunks\n}",
+				"imports":[
+					"beautifulsoup4",
+					"langchain<0.2",
+					"pypandoc-binary"
+				],
+				"isAsync":false,
+				"python_version":"3.12",
+				"outputFilesGlob":"*",
+				"entityId":"e_690710e9b78b3216dba725c2",
+				"captureStdOutput":false,
+				"parameters":{
+					"markdown_text":"{{ n_aqmpf.outputs.fileContent }}",
+					"text_chunk_size":"{{ __ENV__.outputs.MARKDOWN_CHUNK_SIZE }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":1000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"MarkdownChunking",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":799,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_T0lug",
+			"index":4,
+			"inputs":{
+				"automationId":"6708d355e5c64343ba9b278e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"knowledgeId":"{{ n_TzklO.outputs.knowledgeId }}",
+					"mimeType":"text/markdown"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Indexing Strategy Settings Fetcher",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":447,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_0YfIA",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_T0lug.outputs.contextualRetrievalSettings.enable }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":625,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_0YfIA@_SU4Oc-1@y",
+			"id":"n_5Ihpj",
+			"index":6,
+			"inputs":{
+				"automationId":"68c428ec49205b341791a9cd",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"distributeWorkflowLoad":true,
+				"parametersList":{
+					"items":{
+						"CHUNK_CONTENT":"{{ n_0QtYi.outputs.result.chunks[0] }}",
+						"WHOLE_DOCUMENT":"{{ n_aqmpf.outputs.fileContent }}"
+					},
+					"source":"{{ n_0QtYi.outputs.result.chunks }}",
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":463,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_0YfIA@_SU4Oc-1@y",
+			"id":"_xjx9c",
+			"index":7,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_5Ihpj.outputs.result }}",
+				"captureIterations":false,
+				"batchSize":50
+			},
+			"skip":false,
+			"subTitle":"Loop on chunks",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":633,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_xjx9c@n_0YfIA@_SU4Oc-1@y@l",
+			"id":"_vaeHr",
+			"index":8,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ n_TzklO.outputs.authorEmail }}",
+					"chunkMetadata":"{{ n_TzklO.outputs.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"data":"{{ _xjx9c.outputs.item[0].CHUNK_CONTENT }}",
+							"sharedWithIds":{
+								"items":"{{ n_TzklO.outputs.sharedWithIds[0] }}",
+								"source":"{{ n_TzklO.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ _xjx9c.outputs.item }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_TzklO.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_TzklO.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ n_TzklO.outputs.knowledgeVersion }}",
+					"mimeType":"{{ n_TzklO.outputs.mimeType }}",
+					"uniqueEntityId":"{{ n_TzklO.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":621,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_0YfIA@_SU4Oc-1@y",
+			"id":"n_QVHVj",
+			"index":9,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":463,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_Spy66",
+			"index":10,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_0QtYi.outputs.result.chunks }}",
+				"captureIterations":false,
+				"batchSize":50
+			},
+			"skip":false,
+			"subTitle":"Loop on chunks",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":633,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Spy66@_SU4Oc-1@l",
+			"id":"n_iZzsB",
+			"index":11,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ n_TzklO.outputs.authorEmail }}",
+					"chunkMetadata":"{{ n_TzklO.outputs.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"data":"{{ n_Spy66.outputs.item[0] }}",
+							"sharedWithIds":{
+								"items":"{{ n_TzklO.outputs.sharedWithIds[0] }}",
+								"source":"{{ n_TzklO.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_Spy66.outputs.item }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_TzklO.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_TzklO.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ n_TzklO.outputs.knowledgeVersion }}",
+					"mimeType":"{{ n_TzklO.outputs.mimeType }}",
+					"uniqueEntityId":"{{ n_TzklO.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":620,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SU4Oc-1",
+			"id":"n_9IkEq",
+			"index":12,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":99
+}
