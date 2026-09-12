@@ -1,0 +1,345 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743689956,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743690064,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdca9d7c534668ef6403",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":17
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_YFuhI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BlmMI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_BlmMI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lJbSc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"lJbSc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"pj1md",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pj1md",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MvnkC",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"MvnkC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_POMRK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pj1md",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_POMRK",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69aabde8771ffe32e4496879",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | microsoft list | file",
+	"modifiedTime":1788252971251,
+	"name":"Knowledge Indexer | Microsoft List | File",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":436,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_YFuhI",
+			"index":1,
+			"inputs":{
+				"result":{
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					},
+					"properties":{
+						"success":{
+							"type":"boolean",
+							"title":"Success"
+						}
+					}
+				},
+				"callableInterfaceId":"686e0f90c92a3538c991f984",
+				"setup":{
+					"required":[
+						"uniqueEntityId"
+					],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					},
+					"properties":{
+						"knowledgeId":{
+							"type":"string",
+							"title":"Knowledge Id"
+						},
+						"resourceType":{
+							"type":"string",
+							"title":"Resource Type"
+						},
+						"sourceResponse":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"Source Response"
+						},
+						"sharedWithIds":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids"
+						},
+						"knowledgeVersion":{
+							"type":"integer",
+							"title":"Knowledge Version"
+						},
+						"uniqueEntityId":{
+							"type":"string",
+							"title":"Unique Entity Id"
+						},
+						"metadata":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"Metadata"
+						},
+						"knowledgeSetId":{
+							"type":"string",
+							"title":"Knowledge Set Id"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":785,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_BlmMI",
+			"index":2,
+			"inputs":{
+				"callableInterfaceId":"69463cac91a45a6faf92f4f2",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"fallbackWorkflowId":"69aab63b92cdf56efece4ea5",
+				"parameters":{
+					"sourceResponse":"{{ n_YFuhI.outputs.sourceResponse }}",
+					"resourceType":"file"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":67,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"lJbSc",
+			"index":3,
+			"inputs":{
+				"automationId":"6708d0a1e5c64343ba9b24c8",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"fileDetails":"{{  n_YFuhI.outputs.sourceResponse.fileObj  }}",
+					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
+					"chunkMetadata":"{{ n_BlmMI.outputs.chunkMetadata }}",
+					"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
+					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}",
+					"sharedWithIds":{
+						"ua:type":"mappedArray",
+						"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
+						"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"File chunker",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":367,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"pj1md",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ lJbSc.outputs.chunks[0].text }}",
+						"filter":{
+							"operator":"EXISTS"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":405,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"pj1md@_hNHYl-1@y",
+			"id":"MvnkC",
+			"index":5,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"chunkMetadata":"{{ n_BlmMI.outputs.chunkMetadata }}",
+					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_YFuhI.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
+					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}",
+					"chunks":{
+						"ua:type":"mappedArray",
+						"items":{
+							"data":"{{ lJbSc.outputs.chunks[0].text }},  \"metadata\" : {{ n_YFuhI.outputs.sourceResponse.itemMetadataString }}",
+							"sharedWithIds":{
+								"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray",
+								"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}"
+							},
+							"chunkMetadata":"{{ lJbSc.outputs.chunks[0].metadata }}"
+						},
+						"source":"{{ lJbSc.outputs.chunks }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Indexer With RBAC",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_POMRK",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":19
+}

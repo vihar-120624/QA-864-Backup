@@ -1,0 +1,322 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743661268,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743661328,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdad177b4b4aca57a64c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":10
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_HR9lv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_cDrVl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_cDrVl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_mrina",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_mrina",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_3TlOg",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_mrina",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_gPZvr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_3TlOg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UIrVc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_gPZvr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UIrVc",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"684c0d07abedda7d0c5742b9",
+	"lastModifiedBy":-1,
+	"lcName":"copilot | live chat | mark as read",
+	"modifiedTime":1788252971249,
+	"name":"Copilot | Live Chat | Mark as Read",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":444,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UO14S-1",
+			"id":"n_HR9lv",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"title":"Response",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"lastReadMessageId":{
+							"title":"Last Read Message Id",
+							"type":"string"
+						},
+						"lastReadMessageTime":{
+							"title":"Last Read Message Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":452,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UO14S-1",
+			"id":"_cDrVl",
+			"index":0,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __RUN__.outputs.userId }}#{{ n_HR9lv.outputs.caseId }}"
+							},
+							"property":"properties_uniqueId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"unread_message_count",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":432,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UO14S-1",
+			"id":"_mrina",
+			"index":0,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ _cDrVl.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":326,
+				"resourceName":"storage_by_unifyapps_upsert_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mrina@_UO14S-1@y",
+			"id":"_3TlOg",
+			"index":0,
+			"inputs":{
+				"object_type":"unread_message_count",
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.caseId",
+						"setValue":"{{ n_HR9lv.outputs.caseId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.lastReadMessageId",
+						"setValue":"{{ n_HR9lv.outputs.lastReadMessageId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.lastReadMessageTime",
+						"setValue":"{{ n_HR9lv.outputs.lastReadMessageTime }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.userId",
+						"setValue":"=TEXT({{ __RUN__.outputs.userId }}, \"\")"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.uniqueId",
+						"setValue":"{{ __RUN__.outputs.userId }}#{{ n_HR9lv.outputs.caseId }}"
+					}
+				],
+				"id":"{{ _cDrVl.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Upsert Record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":441,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mrina@_UO14S-1@n",
+			"id":"_gPZvr",
+			"index":0,
+			"inputs":{
+				"object_type":"unread_message_count",
+				"record":{
+					"caseId":"{{ n_HR9lv.outputs.caseId }}",
+					"lastReadMessageId":"{{ n_HR9lv.outputs.lastReadMessageId }}",
+					"lastReadMessageTime":"{{ n_HR9lv.outputs.lastReadMessageTime }}",
+					"uniqueId":"{{ __RUN__.outputs.userId }}#{{ n_HR9lv.outputs.caseId }}",
+					"userId":"=TEXT({{ __RUN__.outputs.userId }}, \"\")"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UO14S-1",
+			"id":"n_UIrVc",
+			"index":0,
+			"inputs":{
+				"result":{
+					"response":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":12
+}
