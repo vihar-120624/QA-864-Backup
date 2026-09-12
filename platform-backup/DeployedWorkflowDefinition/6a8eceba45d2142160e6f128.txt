@@ -1,0 +1,120 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743930924,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_qjmif",
+			"id":"next@n_qjmif@n_Vhm6Q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Vhm6Q",
+			"type":"next"
+		}
+	],
+	"id":"6a8eceba45d2142160e6f128",
+	"lastModifiedBy":-1,
+	"lcName":"lowes cg | 1. trigger project tagging",
+	"modifiedTime":1787743930925,
+	"name":"Lowes CG | 1. Trigger Project Tagging",
+	"nodes":[
+		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":71,
+				"resourceName":"webhooks_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PcQCg-1",
+			"id":"n_qjmif",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"queryParams":{
+						"additionalProperties":false,
+						"properties":{
+							"knowledgeId":{
+								"title":"Knowledge Id",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Webhook",
+			"title":"New event",
+			"trigger":{
+				"type":"WEBHOOK"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_schedule_a_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PcQCg-1",
+			"id":"n_Vhm6Q",
+			"index":2,
+			"inputs":{
+				"automation_id":"6a4529fc9d9b8e6860975da1",
+				"schedule_method":{
+					"schedule_type":"RECURRING",
+					"setup_config":{
+						"expression":"0 0 * * *",
+						"interval":1,
+						"start_time":"2026-07-01T07:50:49.850Z",
+						"timezone":"America/New_York",
+						"unit":"MINUTES"
+					}
+				},
+				"runtimeConnections":{},
+				"cancel_existing":true,
+				"parameters":{
+					"knowledgeId":"{{ n_qjmif.outputs.queryParams.knowledgeId }}"
+				},
+				"schedule_name":"chunks_project_tagging_{{ n_qjmif.outputs.queryParams.knowledgeId }}",
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"eval"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a441fbb5c424f47777fd33a",
+	"workflowVersion":11
+}
