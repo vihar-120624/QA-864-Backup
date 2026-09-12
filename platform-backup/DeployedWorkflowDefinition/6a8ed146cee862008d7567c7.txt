@@ -1,0 +1,91 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744582860,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"g56tG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Zzq0U",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed146cee862008d7567c7",
+	"lastModifiedBy":-1,
+	"lcName":"guardrail on update handler",
+	"modifiedTime":1787744582862,
+	"name":"GuardRail on Update Handler",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"g56tG",
+			"index":0,
+			"inputs":{
+				"object_type":"gaurd_rail"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"caches_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"caches_by_unifyapps_evict_node_cache",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"n_Zzq0U",
+			"index":0,
+			"inputs":{
+				"automation_id":"68540730b0b2635694de2c80",
+				"cache_key":"{{ g56tG.outputs.object.properties.aiAgentId }}",
+				"node_id":"mtswW"
+			},
+			"skip":false,
+			"subTitle":"Caches by UnifyApps",
+			"title":"Evict node cache",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"686f70237d0d404c35b86581",
+	"workflowVersion":2
+}
