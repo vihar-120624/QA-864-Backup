@@ -1,0 +1,323 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743810207,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"XHIjH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Q8CXU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Q8CXU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Eie6M",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Eie6M",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"gQZzp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"gQZzp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"cQciE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"cQciE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"WEY93",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece42177b4b4aca57b569",
+	"lastModifiedBy":-1,
+	"lcName":"text_to_workflow_retain_inputs_detect_changes",
+	"modifiedTime":1787743810209,
+	"name":"Text_to_workflow_Retain_Inputs_Detect_Changes",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":46,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"9LoDq-1",
+			"id":"XHIjH",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"changedNodeIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Changed Node Ids",
+							"type":"array"
+						},
+						"retainedWorkflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Retained Workflow",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"newWorkflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"New Workflow",
+							"type":"object"
+						},
+						"oldWorkflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Old Workflow",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger from automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"9LoDq-1",
+			"id":"Q8CXU",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"changedNodeIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Changed Node Ids",
+							"type":"array"
+						},
+						"newModifiedWorkflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"New Modified Workflow",
+							"type":"object"
+						},
+						"replacementNodeIdMap":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Replacement Node Id Map",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"newWorkflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"New Workflow",
+							"type":"object"
+						},
+						"oldWorkflow":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Old Workflow",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def changedNodeIds = []\ndef totalNodeIds = []\n\ndef oldUsedActions = [:]\ndef newUsedActions = [:]\n\ndef replaceNodeMap = [:]\n\nif (newWorkflow == \"{}\" || !newWorkflow?.nodes) {\n    return [\"newModifiedWorkflow\": oldWorkflow, \"changedNodeIds\": [], \"replacementNodeIdMap\": [:]]\n}\n\n  def oldNodes = oldWorkflow.nodes\n  for (int i = 0; i < oldNodes.size(); i++) {\n    def node = oldWorkflow.nodes.get(i)\n    if(node.context == null) {\n        continue\n    }\n    if (oldUsedActions.get(node.context.resourceName) == null) {\n      oldUsedActions.put(node.context.resourceName, []);\n    }\n    def list = oldUsedActions.get(node.context.resourceName);\n    list.add(i)\n    oldUsedActions.put(node.context.resourceName, list)\n  }\n\n  def newNodes = newWorkflow.nodes\n  for (int i = 0; i < newNodes.size(); i++) {\n    def node = newWorkflow.nodes.get(i)\n    if (newUsedActions.get(node.context.resourceName) == null) {\n      newUsedActions.put(node.context.resourceName, []);\n      totalNodeIds.add(node.id)\n    }\n    def list = newUsedActions.get(node.context.resourceName);\n    list.add(i)\n    newUsedActions.put(node.context.resourceName, list)\n  }\n\n  int nodeDiff = newWorkflow.nodes.size() - oldWorkflow.nodes.size()\n\n  if (nodeDiff <= 1) {\n    newUsedActions.each {\n      key,\n      value ->\n      def oldIndexesList = oldUsedActions.get(key)\n      def newIndexesList = newUsedActions.get(key)\n\n      if (oldIndexesList?.size() == newIndexesList?.size()) {\n        for (j = 0; j < oldIndexesList.size(); j++) {\n          def previousNode = newWorkflow.nodes[newIndexesList[j]];\n          def oldWorflowNode = oldWorkflow.nodes[oldIndexesList[j]];\n          newWorkflow.nodes[newIndexesList[j]] = oldWorflowNode\n          replaceNodeMap.put(oldWorflowNode.id, previousNode.id)\n          newWorkflow.nodes[newIndexesList[j]].put(\"id\", previousNode.id)\n          newWorkflow.nodes[newIndexesList[j]].put(\"groupId\", previousNode.groupId)\n          changedNodeIds.add(previousNode.id)\n        }\n        return\n      }\n\n      for (newIndex in newIndexesList) {\n        def convertedIndex = newIndex - nodeDiff\n        if (convertedIndex >= 0 && convertedIndex < oldNodes.size() && oldIndexesList?.contains(convertedIndex)) {\n          def previousNode = newWorkflow.nodes[newIndex];\n          def oldWorflowNode = oldWorkflow.nodes[convertedIndex];\n          newWorkflow.nodes[newIndex] = oldWorflowNode\n          replaceNodeMap.put(oldWorflowNode.id, previousNode.id)\n          newWorkflow.nodes[newIndex].put(\"id\", previousNode.id)\n          newWorkflow.nodes[newIndex].put(\"groupId\", previousNode.groupId)\n          changedNodeIds.add(previousNode.id)\n        }\n      }\n    }\n  }\nreturn [\"newModifiedWorkflow\": newWorkflow, \"changedNodeIds\" : totalNodeIds - changedNodeIds, \"replacementNodeIdMap\": replaceNodeMap]\n",
+				"isAsync":false,
+				"parameters":{
+					"newWorkflow":"{{ XHIjH.outputs.newWorkflow }}",
+					"oldWorkflow":"{{ XHIjH.outputs.oldWorkflow }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code By UnifyApps",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":12,
+				"resourceName":"utility_by_unifyapps_to_json_string",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"9LoDq-1",
+			"id":"Eie6M",
+			"index":0,
+			"inputs":{
+				"object":"{{ Q8CXU.outputs.result.newModifiedWorkflow }}"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Serialize object to json string",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"9LoDq-1",
+			"id":"gQZzp",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"replacedWorkflow":{
+							"title":"Replaced Workflow",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"replacementNodeIdMap":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Replacement Node Id Map",
+							"type":"object"
+						},
+						"workflowStr":{
+							"title":"Workflow Str",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"replacementNodeIdMap?.each{key, value ->\n    workflowStr = workflowStr.replace(key, value)\n}\n\nreturn [\"replacedWorkflow\": workflowStr]",
+				"parameters":{
+					"replacementNodeIdMap":"{{ Q8CXU.outputs.result.replacementNodeIdMap }}",
+					"workflowStr":"{{ Eie6M.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code By UnifyApps",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":12,
+				"resourceName":"utility_by_unifyapps_to_json_object",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"9LoDq-1",
+			"id":"cQciE",
+			"index":0,
+			"inputs":{
+				"jsonString":"{{ gQZzp.outputs.result.replacedWorkflow }}"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialize string to json object",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":42,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"9LoDq-1",
+			"id":"WEY93",
+			"index":0,
+			"inputs":{
+				"result":{
+					"changedNodeIds":{
+						"items":"{{ Q8CXU.outputs.result.changedNodeIds[0] }}",
+						"source":"{{ Q8CXU.outputs.result.changedNodeIds }}",
+						"ua:type":"mappedArray"
+					},
+					"retainedWorkflow":"{{ cQciE.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Return data to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		"Text_to_Workflow"
+	],
+	"version":0,
+	"workflowDefinitionId":"66a69a54f4b4427b7398cefe",
+	"workflowVersion":22
+}
