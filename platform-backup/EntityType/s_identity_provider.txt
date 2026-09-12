@@ -1,0 +1,449 @@
+{
+	"columnCounts":19,
+	"createdTime":1787737375624,
+	"deleted":false,
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"A"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"s_identity_provider",
+	"input":{
+		"type":"SCHEMA_AND_LAYOUT",
+		"dynamic":false,
+		"layout":{
+			"keepExternalSession":{
+				"ui:widget":"hidden"
+			},
+			"standard":{
+				"ui:widget":"hidden"
+			},
+			"showRemainingLoginAttempts":{
+				"ui:widget":"hidden"
+			},
+			"active":{
+				"ui:widget":"hidden"
+			},
+			"type":{
+				"ui:title":"Type",
+				"ui:help":"select login provider type",
+				"ui:widget":"hidden"
+			},
+			"record_loader":{
+				"ui:field":"DynamicSchemaField",
+				"ui:widget":"hidden",
+				"ui:title":false,
+				"ui:options":{
+					"ua:operationId":"findEntityById",
+					"ua:payload":{
+						"entityType":"s_identity_provider_type",
+						"entityId":"{{ configProvider }}"
+					},
+					"ua:response-schema-accessor":"properties.inputSchema.schema",
+					"ua:response-uiSchema-accessor":"properties.inputSchema.layout",
+					"ua:resetFormDataOnChange":true,
+					"ua:field_name":"record",
+					"ua:dependent_fields":[
+						"configProvider"
+					],
+					"ua:uiSchema":{
+						"ui:label":false
+					}
+				}
+			},
+			"allowedMaxLoginFailures":{
+				"ui:widget":"hidden"
+			},
+			"restrictPlatformAndCrossApplicationAccess":{
+				"ui:widget":"hidden"
+			},
+			"external":{
+				"ui:widget":"hidden"
+			},
+			"autoCreateUser":{
+				"ui:widget":"hidden"
+			},
+			"defaultLoginStateId":{
+				"ui:widget":"hidden"
+			},
+			"restrictCrossSessionTypes":{
+				"ui:widget":"hidden"
+			},
+			"ui:layout":[
+				"name",
+				"type",
+				"configProvider",
+				"record",
+				"record_loader"
+			],
+			"failureAttemptResetDuration":{
+				"ui:widget":"hidden"
+			},
+			"sessionExpiryTime":{
+				"ui:widget":"hidden"
+			},
+			"name":{
+				"ui:title":"Provider name",
+				"ui:placeholder":"Enter Provider Name",
+				"ui:help":"The identity provider name will be displayed in login page"
+			},
+			"userLockoutDuration":{
+				"ui:widget":"hidden"
+			},
+			"maxSessionLifeTime":{
+				"ui:widget":"hidden"
+			},
+			"restrictMultipleSessions":{
+				"ui:widget":"hidden"
+			},
+			"configProvider":{
+				"ui:widget":"LookupWidget",
+				"ui:placeholder":"Select Identity Provider",
+				"ui:title":"Identity Provider",
+				"ui:options":{
+					"ua:payload":{
+						"type":"ByQuery",
+						"lookupType":"ENTITY",
+						"options":{
+							"entity_type":"s_identity_provider_type"
+						},
+						"fields":[
+							"id",
+							"properties.name",
+							"properties.iconUrl"
+						],
+						"sorts":[
+							{
+								"field":"id",
+								"order":"ASC"
+							}
+						]
+					},
+					"ua:response-accessor":{
+						"id":"id",
+						"name":"properties.name",
+						"iconUrl":"properties.iconUrl"
+					}
+				},
+				"ua:allowCustom":false
+			},
+			"applicationId":{
+				"ui:widget":"hidden"
+			}
+		},
+		"schema":{
+			"type":"object",
+			"properties":{
+				"name":{
+					"type":"string",
+					"title":"Name",
+					"minLength":1,
+					"maxLength":100,
+					"filterable":true,
+					"sortable":true
+				},
+				"type":{
+					"type":"string",
+					"title":"Type",
+					"filterable":true,
+					"sortable":true
+				},
+				"configProvider":{
+					"type":"string",
+					"title":"Config Type",
+					"foreignKey":{
+						"reference":"ENTITY_ID:s_identity_provider_type"
+					}
+				},
+				"applicationId":{
+					"type":"string",
+					"title":"Application ID",
+					"filterable":true
+				},
+				"autoCreateUser":{
+					"type":"boolean",
+					"title":"Auto Create User"
+				},
+				"defaultLoginStateId":{
+					"type":"string",
+					"title":"Default Login State ID"
+				},
+				"showRemainingLoginAttempts":{
+					"type":"boolean",
+					"title":"Show Remaining Login Attempts"
+				},
+				"allowedMaxLoginFailures":{
+					"type":"integer",
+					"title":"Allowed Max Login Failures",
+					"minimum":0
+				},
+				"failureAttemptResetDuration":{
+					"type":"integer",
+					"title":"Failed Attempts Reset Time (minutes)",
+					"minimum":0
+				},
+				"userLockoutDuration":{
+					"type":"integer",
+					"title":"User Lockout Duration (minutes)"
+				},
+				"sessionExpiryTime":{
+					"type":"number",
+					"title":"Session Expiry Time",
+					"minimum":0
+				},
+				"maxSessionLifeTime":{
+					"type":"number",
+					"title":"Max Session Life Time",
+					"minimum":0
+				},
+				"keepExternalSession":{
+					"type":"boolean",
+					"title":"Keep External Session"
+				},
+				"standard":{
+					"type":"boolean",
+					"title":"Standard",
+					"filterable":true
+				},
+				"active":{
+					"type":"boolean",
+					"title":"Active",
+					"filterable":true
+				},
+				"external":{
+					"type":"boolean",
+					"title":"External",
+					"filterable":true
+				},
+				"restrictMultipleSessions":{
+					"type":"boolean"
+				},
+				"restrictCrossSessionTypes":{
+					"type":"boolean"
+				},
+				"restrictPlatformAndCrossApplicationAccess":{
+					"type":"boolean"
+				},
+				"record_loader":{
+					"type":"object"
+				}
+			},
+			"required":[
+				"name"
+			]
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"identity providers",
+	"metadata":{
+		"auditable":false,
+		"autoGeneratedFields":[
+			
+		],
+		"cacheable":false,
+		"captureActivity":false,
+		"captureReferences":false,
+		"captureReporting":false,
+		"dateFields":[
+			
+		],
+		"deployable":false,
+		"encryptedFields":[
+			
+		],
+		"external":false,
+		"filterableFields":[
+			"name",
+			"type",
+			"configProvider",
+			"applicationId",
+			"autoCreateUser",
+			"defaultLoginStateId",
+			"showRemainingLoginAttempts",
+			"allowedMaxLoginFailures",
+			"failureAttemptResetDuration",
+			"userLockoutDuration",
+			"sessionExpiryTime",
+			"maxSessionLifeTime",
+			"keepExternalSession",
+			"standard",
+			"active",
+			"external",
+			"restrictMultipleSessions",
+			"restrictCrossSessionTypes",
+			"restrictPlatformAndCrossApplicationAccess"
+		],
+		"graphType":"LEGACY_MDM",
+		"hasTimeSeriesRecords":true,
+		"hashedFields":[
+			
+		],
+		"inaccessibleFromUI":false,
+		"includeInDependency":false,
+		"nameField":"",
+		"partFields":[
+			
+		],
+		"piiFields":[
+			
+		],
+		"primaryKeyField":"",
+		"referenceKeys":[
+			{
+				"key":"properties.configProvider",
+				"referenceType":"s_identity_provider_type"
+			}
+		],
+		"scdType2Enabled":false,
+		"schemaValidationEnabled":true,
+		"searchableFields":[
+			
+		],
+		"sessionBackedStorageEnabled":false,
+		"skipConfigSyncIfModified":false,
+		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
+		"skipIndexLimitValidation":false,
+		"skipPermissionCheckForAggregation":false,
+		"skipPermissionsFilter":false,
+		"skipReportingEventsOrdering":false,
+		"skipRoutineLoad":false,
+		"skipTotalHitsInAggregation":false,
+		"skipVersionIncrementOnUpdate":false,
+		"supportsDistinctValues":false,
+		"supportsWebhook":false,
+		"syncFromSourceCustomer":false,
+		"translationsEnabled":false,
+		"uniqueKeyFields":[
+			
+		],
+		"urlValidationEnabledFields":[
+			
+		],
+		"useCachedEntityStoreForAutomations":false,
+		"userLevelEncryption":false,
+		"vectorFields":[
+			
+		],
+		"versioningEnabled":false
+	},
+	"modifiedTime":1787737375624,
+	"name":"Identity Providers",
+	"ownerUserId":-1,
+	"packaged":false,
+	"schema":{
+		"type":"SCHEMA",
+		"dynamic":false,
+		"schema":{
+			"title":"Identity Provider",
+			"type":"object",
+			"properties":{
+				"name":{
+					"type":"string",
+					"title":"Name",
+					"minLength":1,
+					"maxLength":100,
+					"filterable":true,
+					"sortable":true
+				},
+				"type":{
+					"type":"string",
+					"enum":[
+						"OPEN_ID",
+						"SAML"
+					]
+				},
+				"configProvider":{
+					"type":"string",
+					"title":"Type",
+					"foreignKey":{
+						"reference":"ENTITY_ID:s_identity_provider_type"
+					},
+					"sortable":true
+				},
+				"applicationId":{
+					"type":"string",
+					"title":"Application ID",
+					"filterable":true
+				},
+				"autoCreateUser":{
+					"type":"boolean",
+					"title":"Auto Create User"
+				},
+				"defaultLoginStateId":{
+					"type":"string",
+					"title":"Default Login State ID"
+				},
+				"showRemainingLoginAttempts":{
+					"type":"boolean",
+					"title":"Show Remaining Login Attempts"
+				},
+				"allowedMaxLoginFailures":{
+					"type":"integer",
+					"title":"Allowed Max Login Failures",
+					"minimum":0
+				},
+				"failureAttemptResetDuration":{
+					"type":"integer",
+					"title":"Failed Attempts Reset Time (minutes)",
+					"minimum":0
+				},
+				"userLockoutDuration":{
+					"type":"integer",
+					"title":"User Lockout Duration (minutes)"
+				},
+				"sessionExpiryTime":{
+					"type":"number",
+					"title":"Session Expiry Time",
+					"minimum":0
+				},
+				"maxSessionLifeTime":{
+					"type":"number",
+					"title":"Max Session Life Time",
+					"minimum":0
+				},
+				"keepExternalSession":{
+					"type":"boolean",
+					"title":"Keep External Session"
+				},
+				"standard":{
+					"type":"boolean",
+					"title":"Standard",
+					"filterable":true
+				},
+				"active":{
+					"type":"boolean",
+					"title":"Active",
+					"filterable":true
+				},
+				"external":{
+					"type":"boolean",
+					"title":"External",
+					"filterable":true
+				},
+				"restrictMultipleSessions":{
+					"type":"boolean",
+					"title":"Restrict Multiple Sessions"
+				},
+				"restrictCrossSessionTypes":{
+					"type":"boolean",
+					"title":"Restrict Cross Session Types"
+				},
+				"restrictPlatformAndCrossApplicationAccess":{
+					"type":"boolean",
+					"title":"Restrict Platform and Cross Application Access"
+				}
+			},
+			"required":[
+				"name"
+			]
+		}
+	},
+	"standard":true,
+	"version":1
+}

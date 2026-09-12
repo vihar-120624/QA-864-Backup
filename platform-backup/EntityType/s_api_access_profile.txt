@@ -1,0 +1,1269 @@
+{
+	"columnCounts":0,
+	"createdTime":1787737371570,
+	"deleted":false,
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"A"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"s_api_access_profile",
+	"input":{
+		"type":"SCHEMA_AND_LAYOUT",
+		"dynamic":false,
+		"layout":{
+			"overview":{
+				"details":{
+					"ui:title":"Details",
+					"ui:description":"Define a New Access profile for this client",
+					"ui:icon":"SvgNotificationText",
+					"name":{
+						"ui:title":"Profile Name",
+						"ui:help":"Give a name to this access profile",
+						"ui:placeholder":"Enter access profile name"
+					},
+					"tags":{
+						"ui:widget":"LookupWidget",
+						"ui:placeholder":"Select tags",
+						"ui:options":{
+							"ua:payload":{
+								"lookupType":"TAG",
+								"type":"ByQuery"
+							},
+							"multiple":true,
+							"createable":true
+						}
+					},
+					"collectionDetails":{
+						"ui:field":"CollectionsField",
+						"ui:title":"API Groups to include"
+					},
+					"type":"SCHEMA_AND_LAYOUT"
+				},
+				"type":"SCHEMA_AND_LAYOUT"
+			},
+			"details":{
+				"authenticationDetails":{
+					"ui:title":"Authentication Details",
+					"ui:help":"Configure authentication details for this access profile",
+					"ui:icon":"SvgSettings01",
+					"ui:order":[
+						"authMethod",
+						"algorithm",
+						"secret",
+						"rsaPublicKey",
+						"*"
+					],
+					"ua:error":{
+						"if":""
+					},
+					"authMethod":{
+						"ui:title":"Authentication Method",
+						"ui:help":"Some authentication methods require additional inputs to complete setup"
+					},
+					"ttl":{
+						"ui:title":"Refresh Details",
+						"ui:description":"Configure the token refresh details for this access profile",
+						"duration":{
+							"ui:title":"Refresh Interval",
+							"ui:description":"Define the refresh time post which a new oauth token should be generated"
+						}
+					},
+					"algorithm":{
+						"ui:title":"Algorithm",
+						"ui:help":"Algorithm used for signing the JWT",
+						"ui:placeholder":"Choose an algorithm"
+					},
+					"redirectUrls":{
+						"ua:collapsible":false,
+						"ui:placeholder":"Enter redirect URI",
+						"items":{
+							"ua:actionItems":{
+								"rootClassName":"top-md",
+								"disableShuffling":true
+							}
+						},
+						"ua:options":{
+							"emptyState":{
+								"icon":"AlertCircle",
+								"title":"No redirect url's added"
+							}
+						}
+					},
+					"secret":{
+						"ui:title":"Secret",
+						"ui:help":"The secret key used to sign the JWT",
+						"ui:placeholder":"Enter secret"
+					},
+					"rsaPublicKey":{
+						"ui:title":"RSA Public Key",
+						"ui:help":"This must be a Privacy Enhanced Mail (PEM) file encoded using PKCS1 or PKCS8.",
+						"ui:widget":"textarea"
+					},
+					"reservedClaimsToEnforce":{
+						"ui:title":"Reserved claims to enforce",
+						"ui:widget":"MultiSelectWidget",
+						"ui:help":"Select the reserved claims to enforce in your JWT. These are standard claims."
+					},
+					"customClaimsToEnforce":{
+						"ui:title":"Custom claims to enforce",
+						"ui:help":"If you’re using a custom claim in your JWT to reference this access profile, add comma separated values here."
+					},
+					"customClaimForKeyId":{
+						"ui:title":"Custom claim for access profile key",
+						"ui:help":"If you’re using a custom claim in your JWT to reference this access profile, add its name here."
+					},
+					"username":{
+						"ui:title":"Username",
+						"ui:help":"Enter the username for basic authentication"
+					},
+					"password":{
+						"ui:title":"Password",
+						"ui:help":"Enter the password for basic authentication",
+						"ui:widget":"password"
+					},
+					"externalAuthType":{
+						"ui:title":"Authentication Type",
+						"ui:help":"Choose the authentication type for external authentication"
+					},
+					"authProfileName":{
+						"ui:title":"Authentication Profile Name",
+						"ui:help":"Enter the name of the authentication profile"
+					},
+					"externalAuthUrl":{
+						"ui:title":"Authentication URL",
+						"ui:help":"Enter the URL for external authentication"
+					},
+					"authHttpMethod":{
+						"ui:title":"Authentication HTTP Method",
+						"ui:help":"Choose the HTTP method for external authentication"
+					},
+					"headers":{
+						"ui:title":"Headers",
+						"ui:description":"Enter the headers required to authorize external URL.",
+						"ui:field":"KeyValuePairField",
+						"ua:disableTestSchemaField":true,
+						"ua:showControls":false,
+						"ua:emptyState":{
+							"showEmptyPair":true,
+							"actions":[
+								{
+									"actionType":"ADD_FIELD",
+									"startIcon":"Plus",
+									"color":"brand",
+									"variant":"outline",
+									"title":"Add Headers"
+								}
+							]
+						},
+						"items":{
+							"key":{
+								"ui:placeholder":"Add a key"
+							},
+							"value":{
+								"ui:placeholder":"Add a value"
+							}
+						}
+					},
+					"coverUpstreamHeaders":{
+						"ui:title":"Upstream Headers",
+						"ui:description":"Enter the header keys required from upstream.",
+						"upstreamHeaders":{
+							"ui:label":false,
+							"ui:addButtonTitle":"Add Header",
+							"ua:options":{
+								"emptyState":{
+									"icon":"AlertCircle",
+									"title":"No headers added"
+								}
+							}
+						}
+					},
+					"queryParams":{
+						"ui:title":"Query Params",
+						"ui:description":"Enter the query params required to authorize external URL.",
+						"ui:field":"KeyValuePairField",
+						"ua:disableTestSchemaField":true,
+						"ua:showControls":false,
+						"ua:emptyState":{
+							"showEmptyPair":true,
+							"actions":[
+								{
+									"actionType":"ADD_FIELD",
+									"startIcon":"Plus",
+									"color":"brand",
+									"variant":"outline",
+									"title":"Add Query Params"
+								}
+							]
+						},
+						"items":{
+							"key":{
+								"ui:placeholder":"Add a key"
+							},
+							"value":{
+								"ui:placeholder":"Add a value"
+							}
+						}
+					},
+					"coverUpstreamQueryParams":{
+						"ui:title":"Upstream Query Params",
+						"ui:description":"Enter the query params keys required from upstream.",
+						"upstreamQueryParams":{
+							"ui:label":false,
+							"ui:addButtonTitle":"Add Query Param",
+							"ua:options":{
+								"emptyState":{
+									"icon":"AlertCircle",
+									"title":"No Query Params added"
+								}
+							}
+						}
+					},
+					"tokenFormat":{
+						"ui:title":"Response Parameter",
+						"ui:help":"Enter the path for the response parameter that need to fetch from external authorization response. Eg. 'body.token', 'header.token' etc."
+					},
+					"domain":{
+						"ui:title":"Domain",
+						"ui:help":"Enter the domain of Okta authorization."
+					},
+					"clientId":{
+						"ui:title":"Client ID",
+						"ui:help":"Enter the client ID."
+					},
+					"clientSecret":{
+						"ui:title":"Client Secret",
+						"ui:help":"Enter the client secret."
+					},
+					"scopes":{
+						"ui:title":"Scopes",
+						"ui:help":"Enter the scopes."
+					},
+					"grantType":{
+						"ui:title":"Grant Type",
+						"ui:help":"Choose the grant type",
+						"ui:placeholder":"Choose a grant type"
+					},
+					"accessTokenKey":{
+						"ui:title":"Access Token Response Key",
+						"ui:help":"JSON key under which the access token is returned by the token endpoint. Defaults to 'accessToken'",
+						"ui:placeholder":"accessToken"
+					},
+					"authorizationUrl":{
+						"ui:title":"Authorization URL",
+						"ui:help":"Enter the authorization URL to initiate the user login."
+					},
+					"accessTokenUrl":{
+						"ui:title":"Access Token URL",
+						"ui:help":"Enter the token endpoint URL used to exchange the authorization code for tokens."
+					},
+					"tokenInHeader":{
+						"ui:title":"Token in Header",
+						"ui:help":"Enable this to look for the token in request headers."
+					},
+					"tokenInQuery":{
+						"ui:title":"Token in Query",
+						"ui:help":"Enable this to look for the token in query params."
+					},
+					"tokenPrefix":{
+						"ui:title":"Token Prefix",
+						"ui:help":"Specify the prefix to be used in token."
+					},
+					"tokenKeys":{
+						"ui:title":"Token Keys",
+						"ui:description":"Specify the list of token-keys to look for in headers and/or query params."
+					},
+					"tokenKeyList":{
+						"ui:title":"Token Keys",
+						"ui:description":"Specify the list of token-keys to look for in headers and/or query params. Default key is 'api-token'.",
+						"ui:addButtonTitle":"Add Token Key"
+					},
+					"validTokens":{
+						"ui:title":"Valid Tokens",
+						"ui:description":"List of tokens to authenticate using. Same token cannot be used across multiple access profiles on a platform."
+					},
+					"workflowId":{
+						"ui:title":"Workflow ID",
+						"ui:help":"Enter the workflow ID to be used for custom workflow authentication."
+					}
+				},
+				"policyIds":{
+					"ua:options":{
+						"useDefaultFieldTemplate":true
+					},
+					"ui:field":"PoliciesField",
+					"ui:icon":"SvgCertificate02",
+					"ui:options":{
+						"ua:payload":{
+							"type":"ByQuery",
+							"lookupType":"API_POLICY",
+							"fields":[
+								"name"
+							]
+						},
+						"multiple":true
+					},
+					"ui:title":"Policies",
+					"ui:help":"These policies govern access to API groups included in this profile.",
+					"ui:placeholder":"Choose a policy"
+				}
+			}
+		},
+		"schema":{
+			"overview":{
+				"type":"object",
+				"properties":{
+					"details":{
+						"type":"object",
+						"properties":{
+							"name":{
+								"type":"string"
+							},
+							"tags":{
+								"type":"array",
+								"title":"Tags",
+								"items":{
+									"type":"string"
+								}
+							},
+							"collectionDetails":{
+								"type":"object"
+							}
+						},
+						"required":[
+							"name",
+							"collectionDetails"
+						]
+					}
+				}
+			},
+			"details":{
+				"type":"object",
+				"properties":{
+					"authenticationDetails":{
+						"type":"object",
+						"properties":{
+							"authMethod":{
+								"type":"string",
+								"oneOf":[
+									{
+										"title":"JSON Web Token",
+										"const":"JWT_TOKEN"
+									},
+									{
+										"title":"Auth Token",
+										"const":"AUTH_TOKEN"
+									},
+									{
+										"title":"Custom Token",
+										"const":"CUSTOM_TOKEN"
+									},
+									{
+										"title":"OAuth2.0",
+										"const":"OAUTH2"
+									},
+									{
+										"title":"Basic Auth",
+										"const":"BASIC_AUTH"
+									},
+									{
+										"title":"External Authentication",
+										"const":"EXTERNAL_AUTH"
+									},
+									{
+										"title":"No Auth",
+										"const":"NO_OP"
+									},
+									{
+										"title":"User Session",
+										"const":"USER_SESSION"
+									},
+									{
+										"title":"Custom Workflow",
+										"const":"CUSTOM_WORKFLOW"
+									}
+								],
+								"default":"JWT_TOKEN"
+							}
+						},
+						"required":[
+							"authMethod"
+						]
+					},
+					"policyIds":{
+						"type":"array",
+						"items":{
+							"type":"string"
+						}
+					}
+				},
+				"allOf":[
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"JWT_TOKEN"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"algorithm":{
+											"type":"string",
+											"oneOf":[
+												{
+													"title":"HS256",
+													"const":"HS256"
+												},
+												{
+													"title":"HS384",
+													"const":"HS384"
+												},
+												{
+													"title":"HS512",
+													"const":"HS512"
+												},
+												{
+													"title":"RS256",
+													"const":"RS256"
+												},
+												{
+													"title":"RS384",
+													"const":"RS384"
+												},
+												{
+													"title":"RS512",
+													"const":"RS512"
+												}
+											],
+											"default":"RS256"
+										},
+										"reservedClaimsToEnforce":{
+											"type":"array",
+											"items":{
+												"type":"string",
+												"uniqueItems":true,
+												"oneOf":[
+													{
+														"title":"aud",
+														"const":"aud"
+													},
+													{
+														"title":"exp",
+														"const":"exp"
+													},
+													{
+														"title":"nbf",
+														"const":"nbf"
+													},
+													{
+														"title":"iat",
+														"const":"iat"
+													},
+													{
+														"title":"jti",
+														"const":"jti"
+													},
+													{
+														"title":"sub",
+														"const":"sub"
+													},
+													{
+														"title":"iss",
+														"const":"iss"
+													}
+												]
+											}
+										},
+										"customClaimsToEnforce":{
+											"type":"string"
+										},
+										"customClaimForKeyId":{
+											"type":"string"
+										}
+									},
+									"if":{
+										"properties":{
+											"algorithm":{
+												"enum":[
+													"RS256",
+													"RS384",
+													"RS512"
+												]
+											}
+										}
+									},
+									"then":{
+										"properties":{
+											"rsaPublicKey":{
+												"type":"string"
+											}
+										},
+										"required":[
+											"rsaPublicKey"
+										]
+									},
+									"else":{
+										"properties":{
+											"secret":{
+												"type":"string"
+											}
+										},
+										"required":[
+											"secret"
+										]
+									}
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"BASIC_AUTH"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"username":{
+											"type":"string"
+										},
+										"password":{
+											"type":"string"
+										}
+									},
+									"required":[
+										"username",
+										"password"
+									]
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"OAUTH2"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"grantType":{
+											"type":"string",
+											"oneOf":[
+												{
+													"title":"Client Credentials",
+													"const":"client_credentials"
+												},
+												{
+													"title":"Authorization Code",
+													"const":"authorization_code"
+												},
+												{
+													"title":"Resource Owner Password Credentials",
+													"const":"password"
+												}
+											],
+											"default":"client_credentials"
+										},
+										"ttl":{
+											"type":"object",
+											"properties":{
+												"duration":{
+													"type":"integer",
+													"default":1
+												},
+												"unit":{
+													"type":"string",
+													"default":"HOURS",
+													"oneOf":[
+														{
+															"const":"MINUTES",
+															"title":"Minutes"
+														},
+														{
+															"const":"HOURS",
+															"title":"Hours"
+														}
+													]
+												}
+											}
+										},
+										"accessTokenKey":{
+											"type":"string",
+											"default":"accessToken"
+										}
+									},
+									"required":[
+										"grantType"
+									]
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"OAUTH2"
+										},
+										"grantType":{
+											"const":"authorization_code"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"redirectUrls":{
+											"type":"array",
+											"items":{
+												"type":"string"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"EXTERNAL_AUTH"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"externalAuthType":{
+											"type":"string",
+											"oneOf":[
+												{
+													"title":"Okta",
+													"const":"OKTA"
+												},
+												{
+													"title":"Open ID",
+													"const":"OPEN_ID"
+												},
+												{
+													"title":"Custom Auth",
+													"const":"CUSTOM_AUTH"
+												},
+												{
+													"title":"Custom OAuth2.0",
+													"const":"CUSTOM_OAUTH2"
+												}
+											],
+											"default":"CUSTOM_AUTH"
+										}
+									},
+									"allOf":[
+										{
+											"if":{
+												"properties":{
+													"externalAuthType":{
+														"const":"OKTA"
+													}
+												}
+											},
+											"then":{
+												"properties":{
+													"domain":{
+														"type":"string"
+													},
+													"grantType":{
+														"type":"string",
+														"oneOf":[
+															{
+																"const":"authorization_code",
+																"title":"Authorization Code"
+															},
+															{
+																"const":"client_credentials",
+																"title":"Client Credentials"
+															},
+															{
+																"const":"password",
+																"title":"Resource Owner Password Credentials"
+															}
+														],
+														"default":"authorization_code"
+													},
+													"clientId":{
+														"type":"string"
+													},
+													"clientSecret":{
+														"type":"string",
+														"format":"password"
+													},
+													"scopes":{
+														"type":"string"
+													}
+												},
+												"required":[
+													"domain",
+													"grantType",
+													"clientId",
+													"clientSecret"
+												]
+											}
+										},
+										{
+											"if":{
+												"properties":{
+													"externalAuthType":{
+														"const":"OPEN_ID"
+													}
+												}
+											},
+											"then":{
+												"properties":{
+													"grantType":{
+														"type":"string",
+														"oneOf":[
+															{
+																"const":"authorization_code",
+																"title":"Authorization Code"
+															},
+															{
+																"const":"client_credentials",
+																"title":"Client Credentials"
+															},
+															{
+																"const":"password",
+																"title":"Resource Owner Password Credentials"
+															}
+														],
+														"default":"authorization_code"
+													},
+													"accessTokenUrl":{
+														"type":"string"
+													},
+													"clientId":{
+														"type":"string"
+													},
+													"clientSecret":{
+														"type":"string",
+														"format":"password"
+													},
+													"scopes":{
+														"type":"string"
+													}
+												},
+												"required":[
+													"grantType",
+													"clientId",
+													"clientSecret",
+													"accessTokenUrl"
+												],
+												"allOf":[
+													{
+														"if":{
+															"properties":{
+																"grantType":{
+																	"const":"authorization_code"
+																}
+															}
+														},
+														"then":{
+															"properties":{
+																"authorizationUrl":{
+																	"type":"string"
+																}
+															},
+															"required":[
+																"authorizationUrl"
+															]
+														}
+													}
+												]
+											}
+										},
+										{
+											"if":{
+												"properties":{
+													"externalAuthType":{
+														"const":"CUSTOM_AUTH"
+													}
+												}
+											},
+											"then":{
+												"properties":{
+													"externalAuthUrl":{
+														"type":"string"
+													},
+													"authHttpMethod":{
+														"type":"string",
+														"enum":[
+															"GET",
+															"POST"
+														],
+														"default":"GET"
+													},
+													"externalAuthTimeout":{
+														"type":"object",
+														"properties":{
+															"duration":{
+																"type":"integer",
+																"default":5000
+															},
+															"unit":{
+																"type":"string",
+																"default":"MILLISECONDS",
+																"oneOf":[
+																	{
+																		"const":"MILLISECONDS",
+																		"title":"Milliseconds"
+																	},
+																	{
+																		"const":"SECONDS",
+																		"title":"Seconds"
+																	},
+																	{
+																		"const":"MINUTES",
+																		"title":"Minutes"
+																	}
+																]
+															}
+														},
+														"allOf":[
+															{
+																"if":{
+																	"properties":{
+																		"unit":{
+																			"const":"MILLISECONDS"
+																		}
+																	}
+																},
+																"then":{
+																	"properties":{
+																		"duration":{
+																			"maximum":300000
+																		}
+																	}
+																}
+															},
+															{
+																"if":{
+																	"properties":{
+																		"unit":{
+																			"const":"SECONDS"
+																		}
+																	}
+																},
+																"then":{
+																	"properties":{
+																		"duration":{
+																			"maximum":300
+																		}
+																	}
+																}
+															},
+															{
+																"if":{
+																	"properties":{
+																		"unit":{
+																			"const":"MINUTES"
+																		}
+																	}
+																},
+																"then":{
+																	"properties":{
+																		"duration":{
+																			"maximum":5
+																		}
+																	}
+																}
+															}
+														]
+													},
+													"headers":{
+														"type":"array",
+														"items":{
+															"type":"object",
+															"properties":{
+																"key":{
+																	"type":"string"
+																},
+																"value":{
+																	"type":"string"
+																}
+															},
+															"required":[
+																"key",
+																"value"
+															]
+														}
+													},
+													"coverUpstreamHeaders":{
+														"type":"object",
+														"properties":{
+															"upstreamHeaders":{
+																"type":"array",
+																"items":{
+																	"type":"string"
+																}
+															}
+														}
+													},
+													"queryParams":{
+														"type":"array",
+														"items":{
+															"type":"object",
+															"properties":{
+																"key":{
+																	"type":"string"
+																},
+																"value":{
+																	"type":"string"
+																}
+															},
+															"required":[
+																"key",
+																"value"
+															]
+														}
+													},
+													"coverUpstreamQueryParams":{
+														"type":"object",
+														"properties":{
+															"upstreamQueryParams":{
+																"type":"array",
+																"items":{
+																	"type":"string"
+																}
+															}
+														}
+													},
+													"tokenFormat":{
+														"type":"string"
+													}
+												},
+												"required":[
+													"externalAuthUrl",
+													"authHttpMethod",
+													"tokenFormat"
+												]
+											}
+										},
+										{
+											"if":{
+												"properties":{
+													"externalAuthType":{
+														"const":"CUSTOM_OAUTH2"
+													}
+												}
+											},
+											"then":{
+												"properties":{
+													"grantType":{
+														"type":"string",
+														"oneOf":[
+															{
+																"const":"authorization_code",
+																"title":"Authorization Code"
+															},
+															{
+																"const":"client_credentials",
+																"title":"Client Credentials"
+															},
+															{
+																"const":"password",
+																"title":"Resource Owner Password Credentials"
+															}
+														],
+														"default":"authorization_code"
+													},
+													"accessTokenUrl":{
+														"type":"string"
+													},
+													"clientId":{
+														"type":"string"
+													},
+													"clientSecret":{
+														"type":"string",
+														"format":"password"
+													},
+													"scopes":{
+														"type":"string"
+													}
+												},
+												"required":[
+													"grantType",
+													"accessTokenUrl",
+													"clientId",
+													"clientSecret"
+												],
+												"allOf":[
+													{
+														"if":{
+															"properties":{
+																"grantType":{
+																	"const":"authorization_code"
+																}
+															}
+														},
+														"then":{
+															"properties":{
+																"authorizationUrl":{
+																	"type":"string"
+																}
+															},
+															"required":[
+																"authorizationUrl"
+															]
+														}
+													}
+												]
+											}
+										}
+									],
+									"required":[
+										"externalAuthType"
+									]
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"AUTH_TOKEN"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"tokenInHeader":{
+											"type":"boolean",
+											"default":true
+										},
+										"tokenInQuery":{
+											"type":"boolean",
+											"default":false
+										},
+										"tokenPrefix":{
+											"type":"string"
+										},
+										"tokenKeyList":{
+											"type":"array",
+											"items":{
+												"type":"string"
+											},
+											"default":[
+												"api-token"
+											]
+										}
+									},
+									"required":[
+										"tokenKeyList"
+									]
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"CUSTOM_TOKEN"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"tokenKeys":{
+											"type":"array",
+											"items":{
+												"type":"string"
+											}
+										},
+										"tokenInHeader":{
+											"type":"boolean",
+											"default":true
+										},
+										"tokenInQuery":{
+											"type":"boolean",
+											"default":false
+										},
+										"validTokens":{
+											"type":"array",
+											"items":{
+												"type":"string"
+											}
+										}
+									},
+									"required":[
+										"tokenKeys",
+										"validTokens"
+									]
+								}
+							}
+						}
+					},
+					{
+						"if":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"authMethod":{
+											"const":"CUSTOM_WORKFLOW"
+										}
+									}
+								}
+							}
+						},
+						"then":{
+							"properties":{
+								"authenticationDetails":{
+									"properties":{
+										"workflowId":{
+											"type":"string"
+										}
+									}
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	"lastModifiedBy":-1,
+	"lcName":"api access profiles",
+	"metadata":{
+		"auditable":false,
+		"autoGeneratedFields":[
+			
+		],
+		"cacheable":false,
+		"captureActivity":false,
+		"captureReferences":false,
+		"captureReporting":false,
+		"dateFields":[
+			
+		],
+		"deployable":false,
+		"encryptedFields":[
+			
+		],
+		"external":false,
+		"filterableFields":[
+			
+		],
+		"graphType":"LEGACY_MDM",
+		"hasTimeSeriesRecords":true,
+		"hashedFields":[
+			
+		],
+		"inaccessibleFromUI":false,
+		"includeInDependency":false,
+		"nameField":"",
+		"partFields":[
+			
+		],
+		"piiFields":[
+			
+		],
+		"primaryKeyField":"",
+		"referenceKeys":[
+			
+		],
+		"scdType2Enabled":false,
+		"schemaValidationEnabled":true,
+		"searchableFields":[
+			
+		],
+		"sessionBackedStorageEnabled":false,
+		"skipConfigSyncIfModified":false,
+		"skipDeletedEntityBackup":false,
+		"skipFetchBeforeUpdate":false,
+		"skipIndexLimitValidation":false,
+		"skipPermissionCheckForAggregation":false,
+		"skipPermissionsFilter":true,
+		"skipReportingEventsOrdering":false,
+		"skipRoutineLoad":false,
+		"skipTotalHitsInAggregation":false,
+		"skipVersionIncrementOnUpdate":false,
+		"supportsDistinctValues":false,
+		"supportsWebhook":false,
+		"syncFromSourceCustomer":false,
+		"translationsEnabled":false,
+		"uniqueKeyFields":[
+			
+		],
+		"urlValidationEnabledFields":[
+			
+		],
+		"useCachedEntityStoreForAutomations":false,
+		"userLevelEncryption":false,
+		"vectorFields":[
+			
+		],
+		"versioningEnabled":false
+	},
+	"modifiedTime":1787737371570,
+	"name":"API Access Profiles",
+	"ownerUserId":-1,
+	"packaged":true,
+	"schema":{
+		"type":"SCHEMA",
+		"dynamic":false
+	},
+	"standard":true,
+	"version":1
+}
