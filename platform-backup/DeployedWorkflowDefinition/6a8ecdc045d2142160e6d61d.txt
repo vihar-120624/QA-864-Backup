@@ -1,0 +1,420 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743680349,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"jCV1a",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LY6jz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LY6jz",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kKxjA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LY6jz",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VZA58",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_kKxjA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ocuff",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VZA58",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ocuff",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecdc045d2142160e6d61d",
+	"lastModifiedBy":-1,
+	"lcName":"clustering | deduplication of clusters (signal wrapper)",
+	"modifiedTime":1787743680351,
+	"name":"Clustering | Deduplication of Clusters (Signal Wrapper)",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":5,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"EOINC-1",
+			"id":"jCV1a",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"clusters":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"document_id":{
+										"title":"document_id",
+										"type":"string"
+									},
+									"persistent_cluster_id":{
+										"title":"persistent_cluster_id",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"clusters",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"client_id":{
+							"title":"client_id",
+							"type":"string"
+						},
+						"clustering_id":{
+							"title":"clustering_id",
+							"type":"string"
+						},
+						"docIdToMetadataMap":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Doc Id To Metadata Map",
+							"type":"object"
+						},
+						"doc_ids":{
+							"items":{
+								"type":"string"
+							},
+							"title":"doc_ids",
+							"type":"array"
+						},
+						"embeddingLen":{
+							"title":"Embedding Len",
+							"type":"integer"
+						},
+						"includeSummaryBasedClustering":{
+							"title":"Include Summary Based Clustering",
+							"type":"boolean"
+						},
+						"opensearch_k":{
+							"title":"opensearch_k",
+							"type":"integer"
+						},
+						"opensearch_threshold":{
+							"title":"opensearch_threshold",
+							"type":"number"
+						},
+						"partition_id":{
+							"title":"partition_id",
+							"type":"string"
+						},
+						"signalProperties":{
+							"additionalProperties":false,
+							"properties":{
+								"signalId":{
+									"title":"Signal Id",
+									"type":"string"
+								},
+								"waitingInstanceId":{
+									"title":"Waiting Instance Id",
+									"type":"string"
+								},
+								"waitingInstanceRuntimeType":{
+									"title":"Waiting Instance Runtime Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Signal Properties",
+							"type":"object"
+						},
+						"summaryThreshold":{
+							"title":"Summary Threshold",
+							"type":"number"
+						},
+						"temporary_id":{
+							"title":"Temporary Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.client_id",
+					"root.parameters.clustering_id",
+					"root.parameters.opensearch_threshold",
+					"root.parameters.opensearch_k",
+					"root.parameters.partition_id",
+					"root.parameters.doc_ids.source",
+					"root.parameters.doc_ids.ua:type",
+					"root.parameters.doc_ids.items",
+					"root.parameters.embeddings.source",
+					"root.parameters.embeddings.ua:type",
+					"root.parameters.embeddings.items",
+					"root.parameters.summaryThreshold",
+					"root.parameters.embeddingLen",
+					"root.parameters.includeSummaryBasedClustering"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":818,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"EOINC-1",
+			"id":"n_LY6jz",
+			"index":2,
+			"inputs":{
+				"automationId":"67a0f2feb3380723d9e166ff",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"client_id":"{{ jCV1a.outputs.client_id }}",
+					"clustering_id":"{{ jCV1a.outputs.clustering_id }}",
+					"docIdToMetadataMap":"{{ jCV1a.outputs.docIdToMetadataMap }}",
+					"doc_ids":{
+						"items":"{{ jCV1a.outputs.doc_ids[0] }}",
+						"source":"{{ jCV1a.outputs.doc_ids }}",
+						"ua:type":"mappedArray"
+					},
+					"embeddingLen":"{{ jCV1a.outputs.embeddingLen }}",
+					"includeSummaryBasedClustering":"{{ jCV1a.outputs.includeSummaryBasedClustering }}",
+					"opensearch_k":"{{ jCV1a.outputs.opensearch_k }}",
+					"opensearch_threshold":"{{ jCV1a.outputs.opensearch_threshold }}",
+					"partition_id":"{{ jCV1a.outputs.partition_id }}",
+					"summaryThreshold":"{{ jCV1a.outputs.summaryThreshold }}",
+					"temporary_id":"{{ jCV1a.outputs.temporary_id }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":true,
+					"maxConcurrency":"15",
+					"maxLeaseTime":"5",
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Deduplication of Clusters",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.clusters.items.document_id",
+					"root.signal_payload.clusters.items.persistent_cluster_id"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":679,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LY6jz@EOINC-1@success",
+			"id":"n_kKxjA",
+			"index":3,
+			"inputs":{
+				"automation_id":"6797a42061665f50fe408f29",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ jCV1a.outputs.signalProperties.waitingInstanceRuntimeType }}",
+				"waitingInstanceId":"{{ jCV1a.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ jCV1a.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"clusters":{
+						"items":{
+							"document_id":"{{ n_LY6jz.outputs.clusters[0].document_id }}",
+							"persistent_cluster_id":"{{ n_LY6jz.outputs.clusters[0].persistent_cluster_id }}"
+						},
+						"source":"{{ n_LY6jz.outputs.clusters }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"nodeId":"n_Zu8LI"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.clusters.items.document_id",
+					"root.signal_payload.clusters.items.persistent_cluster_id"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":679,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LY6jz@EOINC-1@error",
+			"id":"n_VZA58",
+			"index":4,
+			"inputs":{
+				"automation_id":"6797a42061665f50fe408f29",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ jCV1a.outputs.signalProperties.waitingInstanceRuntimeType }}",
+				"waitingInstanceId":"{{ jCV1a.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ jCV1a.outputs.signalProperties.signalId }}",
+				"nodeId":"n_Zu8LI"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":5,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"EOINC-1",
+			"id":"ocuff",
+			"index":5,
+			"inputs":{
+				"result":{
+					"clusters":{
+						"items":{
+							"document_id":"{{ ipBzA.outputs.items[0].document_id }}",
+							"persistent_cluster_id":"{{ ipBzA.outputs.items[0].persistent_cluster_id }}"
+						},
+						"source":"{{ ipBzA.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"Clustering"
+	],
+	"version":0,
+	"workflowDefinitionId":"69b3a9e096b6d4321befccce",
+	"workflowVersion":6
+}

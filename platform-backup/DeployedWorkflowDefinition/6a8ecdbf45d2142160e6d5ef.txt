@@ -1,0 +1,85 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743679610,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_14Hla",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_DKxVu",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecdbf45d2142160e6d5ef",
+	"lastModifiedBy":-1,
+	"lcName":"ai agent deployment delete handler",
+	"modifiedTime":1787743679611,
+	"name":"AI Agent Deployment Delete Handler",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2065,
+				"resourceName":"storage_by_unifyapps_on_delete_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vyoEx-1",
+			"id":"_14Hla",
+			"index":0,
+			"inputs":{
+				"object_type":"ai_agent_deployment"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Deleted record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":2,
+				"resourceName":"standard_entities_manage_workflow",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vyoEx-1",
+			"id":"_DKxVu",
+			"index":0,
+			"inputs":{
+				"operationType":"DELETE",
+				"workflowId":"{{ _14Hla.outputs.properties.trigger.triggerAutomationId }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Modify automation",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":0,
+	"workflowDefinitionId":"673fbec424c8443e29f73d62",
+	"workflowVersion":10
+}
