@@ -1,0 +1,165 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744616617,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_JisFm",
+			"id":"next@n_JisFm@n_WsnNJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WsnNJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WsnNJ",
+			"id":"next@n_WsnNJ@n_RE0Zl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RE0Zl",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed168cee862008d75984d",
+	"lastModifiedBy":-1,
+	"lcName":"google calendar | list calendars",
+	"modifiedTime":1787744616618,
+	"name":"Google Calendar | List Calendars",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1440,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_74pDN-1",
+			"id":"n_JisFm",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"calenders":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Calenders",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"accessRole":{
+							"title":"Access Role",
+							"type":"string"
+						},
+						"showDeleted":{
+							"title":"Show Deleted",
+							"type":"boolean"
+						},
+						"showHidden":{
+							"title":"Show Hidden",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"gcalendar",
+				"resourceVersion":1776,
+				"connectionId":"6a29685483613400d93ab36d",
+				"resourceName":"gcalendar_list_calendars",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_74pDN-1",
+			"id":"n_WsnNJ",
+			"index":2,
+			"inputs":{
+				"showDeleted":"{{ n_JisFm.outputs.showDeleted }}",
+				"showHidden":"{{ n_JisFm.outputs.showHidden }}",
+				"minAccessRole":"{{ n_JisFm.outputs.accessRole }}"
+			},
+			"skip":false,
+			"subTitle":"Google Calendar",
+			"title":"List calendars",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1440,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_74pDN-1",
+			"id":"n_RE0Zl",
+			"index":3,
+			"inputs":{
+				"result":{
+					"calenders":{
+						"items":"{{ n_WsnNJ.outputs.items[0] }}",
+						"source":"{{ n_WsnNJ.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"runtimeConnectionAppNames":[
+		"gcalendar"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a71d7a04195124b3fbdd00c",
+	"workflowVersion":7
+}
