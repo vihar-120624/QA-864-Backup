@@ -1,0 +1,826 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743872757,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_e7csm",
+			"id":"next@n_e7csm@n_NWJhY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NWJhY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NWJhY",
+			"id":"next@n_NWJhY@_o1G2f",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_o1G2f",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_o1G2f",
+			"id":"next@_o1G2f@n_6AVb1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6AVb1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6AVb1",
+			"id":"branch@n_6AVb1@n_6AVb1@1",
+			"name":"1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6AVb1@1",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_6AVb1@1",
+			"id":"next@n_6AVb1@1@_1omgC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_1omgC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_1omgC",
+			"id":"next@_1omgC@n_pH7h2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pH7h2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pH7h2",
+			"id":"next@n_pH7h2@n_85dje",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_85dje",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6AVb1",
+			"id":"branch@n_6AVb1@n_6AVb1@2",
+			"name":"2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6AVb1@2",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_6AVb1@2",
+			"id":"next@n_6AVb1@2@n_lVByY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lVByY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lVByY",
+			"id":"next@n_lVByY@n_rURKK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rURKK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_85dje",
+			"id":"next@n_85dje@_YuRUc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_YuRUc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rURKK",
+			"id":"next@n_rURKK@_YuRUc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_YuRUc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6AVb1",
+			"id":"branch@n_6AVb1@_YuRUc",
+			"name":"default",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_YuRUc",
+			"type":"branch"
+		}
+	],
+	"id":"6a8ece80177b4b4aca57bbb3",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | usage | latency",
+	"modifiedTime":1787743872758,
+	"name":"Enterprise Search | Usage | Latency",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1250,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BCGbk-1",
+			"id":"n_e7csm",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"avgLatency":{
+							"title":"Avg Latency",
+							"type":"number"
+						},
+						"latencyTrend":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"first_token_latency_ms":{
+										"title":"first_token_latency_ms",
+										"type":"number"
+									},
+									"p50_latency_ms":{
+										"title":"p50_latency_ms",
+										"type":"integer"
+									},
+									"p90_latency_ms":{
+										"title":"p90_latency_ms",
+										"type":"number"
+									},
+									"timestamp":{
+										"title":"Timestamp",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"latencyTrend",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"Filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"endDate":{
+							"title":"End Date",
+							"type":"integer"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":653,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BCGbk-1",
+			"id":"n_NWJhY",
+			"index":2,
+			"inputs":{
+				"automationId":"6a3e0856112708487115d403",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"filter":"{{ n_e7csm.outputs.Filter }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Filter",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BCGbk-1",
+			"id":"_o1G2f",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"prevEndTime":{
+							"title":"Prev End Time",
+							"type":"integer"
+						},
+						"prevStartTime":{
+							"title":"Prev Start Time",
+							"type":"integer"
+						},
+						"region":{
+							"title":"Region",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"since":{
+							"title":"Since",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						},
+						"until":{
+							"title":"Until",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import groovy.time.TimeCategory\nimport java.time.*\n\ndef startTime\ndef endTime\n\nif (binding.hasVariable('until')) {\n    endTime = until\n} else {\n    endTime = new Date().time\n}\n\nif (binding.hasVariable('since')) {\n    startTime = since\n} else {\n    use(TimeCategory) {\n        startTime = (new Date(endTime) - 30.days).time\n    }\n}\n\ndef offsetMinutes(timezone) {\n    if (!timezone) return 0\n    def m = timezone =~ /([+-])(\\d{2}):(\\d{2})/\n    if (!m.find()) return 0\n\n    def sign = m.group(1) == '-' ? -1 : 1\n    def hours = m.group(2).toInteger()\n    def mins  = m.group(3).toInteger()\n\n    return sign * (hours * 60 + mins)\n}\n\ndef userTimeZone = binding.hasVariable('timeZone')\n        ? timeZone.replace('GMT', '')\n        : '+00:00'\n\ndef gmtToAnyRegion(String gmt) {\n    if (!gmt) return 'UTC'\n\n    def offset = gmt.replace('GMT', '')\n    ZoneOffset target = ZoneOffset.of(offset)\n    Instant now = Instant.now()\n\n    def zone = ZoneId.getAvailableZoneIds()\n            .find { id ->\n                ZoneId.of(id).rules.getOffset(now) == target\n            }\n\n    return zone ?: 'UTC'\n}\n\ndef gmtToAnyRegion = gmtToAnyRegion(userTimeZone)\n\n// Timezone offset in millis (e.g. GMT+05:30 -> 19800000)\nlong offsetMillis = (offsetMinutes(userTimeZone) as long) * 60000L\n\nlong millisInDay = 24 * 60 * 60 * 1000\nlong daysBetween = ((endTime - startTime) / millisInDay) as long\n\n// previous window: same span, ends where current starts\nlong span     = endTime - startTime\nlong prevEnd   = startTime          // endOfPrev = startOfCurrent\nlong prevStart = startTime - span   // startOfPrev = prevEnd - span\n\n\nreturn [\"startTime\": startTime, \"endTime\": endTime, \"region\": gmtToAnyRegion, \"offsetMillis\": offsetMillis, \"prevStartTime\": prevStart, \"prevEndTime\": prevEnd, \"limit\": daysBetween+1]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"since":"{{ n_e7csm.outputs.startDate }}",
+					"timeZone":"{{ n_e7csm.outputs.timeZone }}",
+					"until":"{{ n_e7csm.outputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculate StartTime and endTime",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BCGbk-1",
+			"id":"n_6AVb1",
+			"index":4,
+			"inputs":{
+				"branches":[
+					{
+						"id":"1",
+						"inputs":{
+							"name":"Latency and First Token Time"
+						}
+					},
+					{
+						"id":"2",
+						"inputs":{
+							"name":"Average Latency"
+						}
+					},
+					{
+						"id":"default"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Branch",
+			"title":"",
+			"type":"BRANCH"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@1",
+			"id":"n_6AVb1@1",
+			"index":5,
+			"inputs":{
+				"name":"Latency and First Token Time"
+			},
+			"skip":false,
+			"subTitle":"graph",
+			"title":"Latency and First Token Time",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":624,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@1",
+			"id":"_1omgC",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition)\n        ? traceCondition.trim()\n        : \"\"\n\ndef userCond  = (binding.hasVariable(\"userCondition\") && userCondition)\n        ? userCondition.trim()\n        : \"\"\n\ndef offsetMillis = (binding.hasVariable('offsetMillis') && offsetMillis) ? offsetMillis : 0L\n\ndef traceDynamicFilter = traceCond\n        ? \" WHERE t.deleted = false AND \" + traceCond + \" \"\n        : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter = userCond\n        ? \" WHERE u.deleted = false AND \" + userCond + \" \"\n        : \" WHERE u.deleted = false \"\n\n// Timezone-aware day bucket via offset floor-math (matches the fill node exactly):\n//   floor((tsMillis + offset) / DAY) * DAY - offset\ndef dayExpr = \"(FLOOR((UNIX_TIMESTAMP(shm.timestamp)*1000 + \" + offsetMillis +\n              \") / 86400000) * 86400000 - \" + offsetMillis + \")\"\n\ndef sql =\n\"SELECT \" +\n\"  \" + dayExpr + \" AS dayTimestamp, \" +\n\"  PERCENTILE_APPROX(CASE WHEN shm._pr_additional__responseTime > 0 THEN shm._pr_additional__responseTime END, 0.50) AS p50_latency_ms, \" +\n\"  PERCENTILE_APPROX(CASE WHEN shm._pr_additional__responseTime > 0 THEN shm._pr_additional__responseTime END, 0.90) AS p90_latency_ms, \" +\n\"  AVG(CASE WHEN shm._pr_additional__responseTime > 0 THEN shm._pr_additional__responseTime END) AS first_token_latency_ms \" +\n\n\"FROM ENTITY_service_hub_message shm \" +\n\n\"JOIN ( \" +\n\"    SELECT filtered_t._pr_messageId AS messageId \" +\n\"    FROM (SELECT * FROM ENTITY_e_traces t \" +\n       traceDynamicFilter +\n\"    ) filtered_t \" +\n\"    JOIN (SELECT * FROM USER u \" +\n       userDynamicFilter +\n\"    ) filtered_u \" +\n\"      ON filtered_t._pr_userId = filtered_u.userId \" +\n\" WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292', '66ac70650f725f5b425d12d8', '6851442f9e30586f552a6d73') \" +\n\"  AND filtered_t._pr_currentType = 'LLM' \" +\n\"      AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN :startTime AND :endTime \" +\n\n\") filtered_messages \" +\n\"  ON shm.id = filtered_messages.messageId \" +\n\n\"WHERE shm.deleted = false \" +\n\"  AND shm._pr_type = 'fan' \" +\n\"  AND UNIX_TIMESTAMP(shm.timestamp) * 1000 BETWEEN :startTime AND :endTime \" +\n\n\"GROUP BY dayTimestamp \" +\n\"ORDER BY dayTimestamp ASC\"\n\nreturn [\"sql\": sql]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"offsetMillis":"{{ _o1G2f.outputs.result.offsetMillis }}",
+					"traceCondition":"{{ n_NWJhY.outputs.traceCondition }}",
+					"userCondition":"{{ n_NWJhY.outputs.userCondition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Query",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":586,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@1",
+			"id":"n_pH7h2",
+			"index":7,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"dayTimestamp":{
+									"title":"Day Timestamp",
+									"type":"integer"
+								},
+								"first_token_latency_ms":{
+									"title":"first_token_latency_ms",
+									"type":"number"
+								},
+								"p50_latency_ms":{
+									"title":"p50_latency_ms",
+									"type":"integer"
+								},
+								"p90_latency_ms":{
+									"title":"p90_latency_ms",
+									"type":"number"
+								}
+							},
+							"required":[],
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ _1omgC.outputs.result.sql }}",
+				"record":{
+					"endTime":"{{ _o1G2f.outputs.result.endTime }}",
+					"startTime":"{{ _o1G2f.outputs.result.startTime }}"
+				},
+				"params":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.latencyVsTime.items.timestamp",
+					"root.parameters.latencyVsTime.items.p50_latency_ms",
+					"root.parameters.latencyVsTime.items.first_token_latency_ms",
+					"root.parameters.latencyVsTime.items.p90_latency_ms"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1035,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@1",
+			"id":"n_85dje",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"first_token_latency_ms":{
+										"title":"First Token Latency Ms",
+										"type":"number"
+									},
+									"p50_latency_ms":{
+										"title":"P 50 Latency Ms",
+										"type":"number"
+									},
+									"p90_latency_ms":{
+										"title":"P 90 Latency Ms",
+										"type":"number"
+									},
+									"timestamp":{
+										"title":"Timestamp",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Result",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"latencyVsTime":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"first_token_latency_ms":{
+										"title":"First Token Latency Ms",
+										"type":"number"
+									},
+									"p50_latency_ms":{
+										"title":"P 50 Latency Ms",
+										"type":"number"
+									},
+									"p90_latency_ms":{
+										"title":"P 90 Latency Ms",
+										"type":"number"
+									},
+									"timestamp":{
+										"title":"Timestamp",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Latency Vs Time",
+							"type":"array"
+						},
+						"offsetMillis":{
+							"title":"Offset Millis",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def rows      = (binding.hasVariable('latencyVsTime') && latencyVsTime) ? latencyVsTime : []\ndef startTime = (binding.hasVariable('startTime') && startTime) ? startTime : 0L\ndef endTime   = (binding.hasVariable('endTime') && endTime)     ? endTime   : 0L\ndef offsetMillis = (binding.hasVariable('offsetMillis') && offsetMillis) ? offsetMillis : 0L\n\ndef DAY_MS = 86400000L\n\n// Align to START OF DAY in the user's timezone (same key the SQL emits)\ndef alignedStart = (((startTime + offsetMillis) / DAY_MS).toLong() * DAY_MS) - offsetMillis\n\ndef dataMap = rows.collectEntries { row ->\n    [(row?.timestamp as Long): row]\n}\n\ndef allDays = []\ndef cursor = alignedStart\nwhile (cursor <= endTime) {\n    allDays << cursor\n    cursor += DAY_MS\n}\n\ndef result = allDays.collect { ts ->\n    def row = dataMap.get(ts)\n    [\n        \"timestamp\"             : ts,\n        \"p50_latency_ms\"        : row?.p50_latency_ms         ?: 0,\n        \"p90_latency_ms\"        : row?.p90_latency_ms         ?: 0,\n        \"first_token_latency_ms\": row?.first_token_latency_ms ?: 0\n    ]\n}\n\nreturn [\"result\": result]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"endTime":"{{ _o1G2f.outputs.result.endTime }}",
+					"latencyVsTime":{
+						"items":{
+							"first_token_latency_ms":"{{ n_pH7h2.outputs.objects[0].columns.first_token_latency_ms }}",
+							"p50_latency_ms":"{{ n_pH7h2.outputs.objects[0].columns.p50_latency_ms }}",
+							"p90_latency_ms":"{{ n_pH7h2.outputs.objects[0].columns.p90_latency_ms }}",
+							"timestamp":"{{ n_pH7h2.outputs.objects[0].columns.dayTimestamp }}"
+						},
+						"source":"{{ n_pH7h2.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"offsetMillis":"{{ _o1G2f.outputs.result.offsetMillis }}",
+					"startTime":"{{ _o1G2f.outputs.result.startTime }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"generate response",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@2",
+			"id":"n_6AVb1@2",
+			"index":9,
+			"inputs":{
+				"name":"Average Latency"
+			},
+			"skip":false,
+			"subTitle":"avg latency",
+			"title":"Average Latency",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":624,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@2",
+			"id":"n_lVByY",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition)\n        ? traceCondition.trim()\n        : \"\"\n\ndef userCond  = (binding.hasVariable(\"userCondition\") && userCondition)\n        ? userCondition.trim()\n        : \"\"\n\ndef traceDynamicFilter = traceCond\n        ? \" WHERE t.deleted = false AND \" + traceCond + \" \"\n        : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter = userCond\n        ? \" WHERE u.deleted = false AND \" + userCond + \" \"\n        : \" WHERE u.deleted = false \"\n\ndef sql =\n\"SELECT \" +\n\"  AVG(CASE WHEN shm._pr_additional__responseTime > 0 THEN shm._pr_additional__responseTime END) AS avg_latency_ms \" +\n\n\"FROM ENTITY_service_hub_message shm \" +\n\n\"JOIN ( \" +\n\"    SELECT filtered_t._pr_messageId AS messageId \" +\n\"    FROM (SELECT * FROM ENTITY_e_traces t \" +\n           traceDynamicFilter +\n\"    ) filtered_t \" +\n\"    JOIN (SELECT * FROM USER u \" +\n           userDynamicFilter +\n\"    ) filtered_u \" +\n\"      ON filtered_t._pr_userId = filtered_u.userId \" +\n\" WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292', '66ac70650f725f5b425d12d8', '6851442f9e30586f552a6d73') \" +\n\"  AND filtered_t._pr_currentType = 'LLM' \" +\n\"      AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN :startTime AND :endTime \" +\n\n\") filtered_messages \" +\n\"  ON shm.id = filtered_messages.messageId \" +\n\n\"WHERE shm.deleted = false \" +\n\"  AND shm._pr_type = 'fan' \" +\n\"  AND UNIX_TIMESTAMP(shm.timestamp) * 1000 BETWEEN :startTime AND :endTime\"\n\nreturn [\"sql\": sql]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"traceCondition":"{{ n_NWJhY.outputs.traceCondition }}",
+					"userCondition":"{{ n_NWJhY.outputs.userCondition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Query",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":586,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6AVb1@_BCGbk-1@2",
+			"id":"n_rURKK",
+			"index":11,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"avg_latency_ms":{
+									"title":"avg_latency_ms",
+									"type":"number"
+								}
+							},
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_lVByY.outputs.result.sql }}",
+				"record":{
+					"endTime":"{{ _o1G2f.outputs.result.endTime }}",
+					"startTime":"{{ _o1G2f.outputs.result.startTime }}"
+				},
+				"params":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":599,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BCGbk-1",
+			"id":"_YuRUc",
+			"index":12,
+			"inputs":{
+				"result":{
+					"avgLatency":"{{ n_rURKK.outputs.objects[0].columns.avg_latency_ms }}",
+					"latencyTrend":{
+						"items":{
+							"first_token_latency_ms":"{{ n_85dje.outputs.result.result[0].first_token_latency_ms }}",
+							"p50_latency_ms":"{{ n_85dje.outputs.result.result[0].p50_latency_ms }}",
+							"p90_latency_ms":"{{ n_85dje.outputs.result.result[0].p90_latency_ms }}",
+							"timestamp":"{{ n_85dje.outputs.result.result[0].timestamp }}"
+						},
+						"source":"{{ n_85dje.outputs.result.result }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a45f7d2f02d9921b8ca671e",
+	"workflowVersion":22
+}
