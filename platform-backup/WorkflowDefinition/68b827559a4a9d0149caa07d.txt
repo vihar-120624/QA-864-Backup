@@ -1,0 +1,443 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744482771,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744482884,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed0e2cee862008d753d6d",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":22
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_ibC8F",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_N9m6Z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_N9m6Z",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Iq9ab",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"Iq9ab",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cTrHh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cTrHh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IJ3OW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_N9m6Z",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IJ3OW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IJ3OW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bd348",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68b827559a4a9d0149caa07d",
+	"lastModifiedBy":-1,
+	"lcName":"throw exception | agent",
+	"modifiedTime":1788252972590,
+	"name":"Throw Exception | Agent",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q6V6J-1",
+			"id":"n_ibC8F",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"response":{
+							"title":"Response",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"costFlag":{
+							"title":"Cost Flag",
+							"type":"boolean"
+						},
+						"errorDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Details",
+							"type":"object"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":439,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q6V6J-1",
+			"id":"n_N9m6Z",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_ibC8F.outputs.caseId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"case present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":325,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_N9m6Z@_Q6V6J-1@y",
+			"id":"Iq9ab",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"errorDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Details",
+							"type":"object"
+						},
+						"failure":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Failure",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"errorDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Details",
+							"type":"object"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"executionId":{
+							"title":"Execution Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"rootExecutionId":{
+							"title":"Root Execution Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def failure = [\n    \"messageId\" : binding.hasVariable(\"messageId\") ? messageId : null,\n    \"errorMessage\": binding.hasVariable(\"errorMessage\") ? errorMessage : null,\n    \"executionId\": binding.hasVariable(\"executionId\") ? executionId : null,\n    \"rootExecutionId\": binding.hasVariable(\"rootExecutionId\") ? rootExecutionId : null\n  ]\n\nreturn [\n  \"failure\": failure,\n  \"errorDetails\" : binding.hasVariable(\"errorDetails\") ? errorDetails : failure\n]",
+				"compile_static":false,
+				"parameters":{
+					"errorDetails":"{{ n_ibC8F.outputs.errorDetails }}",
+					"errorMessage":"{{ n_ibC8F.outputs.errorMessage }}",
+					"executionId":"{{ __RUN__.outputs.parentExecutionId }}",
+					"messageId":"{{ n_ibC8F.outputs.messageId }}",
+					"rootExecutionId":"{{ __RUN__.outputs.rootExecutionId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Failure details",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":662,
+				"resourceName":"storage_by_unifyapps_upsert_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_N9m6Z@_Q6V6J-1@y",
+			"id":"n_cTrHh",
+			"index":4,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"debug_agent",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"ADD",
+						"fieldName":"properties.events",
+						"setValue":"Trigger Failed -> Error is -> {{ Iq9ab.outputs.result.errorDetails }}"
+					},
+					{
+						"actionType":"ADD_TO_SET",
+						"fieldName":"properties.triggerFailureReason",
+						"setValue":"{{ Iq9ab.outputs.result.failure }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.caseId",
+						"setValue":"{{ n_ibC8F.outputs.caseId }}"
+					}
+				],
+				"id":"{{ n_ibC8F.outputs.caseId }}",
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Upsert Record",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":451,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q6V6J-1",
+			"id":"n_IJ3OW",
+			"index":5,
+			"inputs":{
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"costFlag":{
+							"title":"Cost Flag",
+							"type":"boolean"
+						},
+						"errorDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Details",
+							"type":"object"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def message = \"\"\n\nif (binding.hasVariable(\"errorMessage\") && errorMessage) {\n    message = errorMessage\n}\nif(binding.hasVariable(\"costFlag\") && costFlag == true)\n{\n    message = \"[COSTFLAG]\"+message\n}\nelse if (binding.hasVariable(\"errorDetails\") && errorDetails) {\n    if (errorDetails?.message) {\n        message = errorDetails.message\n    }\n    else if (errorDetails?.body instanceof List && errorDetails.body && errorDetails.body.size() > 0 && errorDetails.body[0] instanceof Map && errorDetails.body[0]?.error?.message) {\n        message = errorDetails.body[0].error.message\n    }\n    else if (errorDetails?.body instanceof Map && errorDetails.body?.error?.message) {\n        message = errorDetails.body.error.message\n    }\n    else if (errorDetails?.body instanceof String) {\n        message = errorDetails.body\n    }\n    else {\n        message = com.unifyapps.infra.utils.JsonUtils.toJson(errorDetails)\n    }\n}\n\nif (!message) {\n    message = \"Agent process failed\"\n}\n\nthrow new RuntimeException(message)\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"costFlag":"{{ n_ibC8F.outputs.costFlag }}",
+					"errorDetails":"{{ n_ibC8F.outputs.errorDetails }}",
+					"errorMessage":"{{ n_ibC8F.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Throw Error",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Q6V6J-1",
+			"id":"n_bd348",
+			"index":6,
+			"inputs":{
+				"result":{
+					"response":"-"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":24
+}
