@@ -1,0 +1,625 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743431813,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_PLwhu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7Rxzk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7Rxzk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3PJfJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3PJfJ",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_DnFlm",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_DnFlm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_cJpoD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3PJfJ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dTcFA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dTcFA",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_qeeif",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dTcFA",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_Ur1WI",
+			"type":"error"
+		}
+	],
+	"id":"6a8eccc73f7ad93bb1670b49",
+	"lastModifiedBy":-1,
+	"lcName":"web scraping generic",
+	"modifiedTime":1787743431815,
+	"name":"Web Scraping Generic",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"5s0uf-1",
+			"id":"_PLwhu",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error",
+							"type":"object"
+						},
+						"file":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File",
+							"type":"object"
+						},
+						"markdownContent":{
+							"title":"Markdown Content",
+							"type":"string"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						},
+						"status":{
+							"title":"Status",
+							"type":"boolean"
+						},
+						"web_content":{
+							"title":"Web Content",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"AI Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"internalModelId":{
+							"title":"Internal Model Id",
+							"type":"string"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						},
+						"raiseOnError":{
+							"title":"Raise On Error",
+							"type":"boolean"
+						},
+						"summarizeContent":{
+							"title":"Summarize Content",
+							"type":"boolean"
+						},
+						"summarizeModelId":{
+							"title":"Summarize Model Id",
+							"type":"string"
+						},
+						"toMarkdown":{
+							"title":"To Markdown",
+							"type":"boolean"
+						},
+						"uploadToFile":{
+							"title":"Upload To File",
+							"type":"boolean"
+						},
+						"url":{
+							"title":"Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":629,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"5s0uf-1",
+			"id":"n_7Rxzk",
+			"index":2,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ _PLwhu.outputs.internalModelId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"GetAgentModelCached",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":447,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"5s0uf-1",
+			"id":"n_3PJfJ",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ _PLwhu.outputs.raiseOnError }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_3PJfJ@5s0uf-1@y",
+			"id":"_DnFlm",
+			"index":4,
+			"inputs":{
+				"callableInterfaceId":"68d4f4958cb7f04ab450e243",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"firecrawl"
+									},
+									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"68d4e25f125eb61e310c5bdd"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"scrapper"
+									},
+									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"68d4e4eeccdb95688ef26566"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"CONTAINS",
+										"value":"playwright"
+									},
+									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"playwright"
+									},
+									"property":"{{ __ENV__.outputs.DEFAULT_FALLBACK_WEBSCRAPING }}"
+								}
+							],
+							"operator":"OR"
+						},
+						"workflowId":"692bb902e956c55e3062b7f5"
+					}
+				],
+				"fallbackWorkflowId":"690708d9269b162d4115c804",
+				"parameters":{
+					"aiAgentId":"{{ _PLwhu.outputs.aiAgentId }}",
+					"caseId":"{{ _PLwhu.outputs.caseId }}",
+					"internalModelId":"{{ n_7Rxzk.outputs.id }}",
+					"summarizeContent":"{{ _PLwhu.outputs.summarizeContent }}",
+					"summarizeModelId":"{{ _PLwhu.outputs.summarizeModelId }}",
+					"toMarkdown":"{{ _PLwhu.outputs.toMarkdown }}",
+					"uploadToFile":"{{ _PLwhu.outputs.uploadToFile }}",
+					"url":"{{ _PLwhu.outputs.url }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Web Scraping",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_3PJfJ@5s0uf-1@y",
+			"id":"_cJpoD",
+			"index":5,
+			"inputs":{
+				"result":{
+					"markdownContent":"{{ _DnFlm.outputs.markdownContent }}",
+					"metadata":"{{ _PLwhu.outputs.metadata }}",
+					"status":true,
+					"web_content":"{{ _DnFlm.outputs.web_content }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_3PJfJ@5s0uf-1@n",
+			"id":"n_dTcFA",
+			"index":6,
+			"inputs":{
+				"callableInterfaceId":"68d4f4958cb7f04ab450e243",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"firecrawl"
+									},
+									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"68d4e25f125eb61e310c5bdd"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"scrapper"
+									},
+									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"68d4e4eeccdb95688ef26566"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"playwright"
+									},
+									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"playwright"
+									},
+									"property":"{{ __ENV__.outputs.DEFAULT_FALLBACK_WEBSCRAPING }}"
+								}
+							],
+							"operator":"OR"
+						},
+						"workflowId":"692bb902e956c55e3062b7f5"
+					}
+				],
+				"fallbackWorkflowId":"690708d9269b162d4115c804",
+				"parameters":{
+					"aiAgentId":"{{ _PLwhu.outputs.aiAgentId }}",
+					"caseId":"{{ _PLwhu.outputs.caseId }}",
+					"internalModelId":"{{ n_7Rxzk.outputs.id }}",
+					"summarizeContent":"{{ _PLwhu.outputs.summarizeContent }}",
+					"summarizeModelId":"{{ _PLwhu.outputs.summarizeModelId }}",
+					"toMarkdown":"{{ _PLwhu.outputs.toMarkdown }}",
+					"uploadToFile":"{{ _PLwhu.outputs.uploadToFile }}",
+					"url":"{{ _PLwhu.outputs.url }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Web Scraping",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dTcFA@n_3PJfJ@5s0uf-1@n@success",
+			"id":"_qeeif",
+			"index":7,
+			"inputs":{
+				"result":{
+					"markdownContent":"{{ n_dTcFA.outputs.markdownContent }}",
+					"metadata":"{{ _PLwhu.outputs.metadata }}",
+					"status":true,
+					"web_content":"{{ n_dTcFA.outputs.web_content }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dTcFA@n_3PJfJ@5s0uf-1@n@error",
+			"id":"_Ur1WI",
+			"index":8,
+			"inputs":{
+				"result":{
+					"error":"{{ n_dTcFA.outputs }}",
+					"metadata":"{{ _PLwhu.outputs.metadata }}",
+					"status":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Internal"
+	],
+	"version":0,
+	"workflowDefinitionId":"69070cbc269b162d4115d353",
+	"workflowVersion":185
+}
