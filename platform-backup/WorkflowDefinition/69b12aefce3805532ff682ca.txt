@@ -1,0 +1,259 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743754529,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743754579,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece0a45d2142160e6de5c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":26
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Hb9fw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LC15A",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FWXq1",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69b12aefce3805532ff682ca",
+	"lastModifiedBy":-1,
+	"lcName":"[outlook] fetch attachments details wrapper",
+	"modifiedTime":1788252971529,
+	"name":"[Outlook] Fetch Attachments Details Wrapper",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1926,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_Hb9fw",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Attachment Details",
+							"type":"array"
+						},
+						"totalAttachments":{
+							"title":"Total Attachments",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentId":{
+							"help":"Specific attachment ID to fetch. If omitted all attachments of the email are fetched.",
+							"title":"Attachment Id",
+							"type":"string"
+						},
+						"messageId":{
+							"help":"The email message ID that contains the attachment.",
+							"title":"Message Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.startEpoch",
+					"root.parameters.endEpoch",
+					"root.parameters.limit",
+					"root.parameters.offset",
+					"root.parameters.isRead",
+					"root.parameters.from",
+					"root.parameters.orderBy",
+					"root.parameters.orderDir"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1928,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_LC15A",
+			"index":2,
+			"inputs":{
+				"automationId":"69b12bd5b0ce4465ffd33d97",
+				"runtimeConnections":{
+					"microsoft_outlook":"6a1717b35b2d5c0269ed714f"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"attachmentId":"{{ n_Hb9fw.outputs.attachmentId }}",
+					"messageId":"{{ n_Hb9fw.outputs.messageId }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Get Attachment Details",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_FWXq1",
+			"index":3,
+			"inputs":{
+				"result":{
+					"attachmentDetails":{
+						"items":"{{ n_LC15A.outputs.attachments[0] }}",
+						"source":"{{ n_LC15A.outputs.attachments }}",
+						"ua:type":"mappedArray"
+					},
+					"totalAttachments":"{{ n_LC15A.outputs.totalAttachments }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Attachments Data",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":28
+}

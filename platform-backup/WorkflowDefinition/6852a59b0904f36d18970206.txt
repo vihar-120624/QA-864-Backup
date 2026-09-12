@@ -1,0 +1,414 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743754661,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743754705,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece0a45d2142160e6de60",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":29
+	},
+	"edges":[
+		{
+			"fromNodeId":"ub1OO",
+			"id":"next@ub1OO@n_FAC0p",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FAC0p",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FAC0p",
+			"id":"next@n_FAC0p@n_8omqj",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8omqj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FAC0p",
+			"id":"error@n_FAC0p@_GP1Kf",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_GP1Kf",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_8omqj",
+			"id":"next@n_8omqj@2892Q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"2892Q",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_GP1Kf",
+			"id":"next@_GP1Kf@2892Q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"2892Q",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6852a59b0904f36d18970206",
+	"lastModifiedBy":-1,
+	"lcName":"execute tool (signal wrapper)",
+	"modifiedTime":1788252971535,
+	"name":"Execute Tool (Signal Wrapper)",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AdoDF-1",
+			"id":"ub1OO",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"dynamic":true
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"actionId":{
+							"title":"Action Id",
+							"type":"string"
+						},
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"currentTaskId":{
+							"help":"Task Id with which the tool triggering agent is triggered by a team.",
+							"title":"currentTaskId",
+							"type":"string"
+						},
+						"executeUsingModel":{
+							"title":"executeUsingModel",
+							"type":"string"
+						},
+						"llmResponse":{
+							"title":"Llm Response",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"parallelToolCallEnabled":{
+							"title":"Parallel Tool Call Enabled",
+							"type":"boolean"
+						},
+						"signalProperties":{
+							"additionalProperties":false,
+							"properties":{
+								"signalId":{
+									"title":"Signal Id",
+									"type":"string"
+								},
+								"waitingInstanceId":{
+									"title":"Waiting Instance Id",
+									"type":"string"
+								},
+								"waitingInstanceRunTimeType":{
+									"title":"Waiting Instance Run Time Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Signal Properties",
+							"type":"object"
+						},
+						"thinkingSignature":{
+							"title":"Thinking Signature",
+							"type":"string"
+						},
+						"thought":{
+							"title":"thought",
+							"type":"string"
+						},
+						"toolAdditional":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Additional",
+							"type":"object"
+						},
+						"toolId":{
+							"title":"Tool Id",
+							"type":"string"
+						},
+						"toolIndex":{
+							"title":"Tool Index",
+							"type":"integer"
+						},
+						"toolInputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Inputs",
+							"type":"object"
+						},
+						"toolName":{
+							"title":"Tool Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"toolName",
+						"toolId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.toolId",
+					"root.parameters.toolName",
+					"root.parameters.thought",
+					"root.parameters.aiAgentId",
+					"root.parameters.caseId",
+					"root.parameters.messageId",
+					"root.parameters.llmResponse",
+					"root.parameters.executeUsingModel"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"AdoDF-1",
+			"id":"n_FAC0p",
+			"index":2,
+			"inputs":{
+				"automationId":"67df12719fa26d792211be4f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"actionId":"{{ ub1OO.outputs.actionId }}",
+					"aiAgentId":"{{ ub1OO.outputs.aiAgentId }}",
+					"caseId":"{{ ub1OO.outputs.caseId }}",
+					"currentTaskId":"{{ ub1OO.outputs.currentTaskId }}",
+					"executeUsingModel":"{{ ub1OO.outputs.executeUsingModel }}",
+					"llmResponse":"{{ ub1OO.outputs.llmResponse }}",
+					"messageId":"{{ ub1OO.outputs.messageId }}",
+					"parallelToolCallEnabled":"{{ ub1OO.outputs.parallelToolCallEnabled }}",
+					"thinkingSignature":"{{ ub1OO.outputs.thinkingSignature }}",
+					"thought":"{{ ub1OO.outputs.thought }}",
+					"toolAdditional":"{{ ub1OO.outputs.toolAdditional }}",
+					"toolId":"{{ ub1OO.outputs.toolId }}",
+					"toolIndex":"{{ ub1OO.outputs.toolIndex }}",
+					"toolInputs":"{{ ub1OO.outputs.toolInputs }}",
+					"toolName":"{{ ub1OO.outputs.toolName }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Execute Tool",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":453,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_FAC0p@AdoDF-1@success",
+			"id":"n_8omqj",
+			"index":3,
+			"inputs":{
+				"automation_id":"67850d225384a9541846f5b9",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ ub1OO.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ ub1OO.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ ub1OO.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"errorFeedback":"{{ n_FAC0p.outputs.errorFeedback }}",
+					"messageId":"{{ n_FAC0p.outputs.messageId }}",
+					"success":"{{ n_FAC0p.outputs.success }}",
+					"toolName":"{{ ub1OO.outputs.toolName }}"
+				},
+				"nodeId":"n_iSpSU"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":453,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_FAC0p@AdoDF-1@error",
+			"id":"_GP1Kf",
+			"index":4,
+			"inputs":{
+				"automation_id":"67850d225384a9541846f5b9",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ ub1OO.outputs.signalProperties.waitingInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ ub1OO.outputs.signalProperties.waitingInstanceId }}",
+				"signal_id":"{{ ub1OO.outputs.signalProperties.signalId }}",
+				"signal_payload":{
+					"errorFeedback":"{{ n_FAC0p.outputs }}",
+					"messageId":"{{ ub1OO.outputs.messageId }}",
+					"success":false,
+					"toolName":"{{ ub1OO.outputs.toolName }}"
+				},
+				"nodeId":"n_iSpSU"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AdoDF-1",
+			"id":"2892Q",
+			"index":5,
+			"inputs":{
+				"result":{
+					"status":"OK"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":31
+}
