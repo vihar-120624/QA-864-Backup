@@ -1,0 +1,277 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744009949,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744010121,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf0aba51514edfc7e225",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":5
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_1WfOP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bweTm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bweTm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IHzXJ",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"688862e1bf72d73b684c4279",
+	"lastModifiedBy":-1,
+	"lcName":"upload file",
+	"modifiedTime":1788252971353,
+	"name":"Upload File",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{
+						"response":[
+							{}
+						]
+					}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":460,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Cm1Ik-1",
+			"id":"n_1WfOP",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"multipart/form-data"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"files":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"fileExtension":{
+												"title":"File Extension",
+												"type":"string"
+											},
+											"fileType":{
+												"title":"File Type",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											},
+											"source":{
+												"title":"Source",
+												"type":"string"
+											},
+											"sourceType":{
+												"title":"Source Type",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Files",
+									"type":"array"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"namespaces":[],
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.files.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":449,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Cm1Ik-1",
+			"id":"n_bweTm",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"finalFiles":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"fileExtension":{
+										"title":"File Extension",
+										"type":"string"
+									},
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Final Files",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"files":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Files",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def finalFiles = []\n\ndef extensionToMimeType = [\n  \"pdf\"  : \"application/pdf\",\n  \"doc\"  : \"application/msword\",\n  \"docx\" : \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"xls\"  : \"application/vnd.ms-excel\",\n  \"xlsx\" : \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\n  \"csv\"  : \"text/csv\",\n  \"png\"  : \"image/png\",\n  \"jpg\"  : \"image/jpeg\",\n  \"jpeg\" : \"image/jpeg\",\n  \"txt\"  : \"text/plain\"\n]\n\nfiles.each { file ->\n  def extension = file.source?.tokenize('.')?.last()?.toLowerCase()\n  def mimeType = extensionToMimeType.get(extension, \"application/octet-stream\")\n\n  def nameWithExt = file.name\n  \n  def processedFile = [\n    fileExtension : extension,\n    fileType      : mimeType,\n    name          : nameWithExt,\n    source        : file.source,\n    sourceType    : file.sourceType\n  ]\n  finalFiles << processedFile\n}\n\nreturn[\n  finalFiles : finalFiles\n]",
+				"compile_static":false,
+				"parameters":{
+					"files":{
+						"items":"{{ n_1WfOP.outputs.files[0] }}",
+						"source":"{{ n_1WfOP.outputs.files }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":460,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Cm1Ik-1",
+			"id":"n_IHzXJ",
+			"index":3,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"files":{
+						"items":{
+							"fileExtension":"{{ n_bweTm.outputs.result.finalFiles[0].fileExtension }}",
+							"fileType":"{{ n_bweTm.outputs.result.finalFiles[0].fileType }}",
+							"name":"{{ n_bweTm.outputs.result.finalFiles[0].name }}",
+							"source":"{{ n_bweTm.outputs.result.finalFiles[0].source }}",
+							"sourceType":"{{ n_bweTm.outputs.result.finalFiles[0].sourceType }}"
+						},
+						"source":"{{ n_bweTm.outputs.result.finalFiles }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":7
+}

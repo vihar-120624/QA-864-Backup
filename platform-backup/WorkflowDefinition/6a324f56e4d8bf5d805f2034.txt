@@ -1,0 +1,498 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743756971,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743757056,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece0d9d7c534668ef7763",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":133
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_uBOTh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fEUCe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_fEUCe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_krNXa",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_krNXa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QfJLd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QfJLd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_M06zS",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a324f56e4d8bf5d805f2034",
+	"lastModifiedBy":-1,
+	"lcName":"lowe's | prompt | list saved custom prompts",
+	"modifiedTime":1788252971355,
+	"name":"Lowe's | Prompt | List Saved Custom Prompts",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{
+						"request":{}
+					}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1123,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_uBOTh",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"category":{
+								"title":"Category",
+								"type":"string"
+							},
+							"defaultPromptCategory":{
+								"title":"Default Prompt Category",
+								"type":"string"
+							},
+							"onlyBookmarked":{
+								"title":"Only Bookmarked",
+								"type":"boolean"
+							},
+							"page":{
+								"title":"Page",
+								"type":"integer"
+							},
+							"pageSize":{
+								"title":"Page Size",
+								"type":"integer"
+							},
+							"searchQuery":{
+								"title":"Search Query",
+								"type":"string"
+							},
+							"sortByAtoZ":{
+								"title":"Sort By A to Z",
+								"type":"boolean"
+							},
+							"sortOrder":{
+								"title":"Sort Order",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"message":{
+									"title":"Message",
+									"type":"string"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"success"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"status":400,
+						"textBody":{
+							"type":"string"
+						}
+					},
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"metadata":{
+									"additionalProperties":false,
+									"properties":{
+										"page":{
+											"title":"Page",
+											"type":"integer"
+										},
+										"pageSize":{
+											"title":"Page Size",
+											"type":"integer"
+										},
+										"totalCount":{
+											"title":"Total Count",
+											"type":"integer"
+										},
+										"totalPages":{
+											"title":"Total Pages",
+											"type":"integer"
+										}
+									},
+									"required":[],
+									"title":"Metadata",
+									"type":"object"
+								},
+								"prompts":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"bookmark":{
+												"title":"Bookmark",
+												"type":"boolean"
+											},
+											"createdAt":{
+												"title":"Created At",
+												"type":"integer"
+											},
+											"prompt":{
+												"title":"Prompt",
+												"type":"string"
+											},
+											"promptId":{
+												"title":"Prompt Id",
+												"type":"string"
+											},
+											"promptTitle":{
+												"title":"Prompt Title",
+												"type":"string"
+											},
+											"updatedAt":{
+												"title":"Updated At",
+												"type":"integer"
+											},
+											"userId":{
+												"title":"User Id",
+												"type":"string"
+											}
+										},
+										"required":[
+											"promptId",
+											"userId"
+										],
+										"type":"object"
+									},
+									"title":"Prompts",
+									"type":"array"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"success",
+								"prompts"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_fEUCe",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"sorts":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Sorts",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"category":{
+							"title":"Category",
+							"type":"string"
+						},
+						"defaultPromptCategory":{
+							"title":"Default Prompt Category",
+							"type":"string"
+						},
+						"onlyBookmarked":{
+							"title":"Only Bookmarked",
+							"type":"boolean"
+						},
+						"page":{
+							"title":"Page",
+							"type":"integer"
+						},
+						"pageSize":{
+							"title":"Page Size",
+							"type":"integer"
+						},
+						"sortByAtoZ":{
+							"title":"Sort By Ato Z",
+							"type":"boolean"
+						},
+						"sortOrder":{
+							"title":"Sort Order",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// calculate offset and limit \n// Builds dynamic search filters (user, category, bookmark) and sorting criteria for prompt retrieval.\n// Returns the final query configuration object for the 'prompt_manager'\n\ndef userId               = binding.hasVariable('userId')               ? userId               : null\ndef sortByAtoZ           = binding.hasVariable('sortByAtoZ')           ? sortByAtoZ           : false\ndef onlyBookmarked       = binding.hasVariable('onlyBookmarked')       ? onlyBookmarked       : false\ndef sortOrder            = binding.hasVariable('sortOrder')            ? sortOrder            : null\ndef category              = binding.hasVariable('category')              ? category?.toString().trim() : ''\ndef defaultPromptCategory = binding.hasVariable('defaultPromptCategory') ? defaultPromptCategory?.toString().trim() : ''\n\n//phase1\ndef page     = binding.hasVariable('page')     ? page     : null\ndef pageSize = binding.hasVariable('pageSize') ? pageSize : null\n\nint pageInt     = page != null     ? page     : 0\nint pageSizeInt = pageSize != null ? pageSize : 20\n\nif (pageInt < 0)     { pageInt = 0 }\nif (pageSizeInt < 1) { pageSizeInt = 20 }\n\nint offset = pageInt * pageSizeInt\nint limit  = pageSizeInt\n\n// phase2\nif (category?.toLowerCase() == 'default') {\n    List<Map> defaultFilters = []\n    defaultFilters.add([\n        field : 'properties_category',\n        op    : 'EQUAL',\n        values: ['default']\n    ])\n\n    if (defaultPromptCategory) {\n        defaultFilters.add([\n            field : 'properties_defaultPromptCategory',\n            op    : 'REGEX',\n            values: [ '(?i)' +  defaultPromptCategory ]\n        ])\n    }\n\n    def filter = [\n        op    : 'AND',\n        values: defaultFilters\n    ]\n\n    return [\n        filter    : filter,\n        sorts     : [],\n        offset    : offset,\n        limit     : limit\n    ]\n}\n\n//phase3\nif (!userId) {\n    throw new IllegalArgumentException(\"Required binding 'userId' is missing or null\")\n}\n\nboolean sortAtoZ   = sortByAtoZ?.toString()     == 'true'\nboolean bookmarked = onlyBookmarked?.toString() == 'true'\n\ndef order\nif (sortOrder) {\n    order = sortOrder.toString().toLowerCase() == 'asc' ? 'ASC' : 'DESC'\n} else {\n    order = sortAtoZ ? 'ASC' : 'DESC'\n}\n\n\nList<Map> andFilters = []\nandFilters.add([\n    field : 'properties_userId',\n    op    : 'EQUAL',\n    values: [userId]\n])\nandFilters.add([\n    field : 'properties_category',\n    op    : 'EQUAL',\n    values: ['custom']\n])\nif (bookmarked) {\n    andFilters.add([\n        field : 'properties_bookmark',\n        op    : 'EQUAL',\n        values: [true]\n    ])\n}\ndef filter = [\n    op    : 'AND',\n    values: andFilters\n]\n\nList<Map> sorts = []\nif (sortAtoZ) {\n    sorts.add([\n        field: 'properties_promptTitle', \n        order: order,\n        additional: [ \"caseInsensitive\": true ]   //Should Triggers the Java backend collation\n    ])\n    sorts.add([\n        field: 'properties_prompt',      \n        order: order,\n        additional: [ \"caseInsensitive\": true ]    \n    ])\n} else {\n    sorts.add([field: 'mTm', order: order])\n}\n\n\nreturn [\n    filter    : filter,\n    sorts     : sorts,\n    offset    : offset,\n    limit     : limit\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"category":"{{ n_uBOTh.outputs.body.category }}",
+					"defaultPromptCategory":"{{ n_uBOTh.outputs.body.defaultPromptCategory }}",
+					"onlyBookmarked":"{{ n_uBOTh.outputs.body.onlyBookmarked }}",
+					"page":"{{ n_uBOTh.outputs.body.page }}",
+					"pageSize":"{{ n_uBOTh.outputs.body.pageSize }}",
+					"sortByAtoZ":"{{ n_uBOTh.outputs.body.sortByAtoZ }}",
+					"sortOrder":"{{ n_uBOTh.outputs.body.sortOrder }}",
+					"userId":"{{ __RUN__.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Create Custom Filter",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_krNXa",
+			"index":3,
+			"inputs":{
+				"searchField":{
+					"expression":"{{ n_uBOTh.outputs.body.searchQuery }}",
+					"fields":[
+						"properties_promptTitle",
+						"properties_prompt"
+					]
+				},
+				"object_type":"prompt_manager",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"includeTotalCount":true,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"resolvedFilter":{
+								"filter":"{{ n_fEUCe.outputs.result.filter }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"sortBy":[
+					{
+						"additionalSorts":"{{ n_fEUCe.outputs.result.sorts }}"
+					}
+				],
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":"{{ n_fEUCe.outputs.result.limit }}",
+					"offset":"{{ n_fEUCe.outputs.result.offset }}",
+					"paginateBy":"OFFSET"
+				},
+				"fields":[
+					"id",
+					"properties.prompt",
+					"properties.promptTitle",
+					"properties.userId",
+					"properties.bookmark",
+					"mTm",
+					"cTm"
+				],
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Records ",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1126,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_QfJLd",
+			"index":4,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"metadata":{
+						"page":"{{ n_uBOTh.outputs.body.page }}",
+						"pageSize":"{{ n_uBOTh.outputs.body.pageSize }}",
+						"totalCount":"{{ n_krNXa.outputs.total }}",
+						"totalPages":"=IF(OR(ISBLANK( {{ n_uBOTh.outputs.body.pageSize }} ), {{ n_uBOTh.outputs.body.pageSize }} <= 0), 1, CEILING.MATH( {{ n_krNXa.outputs.total }} / {{ n_uBOTh.outputs.body.pageSize }} ) )"
+					},
+					"prompts":{
+						"items":{
+							"bookmark":"{{ n_krNXa.outputs.objects[0].properties.bookmark }}",
+							"createdAt":"{{ n_krNXa.outputs.objects[0].createdTime }}",
+							"prompt":"{{ n_krNXa.outputs.objects[0].properties.prompt }}",
+							"promptId":"{{ n_krNXa.outputs.objects[0].id }}",
+							"promptTitle":"{{ n_krNXa.outputs.objects[0].properties.promptTitle }}",
+							"updatedAt":"{{ n_krNXa.outputs.objects[0].modifiedTime }}",
+							"userId":"{{ n_krNXa.outputs.objects[0].properties.userId }}"
+						},
+						"source":"{{ n_krNXa.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"success":true
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_M06zS",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":135
+}

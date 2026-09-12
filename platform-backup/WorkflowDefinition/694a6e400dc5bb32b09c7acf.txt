@@ -1,0 +1,632 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743726512,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743726637,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdee9d7c534668ef6f5e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":32
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_SGWRa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3dCn2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3dCn2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kpRLD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kpRLD",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BJD0D",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_BJD0D",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IwOAR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kpRLD",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IwOAR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IwOAR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uRSpY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uRSpY",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_faxeo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uRSpY",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_H9NhO",
+			"type":"error"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"694a6e400dc5bb32b09c7acf",
+	"lastModifiedBy":-1,
+	"lcName":"image generation generic",
+	"modifiedTime":1788252971359,
+	"name":"Image Generation Generic",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":661,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_V02Yh-1",
+			"id":"n_SGWRa",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"assetId":{
+							"title":"Asset Id",
+							"type":"string"
+						},
+						"result":{
+							"additionalProperties":false,
+							"properties":{
+								"images":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"size":{
+												"title":"size",
+												"type":"integer"
+											},
+											"source":{
+												"title":"source",
+												"type":"string"
+											},
+											"sourceType":{
+												"title":"sourceType",
+												"type":"string"
+											},
+											"type":{
+												"title":"type",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"images",
+									"type":"array"
+								}
+							},
+							"title":"result",
+							"type":"object"
+						},
+						"status":{
+							"title":"status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"assetId":{
+							"title":"Asset Id",
+							"type":"string"
+						},
+						"height":{
+							"title":"Height",
+							"type":"integer"
+						},
+						"images":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"imageFile":{
+										"additionalProperties":false,
+										"properties":{
+											"fileType":{
+												"title":"fileType",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"size":{
+												"title":"size",
+												"type":"string"
+											},
+											"source":{
+												"title":"source",
+												"type":"string"
+											},
+											"sourceType":{
+												"title":"sourceType",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Images",
+							"type":"array"
+						},
+						"internalModelId":{
+							"title":"Internal Model Id",
+							"type":"string"
+						},
+						"numImages":{
+							"title":"numImages",
+							"type":"integer"
+						},
+						"text":{
+							"title":"text",
+							"type":"string"
+						},
+						"width":{
+							"title":"Width",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":643,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_V02Yh-1",
+			"id":"n_3dCn2",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"internalModelId":{
+							"title":"Internal Model Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"internalModelId":"{{ n_SGWRa.outputs.internalModelId }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"internalModelId":{
+							"title":"Internal Model Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":450,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_V02Yh-1",
+			"id":"n_kpRLD",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_3dCn2.outputs.internalModelId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":629,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_kpRLD@_V02Yh-1@y",
+			"id":"n_BJD0D",
+			"index":4,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_3dCn2.outputs.internalModelId }}",
+						"value":"{{ __ENV__.outputs.DEFAULT_IMAGE_GENERATION_MODEL_ID }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":697,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_V02Yh-1",
+			"id":"n_IwOAR",
+			"index":5,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"fallback_model_type":"image_generation_model",
+					"modelId":"{{ n_3dCn2.outputs.internalModelId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"GetAgentModelCached",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":671,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_V02Yh-1",
+			"id":"n_uRSpY",
+			"index":6,
+			"inputs":{
+				"callableInterfaceId":"694a6d8f3f1c547006ea4fea",
+				"runtimeConnections":{
+					"amazon_bedrock":"{{ n_IwOAR.outputs.properties.connectionId }}",
+					"openai":"{{ n_IwOAR.outputs.properties.connectionId }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"openai"
+									},
+									"property":"{{ n_IwOAR.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"694a6da892f9e8017a4d59e6"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"amazon_bedrock"
+									},
+									"property":"{{ n_IwOAR.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"69673fa30a41296d31f8a033"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"google_gemini"
+									},
+									"property":"{{ n_IwOAR.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"69820a03e4630024dc06defc"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"azure_openai"
+									},
+									"property":"{{ n_IwOAR.outputs.properties.provider }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"69a5843b9bd4e12ad0cb27ec"
+					}
+				],
+				"fallbackWorkflowId":"694a6da892f9e8017a4d59e6",
+				"parameters":{
+					"height":"{{ n_SGWRa.outputs.height }}",
+					"imageFile":{
+						"fileType":"{{ n_SGWRa.outputs.imageFile.fileType }}",
+						"name":"{{ n_SGWRa.outputs.imageFile.name }}",
+						"size":"{{ n_SGWRa.outputs.imageFile.size }}",
+						"source":"{{ n_SGWRa.outputs.imageFile.source }}",
+						"sourceType":"{{ n_SGWRa.outputs.imageFile.sourceType }}"
+					},
+					"images":{
+						"items":{
+							"imageFile":{
+								"fileType":"{{ n_SGWRa.outputs.images[0].imageFile.fileType }}",
+								"name":"{{ n_SGWRa.outputs.images[0].imageFile.name }}",
+								"size":"{{ n_SGWRa.outputs.images[0].imageFile.size }}",
+								"source":"{{ n_SGWRa.outputs.images[0].imageFile.source }}",
+								"sourceType":"{{ n_SGWRa.outputs.images[0].imageFile.sourceType }}"
+							}
+						},
+						"source":"{{ n_SGWRa.outputs.images }}",
+						"ua:type":"mappedArray"
+					},
+					"model":"{{ n_IwOAR.outputs.properties.model }}",
+					"numImages":"{{ n_SGWRa.outputs.numImages }}",
+					"size":"",
+					"text":"{{ n_SGWRa.outputs.text }}",
+					"width":"{{ n_SGWRa.outputs.width }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Image Generation",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_uRSpY@_V02Yh-1@success",
+			"id":"n_faxeo",
+			"index":7,
+			"inputs":{
+				"result":{
+					"assetId":"{{ n_SGWRa.outputs.assetId }}",
+					"result":{
+						"images":{
+							"items":{
+								"name":"{{ n_uRSpY.outputs.result.images[0].name }}",
+								"size":"{{ n_uRSpY.outputs.result.images[0].size }}",
+								"source":"{{ n_uRSpY.outputs.result.images[0].source }}",
+								"sourceType":"{{ n_uRSpY.outputs.result.images[0].sourceType }}",
+								"type":"{{ n_uRSpY.outputs.result.images[0].type }}"
+							},
+							"source":"{{ n_uRSpY.outputs.result.images }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"status":"OK"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":831,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_uRSpY@_V02Yh-1@error",
+			"id":"n_H9NhO",
+			"index":8,
+			"inputs":{
+				"result":{
+					"assetId":"{{ n_SGWRa.outputs.assetId }}",
+					"status":"The image could not be generated"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":34
+}
