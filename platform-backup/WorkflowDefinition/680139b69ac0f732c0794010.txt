@@ -1,0 +1,744 @@
+{
+	"appsUsed":[
+		"watsonx_ai"
+	],
+	"createdTime":1787744448848,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744448943,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed0c02889f9507f121207",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":21
+	},
+	"edges":[
+		{
+			"fromNodeId":"OQiFp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Xw9Nl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Xw9Nl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"gc9Tm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"gc9Tm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"KsrZQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"KsrZQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"P6qbm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"P6qbm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"arlE0",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"680139b69ac0f732c0794010",
+	"lastModifiedBy":-1,
+	"lcName":"call watsonx",
+	"modifiedTime":1788252971431,
+	"name":"Call Watsonx",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":216,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"UjCXx-1",
+			"id":"OQiFp",
+			"index":0,
+			"inputs":{
+				"result":{
+					"properties":{
+						"finish_reason":{
+							"title":"finish_reason",
+							"type":"string"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"number"
+						},
+						"output":{
+							"title":"output",
+							"type":"string"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"number"
+						},
+						"tool_calls":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"arguments":{
+										"title":"arguments",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"toolId":{
+										"title":"Tool Id",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"tool_calls",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"__ua__call_llm_model_interface",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"frequency_penalty":{
+							"title":"frequency_penalty",
+							"type":"integer"
+						},
+						"logprobs":{
+							"title":"logprobs",
+							"type":"boolean"
+						},
+						"max_tokens":{
+							"title":"max_tokens",
+							"type":"integer"
+						},
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"content":{
+													"title":"content",
+													"type":"string"
+												},
+												"id":{
+													"title":"id",
+													"type":"string"
+												},
+												"image_url":{
+													"additionalProperties":false,
+													"properties":{
+														"detail":{
+															"title":"detail",
+															"type":"string"
+														},
+														"url":{
+															"title":"url",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"image_url",
+													"type":"object"
+												},
+												"input":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"input",
+													"type":"object"
+												},
+												"name":{
+													"title":"name",
+													"type":"string"
+												},
+												"source":{
+													"additionalProperties":false,
+													"properties":{
+														"detail":{
+															"title":"detail",
+															"type":"string"
+														},
+														"image_data":{
+															"title":"image_data",
+															"type":"string"
+														},
+														"image_type":{
+															"title":"image_type",
+															"type":"string"
+														},
+														"media_type":{
+															"title":"media_type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"Source",
+													"type":"object"
+												},
+												"text":{
+													"title":"text",
+													"type":"string"
+												},
+												"tool_use_id":{
+													"title":"tool_use_id",
+													"type":"string"
+												},
+												"type":{
+													"default":"text",
+													"title":"type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"required":[],
+										"title":"content",
+										"type":"array"
+									},
+									"role":{
+										"default":"user",
+										"title":"role",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"required":[],
+							"title":"messages",
+							"type":"array"
+						},
+						"model":{
+							"title":"model",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model ID",
+							"type":"string"
+						},
+						"on_error_config":{
+							"additionalProperties":false,
+							"properties":{
+								"error_msg":{
+									"title":"error_msg",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"on_error_config",
+							"type":"object"
+						},
+						"presence_penalty":{
+							"title":"presence_penalty",
+							"type":"integer"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"request_timeout":{
+							"title":"request_timeout",
+							"type":"integer"
+						},
+						"response_format":{
+							"additionalProperties":false,
+							"properties":{
+								"type":{
+									"title":"type",
+									"type":"string"
+								}
+							},
+							"title":"response_format",
+							"type":"object"
+						},
+						"retry_config":{
+							"additionalProperties":false,
+							"properties":{
+								"backoff_factor":{
+									"title":"backoff_factor",
+									"type":"integer"
+								},
+								"initial_delay":{
+									"title":"initial_delay",
+									"type":"integer"
+								},
+								"max_delay":{
+									"title":"max_delay",
+									"type":"integer"
+								},
+								"num_retry":{
+									"title":"num_retry",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"retry_config",
+							"type":"object"
+						},
+						"sessionId":{
+							"title":"Session Id",
+							"type":"string"
+						},
+						"stream":{
+							"title":"stream",
+							"type":"boolean"
+						},
+						"systemPrompt":{
+							"title":"System Prompt",
+							"type":"string"
+						},
+						"temperature":{
+							"title":"temperature",
+							"type":"integer"
+						},
+						"tools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"function":{
+										"additionalProperties":false,
+										"properties":{
+											"description":{
+												"title":"Description",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											},
+											"parameters":{
+												"additionalProperties":false,
+												"properties":{},
+												"title":"Parameters",
+												"type":"object"
+											}
+										},
+										"required":[],
+										"title":"Function",
+										"type":"object"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tools",
+							"type":"array"
+						},
+						"top_k":{
+							"title":"top_k",
+							"type":"integer"
+						},
+						"top_p":{
+							"title":"top_p",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"UjCXx-1",
+			"id":"n_Xw9Nl",
+			"index":0,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ OQiFp.outputs.modelId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":237,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"UjCXx-1",
+			"id":"gc9Tm",
+			"index":0,
+			"inputs":{
+				"automationId":"680220d6031d503ad3a9ee26",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"messages":{
+						"items":{
+							"content":{
+								"items":{
+									"content":"{{ OQiFp.outputs.messages[0].content[0].content }}",
+									"id":"{{ OQiFp.outputs.messages[0].content[0].id }}",
+									"image_url":{
+										"detail":"{{ OQiFp.outputs.messages[0].content[0].image_url.detail }}",
+										"url":"{{ OQiFp.outputs.messages[0].content[0].image_url.url }}"
+									},
+									"input":"{{ OQiFp.outputs.messages[0].content[0].input }}",
+									"name":"{{ OQiFp.outputs.messages[0].content[0].name }}",
+									"source":{
+										"detail":"{{ OQiFp.outputs.messages[0].content[0].source.detail }}",
+										"image_data":"{{ OQiFp.outputs.messages[0].content[0].source.image_data }}",
+										"image_type":"{{ OQiFp.outputs.messages[0].content[0].source.image_type }}",
+										"media_type":"{{ OQiFp.outputs.messages[0].content[0].source.media_type }}"
+									},
+									"text":"{{ OQiFp.outputs.messages[0].content[0].text }}",
+									"tool_use_id":"{{ OQiFp.outputs.messages[0].content[0].tool_use_id }}",
+									"type":"{{ OQiFp.outputs.messages[0].content[0].type }}"
+								},
+								"source":"{{ OQiFp.outputs.messages[0].content }}",
+								"ua:type":"mappedArray"
+							},
+							"role":"{{ OQiFp.outputs.messages[0].role }}"
+						},
+						"source":"{{ OQiFp.outputs.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"model":"{{ OQiFp.outputs.model }}",
+					"systemPrompt":"{{ OQiFp.outputs.systemPrompt }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.tools.items.function.description",
+					"root.tools.items.function.parameters"
+				]
+			},
+			"context":{
+				"appName":"watsonx_ai",
+				"resourceVersion":18,
+				"connectionId":"6805169561d6db41b6d0f04b",
+				"resourceName":"watsonx_ai_tool_calling",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"UjCXx-1",
+			"id":"KsrZQ",
+			"index":0,
+			"inputs":{
+				"time_limit":"{{ OQiFp.outputs.request_timeout }}",
+				"max_tokens":"{{ OQiFp.outputs.max_tokens }}",
+				"presence_penalty":"{{ OQiFp.outputs.presence_penalty }}",
+				"model_id":"{{ OQiFp.outputs.model }}",
+				"tools":{
+					"items":{
+						"function":{
+							"description":"{{ OQiFp.outputs.tools[0].function.description }}",
+							"name":"{{ OQiFp.outputs.tools[0].function.name }}",
+							"parameters":"{{ OQiFp.outputs.tools[0].function.parameters }}"
+						},
+						"type":"{{ OQiFp.outputs.tools[0].type }}"
+					},
+					"source":"{{ OQiFp.outputs.tools }}",
+					"ua:type":"mappedArray"
+				},
+				"n":1,
+				"logprobs":"{{ OQiFp.outputs.logprobs }}",
+				"top_p":"{{ OQiFp.outputs.top_p }}",
+				"frequency_penalty":"{{ OQiFp.outputs.frequency_penalty }}",
+				"response_format":{
+					"type":"{{ OQiFp.outputs.response_format.type }}"
+				},
+				"project_id":"{{ n_Xw9Nl.outputs.properties.providerSpecficDetails.watsonxAIProjectId }}",
+				"temperature":"{{ OQiFp.outputs.temperature }}",
+				"messages":{
+					"items":"{{ gc9Tm.outputs.messages[0] }}",
+					"source":"{{ gc9Tm.outputs.messages }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"skip":false,
+			"subTitle":"Watsonx AI",
+			"title":"Tool calling",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.message.role",
+					"root.parameters.message.content",
+					"root.parameters.message.tool_calls.items.id",
+					"root.parameters.message.tool_calls.items.type",
+					"root.parameters.message.tool_calls.items.function.name",
+					"root.parameters.message.tool_calls.items.function.arguments"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":230,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"UjCXx-1",
+			"id":"P6qbm",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"content":{
+							"title":"Content",
+							"type":"string"
+						},
+						"finish_reason":{
+							"title":"Finish Reason",
+							"type":"string"
+						},
+						"tool_calls":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"arguments":{
+										"title":"Arguments",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tool Calls",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"finish_reason":{
+							"title":"Finish Reason",
+							"type":"string"
+						},
+						"index":{
+							"title":"Index",
+							"type":"integer"
+						},
+						"message":{
+							"additionalProperties":false,
+							"properties":{
+								"content":{
+									"title":"Content",
+									"type":"string"
+								},
+								"role":{
+									"title":"Role",
+									"type":"string"
+								},
+								"tool_calls":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"function":{
+												"additionalProperties":false,
+												"properties":{
+													"arguments":{
+														"title":"Arguments",
+														"type":"string"
+													},
+													"name":{
+														"title":"Name",
+														"type":"string"
+													}
+												},
+												"required":[],
+												"title":"Function",
+												"type":"object"
+											},
+											"id":{
+												"title":"Id",
+												"type":"string"
+											},
+											"type":{
+												"title":"Type",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Tool Calls",
+									"type":"array"
+								}
+							},
+							"required":[],
+							"title":"Message",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def thought = \"\"\ndef functionData = [ name: \"\", arguments: [:] ]\ndef tools = []\n\nif(binding.hasVariable('message')){\n    def content = message?.content\n    if (content) {\n        thought = content\n    }\n\n    // finish_reason == \"tool_calls\"\n    if(binding.hasVariable('finish_reason') && finish_reason!=\"stop\"){\n        def toolCalls = message?.tool_calls\n        if (toolCalls && toolCalls.size() > 0) {\n            def toolCall = toolCalls[0]\n            if (toolCall?.function) {\n                functionData[\"name\"] = toolCall.function.name ?:\"\"\n                if(toolCall.function.arguments){\n                    functionData[\"arguments\"] = toolCall.function.arguments\n                }\n            }\n        }\n    }\n}\n\ntools.add(functionData)\nresult = [\"content\": thought, \"tool_calls\": tools, \"finish_reason\":finish_reason]",
+				"compile_static":false,
+				"parameters":{
+					"finish_reason":"{{ KsrZQ.outputs.choices[0].finish_reason }}",
+					"index":"{{ KsrZQ.outputs.choices[0].index }}",
+					"message":{
+						"content":"{{ KsrZQ.outputs.choices[0].message.content }}",
+						"role":"{{ KsrZQ.outputs.choices[0].message.role }}",
+						"tool_calls":{
+							"items":{
+								"function":{
+									"arguments":"{{ KsrZQ.outputs.choices[0].message.tool_calls[0].function.arguments }}",
+									"name":"{{ KsrZQ.outputs.choices[0].message.tool_calls[0].function.name }}"
+								},
+								"id":"{{ KsrZQ.outputs.choices[0].message.tool_calls[0].id }}",
+								"type":"{{ KsrZQ.outputs.choices[0].message.tool_calls[0].type }}"
+							},
+							"source":"{{ KsrZQ.outputs.choices[0].message.tool_calls }}",
+							"ua:type":"mappedArray"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":228,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"UjCXx-1",
+			"id":"arlE0",
+			"index":0,
+			"inputs":{
+				"result":{
+					"finish_reason":"{{ P6qbm.outputs.result.finish_reason }}",
+					"inputTokens":"{{ KsrZQ.outputs.usage.prompt_tokens }}",
+					"output":"{{ P6qbm.outputs.result.content }}",
+					"outputTokens":"{{ KsrZQ.outputs.usage.completion_tokens }}",
+					"tool_calls":{
+						"items":{
+							"arguments":"{{ P6qbm.outputs.result.tool_calls[0].arguments }}",
+							"name":"{{ P6qbm.outputs.result.tool_calls[0].name }}"
+						},
+						"source":"{{ P6qbm.outputs.result.tool_calls }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"watsonx_ai"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Internal"
+	],
+	"version":23
+}
