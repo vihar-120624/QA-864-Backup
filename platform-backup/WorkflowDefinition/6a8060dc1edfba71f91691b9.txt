@@ -1,0 +1,693 @@
+{
+	"appsUsed":[
+		"gcalendar"
+	],
+	"createdTime":1787743690556,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743690803,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdca9d7c534668ef641e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":12
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_c2c0P",
+			"id":"next@n_c2c0P@1WPP3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"1WPP3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"1WPP3",
+			"id":"next@1WPP3@n_kqbOn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kqbOn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kqbOn",
+			"id":"next@n_kqbOn@n_CPRYj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CPRYj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CPRYj",
+			"id":"loop@n_CPRYj@n_D77aa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_D77aa",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_D77aa",
+			"id":"next@n_D77aa@n_CPRYj",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CPRYj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CPRYj",
+			"id":"next@n_CPRYj@n_UH4sB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UH4sB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UH4sB",
+			"id":"next@n_UH4sB@n_Rah3o",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rah3o",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a8060dc1edfba71f91691b9",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge downloader | google calendar | events | each user",
+	"modifiedTime":1788252972602,
+	"name":"Knowledge Downloader | Google Calendar | Events | Each User",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1517,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rt7uK-1",
+			"id":"n_c2c0P",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloadedEntitiesCount":{
+							"title":"Downloaded Entities Count",
+							"type":"integer"
+						},
+						"downloaderSuccess":{
+							"title":"Downloader Success",
+							"type":"boolean"
+						},
+						"errorDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Details",
+							"type":"object"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"knowledgeDownloadFinished":{
+							"title":"Knowledge Download Finished",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"6854484ac68462013926b9cf",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"currentTimeEpoch":{
+									"title":"Current Time Epoch",
+									"type":"integer"
+								},
+								"grabberType":{
+									"title":"Grabber Type",
+									"type":"string"
+								},
+								"startTimeEpoch":{
+									"title":"Start Time Epoch",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{
+								"calenderId":{
+									"title":"Calender Id",
+									"type":"string"
+								},
+								"dateRange":{
+									"additionalProperties":false,
+									"properties":{
+										"fromDate":{
+											"title":"From Date",
+											"type":"string"
+										},
+										"toDate":{
+											"title":"To Date",
+											"type":"string"
+										}
+									},
+									"required":[],
+									"title":"Date Range",
+									"type":"object"
+								},
+								"endDate":{
+									"title":"End Date",
+									"type":"integer"
+								},
+								"startDate":{
+									"title":"Start Date",
+									"type":"integer"
+								},
+								"user":{
+									"title":"User",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Inputs",
+							"type":"object"
+						},
+						"knowledge":{
+							"additionalProperties":false,
+							"properties":{
+								"applicationInfo":{
+									"additionalProperties":false,
+									"properties":{
+										"context":{
+											"additionalProperties":false,
+											"properties":{
+												"connectionId":{
+													"title":"Connection Id",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Context",
+											"type":"object"
+										}
+									},
+									"required":[],
+									"title":"Application Info",
+									"type":"object"
+								},
+								"cursorObject":{
+									"title":"cursorObject",
+									"type":"object"
+								},
+								"indexingVersion":{
+									"title":"Indexing Version",
+									"type":"integer"
+								},
+								"knowledgeSetId":{
+									"title":"Knowledge Set Id",
+									"type":"string"
+								},
+								"lastSyncTime":{
+									"title":"lastSyncTime",
+									"type":"integer"
+								},
+								"readVersion":{
+									"title":"readVersion",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"knowledge",
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rt7uK-1",
+			"id":"1WPP3",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"mappedInputs":{
+							"additionalProperties":false,
+							"properties":{
+								"calenderId":{
+									"title":"Calender Id",
+									"type":"string"
+								},
+								"endDate":{
+									"title":"End Date",
+									"type":"string"
+								},
+								"eventType":{
+									"title":"Event Type",
+									"type":"string"
+								},
+								"singleEvents":{
+									"title":"Single Events",
+									"type":"boolean"
+								},
+								"startDate":{
+									"title":"Start Date",
+									"type":"string"
+								},
+								"token":{
+									"title":"Token",
+									"type":"string"
+								},
+								"user":{
+									"title":"User",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Mapped Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Cursor",
+							"type":"object"
+						},
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.lang.Math\nimport java.time.Instant\nimport java.time.ZoneOffset\nimport java.time.format.DateTimeFormatter\n\ndef toIsoUtc = { long epochMillis ->\n    Instant.ofEpochMilli(epochMillis)\n           .atOffset(ZoneOffset.UTC)\n           .format(DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"))\n}\n\ndef src = binding.hasVariable(\"inputs\") && inputs != null ? inputs : [:]\ndef mappedInputs = new HashMap<>(src)\n\ndef startTimeEpoch = binding.hasVariable(\"downloaderConfig\") && downloaderConfig != null ? downloaderConfig.get(\"startTimeEpoch\", 0)   : 0\ndef endTimeEpoch   = binding.hasVariable(\"downloaderConfig\") && downloaderConfig != null ? downloaderConfig.get(\"currentTimeEpoch\", 0) : 0\n\ndef userStart = mappedInputs?.startDate ?: 0\ndef userEnd   = mappedInputs?.endDate   ?: System.currentTimeMillis()\n\nmappedInputs[\"startDate\"] = Math.max(userStart, startTimeEpoch).longValue()\nmappedInputs[\"endDate\"]   = (endTimeEpoch > 0 ? Math.min(userEnd, endTimeEpoch) : userEnd).longValue()\n\n// resume from cursor\nif (binding.hasVariable(\"cursor\") && cursor?.lastEventTime != null) {\n    mappedInputs[\"startDate\"] = Math.max(cursor.lastEventTime, mappedInputs[\"startDate\"]).longValue()\n}\n\nmappedInputs[\"startDate\"] = toIsoUtc(mappedInputs[\"startDate\"])\nmappedInputs[\"endDate\"]   = toIsoUtc(mappedInputs[\"endDate\"])\n\nif (binding.hasVariable(\"cursor\") && cursor?.token != null) {\n    mappedInputs[\"token\"] = cursor.token\n}\n\n// Meet artifacts attach per-occurrence -> expand recurring series into instances\nif (mappedInputs[\"singleEvents\"] == null) {\n    mappedInputs[\"singleEvents\"] = true\n}\nif (mappedInputs[\"eventType\"] == null) {\n    mappedInputs[\"eventType\"] = \"default\"\n}\n\nreturn [\"mappedInputs\": mappedInputs]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cursor":"{{ n_c2c0P.outputs.cursor }}",
+					"downloaderConfig":"{{ n_c2c0P.outputs.downloaderConfig }}",
+					"inputs":"{{ n_c2c0P.outputs.inputs }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Resolve inputs",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"gcalendar",
+				"resourceVersion":3171,
+				"connectionId":"6a82c3a76fb70e7c7b43f941",
+				"resourceName":"gcalendar_list_events",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rt7uK-1",
+			"id":"n_kqbOn",
+			"index":3,
+			"inputs":{
+				"start_time":"{{ 1WPP3.outputs.result.mappedInputs.startDate }}",
+				"singleEvents":"{{ 1WPP3.outputs.result.mappedInputs.singleEvents }}",
+				"calendarId":"{{ 1WPP3.outputs.result.mappedInputs.calenderId }}",
+				"maxResults":250,
+				"end_time":"{{ 1WPP3.outputs.result.mappedInputs.endDate }}",
+				"pageToken":"{{ 1WPP3.outputs.result.mappedInputs.token }}",
+				"eventTypes":"{{ 1WPP3.outputs.result.mappedInputs.eventType }}"
+			},
+			"skip":false,
+			"subTitle":"Google Calendar",
+			"title":"List events",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":453,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rt7uK-1",
+			"id":"n_CPRYj",
+			"index":4,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_kqbOn.outputs.items }}",
+				"captureIterations":false,
+				"batchSize":30
+			},
+			"skip":false,
+			"subTitle":"Loop (Batch = 30)",
+			"title":"For loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_CPRYj@_rt7uK-1@l",
+			"id":"n_D77aa",
+			"index":5,
+			"inputs":{
+				"automationId":"6a80b0e42a91136b42818321",
+				"runtimeConnections":{
+					"gcalendar":"{{ n_c2c0P.outputs.knowledge.applicationInfo.context.connectionId }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":{
+					"items":{
+						"calenderId":"{{ 1WPP3.outputs.result.mappedInputs.calenderId }}",
+						"event":"{{ n_CPRYj.outputs.item[0] }}",
+						"indexingVersion":"{{ n_c2c0P.outputs.knowledge.indexingVersion }}",
+						"knowledgeId":"{{ n_c2c0P.outputs.knowledgeId }}",
+						"user":"{{ 1WPP3.outputs.result.mappedInputs.user }}"
+					},
+					"source":"{{ n_CPRYj.outputs.item }}",
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Event Downloader",
+			"title":"Call automation (batch)",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.events.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rt7uK-1",
+			"id":"n_UH4sB",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Cursor",
+							"type":"object"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"knowledgeDownloadFinished":{
+							"title":"Knowledge Download Finished",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"downloaderConfig":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Downloader Config",
+							"type":"object"
+						},
+						"events":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"end":{
+										"additionalProperties":false,
+										"properties":{
+											"date":{
+												"title":"Date",
+												"type":"string"
+											},
+											"dateTime":{
+												"title":"Date Time",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"title":"End",
+										"type":"object"
+									},
+									"id":{
+										"title":"Id",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"title":"Event",
+								"type":"object"
+							},
+							"title":"Events",
+							"type":"array"
+						},
+						"token":{
+							"title":"Token",
+							"type":"string"
+						},
+						"userSpecifiedEndTime":{
+							"title":"User Specified End Time",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.lang.Math\nimport java.time.*\n\ndef toMillis = { ts ->\n    if (!ts) return null\n    try {\n        if ((ts as String).length() == 10) {\n            LocalDate d = LocalDate.parse(ts as String)\n            return d.atStartOfDay(ZoneId.of(\"Asia/Kolkata\")).toInstant().toEpochMilli()\n        }\n        return Instant.parse(ts as String).toEpochMilli()\n    } catch (Exception e) {\n        throw new RuntimeException(\"Invalid timestamp format: ${ts}\", e)\n    }\n}\n\ndef hasToken = binding.hasVariable('token') && token != null\ndef tok      = hasToken ? token : null\n\n// events are whole event objects - timed events use end.dateTime, all-day use end.date\ndef evs = binding.hasVariable('events') && events != null ? events : []\ndef lastEventTime = null\nif (evs.size() != 0) {\n    def last = evs[-1]\n    lastEventTime = toMillis(last?.end?.dateTime ?: last?.end?.date)\n}\n\ndef currentTimeEpoch = binding.hasVariable('downloaderConfig') && downloaderConfig != null ? (downloaderConfig.currentTimeEpoch ?: 0) : 0\n\nboolean hasMore = hasToken && (lastEventTime == null || currentTimeEpoch >= lastEventTime)\n\ndef userEnd = null\nif (binding.hasVariable(\"userSpecifiedEndTime\")) {\n    userEnd = toMillis(userSpecifiedEndTime)\n}\n\nboolean userSpecifiedTimeReached =\n    userEnd != null && (\n        (lastEventTime != null && lastEventTime > userEnd) ||\n        currentTimeEpoch > userEnd\n    )\n\nreturn [\n    \"cursor\": [\"lastEventTime\": lastEventTime, \"token\": tok],\n    \"hasMore\": hasMore,\n    \"knowledgeDownloadFinished\": !hasToken && userSpecifiedTimeReached\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"downloaderConfig":"{{ n_c2c0P.outputs.downloaderConfig }}",
+					"events":{
+						"items":"{{ n_kqbOn.outputs.items[0] }}",
+						"source":"{{ n_kqbOn.outputs.items }}",
+						"ua:type":"mappedArray"
+					},
+					"token":"{{ n_kqbOn.outputs.nextPageToken }}",
+					"userSpecifiedEndTime":"{{ 1WPP3.outputs.result.mappedInputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Get cursor",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_rt7uK-1",
+			"id":"n_Rah3o",
+			"index":7,
+			"inputs":{
+				"result":{
+					"cursor":"{{ n_UH4sB.outputs.result.cursor }}",
+					"downloadedEntitiesCount":"=LEN({{ n_kqbOn.outputs.items }})",
+					"downloaderSuccess":true,
+					"hasMore":"{{ n_UH4sB.outputs.result.hasMore }}",
+					"knowledgeDownloadFinished":"{{ n_UH4sB.outputs.result.knowledgeDownloadFinished }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":14
+}

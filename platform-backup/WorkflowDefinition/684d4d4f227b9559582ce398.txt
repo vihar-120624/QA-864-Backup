@@ -1,0 +1,566 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743780977,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743781130,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece2545d2142160e6e0d8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":4
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_EhvaS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"qWCww",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"qWCww",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Mb77o",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Mb77o",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_b4Iil",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_b4Iil",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"CE2SE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"CE2SE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"R2iXy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"R2iXy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"pj1md",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pj1md",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MvnkC",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"MvnkC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FUaQ4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pj1md",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FUaQ4",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"684d4d4f227b9559582ce398",
+	"lastModifiedBy":-1,
+	"lcName":"[gmail] index specific attachments",
+	"modifiedTime":1788252972612,
+	"name":"[Gmail] Index specific attachments",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":440,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"n_EhvaS",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentID":{
+							"title":"Attachment ID",
+							"type":"string"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"fromEmail":{
+							"title":"From Email",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"number"
+						},
+						"messageID":{
+							"title":"Message ID",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":400,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"qWCww",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"context":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Context",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentId":{
+							"title":"Attachment Id",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def context = [\n    appName      : \"gmail\",\n    connectionId : connectionId,\n    resourceName : \"gmail_download_attachment\"\n]\n\ndef input = [\n    messageId : messageId,\n    attachmentId : attachmentId\n]\n\nreturn[\n   'context' : context,\n   'inputs' : input\n]",
+				"compile_static":false,
+				"parameters":{
+					"attachmentId":"{{ n_EhvaS.outputs.attachmentID }}",
+					"connectionId":"{{ n_EhvaS.outputs.connectionId }}",
+					"messageId":"{{ n_EhvaS.outputs.messageID }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"custom_application",
+				"resourceVersion":395,
+				"resourceName":"custom_application_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"Mb77o",
+			"index":0,
+			"inputs":{
+				"input":"{{ qWCww.outputs.result.inputs }}",
+				"context":"{{ qWCww.outputs.result.context }}"
+			},
+			"skip":false,
+			"subTitle":"Custom Application",
+			"title":"Execute Custom Application Request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":444,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"n_b4Iil",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"link":{
+									"title":"Link",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if(!binding.hasVariable('file')){\n  return [:]\n}\n\nreturn ['file' : file]",
+				"compile_static":false,
+				"parameters":{
+					"file":"{{ Mb77o.outputs.result.file }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":397,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"CE2SE",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Chunk Metadata",
+							"type":"object"
+						}
+					},
+					"required":[
+						"chunkMetadata"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"fileName":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"fromEmail":{
+							"title":"From Email",
+							"type":"string"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"appName",
+						"fileName",
+						"fromEmail",
+						"uniqueEntityId"
+					],
+					"type":"object"
+				},
+				"code":"def chunk_metadata = [:]\nchunk_metadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunk_metadata << (binding.hasVariable('uniqueEntityId') && uniqueEntityId ? [\"uniqueEntityId\": uniqueEntityId] : [:])\nchunk_metadata << (binding.hasVariable('fromEmail') && fromEmail ? [\"fromEmail\": fromEmail] : [:])\nchunk_metadata << (binding.hasVariable('fileName') && fileName ? [\"fileName\": fileName] : [:])\nchunk_metadata << (binding.hasVariable('referenceUrl') && referenceUrl ? [\"referenceUrl\": referenceUrl] : [:])\nreturn [\"chunkMetadata\":chunk_metadata]",
+				"compile_static":false,
+				"parameters":{
+					"appName":"gmail",
+					"fileName":"{{ n_b4Iil.outputs.result.file.name }}",
+					"fromEmail":"{{ n_EhvaS.outputs.fromEmail }}",
+					"uniqueEntityId":"{{ n_EhvaS.outputs.messageID }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Chunk Metadata",
+			"title":"chunkMetaData",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":405,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"R2iXy",
+			"index":0,
+			"inputs":{
+				"automationId":"6708d0a1e5c64343ba9b24c8",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ n_EhvaS.outputs.fromEmail }}",
+					"chunkMetadata":"{{ CE2SE.outputs.result.chunkMetadata }}",
+					"fileDetails":"{{ n_b4Iil.outputs.result.file }}",
+					"knowledgeId":"{{ n_EhvaS.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ n_EhvaS.outputs.knowledgeVersion }}",
+					"mimeType":"{{ n_b4Iil.outputs.result.file.fileType }}",
+					"sharedWithIds":{
+						"items":"{{ n_EhvaS.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_EhvaS.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"uniqueEntityId":"{{ n_EhvaS.outputs.messageID }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":367,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"pj1md",
+			"index":0,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ R2iXy.outputs.chunks[0].text }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":405,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"pj1md@_pxzPw-1@y",
+			"id":"MvnkC",
+			"index":0,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ n_EhvaS.outputs.fromEmail }}",
+					"chunkMetadata":"{{ CE2SE.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"chunkMetadata":"{{ R2iXy.outputs.chunks[0].metadata }}",
+							"data":"{{ R2iXy.outputs.chunks[0].text }}",
+							"sharedWithIds":{
+								"items":"{{ n_EhvaS.outputs.sharedWithIds[0] }}",
+								"source":"{{ n_EhvaS.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ R2iXy.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_EhvaS.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ n_EhvaS.outputs.knowledgeVersion }}",
+					"uniqueEntityId":"{{ n_EhvaS.outputs.messageID }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":449,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pxzPw-1",
+			"id":"n_FUaQ4",
+			"index":0,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":6
+}
