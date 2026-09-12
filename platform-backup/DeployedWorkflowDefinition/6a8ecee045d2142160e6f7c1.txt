@@ -1,0 +1,271 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743968530,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_uBOTh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JV2Bv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JV2Bv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mEBwk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mEBwk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_M06zS",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecee045d2142160e6f7c1",
+	"lastModifiedBy":-1,
+	"lcName":"lowe's | prompt | list default prompt categories",
+	"modifiedTime":1787743968532,
+	"name":"Lowe's | Prompt | List Default Prompt Categories",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1123,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_uBOTh",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"message":{
+									"title":"Message",
+									"type":"string"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"success"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"status":400,
+						"textBody":{
+							"type":"string"
+						}
+					},
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"categories":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"defaultPromptCategory":{
+												"title":"Default Prompt Category",
+												"type":"string"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Categories",
+									"type":"array"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"success"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":868,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_JV2Bv",
+			"index":2,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"defaultPromptCategory":{
+									"title":"defaultPromptCategory",
+									"type":"string"
+								}
+							},
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"SELECT DISTINCT\n    _pr_defaultPromptCategory AS defaultPromptCategory\nFROM ENTITY_prompt_manager\nWHERE LOWER(_pr_category) = 'default'\n    AND deleted = false\nORDER BY _pr_defaultPromptCategory;",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"List All Default Records",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_mEBwk",
+			"index":3,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"additional":{
+						"aiAgentId":"{{ n_7xLMJ.outputs.additional.aiAgentId }}"
+					},
+					"caseId":"{{ n_7xLMJ.outputs.caseId }}",
+					"categories":{
+						"items":{
+							"defaultPromptCategory":"{{ n_JV2Bv.outputs.objects[0].columns.defaultPromptCategory }}"
+						},
+						"source":"{{ n_JV2Bv.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"feedbackCategories":{
+						"items":"{{ n_7xLMJ.outputs.feedbackCategories[0] }}",
+						"source":"{{ n_7xLMJ.outputs.feedbackCategories }}",
+						"ua:type":"mappedArray"
+					},
+					"messageId":"{{ n_7xLMJ.outputs.messageId }}",
+					"prompts":{
+						"items":{
+							"bookmark":"{{ n_G0m9L.outputs.objects[0].properties.bookmark }}",
+							"category":"{{ n_G0m9L.outputs.objects[0].properties.category }}",
+							"createdAt":"{{ n_G0m9L.outputs.objects[0].properties.createdAt }}",
+							"prompt":"{{ n_G0m9L.outputs.objects[0].properties.prompt }}",
+							"promptId":"{{ n_a0Cl4.outputs.result.result }}",
+							"shortcutName":"{{ n_G0m9L.outputs.objects[0].properties.shortcutName }}",
+							"updatedAt":"{{ n_G0m9L.outputs.objects[0].properties.updatedAt }}",
+							"userId":"{{ n_G0m9L.outputs.objects[0].properties.userId }}"
+						},
+						"source":"{{ n_G0m9L.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"reaction":"{{ n_7xLMJ.outputs.reaction }}",
+					"result":"{{ n_a0Cl4.outputs.result }}",
+					"success":true,
+					"userFeedback":"{{ n_7xLMJ.outputs.userFeedback }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Status 200",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_M06zS",
+			"index":4,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a3281e31cc9fc1f75c2584b",
+	"workflowVersion":26
+}

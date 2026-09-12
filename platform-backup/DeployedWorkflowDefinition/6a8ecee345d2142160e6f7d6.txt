@@ -1,0 +1,112 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743971407,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"z8Opj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"R2B85",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecee345d2142160e6f7d6",
+	"lastModifiedBy":-1,
+	"lcName":"[mcp server] sse session completed webhook",
+	"modifiedTime":1787743971409,
+	"name":"[MCP Server] SSE Session Completed Webhook",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2410,
+				"resourceName":"storage_by_unifyapps_on_delete_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"s7aIg-1",
+			"id":"z8Opj",
+			"index":0,
+			"inputs":{
+				"object_type":"e_sse_session"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Deleted record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2409,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"s7aIg-1",
+			"id":"R2B85",
+			"index":0,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ z8Opj.outputs.id }}"
+							},
+							"property":"properties_sessionId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_mcp_server_session",
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.ended",
+						"setValue":"true"
+					}
+				],
+				"skipIfEmpty":false,
+				"page":{
+					"limit":20,
+					"offset":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		"MCP Server"
+	],
+	"version":0,
+	"workflowDefinitionId":"67e2c769bc38d320a7bde163",
+	"workflowVersion":2
+}
