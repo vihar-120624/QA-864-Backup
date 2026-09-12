@@ -1,0 +1,343 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743496378,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743496630,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd0853a823318abfbf47",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":10
+	},
+	"edges":[
+		{
+			"fromNodeId":"YtaWZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"X1KnS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"X1KnS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dyGAD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"dyGAD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"rFaF6",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"681743f7fa13fc297ec01fcd",
+	"lastModifiedBy":-1,
+	"lcName":"validate and clean llm response [voice] [openai]",
+	"modifiedTime":1788252972638,
+	"name":"Validate And Clean LLM response [Voice] [OpenAI]",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root.result":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"NDWxv-1",
+			"id":"YtaWZ",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"finalAnswer":{
+							"title":"Final Answer",
+							"type":"string"
+						},
+						"publishThought":{
+							"title":"publishThought",
+							"type":"boolean"
+						},
+						"thought":{
+							"title":"thought",
+							"type":"string"
+						},
+						"toolId":{
+							"title":"Tool Id",
+							"type":"string"
+						},
+						"toolInputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Inputs",
+							"type":"object"
+						},
+						"toolName":{
+							"title":"Tool Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"toolName",
+						"toolId"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"availableTools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Available Tools",
+							"type":"array"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"llmResponse":{
+							"title":"llmResponse",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						},
+						"toolsToExectue":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"arguments":{
+										"title":"arguments",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"toolsToExectue",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":338,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"NDWxv-1",
+			"id":"X1KnS",
+			"index":0,
+			"inputs":{
+				"automationId":"678511ee5384a9541846fcee",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"agentId":"{{ YtaWZ.outputs.agentId }}",
+					"availableTools":{
+						"items":"{{ YtaWZ.outputs.availableTools[0] }}",
+						"source":"{{ YtaWZ.outputs.availableTools }}",
+						"ua:type":"mappedArray"
+					},
+					"caseId":"{{ YtaWZ.outputs.caseId }}",
+					"llmResponse":"{{ YtaWZ.outputs.llmResponse }}",
+					"modelId":"{{ YtaWZ.outputs.modelId }}",
+					"toolsToExectue":{
+						"items":{
+							"arguments":"{{ YtaWZ.outputs.toolsToExectue[0].arguments }}",
+							"name":"{{ YtaWZ.outputs.toolsToExectue[0].name }}"
+						},
+						"source":"{{ YtaWZ.outputs.toolsToExectue }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":328,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"NDWxv-1",
+			"id":"dyGAD",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"thought":{
+							"title":"Thought",
+							"type":"string"
+						},
+						"toolInputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Inputs",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"thought":{
+							"title":"Thought",
+							"type":"string"
+						},
+						"toolId":{
+							"title":"Tool Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def toolThought = \"\"\ndef toolInputs = [:]\ndef directTools = [\"think\", \"Clarify\", \"SetSlot\"]\n\nif(binding.hasVariable(\"thought\")){\n  toolThought = thought\n}\n\nif (binding.hasVariable(\"inputs\")) {\n  if(inputs?.toolThought != null){\n    toolThought = inputs.remove(\"toolThought\")\n  }\n  toolInputs = inputs\n}\n\nif (directTools.contains(toolId)){\n  toolThought = null\n}\n\nreturn [\n  \"thought\" : toolThought,\n  \"toolInputs\" : toolInputs\n]",
+				"compile_static":false,
+				"parameters":{
+					"inputs":"{{ X1KnS.outputs.toolInputs }}",
+					"thought":"{{ X1KnS.outputs.thought }}",
+					"toolId":"{{ X1KnS.outputs.toolId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.thought",
+					"root.result.publishThought",
+					"root.result.toolId",
+					"root.result.finalAnswer",
+					"root.result.errorMessage",
+					"root.result.thought",
+					"root.result.publishThought",
+					"root.result.toolName",
+					"root.result.toolId",
+					"root.result.finalAnswer",
+					"root.result.errorMessage"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":159,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"NDWxv-1",
+			"id":"rFaF6",
+			"index":0,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ X1KnS.outputs.errorMessage }}",
+					"finalAnswer":"{{ X1KnS.outputs.finalAnswer }}",
+					"publishThought":"{{ X1KnS.outputs.publishThought }}",
+					"thought":"{{ dyGAD.outputs.result.thought }}",
+					"toolId":"{{ X1KnS.outputs.toolId }}",
+					"toolInputs":"{{ dyGAD.outputs.result.toolInputs }}",
+					"toolName":"{{ X1KnS.outputs.toolName }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":12
+}
