@@ -1,0 +1,1292 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744448315,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_6odgE",
+			"id":"next@_6odgE@n_dj01t",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dj01t",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dj01t",
+			"id":"next@n_dj01t@n_MlpU8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MlpU8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MlpU8",
+			"id":"next@n_MlpU8@_tg4QT",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_tg4QT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MlpU8",
+			"id":"error@n_MlpU8@821Mo",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"821Mo",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"821Mo",
+			"id":"next@821Mo@SJBVz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"SJBVz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"SJBVz",
+			"id":"next@SJBVz@6ez8Y",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"6ez8Y",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"6ez8Y",
+			"id":"next@6ez8Y@_HhRdk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_HhRdk",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed0c0ba51514edfc81169",
+	"lastModifiedBy":-1,
+	"lcName":"call openai",
+	"modifiedTime":1787744448316,
+	"name":"Call OpenAI",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":69,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZPQ2S-1",
+			"id":"_6odgE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"cacheReadInputToken":{
+							"title":"Cache Read Input Token",
+							"type":"number"
+						},
+						"cacheWriteInputToken":{
+							"title":"Cache Write Input Token",
+							"type":"number"
+						},
+						"citations":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"title":"Content",
+										"type":"string"
+									},
+									"iconUrl":{
+										"title":"Icon Url",
+										"type":"string"
+									},
+									"title":{
+										"title":"Title",
+										"type":"string"
+									},
+									"webUrl":{
+										"title":"Web Url",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Citations",
+							"type":"array"
+						},
+						"encryptedContent":{
+							"title":"Encrypted Content",
+							"type":"string"
+						},
+						"finish_reason":{
+							"title":"finish_reason",
+							"type":"string"
+						},
+						"guardrailHit":{
+							"title":"guardrailHit",
+							"type":"boolean"
+						},
+						"imageFileObjects":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"size":{
+										"title":"Size",
+										"type":"number"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Image File Objects",
+							"type":"array"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"number"
+						},
+						"output":{
+							"title":"output",
+							"type":"string"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"number"
+						},
+						"thinkingSignature":{
+							"title":"Thinking Signature",
+							"type":"string"
+						},
+						"tool_calls":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"arguments":{
+										"title":"arguments",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"thinkingSignature":{
+										"title":"Thinking Signature",
+										"type":"string"
+									},
+									"toolId":{
+										"title":"Tool Id",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"tool_calls",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"__ua__call_llm_model_interface",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentpromptCachingSettings":{
+							"additionalProperties":false,
+							"properties":{
+								"enablePromptCaching":{
+									"title":"enable prompt caching",
+									"type":"boolean"
+								},
+								"minCharactersBeforeNewCheckPoint":{
+									"title":"min Characters Before New Check Point",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Agent promptCachingSettings",
+							"type":"object"
+						},
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"currentTaskId":{
+							"title":"currentTaskId",
+							"type":"string"
+						},
+						"deferToolLoading":{
+							"title":"Defer Tool Loading",
+							"type":"boolean"
+						},
+						"effort":{
+							"title":"effort",
+							"type":"string"
+						},
+						"enable_fine_grained_tool_streaming":{
+							"title":"Enable Fine Grained Tool Streaming",
+							"type":"boolean"
+						},
+						"frequency_penalty":{
+							"title":"frequency_penalty",
+							"type":"integer"
+						},
+						"internalWebSearch":{
+							"title":"Internal Web Search",
+							"type":"boolean"
+						},
+						"isMultipleToolCallEnabled":{
+							"title":"Is Multiple Tool Call Enabled",
+							"type":"boolean"
+						},
+						"isToolCallEnabled":{
+							"title":"Is Tool Call Enabled",
+							"type":"boolean"
+						},
+						"logprobs":{
+							"title":"logprobs",
+							"type":"boolean"
+						},
+						"max_tokens":{
+							"title":"max_tokens",
+							"type":"integer"
+						},
+						"messages":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"content":{
+													"title":"content",
+													"type":"string"
+												},
+												"encrypted_content":{
+													"title":"Encrypted Content",
+													"type":"string"
+												},
+												"id":{
+													"title":"id",
+													"type":"string"
+												},
+												"image_url":{
+													"additionalProperties":false,
+													"properties":{
+														"detail":{
+															"title":"detail",
+															"type":"string"
+														},
+														"url":{
+															"title":"url",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"image_url",
+													"type":"object"
+												},
+												"input":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"input",
+													"type":"object"
+												},
+												"name":{
+													"title":"name",
+													"type":"string"
+												},
+												"source":{
+													"additionalProperties":false,
+													"properties":{
+														"detail":{
+															"title":"detail",
+															"type":"string"
+														},
+														"image_data":{
+															"title":"image_data",
+															"type":"string"
+														},
+														"image_type":{
+															"title":"image_type",
+															"type":"string"
+														},
+														"media_type":{
+															"title":"media_type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"title":"Source",
+													"type":"object"
+												},
+												"text":{
+													"title":"text",
+													"type":"string"
+												},
+												"thinkingSignature":{
+													"title":"Thinking Signature",
+													"type":"string"
+												},
+												"tool_use_id":{
+													"title":"tool_use_id",
+													"type":"string"
+												},
+												"type":{
+													"default":"text",
+													"title":"type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"required":[],
+										"title":"content",
+										"type":"array"
+									},
+									"role":{
+										"default":"user",
+										"title":"role",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"required":[],
+							"title":"messages",
+							"type":"array"
+						},
+						"model":{
+							"title":"model",
+							"type":"string"
+						},
+						"modelId":{
+							"title":"Model ID",
+							"type":"string"
+						},
+						"on_error_config":{
+							"additionalProperties":false,
+							"properties":{
+								"error_msg":{
+									"title":"error_msg",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"on_error_config",
+							"type":"object"
+						},
+						"presence_penalty":{
+							"title":"presence_penalty",
+							"type":"integer"
+						},
+						"promptCacheOptions":{
+							"additionalProperties":false,
+							"properties":{
+								"mode":{
+									"title":"mode",
+									"type":"string"
+								},
+								"timeToLive":{
+									"title":"time To Live",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"promptCaching":{
+							"title":"promptCaching",
+							"type":"boolean"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"request_timeout":{
+							"title":"request_timeout",
+							"type":"integer"
+						},
+						"response_format":{
+							"additionalProperties":false,
+							"properties":{
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"schema":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Schema",
+									"type":"object"
+								},
+								"type":{
+									"title":"type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"response_format",
+							"type":"object"
+						},
+						"retry_config":{
+							"additionalProperties":false,
+							"properties":{
+								"backoff_factor":{
+									"title":"backoff_factor",
+									"type":"integer"
+								},
+								"initial_delay":{
+									"title":"initial_delay",
+									"type":"integer"
+								},
+								"max_delay":{
+									"title":"max_delay",
+									"type":"integer"
+								},
+								"num_retry":{
+									"title":"num_retry",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"retry_config",
+							"type":"object"
+						},
+						"serverside_compaction_settings":{
+							"additionalProperties":false,
+							"properties":{
+								"compactThreshold":{
+									"title":"compactThreshold",
+									"type":"integer"
+								},
+								"enableCompaction":{
+									"title":"enableCompaction",
+									"type":"boolean"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"serviceTier":{
+							"title":"serviceTier",
+							"type":"string"
+						},
+						"sessionId":{
+							"title":"Session Id",
+							"type":"string"
+						},
+						"stream":{
+							"title":"stream",
+							"type":"boolean"
+						},
+						"systemPrompt":{
+							"title":"System Prompt",
+							"type":"string"
+						},
+						"temperature":{
+							"title":"temperature",
+							"type":"integer"
+						},
+						"thinkingConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"includeThoughts":{
+									"title":"Include Thoughts",
+									"type":"boolean"
+								},
+								"thinkingBudget":{
+									"title":"Thinking Budget",
+									"type":"integer"
+								},
+								"thinkingLevel":{
+									"title":"Thinking Level",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Thinking Config",
+							"type":"object"
+						},
+						"thoughtMethod":{
+							"title":"Thought Method",
+							"type":"string"
+						},
+						"tools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"function":{
+										"additionalProperties":false,
+										"properties":{
+											"deferToolLoading":{
+												"title":"Defer Tool Loading",
+												"type":"boolean"
+											},
+											"description":{
+												"title":"Description",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											},
+											"parameters":{
+												"additionalProperties":false,
+												"properties":{},
+												"title":"Parameters",
+												"type":"object"
+											}
+										},
+										"required":[],
+										"title":"Function",
+										"type":"object"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Tools",
+							"type":"array"
+						},
+						"top_k":{
+							"title":"top_k",
+							"type":"integer"
+						},
+						"top_p":{
+							"title":"top_p",
+							"type":"integer"
+						},
+						"useProviderWebSearch":{
+							"title":"Use Provider Web Search",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":654,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZPQ2S-1",
+			"id":"n_dj01t",
+			"index":2,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ _6odgE.outputs.modelId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.top_p",
+					"root.parameters.response_format.type",
+					"root.parameters.frequency_penalty",
+					"root.parameters.request_timeout",
+					"root.parameters.provider",
+					"root.parameters.max_tokens",
+					"root.parameters.presence_penalty",
+					"root.parameters.temperature",
+					"root.parameters.messages.source",
+					"root.parameters.messages.ua:type",
+					"root.parameters.messages.items.role",
+					"root.parameters.messages.items.content.source",
+					"root.parameters.messages.items.content.ua:type",
+					"root.parameters.messages.items.content.items.text",
+					"root.parameters.messages.items.content.items.type",
+					"root.parameters.messages.items.content.items.image_url.url",
+					"root.parameters.messages.items.content.items.image_url.detail",
+					"root.parameters.messages.items.content.items.source.image_type",
+					"root.parameters.messages.items.content.items.source.media_type",
+					"root.parameters.messages.items.content.items.source.image_data",
+					"root.parameters.messages.items.content.items.source.detail",
+					"root.parameters.messages.items.content.items.tool_use_id",
+					"root.parameters.messages.items.content.items.content",
+					"root.parameters.messages.items.content.items.name",
+					"root.parameters.messages.items.content.items.id",
+					"root.parameters.model",
+					"root.parameters.logprobs",
+					"root.parameters.on_error_config.error_msg",
+					"root.parameters.retry_config.initial_delay",
+					"root.parameters.retry_config.num_retry",
+					"root.parameters.retry_config.max_delay",
+					"root.parameters.retry_config.backoff_factor",
+					"root.parameters.top_k",
+					"root.parameters.tools.source",
+					"root.parameters.tools.ua:type",
+					"root.parameters.tools.items.type",
+					"root.parameters.tools.items.function.name",
+					"root.parameters.tools.items.function.description",
+					"root.parameters.systemPrompt",
+					"root.parameters.sessionId",
+					"root.parameters.modelId",
+					"root.parameters.stream"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":628,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_ZPQ2S-1",
+			"id":"n_MlpU8",
+			"index":3,
+			"inputs":{
+				"callableInterfaceId":"__ua__call_llm_model_interface",
+				"runtimeConnections":{
+					"openai":"{{ n_dj01t.outputs.properties.connectionId }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"fallbackWorkflowId":"68ad99c691f3b008452101e8",
+				"parameters":{
+					"agentpromptCachingSettings":{
+						"enablePromptCaching":"{{ _6odgE.outputs.agentpromptCachingSettings.enablePromptCaching }}",
+						"minCharactersBeforeNewCheckPoint":"{{ _6odgE.outputs.agentpromptCachingSettings.minCharactersBeforeNewCheckPoint }}"
+					},
+					"aiAgentId":"{{ _6odgE.outputs.aiAgentId }}",
+					"deferToolLoading":"{{ _6odgE.outputs.deferToolLoading }}",
+					"frequency_penalty":"{{ _6odgE.outputs.frequency_penalty }}",
+					"internalWebSearch":"{{ _6odgE.outputs.internalWebSearch }}",
+					"isMultipleToolCallEnabled":"{{ _6odgE.outputs.isMultipleToolCallEnabled }}",
+					"isToolCallEnabled":"{{ _6odgE.outputs.isToolCallEnabled }}",
+					"logprobs":"{{ _6odgE.outputs.logprobs }}",
+					"max_tokens":"{{ _6odgE.outputs.max_tokens }}",
+					"messages":{
+						"items":{
+							"content":{
+								"items":{
+									"content":"{{ _6odgE.outputs.messages[0].content[0].content }}",
+									"id":"{{ _6odgE.outputs.messages[0].content[0].id }}",
+									"image_url":{
+										"detail":"{{ _6odgE.outputs.messages[0].content[0].image_url.detail }}",
+										"url":"{{ _6odgE.outputs.messages[0].content[0].image_url.url }}"
+									},
+									"input":"{{ _6odgE.outputs.messages[0].content[0].input }}",
+									"name":"{{ _6odgE.outputs.messages[0].content[0].name }}",
+									"source":{
+										"detail":"{{ _6odgE.outputs.messages[0].content[0].source.detail }}",
+										"image_data":"{{ _6odgE.outputs.messages[0].content[0].source.image_data }}",
+										"image_type":"{{ _6odgE.outputs.messages[0].content[0].source.image_type }}",
+										"media_type":"{{ _6odgE.outputs.messages[0].content[0].source.media_type }}"
+									},
+									"text":"{{ _6odgE.outputs.messages[0].content[0].text }}",
+									"thinkingSignature":"{{ _6odgE.outputs.messages[0].content[0].thinkingSignature }}",
+									"tool_use_id":"{{ _6odgE.outputs.messages[0].content[0].tool_use_id }}",
+									"type":"{{ _6odgE.outputs.messages[0].content[0].type }}"
+								},
+								"source":"{{ _6odgE.outputs.messages[0].content }}",
+								"ua:type":"mappedArray"
+							},
+							"role":"{{ _6odgE.outputs.messages[0].role }}"
+						},
+						"source":"{{ _6odgE.outputs.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"model":"{{ _6odgE.outputs.model }}",
+					"modelId":"{{ _6odgE.outputs.modelId }}",
+					"on_error_config":{
+						"error_msg":"{{ _6odgE.outputs.on_error_config.error_msg }}"
+					},
+					"presence_penalty":"{{ _6odgE.outputs.presence_penalty }}",
+					"promptCacheOptions":{
+						"mode":"{{ _6odgE.outputs.promptCacheOptions.mode }}",
+						"timeToLive":"{{ _6odgE.outputs.promptCacheOptions.timeToLive }}"
+					},
+					"promptCaching":"{{ _6odgE.outputs.promptCaching }}",
+					"provider":"{{ _6odgE.outputs.provider }}",
+					"request_timeout":"{{ _6odgE.outputs.request_timeout }}",
+					"response_format":{
+						"name":"{{ _6odgE.outputs.response_format.name }}",
+						"schema":"{{ _6odgE.outputs.response_format.schema }}",
+						"type":"{{ _6odgE.outputs.response_format.type }}"
+					},
+					"retry_config":{
+						"backoff_factor":"{{ _6odgE.outputs.retry_config.backoff_factor }}",
+						"initial_delay":"{{ _6odgE.outputs.retry_config.initial_delay }}",
+						"max_delay":"{{ _6odgE.outputs.retry_config.max_delay }}",
+						"num_retry":"{{ _6odgE.outputs.retry_config.num_retry }}"
+					},
+					"serviceTier":"{{ _6odgE.outputs.serviceTier }}",
+					"sessionId":"{{ _6odgE.outputs.sessionId }}",
+					"stream":"{{ _6odgE.outputs.stream }}",
+					"systemPrompt":"{{ _6odgE.outputs.systemPrompt }}",
+					"temperature":"{{ _6odgE.outputs.temperature }}",
+					"thinkingConfig":{
+						"includeThoughts":"{{ _6odgE.outputs.thinkingConfig.includeThoughts }}",
+						"thinkingBudget":"{{ _6odgE.outputs.thinkingConfig.thinkingBudget }}",
+						"thinkingLevel":"{{ _6odgE.outputs.thinkingConfig.thinkingLevel }}"
+					},
+					"thoughtMethod":"{{ _6odgE.outputs.thoughtMethod }}",
+					"tools":{
+						"items":{
+							"function":{
+								"description":"{{ _6odgE.outputs.tools[0].function.description }}",
+								"name":"{{ _6odgE.outputs.tools[0].function.name }}",
+								"parameters":"{{ _6odgE.outputs.tools[0].function.parameters }}"
+							},
+							"type":"{{ _6odgE.outputs.tools[0].type }}"
+						},
+						"source":"{{ _6odgE.outputs.tools }}",
+						"ua:type":"mappedArray"
+					},
+					"top_k":"{{ _6odgE.outputs.top_k }}",
+					"top_p":"{{ _6odgE.outputs.top_p }}",
+					"useProviderWebSearch":"{{ _6odgE.outputs.useProviderWebSearch }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"ResponsesAPI",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":65,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_MlpU8@_ZPQ2S-1@success",
+			"id":"_tg4QT",
+			"index":4,
+			"inputs":{
+				"result":{
+					"cacheReadInputToken":"{{ n_MlpU8.outputs.cacheReadInputToken }}",
+					"cacheWriteInputToken":"{{ n_MlpU8.outputs.cacheWriteInputToken }}",
+					"citations":{
+						"items":{
+							"content":"{{ n_MlpU8.outputs.citations[0].content }}",
+							"iconUrl":"{{ n_MlpU8.outputs.citations[0].iconUrl }}",
+							"title":"{{ n_MlpU8.outputs.citations[0].title }}",
+							"webUrl":"{{ n_MlpU8.outputs.citations[0].webUrl }}"
+						},
+						"source":"{{ n_MlpU8.outputs.citations }}",
+						"ua:type":"mappedArray"
+					},
+					"finish_reason":"{{ n_MlpU8.outputs.finish_reason }}",
+					"inputTokens":"{{ n_MlpU8.outputs.inputTokens }}",
+					"output":"{{ n_MlpU8.outputs.output }}",
+					"outputTokens":"{{ n_MlpU8.outputs.outputTokens }}",
+					"thinkingSignature":"{{ n_MlpU8.outputs.thinkingSignature }}",
+					"tool_calls":{
+						"items":{
+							"arguments":"{{ n_MlpU8.outputs.tool_calls[0].arguments }}",
+							"name":"{{ n_MlpU8.outputs.tool_calls[0].name }}",
+							"toolId":"{{ n_MlpU8.outputs.tool_calls[0].toolId }}"
+						},
+						"source":"{{ n_MlpU8.outputs.tool_calls }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":166,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_MlpU8@_ZPQ2S-1@error",
+			"id":"821Mo",
+			"index":5,
+			"inputs":{
+				"automationId":"67de97fcf8210b1464da34d2",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"messages":{
+						"items":{
+							"content":{
+								"items":{
+									"content":"{{ _6odgE.outputs.messages[0].content[0].content }}",
+									"id":"{{ _6odgE.outputs.messages[0].content[0].id }}",
+									"image_url":{
+										"detail":"{{ _6odgE.outputs.messages[0].content[0].image_url.detail }}",
+										"url":"{{ _6odgE.outputs.messages[0].content[0].image_url.url }}"
+									},
+									"input":"{{ _6odgE.outputs.messages[0].content[0].input }}",
+									"name":"{{ _6odgE.outputs.messages[0].content[0].name }}",
+									"source":{
+										"detail":"{{ _6odgE.outputs.messages[0].content[0].source.detail }}",
+										"image_data":"{{ _6odgE.outputs.messages[0].content[0].source.image_data }}",
+										"image_type":"{{ _6odgE.outputs.messages[0].content[0].source.image_type }}",
+										"media_type":"{{ _6odgE.outputs.messages[0].content[0].source.media_type }}"
+									},
+									"text":"{{ _6odgE.outputs.messages[0].content[0].text }}",
+									"tool_use_id":"{{ _6odgE.outputs.messages[0].content[0].tool_use_id }}",
+									"type":"{{ _6odgE.outputs.messages[0].content[0].type }}"
+								},
+								"source":"{{ _6odgE.outputs.messages[0].content }}",
+								"ua:type":"mappedArray"
+							},
+							"role":"{{ _6odgE.outputs.messages[0].role }}"
+						},
+						"source":"{{ _6odgE.outputs.messages }}",
+						"ua:type":"mappedArray"
+					},
+					"model":"{{ _6odgE.outputs.model }}",
+					"systemPrompt":"{{ _6odgE.outputs.systemPrompt }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"openai",
+				"resourceVersion":1823,
+				"connectionId":"69f0cb1146f669586cae3dfd",
+				"resourceName":"openai_create_completion",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_MlpU8@_ZPQ2S-1@error",
+			"id":"SJBVz",
+			"index":6,
+			"inputs":{
+				"top_p":"{{ _6odgE.outputs.top_p }}",
+				"frequency_penalty":"{{ _6odgE.outputs.frequency_penalty }}",
+				"max_tokens":"=VALUE({{ _6odgE.outputs.max_tokens }})",
+				"performAsync":false,
+				"presence_penalty":"{{ _6odgE.outputs.presence_penalty }}",
+				"temperature":"{{ _6odgE.outputs.temperature }}",
+				"messages":{
+					"items":{
+						"content":"{{ 821Mo.outputs.openaiMessages[0].content }}",
+						"role":"{{ 821Mo.outputs.openaiMessages[0].role }}",
+						"tool_call_id":"{{ 821Mo.outputs.openaiMessages[0].tool_call_id }}",
+						"tool_calls":{
+							"items":{
+								"function":{
+									"arguments":"{{ 821Mo.outputs.openaiMessages[0].tool_calls[0].function.arguments }}",
+									"name":"{{ 821Mo.outputs.openaiMessages[0].tool_calls[0].function.name }}"
+								},
+								"id":"{{ 821Mo.outputs.openaiMessages[0].tool_calls[0].id }}",
+								"type":"{{ 821Mo.outputs.openaiMessages[0].tool_calls[0].type }}"
+							},
+							"source":"{{ 821Mo.outputs.openaiMessages[0].tool_calls }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"source":"{{ 821Mo.outputs.openaiMessages }}",
+					"ua:type":"mappedArray"
+				},
+				"model":"{{ _6odgE.outputs.model }}",
+				"tools":{
+					"items":{
+						"function":{
+							"description":"{{ _6odgE.outputs.tools[0].function.description }}",
+							"name":"{{ _6odgE.outputs.tools[0].function.name }}",
+							"parameters":"{{ _6odgE.outputs.tools[0].function.parameters }}",
+							"strict":false
+						},
+						"type":"{{ _6odgE.outputs.tools[0].type }}"
+					},
+					"source":"{{ _6odgE.outputs.tools }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false
+				},
+				"logConfig":{
+					"enabled":false
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false
+				}
+			},
+			"skip":false,
+			"subTitle":"OpenAI",
+			"title":"Chat completion",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root.input":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.message.role",
+					"root.parameters.message.content",
+					"root.parameters.message.tool_calls.items.id",
+					"root.parameters.message.tool_calls.items.type",
+					"root.parameters.message.tool_calls.items.function.name",
+					"root.parameters.message.tool_calls.items.function.arguments"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":289,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_MlpU8@_ZPQ2S-1@error",
+			"id":"6ez8Y",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"content":{
+							"title":"content",
+							"type":"string"
+						},
+						"finish_reason":{
+							"title":"finish_reason",
+							"type":"string"
+						},
+						"tool_calls":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"arguments":{
+										"title":"arguments",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"tool_calls",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"finish_reason":{
+							"title":"finish_reason",
+							"type":"string"
+						},
+						"index":{
+							"title":"index",
+							"type":"integer"
+						},
+						"message":{
+							"additionalProperties":false,
+							"properties":{
+								"content":{
+									"title":"content",
+									"type":"string"
+								},
+								"role":{
+									"title":"role",
+									"type":"string"
+								},
+								"tool_calls":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"function":{
+												"additionalProperties":false,
+												"properties":{
+													"arguments":{
+														"title":"arguments",
+														"type":"string"
+													},
+													"name":{
+														"title":"name",
+														"type":"string"
+													}
+												},
+												"required":[],
+												"title":"function",
+												"type":"object"
+											},
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"type":{
+												"title":"type",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									},
+									"title":"tool_calls",
+									"type":"array"
+								}
+							},
+							"title":"message",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def thought = \"\"\ndef functionData = [ name: \"\", arguments: [:] ]\ndef tools = []\n\nif(binding.hasVariable('message')){\n    def content = message?.content\n    if (content) {\n        thought = content\n    }\n\n    // finish_reason == \"tool_calls\"\n    if(binding.hasVariable('finish_reason') && finish_reason!=\"stop\"){\n        def toolCalls = message?.tool_calls\n        if (toolCalls && toolCalls.size() > 0) {\n            def toolCall = toolCalls[0]\n            if (toolCall?.function) {\n                functionData[\"name\"] = toolCall.function.name ?:\"\"\n                if(toolCall.function.arguments){\n                    functionData[\"arguments\"] = toolCall.function.arguments\n                }\n            }\n        }\n    }\n}\n\nif (!functionData.isEmpty()) {\n    tools.add(functionData)\n}\nresult = [\"content\": thought, \"tool_calls\": tools, \"finish_reason\":finish_reason]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"finish_reason":"{{ SJBVz.outputs.choices[0].finish_reason }}",
+					"index":"{{ SJBVz.outputs.choices[0].index }}",
+					"message":{
+						"content":"{{ SJBVz.outputs.choices[0].message.content }}",
+						"role":"{{ SJBVz.outputs.choices[0].message.role }}",
+						"tool_calls":{
+							"items":{
+								"function":{
+									"arguments":"{{ SJBVz.outputs.choices[0].message.tool_calls[0].function.arguments }}",
+									"name":"{{ SJBVz.outputs.choices[0].message.tool_calls[0].function.name }}"
+								},
+								"id":"{{ SJBVz.outputs.choices[0].message.tool_calls[0].id }}",
+								"type":"{{ SJBVz.outputs.choices[0].message.tool_calls[0].type }}"
+							},
+							"source":"{{ SJBVz.outputs.choices[0].message.tool_calls }}",
+							"ua:type":"mappedArray"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":65,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_MlpU8@_ZPQ2S-1@error",
+			"id":"_HhRdk",
+			"index":8,
+			"inputs":{
+				"result":{
+					"cacheReadInputToken":"{{ SJBVz.outputs.usage.prompt_tokens_details.cached_tokens }}",
+					"finish_reason":"{{ 6ez8Y.outputs.result.finish_reason }}",
+					"inputTokens":"{{ SJBVz.outputs.usage.prompt_tokens }}",
+					"output":"{{ 6ez8Y.outputs.result.content }}",
+					"outputTokens":"{{ SJBVz.outputs.usage.completion_tokens }}",
+					"tool_calls":{
+						"items":{
+							"arguments":"{{ 6ez8Y.outputs.result.tool_calls[0].arguments }}",
+							"name":"{{ 6ez8Y.outputs.result.tool_calls[0].name }}"
+						},
+						"source":"{{ 6ez8Y.outputs.result.tool_calls }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"runtimeConnectionAppNames":[
+		"openai"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Internal"
+	],
+	"version":0,
+	"workflowDefinitionId":"6731e2674176134b6eb346f2",
+	"workflowVersion":197
+}
