@@ -1,0 +1,418 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744017273,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_p7lf2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9YaBI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9YaBI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_am2iV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_am2iV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_To4ZJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_To4ZJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_jqnRj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_jqnRj",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_6Tb9J",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_jqnRj",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_iJmQD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_6Tb9J",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_n9w9N",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_iJmQD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_n9w9N",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecf11ba51514edfc7e268",
+	"lastModifiedBy":-1,
+	"lcName":"get default agent & clear history count",
+	"modifiedTime":1787744017276,
+	"name":"Get Default Agent & Clear History Count",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":635,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TQYj9-1",
+			"id":"n_p7lf2",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"userId":{
+								"title":"User Id",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"chatHistoryEnabled":{
+									"title":"Chat History Enabled",
+									"type":"string"
+								},
+								"clear_chat_history_day_count":{
+									"title":"Clear Chat History Day Count",
+									"type":"string"
+								},
+								"defaultAgentId":{
+									"title":"Default Agent Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":591,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TQYj9-1",
+			"id":"n_9YaBI",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"chatHistoryEnabled":{
+							"title":"Chat History Enabled",
+							"type":"boolean"
+						},
+						"clear_chat_history_day_count":{
+							"title":"Clear Chat History Day Count",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"clear_chat_history_day_count":"{{ __ENV__.outputs.CLEAR_CHAT_HISTORY_DAY_COUNT }}",
+				"userId":"=IF(ISBLANK({{ n_p7lf2.outputs.body.userId }}) , {{ __RUN__.outputs.userId }} , {{ n_p7lf2.outputs.body.userId }})"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"chatHistoryEnabled":{
+							"title":"Chat History Enabled",
+							"type":"boolean"
+						},
+						"clear_chat_history_day_count":{
+							"title":"Clear Chat History Day Count",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":857,
+				"resourceName":"standard_entities_fetch_user",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TQYj9-1",
+			"id":"_am2iV",
+			"index":3,
+			"inputs":{
+				"fetchBy":"id",
+				"applicationId":"{{ __USER__.outputs.applicationId }}",
+				"user":"{{ __USER__.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Fetch User",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":522,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TQYj9-1",
+			"id":"n_To4ZJ",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _am2iV.outputs.customProperties.department }}"
+							},
+							"property":"properties_department"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"default_ai_agents",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":448,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TQYj9-1",
+			"id":"_jqnRj",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_To4ZJ.outputs.properties.department }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"dept present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":577,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jqnRj@_TQYj9-1@y",
+			"id":"_6Tb9J",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_9YaBI.outputs.agentId }}",
+						"value":"{{ n_To4ZJ.outputs.properties.aiAgentId }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":652,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jqnRj@_TQYj9-1@n",
+			"id":"_iJmQD",
+			"index":7,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"chatHistoryEnabled":"{{ _am2iV.outputs.customProperties.agentChatHistoryEnabled }}",
+					"clear_chat_history_day_count":"{{ n_9YaBI.outputs.clear_chat_history_day_count }}",
+					"defaultAgentId":"e_68c7f799a052936894ea7187"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":652,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TQYj9-1",
+			"id":"_n9w9N",
+			"index":8,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"chatHistoryEnabled":"{{ _am2iV.outputs.customProperties.agentChatHistoryEnabled }}",
+					"clear_chat_history_day_count":"{{ n_9YaBI.outputs.clear_chat_history_day_count }}",
+					"defaultAgentId":"{{ n_9YaBI.outputs.agentId }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"691b08105a9f3632643223c7",
+	"workflowVersion":4
+}
