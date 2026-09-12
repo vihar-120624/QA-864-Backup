@@ -1,0 +1,444 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743952365,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743952601,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8eced045d2142160e6f6ac",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":46
+	},
+	"edges":[
+		{
+			"fromNodeId":"_KrrPA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pvcul",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pvcul",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fl7f6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_fl7f6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ixy6R",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ixy6R",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nAjuZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nAjuZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ay8XR",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68625dce3c502410d871f43e",
+	"lastModifiedBy":-1,
+	"lcName":"text to workflow v2 | filled input validator",
+	"modifiedTime":1788252971656,
+	"name":"Text to workflow v2 | Filled Input Validator",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XmHF4-1",
+			"id":"_KrrPA",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"correctResult":{
+							"additionalProperties":false,
+							"properties":{
+								"errors":{
+									"title":"errors",
+									"type":"array"
+								},
+								"isValid":{
+									"title":"isValid",
+									"type":"boolean"
+								},
+								"warnings":{
+									"title":"warnings",
+									"type":"array"
+								}
+							},
+							"title":"correctResult",
+							"type":"object"
+						},
+						"filledSchemaUpdated":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filled Schema Updated",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"filled_schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filled Schema",
+							"type":"object"
+						},
+						"nodeId":{
+							"title":"Node Id",
+							"type":"string"
+						},
+						"workflowDefinition":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Definition",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XmHF4-1",
+			"id":"n_pvcul",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"outputResult":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Output Result",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"filled_schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filled Schema",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.util.regex.Pattern\n\ndef input = binding.hasVariable(\"filled_schema\") ? binding.filled_schema : [:]\n\ndef result = [:]\ndef pattern = Pattern.compile(\"\\\\{\\\\{([^\\\\{\\\\}]+)\\\\}\\\\}\") \n\ndef extractPlaceholders\nextractPlaceholders = { obj, path ->\n    if (obj instanceof Map) {\n        obj.each { k, v ->\n            def newPath = path ? \"${path}.${k}\" : k\n            extractPlaceholders(v, newPath)\n        }\n    } else if (obj instanceof List) {\n        obj.eachWithIndex { item, index ->\n            def indexedPath = \"${path}[${index}]\"\n            extractPlaceholders(item, indexedPath)\n        }\n    } else if (obj instanceof String) {\n        def matcher = pattern.matcher(obj)\n        def placeholders = []\n        while (matcher.find()) {\n            placeholders << matcher.group(1)\n        }\n        if (!placeholders.isEmpty()) {\n            if (!result.containsKey(path)) {\n                result[path] = []\n            }\n            result[path].addAll(placeholders)\n        }\n    }\n}\n\nextractPlaceholders(input, \"\")\n\n// Ensure placeholders are unique\nresult.each { k, v ->\n    result[k] = v.unique()\n}\n\nreturn [\"outputResult\": result]",
+				"compile_static":false,
+				"parameters":{
+					"filled_schema":"{{ _KrrPA.outputs.filled_schema }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":454,
+				"resourceName":"standard_entities_get_reachable_nodes_schema",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XmHF4-1",
+			"id":"n_fl7f6",
+			"index":0,
+			"inputs":{
+				"workflowDefinition":"{{ _KrrPA.outputs.workflowDefinition }}",
+				"nodeId":"{{ _KrrPA.outputs.nodeId }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get Reachable Nodes Schema For a Node in a workflow",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.reachableNodes.items",
+					"root.parameters.filledInput.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XmHF4-1",
+			"id":"n_Ixy6R",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"correctResult":{
+							"additionalProperties":false,
+							"properties":{
+								"errors":{
+									"items":{
+										"type":"string"
+									},
+									"title":"errors",
+									"type":"array"
+								},
+								"isValid":{
+									"title":"isValid",
+									"type":"boolean"
+								},
+								"warnings":{
+									"items":{
+										"type":"string"
+									},
+									"title":"warnings",
+									"type":"array"
+								}
+							},
+							"title":"correctResult",
+							"type":"object"
+						},
+						"keysWithErrors":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Keys With Errors",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"filledInput":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filled Input",
+							"type":"object"
+						},
+						"nodeSchemaMap":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"nodeSchemaMap",
+							"type":"object"
+						},
+						"reachableNodes":{
+							"items":{
+								"type":"string"
+							},
+							"title":"reachableNodes",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.util.regex.Pattern\n\nclass LLMFilledInputValidator {\n\n    def nodeSchemaMap\n    def reachableNodes\n\n    LLMFilledInputValidator(nodeSchemaMap, reachableNodes) {\n        this.nodeSchemaMap = nodeSchemaMap\n        this.reachableNodes = reachableNodes\n    }\n\n    def validateFilledInput(filledInput) {\n        def result = new ValidationResult()\n\n        try {\n            if (!validateInputStructure(filledInput)) {\n                result.addError(\"Invalid input structure. Expected list of objects with key-value pairs.\")\n                return result\n            }\n\n            validateMapping(filledInput, result)\n\n            result.isValid = result.errors.isEmpty()\n\n        } catch (Exception e) {\n            result.addError(\"Validation failed with exception: ${e.message}\")\n        }\n\n        return result\n    }\n\n    private boolean validateInputStructure(filledInput) {\n        if (!(filledInput instanceof Map)) {\n            return false\n        }\n\n        return filledInput.every { key, value ->\n            key instanceof String && value instanceof List && value.every { it instanceof String }\n        }\n    }\n\n    private void validateMapping(mapping, result) {\n        mapping.each { key, paths ->\n            if (!isValidTemplateVariable(key)) {\n                result.addError(\"Invalid template variable: '${key}'. Must be alphanumeric with underscores.\")\n                result.markKeyWithError(key)\n            }\n\n            if (!(paths instanceof List)) {\n                result.addError(\"Paths for '${key}' must be a list, got: ${paths?.class?.simpleName}\")\n                result.markKeyWithError(key)\n                return\n            }\n\n            paths.each { path ->\n                validatePath(path, key, result)\n            }\n        }\n    }\n\n    private void validatePath(path, templateVar, result) {\n        if (!(path instanceof String)) {\n            result.addError(\"Path for '${templateVar}' must be string, got: ${path?.class?.simpleName}\")\n            result.markKeyWithError(templateVar)\n            return\n        }\n\n        def pathParts = parsePath(path)\n        if (!pathParts) {\n            result.addError(\"Invalid path format: '${path}' for template variable '${templateVar}'\")\n            result.markKeyWithError(templateVar)\n            return\n        }\n\n        def nodeId = pathParts.nodeId\n        if (!reachableNodes.contains(nodeId)) {\n            result.addError(\"Node '${nodeId}' not found in reachable nodes for path: '${path}'\")\n            result.markKeyWithError(templateVar)\n            return\n        }\n\n        def nodeSchema = nodeSchemaMap[nodeId]\n        if (!nodeSchema) {\n            result.addError(\"Schema not found for node '${nodeId}' in path: '${path}'\")\n            result.markKeyWithError(templateVar)\n            return\n        }\n\n        validatePathAgainstSchema(pathParts.propertyPath, nodeSchema.schema, path, templateVar, result)\n    }\n\n    private def parsePath(String path) {\n        def pattern = ~/^(_\\w+)\\.outputs\\.(.+)$/\n        def matcher = pattern.matcher(path)\n\n        if (!matcher.matches()) {\n            return null\n        }\n\n        def propertyPathString = matcher.group(2)\n        def propertyPath = parsePropertyPath(propertyPathString)\n\n        return [\n            nodeId: matcher.group(1),\n            propertyPath: propertyPath\n        ]\n    }\n\n    private def parsePropertyPath(String pathString) {\n        def tokens = []\n        def currentToken = \"\"\n        def inBrackets = false\n\n        for (int i = 0; i < pathString.length(); i++) {\n            char c = pathString.charAt(i)\n\n            if (c == '[') {\n                if (currentToken) {\n                    tokens << ['type': 'property', 'value': currentToken]\n                    currentToken = \"\"\n                }\n                inBrackets = true\n            } else if (c == ']') {\n                if (inBrackets && currentToken) {\n                    tokens << ['type': 'index', 'value': currentToken]\n                    currentToken = \"\"\n                }\n                inBrackets = false\n            } else if (c == '.' && !inBrackets) {\n                if (currentToken) {\n                    tokens << ['type': 'property', 'value': currentToken]\n                    currentToken = \"\"\n                }\n            } else {\n                currentToken += c\n            }\n        }\n\n        if (currentToken) {\n            tokens << ['type': 'property', 'value': currentToken]\n        }\n\n        return tokens\n    }\n\n    private void validatePathAgainstSchema(propertyPath, schema, originalPath, templateVar, result) {\n        def currentSchema = schema\n        def currentPath = \"\"\n\n        for (int i = 0; i < propertyPath.size(); i++) {\n            def token = propertyPath[i]\n            def tokenValue = token.value\n            def tokenType = token.type\n\n            if (tokenType == 'index') {\n                if (currentSchema?.type != \"array\") {\n                    result.addError(\"Array index '[${tokenValue}]' used on non-array type '${currentSchema?.type}' in path: '${originalPath}' for '${templateVar}'\")\n                    result.markKeyWithError(templateVar)\n                    return\n                }\n\n                if (!tokenValue.isNumber()) {\n                    result.addError(\"Invalid array index '[${tokenValue}]' - must be numeric in path: '${originalPath}' for '${templateVar}'\")\n                    result.markKeyWithError(templateVar)\n                    return\n                }\n\n                currentSchema = currentSchema.items\n                currentPath += \"[${tokenValue}]\"\n                continue\n            }\n\n            if (tokenType == 'property') {\n                currentPath += (currentPath && !currentPath.endsWith(']') ? \".\" : \"\") + tokenValue\n\n                if (currentSchema?.type == \"object\") {\n                    if (!currentSchema?.properties?.containsKey(tokenValue)) {\n                        result.addError(\"Property '${tokenValue}' not found in schema at path '${currentPath}' for '${templateVar}' in: '${originalPath}'\")\n                        result.markKeyWithError(templateVar)\n                        return\n                    }\n                    currentSchema = currentSchema.properties[tokenValue]\n                } else {\n                    result.addError(\"Cannot access property '${tokenValue}' on non-object type '${currentSchema?.type}' in path: '${originalPath}' for '${templateVar}'\")\n                    result.markKeyWithError(templateVar)\n                    return\n                }\n            }\n        }\n\n        if (currentSchema?.type == \"array\") {\n            result.addError(\"Cannot access array '${currentPath}' without index in path: '${originalPath}' for '${templateVar}'. Arrays must be accessed with [index].\")\n            result.markKeyWithError(templateVar)\n            return\n        }\n\n        if (currentSchema && !isValidFinalType(currentSchema)) {\n            result.addWarning(\"Final property type '${currentSchema.type}' might not be suitable for template variable '${templateVar}' in path: '${originalPath}'\")\n        }\n    }\n\n    private boolean isValidTemplateVariable(String variable) {\n        return variable ==~ /^[a-zA-Z_][a-zA-Z0-9_]*$/\n    }\n\n    private boolean isValidFinalType(schema) {\n        def validTypes = ['string', 'number', 'integer', 'boolean']\n        return schema.type in validTypes\n    }\n}\n\nclass ValidationResult {\n    boolean isValid = false\n    List<String> errors = []\n    List<String> warnings = []\n    Set<String> keysWithErrors = new HashSet<>()  // ✅ new field\n\n    def addError(String error) {\n        errors << error\n    }\n\n    def addWarning(String warning) {\n        warnings << warning\n    }\n\n    def markKeyWithError(String key) {\n        keysWithErrors << key\n    }\n\n    def hasErrors() {\n        return !errors.isEmpty()\n    }\n\n    def hasWarnings() {\n        return !warnings.isEmpty()\n    }\n\n    String toString() {\n        def result = \"Validation Result: ${isValid ? 'VALID' : 'INVALID'}\\n\"\n\n        if (hasErrors()) {\n            result += \"\\nErrors:\\n\"\n            errors.each { error ->\n                result += \"  - ${error}\\n\"\n            }\n        }\n\n        if (hasWarnings()) {\n            result += \"\\nWarnings:\\n\"\n            warnings.each { warning ->\n                result += \"  - ${warning}\\n\"\n            }\n        }\n\n        if (!keysWithErrors.isEmpty()) {\n            result += \"\\nKeys With Errors:\\n\"\n            keysWithErrors.each { key ->\n                result += \"  - ${key}\\n\"\n            }\n        }\n\n        return result\n    }\n}\n\n// Example usage (for binding environment)\ndef nodeSchemaMap = binding.hasVariable(\"nodeSchemaMap\") ? binding.nodeSchemaMap : [:]\ndef rechableNodes = binding.hasVariable(\"rechableNodes\") ? binding.rechableNodes : []\ndef filledInput = binding.hasVariable(\"filledInput\") ? binding.filledInput : []\n\ndef validator = new LLMFilledInputValidator(nodeSchemaMap, rechableNodes)\ndef resultCorrect = validator.validateFilledInput(filledInput)\n\nreturn [\n    correctResult: resultCorrect.toString(),\n    keysWithErrors: resultCorrect.keysWithErrors as List\n]",
+				"compile_static":false,
+				"parameters":{
+					"filledInput":"{{ n_pvcul.outputs.result.outputResult }}",
+					"nodeSchemaMap":"{{ n_fl7f6.outputs.nodeSchemaMap }}",
+					"reachableNodes":{
+						"items":"{{ n_fl7f6.outputs.reachableNodes[0] }}",
+						"source":"{{ n_fl7f6.outputs.reachableNodes }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.keysWithErrors.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XmHF4-1",
+			"id":"n_nAjuZ",
+			"index":0,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"filled_schema_updated":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filled Schema Updated",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"filled_schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filled Schema",
+							"type":"object"
+						},
+						"keysWithErrors":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Keys With Errors",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import com.alibaba.fastjson2.JSONObject\nimport com.alibaba.fastjson2.JSONArray\n\ndef filled_schema = binding.hasVariable(\"filled_schema\") ? binding.filled_schema : [:]\ndef keysWithErrors = binding.hasVariable(\"keysWithErrors\") ? binding.keysWithErrors : []\n\n// Helper to split path into parts like [\"Attach\", 0, \"attachmentsBlock\", \"text\"]\ndef splitPath(path) {\n    def pattern = /([^\\.\\[\\]]+)|\\[(\\d+)\\]/\n    def matcher = path =~ pattern\n    def result = []\n\n    matcher.each { match ->\n        if (match[1] != null) {\n            result << match[1]\n        } else if (match[2] != null) {\n            result << Integer.parseInt(match[2])\n        }\n    }\n    return result\n}\n\ndef removeKeyByPath(map, path) {\n    def parts = splitPath(path)\n    def current = map\n\n    for (int i = 0; i < parts.size() - 1; i++) {\n        def key = parts[i]\n        if (key instanceof Integer && current instanceof List) {\n            if (key >= current.size()) return\n            current = current[key]\n        } else if (current instanceof Map && current.containsKey(key)) {\n            current = current[key]\n        } else {\n            return // Invalid path\n        }\n    }\n\n    // Remove the target key\n    def lastKey = parts[-1]\n    if (lastKey instanceof Integer && current instanceof List) {\n        if (lastKey < current.size()) {\n            current.remove(lastKey)\n        }\n    } else if (current instanceof Map) {\n        current.remove(lastKey)\n    }\n}\n\nkeysWithErrors.each { path ->\n    removeKeyByPath(filled_schema, path)\n}\n\nreturn [\n    \"filled_schema_updated\": filled_schema\n]",
+				"compile_static":false,
+				"parameters":{
+					"filled_schema":"{{ _KrrPA.outputs.filled_schema }}",
+					"keysWithErrors":{
+						"items":"{{ n_Ixy6R.outputs.result.keysWithErrors[0] }}",
+						"source":"{{ n_Ixy6R.outputs.result.keysWithErrors }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XmHF4-1",
+			"id":"n_Ay8XR",
+			"index":0,
+			"inputs":{
+				"result":{
+					"correctResult":{
+						"errors":{
+							"source":"{{ n_Ixy6R.outputs.result.correctResult.errors }}",
+							"ua:type":"mappedArray"
+						},
+						"isValid":"{{ n_Ixy6R.outputs.result.correctResult.isValid }}",
+						"warnings":{
+							"source":"{{ n_Ixy6R.outputs.result.correctResult.warnings }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"filledSchemaUpdated":"{{ n_nAjuZ.outputs.result.filled_schema_updated }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"Text_to_Workflow_v2"
+	],
+	"version":48
+}
