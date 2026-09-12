@@ -1,0 +1,418 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744094706,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744095137,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf5fba51514edfc7e955",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":27
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_c5Ba6",
+			"id":"next@n_c5Ba6@n_dP7ug",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dP7ug",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dP7ug",
+			"id":"next@n_dP7ug@n_rqaKE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rqaKE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rqaKE",
+			"id":"next@n_rqaKE@n_PyTSr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PyTSr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PyTSr",
+			"id":"next@n_PyTSr@n_cdTUk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cdTUk",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a7c1924b5491a0f6c67815b",
+	"lastModifiedBy":-1,
+	"lcName":"agent governance | span cost ",
+	"modifiedTime":1788252971410,
+	"name":"Agent Governance | Span cost ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2558,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qcWOm-1",
+			"id":"n_c5Ba6",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						}
+					},
+					"required":[
+						"cost"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"integer"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"integer"
+						},
+						"provider":{
+							"title":"Provider",
+							"type":"string"
+						}
+					},
+					"required":[
+						"modelId",
+						"inputTokens",
+						"outputTokens",
+						"provider"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qcWOm-1",
+			"id":"n_dP7ug",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"normalizedProvider":{
+							"title":"Normalized Provider",
+							"type":"string"
+						}
+					},
+					"required":[
+						"normalizedProvider"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"provider":{
+							"title":"Provider",
+							"type":"string"
+						}
+					},
+					"required":[
+						"provider"
+					],
+					"type":"object"
+				},
+				"code":"def provider  = binding.hasVariable('provider') ? (binding.provider ?: '') : ''\n\nString normalizeProvider(String provider) {\n    if (!provider) return null\n    provider = provider.toLowerCase()\n    if (provider in [\"aws\", \"amazon_bedrock\"]) {\n        return \"amazon_bedrock\"\n    }\n    return provider\n}\n\nreturn [\n    \"normalizedProvider\": normalizeProvider(provider)\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"provider":"{{ n_c5Ba6.outputs.provider }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Normalize Params",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15424,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qcWOm-1",
+			"id":"n_rqaKE",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_dP7ug.outputs.result.normalizedProvider }}"
+							},
+							"property":"properties_provider"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"searchField":{
+					"fields":[]
+				},
+				"object_type":"model",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":1000,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch Model v2",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.models.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qcWOm-1",
+			"id":"n_PyTSr",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"billableInputTokens":{
+							"title":"Billable Input Tokens",
+							"type":"integer"
+						},
+						"cacheReadCost":{
+							"title":"Cache Read Cost",
+							"type":"number"
+						},
+						"cacheWriteCost":{
+							"title":"Cache Write Cost",
+							"type":"number"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"inputCost":{
+							"title":"Input Cost",
+							"type":"number"
+						},
+						"outputCost":{
+							"title":"Output Cost",
+							"type":"number"
+						},
+						"pricingResolved":{
+							"title":"Pricing Resolved",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"cost"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"integer"
+						},
+						"modelId":{
+							"title":"Model Id",
+							"type":"string"
+						},
+						"models":{
+							"items":{
+								"additionalProperties":true,
+								"type":"object"
+							},
+							"title":"Models",
+							"type":"array"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"integer"
+						},
+						"provider":{
+							"title":"Provider",
+							"type":"string"
+						}
+					},
+					"required":[
+						"inputTokens",
+						"outputTokens"
+					],
+					"type":"object"
+				},
+				"code":"String normalizeProvider(String p){ if(!p) return null; p=p.toLowerCase(); if(p in ['aws','amazon_bedrock']) return 'amazon_bedrock'; return p }\nString normalizeModel(String m){ if(!m) return null; return m.replaceFirst(/-\\d{8}-v\\d+:\\d+$/,'').replaceFirst(/-\\d{8}$/,'').replaceFirst(/-\\d{4}-\\d{2}-\\d{2}$/,'').toLowerCase() }\nString removeRegion(String m){ if(!m) return null; return m.toLowerCase().replaceFirst(/^(us|eu|apac)\\./,'') }\n\ndef models   = binding.hasVariable('models') ? (models ?: []) : []\ndef provider = normalizeProvider(binding.hasVariable('provider') ? provider?.toString() : '')\ndef rawModel = (binding.hasVariable('modelId') ? (modelId ?: '') : '').toString().toLowerCase()\n\n// Price index for this provider's rows. Exact full key wins; stripped/region keys are putIfAbsent fallbacks.\ndef index = [:]\nmodels.each { row ->\n    def props = row?.properties ?: [:]\n    def rp = normalizeProvider(props.provider?.toString())\n    def rm = props.model?.toString()\n    if(!rp || !rm) return\n    def entry = [\n        input     : (props.Pricing?.input?.text      ?: 0) as BigDecimal,\n        output    : (props.Pricing?.output?.text     ?: 0) as BigDecimal,\n        cacheread : (props.Pricing?.cacheread?.text   ?: 0) as BigDecimal,\n        cachewrite: (props.Pricing?.cachewrite?.text  ?: 0) as BigDecimal,\n        appName   : (props.appName?.toString() ?: '')\n    ]\n    index[\"${rp}:${rm.toLowerCase()}\".toString()] = entry\n    [\"${rp}:${normalizeModel(rm)}\".toString(), \"${rp}:${removeRegion(normalizeModel(rm))}\".toString()].each { k ->\n        if(!index.containsKey(k)) index[k] = entry\n    }\n}\n\n// 3-tier lookup: exact -> strip version/date -> strip region.\ndef pricing = index[\"${provider}:${rawModel}\".toString()]\nif(!pricing) pricing = index[\"${provider}:${normalizeModel(rawModel)}\".toString()]\nif(!pricing) pricing = index[\"${provider}:${removeRegion(normalizeModel(rawModel))}\".toString()]\n\ndef inputRate      = (pricing?.input      ?: 0) as BigDecimal\ndef outputRate     = (pricing?.output     ?: 0) as BigDecimal\ndef cacheReadRate  = (pricing?.cacheread  ?: 0) as BigDecimal\ndef cacheWriteRate = (pricing?.cachewrite ?: 0) as BigDecimal\ndef appName        = (pricing?.appName ?: '').toString().toLowerCase()\n\nlong inTok  = Math.max((binding.hasVariable('inputTokens')  ? (inputTokens  ?: 0) : 0) as long, 0L)\nlong outTok = Math.max((binding.hasVariable('outputTokens') ? (outputTokens ?: 0) : 0) as long, 0L)\nlong crTok  = Math.max((binding.hasVariable('cacheReadInputTokens')  ? (cacheReadInputTokens  ?: 0) : 0) as long, 0L)\nlong cwTok  = Math.max((binding.hasVariable('cacheWriteInputTokens') ? (cacheWriteInputTokens ?: 0) : 0) as long, 0L)\n\n// Token-accounting convention (verified vs official docs): EXCLUSIVE base = Anthropic Messages API and\n// its pass-through hosts (appName 'anthropic' AND provider anthropic/amazon_bedrock/google_vertex_ai/\n// vertex_ai) -> input already EXCLUDES cache. Everything else (incl. Snowflake Cortex, OpenAI, Gemini)\n// is INCLUSIVE -> carve cache out of billable input.\nboolean exclusiveBase = (appName == 'anthropic' && (provider in ['anthropic','amazon_bedrock','google_vertex_ai','vertex_ai']))\nlong billableInput = exclusiveBase ? inTok : Math.max(inTok - crTok - cwTok, 0L)\n\ndef MILLION = 1000000 as BigDecimal\ndef inputCost      = (billableInput as BigDecimal) * inputRate      / MILLION\ndef outputCost     = (outTok        as BigDecimal) * outputRate     / MILLION\ndef cacheReadCost  = (crTok         as BigDecimal) * cacheReadRate  / MILLION\ndef cacheWriteCost = (cwTok         as BigDecimal) * cacheWriteRate / MILLION\ndef totalCost      = inputCost + outputCost + cacheReadCost + cacheWriteCost\n\nreturn [\n  cost               : totalCost.doubleValue(),\n  inputCost          : inputCost.doubleValue(),\n  outputCost         : outputCost.doubleValue(),\n  cacheReadCost      : cacheReadCost.doubleValue(),\n  cacheWriteCost     : cacheWriteCost.doubleValue(),\n  billableInputTokens: billableInput,\n  pricingResolved    : (pricing != null)\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cacheReadInputTokens":"{{ n_c5Ba6.outputs.cacheReadInputTokens }}",
+					"cacheWriteInputTokens":"{{ n_c5Ba6.outputs.cacheWriteInputTokens }}",
+					"inputTokens":"{{ n_c5Ba6.outputs.inputTokens }}",
+					"modelId":"{{ n_c5Ba6.outputs.modelId }}",
+					"models":{
+						"items":{
+							"properties":{
+								"Pricing":{
+									"cacheread":{
+										"text":"{{ n_rqaKE.outputs.objects[0].properties.Pricing.cacheread.text }}"
+									},
+									"cachewrite":{
+										"text":"{{ n_rqaKE.outputs.objects[0].properties.Pricing.cachewrite.text }}"
+									},
+									"input":{
+										"text":"{{ n_rqaKE.outputs.objects[0].properties.Pricing.input.text }}"
+									},
+									"output":{
+										"text":"{{ n_rqaKE.outputs.objects[0].properties.Pricing.output.text }}"
+									}
+								},
+								"appName":"{{ n_rqaKE.outputs.objects[0].properties.appName }}",
+								"model":"{{ n_rqaKE.outputs.objects[0].properties.model }}",
+								"provider":"{{ n_rqaKE.outputs.objects[0].properties.provider }}"
+							}
+						},
+						"source":"{{ n_rqaKE.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"outputTokens":"{{ n_c5Ba6.outputs.outputTokens }}",
+					"provider":"{{ n_c5Ba6.outputs.provider }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Calculate cost",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2560,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qcWOm-1",
+			"id":"n_cdTUk",
+			"index":5,
+			"inputs":{
+				"result":{
+					"cost":"{{ n_PyTSr.outputs.result.cost }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":29
+}

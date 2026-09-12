@@ -1,0 +1,550 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743798394,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743798469,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece3645d2142160e6e2fd",
+		"deploymentTag":"in_memory_runtimetype",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":10
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_tg8zL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2obiy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2obiy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aotXb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aotXb",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_h8B4Y",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_h8B4Y",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_J252L",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aotXb",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_AJrDZ",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_AJrDZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_p2pXk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_J252L",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CldSK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_p2pXk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CldSK",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68c82e56ed179b71af987a66",
+	"lastModifiedBy":-1,
+	"lcName":"call automation and emit signal",
+	"modifiedTime":1788252971400,
+	"name":"Call Automation And Emit Signal",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lIsS0-1",
+			"id":"n_tg8zL",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"automationId":{
+							"title":"Automation Id",
+							"type":"string"
+						},
+						"callerDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"automationId":{
+									"title":"Automation Id",
+									"type":"string"
+								},
+								"nodeId":{
+									"title":"Node Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Caller Details",
+							"type":"object"
+						},
+						"connectionOverrides":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Connection Overrides",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Inputs",
+							"type":"object"
+						},
+						"signalDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"executionId":{
+									"title":"Execution Id",
+									"type":"string"
+								},
+								"runtimeType":{
+									"title":"Runtime Type",
+									"type":"string"
+								},
+								"signalId":{
+									"title":"Signal Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Signal Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.callerDetails.automationId",
+					"root.parameters.callerDetails.nodeId"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lIsS0-1",
+			"id":"n_2obiy",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"automationId":{
+							"title":"Automation Id",
+							"type":"string"
+						},
+						"nodeId":{
+							"title":"Node Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"callerDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"automationId":{
+									"title":"Automation Id",
+									"type":"string"
+								},
+								"nodeId":{
+									"title":"Node Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Caller Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if (!binding.hasVariable(\"callerDetails\") || !callerDetails.containsKey(\"automationId\") || !callerDetails.containsKey(\"nodeId\")) {\n  return [\n    automationId : '68c82cf26d4de43586f67a81',\n    nodeId : 'n_9c5yC'\n  ]\n}\n\nreturn [\n  automationId : callerDetails.automationId,\n  nodeId : callerDetails.nodeId\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"callerDetails":{
+						"automationId":"{{ n_tg8zL.outputs.callerDetails.automationId }}",
+						"nodeId":"{{ n_tg8zL.outputs.callerDetails.nodeId }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":467,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_lIsS0-1",
+			"id":"n_aotXb",
+			"index":3,
+			"inputs":{
+				"automationId":"{{ n_tg8zL.outputs.automationId }}",
+				"runtimeConnections":"{{ n_tg8zL.outputs.connectionOverrides }}",
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":"{{ n_tg8zL.outputs.inputs }}",
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_aotXb@_lIsS0-1@success",
+			"id":"n_h8B4Y",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"signalPayload":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Signal Payload",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def response = binding.hasVariable(\"response\") ? response : null\nreturn [\n  \"signalPayload\" : [\n    \"success\" : true,\n    \"response\" : response\n  ]\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"response":"{{ n_aotXb.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":455,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_aotXb@_lIsS0-1@success",
+			"id":"n_J252L",
+			"index":5,
+			"inputs":{
+				"automation_id":"{{ n_2obiy.outputs.result.automationId }}",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ n_tg8zL.outputs.signalDetails.runtimeType }}",
+				"waitingInstanceId":"{{ n_tg8zL.outputs.signalDetails.executionId }}",
+				"signal_id":"{{ n_tg8zL.outputs.signalDetails.signalId }}",
+				"signal_payload":{
+					"response":"{{ n_aotXb.outputs }}",
+					"signal_payload":"{{ n_h8B4Y.outputs.result.signalPayload }}",
+					"signal_timeout":false,
+					"success":true
+				},
+				"nodeId":"{{ n_2obiy.outputs.result.nodeId }}"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_aotXb@_lIsS0-1@error",
+			"id":"_AJrDZ",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"signalPayload":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Signal Payload",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def response = binding.hasVariable(\"response\") ? response : null\nreturn [\n  \"signalPayload\" : [\n    \"success\" : false,\n    \"response\" : response\n  ]\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"response":"{{ n_aotXb.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":455,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_aotXb@_lIsS0-1@error",
+			"id":"_p2pXk",
+			"index":7,
+			"inputs":{
+				"automation_id":"{{ n_2obiy.outputs.result.automationId }}",
+				"with_signal_id":true,
+				"waitingInstanceRuntimeType":"{{ n_tg8zL.outputs.signalDetails.runtimeType }}",
+				"waitingInstanceId":"{{ n_tg8zL.outputs.signalDetails.executionId }}",
+				"signal_id":"{{ n_tg8zL.outputs.signalDetails.signalId }}",
+				"signal_payload":{
+					"response":"{{ _AJrDZ.outputs.result.signalPayload }}",
+					"signal_payload":"{{ _AJrDZ.outputs.result.signalPayload }}",
+					"signal_timeout":false,
+					"success":false
+				},
+				"nodeId":"{{ n_2obiy.outputs.result.nodeId }}"
+			},
+			"skip":false,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lIsS0-1",
+			"id":"n_CldSK",
+			"index":8,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Internal"
+	],
+	"version":12
+}

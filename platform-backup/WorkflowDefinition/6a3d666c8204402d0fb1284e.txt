@@ -1,0 +1,1092 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743678071,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743678130,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdbe177b4b4aca57a805",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":27
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_cnLLE",
+			"id":"next@n_cnLLE@n_11Z97",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_11Z97",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_11Z97",
+			"id":"error@n_11Z97@n_XpbDy",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XpbDy",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_XpbDy",
+			"id":"if@n_XpbDy@n_NcU1P",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NcU1P",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_NcU1P",
+			"id":"error@n_NcU1P@n_UH7kP",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UH7kP",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_XpbDy",
+			"id":"next@n_XpbDy@n_ZbfF6",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZbfF6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZbfF6",
+			"id":"error@n_ZbfF6@n_SImSB",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SImSB",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_11Z97",
+			"id":"next@n_11Z97@n_gXSwm",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gXSwm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NcU1P",
+			"id":"next@n_NcU1P@n_gXSwm",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gXSwm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UH7kP",
+			"id":"next@n_UH7kP@n_gXSwm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gXSwm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZbfF6",
+			"id":"next@n_ZbfF6@n_gXSwm",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gXSwm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SImSB",
+			"id":"next@n_SImSB@n_gXSwm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gXSwm",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a3d666c8204402d0fb1284e",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge raw data store | create or update bulk",
+	"modifiedTime":1788252971405,
+	"name":"Knowledge Raw Data Store | Create or Update Bulk",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1241,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_tjuRK-1",
+			"id":"n_cnLLE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"additional":{
+							"additionalProperties":false,
+							"properties":{
+								"attachments":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{},
+										"type":"object"
+									},
+									"title":"Attachments",
+									"type":"array"
+								},
+								"executionId":{
+									"title":"executionId",
+									"type":"string"
+								},
+								"fileDetails":{
+									"additionalProperties":false,
+									"properties":{
+										"fileExtension":{
+											"title":"fileExtension",
+											"type":"string"
+										},
+										"fileType":{
+											"title":"fileType",
+											"type":"string"
+										},
+										"name":{
+											"title":"name",
+											"type":"string"
+										},
+										"size":{
+											"title":"size",
+											"type":"integer"
+										},
+										"source":{
+											"title":"source",
+											"type":"string"
+										},
+										"sourceType":{
+											"title":"sourceType",
+											"type":"string"
+										},
+										"url":{
+											"title":"url",
+											"type":"string"
+										}
+									},
+									"title":"fileDetails",
+									"type":"object"
+								},
+								"mimeType":{
+									"title":"mimeType",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"additional",
+							"type":"object"
+						},
+						"id":{
+							"title":"id",
+							"type":"string"
+						},
+						"isArchived":{
+							"title":"isArchived",
+							"type":"boolean"
+						},
+						"isDeleted":{
+							"title":"isDeleted",
+							"type":"boolean"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"knowledgeSetId",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"knowledgeVersion",
+							"type":"integer"
+						},
+						"lastDownloadedTime":{
+							"title":"lastDownloadedTime",
+							"type":"integer"
+						},
+						"lastProcessedTime":{
+							"title":"lastProcessedTime",
+							"type":"integer"
+						},
+						"metadata":{
+							"title":"metadata",
+							"type":"object"
+						},
+						"onlyMetadataModified":{
+							"title":"onlyMetadataModified",
+							"type":"boolean"
+						},
+						"parentEntityId":{
+							"title":"parentEntityId",
+							"type":"string"
+						},
+						"resourceType":{
+							"title":"resourceType",
+							"type":"string"
+						},
+						"retryCount":{
+							"title":"retryCount",
+							"type":"integer"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"sharedWithIds",
+							"type":"array"
+						},
+						"sourceDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"modifiedTime":{
+									"title":"modifiedTime",
+									"type":"integer"
+								},
+								"rootEntityId":{
+									"title":"rootEntityId",
+									"type":"string"
+								},
+								"sourceId":{
+									"title":"sourceId",
+									"type":"string"
+								}
+							},
+							"title":"sourceDetails",
+							"type":"object"
+						},
+						"sourceResponse":{
+							"title":"sourceResponse",
+							"type":"object"
+						},
+						"status":{
+							"title":"status",
+							"type":"string"
+						},
+						"userEmail":{
+							"title":"User Email",
+							"type":"string"
+						},
+						"userName":{
+							"title":"User Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.additional.executionId",
+					"root.record.additional.fileDetails.fileExtension",
+					"root.record.additional.fileDetails.fileType",
+					"root.record.additional.fileDetails.name",
+					"root.record.additional.fileDetails.size",
+					"root.record.additional.fileDetails.source",
+					"root.record.additional.fileDetails.sourceType",
+					"root.record.additional.fileDetails.url",
+					"root.record.additional.mimeType",
+					"root.record.additional.name",
+					"root.record.errorDetails.executionId",
+					"root.record.sourceDetails.modifiedTime",
+					"root.record.sourceDetails.rootEntityId",
+					"root.record.sourceDetails.sourceId",
+					"root.record.additional.indexerAutomationId",
+					"root.record.additional.parser",
+					"root.record.additional.signalId",
+					"root.record.additional.stage",
+					"root.record.errorDetails.error",
+					"root.record.errorDetails.workflowId",
+					"root.record.sharedWithIds.items",
+					"root.record.additional.attachments.items",
+					"root.record.sourceDetails.uniqueId"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2476,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_tjuRK-1",
+			"id":"n_11Z97",
+			"index":2,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"knowledge_raw_data_store",
+				"skipIfBlank":false,
+				"record":{
+					"additional":{
+						"attachments":{
+							"items":"{{ n_cnLLE.outputs.additional.attachments[0] }}",
+							"source":"{{ n_cnLLE.outputs.additional.attachments }}",
+							"ua:type":"mappedArray"
+						},
+						"executionId":"{{ n_cnLLE.outputs.additional.executionId }}",
+						"fileDetails":{
+							"fileExtension":"{{ n_cnLLE.outputs.additional.fileDetails.fileExtension }}",
+							"fileType":"{{ n_cnLLE.outputs.additional.fileDetails.fileType }}",
+							"name":"{{ n_cnLLE.outputs.additional.fileDetails.name }}",
+							"size":"{{ n_cnLLE.outputs.additional.fileDetails.size }}",
+							"source":"{{ n_cnLLE.outputs.additional.fileDetails.source }}",
+							"sourceType":"{{ n_cnLLE.outputs.additional.fileDetails.sourceType }}",
+							"url":"{{ n_cnLLE.outputs.additional.fileDetails.url }}"
+						},
+						"mimeType":"{{ n_cnLLE.outputs.additional.mimeType }}",
+						"name":"{{ n_cnLLE.outputs.metadata.name }}"
+					},
+					"errorDetails":{
+						"executionId":"{{ n_cnLLE.outputs.additional.executionId }}"
+					},
+					"id":"{{ n_cnLLE.outputs.id }}",
+					"isArchived":"{{ n_cnLLE.outputs.isArchived }}",
+					"isDeleted":"{{ n_cnLLE.outputs.isDeleted }}",
+					"knowledgeId":"{{ n_cnLLE.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_cnLLE.outputs.knowledgeSetId }}",
+					"knowledgeVersion":"{{ n_cnLLE.outputs.knowledgeVersion }}",
+					"lastDownloadedTime":"{{ n_cnLLE.outputs.lastDownloadedTime }}",
+					"lastProcessedTime":"{{ n_cnLLE.outputs.lastProcessedTime }}",
+					"metadata":"{{ n_cnLLE.outputs.metadata }}",
+					"onlyMetadataModified":"{{ n_cnLLE.outputs.onlyMetadataModified }}",
+					"parentEntityId":"{{ n_cnLLE.outputs.parentEntityId }}",
+					"resourceType":"{{ n_cnLLE.outputs.resourceType }}",
+					"retryCount":"{{ n_cnLLE.outputs.retryCount }}",
+					"sharedWithIds":{
+						"items":"{{ n_cnLLE.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_cnLLE.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"sourceDetails":{
+						"modifiedTime":"{{ n_cnLLE.outputs.sourceDetails.modifiedTime }}",
+						"rootEntityId":"{{ n_cnLLE.outputs.sourceDetails.rootEntityId }}",
+						"sourceId":"{{ n_cnLLE.outputs.sourceDetails.sourceId }}"
+					},
+					"sourceResponse":"{{ n_cnLLE.outputs.sourceResponse }}",
+					"status":"{{ n_cnLLE.outputs.status }}"
+				},
+				"useUuid":false,
+				"batching":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":60,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_11Z97@_tjuRK-1@error",
+			"id":"n_XpbDy",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_cnLLE.outputs.failedJob }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_cnLLE.outputs.failedJob }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2476,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_XpbDy@n_11Z97@_tjuRK-1@error@y",
+			"id":"n_NcU1P",
+			"index":4,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_cnLLE.outputs.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"knowledge_raw_data_store",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"ADD_TO_SET",
+						"fieldName":"properties.sharedWithIds",
+						"setValue":"{{ n_cnLLE.outputs.sharedWithIds }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.status",
+						"setValue":"UNPROCESSED"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.additional.attachments",
+						"setValue":"{{ n_cnLLE.outputs.additional.attachments }}"
+					}
+				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.knowledgeVersion",
+					"root.records.items.additional.executionId",
+					"root.records.items.additional.mimeType",
+					"root.records.items.additional.fileDetails.name",
+					"root.records.items.additional.fileDetails.size",
+					"root.records.items.additional.fileDetails.sourceType",
+					"root.records.items.additional.fileDetails.fileType",
+					"root.records.items.additional.fileDetails.fileExtension",
+					"root.records.items.additional.fileDetails.url",
+					"root.records.items.additional.fileDetails.source",
+					"root.records.items.metadata",
+					"root.records.items.retryCount",
+					"root.records.items.isArchived",
+					"root.records.items.parentEntityId",
+					"root.records.items.knowledgeId",
+					"root.records.items.lastDownloadedTime",
+					"root.records.items.isDeleted",
+					"root.records.items.lastProcessedTime",
+					"root.records.items.id",
+					"root.records.items.knowledgeSetId",
+					"root.records.items.onlyMetadataModified",
+					"root.records.items.sourceDetails.modifiedTime",
+					"root.records.items.sourceDetails.rootEntityId",
+					"root.records.items.sourceDetails.sourceId",
+					"root.records.items.resourceType",
+					"root.records.items.status",
+					"root.records.items.sourceResponse",
+					"root.records.items.sharedWithIds.items",
+					"root.records.items.uniqueEntityId"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2476,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_NcU1P@n_XpbDy@n_11Z97@_tjuRK-1@error@y@error",
+			"id":"n_UH7kP",
+			"index":5,
+			"inputs":{
+				"useRawPayload":false,
+				"object_type":"failed_knowledge_raw_data_store",
+				"records":{
+					"items":{
+						"additional":{
+							"fileDetails":{
+								"fileExtension":"{{ n_cnLLE.outputs.additional.fileDetails.fileExtension }}",
+								"fileType":"{{ n_cnLLE.outputs.additional.fileDetails.fileType }}",
+								"name":"{{ n_cnLLE.outputs.additional.fileDetails.name }}",
+								"size":"{{ n_cnLLE.outputs.additional.fileDetails.size }}",
+								"source":"{{ n_cnLLE.outputs.additional.fileDetails.source }}",
+								"sourceType":"{{ n_cnLLE.outputs.additional.fileDetails.sourceType }}",
+								"url":"{{ n_cnLLE.outputs.additional.fileDetails.url }}"
+							},
+							"mimeType":"{{ n_cnLLE.outputs.additional.mimeType }}"
+						},
+						"id":"{{ n_cnLLE.outputs.id }}",
+						"isArchived":"{{ n_cnLLE.outputs.isArchived }}",
+						"isDeleted":"{{ n_cnLLE.outputs.isDeleted }}",
+						"knowledgeId":"{{ n_cnLLE.outputs.knowledgeId }}",
+						"knowledgeSetId":"{{ n_cnLLE.outputs.knowledgeSetId }}",
+						"knowledgeVersion":"{{ n_cnLLE.outputs.knowledgeVersion }}",
+						"lastDownloadedTime":"{{ n_cnLLE.outputs.lastDownloadedTime }}",
+						"metadata":"{{ n_cnLLE.outputs.metadata }}",
+						"onlyMetadataModified":"{{ n_cnLLE.outputs.onlyMetadataModified }}",
+						"parentEntityId":"{{ n_cnLLE.outputs.parentEntityId }}",
+						"resourceType":"{{ n_cnLLE.outputs.resourceType }}",
+						"retryCount":"{{ n_cnLLE.outputs.retryCount }}",
+						"sharedWithIds":{
+							"items":"{{ n_cnLLE.outputs.sharedWithIds[0] }}",
+							"source":"{{ n_cnLLE.outputs.sharedWithIds }}",
+							"ua:type":"mappedArray"
+						},
+						"sourceDetails":{
+							"modifiedTime":"{{ n_cnLLE.outputs.sourceDetails.modifiedTime }}",
+							"rootEntityId":"{{ n_cnLLE.outputs.sourceDetails.rootEntityId }}",
+							"sourceId":"{{ n_cnLLE.outputs.sourceDetails.sourceId }}"
+						},
+						"sourceResponse":"{{ n_cnLLE.outputs.sourceResponse }}",
+						"status":"{{ n_cnLLE.outputs.status }}",
+						"uniqueEntityId":"{{ n_cnLLE.outputs.id }}"
+					},
+					"ua:type":"mappedArray"
+				},
+				"skipIfBlank":false,
+				"skipUpdate":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2476,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_XpbDy@n_11Z97@_tjuRK-1@error@n",
+			"id":"n_ZbfF6",
+			"index":6,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_cnLLE.outputs.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"knowledge_raw_data_store",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"ADD_TO_SET",
+						"fieldName":"properties.sharedWithIds",
+						"setValue":"{{ n_cnLLE.outputs.sharedWithIds }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.status",
+						"setValue":"UNPROCESSED"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.additional.attachments",
+						"setValue":"{{ n_cnLLE.outputs.additional.attachments }}"
+					}
+				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.knowledgeVersion",
+					"root.records.items.additional.executionId",
+					"root.records.items.additional.mimeType",
+					"root.records.items.additional.fileDetails.name",
+					"root.records.items.additional.fileDetails.size",
+					"root.records.items.additional.fileDetails.sourceType",
+					"root.records.items.additional.fileDetails.fileType",
+					"root.records.items.additional.fileDetails.fileExtension",
+					"root.records.items.additional.fileDetails.url",
+					"root.records.items.additional.fileDetails.source",
+					"root.records.items.metadata",
+					"root.records.items.retryCount",
+					"root.records.items.isArchived",
+					"root.records.items.parentEntityId",
+					"root.records.items.knowledgeId",
+					"root.records.items.lastDownloadedTime",
+					"root.records.items.isDeleted",
+					"root.records.items.lastProcessedTime",
+					"root.records.items.id",
+					"root.records.items.knowledgeSetId",
+					"root.records.items.onlyMetadataModified",
+					"root.records.items.sourceDetails.modifiedTime",
+					"root.records.items.sourceDetails.rootEntityId",
+					"root.records.items.sourceDetails.sourceId",
+					"root.records.items.resourceType",
+					"root.records.items.status",
+					"root.records.items.sourceResponse",
+					"root.records.items.sharedWithIds.items",
+					"root.records.items.uniqueEntityId"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2476,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_ZbfF6@n_XpbDy@n_11Z97@_tjuRK-1@error@n@error",
+			"id":"n_SImSB",
+			"index":7,
+			"inputs":{
+				"useRawPayload":false,
+				"object_type":"failed_knowledge_raw_data_store",
+				"records":{
+					"items":{
+						"additional":{
+							"fileDetails":{
+								"fileExtension":"{{ n_cnLLE.outputs.additional.fileDetails.fileExtension }}",
+								"fileType":"{{ n_cnLLE.outputs.additional.fileDetails.fileType }}",
+								"name":"{{ n_cnLLE.outputs.additional.fileDetails.name }}",
+								"size":"{{ n_cnLLE.outputs.additional.fileDetails.size }}",
+								"source":"{{ n_cnLLE.outputs.additional.fileDetails.source }}",
+								"sourceType":"{{ n_cnLLE.outputs.additional.fileDetails.sourceType }}",
+								"url":"{{ n_cnLLE.outputs.additional.fileDetails.url }}"
+							},
+							"mimeType":"{{ n_cnLLE.outputs.additional.mimeType }}"
+						},
+						"id":"{{ n_cnLLE.outputs.id }}_{{ n_cnLLE.outputs.userEmail }}",
+						"isArchived":"{{ n_cnLLE.outputs.isArchived }}",
+						"isDeleted":"{{ n_cnLLE.outputs.isDeleted }}",
+						"knowledgeId":"{{ n_cnLLE.outputs.knowledgeId }}",
+						"knowledgeSetId":"{{ n_cnLLE.outputs.knowledgeSetId }}",
+						"knowledgeVersion":"{{ n_cnLLE.outputs.knowledgeVersion }}",
+						"lastDownloadedTime":"{{ n_cnLLE.outputs.lastDownloadedTime }}",
+						"metadata":"{{ n_cnLLE.outputs.metadata }}",
+						"onlyMetadataModified":"{{ n_cnLLE.outputs.onlyMetadataModified }}",
+						"parentEntityId":"{{ n_cnLLE.outputs.parentEntityId }}",
+						"resourceType":"{{ n_cnLLE.outputs.resourceType }}",
+						"retryCount":"{{ n_cnLLE.outputs.retryCount }}",
+						"sharedWithIds":{
+							"items":"{{ n_cnLLE.outputs.sharedWithIds[0] }}",
+							"source":"{{ n_cnLLE.outputs.sharedWithIds }}",
+							"ua:type":"mappedArray"
+						},
+						"sourceDetails":{
+							"modifiedTime":"{{ n_cnLLE.outputs.sourceDetails.modifiedTime }}",
+							"rootEntityId":"{{ n_cnLLE.outputs.sourceDetails.rootEntityId }}",
+							"sourceId":"{{ n_cnLLE.outputs.sourceDetails.sourceId }}"
+						},
+						"sourceResponse":"{{ n_cnLLE.outputs.sourceResponse }}",
+						"status":"{{ n_cnLLE.outputs.status }}",
+						"uniqueEntityId":"{{ n_cnLLE.outputs.id }}"
+					},
+					"ua:type":"mappedArray"
+				},
+				"skipIfBlank":false,
+				"skipUpdate":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1241,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_tjuRK-1",
+			"id":"n_gXSwm",
+			"index":8,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		"entity|e_code_snippet|e_6a3d630abaa2f10d5ebbe72c"
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":29
+}
