@@ -1,6 +1,6 @@
 {
-	"columnCounts":16,
-	"createdTime":1787743323858,
+	"columnCounts":12,
+	"createdTime":1787743339523,
 	"deleted":false,
 	"grants":{
 		"configs":[
@@ -12,32 +12,30 @@
 			}
 		]
 	},
-	"id":"controls",
+	"id":"policies",
 	"input":{
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
+			"knowledgeFilter":{},
 			"ui:order":[
-				"appliedTo",
-				"checkType",
-				"appliedOn",
-				"outputType",
-				"confidenceThreshold",
-				"checkSeverity",
-				"actionType",
-				"additional",
 				"name",
 				"description",
-				"severityModel",
-				"llmModel",
+				"appliedTo",
+				"users",
+				"userFilter",
+				"knowledgeFilter",
+				"controls",
+				"knowledgeSets",
 				"enabled",
-				"breachOn",
-				"severityLevel",
-				"accessibleTo"
-			]
+				"accessibleTo",
+				"ruleFilter",
+				"controlSettings"
+			],
+			"userFilter":{}
 		},
 		"schema":{
-			"additionalProperties":true,
+			"additionalProperties":false,
 			"type":"object",
 			"properties":{
 				"accessibleTo":{
@@ -53,59 +51,6 @@
 					"type":"array",
 					"uniqueKey":false
 				},
-				"actionType":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Action Type",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"additional":{
-					"additionalProperties":true,
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"properties":{},
-					"searchable":true,
-					"sortable":true,
-					"title":"Additional",
-					"type":"object",
-					"uniqueKey":false
-				},
-				"appliedOn":{
-					"filterable":true,
-					"items":{
-						"anyOf":[
-							{
-								"const":"user_input",
-								"title":"User input"
-							},
-							{
-								"const":"agent_output",
-								"title":"Agent output"
-							},
-							{
-								"const":"tool_input",
-								"title":"Tool input"
-							},
-							{
-								"const":"tool_output",
-								"title":"Tool output"
-							}
-						],
-						"type":"string"
-					},
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Applied On",
-					"type":"array",
-					"uniqueKey":false
-				},
 				"appliedTo":{
 					"filterable":true,
 					"nameField":false,
@@ -116,46 +61,29 @@
 					"type":"string",
 					"uniqueKey":false
 				},
-				"breachOn":{
-					"default":false,
+				"controlSettings":{
+					"additionalProperties":true,
 					"filterable":false,
 					"nameField":false,
 					"primaryKey":false,
+					"properties":{},
 					"searchable":false,
 					"sortable":false,
-					"title":"Breach On",
-					"type":"boolean",
+					"title":"Control Settings",
+					"type":"object",
 					"uniqueKey":false
 				},
-				"checkSeverity":{
-					"default":false,
+				"controls":{
 					"filterable":true,
+					"items":{
+						"type":"string"
+					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"Check Severity",
-					"type":"boolean",
-					"uniqueKey":false
-				},
-				"checkType":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Check Type",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"confidenceThreshold":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Confidence Threshold",
-					"type":"string",
+					"title":"Controls",
+					"type":"array",
 					"uniqueKey":false
 				},
 				"description":{
@@ -173,20 +101,36 @@
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
+					"searchable":true,
+					"sortable":true,
 					"title":"Enabled",
 					"type":"boolean",
 					"uniqueKey":false
 				},
-				"llmModel":{
+				"knowledgeFilter":{
+					"additionalProperties":true,
 					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"required":[],
+					"searchable":true,
+					"sortable":true,
+					"title":"Knowledge Filter",
+					"type":"object",
+					"uniqueKey":false
+				},
+				"knowledgeSets":{
+					"filterable":true,
+					"items":{
+						"type":"string"
+					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"LLM Model",
-					"type":"string",
+					"title":"Knowledge Sets",
+					"type":"array",
 					"uniqueKey":false
 				},
 				"name":{
@@ -199,53 +143,42 @@
 					"type":"string",
 					"uniqueKey":false
 				},
-				"outputType":{
+				"ruleFilter":{
+					"additionalProperties":true,
 					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"searchable":true,
+					"sortable":true,
+					"title":"Rule Filter",
+					"type":"object",
+					"uniqueKey":false
+				},
+				"userFilter":{
+					"additionalProperties":true,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"required":[],
+					"searchable":true,
+					"sortable":true,
+					"title":"User Filter",
+					"type":"object",
+					"uniqueKey":false
+				},
+				"users":{
+					"filterable":true,
+					"items":{
+						"type":"string"
+					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"OutputType",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"severityLevel":{
-					"filterable":false,
-					"format":"single-select",
-					"nameField":false,
-					"oneOf":[
-						{
-							"const":"critical",
-							"title":"Critical"
-						},
-						{
-							"const":"high",
-							"title":"High"
-						},
-						{
-							"const":"medium",
-							"title":"Medium"
-						},
-						{
-							"const":"low",
-							"title":"Low"
-						}
-					],
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Severity Level",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"severityModel":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Severity Model",
-					"type":"string",
+					"title":"Users",
+					"type":"array",
 					"uniqueKey":false
 				}
 			},
@@ -253,7 +186,7 @@
 		}
 	},
 	"lastModifiedBy":-1,
-	"lcName":"controls",
+	"lcName":"policies",
 	"metadata":{
 		"auditable":false,
 		"autoGeneratedFields":[
@@ -267,15 +200,51 @@
 			{
 				"indexFieldMetadataList":[
 					{
-						"field":"id",
+						"field":"properties.appliedTo",
 						"type":-1
 					},
 					{
-						"field":"properties.appliedOn",
+						"field":"properties.users",
+						"type":-1
+					},
+					{
+						"field":"properties.knowledgeSets",
+						"type":-1
+					},
+					{
+						"field":"properties.enabled",
 						"type":-1
 					}
 				],
 				"name":"index_1",
+				"status":"SUCCESS"
+			},
+			{
+				"indexFieldMetadataList":[
+					{
+						"field":"properties.appliedTo",
+						"type":-1
+					},
+					{
+						"field":"properties.knowledgeSets",
+						"type":-1
+					},
+					{
+						"field":"properties.enabled",
+						"type":-1
+					}
+				],
+				"name":"index_2",
+				"status":"SUCCESS"
+			},
+			{
+				"indexFieldMetadataList":[
+					{
+						"field":"properties.controls",
+						"type":-1
+					}
+				],
+				"name":"index_3",
 				"status":"SUCCESS"
 			}
 		],
@@ -289,19 +258,16 @@
 		"external":false,
 		"filterableFields":[
 			"accessibleTo",
-			"actionType",
-			"additional",
-			"appliedOn",
 			"appliedTo",
-			"checkSeverity",
-			"checkType",
-			"confidenceThreshold",
+			"controls",
 			"description",
 			"enabled",
-			"llmModel",
+			"knowledgeFilter",
+			"knowledgeSets",
 			"name",
-			"outputType",
-			"severityModel"
+			"ruleFilter",
+			"userFilter",
+			"users"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -324,18 +290,16 @@
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
 		"searchableFields":[
-			"actionType",
-			"additional",
-			"appliedOn",
 			"appliedTo",
-			"checkSeverity",
-			"checkType",
-			"confidenceThreshold",
+			"controls",
 			"description",
-			"llmModel",
+			"enabled",
+			"knowledgeFilter",
+			"knowledgeSets",
 			"name",
-			"outputType",
-			"severityModel"
+			"ruleFilter",
+			"userFilter",
+			"users"
 		],
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
@@ -353,7 +317,7 @@
 			"uniqueKeySupported":true
 		},
 		"supportsDistinctValues":false,
-		"supportsWebhook":true,
+		"supportsWebhook":false,
 		"syncFromSourceCustomer":false,
 		"translationsEnabled":false,
 		"uniqueKeyFields":[
@@ -369,16 +333,16 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789192447087,
-	"name":"Controls",
+	"modifiedTime":1789192520477,
+	"name":"Policies",
 	"ownerUserId":-1,
 	"packaged":true,
-	"pluralName":"Controls",
+	"pluralName":"Policies",
 	"schema":{
 		"type":"SCHEMA",
 		"dynamic":false,
 		"schema":{
-			"additionalProperties":true,
+			"additionalProperties":false,
 			"type":"object",
 			"properties":{
 				"accessibleTo":{
@@ -394,59 +358,6 @@
 					"type":"array",
 					"uniqueKey":false
 				},
-				"actionType":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Action Type",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"additional":{
-					"additionalProperties":true,
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"properties":{},
-					"searchable":true,
-					"sortable":true,
-					"title":"Additional",
-					"type":"object",
-					"uniqueKey":false
-				},
-				"appliedOn":{
-					"filterable":true,
-					"items":{
-						"anyOf":[
-							{
-								"const":"user_input",
-								"title":"User input"
-							},
-							{
-								"const":"agent_output",
-								"title":"Agent output"
-							},
-							{
-								"const":"tool_input",
-								"title":"Tool input"
-							},
-							{
-								"const":"tool_output",
-								"title":"Tool output"
-							}
-						],
-						"type":"string"
-					},
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Applied On",
-					"type":"array",
-					"uniqueKey":false
-				},
 				"appliedTo":{
 					"filterable":true,
 					"nameField":false,
@@ -457,46 +368,29 @@
 					"type":"string",
 					"uniqueKey":false
 				},
-				"breachOn":{
-					"default":false,
+				"controlSettings":{
+					"additionalProperties":true,
 					"filterable":false,
 					"nameField":false,
 					"primaryKey":false,
+					"properties":{},
 					"searchable":false,
 					"sortable":false,
-					"title":"Breach On",
-					"type":"boolean",
+					"title":"Control Settings",
+					"type":"object",
 					"uniqueKey":false
 				},
-				"checkSeverity":{
-					"default":false,
+				"controls":{
 					"filterable":true,
+					"items":{
+						"type":"string"
+					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"Check Severity",
-					"type":"boolean",
-					"uniqueKey":false
-				},
-				"checkType":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Check Type",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"confidenceThreshold":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Confidence Threshold",
-					"type":"string",
+					"title":"Controls",
+					"type":"array",
 					"uniqueKey":false
 				},
 				"description":{
@@ -514,20 +408,36 @@
 					"filterable":true,
 					"nameField":false,
 					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
+					"searchable":true,
+					"sortable":true,
 					"title":"Enabled",
 					"type":"boolean",
 					"uniqueKey":false
 				},
-				"llmModel":{
+				"knowledgeFilter":{
+					"additionalProperties":true,
 					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"required":[],
+					"searchable":true,
+					"sortable":true,
+					"title":"Knowledge Filter",
+					"type":"object",
+					"uniqueKey":false
+				},
+				"knowledgeSets":{
+					"filterable":true,
+					"items":{
+						"type":"string"
+					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"LLM Model",
-					"type":"string",
+					"title":"Knowledge Sets",
+					"type":"array",
 					"uniqueKey":false
 				},
 				"name":{
@@ -540,53 +450,42 @@
 					"type":"string",
 					"uniqueKey":false
 				},
-				"outputType":{
+				"ruleFilter":{
+					"additionalProperties":true,
 					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"searchable":true,
+					"sortable":true,
+					"title":"Rule Filter",
+					"type":"object",
+					"uniqueKey":false
+				},
+				"userFilter":{
+					"additionalProperties":true,
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{},
+					"required":[],
+					"searchable":true,
+					"sortable":true,
+					"title":"User Filter",
+					"type":"object",
+					"uniqueKey":false
+				},
+				"users":{
+					"filterable":true,
+					"items":{
+						"type":"string"
+					},
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":true,
 					"sortable":true,
-					"title":"OutputType",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"severityLevel":{
-					"filterable":false,
-					"format":"single-select",
-					"nameField":false,
-					"oneOf":[
-						{
-							"const":"critical",
-							"title":"Critical"
-						},
-						{
-							"const":"high",
-							"title":"High"
-						},
-						{
-							"const":"medium",
-							"title":"Medium"
-						},
-						{
-							"const":"low",
-							"title":"Low"
-						}
-					],
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Severity Level",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"severityModel":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":true,
-					"sortable":true,
-					"title":"Severity Model",
-					"type":"string",
+					"title":"Users",
+					"type":"array",
 					"uniqueKey":false
 				}
 			},
