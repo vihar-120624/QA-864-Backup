@@ -1,0 +1,109 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744721807,
+	"deleted":false,
+	"deployedVersion":7,
+	"deploymentState":{
+		"deployedAt":1782843727276,
+		"deployedBy":1,
+		"deployedDefinitionId":"6a44094f48cf8d573de25291",
+		"status":"PAUSED",
+		"version":7,
+		"workflowVersion":6
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_1F3fc",
+			"id":"next@n_1F3fc@n_2ueYg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2ueYg",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a252c05669c1e7ed60712ea",
+	"lastModifiedBy":-1,
+	"lcName":"remove extracted ",
+	"modifiedTime":1787744721807,
+	"name":"remove Extracted ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"schedule",
+				"resourceVersion":19,
+				"resourceName":"schedule_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XiCf9-1",
+			"id":"n_1F3fc",
+			"index":1,
+			"inputs":{
+				"cron":"INTERVAL",
+				"sequential":true,
+				"maxWaitTime":30,
+				"interval":15,
+				"sequentialRunTimeUnit":"MINUTES",
+				"frequency":"MINUTES"
+			},
+			"skip":false,
+			"subTitle":"Schedule",
+			"title":"New recurring event",
+			"trigger":{
+				"type":"SCHEDULED"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":307,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_XiCf9-1",
+			"id":"n_2ueYg",
+			"index":2,
+			"inputs":{
+				"code":"import java.nio.file.*\r\nimport java.nio.file.attribute.*\r\nimport java.time.*\r\n\r\n// ---------------- CONFIG ----------------\r\ndef NFS_MOUNT_PATH = \"/data/nfs\"\r\ndef PREFIXES = [\"extracted\"]\r\ndef AGE_HOURS = 2\r\ndef DRY_RUN = false\r\n// ----------------------------------------\r\n\r\ndef cutoff = Instant.now().minus(AGE_HOURS, java.time.temporal.ChronoUnit.HOURS)\r\n\r\ndef formatBytes(long bytes) {\r\n    if (bytes < 1024) return \"${bytes} B\"\r\n    if (bytes < 1024 * 1024) return String.format(\"%.2f KB\", bytes / 1024.0)\r\n    if (bytes < 1024 * 1024 * 1024) return String.format(\"%.2f MB\", bytes / (1024.0 * 1024))\r\n    return String.format(\"%.2f GB\", bytes / (1024.0 * 1024 * 1024))\r\n}\r\n\r\nprintln \"=\" * 50\r\nprintln \"NFS Cleanup Script\"\r\nprintln \"Cutoff  : files older than ${AGE_HOURS} days\"\r\nprintln \"Dry run : ${DRY_RUN}\"\r\nprintln \"Started : ${Instant.now()}\"\r\nprintln \"=\" * 50\r\n\r\ndef results = []\r\n\r\nPREFIXES.each { prefix ->\r\n    def basePath = Paths.get(NFS_MOUNT_PATH, prefix)\r\n    def rv = [\r\n        prefix        : prefix,\r\n        scanned       : 0, scanned_bytes: 0L,\r\n        marked        : 0, marked_bytes : 0L,\r\n        deleted       : 0, deleted_bytes: 0L,\r\n        days          : [:],   // \"YYYY-MM-DD\" -> [files, bytes, deleted, deleted_bytes]\r\n        errors        : 0,\r\n    ]\r\n\r\n    if (!Files.exists(basePath)) {\r\n        println \"\\n[SKIP] ${basePath} does not exist\"\r\n        rv.error = \"PATH DOES NOT EXIST: ${basePath}\"\r\n        results << rv\r\n        return\r\n    }\r\n\r\n    println \"\\n--- Prefix: ${prefix} ---\"\r\n\r\n    Files.walkFileTree(basePath, new SimpleFileVisitor<Path>() {\r\n        @Override\r\n        FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {\r\n            if (dir.any { it.toString() == \"dnd_skip_delete\" }) {\r\n                return FileVisitResult.SKIP_SUBTREE\r\n            }\r\n            return FileVisitResult.CONTINUE\r\n        }\r\n\r\n        @Override\r\n        FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {\r\n            rv.scanned++\r\n            long size = attrs.size()\r\n            rv.scanned_bytes += size\r\n            Instant mtime = attrs.lastModifiedTime().toInstant()\r\n            String day = mtime.atZone(ZoneOffset.UTC).toLocalDate().toString()\r\n\r\n            rv.days.computeIfAbsent(day) { [files: 0, bytes: 0L, deleted: 0, deleted_bytes: 0L] }\r\n            rv.days[day].files++\r\n            rv.days[day].bytes += size\r\n\r\n            if (mtime.isBefore(cutoff)) {\r\n                rv.marked++\r\n                rv.marked_bytes += size\r\n                rv.days[day].deleted++\r\n                rv.days[day].deleted_bytes += size\r\n\r\n                if (!DRY_RUN) {\r\n                    try {\r\n                        Files.delete(file)\r\n                        rv.deleted++\r\n                        rv.deleted_bytes += size\r\n                    } catch (IOException e) {\r\n                        rv.errors++\r\n                    }\r\n                }\r\n            }\r\n            return FileVisitResult.CONTINUE\r\n        }\r\n\r\n        @Override\r\n        FileVisitResult visitFileFailed(Path file, IOException exc) {\r\n            rv.errors++\r\n            return FileVisitResult.CONTINUE\r\n        }\r\n    })\r\n\r\n    // Remove empty dirs (only when not dry run)\r\n    if (!DRY_RUN) {\r\n        Files.walkFileTree(basePath, new SimpleFileVisitor<Path>() {\r\n            @Override\r\n            FileVisitResult postVisitDirectory(Path dir, IOException exc) {\r\n                if (dir != basePath && !dir.any { it.toString() == \"dnd_skip_delete\" }) {\r\n                    try {\r\n                        Files.deleteIfExists(dir) // only deletes if empty\r\n                    } catch (IOException ignored) {}\r\n                }\r\n                return FileVisitResult.CONTINUE\r\n            }\r\n        })\r\n    }\r\n\r\n    println \"Scanned : ${rv.scanned} files (${formatBytes(rv.scanned_bytes)})\"\r\n    println \"Marked  : ${rv.marked} files (${formatBytes(rv.marked_bytes)})\"\r\n    println \"Deleted : ${rv.deleted} files (${formatBytes(rv.deleted_bytes)})\"\r\n    println \"Errors  : ${rv.errors}\"\r\n    println \"\"\r\n    println \"Day-wise breakdown (files to delete):\"\r\n    println String.format(\"  %-12s  %8s  %12s  %8s  %12s\", \"Date\", \"Files\", \"Size\", \"To Delete\", \"Delete Size\")\r\n    println \"  \" + \"-\" * 60\r\n    rv.days.sort().each { day, d ->\r\n        println String.format(\"  %-12s  %8d  %12s  %8d  %12s\",\r\n            day, d.files, formatBytes(d.bytes), d.deleted, formatBytes(d.deleted_bytes))\r\n    }\r\n\r\n    if (DRY_RUN) println \"\\n[DRY RUN] No files deleted. Set DRY_RUN=false to delete.\"\r\n\r\n    results << rv\r\n}\r\n\r\nprintln \"\\n\" + \"=\" * 50\r\nprintln \"Done: ${Instant.now()}\"\r\nprintln \"=\" * 50\r\n\r\nreturn results",
+				"compile_static":false,
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":6
+}
