@@ -1,0 +1,667 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744488212,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_B9q5O",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_y21Ft",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_y21Ft",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yYnk0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yYnk0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_saIBJ",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"_saIBJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_AjXBP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_AjXBP",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yYnk0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yYnk0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_eFfUC",
+			"type":"next"
+		}
+	],
+	"id":"6a8ed0e8ba51514edfc81264",
+	"lastModifiedBy":-1,
+	"lcName":"populate coordinates",
+	"modifiedTime":1787744488214,
+	"name":"Populate CoOrdinates",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_yIUlj-1",
+			"id":"n_B9q5O",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Chunk Ids",
+							"type":"array"
+						},
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"referenceUrl":{
+									"title":"Reference Url",
+									"type":"string"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"chunks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"metadata":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Metadata",
+										"type":"object"
+									},
+									"text":{
+										"title":"Text",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Chunks",
+							"type":"array"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"pageOffset":{
+							"title":"Page Offset",
+							"type":"integer"
+						},
+						"url":{
+							"title":"Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":463,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_yIUlj-1",
+			"id":"n_y21Ft",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunk_info_list":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Chunk Info List",
+							"type":"array"
+						},
+						"normalized_full_text":{
+							"title":"Normalized Full Text",
+							"type":"string"
+						},
+						"position_map":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Position Map",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"configurationMode":"DEFAULT",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"pageOffset":{
+							"title":"Page Offset",
+							"type":"integer"
+						},
+						"pdf_path":{
+							"title":"Pdf Path",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def find_chunks_positions_in_pdf(pdf_url,pageOffset):\n    import fitz\n    import re\n    import requests\n    from io import BytesIO\n    import uuid\n\n    def normalize(text):\n        return re.sub(r'[^a-zA-Z0-9]', '', text).lower()\n\n    def normalize_ligatures(text):\n        ligatures = {\n            'ﬂ': 'fl', 'ﬁ': 'fi', 'ﬀ': 'ff',\n            'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'ft', 'ﬆ': 'st'\n        }\n        for lig, replacement in ligatures.items():\n            text = text.replace(lig, replacement)\n        return text\n\n\n    response = requests.get(pdf_url, verify=False)\n    response.raise_for_status()\n    pdf_file = BytesIO(response.content)\n    doc = fitz.open(stream=pdf_file, filetype=\"pdf\")\n    normalized_full_text = ''\n    position_map = []\n    chunk_info_list = []\n\n    for page_num, page in enumerate(doc):\n        text_blocks = page.get_text(\"dict\")[\"blocks\"]\n        line_counter = 0\n        for block in text_blocks:\n            for line in block.get(\"lines\", []):\n                line_text = ''.join([span.get(\"text\", \"\") for span in line.get(\"spans\", [])]).strip()\n                line_counter += 1\n                for span in line.get(\"spans\", []):\n                    raw_text = span.get(\"text\", \"\")\n                    if not raw_text.strip():\n                        continue\n                    norm_text = normalize(normalize_ligatures(raw_text))\n                    if not norm_text:\n                        continue\n                    chunk_index = len(chunk_info_list)\n                    chunk_info_list.append({\n                        \"bbox\": span[\"bbox\"],\n                        \"page\": page_num + 1 + pageOffset,\n                        \"raw_text\": raw_text,\n                        \"norm_text\": norm_text,\n                        \"line_number\": line_counter,\n                        \"line_text\": line_text,\n                        \"span_text\": raw_text,\n                    })\n                    for i in range(len(norm_text)):\n                        position_map.append((chunk_index, i))\n                    normalized_full_text += norm_text\n                    \n    return {\"normalized_full_text\" : normalized_full_text, \"position_map\":position_map, \"chunk_info_list\":chunk_info_list}\n\nresult = find_chunks_positions_in_pdf(pdf_path,pageOffset)\n\n",
+				"isAsync":false,
+				"python_version":"3.12",
+				"captureStdOutput":false,
+				"parameters":{
+					"pageOffset":"{{ n_B9q5O.outputs.pageOffset }}",
+					"pdf_path":"{{ n_B9q5O.outputs.url }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":456,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_yIUlj-1",
+			"id":"n_yYnk0",
+			"index":3,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_B9q5O.outputs.chunkIds }}",
+				"captureIterations":false,
+				"batchSize":30
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{},
+				"visibleOptionalFields":[
+					"root.parameters.position_map.items",
+					"root.parameters.chunk_info_list.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":372,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_yYnk0@_yIUlj-1@l",
+			"id":"_saIBJ",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chunkData":{
+										"title":"chunkData",
+										"type":"string"
+									},
+									"chunkId":{
+										"title":"Chunk Id",
+										"type":"string"
+									},
+									"rects":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"id":{
+													"title":"Id",
+													"type":"string"
+												},
+												"lineNumber":{
+													"title":"lineNumber",
+													"type":"integer"
+												},
+												"lineText":{
+													"title":"lineText",
+													"type":"string"
+												},
+												"pageNumber":{
+													"title":"pageNumber",
+													"type":"integer"
+												},
+												"span_text":{
+													"title":"span_text",
+													"type":"string"
+												},
+												"x1":{
+													"title":"x1",
+													"type":"number"
+												},
+												"x2":{
+													"title":"x2",
+													"type":"number"
+												},
+												"y1":{
+													"title":"y1",
+													"type":"number"
+												},
+												"y2":{
+													"title":"y2",
+													"type":"number"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"rects",
+										"type":"array"
+									}
+								},
+								"required":[
+									"chunkId"
+								],
+								"type":"object"
+							},
+							"title":"result",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"configurationMode":"DEFAULT",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"batchSize":{
+							"title":"Batch Size",
+							"type":"integer"
+						},
+						"chunkIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Chunk Ids",
+							"type":"array"
+						},
+						"chunk_info_list":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Chunk Info List",
+							"type":"array"
+						},
+						"chunks":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Chunks",
+							"type":"array"
+						},
+						"normalized_full_text":{
+							"title":"Normalized Full Text",
+							"type":"string"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"position_map":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Position Map",
+							"type":"array"
+						}
+					},
+					"required":[
+						"chunks",
+						"chunkIds"
+					],
+					"type":"object"
+				},
+				"code":"def find_chunks_positions_in_pdf(chunks, normalized_full_text, position_map, chunk_info_list, offset, batchSize):\n    import fitz\n    import re\n    import requests\n    from io import BytesIO\n    import uuid\n\n    def normalize(text):\n        return re.sub(r'[^a-zA-Z0-9]', '', text).lower()\n\n    def normalize_ligatures(text):\n        ligatures = {\n            'ﬂ': 'fl', 'ﬁ': 'fi', 'ﬀ': 'ff',\n            'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'ft', 'ﬆ': 'st'\n        }\n        for lig, replacement in ligatures.items():\n            text = text.replace(lig, replacement)\n        return text\n\n    def find_text_block_with_max_spans(content: str, search_text: str):\n        match_start = content.find(search_text)\n        positions = []\n        if match_start != -1:\n            positions.append((match_start, match_start + len(search_text)))\n            return positions\n        search = search_text\n\n        while search:\n            index, length = _find(content, search)\n            if index == -1 or length == -1:\n                break\n            start = index\n            end = index + length - 1\n            positions.append((index, end))\n            search = search[length:] \n\n        return positions\n\n\n    def _find(content, search_text):\n        start = 1  \n        end = len(search_text)\n        best_len = -1\n        best_index = -1\n\n        while start <= end:\n            length = (start + end) // 2\n            substring = search_text[:length]\n            if substring in content:\n                best_len = length\n                best_index = find_index(content, substring)\n                start = length + 1\n            else:\n                end = length - 1\n        return best_index, best_len\n\n\n    def find_index(content, search_text):\n        if not content or not search_text:\n            return -1\n        for i in range(len(content) - len(search_text) + 1):\n            if content.startswith(search_text, i):\n                return i\n        return -1\n\n    def match_chunks_to_rects(search_chunks,normalized_full_text,position_map,chunk_info_list,offset,batchSize):\n        results = []\n        start_idx = offset\n        end_idx = min(len(search_chunks), offset + 30)\n        current_batch = search_chunks[start_idx:end_idx]\n        for search_text in current_batch:\n            normalized_search = normalize(normalize_ligatures(search_text))\n            search_len = len(normalized_search)\n            blocks = find_text_block_with_max_spans(normalized_full_text, normalized_search)\n            if len(blocks) == 0:\n                results.append({\n                    \"chunkData\": search_text,\n                    \"rects\": [{}] \n                })\n                continue\n            involved_chunks = {}\n            for start, end in blocks:\n                for i in range(start, end):\n                    chunk_index, _ = position_map[i]\n                    chunk = chunk_info_list[chunk_index]\n                    involved_chunks[chunk_index] = {\n                        \"id\": uuid.uuid4().hex,\n                        \"x1\": chunk[\"bbox\"][0],\n                        \"y1\": chunk[\"bbox\"][1],\n                        \"x2\": chunk[\"bbox\"][2],\n                        \"y2\": chunk[\"bbox\"][3],\n                        \"pageNumber\": chunk[\"page\"],\n                        \"lineNumber\": chunk[\"line_number\"],\n                        \"lineText\": chunk[\"line_text\"],\n                        \"span_text\": chunk[\"span_text\"],\n                    }\n            rect_list = list(involved_chunks.values())\n            results.append({\n                \"chunkData\": search_text,\n                \"rects\": rect_list\n            })\n        if len(results) == 0:\n            return [{\"normalized_full_text\" : normalized_full_text, \"position_map\":position_map, \"chunk_info_list\":chunk_info_list}] \n        return results\n\n    return match_chunks_to_rects(chunks,normalized_full_text,position_map,chunk_info_list,offset,batchSize)\n\ntry:\n    chunks_value = chunks\nexcept NameError:\n    chunks_value = []\n\ntry:\n    normalized_full_text_value = normalized_full_text\nexcept NameError:\n    normalized_full_text_value = ''\n\ntry:\n    position_map_value = position_map\nexcept NameError:\n    position_map_value = None\n\ntry:\n    chunk_info_list_value = chunk_info_list\nexcept NameError:\n    chunk_info_list_value = None\n\npositions = find_chunks_positions_in_pdf(\n    chunks_value,\n    normalized_full_text_value,\n    position_map_value,\n    chunk_info_list_value,\n    offset,\n    batchSize\n)\nfor i in range(len(positions)):\n    positions[i]['chunkId'] = chunkIds[i]\nresult = {\"result\" : positions}\n\n",
+				"isAsync":false,
+				"python_version":"3.12",
+				"parameters":{
+					"batchSize":30,
+					"chunkIds":{
+						"items":"{{ n_yYnk0.outputs.item[0] }}",
+						"source":"{{ n_yYnk0.outputs.item }}",
+						"ua:type":"mappedArray"
+					},
+					"chunk_info_list":{
+						"items":"{{ n_y21Ft.outputs.result.chunk_info_list[0] }}",
+						"source":"{{ n_y21Ft.outputs.result.chunk_info_list }}",
+						"ua:type":"mappedArray"
+					},
+					"chunks":{
+						"items":"{{ n_B9q5O.outputs.chunks[0].text }}",
+						"source":"{{ n_B9q5O.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"normalized_full_text":"{{ n_y21Ft.outputs.result.normalized_full_text }}",
+					"offset":"= ( {{ n_yYnk0.outputs.index }} * 30)",
+					"position_map":{
+						"items":"{{ n_y21Ft.outputs.result.position_map[0] }}",
+						"source":"{{ n_y21Ft.outputs.result.position_map }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.chunkMetadata.sourceType",
+					"root.records.items.chunkMetadata.name",
+					"root.records.items.chunkMetadata.source",
+					"root.records.items.chunkMetadata.fileType",
+					"root.records.items.chunkMetadata.referenceUrl",
+					"root.records.items.chunkContent",
+					"root.records.items.knowledgeId",
+					"root.records.items.rects.items.x1",
+					"root.records.items.rects.items.x2",
+					"root.records.items.rects.items.y1",
+					"root.records.items.rects.items.y2",
+					"root.records.items.rects.items.pageNumber",
+					"root.records.items.rects.items.lineNumber",
+					"root.records.items.rects.items.lineText",
+					"root.records.items.rects.items.span_text",
+					"root.records.items.chunkId",
+					"root.records.items.rects.items.id"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":30,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_yYnk0@_yIUlj-1@l",
+			"id":"_AjXBP",
+			"index":5,
+			"inputs":{
+				"object_type":"chunks_coordinates",
+				"records":{
+					"items":{
+						"chunkContent":"{{ _saIBJ.outputs.result.result[0].chunkData }}",
+						"chunkId":"{{ _saIBJ.outputs.result.result[0].chunkId }}",
+						"chunkMetadata":{
+							"fileType":"{{ n_B9q5O.outputs.chunkMetadata.fileType }}",
+							"name":"{{ n_B9q5O.outputs.chunkMetadata.name }}",
+							"referenceUrl":"{{ n_B9q5O.outputs.chunkMetadata.referenceUrl }}",
+							"source":"{{ n_B9q5O.outputs.chunkMetadata.source }}",
+							"sourceType":"{{ n_B9q5O.outputs.chunkMetadata.sourceType }}"
+						},
+						"knowledgeId":"{{ n_B9q5O.outputs.knowledgeId }}",
+						"rects":{
+							"items":{
+								"id":"{{ _saIBJ.outputs.result.result[0].rects[0].id }}",
+								"lineNumber":"{{ _saIBJ.outputs.result.result[0].rects[0].lineNumber }}",
+								"lineText":"{{ _saIBJ.outputs.result.result[0].rects[0].lineText }}",
+								"pageNumber":"{{ _saIBJ.outputs.result.result[0].rects[0].pageNumber }}",
+								"span_text":"{{ _saIBJ.outputs.result.result[0].rects[0].span_text }}",
+								"x1":"{{ _saIBJ.outputs.result.result[0].rects[0].x1 }}",
+								"x2":"{{ _saIBJ.outputs.result.result[0].rects[0].x2 }}",
+								"y1":"{{ _saIBJ.outputs.result.result[0].rects[0].y1 }}",
+								"y2":"{{ _saIBJ.outputs.result.result[0].rects[0].y2 }}"
+							},
+							"source":"{{ _saIBJ.outputs.result.result[0].rects }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"source":"{{ _saIBJ.outputs.result.result }}",
+					"ua:type":"mappedArray"
+				},
+				"skipIfBlank":false
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_yIUlj-1",
+			"id":"n_eFfUC",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":0,
+	"workflowDefinitionId":"68b81e99380612565bad2a7e",
+	"workflowVersion":54
+}
