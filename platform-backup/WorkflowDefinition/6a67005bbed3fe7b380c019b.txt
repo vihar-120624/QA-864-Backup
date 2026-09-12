@@ -1,0 +1,195 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743518567,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743518723,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecd1e53a823318abfc1d1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"description":"Update an existing connection, using the connection Id and only include the updates the user want in updated payload. ",
+	"edges":[
+		{
+			"fromNodeId":"n_74wjn",
+			"id":"next@n_74wjn@n_uF5nk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uF5nk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uF5nk",
+			"id":"next@n_uF5nk@n_zyWEc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zyWEc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zyWEc",
+			"id":"next@n_zyWEc@n_cujws",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cujws",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a67005bbed3fe7b380c019b",
+	"lastModifiedBy":-1,
+	"lcName":"update an existing connection",
+	"modifiedTime":1788252972736,
+	"name":"update an existing connection",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RcmzA-1",
+			"id":"n_74wjn",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"result",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"connectionId":{
+							"title":"connectionId",
+							"type":"string"
+						},
+						"updatePayload":{
+							"help":"Json string payload that only contains the parameters that needs to be updated, no additional un-needed parameters.",
+							"title":"updatePayload",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"utility_by_unifyapps_to_json_object",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RcmzA-1",
+			"id":"n_uF5nk",
+			"index":2,
+			"inputs":{
+				"jsonString":"{{ n_74wjn.outputs.updatePayload }}"
+			},
+			"skip":false,
+			"subTitle":"Utility ",
+			"title":"Deserialise string to JSON object",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":888,
+				"resourceName":"standard_entities_update_connection",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RcmzA-1",
+			"id":"n_zyWEc",
+			"index":3,
+			"inputs":{
+				"inputs":"{{ n_uF5nk.outputs.result }}",
+				"connectionId":"{{ n_74wjn.outputs.connectionId }}",
+				"inputType":"DYNAMIC"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by WurkNow",
+			"title":"Update connection",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RcmzA-1",
+			"id":"n_cujws",
+			"index":4,
+			"inputs":{
+				"result":{
+					"result":"{{ n_zyWEc.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde"
+	],
+	"version":10
+}

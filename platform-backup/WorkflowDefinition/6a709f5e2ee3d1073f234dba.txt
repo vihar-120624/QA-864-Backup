@@ -1,0 +1,448 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744105054,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744105257,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf692889f9507f11ed0e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":3
+	},
+	"description":"usefull for handling parallel calls",
+	"edges":[
+		{
+			"fromNodeId":"n_fUQru",
+			"id":"next@n_fUQru@n_Vf2UG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Vf2UG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Vf2UG",
+			"id":"next@n_Vf2UG@n_lU4NK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lU4NK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lU4NK",
+			"id":"next@n_lU4NK@n_7svof",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7svof",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7svof",
+			"id":"if@n_7svof@n_IE3Fm",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IE3Fm",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_IE3Fm",
+			"id":"next@n_IE3Fm@n_Bg1sJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Bg1sJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Bg1sJ",
+			"id":"next@n_Bg1sJ@n_h0kLE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_h0kLE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7svof",
+			"id":"next@n_7svof@n_h0kLE",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_h0kLE",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a709f5e2ee3d1073f234dba",
+	"lastModifiedBy":-1,
+	"lcName":"eval | governance | create testcase run ",
+	"modifiedTime":1788252972720,
+	"name":"Eval | Governance | create testcase run ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2448,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Pg6Tp-1",
+			"id":"n_fUQru",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"needToUpdate":{
+							"title":"Need To Update",
+							"type":"boolean"
+						},
+						"testcaseRunId":{
+							"title":"Testcase Run Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"actualOutput":{
+							"title":"Actual Output",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"experimentId":{
+							"title":"Experiment Id",
+							"type":"string"
+						},
+						"input":{
+							"title":"Input",
+							"type":"string"
+						},
+						"latency":{
+							"title":"Latency",
+							"type":"number"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"retrievedContext":{
+							"title":"Retrieved Context",
+							"type":"string"
+						},
+						"runId":{
+							"title":"Run Id",
+							"type":"string"
+						},
+						"tools_called":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Tools Called",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15195,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Pg6Tp-1",
+			"id":"n_Vf2UG",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_fUQru.outputs.messageId }}"
+							},
+							"property":"properties_messageId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"LLM"
+							},
+							"property":"properties_metricScores_type"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"test_case_runs",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":981,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Pg6Tp-1",
+			"id":"n_lU4NK",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"llmTestcaseRunId":{
+							"title":"Llm Testcase Run Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"llmTestcaseRunId":"{{ n_Vf2UG.outputs.id }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"llmTestcaseRunId":{
+							"title":"Llm Testcase Run Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":186,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Pg6Tp-1",
+			"id":"n_7svof",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_lU4NK.outputs.llmTestcaseRunId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.metricScores.items.metricId",
+					"root.record.metricScores.items.score",
+					"root.record.metricScores.items.result",
+					"root.record.metricScores.items.comment",
+					"root.record.metricScores.items.reason",
+					"root.record.metricScores.items.scoredBy",
+					"root.record.metricScores.items.cost",
+					"root.record.metricScores.items.latency",
+					"root.record.metricScores.items.totalTokens",
+					"root.record.tool_called.items",
+					"root.record.testCaseObject.expected_output",
+					"root.record.testCaseObject.context",
+					"root.record.testCaseObject.expected_tools.items",
+					"root.record.testCaseObject.datasetId",
+					"root.record.testCaseObject.conversationId",
+					"root.record.testCaseObject.dataset_ids.items",
+					"root.record.metricScores.items.type",
+					"root.record.testCaseObject.additionalInputProperties",
+					"root.record.testCaseObject.dataset_import_order"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3168,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7svof@_Pg6Tp-1@y",
+			"id":"n_IE3Fm",
+			"index":5,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"test_case_runs",
+				"skipIfBlank":false,
+				"record":{
+					"actualOutput":"{{ n_fUQru.outputs.actualOutput }}",
+					"agentLatency":"{{ n_fUQru.outputs.latency }}",
+					"aiAgentId":"{{ n_fUQru.outputs.experimentId }}",
+					"caseId":"{{ n_fUQru.outputs.caseId }}",
+					"experimentId":"{{ n_fUQru.outputs.experimentId }}",
+					"messageId":"{{ n_fUQru.outputs.messageId }}",
+					"result":false,
+					"retrieval_context":"{{ n_fUQru.outputs.retrievedContext }}",
+					"runId":"{{ n_fUQru.outputs.runId }}",
+					"testCaseId":"{{ n_fUQru.outputs.messageId }}",
+					"testCaseObject":{
+						"input":"{{ n_fUQru.outputs.input }}"
+					},
+					"tool_called":{
+						"items":"{{ n_fUQru.outputs.tools_called[0] }}",
+						"source":"{{ n_fUQru.outputs.tools_called }}",
+						"ua:type":"mappedArray"
+					},
+					"type":"LLM"
+				},
+				"useUuid":false,
+				"batching":false
+			},
+			"skip":false,
+			"subTitle":"Create testcaseRuns",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":982,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7svof@_Pg6Tp-1@y",
+			"id":"n_Bg1sJ",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_lU4NK.outputs.llmTestcaseRunId }}",
+						"value":"{{ n_IE3Fm.outputs.id }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2449,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Pg6Tp-1",
+			"id":"n_h0kLE",
+			"index":7,
+			"inputs":{
+				"result":{
+					"needToUpdate":"{{ n_7svof.outputs.result }}",
+					"testcaseRunId":"{{ n_lU4NK.outputs.llmTestcaseRunId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":5
+}
