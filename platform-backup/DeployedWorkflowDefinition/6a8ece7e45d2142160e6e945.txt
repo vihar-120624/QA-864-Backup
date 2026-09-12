@@ -1,0 +1,688 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743870948,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_mad8d",
+			"id":"next@n_mad8d@n_OyaHm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OyaHm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OyaHm",
+			"id":"next@n_OyaHm@n_NWJhY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NWJhY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NWJhY",
+			"id":"next@n_NWJhY@n_g5Og4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_g5Og4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_g5Og4",
+			"id":"branch@n_g5Og4@n_g5Og4@1",
+			"name":"1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_g5Og4@1",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_g5Og4@1",
+			"id":"next@n_g5Og4@1@n_LEJvL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LEJvL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LEJvL",
+			"id":"next@n_LEJvL@n_qBwlG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qBwlG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_g5Og4",
+			"id":"branch@n_g5Og4@n_g5Og4@2",
+			"name":"2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_g5Og4@2",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_g5Og4@2",
+			"id":"next@n_g5Og4@2@n_oAt09",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_oAt09",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_oAt09",
+			"id":"next@n_oAt09@n_vDDxB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vDDxB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qBwlG",
+			"id":"next@n_qBwlG@n_DxCql",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DxCql",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vDDxB",
+			"id":"next@n_vDDxB@n_DxCql",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DxCql",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_g5Og4",
+			"id":"branch@n_g5Og4@n_DxCql",
+			"name":"default",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DxCql",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_DxCql",
+			"id":"next@n_DxCql@n_SwUO6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SwUO6",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece7e45d2142160e6e945",
+	"lastModifiedBy":-1,
+	"lcName":"enterprise search | usage | citation coverage",
+	"modifiedTime":1787743870949,
+	"name":"Enterprise Search | Usage | Citation Coverage",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1278,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_brjkz-1",
+			"id":"n_mad8d",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"citationRate":{
+							"title":"Citation Rate",
+							"type":"number"
+						},
+						"percentageChange":{
+							"title":"Percentage Change",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"endDate":{
+							"title":"End Date",
+							"type":"integer"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"startDate":{
+							"title":"Start Date",
+							"type":"integer"
+						},
+						"timeZone":{
+							"title":"Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":547,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_brjkz-1",
+			"id":"n_OyaHm",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"since":{
+							"title":"Since",
+							"type":"integer"
+						},
+						"until":{
+							"title":"Until",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import groovy.time.TimeCategory\n\n// check if a value is effectively empty\ndef isBlank(val) {\n    return val == null || val.toString().trim().isEmpty()\n}\n\ndef startTime\ndef endTime\n\n// Step 1: Determine endTime\nif (binding.hasVariable('until') && !isBlank(until)) {\n    endTime = until.toLong()\n} else {\n    endTime = new Date().time\n}\n\n// Step 2: Determine startTime\nif (binding.hasVariable('since') && !isBlank(since)) {\n    startTime = since.toLong()\n} else {\n    use(TimeCategory) {\n        startTime = (new Date(endTime) - 30.days).time\n    }\n}\n\ndef finalOffset = 0\n\nif (binding.hasVariable('offset') && !isBlank(offset)) {\n    finalOffset = offset.toLong()\n}\n\nlong millisInDay = 24 * 60 * 60 * 1000\nlong daysBetween = ((endTime - startTime) / millisInDay) as long\n\nreturn [\n    startTime: startTime,\n    endTime: endTime ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"since":"{{ n_mad8d.outputs.startDate }}",
+					"until":"{{ n_mad8d.outputs.endDate }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculate StartTime and endTime",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":653,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_brjkz-1",
+			"id":"n_NWJhY",
+			"index":3,
+			"inputs":{
+				"automationId":"6a3e0856112708487115d403",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"filter":"{{ n_mad8d.outputs.filter }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Generate SQL Filter",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"branch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_brjkz-1",
+			"id":"n_g5Og4",
+			"index":4,
+			"inputs":{
+				"branches":[
+					{
+						"id":"1",
+						"inputs":{
+							"name":"Previous Window"
+						}
+					},
+					{
+						"id":"2",
+						"inputs":{
+							"name":"Current Window"
+						}
+					},
+					{
+						"id":"default"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Branch",
+			"title":"",
+			"type":"BRANCH"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_g5Og4@_brjkz-1@1",
+			"id":"n_g5Og4@1",
+			"index":5,
+			"inputs":{
+				"name":"Previous Window"
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"Previous Window",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":921,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_g5Og4@_brjkz-1@1",
+			"id":"n_LEJvL",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						},
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// current window bounds (arrive as strings -> coerce to long)\nlong curStart = (binding.hasVariable('startTime') && startTime != null) ? (startTime as Long) : 0L\nlong curEnd   = (binding.hasVariable('endTime')   && endTime   != null) ? (endTime   as Long) : 0L\n\n// previous window: same span, ends where current starts\nlong span      = curEnd - curStart\nlong prevEnd   = curStart          // endOfPrev = startOfCurrent\nlong prevStart = curStart - span   // startOfPrev = prevEnd - span\n\ndef traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\") && userCondition) ? userCondition.trim() : \"\"\n\ndef traceDynamicFilter = traceCond ? \" AND \" + traceCond : \"\"\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false \" + \" AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\ndef sql =\n\"SELECT \" +\n\"  COUNT(DISTINCT filtered_t._pr_messageId) AS total_messages, \" +\n\"  COUNT(DISTINCT citation_msgs.messageId) AS answers_with_citation, \" +\n\"  COUNT(DISTINCT citation_msgs.messageId) * 100.0 / COUNT(DISTINCT filtered_t._pr_messageId) AS prevRate \" +\n\n\"FROM (SELECT * FROM ENTITY_e_traces t \" +\n\"      WHERE t.deleted = false \" +\n\"        AND t._pr_parent = 'Retrieval' \" +\n\"        AND t._pr_fromAutomationId = '6784ec5e2bf24b00b3976630' \" +\n     traceDynamicFilter +\n\") filtered_t \" +\n\n\"JOIN (SELECT * FROM USER u \" +\n     userDynamicFilter +\n\") filtered_u \" +\n\"  ON filtered_t._pr_userId = filtered_u.userId \" +\n\n\"LEFT JOIN ( \" +\n\"    SELECT DISTINCT _pr_messageId AS messageId \" +\n\"    FROM ENTITY_citation_store \" +\n\"    WHERE deleted = false \" +\n\"      AND _pr_usageCount > 0 \" +\n\") citation_msgs \" +\n\"  ON citation_msgs.messageId = filtered_t._pr_messageId \" +\n\n\"WHERE UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN \" + prevStart + \" AND \" + prevEnd\n\nreturn [\"sql\": sql]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"endTime":"{{ n_OyaHm.outputs.result.endTime }}",
+					"startTime":"{{ n_OyaHm.outputs.result.startTime }}",
+					"traceCondition":"{{ n_NWJhY.outputs.traceCondition }}",
+					"userCondition":"{{ n_NWJhY.outputs.userCondition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":853,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_g5Og4@_brjkz-1@1",
+			"id":"n_qBwlG",
+			"index":7,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"answers_with_citation":{
+									"title":"answers_with_citation",
+									"type":"integer"
+								},
+								"prevRate":{
+									"title":"Prev Rate",
+									"type":"number"
+								},
+								"total_messages":{
+									"title":"total_messages",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_LEJvL.outputs.result.sql }}",
+				"record":{
+					"endTime":"{{ n_OyaHm.outputs.result.endTime }}",
+					"startTime":"{{ n_OyaHm.outputs.result.startTime }}"
+				},
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_g5Og4@_brjkz-1@2",
+			"id":"n_g5Og4@2",
+			"index":8,
+			"inputs":{
+				"name":"Current Window"
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"Current Window",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":921,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_g5Og4@_brjkz-1@2",
+			"id":"n_oAt09",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"sql":{
+							"title":"Sql",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"traceCondition":{
+							"title":"Trace Condition",
+							"type":"string"
+						},
+						"userCondition":{
+							"title":"User Condition",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\") && userCondition) ? userCondition.trim() : \"\"\n\ndef traceDynamicFilter = traceCond ? \" AND \" + traceCond : \"\"\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false \" + \" AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\ndef sql =\n\"SELECT \" +\n\"  COUNT(DISTINCT filtered_t._pr_messageId) AS total_messages, \" +\n\"  COUNT(DISTINCT citation_msgs.messageId) AS answers_with_citation, \" +\n\"  COUNT(DISTINCT citation_msgs.messageId) * 100.0 / COUNT(DISTINCT filtered_t._pr_messageId) AS citation_coverage_rate \" +\n\n\"FROM (SELECT * FROM ENTITY_e_traces t \" +\n\"      WHERE t.deleted = false \" +\n\"        AND t._pr_parent = 'Retrieval' \" +\n\"        AND t._pr_fromAutomationId = '6784ec5e2bf24b00b3976630' \" +\n     traceDynamicFilter +\n\") filtered_t \" +\n\n\"JOIN (SELECT * FROM USER u \" +\n     userDynamicFilter +\n\") filtered_u \" +\n\"  ON filtered_t._pr_userId = filtered_u.userId \" +\n\n\"LEFT JOIN ( \" +\n\"    SELECT DISTINCT _pr_messageId AS messageId \" +\n\"    FROM ENTITY_citation_store \" +\n\"    WHERE deleted = false \" +\n\"      AND _pr_usageCount > 0 \" +\n\") citation_msgs \" +\n\"  ON citation_msgs.messageId = filtered_t._pr_messageId \" +\n\n\"WHERE UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN :startTime AND :endTime\"\n\nreturn [\"sql\": sql]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"traceCondition":"{{ n_NWJhY.outputs.traceCondition }}",
+					"userCondition":"{{ n_NWJhY.outputs.userCondition }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":853,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_g5Og4@_brjkz-1@2",
+			"id":"n_vDDxB",
+			"index":10,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"columns":{
+							"additionalProperties":false,
+							"properties":{
+								"answers_with_citation":{
+									"title":"answers_with_citation",
+									"type":"integer"
+								},
+								"citation_coverage_rate":{
+									"title":"citation_coverage_rate",
+									"type":"number"
+								},
+								"total_messages":{
+									"title":"total_messages",
+									"type":"integer"
+								}
+							},
+							"title":"columns",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"query":"{{ n_oAt09.outputs.result.sql }}",
+				"record":{
+					"endTime":"{{ n_OyaHm.outputs.result.endTime }}",
+					"startTime":"{{ n_OyaHm.outputs.result.startTime }}"
+				},
+				"params":{
+					"additionalProperties":false,
+					"properties":{
+						"endTime":{
+							"title":"End Time",
+							"type":"integer"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1002,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_brjkz-1",
+			"id":"n_DxCql",
+			"index":11,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"citationRate":{
+							"title":"Citation Rate",
+							"type":"number"
+						},
+						"pctChange":{
+							"title":"Pct Change",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"citationRate":{
+							"title":"Citation Rate",
+							"type":"number"
+						},
+						"currentCount":{
+							"title":"Current Count",
+							"type":"integer"
+						},
+						"prevCount":{
+							"title":"Prev Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def citationRate = (binding.hasVariable('citationRate') && citationRate != null) ? (citationRate as Double) : 0.0d\ndef prevCount = (binding.hasVariable('prevCount') && prevCount != null) ? prevCount : 0\ndef curCount  = (binding.hasVariable('currentCount') && currentCount != null) ? currentCount : 0\n\nif (citationRate > 100.00) {\n    citationRate = 100.00\n}\n\n// % change of current vs previous window\ndef pctChange = 0.0d\nif (prevCount != 0) {\n    pctChange = ((curCount - prevCount) / prevCount) * 100.00\n}\n\nreturn [\n  \"citationRate\" : citationRate,\n  \"pctChange\"    : pctChange\n]",
+				"compile_static":false,
+				"captureStdOutput":true,
+				"parameters":{
+					"citationRate":"{{ n_vDDxB.outputs.objects[0].columns.citation_coverage_rate }}",
+					"currentCount":"{{ n_vDDxB.outputs.objects[0].columns.answers_with_citation }}",
+					"prevCount":"{{ n_qBwlG.outputs.objects[0].columns.answers_with_citation }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1278,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_brjkz-1",
+			"id":"n_SwUO6",
+			"index":12,
+			"inputs":{
+				"result":{
+					"citationRate":"{{ n_DxCql.outputs.result.citationRate }}",
+					"percentageChange":"{{ n_DxCql.outputs.result.pctChange }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a3fba50ea44e40fa62c26c1",
+	"workflowVersion":38
+}
