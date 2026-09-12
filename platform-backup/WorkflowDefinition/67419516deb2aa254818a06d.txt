@@ -1,0 +1,211 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744488305,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744488374,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed0e82889f9507f1213a8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":53
+	},
+	"edges":[
+		{
+			"fromNodeId":"_OrBXP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dI3T7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"dI3T7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_bHLcE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_bHLcE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_E0ybA",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67419516deb2aa254818a06d",
+	"lastModifiedBy":-1,
+	"lcName":"ai agent index user queries ",
+	"modifiedTime":1788252972231,
+	"name":"AI Agent Index User Queries ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":88,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ND7Wg-1",
+			"id":"_OrBXP",
+			"index":0,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"id":{
+							"title":"Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"id"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"query":{
+							"title":"Query",
+							"type":"string"
+						}
+					},
+					"required":[
+						"aiAgentId",
+						"query"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":20,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ND7Wg-1",
+			"id":"dI3T7",
+			"index":0,
+			"inputs":{
+				"automationId":"66b3353e1a78c401cb583431",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ _OrBXP.outputs.aiAgentId }}",
+					"trace":false,
+					"userQuery":"{{ _OrBXP.outputs.query }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"embeddings",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2077,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ND7Wg-1",
+			"id":"_bHLcE",
+			"index":0,
+			"inputs":{
+				"object_type":"ai_agent_user_query",
+				"record":{
+					"aiAgentId":"{{ _OrBXP.outputs.aiAgentId }}",
+					"embeddings":{
+						"items":"{{ dI3T7.outputs.embeddings[0] }}",
+						"source":"{{ dI3T7.outputs.embeddings }}",
+						"ua:type":"mappedArray"
+					},
+					"text":"{{ _OrBXP.outputs.query }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":75,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ND7Wg-1",
+			"id":"_E0ybA",
+			"index":0,
+			"inputs":{
+				"result":{
+					"id":"{{ _bHLcE.outputs.id }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":55
+}
