@@ -1,0 +1,1304 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743693666,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743693857,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecdcd9d7c534668ef64bb",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":106
+	},
+	"edges":[
+		{
+			"fromNodeId":"3V1Pq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agentGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agentGate",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"invoke",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agentGate",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ZPXM8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"invoke",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"242ha",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"ZPXM8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"CsEc8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"CsEc8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Cv4iw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Cv4iw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uIyQb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uIyQb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"4Oaru",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"4Oaru",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"FxBER",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"FxBER",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"K3vIK",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"K3vIK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"rEdty",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"rEdty",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MnURn",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"MnURn",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"rEdty",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"rEdty",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"FxBER",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"FxBER",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"242ha",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"67dcfe388445037d9b0662c0",
+	"lastModifiedBy":-1,
+	"lcName":"test agent streaming",
+	"modifiedTime":1788252972454,
+	"name":"Test Agent Streaming",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":50,
+				"resourceName":"callables_from_automation_streaming"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"3V1Pq",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"deepResearchEnabled":{
+							"title":"Deep Research Enabled",
+							"type":"boolean"
+						},
+						"delta":{
+							"additionalProperties":false,
+							"properties":{
+								"data":{
+									"title":"data",
+									"type":"string"
+								},
+								"op":{
+									"title":"op",
+									"type":"string"
+								},
+								"path":{
+									"title":"path",
+									"type":"string"
+								}
+							},
+							"title":"delta",
+							"type":"object"
+						},
+						"messageId":{
+							"title":"messageId",
+							"type":"string"
+						},
+						"responseGenerationStatus":{
+							"title":"Response Generation Status",
+							"type":"string"
+						},
+						"usageAlert":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Usage Alert",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"$comment":"agent_Test",
+					"properties":{
+						"agentVariables":{
+							"type":"object"
+						},
+						"agentVersion":{
+							"title":"Agent Version",
+							"type":"integer"
+						},
+						"aiAgentId":{
+							"type":"string"
+						},
+						"attachments":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"bucket":{
+										"type":"string"
+									},
+									"data":{
+										"additionalProperties":false,
+										"properties":{
+											"address":{
+												"title":"address",
+												"type":"string"
+											},
+											"bucket":{
+												"title":"bucket",
+												"type":"string"
+											},
+											"fileType":{
+												"title":"fileType",
+												"type":"string"
+											},
+											"formattedTime":{
+												"title":"formattedTime",
+												"type":"string"
+											},
+											"hasError":{
+												"title":"hasError",
+												"type":"boolean"
+											},
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"isUploaded":{
+												"title":"isUploaded",
+												"type":"boolean"
+											},
+											"key":{
+												"title":"key",
+												"type":"string"
+											},
+											"latitude":{
+												"title":"latitude",
+												"type":"number"
+											},
+											"longitude":{
+												"title":"longitude",
+												"type":"number"
+											},
+											"mapPreviewUrl":{
+												"title":"mapPreviewUrl",
+												"type":"string"
+											},
+											"mimeType":{
+												"title":"mimeType",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"placeId":{
+												"title":"placeId",
+												"type":"string"
+											},
+											"progress":{
+												"title":"progress",
+												"type":"integer"
+											},
+											"size":{
+												"title":"size",
+												"type":"integer"
+											},
+											"source":{
+												"title":"source",
+												"type":"string"
+											},
+											"sourceType":{
+												"title":"sourceType",
+												"type":"string"
+											},
+											"temporaryUrl":{
+												"title":"temporaryUrl",
+												"type":"string"
+											},
+											"type":{
+												"title":"type",
+												"type":"string"
+											},
+											"url":{
+												"title":"url",
+												"type":"string"
+											},
+											"venue":{
+												"title":"venue",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									},
+									"fileType":{
+										"type":"string"
+									},
+									"id":{
+										"type":"string"
+									},
+									"isUploaded":{
+										"type":"boolean"
+									},
+									"key":{
+										"type":"string"
+									},
+									"mimeType":{
+										"type":"string"
+									},
+									"name":{
+										"type":"string"
+									},
+									"progress":{
+										"type":"integer"
+									},
+									"size":{
+										"type":"integer"
+									},
+									"source":{
+										"type":"string"
+									},
+									"sourceType":{
+										"type":"string"
+									},
+									"temporaryUrl":{
+										"type":"string"
+									},
+									"type":{
+										"type":"string"
+									},
+									"url":{
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Attachments",
+							"type":"array"
+						},
+						"background":{
+							"type":"string"
+						},
+						"caseId":{
+							"type":"string"
+						},
+						"copilotType":{
+							"type":"string"
+						},
+						"defaultTools":{
+							"additionalProperties":false,
+							"properties":{
+								"deepResearch":{
+									"title":"Deep Research",
+									"type":"boolean"
+								},
+								"documentVision":{
+									"title":"Document Vision",
+									"type":"boolean"
+								},
+								"enableKnowledge":{
+									"title":"Enable Knowledge",
+									"type":"boolean"
+								},
+								"webSearch":{
+									"title":"Web Search",
+									"type":"boolean"
+								}
+							},
+							"required":[],
+							"title":"Default Tools",
+							"type":"object"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"formData":{
+							"additionalProperties":false,
+							"properties":{
+								"brandMessageId":{
+									"title":"Brand Message Id",
+									"type":"string"
+								},
+								"data":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Data",
+									"type":"object"
+								},
+								"id":{
+									"title":"Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"id",
+								"data",
+								"brandMessageId"
+							],
+							"title":"Form Data",
+							"type":"object"
+						},
+						"goal":{
+							"type":"string"
+						},
+						"instructions":{
+							"type":"string"
+						},
+						"knowledgeIds":{
+							"items":{
+								"type":"string"
+							},
+							"type":"array"
+						},
+						"knowledgeSetIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Set Ids",
+							"type":"array"
+						},
+						"message":{
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"role":{
+							"type":"string"
+						},
+						"settings":{
+							"additionalProperties":false,
+							"properties":{
+								"taskExecutionModel":{
+									"title":"Task Execution Model",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Settings",
+							"type":"object"
+						},
+						"skillIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"skillIds",
+							"type":"array"
+						},
+						"spaceId":{
+							"title":"Space Id",
+							"type":"string"
+						},
+						"steps":{
+							"items":{
+								"properties":{
+									"instructions":{
+										"type":"string"
+									},
+									"nodes":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{},
+											"type":"object"
+										},
+										"title":"Nodes",
+										"type":"array"
+									}
+								},
+								"required":[
+									"nodes"
+								],
+								"type":"object"
+							},
+							"type":"array"
+						},
+						"timezoneId":{
+							"title":"Timezone Id",
+							"type":"string"
+						},
+						"toolIds":{
+							"items":{
+								"type":"string"
+							},
+							"type":"array"
+						},
+						"workflowInputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Inputs",
+							"type":"object"
+						},
+						"clientTools":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"name":{
+										"type":"string",
+										"title":"Name"
+									},
+									"description":{
+										"type":"string",
+										"title":"Description"
+									},
+									"input_schema":{
+										"type":"object",
+										"properties":{},
+										"additionalProperties":false,
+										"title":"Input Schema"
+									}
+								},
+								"additionalProperties":false,
+								"required":[]
+							},
+							"title":"Client Tools"
+						}
+					},
+					"required":[
+						"formData"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation Streaming",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":20,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"agentGate",
+			"index":12,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.USE_NEW_AGENT_CORE }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Use new agent core?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"ai_agents_by_unifyapps",
+				"resourceVersion":1,
+				"resourceName":"ai_agents_by_unifyapps_invoke_agent",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"invoke",
+			"index":13,
+			"inputs":{
+				"agentId":"{{ 3V1Pq.outputs.aiAgentId }}",
+				"attachments":"{{ 3V1Pq.outputs.attachments }}",
+				"taskExecutionModel":"{{ 3V1Pq.outputs.settings.taskExecutionModel }}",
+				"webSearch":"{{ 3V1Pq.outputs.defaultTools.webSearch }}",
+				"caseId":"{{ 3V1Pq.outputs.caseId }}",
+				"enableKnowledge":"{{ 3V1Pq.outputs.defaultTools.enableKnowledge }}",
+				"messageId":"{{ 3V1Pq.outputs.messageId }}",
+				"fromCustomerUserId":"{{ __RUN__.outputs.userId }}",
+				"copilotType":"AI_AGENT_TEST",
+				"message":"{{ 3V1Pq.outputs.message }}",
+				"userId":"{{ __RUN__.outputs.userId }}",
+				"deepResearch":"{{ 3V1Pq.outputs.defaultTools.deepResearch }}"
+			},
+			"skip":false,
+			"subTitle":"Invoke Agent",
+			"title":"Run the agent turn",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.aiAgentId",
+					"root.parameters.copilotType",
+					"root.parameters.message",
+					"root.parameters.caseId",
+					"root.parameters.attachments.source",
+					"root.parameters.attachments.ua:type",
+					"root.parameters.attachments.items.id",
+					"root.parameters.attachments.items.name",
+					"root.parameters.attachments.items.url",
+					"root.parameters.attachments.items.sourceType",
+					"root.parameters.attachments.items.source",
+					"root.parameters.attachments.items.fileType",
+					"root.parameters.attachments.items.size",
+					"root.parameters.attachments.items.type",
+					"root.parameters.attachments.items.mimeType",
+					"root.parameters.attachments.items.temporaryUrl",
+					"root.parameters.attachments.items.progress",
+					"root.parameters.attachments.items.isUploaded",
+					"root.parameters.attachments.items.key",
+					"root.parameters.attachments.items.bucket",
+					"root.parameters.knowledgeIds.source",
+					"root.parameters.knowledgeIds.ua:type",
+					"root.parameters.knowledgeIds.items",
+					"root.parameters.toolIds.source",
+					"root.parameters.toolIds.ua:type",
+					"root.parameters.toolIds.items",
+					"root.parameters.role",
+					"root.parameters.goal",
+					"root.parameters.background",
+					"root.parameters.instructions",
+					"root.parameters.steps.source",
+					"root.parameters.steps.ua:type",
+					"root.parameters.steps.items.instructions",
+					"root.parameters.knowledgeSetIds.source",
+					"root.parameters.knowledgeSetIds.ua:type",
+					"root.parameters.knowledgeSetIds.items",
+					"root.parameters.defaultTools.webSearch",
+					"root.parameters.settings.taskExecutionModel"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":163,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"ZPXM8",
+			"index":2,
+			"inputs":{
+				"automationId":"67a215271cb90843a91fefca",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"agentVariables":"{{ 3V1Pq.outputs.agentVariables }}",
+					"agentVersion":"{{ 3V1Pq.outputs.agentVersion }}",
+					"aiAgentId":"{{ 3V1Pq.outputs.aiAgentId }}",
+					"attachments":{
+						"items":{
+							"bucket":"{{ 3V1Pq.outputs.attachments[0].bucket }}",
+							"data":{
+								"address":"{{ 3V1Pq.outputs.attachments[0].data.address }}",
+								"bucket":"{{ 3V1Pq.outputs.attachments[0].data.bucket }}",
+								"fileType":"{{ 3V1Pq.outputs.attachments[0].data.fileType }}",
+								"formattedTime":"{{ 3V1Pq.outputs.attachments[0].data.formattedTime }}",
+								"hasError":"{{ 3V1Pq.outputs.attachments[0].data.hasError }}",
+								"id":"{{ 3V1Pq.outputs.attachments[0].data.id }}",
+								"isUploaded":"{{ 3V1Pq.outputs.attachments[0].data.isUploaded }}",
+								"key":"{{ 3V1Pq.outputs.attachments[0].data.key }}",
+								"latitude":"{{ 3V1Pq.outputs.attachments[0].data.latitude }}",
+								"longitude":"{{ 3V1Pq.outputs.attachments[0].data.longitude }}",
+								"mapPreviewUrl":"{{ 3V1Pq.outputs.attachments[0].data.mapPreviewUrl }}",
+								"mimeType":"{{ 3V1Pq.outputs.attachments[0].data.mimeType }}",
+								"name":"{{ 3V1Pq.outputs.attachments[0].data.name }}",
+								"placeId":"{{ 3V1Pq.outputs.attachments[0].data.placeId }}",
+								"progress":"{{ 3V1Pq.outputs.attachments[0].data.progress }}",
+								"size":"{{ 3V1Pq.outputs.attachments[0].data.size }}",
+								"source":"{{ 3V1Pq.outputs.attachments[0].data.source }}",
+								"sourceType":"{{ 3V1Pq.outputs.attachments[0].data.sourceType }}",
+								"temporaryUrl":"{{ 3V1Pq.outputs.attachments[0].data.temporaryUrl }}",
+								"type":"{{ 3V1Pq.outputs.attachments[0].data.type }}",
+								"url":"{{ 3V1Pq.outputs.attachments[0].data.url }}",
+								"venue":"{{ 3V1Pq.outputs.attachments[0].data.venue }}"
+							},
+							"fileType":"{{ 3V1Pq.outputs.attachments[0].fileType }}",
+							"id":"{{ 3V1Pq.outputs.attachments[0].id }}",
+							"isUploaded":"{{ 3V1Pq.outputs.attachments[0].isUploaded }}",
+							"key":"{{ 3V1Pq.outputs.attachments[0].key }}",
+							"mimeType":"{{ 3V1Pq.outputs.attachments[0].mimeType }}",
+							"name":"{{ 3V1Pq.outputs.attachments[0].name }}",
+							"progress":"{{ 3V1Pq.outputs.attachments[0].progress }}",
+							"size":"{{ 3V1Pq.outputs.attachments[0].size }}",
+							"source":"{{ 3V1Pq.outputs.attachments[0].source }}",
+							"sourceType":"{{ 3V1Pq.outputs.attachments[0].sourceType }}",
+							"temporaryUrl":"{{ 3V1Pq.outputs.attachments[0].temporaryUrl }}",
+							"type":"{{ 3V1Pq.outputs.attachments[0].type }}",
+							"url":"{{ 3V1Pq.outputs.attachments[0].url }}"
+						},
+						"source":"{{ 3V1Pq.outputs.attachments }}",
+						"ua:type":"mappedArray"
+					},
+					"background":"{{ 3V1Pq.outputs.background }}",
+					"caseId":"{{ 3V1Pq.outputs.caseId }}",
+					"copilotType":"{{ 3V1Pq.outputs.copilotType }}",
+					"defaultTools":{
+						"deepResearch":"{{ 3V1Pq.outputs.defaultTools.deepResearch }}",
+						"documentVision":"{{ 3V1Pq.outputs.defaultTools.documentVision }}",
+						"enableKnowledge":"{{ 3V1Pq.outputs.defaultTools.enableKnowledge }}",
+						"webSearch":"{{ 3V1Pq.outputs.defaultTools.webSearch }}"
+					},
+					"deployedVersion":"{{ 3V1Pq.outputs.deployedVersion }}",
+					"filter":"{{ 3V1Pq.outputs.filter }}",
+					"formData":{
+						"brandMessageId":"{{ 3V1Pq.outputs.formData.brandMessageId }}",
+						"data":"{{ 3V1Pq.outputs.formData.data }}",
+						"id":"{{ 3V1Pq.outputs.formData.id }}"
+					},
+					"goal":"{{ 3V1Pq.outputs.goal }}",
+					"instructions":"{{ 3V1Pq.outputs.instructions }}",
+					"knowledgeIds":{
+						"items":"{{ 3V1Pq.outputs.knowledgeIds[0] }}",
+						"source":"{{ 3V1Pq.outputs.knowledgeIds }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeSetIds":{
+						"items":"{{ 3V1Pq.outputs.knowledgeSetIds[0] }}",
+						"source":"{{ 3V1Pq.outputs.knowledgeSetIds }}",
+						"ua:type":"mappedArray"
+					},
+					"message":"{{ 3V1Pq.outputs.message }}",
+					"messageId":"{{ 3V1Pq.outputs.messageId }}",
+					"role":"{{ 3V1Pq.outputs.role }}",
+					"settings":{
+						"taskExecutionModel":"{{ 3V1Pq.outputs.settings.taskExecutionModel }}"
+					},
+					"skillIds":{
+						"items":"{{ 3V1Pq.outputs.skillIds[0] }}",
+						"source":"{{ 3V1Pq.outputs.skillIds }}",
+						"ua:type":"mappedArray"
+					},
+					"spaceId":"{{ 3V1Pq.outputs.spaceId }}",
+					"steps":{
+						"items":{
+							"instructions":"{{ 3V1Pq.outputs.steps[0].instructions }}",
+							"nodes":{
+								"items":"{{ 3V1Pq.outputs.steps[0].nodes[0] }}",
+								"source":"{{ 3V1Pq.outputs.steps[0].nodes }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ 3V1Pq.outputs.steps }}",
+						"ua:type":"mappedArray"
+					},
+					"timezoneId":"{{ 3V1Pq.outputs.timezoneId }}",
+					"toolIds":{
+						"items":"{{ 3V1Pq.outputs.toolIds[0] }}",
+						"source":"{{ 3V1Pq.outputs.toolIds }}",
+						"ua:type":"mappedArray"
+					},
+					"workflowInputs":"{{ 3V1Pq.outputs.workflowInputs }}",
+					"clientTools":{
+						"source":"{{ 3V1Pq.outputs.clientTools }}",
+						"ua:type":"mappedArray",
+						"items":{
+							"name":"{{ 3V1Pq.outputs.clientTools[0].name }}",
+							"description":"{{ 3V1Pq.outputs.clientTools[0].description }}",
+							"input_schema":"{{ 3V1Pq.outputs.clientTools[0].input_schema }}"
+						}
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"test agent",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"CsEc8",
+			"index":3,
+			"inputs":{
+				"object_type":"service_hub_message",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ ZPXM8.outputs.messageId }}",
+				"readThroughSessionVariables":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":78,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"Cv4iw",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"fanMessage":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Fan Message",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"additional":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Additional",
+							"type":"object"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"createdTime":{
+							"title":"Created Time",
+							"type":"string"
+						},
+						"fromCustomerUserId":{
+							"title":"From Customer User Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"messageId",
+						"caseId"
+					],
+					"type":"object"
+				},
+				"code":"def text = \"\"\ndef messages = []\n\ndef fanMessage = [\"messageType\":\"Fan\",\"messageId\": messageId, \"caseId\": caseId, \"createdTime\": createdTime,\"fromCustomerUserId\":fromCustomerUserId, \"message\": messages]\n\n// if(binding.hasVariable(\"internalMessageType\")&& internalMessageType != null && internalMessageType.trim()!= \"\") {\n//   fanMessage << [\"additional\":[\"internalMessageType\":\"THOUGHT\"]]\n// }\n\nif(binding.hasVariable(\"additional\")&& additional != null  ) {\n  fanMessage << [\"additional\":additional]\n}\n\n\n\nreturn [\"fanMessage\": fanMessage]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"additional":"{{ CsEc8.outputs.properties.additional }}",
+					"caseId":"{{ ZPXM8.outputs.caseId }}",
+					"createdTime":"{{ ZPXM8.outputs.messageCreatedTime }}",
+					"fromCustomerUserId":"{{ ZPXM8.outputs.fromCustomerUserId }}",
+					"messageId":"{{ ZPXM8.outputs.messageId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"create message",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.delta.path",
+					"root.parameters.delta.data"
+				]
+			},
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"utility_by_unifyapps_send_mqtt_request",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"CmKop-1",
+			"id":"n_uIyQb",
+			"index":5,
+			"inputs":{
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"delta":{
+							"additionalProperties":false,
+							"properties":{
+								"data":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Data",
+									"type":"object"
+								},
+								"path":{
+									"title":"path",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"delta",
+							"type":"object"
+						},
+						"messageId":{
+							"title":"messageId",
+							"type":"string"
+						},
+						"responseGenerationStatus":{
+							"title":"responseGenerationStatus",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"topicName":"debug_agent_streaming_{{ 3V1Pq.outputs.aiAgentId }}_{{ __RUN__.outputs.userId }}_{{ __RUN__.outputs.customerId }}",
+				"parameters":{
+					"delta":{
+						"data":"{{ Cv4iw.outputs.result.fanMessage }}",
+						"path":"*"
+					},
+					"messageId":"{{ ZPXM8.outputs.messageId }}",
+					"responseGenerationStatus":"pending"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Send Mqtt Request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":52,
+				"resourceName":"callables_return_to_automation_streaming",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"4Oaru",
+			"index":6,
+			"inputs":{
+				"result":{
+					"caseId":"{{ ZPXM8.outputs.caseId }}",
+					"delta":{
+						"data":"{{ Cv4iw.outputs.result.fanMessage }}",
+						"path":"*"
+					},
+					"messageId":"{{ ZPXM8.outputs.messageId }}",
+					"responseGenerationStatus":"pending"
+				},
+				"completed":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Add response to automation stream",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":137,
+				"resourceName":"callables_call_automation_streaming",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"FxBER",
+			"index":7,
+			"inputs":{
+				"automationId":"67b45c506083d2071be3d528",
+				"runtimeConnections":{},
+				"parameters":{
+					"caseId":"{{ ZPXM8.outputs.caseId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation (Streaming)",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":153,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"FxBER@CmKop-1@l",
+			"id":"K3vIK",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"index":{
+							"title":"index",
+							"type":"integer"
+						},
+						"isFirst":{
+							"title":"isFirst",
+							"type":"boolean"
+						},
+						"isLast":{
+							"title":"isLast",
+							"type":"boolean"
+						},
+						"item":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"completed":{
+										"title":"completed",
+										"type":"boolean"
+									},
+									"result":{
+										"additionalProperties":false,
+										"properties":{
+											"deepResearchEnabled":{
+												"title":"Deep Research Enabled",
+												"type":"boolean"
+											},
+											"delta":{
+												"additionalProperties":false,
+												"properties":{
+													"data":{
+														"title":"data",
+														"type":"string"
+													},
+													"op":{
+														"title":"Op",
+														"type":"string"
+													},
+													"path":{
+														"title":"path",
+														"type":"string"
+													}
+												},
+												"required":[],
+												"title":"delta",
+												"type":"object"
+											},
+											"messageId":{
+												"title":"messageId",
+												"type":"string"
+											},
+											"responseGenerationStatus":{
+												"title":"Response Generation Status",
+												"type":"string"
+											},
+											"usageAlert":{
+												"additionalProperties":false,
+												"properties":{},
+												"title":"Usage Alert",
+												"type":"object"
+											}
+										},
+										"required":[],
+										"title":"result",
+										"type":"object"
+									}
+								},
+								"type":"object"
+							},
+							"title":"item",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Output",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return output;",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"output":"{{ FxBER.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":155,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"FxBER@CmKop-1@l",
+			"id":"rEdty",
+			"index":9,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ K3vIK.outputs.result.item }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For loop",
+			"type":"LOOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.delta.op",
+					"root.result.delta.path",
+					"root.result.messageId"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":134,
+				"resourceName":"callables_return_to_automation_streaming",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"rEdty@FxBER@CmKop-1@l@l",
+			"id":"MnURn",
+			"index":10,
+			"inputs":{
+				"result":{
+					"caseId":"{{ ZPXM8.outputs.caseId }}",
+					"deepResearchEnabled":"{{ rEdty.outputs.item.result.deepResearchEnabled }}",
+					"delta":{
+						"data":"{{ rEdty.outputs.item.result.delta.data }}",
+						"op":"{{ rEdty.outputs.item.result.delta.op }}",
+						"path":"{{ rEdty.outputs.item.result.delta.path }}"
+					},
+					"messageId":"{{ rEdty.outputs.item.result.messageId }}",
+					"responseGenerationStatus":"{{ rEdty.outputs.item.result.responseGenerationStatus }}",
+					"usageAlert":"{{ rEdty.outputs.item.result.usageAlert }}"
+				},
+				"completed":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Add response to automation stream",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"CmKop-1",
+			"id":"242ha",
+			"index":11,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		"entity|e_code_snippet|e_67a2172ddff5de75934bd167"
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":108
+}
