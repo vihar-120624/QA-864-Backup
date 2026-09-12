@@ -1,0 +1,369 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743708666,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_uBOTh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lPnMM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lPnMM",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_U0Bw0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lPnMM",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sCUT4",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_U0Bw0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sCUT4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sCUT4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mEBwk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mEBwk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_M06zS",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecddc45d2142160e6d890",
+	"lastModifiedBy":-1,
+	"lcName":"lowe's | prompt | create prompt",
+	"modifiedTime":1787743708669,
+	"name":"Lowe's | Prompt | Create Prompt",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1123,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_uBOTh",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"additionalProperties":false,
+						"properties":{
+							"prompt":{
+								"title":"Prompt",
+								"type":"string"
+							},
+							"promptTitle":{
+								"title":"Prompt Title",
+								"type":"string"
+							}
+						},
+						"required":[],
+						"type":"object"
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"message":{
+									"title":"Message",
+									"type":"string"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"success"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"name":"Mandatory Field Does Not Exists",
+						"status":400,
+						"textBody":{
+							"type":"string"
+						}
+					},
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"bookmark":{
+									"title":"Bookmark",
+									"type":"boolean"
+								},
+								"createdAt":{
+									"title":"Created At",
+									"type":"integer"
+								},
+								"prompt":{
+									"title":"Prompt",
+									"type":"string"
+								},
+								"promptId":{
+									"title":"Prompt Id",
+									"type":"string"
+								},
+								"promptTitle":{
+									"title":"Prompt Title",
+									"type":"string"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								},
+								"updatedAt":{
+									"title":"Updated At",
+									"type":"integer"
+								},
+								"userId":{
+									"title":"User Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"success",
+								"userId",
+								"promptId"
+							],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"status":200,
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":47,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_lPnMM",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ __RUN__.outputs.userId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"User Exists ?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lPnMM@_ZX5fn-1@n",
+			"id":"n_U0Bw0",
+			"index":3,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"400_Mandatory Field Does Not Exists",
+				"body":{
+					"message":"User Id Not Provided",
+					"success":false
+				},
+				"status":400
+			},
+			"skip":false,
+			"subTitle":"Status 400",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2189,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_sCUT4",
+			"index":4,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"prompt_manager",
+				"skipIfBlank":false,
+				"record":{
+					"bookmark":false,
+					"category":"custom",
+					"prompt":"{{ n_uBOTh.outputs.body.prompt }}",
+					"promptTitle":"{{ n_uBOTh.outputs.body.promptTitle }}",
+					"userId":"{{ __RUN__.outputs.userId }}"
+				},
+				"useUuid":false,
+				"batching":false
+			},
+			"skip":false,
+			"subTitle":"Create Record",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_mEBwk",
+			"index":5,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_undefined",
+				"body":{
+					"additional":{
+						"aiAgentId":"{{ n_7xLMJ.outputs.additional.aiAgentId }}"
+					},
+					"bookmark":"{{ n_sCUT4.outputs.properties.bookmark }}",
+					"caseId":"{{ n_7xLMJ.outputs.caseId }}",
+					"createdAt":"{{ n_sCUT4.outputs.createdTime }}",
+					"feedbackCategories":{
+						"items":"{{ n_7xLMJ.outputs.feedbackCategories[0] }}",
+						"source":"{{ n_7xLMJ.outputs.feedbackCategories }}",
+						"ua:type":"mappedArray"
+					},
+					"messageId":"{{ n_7xLMJ.outputs.messageId }}",
+					"prompt":"{{ n_sCUT4.outputs.properties.prompt }}",
+					"promptId":"{{ n_sCUT4.outputs.id }}",
+					"promptTitle":"{{ n_sCUT4.outputs.properties.promptTitle }}",
+					"prompts":{
+						"items":{
+							"bookmark":"{{ n_G0m9L.outputs.object.properties.bookmark }}",
+							"createdAt":"{{ n_G0m9L.outputs.object.properties.createdAt }}",
+							"prompt":"{{ n_G0m9L.outputs.object.properties.prompt }}",
+							"promptId":"{{ n_G0m9L.outputs.object.properties.promptId }}",
+							"shortcutName":"{{ n_G0m9L.outputs.object.properties.shortcutName }}",
+							"updatedAt":"{{ n_G0m9L.outputs.object.properties.updatedAt }}",
+							"userId":"{{ n_G0m9L.outputs.object.properties.userId }}"
+						},
+						"source":"{{ n_G0m9L.outputs.object }}",
+						"ua:type":"mappedArray"
+					},
+					"reaction":"{{ n_7xLMJ.outputs.reaction }}",
+					"shortcutName":"{{ n_rRTkW.outputs.object.properties.shortcutName }}",
+					"success":true,
+					"updatedAt":"{{ n_sCUT4.outputs.modifiedTime }}",
+					"userFeedback":"{{ n_7xLMJ.outputs.userFeedback }}",
+					"userId":"{{ n_sCUT4.outputs.properties.userId }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Status 200",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZX5fn-1",
+			"id":"n_M06zS",
+			"index":6,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a36d80852975228299cb319",
+	"workflowVersion":2
+}
