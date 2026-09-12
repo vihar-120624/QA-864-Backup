@@ -1,0 +1,121 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743905467,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"0h7bK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"YfPLv",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecea145d2142160e6ecd1",
+	"lastModifiedBy":-1,
+	"lcName":"[zoho invoice] get user sharedwithids",
+	"modifiedTime":1787743905468,
+	"name":"[Zoho Invoice] Get User SharedWithIds",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":237,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PbIBf-1",
+			"id":"0h7bK",
+			"index":0,
+			"inputs":{
+				"result":{
+					"properties":{
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"67091cd2c6db330cf5b08881",
+				"setup":{
+					"properties":{
+						"userEmailAddress":{
+							"title":"User Email Address",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":249,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"PbIBf-1",
+			"id":"YfPLv",
+			"index":0,
+			"inputs":{
+				"result":{
+					"sharedWithIds":[
+						"zoho_invoice/u/{{ 0h7bK.outputs.userEmailAddress }}",
+						"zoho_invoice/g/-1"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":0,
+	"workflowDefinitionId":"68064408b9d20d7da50195c5",
+	"workflowVersion":3
+}

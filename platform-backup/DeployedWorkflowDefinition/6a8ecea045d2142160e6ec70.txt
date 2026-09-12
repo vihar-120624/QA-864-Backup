@@ -1,0 +1,121 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743904723,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"_yQWbo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_jdd4s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_jdd4s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_xbIqH",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecea045d2142160e6ec70",
+	"lastModifiedBy":-1,
+	"lcName":"deploy on training complete",
+	"modifiedTime":1787743904724,
+	"name":"Deploy on Training Complete",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2117,
+				"resourceName":"storage_by_unifyapps_on_update_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_YWeti-1",
+			"id":"_yQWbo",
+			"index":0,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"TRAINING_COMPLETED"
+							},
+							"property":"trainingStatus"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_fine_tuned_model"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Updated record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"unify_ai",
+				"resourceVersion":3,
+				"resourceName":"unify_ai_deploy_fine_tuned_model",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_YWeti-1",
+			"id":"_jdd4s",
+			"index":0,
+			"inputs":{
+				"fineTuneModelId":"{{ _yQWbo.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Unify AI",
+			"title":"Deploy fine tuned model",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_YWeti-1",
+			"id":"_xbIqH",
+			"index":0,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":0,
+	"workflowDefinitionId":"675c268f463c475707eb54a1",
+	"workflowVersion":16
+}
