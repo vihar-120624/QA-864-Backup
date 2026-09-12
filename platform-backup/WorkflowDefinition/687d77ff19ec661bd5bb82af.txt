@@ -1,0 +1,457 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744686056,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744686172,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1aecee862008d75e81e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":184
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_GQIBK",
+			"id":"next@n_GQIBK@_cpUrc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_cpUrc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_cpUrc",
+			"id":"next@_cpUrc@n_fDZQx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fDZQx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_fDZQx",
+			"id":"next@n_fDZQx@lJbSc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lJbSc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"lJbSc",
+			"id":"next@lJbSc@pj1md",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"pj1md",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pj1md",
+			"id":"if@pj1md@MvnkC",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MvnkC",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"MvnkC",
+			"id":"next@MvnkC@n_POMRK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_POMRK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"pj1md",
+			"id":"next@pj1md@n_POMRK",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_POMRK",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"687d77ff19ec661bd5bb82af",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge indexer | google drive | file",
+	"modifiedTime":1788252971581,
+	"name":"Knowledge Indexer | Google Drive | File",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":436,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ifEtD-1",
+			"id":"n_GQIBK",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"686e0f90c92a3538c991f984",
+				"setup":{
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"Knowledge Version",
+							"type":"integer"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						},
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"uniqueEntityId"
+					],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ifEtD-1",
+			"id":"_cpUrc",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"response":{
+							"additionalProperties":false,
+							"properties":{
+								"author":{
+									"title":"Author",
+									"type":"string"
+								},
+								"created":{
+									"title":"Created",
+									"type":"string"
+								},
+								"id":{
+									"title":"id",
+									"type":"string"
+								},
+								"kind":{
+									"title":"kind",
+									"type":"string"
+								},
+								"mimeType":{
+									"title":"mimeType",
+									"type":"string"
+								},
+								"name":{
+									"title":"name",
+									"type":"string"
+								},
+								"parents":{
+									"items":{
+										"type":"string"
+									},
+									"title":"parents",
+									"type":"array"
+								},
+								"size":{
+									"title":"size",
+									"type":"string"
+								},
+								"webContentLink":{
+									"title":"webContentLink",
+									"type":"string"
+								},
+								"webViewLink":{
+									"title":"webViewLink",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return sourceResponse",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"sourceResponse":"{{ n_GQIBK.outputs.sourceResponse }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Resolve Input",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":38661,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ifEtD-1",
+			"id":"n_fDZQx",
+			"index":3,
+			"inputs":{
+				"automationId":"693342dd1a964e31faa04854",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"sourceResponse":"{{ n_GQIBK.outputs.sourceResponse }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":67,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ifEtD-1",
+			"id":"lJbSc",
+			"index":4,
+			"inputs":{
+				"automationId":"6708d0a1e5c64343ba9b24c8",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"chunkMetadata":"{{ n_fDZQx.outputs.chunkMetadata }}",
+					"fileDetails":"{{ _cpUrc.outputs.result.fileDetails }}",
+					"knowledgeId":"{{ n_GQIBK.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ n_GQIBK.outputs.knowledgeVersion }}",
+					"mimeType":"{{ _cpUrc.outputs.result.response.mimetype }}",
+					"sharedWithIds":{
+						"items":"{{ n_GQIBK.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_GQIBK.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"uniqueEntityId":"{{ n_GQIBK.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"File chunker",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":367,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ifEtD-1",
+			"id":"pj1md",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ lJbSc.outputs.chunks[0].text }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Text is present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":405,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"pj1md@_ifEtD-1@y",
+			"id":"MvnkC",
+			"index":6,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"chunkMetadata":"{{ Sy86h.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"chunkMetadata":"{{ Sy86h.outputs.result.chunkMetadata }}",
+							"data":"{{ lJbSc.outputs.chunks[0].text }}",
+							"sharedWithIds":{
+								"items":"{{ n_GQIBK.outputs.sharedWithIds[0] }}",
+								"source":"{{ n_GQIBK.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ lJbSc.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_GQIBK.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ n_GQIBK.outputs.knowledgeVersion }}",
+					"uniqueEntityId":"{{ _cpUrc.outputs.result.response.id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Indexer With RBAC",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ifEtD-1",
+			"id":"n_POMRK",
+			"index":7,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2"
+	],
+	"version":186
+}
