@@ -1,0 +1,222 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743904567,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743904625,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecea045d2142160e6ec6e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":13
+	},
+	"edges":[
+		{
+			"fromNodeId":"_ORjyW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7TCNw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7TCNw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iuxHx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iuxHx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_ZJK2D",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69b3bbf1bc190266adbbdb65",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge sync starter | user",
+	"modifiedTime":1788252971794,
+	"name":"Knowledge Sync Starter | User",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pgryq@_T9iWX-1@l",
+			"id":"_ORjyW",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1351,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pgryq@_T9iWX-1@l",
+			"id":"n_7TCNw",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [\"userId\":userId.toString()]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"userId":"{{ _ORjyW.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"userId stringify",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":655,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pgryq@_T9iWX-1@l",
+			"id":"n_iuxHx",
+			"index":3,
+			"inputs":{
+				"automationId":"69287d1420790444f261cc2e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"runInUserContext":"{{ n_7TCNw.outputs.result.userId }}",
+				"parameters":{
+					"knowledgeId":"{{ _ORjyW.outputs.knowledgeId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Knowledge Sync Starter",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pgryq@_T9iWX-1@l",
+			"id":"_ZJK2D",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":15
+}

@@ -1,0 +1,391 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744686226,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744686372,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ed1aecee862008d75e846",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":16
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_s8oR8",
+			"id":"next@n_s8oR8@n_gaabY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gaabY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gaabY",
+			"id":"next@n_gaabY@n_anxRP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_anxRP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_anxRP",
+			"id":"next@n_anxRP@n_ePVTN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ePVTN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ePVTN",
+			"id":"next@n_ePVTN@n_EEECI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EEECI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EEECI",
+			"id":"loop@n_EEECI@n_pG1ZV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pG1ZV",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_pG1ZV",
+			"id":"next@n_pG1ZV@n_EEECI",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EEECI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EEECI",
+			"id":"next@n_EEECI@n_E4myR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E4myR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_E4myR",
+			"id":"next@n_E4myR@n_8RGBk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8RGBk",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a6742740f6f7676c2b12e3f",
+	"lastModifiedBy":-1,
+	"lcName":"excel | formula verification",
+	"modifiedTime":1788252971800,
+	"name":"Excel | Formula Verification",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_s8oR8",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"fileObject":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"File Object",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"excel_by_unifyapps_recalculate_formulas",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_gaabY",
+			"index":2,
+			"inputs":{
+				"fileName":"{{ n_s8oR8.outputs.fileObject.name }}",
+				"fileDetails":"{{ n_s8oR8.outputs.fileObject }}",
+				"outputMode":"formulas",
+				"keepExactFileName":true,
+				"fileType":"xlsx"
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"Recalculate formulas in Excel file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":29,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_anxRP",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sum":{
+							"title":"Sum",
+							"type":"number"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sum":{
+							"title":"Sum",
+							"type":"number"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":761,
+				"resourceName":"excel_by_unifyapps_list_sheet_names",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_ePVTN",
+			"index":4,
+			"inputs":{
+				"fileDetails":"{{ n_gaabY.outputs.fileDetails }}",
+				"fileType":"XLSX"
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"List sheet names in an Excel file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":29,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_EEECI",
+			"index":5,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_ePVTN.outputs.sheetNames }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":29,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EEECI@_p3J5A-1@l",
+			"id":"n_pG1ZV",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_anxRP.outputs.sum }}",
+						"value":"=SUM({{ n_anxRP.outputs.sum }}+1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_E4myR",
+			"index":7,
+			"inputs":{
+				"automationId":"6a3e91e971f11a063857b72f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"canvasFile":{
+						"fileType":"{{ n_gaabY.outputs.fileDetails.fileType }}",
+						"name":"{{ n_gaabY.outputs.fileDetails.name }}",
+						"source":"{{ n_gaabY.outputs.fileDetails.source }}",
+						"sourceType":"{{ n_gaabY.outputs.fileDetails.sourceType }}"
+					},
+					"caseId":"{{ n_s8oR8.outputs.caseId }}",
+					"count":"{{ n_anxRP.outputs.sum }}",
+					"sourceFile":{
+						"fileType":"{{ n_gaabY.outputs.fileDetails.fileType }}",
+						"name":"{{ n_gaabY.outputs.fileDetails.name }}",
+						"source":"{{ n_gaabY.outputs.fileDetails.source }}",
+						"sourceType":"{{ n_gaabY.outputs.fileDetails.sourceType }}"
+					},
+					"title":"XLSX File"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_p3J5A-1",
+			"id":"n_8RGBk",
+			"index":8,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":18
+}

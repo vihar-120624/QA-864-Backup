@@ -1,0 +1,265 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787743831784,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787743831838,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ece579d7c534668ef8dad",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_HLNt8",
+			"id":"next@n_HLNt8@n_vrEph",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vrEph",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vrEph",
+			"id":"next@n_vrEph@n_OJPTm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OJPTm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OJPTm",
+			"id":"next@n_OJPTm@_GVgit",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_GVgit",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_GVgit",
+			"id":"next@_GVgit@n_yXWJ6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yXWJ6",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a75fe1a58ed380bbf02accc",
+	"lastModifiedBy":-1,
+	"lcName":"generate charts using code",
+	"modifiedTime":1788252971788,
+	"name":"Generate charts using code",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":669,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RAxe6-1",
+			"id":"n_HLNt8",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"toolOutput":{
+							"title":"Tool Output",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"fileUrl":{
+							"title":"File Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":5451,
+				"resourceName":"utility_by_unifyapps_download_file_as_string",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RAxe6-1",
+			"id":"n_vrEph",
+			"index":2,
+			"inputs":{
+				"file":"{{ n_HLNt8.outputs.fileUrl }}",
+				"encoding":"utf8"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Download file as string",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":955,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RAxe6-1",
+			"id":"n_OJPTm",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"final_result":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Final Result",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"code":{
+							"title":"Code",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def code = binding.hasVariable(\"code\") ? binding.getVariable(\"code\") : null\n\nif (code == null || code.toString().trim().isEmpty()) {\n    return null    // or return [final_result: []] if that's what your flow expects\n}\n\ncode = code.toString()\ndef trimmed = code.trim()\n\n// if (!(trimmed.startsWith(\"```\") && trimmed.endsWith(\"```\"))) {\n//     code = \"```\\n\" + code + \"\\n```\"\n// }\n\nreturn [\n    final_result: [[\n        blockType: \"Iframe\",\n        data: [\n            html: trimmed\n        ]\n    ]]\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"code":"{{ n_vrEph.outputs.fileContent }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":67,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RAxe6-1",
+			"id":"_GVgit",
+			"index":4,
+			"inputs":{
+				"automationId":"66d1673d9627d00147081244",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ n_HLNt8.outputs.caseId }}",
+					"coPilotBlocks":{
+						"blocks":{
+							"items":"{{ n_OJPTm.outputs.result.final_result[0] }}",
+							"source":"{{ n_OJPTm.outputs.result.final_result }}",
+							"ua:type":"mappedArray"
+						},
+						"role":"bot"
+					},
+					"fromCustomerUserId":"{{ n_HLNt8.outputs.agentId }}",
+					"interfaceDetails":{
+						"whitelistInteractions":"false"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Publish to co pilot",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1013,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_RAxe6-1",
+			"id":"n_yXWJ6",
+			"index":5,
+			"inputs":{
+				"result":{
+					"toolOutput":"Chart has been generated and displayed to the user."
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":10
+}
