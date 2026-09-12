@@ -1,0 +1,524 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787744121277,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_HpXyS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_m0geQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_m0geQ",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Z3Zm2",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_Z3Zm2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_t04Dw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_t04Dw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_DBe0R",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_DBe0R",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S4H00",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_m0geQ",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_37khx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S4H00",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_37khx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_37khx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wwubU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wwubU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Da8Fm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Da8Fm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hJkiT",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecf79ba51514edfc7eb6f",
+	"lastModifiedBy":-1,
+	"lcName":"pai | manualcorrection",
+	"modifiedTime":1787744121279,
+	"name":"pai | ManualCorrection",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1894,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mmfCN-1",
+			"id":"n_HpXyS",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"PO_number":{
+							"title":"PO Number",
+							"type":"string"
+						},
+						"attachment_id":{
+							"title":"Attachment Id",
+							"type":"string"
+						},
+						"currency":{
+							"title":"Currency",
+							"type":"string"
+						},
+						"customer_tin":{
+							"title":"Customer Tin",
+							"type":"string"
+						},
+						"date":{
+							"title":"Date",
+							"type":"string"
+						},
+						"email_id":{
+							"title":"Email Id",
+							"type":"string"
+						},
+						"file_name":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"id":{
+							"title":"id",
+							"type":"string"
+						},
+						"invoice_number":{
+							"title":"invoice_number",
+							"type":"string"
+						},
+						"message_id":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"net_total_amount":{
+							"title":"Net Total Amount",
+							"type":"string"
+						},
+						"supplier_tin":{
+							"title":"Supplier Tin",
+							"type":"string"
+						},
+						"thread_id":{
+							"title":"Thread Id",
+							"type":"string"
+						},
+						"vat":{
+							"title":"Vat",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1895,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_mmfCN-1",
+			"id":"n_m0geQ",
+			"index":2,
+			"inputs":{
+				"automationId":"698af6fc0a211f625f3b34a9",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"po":"{{ n_HpXyS.outputs.PO_number }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3475,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_m0geQ@_mmfCN-1@error",
+			"id":"n_Z3Zm2",
+			"index":3,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"pai_error",
+				"skipIfBlank":false,
+				"record":{
+					"Message_id":"{{ n_HpXyS.outputs.message_id }}",
+					"attachment_id":"{{ n_HpXyS.outputs.attachment_id }}",
+					"currency":"{{ n_HpXyS.outputs.currency }}",
+					"customer_tin":"{{ n_HpXyS.outputs.customer_tin }}",
+					"date":"{{ n_HpXyS.outputs.date }}",
+					"email_id":"{{ n_HpXyS.outputs.email_id }}",
+					"error":"Wrong Po Entered",
+					"error_description":"No such PO exist",
+					"file_name":"{{ n_HpXyS.outputs.file_name }}",
+					"invoice_number":"{{ n_HpXyS.outputs.invoice_number }}",
+					"is_resolved":false,
+					"net_amount":"{{ n_HpXyS.outputs.net_total_amount }}",
+					"po_number":"{{ n_HpXyS.outputs.PO_number }}",
+					"suggested_ai_fix":"Recheck PO number and try again.",
+					"supplier_tin":"{{ n_HpXyS.outputs.supplier_tin }}",
+					"thread_id":"{{ n_HpXyS.outputs.thread_id }}",
+					"vat":"{{ n_HpXyS.outputs.vat }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2162,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_m0geQ@_mmfCN-1@error",
+			"id":"n_t04Dw",
+			"index":4,
+			"inputs":{
+				"automationId":"698ae24d0be8e76ebcad4673",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{},
+				"version":"-1"
+			},
+			"skip":true,
+			"subTitle":"Empty PO -> POST TO SAP",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3472,
+				"resourceName":"storage_by_unifyapps_delete_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_m0geQ@_mmfCN-1@error",
+			"id":"_DBe0R",
+			"index":5,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"pai_error",
+				"entityId":"{{ n_HpXyS.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_m0geQ@_mmfCN-1@error",
+			"id":"n_S4H00",
+			"index":6,
+			"inputs":{
+				"result":{
+					"status":"400"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1895,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mmfCN-1",
+			"id":"n_37khx",
+			"index":7,
+			"inputs":{
+				"automationId":"698af0440a211f625f3adcab",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"attachment_id":"{{ n_HpXyS.outputs.attachment_id }}",
+					"email_id":"{{ n_HpXyS.outputs.email_id }}",
+					"extracted_fields":{
+						"currency":"{{ n_HpXyS.outputs.currency }}",
+						"customer_tin":"{{ n_HpXyS.outputs.customer_tin }}",
+						"date":"{{ n_HpXyS.outputs.date }}",
+						"invoice_number":"{{ n_HpXyS.outputs.invoice_number }}",
+						"invoice_type":"invoice",
+						"net_total_amount":"{{ n_HpXyS.outputs.net_total_amount }}",
+						"purchase_order":"{{ n_HpXyS.outputs.PO_number }}",
+						"supplier_tin":"{{ n_HpXyS.outputs.supplier_tin }}",
+						"vat":"{{ n_HpXyS.outputs.vat }}"
+					},
+					"fields":{
+						"currency":"{{ n_m0geQ.outputs.currency }}",
+						"customer_tin":"{{ n_m0geQ.outputs.customer_tin }}",
+						"net_total_amount":"{{ n_m0geQ.outputs.net_total_amount }}",
+						"purchase_order":"{{ n_m0geQ.outputs.purchase_order_number }}",
+						"supplier_tin":"{{ n_m0geQ.outputs.vendor_tax_number }}",
+						"vat":"{{ n_m0geQ.outputs.vat_percentage }}"
+					},
+					"message_id":"{{ n_HpXyS.outputs.message_id }}",
+					"thread_id":"{{ n_HpXyS.outputs.thread_id }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1895,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mmfCN-1",
+			"id":"n_wwubU",
+			"index":8,
+			"inputs":{
+				"automationId":"698ae24d0be8e76ebcad4673",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{},
+				"version":"-1"
+			},
+			"skip":true,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3472,
+				"resourceName":"storage_by_unifyapps_delete_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mmfCN-1",
+			"id":"n_Da8Fm",
+			"index":9,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"pai_error",
+				"entityId":"{{ n_HpXyS.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1898,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_mmfCN-1",
+			"id":"n_hJkiT",
+			"index":10,
+			"inputs":{
+				"result":{
+					"status":"200"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69a31ca7cc764f70314f55fb",
+	"workflowVersion":35
+}
