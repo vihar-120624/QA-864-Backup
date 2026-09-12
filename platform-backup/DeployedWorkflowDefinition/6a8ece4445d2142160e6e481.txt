@@ -1,0 +1,140 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743812165,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"g56tG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_AQGp9",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece4445d2142160e6e481",
+	"lastModifiedBy":-1,
+	"lcName":"supported model(ai agent) on update handler",
+	"modifiedTime":1787743812166,
+	"name":"Supported Model(AI Agent) on Update Handler",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"bICld-1",
+			"id":"g56tG",
+			"index":0,
+			"inputs":{
+				"object_type":"e_supported_model_ai_agent"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"caches_by_unifyapps",
+				"resourceVersion":54,
+				"resourceName":"caches_by_unifyapps_evict_node_cache",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"bICld-1",
+			"id":"_AQGp9",
+			"index":0,
+			"inputs":{
+				"automation_id":"680bb38e89c13d6ab6b7babe",
+				"cache_key":"{{ g56tG.outputs.object.properties.model }}",
+				"node_id":"BLh1W"
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Caches by UnifyApps",
+			"title":"Evict node cache",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"686e7dd65b3e851f0a9a26ef",
+	"workflowVersion":4
+}
