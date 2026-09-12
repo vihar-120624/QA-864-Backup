@@ -1,0 +1,272 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743463253,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_G1Thu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ho3FI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ho3FI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yhjcJ",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecce73f7ad93bb16719c0",
+	"lastModifiedBy":-1,
+	"lcName":"create citationstore records ",
+	"modifiedTime":1787743463255,
+	"name":"Create CitationStore Records ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2325,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_bvgzn-1",
+			"id":"n_G1Thu",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"SQLServerAddditionalMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"SQL Server Addditional Metadata",
+							"type":"object"
+						},
+						"additional":{
+							"additionalProperties":false,
+							"properties":{
+								"knowledgeId":{
+									"title":"knowledgeId",
+									"type":"string"
+								},
+								"knowledgeSetId":{
+									"title":"knowledgeSetId",
+									"type":"string"
+								}
+							},
+							"title":"additional",
+							"type":"object"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"chunkId":{
+							"title":"chunkId",
+							"type":"string"
+						},
+						"chunkNumber":{
+							"title":"chunkNumber",
+							"type":"integer"
+						},
+						"columnData":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Column Data",
+							"type":"array"
+						},
+						"content":{
+							"title":"content",
+							"type":"string"
+						},
+						"hasMoreData":{
+							"title":"Has More Data",
+							"type":"boolean"
+						},
+						"messageId":{
+							"title":"messageId",
+							"type":"string"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"metadata",
+							"type":"object"
+						},
+						"rowData":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Row Data",
+							"type":"array"
+						},
+						"score":{
+							"title":"score",
+							"type":"number"
+						},
+						"sqlQuery":{
+							"title":"Sql Query",
+							"type":"string"
+						},
+						"sqlQueryPlatformName":{
+							"title":"Sql Query Platform Name",
+							"type":"string"
+						},
+						"tableIsPublished":{
+							"title":"tableIsPublished",
+							"type":"boolean"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						},
+						"usageCount":{
+							"title":"usageCount",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.metadata.appName",
+					"root.record.columnData.items",
+					"root.record.rowData.items",
+					"root.record.additional.knowledgeId",
+					"root.record.additional.knowledgeSetId",
+					"root.record.botMessageIds.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2400,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_bvgzn-1",
+			"id":"n_ho3FI",
+			"index":2,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":true,
+				"object_type":"citation_store",
+				"skipIfBlank":false,
+				"record":{
+					"SQLServerAddditionalMetadata":"{{ n_G1Thu.outputs.SQLServerAddditionalMetadata }}",
+					"additional":{
+						"knowledgeId":"{{ n_G1Thu.outputs.additional.knowledgeId }}",
+						"knowledgeSetId":"{{ n_G1Thu.outputs.additional.knowledgeSetId }}"
+					},
+					"caseId":"{{ n_G1Thu.outputs.caseId }}",
+					"chunkId":"{{ n_G1Thu.outputs.chunkId }}",
+					"chunkNumber":"{{ n_G1Thu.outputs.chunkNumber }}",
+					"columnData":{
+						"items":"{{ n_G1Thu.outputs.columnData[0] }}",
+						"source":"{{ n_G1Thu.outputs.columnData }}",
+						"ua:type":"mappedArray"
+					},
+					"content":"{{ n_G1Thu.outputs.content }}",
+					"hasMoreData":"{{ n_G1Thu.outputs.hasMoreData }}",
+					"messageId":"{{ n_G1Thu.outputs.messageId }}",
+					"metadata":"{{ n_G1Thu.outputs.metadata }}",
+					"rowData":{
+						"items":"{{ n_G1Thu.outputs.rowData[0] }}",
+						"source":"{{ n_G1Thu.outputs.rowData }}",
+						"ua:type":"mappedArray"
+					},
+					"score":"{{ n_G1Thu.outputs.score }}",
+					"sqlQuery":"{{ n_G1Thu.outputs.sqlQuery }}",
+					"sqlQueryPlatformName":"{{ n_G1Thu.outputs.sqlQueryPlatformName }}",
+					"tableIsPublished":"{{ n_G1Thu.outputs.tableIsPublished }}",
+					"uniqueEntityId":"{{ n_G1Thu.outputs.uniqueEntityId }}",
+					"usageCount":"{{ n_G1Thu.outputs.usageCount }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2332,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_bvgzn-1",
+			"id":"n_yhjcJ",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"indexer"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69c0fbda14773b659a234f6f",
+	"workflowVersion":50
+}

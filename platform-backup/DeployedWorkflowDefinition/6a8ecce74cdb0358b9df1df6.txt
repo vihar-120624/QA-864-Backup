@@ -1,0 +1,1406 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743463558,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"description":"Create or update an API Manager asset (idempotent group: reuses an existing group of the same name instead of duplicating). assetType + payload.",
+	"edges":[
+		{
+			"fromNodeId":"n_StaRT",
+			"id":"next@n_StaRT@n_Merge",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Merge",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Merge",
+			"id":"next@n_Merge@n_xLupl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xLupl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xLupl",
+			"id":"if@n_xLupl@n_CwGrp",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwGrp",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_CwGrp",
+			"id":"next@n_CwGrp@n_RtGrp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtGrp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RtGrp",
+			"id":"next@n_RtGrp@n_IfEnd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfEnd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xLupl",
+			"id":"next@n_xLupl@n_IfEnd",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfEnd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfEnd",
+			"id":"if@n_IfEnd@n_CwEnd",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwEnd",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_CwEnd",
+			"id":"next@n_CwEnd@n_RtEnd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtEnd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RtEnd",
+			"id":"next@n_RtEnd@n_IfCli",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfCli",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfEnd",
+			"id":"next@n_IfEnd@n_IfCli",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfCli",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfCli",
+			"id":"if@n_IfCli@n_FindCli",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FindCli",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_FindCli",
+			"id":"next@n_FindCli@n_ChkCli",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ChkCli",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ChkCli",
+			"id":"next@n_ChkCli@n_IfCliEx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfCliEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfCliEx",
+			"id":"if@n_IfCliEx@n_RtCliEx",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtCliEx",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_RtCliEx",
+			"id":"next@n_RtCliEx@n_CwCli",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwCli",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfCliEx",
+			"id":"next@n_IfCliEx@n_CwCli",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwCli",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CwCli",
+			"id":"next@n_CwCli@n_RtCli",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtCli",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RtCli",
+			"id":"next@n_RtCli@n_IfAcc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfAcc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfCli",
+			"id":"next@n_IfCli@n_IfAcc",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfAcc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfAcc",
+			"id":"if@n_IfAcc@n_IfAccUpd",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfAccUpd",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_IfAccUpd",
+			"id":"if@n_IfAccUpd@n_CwAccUpd",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwAccUpd",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_CwAccUpd",
+			"id":"next@n_CwAccUpd@n_RtAccUpd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtAccUpd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfAccUpd",
+			"id":"next@n_IfAccUpd@n_CwAcc",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwAcc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CwAcc",
+			"id":"next@n_CwAcc@n_RtAcc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtAcc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RtAccUpd",
+			"id":"next@n_RtAccUpd@n_IfPol",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RtAcc",
+			"id":"next@n_RtAcc@n_IfPol",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfAcc",
+			"id":"next@n_IfAcc@n_IfPol",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfPol",
+			"id":"if@n_IfPol@n_FindPol",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FindPol",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_FindPol",
+			"id":"next@n_FindPol@n_ChkPol",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ChkPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ChkPol",
+			"id":"next@n_ChkPol@n_PolEx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PolEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PolEx",
+			"id":"if@n_PolEx@n_RtPolEx",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtPolEx",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_RtPolEx",
+			"id":"next@n_RtPolEx@n_CwPol",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PolEx",
+			"id":"next@n_PolEx@n_CwPol",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CwPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CwPol",
+			"id":"next@n_CwPol@n_RtPol",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtPol",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RtPol",
+			"id":"next@n_RtPol@n_RtEmpty",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtEmpty",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfPol",
+			"id":"next@n_IfPol@n_RtEmpty",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtEmpty",
+			"type":"next"
+		}
+	],
+	"id":"6a8ecce74cdb0358b9df1df6",
+	"lastModifiedBy":-1,
+	"lcName":"create or update api asset",
+	"modifiedTime":1787743463561,
+	"name":"Create or Update API Asset",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_StaRT",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":true,
+					"properties":{
+						"result":{
+							"additionalProperties":true,
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"assetType":{
+							"help":"one of: group, endpoint, client, access_profile, policy",
+							"title":"Asset Type",
+							"type":"string"
+						},
+						"caseId":{
+							"help":"chat/case id for asset navigation (auto-injected)",
+							"title":"Case Id",
+							"type":"string"
+						},
+						"payload":{
+							"additionalProperties":true,
+							"help":"the fields for the chosen asset (omit id to create, include it to update)",
+							"title":"Payload",
+							"type":"object"
+						}
+					},
+					"required":[
+						"assetType",
+						"payload"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_Merge",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"merged":{
+							"title":"merged",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"payload":{
+							"title":"payload",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"Map m = (payload instanceof Map) ? new LinkedHashMap((Map)payload) : [:]\nif (caseId != null && caseId.toString().trim() != \"\") { m.put(\"caseId\", caseId) }\nreturn [\"merged\": m]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"caseId":"{{ n_StaRT.outputs.caseId }}",
+					"payload":"{{ n_StaRT.outputs.payload }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code",
+			"title":"Merge caseId into payload",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":5,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_xLupl",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"group"
+						},
+						"property":"{{ n_StaRT.outputs.assetType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_xLupl@root_id-1@y",
+			"id":"n_CwGrp",
+			"index":4,
+			"inputs":{
+				"automationId":"6a67a4e0f8d0de1df7db8063",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"apiGroupId":"{{ n_Merge.outputs.result.merged.apiGroupId }}",
+					"caseId":"{{ n_Merge.outputs.result.merged.caseId }}",
+					"description":"{{ n_Merge.outputs.result.merged.description }}",
+					"includeVersionInPath":"{{ n_Merge.outputs.result.merged.includeVersionInPath }}",
+					"name":"{{ n_Merge.outputs.result.merged.name }}",
+					"path":"{{ n_Merge.outputs.result.merged.path }}",
+					"updateType":"{{ n_Merge.outputs.result.merged.updateType }}",
+					"updateValue":"{{ n_Merge.outputs.result.merged.updateValue }}",
+					"version":"{{ n_Merge.outputs.result.merged.version }}",
+					"workspace":"{{ n_Merge.outputs.result.merged.workspace }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Create/Update group",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_xLupl@root_id-1@y",
+			"id":"n_RtGrp",
+			"index":5,
+			"inputs":{
+				"result":{
+					"result":"{{ n_CwGrp.outputs.id }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond group",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_IfEnd",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"endpoint"
+						},
+						"property":"{{ n_StaRT.outputs.assetType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Is endpoint?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfEnd@root_id-1@y",
+			"id":"n_CwEnd",
+			"index":7,
+			"inputs":{
+				"automationId":"6a676b3d8166536c473ef3df",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"apiDescription":"{{ n_Merge.outputs.result.merged.apiDescription }}",
+					"apiGroupId":"{{ n_Merge.outputs.result.merged.apiGroupId }}",
+					"caseId":"{{ n_Merge.outputs.result.merged.caseId }}",
+					"downstreamurl":"{{ n_Merge.outputs.result.merged.downstreamurl }}",
+					"endpointId":"{{ n_Merge.outputs.result.merged.endpointId }}",
+					"endpointName":"{{ n_Merge.outputs.result.merged.endpointName }}",
+					"httpMethod":"{{ n_Merge.outputs.result.merged.httpMethod }}",
+					"methods":"{{ n_Merge.outputs.result.merged.methods }}",
+					"path":"{{ n_Merge.outputs.result.merged.path }}",
+					"requestType":"{{ n_Merge.outputs.result.merged.requestType }}",
+					"resourceType":"{{ n_Merge.outputs.result.merged.resourceType }}",
+					"workflowId":"{{ n_Merge.outputs.result.merged.workflowId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Create/Update endpoint",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfEnd@root_id-1@y",
+			"id":"n_RtEnd",
+			"index":8,
+			"inputs":{
+				"result":"{{ n_CwEnd.outputs.result }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond endpoint",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_IfCli",
+			"index":9,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"client"
+						},
+						"property":"{{ n_StaRT.outputs.assetType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Is client?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfCli@root_id-1@y",
+			"id":"n_FindCli",
+			"index":10,
+			"inputs":{
+				"automationId":"6a648554b805073602a04158",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"clientName":"{{ n_Merge.outputs.result.merged.name }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Find client by name",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfCli@root_id-1@y",
+			"id":"n_ChkCli",
+			"index":11,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"existingId":{
+							"title":"existingId",
+							"type":"string"
+						},
+						"found":{
+							"title":"found",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"findResult":{
+							"items":{
+								"type":"object"
+							},
+							"title":"findResult",
+							"type":"array"
+						},
+						"targetName":{
+							"title":"targetName",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def target = (targetName == null) ? \"\" : targetName.toString().trim().toLowerCase()\ndef eid = \"\"\nif (findResult instanceof List) {\n  for (o in findResult) {\n    if (!(o instanceof Map)) continue\n    def cols = (o.get(\"columns\") instanceof Map) ? o.get(\"columns\") : o\n    def nm = cols.get(\"lcName\"); if (nm == null) nm = cols.get(\"name\")\n    if (nm != null && target != \"\" && nm.toString().trim().toLowerCase() == target) { def i = cols.get(\"id\"); eid = (i == null) ? \"\" : i.toString(); break }\n  }\n}\nreturn [\"found\": (eid != \"\" ? \"true\" : \"false\"), \"existingId\": eid]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"findResult":"{{ n_FindCli.outputs.result }}",
+					"targetName":"{{ n_Merge.outputs.result.merged.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code",
+			"title":"Exact name match",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfCli@root_id-1@y",
+			"id":"n_IfCliEx",
+			"index":12,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_ChkCli.outputs.result.found }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Client already exists?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfCliEx@n_IfCli@root_id-1@y@y",
+			"id":"n_RtCliEx",
+			"index":13,
+			"inputs":{
+				"result":{
+					"id":"{{ n_ChkCli.outputs.result.existingId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond existing client",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfCli@root_id-1@y",
+			"id":"n_CwCli",
+			"index":14,
+			"inputs":{
+				"automationId":"6a635703a857155bc0172de4",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ n_Merge.outputs.result.merged.caseId }}",
+					"description":"{{ n_Merge.outputs.result.merged.description }}",
+					"name":"{{ n_Merge.outputs.result.merged.name }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Create/Update client",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfCli@root_id-1@y",
+			"id":"n_RtCli",
+			"index":15,
+			"inputs":{
+				"result":{
+					"result":"{{ n_CwCli.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond client",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_IfAcc",
+			"index":16,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"access_profile"
+						},
+						"property":"{{ n_StaRT.outputs.assetType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Is access_profile?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfAcc@root_id-1@y",
+			"id":"n_IfAccUpd",
+			"index":17,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_Merge.outputs.result.merged.accessProfileId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Has accessProfileId?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfAccUpd@n_IfAcc@root_id-1@y@y",
+			"id":"n_CwAccUpd",
+			"index":18,
+			"inputs":{
+				"automationId":"6a64d8f0fa62ac646a0c3339",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"accessProfileId":"{{ n_Merge.outputs.result.merged.accessProfileId }}",
+					"active":"{{ n_Merge.outputs.result.merged.active }}",
+					"apiClientId":"{{ n_Merge.outputs.result.merged.apiClientId }}",
+					"collectionIds":{
+						"items":"{{ n_Merge.outputs.result.merged.collectionIds[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.collectionIds }}",
+						"ua:type":"mappedArray"
+					},
+					"name":"{{ n_Merge.outputs.result.merged.name }}",
+					"policyIds":{
+						"items":"{{ n_Merge.outputs.result.merged.policyIds[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.policyIds }}",
+						"ua:type":"mappedArray"
+					},
+					"updatedName":"{{ n_Merge.outputs.result.merged.updatedName }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Update Acc",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfAccUpd@n_IfAcc@root_id-1@y@y",
+			"id":"n_RtAccUpd",
+			"index":19,
+			"inputs":{
+				"result":{
+					"result":"{{ n_Merge.outputs.result.merged.accessProfileId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond Acc update",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfAccUpd@n_IfAcc@root_id-1@y@n",
+			"id":"n_CwAcc",
+			"index":20,
+			"inputs":{
+				"automationId":"68354a696a048449e9018fc9",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"algorithm":"{{ n_Merge.outputs.result.merged.algorithm }}",
+					"apiClientId":"{{ n_Merge.outputs.result.merged.apiClientId }}",
+					"authHttpMethod":"{{ n_Merge.outputs.result.merged.authHttpMethod }}",
+					"authMethod":"{{ n_Merge.outputs.result.merged.authMethod }}",
+					"caseId":"{{ n_Merge.outputs.result.merged.caseId }}",
+					"collectionIds":{
+						"items":"{{ n_Merge.outputs.result.merged.collectionIds[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.collectionIds }}",
+						"ua:type":"mappedArray"
+					},
+					"coverUpstreamHeaders":{
+						"items":"{{ n_Merge.outputs.result.merged.upstreamHeaders[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.upstreamHeaders }}",
+						"ua:type":"mappedArray"
+					},
+					"customClaimForKeyId":"{{ n_Merge.outputs.result.merged.customClaimForKeyId }}",
+					"customClaimsToEnforce":"{{ n_Merge.outputs.result.merged.customClaimsToEnforce }}",
+					"duration":"{{ n_Merge.outputs.result.merged.duration }}",
+					"externalAuthUrl":"{{ n_Merge.outputs.result.merged.externalAuthUrl }}",
+					"grant_type":"{{ n_Merge.outputs.result.merged.grant_type }}",
+					"headers":{
+						"items":"{{ n_Merge.outputs.result.merged.headers[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.headers }}",
+						"ua:type":"mappedArray"
+					},
+					"name":"{{ n_Merge.outputs.result.merged.name }}",
+					"password":"{{ n_Merge.outputs.result.merged.password }}",
+					"policyIds":{
+						"items":"{{ n_Merge.outputs.result.merged.policyIds[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.policyIds }}",
+						"ua:type":"mappedArray"
+					},
+					"reservedClaimsToEnforce":{
+						"items":"{{ n_Merge.outputs.result.merged.reservedClaimsToEnforce[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.reservedClaimsToEnforce }}",
+						"ua:type":"mappedArray"
+					},
+					"rsaPublicKey":"{{ n_Merge.outputs.result.merged.rsaPublicKey }}",
+					"secret":"{{ n_Merge.outputs.result.merged.secret }}",
+					"tokenFormat":"{{ n_Merge.outputs.result.merged.tokenFormat }}",
+					"unit":"{{ n_Merge.outputs.result.merged.unit }}",
+					"username":"{{ n_Merge.outputs.result.merged.username }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Create/Update Acc",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfAccUpd@n_IfAcc@root_id-1@y@n",
+			"id":"n_RtAcc",
+			"index":21,
+			"inputs":{
+				"result":{
+					"result":"{{ n_CwAcc.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond Acc",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_IfPol",
+			"index":22,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"policy"
+						},
+						"property":"{{ n_StaRT.outputs.assetType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Is policy?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfPol@root_id-1@y",
+			"id":"n_FindPol",
+			"index":23,
+			"inputs":{
+				"automationId":"6a64896a208df404eff1b7fa",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"policyName":"{{ n_Merge.outputs.result.merged.name }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Find Pol by name",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfPol@root_id-1@y",
+			"id":"n_ChkPol",
+			"index":24,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"existingId":{
+							"title":"existingId",
+							"type":"string"
+						},
+						"found":{
+							"title":"found",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"findResult":{
+							"items":{
+								"type":"object"
+							},
+							"title":"findResult",
+							"type":"array"
+						},
+						"targetName":{
+							"title":"targetName",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def target = (targetName == null) ? \"\" : targetName.toString().trim().toLowerCase()\ndef eid = \"\"\nif (findResult instanceof List) {\n  for (o in findResult) {\n    if (!(o instanceof Map)) continue\n    def cols = (o.get(\"columns\") instanceof Map) ? o.get(\"columns\") : o\n    def nm = cols.get(\"lcName\"); if (nm == null) nm = cols.get(\"name\")\n    if (nm != null && target != \"\" && nm.toString().trim().toLowerCase() == target) { def i = cols.get(\"id\"); eid = (i == null) ? \"\" : i.toString(); break }\n  }\n}\nreturn [\"found\": (eid != \"\" ? \"true\" : \"false\"), \"existingId\": eid]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"findResult":"{{ n_FindPol.outputs.result }}",
+					"targetName":"{{ n_Merge.outputs.result.merged.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code",
+			"title":"Exact name match",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfPol@root_id-1@y",
+			"id":"n_PolEx",
+			"index":25,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_ChkPol.outputs.result.found }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Pol already exists?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_PolEx@n_IfPol@root_id-1@y@y",
+			"id":"n_RtPolEx",
+			"index":26,
+			"inputs":{
+				"result":{
+					"id":"{{ n_ChkPol.outputs.result.existingId }}",
+					"result":"{{ n_FindPol.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond existing Pol",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfPol@root_id-1@y",
+			"id":"n_CwPol",
+			"index":27,
+			"inputs":{
+				"automationId":"6835a490ef7a125b0ab951c2",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"allow":{
+						"items":"{{ n_Merge.outputs.result.merged.allow[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.allow }}",
+						"ua:type":"mappedArray"
+					},
+					"allowList":"{{ n_Merge.outputs.result.merged.allowList }}",
+					"allowedTopics":{
+						"items":"{{ n_Merge.outputs.result.merged.allowedTopics[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.allowedTopics }}",
+						"ua:type":"mappedArray"
+					},
+					"allowed_content_types":{
+						"items":"{{ n_Merge.outputs.result.merged.allowed_content_types[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.allowed_content_types }}",
+						"ua:type":"mappedArray"
+					},
+					"apiTimeout":{
+						"duration":"{{ n_Merge.outputs.result.merged.apiTimeout.duration }}",
+						"unit":"{{ n_Merge.outputs.result.merged.apiTimeout.unit }}"
+					},
+					"appendPromptToRequest":{
+						"items":"{{ n_Merge.outputs.result.merged.appendPromptToRequest[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.appendPromptToRequest }}",
+						"ua:type":"mappedArray"
+					},
+					"blockList":"{{ n_Merge.outputs.result.merged.blockList }}",
+					"body_schema":"{{ n_Merge.outputs.result.merged.body_schema }}",
+					"cacheKeys":{
+						"items":"{{ n_Merge.outputs.result.merged.cacheKeys[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.cacheKeys }}",
+						"ua:type":"mappedArray"
+					},
+					"cacheResponse":"{{ n_Merge.outputs.result.merged.cacheResponse }}",
+					"cacheSettings":"{{ n_Merge.outputs.result.merged.cacheSettings }}",
+					"cacheType":"{{ n_Merge.outputs.result.merged.cacheType }}",
+					"caseId":"{{ n_Merge.outputs.result.merged.caseId }}",
+					"conditionalRequestCachingExpression":"{{ n_Merge.outputs.result.merged.conditionalRequestCachingExpression }}",
+					"conditionalResponseCachingExpression":"{{ n_Merge.outputs.result.merged.conditionalResponseCachingExpression }}",
+					"customizeTimeout":"{{ n_Merge.outputs.result.merged.customizeTimeout }}",
+					"delayAttempts":"{{ n_Merge.outputs.result.merged.delayAttempts }}",
+					"delayTime":"{{ n_Merge.outputs.result.merged.delayTime }}",
+					"deniedTopics":{
+						"items":"{{ n_Merge.outputs.result.merged.deniedTopics[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.deniedTopics }}",
+						"ua:type":"mappedArray"
+					},
+					"deny":{
+						"items":"{{ n_Merge.outputs.result.merged.deny[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.deny }}",
+						"ua:type":"mappedArray"
+					},
+					"duration":"{{ n_Merge.outputs.result.merged.duration }}",
+					"headers":{
+						"items":"{{ n_Merge.outputs.result.merged.headers[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.headers }}",
+						"ua:type":"mappedArray"
+					},
+					"httpCachingKey":"{{ n_Merge.outputs.result.merged.httpCachingKey }}",
+					"httpTimeout":"{{ n_Merge.outputs.result.merged.httpTimeout }}",
+					"inboundHeaderMap":"{{ n_Merge.outputs.result.merged.inboundHeaderMap }}",
+					"invalidationHeader":"{{ n_Merge.outputs.result.merged.invalidationHeader }}",
+					"maxTokens":"{{ n_Merge.outputs.result.merged.maxTokens }}",
+					"max_age":"{{ n_Merge.outputs.result.merged.max_age }}",
+					"maximumArrayElementCount":"{{ n_Merge.outputs.result.merged.maximumArrayElementCount }}",
+					"maximumAttributeCountPerElement":"{{ n_Merge.outputs.result.merged.maximumAttributeCountPerElement }}",
+					"maximumAttributeLength":"{{ n_Merge.outputs.result.merged.maximumAttributeLength }}",
+					"maximumCacheEntries":"{{ n_Merge.outputs.result.merged.maximumCacheEntries }}",
+					"maximumChildCount":"{{ n_Merge.outputs.result.merged.maximumChildCount }}",
+					"maximumCommentLength":"{{ n_Merge.outputs.result.merged.maximumCommentLength }}",
+					"maximumContainerDepth":"{{ n_Merge.outputs.result.merged.maximumContainerDepth }}",
+					"maximumNodeDepth":"{{ n_Merge.outputs.result.merged.maximumNodeDepth }}",
+					"maximumObjectEntryCount":"{{ n_Merge.outputs.result.merged.maximumObjectEntryCount }}",
+					"maximumObjectEntryNameLength":"{{ n_Merge.outputs.result.merged.maximumObjectEntryNameLength }}",
+					"maximumStringValueLength":"{{ n_Merge.outputs.result.merged.maximumStringValueLength }}",
+					"maximumTextLength":"{{ n_Merge.outputs.result.merged.maximumTextLength }}",
+					"methods":{
+						"items":"{{ n_Merge.outputs.result.merged.methods[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.methods }}",
+						"ua:type":"mappedArray"
+					},
+					"model":"{{ n_Merge.outputs.result.merged.model }}",
+					"name":"{{ n_Merge.outputs.result.merged.name }}",
+					"numberOfRequests":"{{ n_Merge.outputs.result.merged.numberOfRequests }}",
+					"origins":{
+						"items":"{{ n_Merge.outputs.result.merged.origins[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.origins }}",
+						"ua:type":"mappedArray"
+					},
+					"outboundHeaderMap":"{{ n_Merge.outputs.result.merged.outboundHeaderMap }}",
+					"parameter_schema":{
+						"items":{
+							"dataType":"{{ n_Merge.outputs.result.merged.parameter_schema[0].dataType }}",
+							"fieldName":"{{ n_Merge.outputs.result.merged.parameter_schema[0].fieldName }}",
+							"parameter":"{{ n_Merge.outputs.result.merged.parameter_schema[0].items }}"
+						},
+						"source":"{{ n_Merge.outputs.result.merged.parameter_schema }}",
+						"ua:type":"mappedArray"
+					},
+					"prependPromptToRequest":{
+						"items":"{{ n_Merge.outputs.result.merged.prependPromptToRequest[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.prependPromptToRequest }}",
+						"ua:type":"mappedArray"
+					},
+					"prompt":"{{ n_Merge.outputs.result.merged.prompt }}",
+					"protocols":{
+						"items":"{{ n_Merge.outputs.result.merged.protocols[0] }}",
+						"source":"{{ n_Merge.outputs.result.merged.protocols }}",
+						"ua:type":"mappedArray"
+					},
+					"queueingLimit":"{{ n_Merge.outputs.result.merged.queueingLimit }}",
+					"templateReference":"{{ n_Merge.outputs.result.merged.templateReference }}",
+					"timePeriod":"{{ n_Merge.outputs.result.merged.timePeriod }}",
+					"timeToLive":"{{ n_Merge.outputs.result.merged.timeToLive }}",
+					"transformation":"{{ n_Merge.outputs.result.merged.transformation }}",
+					"type":"{{ n_Merge.outputs.result.merged.type }}",
+					"unit":"{{ n_Merge.outputs.result.merged.unit }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Create/Update Pol",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfPol@root_id-1@y",
+			"id":"n_RtPol",
+			"index":28,
+			"inputs":{
+				"result":{
+					"result":"{{ n_CwPol.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond Pol",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_RtEmpty",
+			"index":29,
+			"inputs":{
+				"result":{}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond empty",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde-api-manager",
+		"ai-fde"
+	],
+	"version":0,
+	"workflowDefinitionId":"6a6af63a39ea6f54bc26126a",
+	"workflowVersion":47
+}
