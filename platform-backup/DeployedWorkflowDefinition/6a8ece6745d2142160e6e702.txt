@@ -1,0 +1,97 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1787743847536,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6a8eca1d749c5474a80fee46",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_vFsB5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_psVmn",
+			"type":"next"
+		}
+	],
+	"id":"6a8ece6745d2142160e6e702",
+	"lastModifiedBy":-1,
+	"lcName":"[a2a] on a2a skill updated",
+	"modifiedTime":1787743847538,
+	"name":"[A2A] On A2A Skill Updated",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3208,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HRFaA-1",
+			"id":"n_vFsB5",
+			"index":1,
+			"inputs":{
+				"object_type":"e_a2a_server_skill"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":817,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_HRFaA-1",
+			"id":"n_psVmn",
+			"index":2,
+			"inputs":{
+				"automationId":"68a2cf744a22b207e50752bc",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"serverId":"{{ n_vFsB5.outputs.object.properties.serverId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"a2a"
+	],
+	"version":0,
+	"workflowDefinitionId":"68a30717b63cf24358edff96",
+	"workflowVersion":8
+}
