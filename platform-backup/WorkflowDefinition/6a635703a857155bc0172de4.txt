@@ -1,0 +1,219 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1787744112305,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1787744112480,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6a8ecf70cee862008d74e0a5",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_n3EMa",
+			"id":"next@n_n3EMa@n_5PQzO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5PQzO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5PQzO",
+			"id":"next@n_5PQzO@n_zc0bc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zc0bc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zc0bc",
+			"id":"next@n_zc0bc@n_LxVap",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LxVap",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a635703a857155bc0172de4",
+	"lastModifiedBy":-1,
+	"lcName":"create api client",
+	"modifiedTime":1788252973471,
+	"name":"create api client",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vLcKa-1",
+			"id":"n_n3EMa",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"description":{
+							"title":"description",
+							"type":"string"
+						},
+						"id":{
+							"title":"id",
+							"type":"string"
+						},
+						"name":{
+							"title":"name",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"description":{
+							"help":"optional description",
+							"title":"description",
+							"type":"string"
+						},
+						"name":{
+							"help":"Name of client",
+							"title":"name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"name"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":880,
+				"resourceName":"standard_entities_create_api_client",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vLcKa-1",
+			"id":"n_5PQzO",
+			"index":2,
+			"inputs":{
+				"name":"{{ n_n3EMa.outputs.name }}",
+				"description":"{{ n_n3EMa.outputs.description }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by WurkNow",
+			"title":"Create API Client",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":152,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vLcKa-1",
+			"id":"n_zc0bc",
+			"index":3,
+			"inputs":{
+				"automationId":"6a68c838d4560209e944783a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"assetClass":"API_CLIENT",
+					"assetId":"{{ n_5PQzO.outputs.id }}",
+					"caseId":"{{ n_n3EMa.outputs.caseId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":144,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vLcKa-1",
+			"id":"n_LxVap",
+			"index":4,
+			"inputs":{
+				"result":{
+					"description":"{{ n_5PQzO.outputs.description }}",
+					"id":"{{ n_5PQzO.outputs.id }}",
+					"name":"{{ n_5PQzO.outputs.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"ai-fde-api-manager",
+		"ai-fde"
+	],
+	"version":10
+}
