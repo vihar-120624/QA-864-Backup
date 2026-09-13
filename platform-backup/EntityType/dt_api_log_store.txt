@@ -1,5 +1,5 @@
 {
-	"columnCounts":12,
+	"columnCounts":13,
 	"createdTime":1787743336129,
 	"deleted":false,
 	"grants":{
@@ -26,7 +26,9 @@
 				"feedbackMessageId",
 				"feedbackEvent",
 				"feedbackComments",
-				"agentId"
+				"agentId",
+				"*",
+				"feedbackCategories"
 			]
 		},
 		"schema":{
@@ -51,6 +53,29 @@
 					"sortable":true,
 					"title":"Api Endpoint Path",
 					"type":"string",
+					"uniqueKey":false
+				},
+				"fanMessageId":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Fan Message Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"feedbackCategories":{
+					"filterable":false,
+					"items":{
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Feedback Categories",
+					"type":"array",
 					"uniqueKey":false
 				},
 				"feedbackComments":{
@@ -83,6 +108,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"latency":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Latency",
+					"type":"integer",
+					"uniqueKey":false
+				},
 				"nc":{
 					"filterable":true,
 					"help":"Country",
@@ -101,6 +136,16 @@
 					"searchable":true,
 					"sortable":true,
 					"title":"Sesion Tracking Token",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"status":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Status",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -123,36 +168,6 @@
 					"title":"User Id",
 					"type":"string",
 					"uniqueKey":false
-				},
-				"fanMessageId":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Fan Message Id",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"latency":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Latency",
-					"type":"integer",
-					"uniqueKey":false
-				},
-				"status":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Status",
-					"type":"string",
-					"uniqueKey":false
 				}
 			},
 			"required":[]
@@ -172,6 +187,7 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
 		"encryptedFields":[
 			
@@ -182,12 +198,12 @@
 			"feedbackComments",
 			"feedbackEvent",
 			"feedbackMessageId",
+			"latency",
 			"nc",
 			"sesionTrackingToken",
+			"status",
 			"uaTraceId",
-			"userId",
-			"latency",
-			"status"
+			"userId"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -251,7 +267,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788603513005,
+	"modifiedTime":1789266787387,
 	"name":"DT API LOG STORE",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -281,6 +297,29 @@
 					"sortable":true,
 					"title":"Api Endpoint Path",
 					"type":"string",
+					"uniqueKey":false
+				},
+				"fanMessageId":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Fan Message Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"feedbackCategories":{
+					"filterable":false,
+					"items":{
+						"type":"string"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Feedback Categories",
+					"type":"array",
 					"uniqueKey":false
 				},
 				"feedbackComments":{
@@ -313,6 +352,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"latency":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Latency",
+					"type":"integer",
+					"uniqueKey":false
+				},
 				"nc":{
 					"filterable":true,
 					"help":"Country",
@@ -331,6 +380,16 @@
 					"searchable":true,
 					"sortable":true,
 					"title":"Sesion Tracking Token",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"status":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Status",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -353,41 +412,11 @@
 					"title":"User Id",
 					"type":"string",
 					"uniqueKey":false
-				},
-				"fanMessageId":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Fan Message Id",
-					"type":"string",
-					"uniqueKey":false
-				},
-				"latency":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Latency",
-					"type":"integer",
-					"uniqueKey":false
-				},
-				"status":{
-					"filterable":true,
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Status",
-					"type":"string",
-					"uniqueKey":false
 				}
 			},
 			"required":[]
 		}
 	},
-	"standard":true,
-	"version":4
+	"standard":false,
+	"version":5
 }

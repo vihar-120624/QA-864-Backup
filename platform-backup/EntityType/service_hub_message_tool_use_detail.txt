@@ -1,5 +1,5 @@
 {
-	"columnCounts":10,
+	"columnCounts":13,
 	"createdTime":1787743324508,
 	"deleted":false,
 	"grants":{
@@ -17,6 +17,16 @@
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
+			"caseId":{
+				"ui:options":{
+					"multiple":false,
+					"ua:payload":{
+						"lookupType":"ENTITY_ID:service_hub_case",
+						"type":"ByQuery"
+					}
+				},
+				"ui:widget":"LookupWidget"
+			},
 			"serviceHubMessageId":{
 				"ui:options":{
 					"multiple":false,
@@ -37,7 +47,10 @@
 				"toolOutput",
 				"thinkingSignature",
 				"actionId",
-				"toolAdditionalDetails"
+				"toolAdditionalDetails",
+				"caseId",
+				"fanMessageId",
+				"timeTaken"
 			]
 		},
 		"schema":{
@@ -51,6 +64,31 @@
 					"searchable":false,
 					"sortable":false,
 					"title":"Action Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"caseId":{
+					"filterable":true,
+					"foreignKey":{
+						"reference":"ENTITY_ID:service_hub_case"
+					},
+					"foreignKeyConstraintEnforced":false,
+					"format":"single-select",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":true,
+					"title":"Case Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"fanMessageId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Fan Message Id",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -76,6 +114,16 @@
 					"sortable":false,
 					"title":"Thinking Signature",
 					"type":"string",
+					"uniqueKey":false
+				},
+				"timeTaken":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Time Taken",
+					"type":"number",
 					"uniqueKey":false
 				},
 				"toolAdditionalDetails":{
@@ -111,14 +159,14 @@
 				"toolInput":{
 					"additionalProperties":true,
 					"filterable":false,
+					"format":"secure",
 					"nameField":false,
 					"primaryKey":false,
 					"properties":{},
 					"searchable":false,
 					"sortable":false,
 					"title":"Tool Input",
-					"type":"object",
-					"format":"secure"
+					"type":"object"
 				},
 				"toolName":{
 					"filterable":true,
@@ -131,13 +179,13 @@
 				},
 				"toolOutput":{
 					"filterable":false,
+					"format":"secure",
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":false,
 					"sortable":false,
 					"title":"Tool Output",
-					"type":"string",
-					"format":"secure"
+					"type":"string"
 				},
 				"toolResponseTime":{
 					"filterable":false,
@@ -182,6 +230,7 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
 		"encryptedFields":[
 			"toolOutput",
@@ -190,6 +239,8 @@
 		"external":false,
 		"filterableFields":[
 			"actionId",
+			"caseId",
+			"fanMessageId",
 			"serviceHubMessageId",
 			"toolAdditionalDetails",
 			"toolExecutionStatus",
@@ -212,6 +263,10 @@
 		],
 		"primaryKeyField":"",
 		"referenceKeys":[
+			{
+				"key":"properties.caseId",
+				"referenceType":"service_hub_case"
+			},
 			{
 				"key":"properties.serviceHubMessageId",
 				"referenceType":"service_hub_message"
@@ -254,7 +309,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788873556064,
+	"modifiedTime":1789266787387,
 	"name":"ServiceHub_Message_ToolUseDetail",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -273,6 +328,31 @@
 					"searchable":false,
 					"sortable":false,
 					"title":"Action Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"caseId":{
+					"filterable":true,
+					"foreignKey":{
+						"reference":"ENTITY_ID:service_hub_case"
+					},
+					"foreignKeyConstraintEnforced":false,
+					"format":"single-select",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":true,
+					"title":"Case Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"fanMessageId":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Fan Message Id",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -298,6 +378,16 @@
 					"sortable":false,
 					"title":"Thinking Signature",
 					"type":"string",
+					"uniqueKey":false
+				},
+				"timeTaken":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Time Taken",
+					"type":"number",
 					"uniqueKey":false
 				},
 				"toolAdditionalDetails":{
@@ -333,14 +423,14 @@
 				"toolInput":{
 					"additionalProperties":true,
 					"filterable":false,
+					"format":"secure",
 					"nameField":false,
 					"primaryKey":false,
 					"properties":{},
 					"searchable":false,
 					"sortable":false,
 					"title":"Tool Input",
-					"type":"object",
-					"format":"secure"
+					"type":"object"
 				},
 				"toolName":{
 					"filterable":true,
@@ -353,13 +443,13 @@
 				},
 				"toolOutput":{
 					"filterable":false,
+					"format":"secure",
 					"nameField":false,
 					"primaryKey":false,
 					"searchable":false,
 					"sortable":false,
 					"title":"Tool Output",
-					"type":"string",
-					"format":"secure"
+					"type":"string"
 				},
 				"toolResponseTime":{
 					"filterable":false,
@@ -379,5 +469,5 @@
 		}
 	},
 	"standard":false,
-	"version":14
+	"version":15
 }
