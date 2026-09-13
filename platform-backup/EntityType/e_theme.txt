@@ -1,5 +1,5 @@
 {
-	"columnCounts":8,
+	"columnCounts":10,
 	"createdTime":1787737376427,
 	"deleted":false,
 	"grants":{
@@ -25,7 +25,9 @@
 				"components",
 				"componentLibrary",
 				"styleOverrides",
-				"customFonts"
+				"customFonts",
+				"provider",
+				"designSystem"
 			]
 		},
 		"schema":{
@@ -178,6 +180,38 @@
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
+				},
+				"provider":{
+					"type":"string",
+					"format":"single-select",
+					"title":"Provider",
+					"default":"unifyapps",
+					"oneOf":[
+						{
+							"const":"unifyapps",
+							"title":"UnifyApps"
+						},
+						{
+							"const":"external",
+							"title":"External"
+						}
+					],
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"designSystem":{
+					"type":"string",
+					"title":"Design System",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
 				}
 			},
 			"required":[
@@ -197,6 +231,9 @@
 			"groups":[
 				"APPLICATIONS"
 			],
+			"impliedBy":[
+				"e_interface"
+			],
 			"internal":true
 		},
 		"cacheable":false,
@@ -206,6 +243,7 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
 		"encryptedFields":[
 			
@@ -220,7 +258,9 @@
 			"customFonts.files.filePath",
 			"customFonts.files.weight",
 			"customFonts.files.italic",
-			"customFonts.type"
+			"customFonts.type",
+			"provider",
+			"designSystem"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -277,7 +317,7 @@
 		],
 		"versioningEnabled":true
 	},
-	"modifiedTime":1789144578021,
+	"modifiedTime":1789300789171,
 	"name":"e_theme",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -435,6 +475,38 @@
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
+				},
+				"provider":{
+					"type":"string",
+					"format":"single-select",
+					"title":"Provider",
+					"default":"unifyapps",
+					"oneOf":[
+						{
+							"const":"unifyapps",
+							"title":"UnifyApps"
+						},
+						{
+							"const":"external",
+							"title":"External"
+						}
+					],
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"designSystem":{
+					"type":"string",
+					"title":"Design System",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
 				}
 			},
 			"required":[
@@ -443,5 +515,5 @@
 		}
 	},
 	"standard":true,
-	"version":5
+	"version":7
 }
