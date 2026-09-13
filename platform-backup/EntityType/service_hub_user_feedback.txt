@@ -1,5 +1,5 @@
 {
-	"columnCounts":12,
+	"columnCounts":13,
 	"createdTime":1787743337535,
 	"deleted":false,
 	"grants":{
@@ -335,9 +335,26 @@
 		"captureActivity":false,
 		"captureReferences":false,
 		"captureReporting":true,
+		"customIndexDefinitions":[
+			{
+				"indexFieldMetadataList":[
+					{
+						"field":"properties.caseId",
+						"type":1
+					},
+					{
+						"field":"id",
+						"type":1
+					}
+				],
+				"name":"properties.caseId_1_id_1",
+				"status":"SUCCESS"
+			}
+		],
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
 		"encryptedFields":[
 			
@@ -345,6 +362,7 @@
 		"external":true,
 		"filterableFields":[
 			"additional.aiAgentId",
+			"caseId",
 			"commentSentimentLabelFromLLM",
 			"fanMessageId",
 			"feedbackCategories",
@@ -354,6 +372,10 @@
 			"reaction",
 			"userFeedback"
 		],
+		"grantPropagationConfig":{
+			"enabled":true,
+			"role":"child"
+		},
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
 		"hashedFields":[
@@ -370,7 +392,10 @@
 		],
 		"primaryKeyField":"",
 		"referenceKeys":[
-			
+			{
+				"key":"properties.caseId",
+				"referenceType":"service_hub_case"
+			}
 		],
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
@@ -385,7 +410,7 @@
 		"skipFetchBeforeUpdate":false,
 		"skipIndexLimitValidation":false,
 		"skipPermissionCheckForAggregation":false,
-		"skipPermissionsFilter":true,
+		"skipPermissionsFilter":false,
 		"skipReportingEventsOrdering":false,
 		"skipRoutineLoad":false,
 		"skipTotalHitsInAggregation":false,
@@ -411,7 +436,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788777778442,
+	"modifiedTime":1789281090713,
 	"name":"ServiceHub_userFeedback",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -495,6 +520,19 @@
 					"sortable":false,
 					"title":"Attachments",
 					"type":"array",
+					"uniqueKey":false
+				},
+				"caseId":{
+					"filterable":true,
+					"foreignKey":{
+						"reference":"ENTITY_ID:service_hub_case"
+					},
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":true,
+					"title":"Case Id",
+					"type":"string",
 					"uniqueKey":false
 				},
 				"commentSentimentLabelFromLLM":{
@@ -678,5 +716,5 @@
 		}
 	},
 	"standard":true,
-	"version":65
+	"version":66
 }
