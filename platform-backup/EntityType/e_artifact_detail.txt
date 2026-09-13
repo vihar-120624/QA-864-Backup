@@ -92,6 +92,9 @@
 				},
 				"caseId":{
 					"filterable":true,
+					"foreignKey":{
+						"reference":"ENTITY_ID:service_hub_case"
+					},
 					"searchable":true,
 					"title":"caseId",
 					"type":"string"
@@ -219,9 +222,26 @@
 		"captureActivity":false,
 		"captureReferences":false,
 		"captureReporting":true,
+		"customIndexDefinitions":[
+			{
+				"indexFieldMetadataList":[
+					{
+						"field":"properties.caseId",
+						"type":1
+					},
+					{
+						"field":"id",
+						"type":1
+					}
+				],
+				"name":"properties.caseId_1_id_1",
+				"status":"SUCCESS"
+			}
+		],
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":true,
 		"encryptedFields":[
 			
@@ -252,6 +272,10 @@
 			"versionDetails.entityVersion",
 			"versionDetails.commitHash"
 		],
+		"grantPropagationConfig":{
+			"enabled":true,
+			"role":"child"
+		},
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
 		"hashedFields":[
@@ -268,7 +292,10 @@
 		],
 		"primaryKeyField":"",
 		"referenceKeys":[
-			
+			{
+				"key":"properties.caseId",
+				"referenceType":"service_hub_case"
+			}
 		],
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
@@ -315,7 +342,7 @@
 		],
 		"versioningEnabled":true
 	},
-	"modifiedTime":1788780732845,
+	"modifiedTime":1789280972747,
 	"name":"Artifact Details",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -369,6 +396,9 @@
 				},
 				"caseId":{
 					"filterable":true,
+					"foreignKey":{
+						"reference":"ENTITY_ID:service_hub_case"
+					},
 					"searchable":true,
 					"title":"caseId",
 					"type":"string"
@@ -489,5 +519,5 @@
 	"tags":[
 		
 	],
-	"version":27
+	"version":28
 }
