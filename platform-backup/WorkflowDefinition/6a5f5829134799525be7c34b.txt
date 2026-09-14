@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743674973,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743675049,
+		"deployedAt":1789395124858,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdbb177b4b4aca57a7b4",
+		"deployedDefinitionId":"6aa800b439ee5f5ef70b5d7a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":32
+		"version":2,
+		"workflowVersion":35
 	},
 	"edges":[
 		{
@@ -24,7 +24,75 @@
 		},
 		{
 			"fromNodeId":"n_yNk9E",
-			"id":"next@n_yNk9E@n_Cx4Ra",
+			"id":"next@n_yNk9E@n_6EfEH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6EfEH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6EfEH",
+			"id":"next@n_6EfEH@n_kmtU0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kmtU0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kmtU0",
+			"id":"if@n_kmtU0@n_SXIwJ",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SXIwJ",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_kmtU0",
+			"id":"next@n_kmtU0@n_rtMnm",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rtMnm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rtMnm",
+			"id":"if@n_rtMnm@n_57j09",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_57j09",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_57j09",
+			"id":"next@n_57j09@n_WmUJj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WmUJj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SXIwJ",
+			"id":"next@n_SXIwJ@n_Cx4Ra",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Cx4Ra",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WmUJj",
+			"id":"next@n_WmUJj@n_Cx4Ra",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Cx4Ra",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rtMnm",
+			"id":"next@n_rtMnm@n_Cx4Ra",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Cx4Ra",
@@ -146,7 +214,7 @@
 	"id":"6a5f5829134799525be7c34b",
 	"lastModifiedBy":-1,
 	"lcName":"governance | ingest agent trace data",
-	"modifiedTime":1788252972196,
+	"modifiedTime":1789395394277,
 	"name":"Governance | Ingest Agent Trace Data",
 	"nodes":[
 		{
@@ -277,6 +345,171 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15732,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_FkgAt-1",
+			"id":"n_6EfEH",
+			"index":3,
+			"inputs":{
+				"object_type":"agent_profile",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_dgl07.outputs.agentProfileId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":195,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_FkgAt-1",
+			"id":"n_kmtU0",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_6EfEH.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2794,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_kmtU0@_FkgAt-1@y",
+			"id":"n_SXIwJ",
+			"index":5,
+			"inputs":{
+				"result":{
+					"success":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":195,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_kmtU0@_FkgAt-1@n",
+			"id":"n_rtMnm",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_6EfEH.outputs.properties.enabled }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15796,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rtMnm@n_kmtU0@_FkgAt-1@n@y",
+			"id":"n_57j09",
+			"index":7,
+			"inputs":{
+				"recordId":"{{ n_6EfEH.outputs.id }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"agent_profile",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.registered_first_time",
+						"setValue":"false"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2794,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rtMnm@n_kmtU0@_FkgAt-1@n@y",
+			"id":"n_WmUJj",
+			"index":8,
+			"inputs":{
+				"result":{
+					"success":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":2093,
 				"resourceName":"callables_call_interface",
@@ -287,7 +520,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_FkgAt-1",
 			"id":"n_Cx4Ra",
-			"index":3,
+			"index":9,
 			"inputs":{
 				"callableInterfaceId":"6a5f4ed6e0e0eb3f8d638d7e",
 				"runtimeConnections":"{{ n_dgl07.outputs.connectionOverrides }}",
@@ -374,7 +607,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Cx4Ra@_FkgAt-1@success",
 			"id":"n_9owGp",
-			"index":4,
+			"index":10,
 			"inputs":{
 				"recordId":"{{ n_dgl07.outputs.agentProfileId }}",
 				"writeThroughSessionVariables":false,
@@ -413,7 +646,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Cx4Ra@_FkgAt-1@success",
 			"id":"n_27SEk",
-			"index":5,
+			"index":11,
 			"inputs":{
 				"variables":[
 					{
@@ -439,7 +672,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Cx4Ra@_FkgAt-1@error",
 			"id":"n_BwuWV",
-			"index":6,
+			"index":12,
 			"inputs":{
 				"object_type":"agent_profile",
 				"includeRoleMappings":false,
@@ -465,7 +698,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Cx4Ra@_FkgAt-1@error",
 			"id":"n_d3w7n",
-			"index":7,
+			"index":13,
 			"inputs":{
 				"filters":[
 					{
@@ -495,7 +728,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_d3w7n@n_Cx4Ra@_FkgAt-1@error@y",
 			"id":"n_x6r8k",
-			"index":8,
+			"index":14,
 			"inputs":{
 				"result":{
 					"success":false
@@ -518,7 +751,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_d3w7n@n_Cx4Ra@_FkgAt-1@error@n",
 			"id":"n_NvK2S",
-			"index":9,
+			"index":15,
 			"inputs":{
 				"recordId":"{{ n_dgl07.outputs.agentProfileId }}",
 				"writeThroughSessionVariables":false,
@@ -552,7 +785,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Cx4Ra@_FkgAt-1@error",
 			"id":"n_fBmAN",
-			"index":10,
+			"index":16,
 			"inputs":{
 				"variables":[
 					{
@@ -578,7 +811,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_FkgAt-1",
 			"id":"n_sRZpo",
-			"index":11,
+			"index":17,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -615,7 +848,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_FkgAt-1",
 			"id":"n_L1vDf",
-			"index":12,
+			"index":18,
 			"inputs":{
 				"automation_id":"6a5f5829134799525be7c34b",
 				"schedule_method":{
@@ -659,7 +892,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_FkgAt-1",
 			"id":"n_d2td9",
-			"index":13,
+			"index":19,
 			"inputs":{
 				"result":{
 					"success":true
@@ -676,9 +909,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
+		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":false,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -686,5 +919,5 @@
 		}
 	},
 	"standard":true,
-	"version":34
+	"version":36
 }

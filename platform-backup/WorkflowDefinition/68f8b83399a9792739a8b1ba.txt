@@ -4,32 +4,18 @@
 	],
 	"createdTime":1787743835292,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743835340,
+		"deployedAt":1789395228389,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece5b9d7c534668ef8f45",
+		"deployedDefinitionId":"6aa8011c39ee5f5ef70b6340",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":24
+		"version":2,
+		"workflowVersion":27
 	},
 	"edges":[
 		{
 			"fromNodeId":"_vIOB9",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_QMYh4",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_QMYh4",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_wFOYp",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_wFOYp",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Bte99",
@@ -44,20 +30,6 @@
 		},
 		{
 			"fromNodeId":"n_R1Emz",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_I8PqD",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_I8PqD",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_EnGVM",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_EnGVM",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tpi3t",
@@ -94,7 +66,7 @@
 	"id":"68f8b83399a9792739a8b1ba",
 	"lastModifiedBy":-1,
 	"lcName":"cancel knowledge downloader wrapper schedules",
-	"modifiedTime":1788252971848,
+	"modifiedTime":1789395394249,
 	"name":"Cancel Knowledge Downloader Wrapper schedules",
 	"nodes":[
 		{
@@ -152,89 +124,6 @@
 		},
 		{
 			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":3300,
-				"resourceName":"storage_by_unifyapps_fetch_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_2iwvS-1",
-			"id":"_QMYh4",
-			"index":2,
-			"inputs":{
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ _vIOB9.outputs.knowledgeId }}"
-							},
-							"property":"properties_knowledgeId"
-						},
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"backward"
-							},
-							"property":"properties_grabberType"
-						}
-					],
-					"operator":"AND"
-				},
-				"shouldSearchInAnalyticsStore":false,
-				"object_type":"knowledge_downloader_task_details",
-				"includeRoleMappings":false,
-				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
-				"page":{
-					"limit":20,
-					"paginateBy":"OFFSET"
-				},
-				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"SINGLE",
-				"readThroughSessionVariables":false
-			},
-			"skip":false,
-			"subTitle":"Downloader Task Details",
-			"title":"Fetch records",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":993,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_2iwvS-1",
-			"id":"_wFOYp",
-			"index":3,
-			"inputs":{
-				"recordId":"{{ _QMYh4.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"knowledge_downloader_task_details",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"grabberType":"backward",
-					"knowledgeId":"{{ _vIOB9.outputs.knowledgeId }}",
-					"status":"DELETED"
-				},
-				"upsert":true
-			},
-			"skip":false,
-			"subTitle":"Task = DELETED",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"loop",
 				"resourceVersion":455,
 				"resourceName":"loop_for_each",
@@ -245,7 +134,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_2iwvS-1",
 			"id":"n_Bte99",
-			"index":4,
+			"index":2,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ _vIOB9.outputs.grabbingFrequency }}",
@@ -268,7 +157,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Bte99@_2iwvS-1@l",
 			"id":"n_R1Emz",
-			"index":5,
+			"index":3,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -308,89 +197,6 @@
 		},
 		{
 			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":3300,
-				"resourceName":"storage_by_unifyapps_fetch_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_Bte99@_2iwvS-1@l",
-			"id":"n_I8PqD",
-			"index":6,
-			"inputs":{
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ _vIOB9.outputs.knowledgeId }}"
-							},
-							"property":"properties_knowledgeId"
-						},
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ n_R1Emz.outputs.result.grabberType }}"
-							},
-							"property":"properties_grabberType"
-						}
-					],
-					"operator":"AND"
-				},
-				"shouldSearchInAnalyticsStore":false,
-				"object_type":"knowledge_downloader_task_details",
-				"includeRoleMappings":false,
-				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
-				"page":{
-					"limit":20,
-					"paginateBy":"OFFSET"
-				},
-				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"SINGLE",
-				"readThroughSessionVariables":false
-			},
-			"skip":false,
-			"subTitle":"Downloader Task Details",
-			"title":"Fetch records",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":993,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_Bte99@_2iwvS-1@l",
-			"id":"n_EnGVM",
-			"index":7,
-			"inputs":{
-				"recordId":"{{ n_I8PqD.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"knowledge_downloader_task_details",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"grabberType":"{{ n_R1Emz.outputs.result.grabberType }}",
-					"knowledgeId":"{{ _vIOB9.outputs.knowledgeId }}",
-					"status":"DELETED"
-				},
-				"upsert":true
-			},
-			"skip":false,
-			"subTitle":"Task = DELETED",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"callables",
 				"resourceVersion":458,
 				"resourceName":"callables_cancel_scheduled_callable",
@@ -401,7 +207,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Bte99@_2iwvS-1@l",
 			"id":"n_tpi3t",
-			"index":8,
+			"index":4,
 			"inputs":{
 				"schedule_name":"knowledge_downloader_{{ _vIOB9.outputs.knowledgeId }}_{{ n_R1Emz.outputs.result.grabberType }}"
 			},
@@ -421,7 +227,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_2iwvS-1",
 			"id":"_wE8ci",
-			"index":9,
+			"index":5,
 			"inputs":{
 				"result":{
 					"success":true
@@ -439,7 +245,7 @@
 	],
 	"settings":{
 		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
+		"enableRunLogging":true,
 		"enableVariableLogging":false,
 		"route":{
 			"default":false,
@@ -449,7 +255,8 @@
 	"standard":true,
 	"tags":[
 		"knowledge_v2",
-		"release_27jan"
+		"release_27jan",
+		"msft_connectors"
 	],
-	"version":26
+	"version":28
 }
