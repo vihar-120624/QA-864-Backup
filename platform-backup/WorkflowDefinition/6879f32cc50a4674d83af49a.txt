@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743484019,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743484490,
+		"deployedAt":1789395052655,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccfc53a823318abfbe0b",
+		"deployedDefinitionId":"6aa8006c72fd792214e8bf29",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":170
+		"version":2,
+		"workflowVersion":173
 	},
 	"edges":[
 		{
@@ -238,7 +238,7 @@
 	"id":"6879f32cc50a4674d83af49a",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | jira | project",
-	"modifiedTime":1788252971736,
+	"modifiedTime":1789395397038,
 	"name":"Knowledge Downloader | Jira | Project",
 	"nodes":[
 		{
@@ -437,6 +437,10 @@
 							"title":"Assignees",
 							"type":"array"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"createdDate":{
 							"additionalProperties":false,
 							"properties":{
@@ -454,6 +458,10 @@
 						"cursorModifiedFromDate":{
 							"title":"Cursor Modified From Date",
 							"type":"integer"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
 						},
 						"includeAttachments":{
 							"title":"Include Attachments",
@@ -957,6 +965,10 @@
 							"title":"Connection Id",
 							"type":"string"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"currentCursor":{
 							"additionalProperties":false,
 							"properties":{},
@@ -998,12 +1010,13 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.LocalDateTime\nimport java.time.OffsetDateTime                                              // *** ADDED: Import for parsing with timezone ***\nimport java.time.format.DateTimeFormatter\ndef currentCursor = binding.hasVariable(\"currentCursor\") ? currentCursor : (binding.hasVariable(\"cursor\") ? cursor : [:])\ndef issues = binding.hasVariable(\"issues\") ? issues : []\n// def isLast = binding.hasVariable('isLast') ? isLast : true\ndef isLast = issues.size()==10 ? false :true\n\ndef cursorModifiedFromDate = issues.size() > 0 ? issues[-1]?.fields?.updated : null\ndef offset=currentCursor.containsKey('offset')?currentCursor?.offset:0\ndef hasMore = !isLast\n\n// *** ADDED: Check if currentCursorModifiedFromDate minutes match cursorModifiedFromDate minutes ***\ndef returnNextPageToken = false\nif (binding.hasVariable('currentCursorModifiedFromDate') && currentCursorModifiedFromDate?.trim() && cursorModifiedFromDate?.trim()) {\n    try {\n        DateTimeFormatter currentFmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm\")              // *** Format for current cursor ***\n        DateTimeFormatter cursorFmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")    // *** Format for cursor with timezone ***\n        \n        LocalDateTime currentDateTime = LocalDateTime.parse(currentCursorModifiedFromDate, currentFmt)\n        OffsetDateTime cursorDateTime = OffsetDateTime.parse(cursorModifiedFromDate, cursorFmt)     // *** Parse as OffsetDateTime ***\n        \n        // Compare year, month, day, hour, and minute\n        returnNextPageToken = (currentDateTime.getYear() == cursorDateTime.getYear() &&\n                               currentDateTime.getMonthValue() == cursorDateTime.getMonthValue() &&\n                               currentDateTime.getDayOfMonth() == cursorDateTime.getDayOfMonth() &&\n                               currentDateTime.getHour() == cursorDateTime.getHour() &&\n                               currentDateTime.getMinute() == cursorDateTime.getMinute())\n    } catch (Exception e) {\n        println \"Failed to compare dates: ${e.message}\"\n    }\n}\n\n// *** ADDED: Build cursor object conditionally ***\ndef cursorObj=[:]\n\nif(cursorModifiedFromDate!=null){\n    DateTimeFormatter fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")\n    OffsetDateTime cursorModifiedFromDateTime = OffsetDateTime.parse(cursorModifiedFromDate,fmt)\n    cursorModifiedFromDateTimeEpoch = cursorModifiedFromDateTime.toInstant().toEpochMilli()\ncursorObj = [\"cursorModifiedFromDate\": cursorModifiedFromDateTimeEpoch]\n}\n\nif(cursorModifiedFromDate == null && binding.hasVariable('cursor')){\n   cursorObj = [\"cursorModifiedFromDate\": cursor?.cursorModifiedFromDate]\n}\n\n// Offset logic\nif (returnNextPageToken && hasMore) {\n    offset = (offset as int) + 10   // *** Same minute → paginate forward ***\n    //cursorObj['cursorModifiedFromDate'] =  cursorObj?.cursorModifiedFromDate +  (60*1000)\n} else {\n    offset = 0          // *** Different time → reset offset ***\n}\n\ncursorObj['offset']=offset\n\n\n////cloud specific\ndef connectionId = binding.hasVariable(\"connectionId\")?connectionId:null\ndef nextPageToken=binding.hasVariable(\"nextPageToken\")?nextPageToken:null\ndef token=\"\"\nif (connectionId=='69f05600455b431045a50600' && returnNextPageToken && hasMore) {\n    token =  nextPageToken\n} else {\n    token =  null\n}\ncursorObj['nextPageToken'] = token\n\nreturn [ \n    \"cursorObj\": cursorObj,\n    \"hasMore\": hasMore,\n    \"returnNextPageToken\": returnNextPageToken\n]",
+				"code":"import java.time.LocalDateTime\nimport java.time.OffsetDateTime                                              // *** ADDED: Import for parsing with timezone ***\nimport java.time.format.DateTimeFormatter\ndef currentCursor = binding.hasVariable(\"currentCursor\") ? currentCursor : (binding.hasVariable(\"cursor\") ? cursor : [:])\ndef issues = binding.hasVariable(\"issues\") ? issues : []\n// def isLast = binding.hasVariable('isLast') ? isLast : true\ndef isLast = issues.size()==10 ? false :true\n\ndef cursorModifiedFromDate = issues.size() > 0 ? issues[-1]?.fields?.updated : null\ndef offset=currentCursor.containsKey('offset')?currentCursor?.offset:0\ndef hasMore = !isLast\n\n// *** ADDED: Check if currentCursorModifiedFromDate minutes match cursorModifiedFromDate minutes ***\ndef returnNextPageToken = false\nif (binding.hasVariable('currentCursorModifiedFromDate') && currentCursorModifiedFromDate?.trim() && cursorModifiedFromDate?.trim()) {\n    try {\n        DateTimeFormatter currentFmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm\")              // *** Format for current cursor ***\n        DateTimeFormatter cursorFmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")    // *** Format for cursor with timezone ***\n        \n        LocalDateTime currentDateTime = LocalDateTime.parse(currentCursorModifiedFromDate, currentFmt)\n        OffsetDateTime cursorDateTime = OffsetDateTime.parse(cursorModifiedFromDate, cursorFmt)     // *** Parse as OffsetDateTime ***\n        \n        // Compare year, month, day, hour, and minute\n        returnNextPageToken = (currentDateTime.getYear() == cursorDateTime.getYear() &&\n                               currentDateTime.getMonthValue() == cursorDateTime.getMonthValue() &&\n                               currentDateTime.getDayOfMonth() == cursorDateTime.getDayOfMonth() &&\n                               currentDateTime.getHour() == cursorDateTime.getHour() &&\n                               currentDateTime.getMinute() == cursorDateTime.getMinute())\n    } catch (Exception e) {\n        println \"Failed to compare dates: ${e.message}\"\n    }\n}\n\n// *** ADDED: Build cursor object conditionally ***\ndef cursorObj=[:]\n\nif(cursorModifiedFromDate!=null){\n    DateTimeFormatter fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")\n    OffsetDateTime cursorModifiedFromDateTime = OffsetDateTime.parse(cursorModifiedFromDate,fmt)\n    cursorModifiedFromDateTimeEpoch = cursorModifiedFromDateTime.toInstant().toEpochMilli()\ncursorObj = [\"cursorModifiedFromDate\": cursorModifiedFromDateTimeEpoch]\n}\n\nif(cursorModifiedFromDate == null && binding.hasVariable('cursor')){\n   cursorObj = [\"cursorModifiedFromDate\": cursor?.cursorModifiedFromDate]\n}\n\n// Inputs\ndef connectionType = binding.hasVariable(\"connectionType\") ? connectionType : null\ndef nextPageToken  = binding.hasVariable(\"nextPageToken\")  ? nextPageToken  : null\n\ndef isCloud = (connectionType?.toString()?.equalsIgnoreCase(\"cloud\"))\n\nif (isCloud) {\n    // ---- CLOUD: token-based pagination ----\n    cursorObj['nextPageToken'] = (returnNextPageToken && hasMore) ? nextPageToken : null\n    cursorObj['offset'] = 0\n} else {\n    // ---- NON-CLOUD (on-prem/DC): offset-based pagination ----\n    def offsetVal\n    if (returnNextPageToken && hasMore) {\n        offsetVal = (offset as int) + 10   // same minute -> paginate forward\n        //cursorObj['cursorModifiedFromDate'] = cursorObj?.cursorModifiedFromDate + (60*1000)\n    } else {\n        offsetVal = 0                      // different time -> reset offset\n    }\n    cursorObj['offset'] = offsetVal\n    cursorObj['nextPageToken'] = null\n}\nreturn [ \n    \"cursorObj\": cursorObj,\n    \"hasMore\": hasMore,\n    \"returnNextPageToken\": returnNextPageToken\n]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"connectionId":"{{ _JoVof.outputs.knowledge.applicationInfo.context.connectionId }}",
+					"connectionType":"{{ _B7QXL.outputs.result.connectionType }}",
 					"currentCursor":"{{ _JoVof.outputs.cursor }}",
 					"currentCursorModifiedFromDate":"{{ undefined_0SDTd.outputs.result.cursorModifiedFromDate }}",
 					"isLast":"{{ undefined_hfDJI.outputs.isLast }}",
@@ -1444,14 +1457,17 @@
 				"synchronous":true,
 				"parameters":{
 					"connectionId":"{{ _JoVof.outputs.knowledge.applicationInfo.context.connectionId }}",
+					"connectionType":"{{ _B7QXL.outputs.result.connectionType }}",
 					"grabberType":"{{ _JoVof.outputs.downloaderConfig.grabberType }}",
+					"hostname":"{{ _B7QXL.outputs.result.hostname }}",
 					"indexingVersion":"{{ _JoVof.outputs.knowledge.indexingVersion }}",
 					"inputs":"{{ yUuoJ.outputs.result.inputs }}",
 					"knowledgeId":"{{ _JoVof.outputs.knowledgeId }}",
 					"knowledgeSetId":"{{ _JoVof.outputs.knowledge.knowledgeSetId }}",
 					"skipRawDataUpdate":true
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -1683,5 +1699,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":172
+	"version":174
 }
