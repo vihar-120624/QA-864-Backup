@@ -4,19 +4,27 @@
 	],
 	"createdTime":1787743642180,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743642291,
+		"deployedAt":1789395106509,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd9a177b4b4aca57a3ad",
+		"deployedDefinitionId":"6aa800a2c6a14707f150319d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":84
+		"version":2,
+		"workflowVersion":87
 	},
 	"edges":[
 		{
 			"fromNodeId":"Bt7OQ",
-			"id":"next@Bt7OQ@_B7QXL",
+			"id":"next@Bt7OQ@n_4LV24",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4LV24",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4LV24",
+			"id":"next@n_4LV24@_B7QXL",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_B7QXL",
@@ -228,7 +236,7 @@
 	"id":"6879f055c50a4674d83ac671",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | jira | all projects",
-	"modifiedTime":1788252973045,
+	"modifiedTime":1789395399688,
 	"name":"Knowledge Downloader | Jira | All projects",
 	"nodes":[
 		{
@@ -401,6 +409,27 @@
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":1351,
+				"resourceName":"standard_entities_get_connection_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"zsXdn-1",
+			"id":"n_4LV24",
+			"index":2,
+			"inputs":{
+				"connectionIds":"{{ Bt7OQ.outputs.knowledge.applicationInfo.context.connectionId }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get connection details",
+			"type":"ACTION"
+		},
+		{
 			"additional":{
 				"xsdSchemaConfig":{
 					"root":{}
@@ -417,7 +446,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"_B7QXL",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -469,7 +498,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"8pv9f",
-			"index":3,
+			"index":4,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -781,7 +810,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"_RYLXv",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"filters":[
 					{
@@ -810,7 +839,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_RYLXv@zsXdn-1@y",
 			"id":"_b6HGI",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ _B7QXL.outputs.result.projectList }}",
@@ -834,7 +863,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_b6HGI@_RYLXv@zsXdn-1@y@l",
 			"id":"_TVY8o",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"projectIdOrKey":"{{ _b6HGI.outputs.item }}"
 			},
@@ -860,7 +889,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_b6HGI@_RYLXv@zsXdn-1@y@l",
 			"id":"_RMY2U",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"itemToAdd":{
 					"id":"{{ _b6HGI.outputs.item }}",
@@ -889,7 +918,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_RYLXv@zsXdn-1@n",
 			"id":"_lboIS",
-			"index":8,
+			"index":9,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -961,7 +990,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_RYLXv@zsXdn-1@n",
 			"id":"_ndXAZ",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"condition":{
 					"filters":[
@@ -995,7 +1024,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_ndXAZ@_RYLXv@zsXdn-1@n@l",
 			"id":"_hKnNM",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"maxResults":"{{ _lboIS.outputs.limit }}",
 				"startAt":"{{ _lboIS.outputs.offset }}"
@@ -1077,7 +1106,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_ndXAZ@_RYLXv@zsXdn-1@n@l",
 			"id":"_FY9cN",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ _hKnNM.outputs.values }}",
@@ -1110,7 +1139,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_FY9cN@_ndXAZ@_RYLXv@zsXdn-1@n@l@l",
 			"id":"n_3j37d",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -1143,7 +1172,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_ndXAZ@_RYLXv@zsXdn-1@n@l",
 			"id":"_jnAPs",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1206,7 +1235,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_ndXAZ@_RYLXv@zsXdn-1@n@l",
 			"id":"_1PVM8",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"variables":[
 					{
@@ -1236,7 +1265,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"n_30YrW",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ 8pv9f.outputs.items }}",
@@ -1260,7 +1289,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_30YrW@zsXdn-1@l",
 			"id":"n_tEpFY",
-			"index":16,
+			"index":17,
 			"inputs":{
 				"automationId":"6a1e98e9b2e5664c932f2dd0",
 				"runtimeConnections":{},
@@ -1384,7 +1413,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_30YrW@zsXdn-1@l",
 			"id":"n_FmTRS",
-			"index":17,
+			"index":18,
 			"inputs":{
 				"useRawPayload":true,
 				"rawPayload":{
@@ -1413,7 +1442,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"n_Oqwxf",
-			"index":18,
+			"index":19,
 			"inputs":{},
 			"skip":false,
 			"subTitle":"Jira",
@@ -1437,7 +1466,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"n_pMZRk",
-			"index":19,
+			"index":20,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1472,6 +1501,14 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
+						},
 						"inputs":{
 							"additionalProperties":false,
 							"properties":{},
@@ -1495,10 +1532,12 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def enrichedProjects = []\ndef projects = binding.hasVariable(\"projects\") ? projects : []\ndef inputs = binding.hasVariable(\"inputs\") ? inputs : [:]\ndef timeZone = binding.hasVariable(\"timeZone\") ? timeZone : null\n\nfor ( project : projects) {\n\n  // adding custom_inputs for child flow  \n  def custom_inputs = new HashMap<>(inputs)\n  custom_inputs << [\"projectId\" : project.id]\n  custom_inputs << [\"projectKey\" : project.projectKey]\n  custom_inputs << [\"timeZone\" : timeZone]\n          \n  project << [\"custom_inputs\" : custom_inputs]\n\n  enrichedProjects << project\n}\n\nreturn [\"enrichedProjects\" : enrichedProjects]",
+				"code":"def enrichedProjects = []\ndef projects = binding.hasVariable(\"projects\") ? projects : []\ndef inputs = binding.hasVariable(\"inputs\") ? inputs : [:]\ndef timeZone = binding.hasVariable(\"timeZone\") ? timeZone : null\ndef connectionType = binding.hasVariable(\"connectionType\") ? connectionType : null\ndef hostname = binding.hasVariable(\"hostname\") ? hostname : null\n\nfor ( project : projects) {\n\n  // adding custom_inputs for child flow  \n  def custom_inputs = new HashMap<>(inputs)\n  custom_inputs << [\"projectId\" : project.id]\n  custom_inputs << [\"projectKey\" : project.projectKey]\n  custom_inputs << [\"timeZone\" : timeZone]\n  custom_inputs << [\"connectionType\" : connectionType]\n  custom_inputs << [\"hostname\" : hostname]\n          \n  project << [\"custom_inputs\" : custom_inputs]\n\n  enrichedProjects << project\n}\n\nreturn [\"enrichedProjects\" : enrichedProjects]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"connectionType":"{{ n_4LV24.outputs.connectionDetails[0].userInput.connectionType }}",
+					"hostname":"{{ n_4LV24.outputs.connectionDetails[0].userInput.hostname }}",
 					"inputs":"{{ Bt7OQ.outputs.inputs }}",
 					"projects":{
 						"items":"{{ 8pv9f.outputs.items[0] }}",
@@ -1525,7 +1564,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zsXdn-1",
 			"id":"undefined_Jt3Cj",
-			"index":20,
+			"index":21,
 			"inputs":{
 				"result":{
 					"downloaderDetails":{
@@ -1572,5 +1611,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":86
+	"version":88
 }
