@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743879146,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743879259,
+		"deployedAt":1789395248211,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece8745d2142160e6e98c",
+		"deployedDefinitionId":"6aa8013072fd792214e8c917",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":55
+		"version":2,
+		"workflowVersion":58
 	},
 	"edges":[
 		{
@@ -154,7 +154,7 @@
 	"id":"67e29909b7d2dd451ebaaf36",
 	"lastModifiedBy":-1,
 	"lcName":"eval | metrics | g-eval",
-	"modifiedTime":1788252972838,
+	"modifiedTime":1789395401485,
 	"name":"Eval | Metrics | G-EVAL",
 	"nodes":[
 		{
@@ -569,6 +569,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -787,7 +808,7 @@
 			},
 			"inputs":{
 				"response_formate":"json_object",
-				"maxTokens":8192
+				"maxTokens":16384
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -796,6 +817,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"maxTokens":{
 							"title":"Max Tokens",
 							"type":"integer"
@@ -946,7 +988,7 @@
 					],
 					"type":"object"
 				},
-				"code":"import com.unifyapps.infra.utils.JsonUtils\n\ntry {\n    def jsonString = binding.hasVariable('jsonString')\n        ? binding.getVariable('jsonString')\n        : \"\"\n\n    // Strip the <think>...</think> block if present, keep only what comes after\n    def thinkEndTag = '</think>'\n    def thinkEndIdx = jsonString.indexOf(thinkEndTag)\n    if (thinkEndIdx != -1) {\n        jsonString = jsonString.substring(thinkEndIdx + thinkEndTag.length())\n    }\n\n    def start = jsonString.indexOf('{')\n    def end   = jsonString.lastIndexOf('}')\n\n    def result = (start != -1 && end != -1 && end > start)\n        ? jsonString.substring(start, end + 1)\n        : \"\"\n\n    def unescaped = result\n        .replace('\\\\n', '\\n')\n        .replace('\\\\\"', '\"')\n\n    def parsed = JsonUtils.fromJson(unescaped, Map)\n\n    return [\n        score : parsed.score,\n        reason: parsed.reason\n    ]\n\n} catch (Exception e) {\n    return [\n        score       : -1,\n        reason      : \"Failed to parse response: \" + e.message\n    ]\n}",
+				"code":"import com.unifyapps.infra.utils.JsonUtils\n\n  /*\n   * Parse a judge model's response into [score, reason].\n   *\n   * The input is prose that usually CONTAINS JSON, not JSON. Every step below exists because a real\n   * model response broke a previous version of this parser:\n   *   - reasoning preambles (<think>...</think>), sometimes containing their own draft verdict\n   *   - markdown code fences\n   *   - chat before and after the object, including prose with braces in it\n   *   - literal newlines/tabs inside a string, unescaped quotes, trailing commas, single quotes\n   *   - backslashes the model never escaped (Windows paths, LaTeX)\n   *   - the score quoted as a string, or nested under a wrapper key like {\"result\":{...}}\n   *   - the whole object escaped once or twice, because something upstream json-encoded a string\n   *     that was already JSON: arrives as {\\\"score\\\":...} or {\\\\\\\"score\\\\\\\":...}\n   *   - a truncated payload, at either end: opening brace cut away, or cut off mid-string\n   *\n   * STRATEGY. Build progressively-cleaned VIEWS of the text; within each view, narrow to candidate\n   * objects by BALANCED, STRING-AWARE scanning (never first-brace-to-last-brace); within each\n   * candidate, try increasingly forgiving repairs. Parse every view before letting the regex fallback\n   * answer for any of them. Return the -1 sentinel only when there is genuinely nothing.\n   *\n   * TWO ORDERING RULES CARRY MOST OF THE CORRECTNESS, and both were learned by getting them wrong:\n   *\n   *  1. Transformations are VIEWS, never mutations, and the text is read as written first. Stripping\n   *     <think> or fences up front let a reason that merely MENTIONED `</think>` cut its own verdict\n   *     in half. Stripping now only touches text that already failed to parse.\n   *\n   *  2. Parse-all-views THEN regex-all-views. The regex path always produces something plausible from\n   *     a mangled view, so running it per view let it answer from view 0 and hide the clean parse a\n   *     later view would have given.\n   *\n   * The one exception to rule 1 is deliberate and load-bearing: there is no view with a complete\n   * <think>...</think> pair left in, because a draft verdict inside a reasoning block is a valid\n   * candidate object and will answer whenever the real verdict is unparseable.\n   *\n   * A NOTE ON THE PARSER. JsonUtils is lenient — it accepts single quotes — so single-quoted text\n   * parses on sight and decodes its backslashes as JSON escapes while doing it, even though that text\n   * was never JSON. The converted view is therefore offered FIRST for such input, so the lenient parse\n   * never sees the original.\n   *\n   * Covered by 1300 generated cases plus ~20 adversarial shapes in GEvalResponseParsingTest, executed\n   * exactly as the engine executes this node.\n   */\n\n  // ── helpers: scanning ────────────────────────────────────────────────────────────\n\n  /** Every balanced {...} region, ignoring braces that sit inside string literals. */\n  def findObjects(String text) {\n      def objects = []\n      def headless = []\n      int depth = 0, start = -1, lastCut = 0\n      boolean inString = false, escaped = false\n      for (int i = 0; i < text.length(); i++) {\n          char c = text.charAt(i)\n          if (inString) {\n              if (escaped)        { escaped = false }\n              else if (c == '\\\\') { escaped = true }\n              else if (c == '\"')  { inString = false }\n              continue\n          }\n          if (c == '\"') { inString = true; continue }\n          if (c == '{') { if (depth == 0) start = i; depth++ }\n          else if (c == '}') {\n              depth--\n              if (depth == 0 && start != -1) {\n                  objects << text.substring(start, i + 1); start = -1; lastCut = i + 1\n              } else if (depth < 0) {\n                  headless << ('{' + text.substring(lastCut, i + 1))\n                  depth = 0; start = -1; lastCut = i + 1\n              }\n          }\n      }\n      if (depth > 0 && start != -1) {\n          def tail = new StringBuilder(text.substring(start))\n          if (inString) {\n              if (escaped) tail.append('\\\\')\n              tail.append('\"')\n          }\n          depth.times { tail.append('}') }\n          objects << tail.toString()\n      }\n      return objects ?: headless\n  }\n\n  // ── helpers: repairs ─────────────────────────────────────────────────────────────\n  def escapeControlChars(String json) {\n      def out = new StringBuilder()\n      boolean inString = false, escaped = false\n      for (int i = 0; i < json.length(); i++) {\n          char c = json.charAt(i)\n          if (inString) {\n              if (escaped)        { out.append(c); escaped = false; continue }\n              if (c == '\\\\')      { out.append(c); escaped = true;  continue }\n              if (c == '\"')       { out.append(c); inString = false; continue }\n              if (c == '\\n')      { out.append('\\\\n'); continue }\n              if (c == '\\r')      { out.append('\\\\r'); continue }\n              if (c == '\\t')      { out.append('\\\\t'); continue }\n              if (c < 0x20)       { out.append(String.format('\\\\u%04x', (int) c)); continue }\n              out.append(c); continue\n          }\n          if (c == '\"') { inString = true }\n          out.append(c)\n      }\n      return out.toString()\n  }\n\n  def fixInvalidEscapes(String json) {\n      def out = new StringBuilder()\n      boolean inString = false\n      int i = 0\n      while (i < json.length()) {\n          char c = json.charAt(i)\n          if (!inString) {\n              if (c == '\"') inString = true\n              out.append(c); i++; continue\n          }\n          if (c == '\"') { inString = false; out.append(c); i++; continue }\n          if (c == '\\\\') {\n              char next = (i + 1 < json.length()) ? json.charAt(i + 1) : ('\\0' as char)\n              boolean legal = '\"\\\\/bfnrt'.indexOf((int) next) >= 0\n              if (!legal && next == 'u' as char) {\n                  legal = (i + 5 < json.length()) && json.substring(i + 2, i + 6).matches(/[0-9a-fA-F]{4}/)\n              }\n              if (legal) { out.append(c).append(next); i += 2 }\n              else       { out.append('\\\\\\\\'); i++ }\n              continue\n          }\n          out.append(c); i++\n      }\n      return out.toString()\n  }\n\n  def doubleQuote(String json) {\n      if (json.contains('\"')) return json\n      return json.replace(\"'\", '\"')\n  }\n\n  def dropTrailingCommas(String json) {\n      return json.replaceAll(/,\\s*([}\\]])/, '$1')\n  }\n\n  // ── helpers: views ───────────────────────────────────────────────────────────────\n  \n  def unescapeOnce(String s) {\n      def out = new StringBuilder()\n      for (int i = 0; i < s.length(); i++) {\n          char c = s.charAt(i)\n          if (c != '\\\\' || i + 1 >= s.length()) { out.append(c); continue }\n          String n = String.valueOf(s.charAt(i + 1))\n          switch (n) {\n              case '\"':  out.append('\"' as char);  i++; break\n              case '\\\\': out.append('\\\\' as char); i++; break\n              case '/':  out.append('/' as char);  i++; break\n              case 'n':  out.append('\\n' as char); i++; break\n              case 'r':  out.append('\\r' as char); i++; break\n              case 't':  out.append('\\t' as char); i++; break\n              case 'b':  out.append('\\b' as char); i++; break\n              case 'f':  out.append('\\f' as char); i++; break\n              case 'u':\n                  if (i + 5 < s.length() && s.substring(i + 2, i + 6).matches(/[0-9a-fA-F]{4}/)) {\n                      out.append((char) Integer.parseInt(s.substring(i + 2, i + 6), 16)); i += 5\n                  } else {\n                      out.append(c)\n                  }\n                  break\n              default:   out.append(c)\n          }\n      }\n      return out.toString()\n  }\n\n  /** Remove COMPLETE <think>…</think> pairs, including any draft JSON they contain. */\n  def stripThinkPairs(String s) {\n      return s.replaceAll(/(?s)<think>.*?<\\/think>/, ' ')\n  }\n\n  /** Everything after the LAST </think>; the shape a model produces when it omits the opening tag. */\n  def afterLastThinkClose(String s) {\n      int end = s.lastIndexOf('</think>')\n      return end == -1 ? null : s.substring(end + '</think>'.length())\n  }\n\n  /** Drop an unterminated <think>: everything after it is reasoning with no verdict in it. */\n  def dropOpenThink(String s) {\n      int start = s.lastIndexOf('<think>')\n      return start == -1 ? null : s.substring(0, start)\n  }\n  \n  def stripFences(String s) {\n      return s.replaceAll(/```[a-zA-Z0-9_-]*/, ' ')\n  }\n\n  /**\n   * Texts to attempt, in order of DECREASING trust.\n   *\n   * Every transformation is a view rather than a mutation, and that ordering is the whole design: the\n   * text exactly as received is tried first, so a verdict whose reason happens to mention `</think>`\n   * or a code fence is read correctly instead of being cut in half by its own content. Stripping only\n   * happens for texts that did not parse, where there is nothing left to damage.\n   */\n  def viewsOf(String s) {\n      def views = []\n      def add = { String v -> if (v != null && !v.trim().isEmpty() && !views.contains(v)) views << v }\n  \n      // COMPLETE <think>…</think> pairs come off first, because a reasoning block that contains a\n      // draft verdict would otherwise be a candidate object in its own right — and when the real\n      // verdict is unparseable, the draft is what answers. Removing a matched pair cannot damage a\n      // response whose reason merely MENTIONS the tag: that text has no opening tag to match.\n      // Note there is no view of the text with the pair left IN. When nothing matches, stripThinkPairs\n      // returns the input unchanged and this IS the raw view; when something does match, re-offering\n      // the original would hand the draft verdict back as a candidate, which is the whole problem.\n      def paired = stripThinkPairs(s)\n\n      // SINGLE-QUOTED TEXT GOES FIRST, before the text as written.\n      //\n      // The parser is lenient: it accepts single quotes, so a single-quoted response PARSES on the raw\n      // view — and decodes its backslashes as JSON escapes while it does. That text was never JSON, so\n      // its backslashes are literal, and 'LaTeX \\text{x}' comes back as 'LaTeX <tab>ext{x}': a\n      // successful parse carrying corrupted data, which no later view gets a chance to correct.\n      // Offering the converted form first means the lenient parse never sees the original.\n      // ('C:\\Users\\...' survived only by luck — \\U is not a legal escape, so that one failed and\n      // fell through. Relying on which invalid escape a model happens to write is not a strategy.)\n      def singleQuoted = !paired.contains('\"') && paired.contains(\"'\")\n      if (singleQuoted) {\n          add(stripFences(paired).replace(\"'\", '\"').replace('\\\\', '\\\\\\\\'))\n      }\n\n      add(paired)\n      add(stripFences(paired))\n      add(afterLastThinkClose(s))\n      add(stripFences(afterLastThinkClose(s) ?: ''))\n      add(dropOpenThink(paired))\n      add(stripFences(dropOpenThink(paired) ?: ''))\n\n      // Escaped variants, built from the most-cleaned text. Only when there is evidence of escaping —\n      // otherwise a clean response would have its legitimately-escaped quotes destroyed.\n      def base = stripFences(paired)\n      if (base.contains('\\\\\"')) {\n          def once = unescapeOnce(base)\n          add(once)\n          if (once.contains('\\\\\"')) add(unescapeOnce(once))\n      }\n      return views\n  }\n  \n  // ── helpers: extraction ──────────────────────────────────────────────────────────\n\n  def findScored(Object node) {\n      if (node instanceof Map) {\n          if (node.containsKey('score') || node.containsKey('Score')) return node\n          for (def v : node.values()) { def hit = findScored(v); if (hit != null) return hit }\n      } else if (node instanceof List) {\n          for (def v : node) { def hit = findScored(v); if (hit != null) return hit }\n      }\n      return null\n  }\n  \n  def coerceScore(Object value) {\n      if (value == null) return null\n      if (value instanceof BigDecimal) return value\n      if (value instanceof Number) return new BigDecimal(value.toString())\n      def matcher = (value.toString().trim() =~ /-?\\d+(?:\\.\\d+)?/)\n      if (!matcher) return null\n      try { return new BigDecimal(matcher[0]) } catch (Exception ignored) { return null }\n  }\n  \n  def reasonOf(Map scored) {\n      def r = scored.reason ?: scored.Reason ?: scored.explanation ?: scored.Explanation ?: ''\n      return r.toString()\n  }\n  \n  // ── helpers: per-view pipeline ───────────────────────────────────────────────────\n\n  def repairs = [\n      { String s -> s },\n      { String s -> escapeControlChars(s) },\n      { String s -> fixInvalidEscapes(escapeControlChars(s)) },\n      { String s -> fixInvalidEscapes(escapeControlChars(s)) },\n      { String s -> dropTrailingCommas(fixInvalidEscapes(escapeControlChars(s))) },\n      // Single-quoted input was never JSON, so its backslashes are LITERAL text, not escapes. Without\n      // doubling them first, 'C:\\test' decodes to C:<tab>est — legal JSON, silently wrong data.\n      { String s ->\n          def converted = doubleQuote(s)\n          if (converted == s) return s\n          return dropTrailingCommas(fixInvalidEscapes(escapeControlChars(converted.replace('\\\\', '\\\\\\\\'))))\n      },\n  ]\n  \n  def viaParse(String view, List repairList) {\n      for (def candidate : findObjects(view).reverse()) {\n          for (def repair : repairList) {\n              try {\n                  def scored = findScored(JsonUtils.fromJson(repair(candidate), Map))\n                  if (scored != null) {\n                      def score = coerceScore(scored.containsKey('score') ? scored.score : scored.Score)\n                      if (score != null) return [score: score, reason: reasonOf(scored)]\n                  }\n              } catch (Exception ignored) {\n              }\n          }\n      }\n      return null\n  }\n  \n  def viaRegex(String view) {\n      def scoreMatch = (view =~ /(?i)\\\\?\"?\\bscore\\\\?\"?\\s*[:=]\\s*\\\\?\"?\\s*(-?\\d+(?:\\.\\d+)?)/)\n      if (!scoreMatch) return null\n      def reasonMatch = (view =~ /(?is)\\\\?\"?\\breason\\\\?\"?\\s*[:=]\\s*\\\\?\"(.*)\\\\?\"\\s*[,}]/)\n      if (!reasonMatch) reasonMatch = (view =~ /(?is)\\\\?\"?\\breason\\\\?\"?\\s*[:=]\\s*\\\\?\"(.*)\\\\?\"/)\n      def score = coerceScore(scoreMatch[0][1])\n      if (score == null) return null\n      return [score: score, reason: (reasonMatch ? reasonMatch[0][1] : '').toString()]\n  }\n  \n  // ── 1. the raw response ──────────────────────────────────────────────────────────\n  \n  def raw = binding.hasVariable('jsonString') ? binding.getVariable('jsonString') : ''\n  raw = (raw == null) ? '' : raw.toString()\n  \n  // ── 2. parse every view before falling back to regex on any of them ─────────────\n  //\n  // PARSE-ALL then REGEX-ALL, not parse-then-regex per view. The regex path always produces something\n  // plausible from a mangled view — an escaped document yields a score with backslashes trailing off\n  // the reason — so letting it answer for view 0 hides the clean parse that view 2 would have given.\n  \n  def views = viewsOf(raw)\n  \n  for (String view : views) {\n      def hit = viaParse(view, repairs)\n      if (hit != null) return hit\n  }\n  for (String view : views) {\n      def hit = viaRegex(view)\n      if (hit != null) return hit\n  }\n\n  throw new IllegalStateException('Failed to parse judge response: no score found in the model output. Raw response: ' + raw)\n  \n  return [score: BigDecimal.valueOf(-1),\n          reason: 'Failed to parse response: no score found in the model output']",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1122,5 +1164,5 @@
 	"tags":[
 		
 	],
-	"version":57
+	"version":59
 }

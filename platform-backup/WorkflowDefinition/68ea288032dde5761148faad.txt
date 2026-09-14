@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787743663229,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743663402,
+		"deployedAt":1789395118013,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdaf45d2142160e6d4dc",
-		"deploymentTag":"resolve_translations",
+		"deployedDefinitionId":"6aa800ae39ee5f5ef70b5d40",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":11
+		"version":2,
+		"workflowVersion":14
 	},
 	"edges":[
 		{
@@ -67,9 +66,9 @@
 	},
 	"id":"68ea288032dde5761148faad",
 	"lastModifiedBy":-1,
-	"lcName":"list knowledge set api",
-	"modifiedTime":1788252972499,
-	"name":"List Knowledge Set API",
+	"lcName":"[dt] list knowledge set api",
+	"modifiedTime":1789395401481,
+	"name":"[DT] List Knowledge Set API",
 	"nodes":[
 		{
 			"context":{
@@ -91,6 +90,10 @@
 							"limit":{
 								"title":"Limit",
 								"type":"integer"
+							},
+							"name":{
+								"title":"Name",
+								"type":"string"
 							},
 							"offset":{
 								"title":"Offset",
@@ -264,6 +267,18 @@
 			"id":"n_7MoRV",
 			"index":4,
 			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"REGEX",
+								"value":"(?i){{ n_HQB1f.outputs.body.name }}"
+							},
+							"property":"properties_name"
+						}
+					],
+					"operator":"AND"
+				},
 				"object_type":"knowledge_set",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
@@ -273,7 +288,7 @@
 						"order":"DESC"
 					}
 				],
-				"translationsOption":"RESOLVE_TRANSLATIONS_ONLY",
+				"translationsOption":"DEFAULT",
 				"page":{
 					"limit":"{{ n_HQB1f.outputs.body.limit }}",
 					"offset":"{{ n_HQB1f.outputs.body.offset }}",
@@ -343,5 +358,5 @@
 	"tags":[
 		
 	],
-	"version":13
+	"version":15
 }
