@@ -4,19 +4,19 @@
 	],
 	"createdTime":1787743601478,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743601664,
+		"deployedAt":1789395091959,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd713f7ad93bb16754e3",
-		"deploymentTag":"tag",
+		"deployedDefinitionId":"6aa8009372fd792214e8c0f4",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":11
+		"version":2,
+		"workflowVersion":14
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_s6w1i",
+			"id":"next@n_s6w1i@n_aEWUf",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_aEWUf",
@@ -24,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_aEWUf",
+			"id":"next@n_aEWUf@n_xo8Kx",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_xo8Kx",
@@ -31,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_xo8Kx",
+			"id":"next@n_xo8Kx@n_tds6C",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tds6C",
@@ -38,6 +40,7 @@
 		},
 		{
 			"fromNodeId":"n_tds6C",
+			"id":"next@n_tds6C@n_PoMIK",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_PoMIK",
@@ -45,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"n_PoMIK",
+			"id":"next@n_PoMIK@n_wGkWB",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wGkWB",
@@ -66,7 +70,7 @@
 	"id":"69e9d1a10434a6289ff55249",
 	"lastModifiedBy":-1,
 	"lcName":"invoke workflow builder agent ",
-	"modifiedTime":1788252973258,
+	"modifiedTime":1789395394485,
 	"name":"Invoke Workflow builder Agent ",
 	"nodes":[
 		{
@@ -103,16 +107,16 @@
 					"additionalProperties":false,
 					"properties":{
 						"requirements":{
-							"title":"Requirements",
-							"type":"string"
-						},
-						"workflowName":{
-							"title":"Workflow Name",
+							"title":"requirements",
 							"type":"string"
 						},
 						"taskId":{
-							"type":"string",
-							"title":"taskId"
+							"title":"taskId",
+							"type":"string"
+						},
+						"workflowName":{
+							"title":"workflowName",
+							"type":"string"
 						}
 					},
 					"required":[
@@ -218,25 +222,25 @@
 							"title":"query",
 							"type":"string"
 						},
+						"taskId":{
+							"title":"taskId",
+							"type":"string"
+						},
 						"workflowName":{
 							"title":"workflowName",
 							"type":"string"
-						},
-						"taskId":{
-							"type":"string",
-							"title":"taskId"
 						}
 					},
-					"type":"object",
-					"required":[]
+					"required":[],
+					"type":"object"
 				},
 				"code":"def workflowName = binding.hasVariable(\"workflowName\")?binding.getVariable(\"workflowName\"):\"WORKFLOW\"\ndef parentTaskId = binding.hasVariable(\"taskId\")?(binding.getVariable(\"taskId\")+'_$_'):\"\"\ndef taskId = (parentTaskId+ workflowName.replaceAll(\" \",\"_\").replaceAll(\"/\",\"_\")).toString()\ndef query = binding.hasVariable(\"query\")?binding.getVariable(\"query\"):null\n\nreturn [\n  toolInputs:[\n    agentId: \"e_69e8f417a2d13979bb58c0e6\",\n    query: query,\n    taskId: taskId\n  ]\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"query":"{{ n_s6w1i.outputs.requirements }}",
-					"workflowName":"{{ n_s6w1i.outputs.workflowName }}",
-					"taskId":"{{ n_s6w1i.outputs.taskId }}"
+					"taskId":"{{ n_s6w1i.outputs.taskId }}",
+					"workflowName":"{{ n_s6w1i.outputs.workflowName }}"
 				}
 			},
 			"skip":false,
@@ -316,5 +320,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":13
+	"version":15
 }

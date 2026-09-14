@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743818107,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743818205,
+		"deployedAt":1789395212317,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece4a45d2142160e6e59c",
+		"deployedDefinitionId":"6aa8010c39ee5f5ef70b623a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":8
+		"version":2,
+		"workflowVersion":11
 	},
 	"edges":[
 		{
@@ -290,7 +290,7 @@
 	"id":"6a7b0ccdb0e78170b67e0c1d",
 	"lastModifiedBy":-1,
 	"lcName":"webhook indexing | gdrive | custom flow | single knowledge",
-	"modifiedTime":1788252971868,
+	"modifiedTime":1789395394485,
 	"name":"Webhook Indexing | Gdrive | Custom Flow | Single Knowledge",
 	"nodes":[
 		{
@@ -724,6 +724,10 @@
 						"shouldIndex":{
 							"title":"Should Index",
 							"type":"boolean"
+						},
+						"userEmail":{
+							"title":"User Email",
+							"type":"string"
 						}
 					},
 					"required":[],
@@ -732,6 +736,10 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"actorEmail":{
+							"title":"Actor Email",
+							"type":"string"
+						},
 						"knowledgeInput":{
 							"additionalProperties":false,
 							"properties":{},
@@ -748,10 +756,11 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def cfg = (knowledgeInput?.inputs ?: knowledgeInput) ?: [:]\n\nboolean runAsDifferentUser = cfg['runAsDifferentUser']?.toString()?.toBoolean() ?: false\n\nif (!cfg.containsKey('users')) {\n    return [shouldIndex: false, runAsDifferentUser: runAsDifferentUser]\n}\n\ndef users = (cfg['users'] ?: []).collect { it?.toString()?.toLowerCase() }.findAll { it }\nif (users.isEmpty()) {\n    return [shouldIndex: true, runAsDifferentUser: runAsDifferentUser]\n}\n\ndef wd = webhookData ?: [:]\ndef emails = [wd.owner, wd.actorEmail, wd.targetUser].findAll { it }*.toString()*.toLowerCase()\n\nreturn [\"shouldIndex\": users.any { it in emails }, \"runAsDifferentUser\": runAsDifferentUser]",
+				"code":"def cfg = (knowledgeInput?.inputs ?: knowledgeInput) ?: [:]\n\nboolean runAsDifferentUser = cfg['runAsDifferentUser']?.toString()?.toBoolean() ?: true\n\ndef wd = webhookData ?: [:]\ndef ownerEmail = wd.owner?.toString()\n\nif (!cfg.containsKey('users')) {\n    return [shouldIndex: false, runAsDifferentUser: runAsDifferentUser, userEmail: null]\n}\n\ndef users = (cfg['users'] ?: []).collect { it?.toString()?.toLowerCase() }.findAll { it }\nif (users.isEmpty()) {\n    return [shouldIndex: true, runAsDifferentUser: runAsDifferentUser, userEmail: ownerEmail]\n}\n\ndef emails = [wd.owner, wd.actorEmail, wd.targetUser].findAll { it }*.toString()*.toLowerCase()\n\nboolean shouldIndex = users.any { it in emails }\n\nreturn [\n    \"shouldIndex\"       : shouldIndex,\n    \"runAsDifferentUser\": runAsDifferentUser,\n    \"userEmail\"         : shouldIndex ? ownerEmail : null\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"actorEmail":"{{ n_rZDIx.outputs.result.webhookData.actorEmail }}",
 					"knowledgeInput":"{{ n_rZDIx.outputs.result.knowledgeInputs }}",
 					"webhookData":"{{ n_rZDIx.outputs.result.webhookData }}"
 				}
@@ -976,13 +985,15 @@
 				"parameters":{
 					"connectionId":"{{ n_rZDIx.outputs.result.connectionId }}",
 					"folderId":"{{ n_rZDIx.outputs.result.webhookData.docId }}",
+					"grabberType":"backward_",
 					"indexingVersion":"{{ n_rZDIx.outputs.result.knowledgeVersion }}",
 					"knowledgeId":"{{ n_rZDIx.outputs.result.knowledgeId }}",
 					"knowledgeSetId":"{{ n_rZDIx.outputs.result.knowledgeSetId }}",
 					"runAsDifferentUser":"{{ n_FMoPq.outputs.result.runAsDifferentUser }}",
 					"userEmail":"{{ n_rZDIx.outputs.result.webhookData.actorEmail }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Folder downloader",
@@ -1012,6 +1023,7 @@
 					"connectionId":"{{ n_rZDIx.outputs.result.connectionId }}",
 					"fileId":"{{ n_rZDIx.outputs.result.webhookData.docId }}",
 					"folderId":"{{ n_rZDIx.outputs.result.webhookData.docId }}",
+					"grabberType":"backward_",
 					"indexingVersion":"{{ n_rZDIx.outputs.result.knowledgeVersion }}",
 					"knowledgeId":"{{ n_rZDIx.outputs.result.knowledgeId }}",
 					"runAsDifferentUser":"{{ n_FMoPq.outputs.result.runAsDifferentUser }}",
@@ -1125,7 +1137,7 @@
 				"input":"{{ n_EO9Uo.outputs.result.inputs }}",
 				"connectionId":"{{ n_rZDIx.outputs.result.connectionId }}",
 				"resourceName":"gdrive_get_file_details",
-				"userEmail":"{{ n_rZDIx.outputs.result.webhookData.actorEmail }}",
+				"userEmail":"{{ n_FMoPq.outputs.result.userEmail }}",
 				"overrideConnection":"{{ n_FMoPq.outputs.result.runAsDifferentUser }}"
 			},
 			"skip":false,
@@ -1612,7 +1624,8 @@
 					"runAsDifferentUser":"{{ n_FMoPq.outputs.result.runAsDifferentUser }}",
 					"userEmail":"{{ n_rZDIx.outputs.result.webhookData.actorEmail }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -1647,7 +1660,8 @@
 					},
 					"uniqueEntityId":"{{ n_rZDIx.outputs.result.webhookData.docId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -1756,7 +1770,7 @@
 				"filters":[
 					{
 						"filter":{
-							"operator":"EQUAL",
+							"operator":"NOT_EQUAL",
 							"value":"folder"
 						},
 						"property":"{{ n_rZDIx.outputs.result.webhookData.docType }}"
@@ -1792,6 +1806,7 @@
 					"connectionId":"{{ n_rZDIx.outputs.result.connectionId }}",
 					"fileId":"{{ n_rZDIx.outputs.result.webhookData.docId }}",
 					"folderId":"{{ n_rZDIx.outputs.result.webhookData.docId }}",
+					"grabberType":"backward_",
 					"indexingVersion":"{{ n_rZDIx.outputs.result.knowledgeVersion }}",
 					"knowledgeId":"{{ n_rZDIx.outputs.result.knowledgeId }}",
 					"runAsDifferentUser":"{{ n_FMoPq.outputs.result.runAsDifferentUser }}",
@@ -1801,7 +1816,7 @@
 				"version":"-1"
 			},
 			"skip":false,
-			"subTitle":"Callable",
+			"subTitle":"File Downloader",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
 		},
@@ -1825,13 +1840,15 @@
 				"parameters":{
 					"connectionId":"{{ n_rZDIx.outputs.result.connectionId }}",
 					"folderId":"{{ n_rZDIx.outputs.result.webhookData.docId }}",
+					"grabberType":"backward_",
 					"indexingVersion":"{{ n_rZDIx.outputs.result.knowledgeVersion }}",
 					"knowledgeId":"{{ n_rZDIx.outputs.result.knowledgeId }}",
 					"knowledgeSetId":"{{ n_rZDIx.outputs.result.knowledgeSetId }}",
 					"runAsDifferentUser":"{{ n_FMoPq.outputs.result.runAsDifferentUser }}",
 					"userEmail":"{{ n_rZDIx.outputs.result.webhookData.actorEmail }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -1889,7 +1906,7 @@
 				}
 			},
 			"skip":false,
-			"subTitle":"Callable",
+			"subTitle":"folder Downloader",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
 		},
@@ -1931,5 +1948,5 @@
 		}
 	},
 	"standard":true,
-	"version":10
+	"version":12
 }
