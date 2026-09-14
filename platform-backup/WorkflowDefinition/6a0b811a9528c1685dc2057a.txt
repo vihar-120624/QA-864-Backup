@@ -4,19 +4,18 @@
 	],
 	"createdTime":1787744618058,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744619941,
+		"deployedAt":1789395349111,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed16bcee862008d759d5e",
+		"deployedDefinitionId":"6aa8019572fd792214e8cfb1",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":34
+		"version":2,
+		"workflowVersion":37
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_KxbYr",
-			"id":"next@n_KxbYr@n_X264R",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_X264R",
@@ -24,7 +23,6 @@
 		},
 		{
 			"fromNodeId":"n_X264R",
-			"id":"loop@n_X264R@n_y1W7O",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_y1W7O",
@@ -32,7 +30,6 @@
 		},
 		{
 			"fromNodeId":"n_y1W7O",
-			"id":"next@n_y1W7O@n_0kY0b",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_0kY0b",
@@ -40,7 +37,6 @@
 		},
 		{
 			"fromNodeId":"n_0kY0b",
-			"id":"if@n_0kY0b@_hutEk",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -49,7 +45,6 @@
 		},
 		{
 			"fromNodeId":"_hutEk",
-			"id":"next@_hutEk@n_dmn1E",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_dmn1E",
@@ -57,7 +52,6 @@
 		},
 		{
 			"fromNodeId":"n_dmn1E",
-			"id":"if@n_dmn1E@n_6YedP",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -66,7 +60,6 @@
 		},
 		{
 			"fromNodeId":"n_0kY0b",
-			"id":"next@n_0kY0b@n_ybTij",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -75,7 +68,6 @@
 		},
 		{
 			"fromNodeId":"n_6YedP",
-			"id":"next@n_6YedP@n_X264R",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -84,7 +76,6 @@
 		},
 		{
 			"fromNodeId":"n_dmn1E",
-			"id":"next@n_dmn1E@n_X264R",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -93,7 +84,6 @@
 		},
 		{
 			"fromNodeId":"n_ybTij",
-			"id":"next@n_ybTij@n_X264R",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -102,7 +92,6 @@
 		},
 		{
 			"fromNodeId":"n_X264R",
-			"id":"next@n_X264R@n_YJXqi",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_YJXqi",
@@ -123,9 +112,9 @@
 	},
 	"id":"6a0b811a9528c1685dc2057a",
 	"lastModifiedBy":-1,
-	"lcName":"create cursor",
-	"modifiedTime":1788252972839,
-	"name":"Create Cursor",
+	"lcName":"create downloader cursors",
+	"modifiedTime":1789395389755,
+	"name":"Create Downloader Cursors",
 	"nodes":[
 		{
 			"context":{
@@ -203,10 +192,6 @@
 										"currentTimeEpoch":{
 											"title":"Current Time Epoch",
 											"type":"integer"
-										},
-										"grabberSubtype":{
-											"title":"Grabber Subtype",
-											"type":"string"
 										},
 										"grabberType":{
 											"title":"Grabber Type",
@@ -299,8 +284,7 @@
 					"root.parameters.downloaderPayload.importerParams.downloaderConfig.startTimeEpoch",
 					"root.parameters.downloaderPayload.importerParams.knowledge",
 					"root.parameters.downloaderPayload.errorCount",
-					"root.parameters.downloaderPayload.accountId",
-					"root.parameters.downloaderPayload.importerParams.downloaderConfig.grabberSubtype"
+					"root.parameters.downloaderPayload.accountId"
 				]
 			},
 			"context":{
@@ -365,10 +349,6 @@
 													"title":"currentTimeEpoch",
 													"type":"integer"
 												},
-												"grabberSubtype":{
-													"title":"Grabber Subtype",
-													"type":"string"
-												},
 												"grabberType":{
 													"title":"grabberType",
 													"type":"string"
@@ -378,7 +358,6 @@
 													"type":"integer"
 												}
 											},
-											"required":[],
 											"title":"downloaderConfig",
 											"type":"object"
 										},
@@ -431,7 +410,6 @@
 							"aiAgentId":"{{ n_KxbYr.outputs.importerParams.aiAgentId }}",
 							"downloaderConfig":{
 								"currentTimeEpoch":"{{ n_KxbYr.outputs.importerParams.downloaderConfig.currentTimeEpoch }}",
-								"grabberSubtype":"{{ n_KxbYr.outputs.importerParams.downloaderConfig.grabberSubtype }}",
 								"grabberType":"{{ n_KxbYr.outputs.importerParams.downloaderConfig.grabberType }}",
 								"startTimeEpoch":"{{ n_KxbYr.outputs.importerParams.downloaderConfig.startTimeEpoch }}"
 							},
@@ -503,7 +481,8 @@
 					"parentEntityId":"{{ n_X264R.outputs.item.parentEntityId }}",
 					"type":"{{ n_KxbYr.outputs.importerParams.downloaderConfig.grabberType }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Get Cursor",
@@ -536,6 +515,13 @@
 						"filter":{
 							"operator":"EQUAL",
 							"value":"FAILED"
+						},
+						"property":"{{ _hutEk.outputs.status }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"DOWNLOAD_COMPLETE"
 						},
 						"property":"{{ _hutEk.outputs.status }}"
 					}
@@ -629,7 +615,8 @@
 					"type":"{{ n_KxbYr.outputs.importerParams.downloaderConfig.grabberType }}",
 					"updateCursor":true
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Update Payload",
@@ -674,5 +661,5 @@
 		}
 	},
 	"standard":true,
-	"version":36
+	"version":38
 }

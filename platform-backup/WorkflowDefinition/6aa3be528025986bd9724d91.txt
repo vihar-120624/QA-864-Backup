@@ -1,0 +1,1087 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395144061,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395144168,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800c872fd792214e8c3a1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":25
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Strt",
+			"id":"next@n_Strt@n_Sess",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sess",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Sess",
+			"id":"next@n_Sess@n_Vars",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Vars",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Vars",
+			"id":"next@n_Vars@n_IfHd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfHd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfHd",
+			"id":"if@n_IfHd@n_GtRc",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GtRc",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_GtRc",
+			"id":"next@n_GtRc@n_UvHd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UvHd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfHd",
+			"id":"next@n_IfHd@n_CrRc",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CrRc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CrRc",
+			"id":"next@n_CrRc@n_UvNw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UvNw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UvHd",
+			"id":"next@n_UvHd@n_Bild",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Bild",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UvNw",
+			"id":"next@n_UvNw@n_Bild",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Bild",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Bild",
+			"id":"next@n_Bild@n_UpRc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UpRc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UpRc",
+			"id":"next@n_UpRc@n_Cnvs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Cnvs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Cnvs",
+			"id":"next@n_Cnvs@n_MsgI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MsgI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MsgI",
+			"id":"next@n_MsgI@n_Stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6aa3be528025986bd9724d91",
+	"lastModifiedBy":-1,
+	"lcName":"trigger email canvas",
+	"modifiedTime":1789395389765,
+	"name":"Trigger Email Canvas",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":940,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_Strt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"artifactId":{
+							"title":"artifactId",
+							"type":"string"
+						},
+						"currentVersion":{
+							"title":"currentVersion",
+							"type":"integer"
+						},
+						"isReply":{
+							"title":"isReply",
+							"type":"boolean"
+						},
+						"note":{
+							"title":"note",
+							"type":"string"
+						},
+						"status":{
+							"title":"status",
+							"type":"string"
+						},
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"artifactDetails":{
+							"additionalProperties":false,
+							"help":"Pass this back on EVERY edit of an email you already created. Set `id` to the artifactId this tool returned. Omitting it creates a second, unrelated draft.",
+							"properties":{
+								"id":{
+									"help":"The artifactId returned by a previous call to this tool.",
+									"title":"id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"artifactDetails",
+							"type":"object"
+						},
+						"attachments":{
+							"help":"Files to attach: {name, mimeType, size, ref} where `ref` is the file object produced by a file-producing tool.",
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"mimeType":{
+										"title":"mimeType",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"ref":{
+										"additionalProperties":true,
+										"properties":{},
+										"required":[],
+										"title":"ref",
+										"type":"object"
+									},
+									"size":{
+										"title":"size",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"attachments",
+							"type":"array"
+						},
+						"bcc":{
+							"help":"BCC recipients, same shape as `to`.",
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"email":{
+										"title":"email",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"bcc",
+							"type":"array"
+						},
+						"body":{
+							"help":"The email body as email-safe HTML: table layout, inline styles only, max-width 600px, no flexbox/grid, no external CSS/JS/webfonts, absolute image URLs with alt text.",
+							"title":"body",
+							"type":"string"
+						},
+						"cc":{
+							"help":"CC recipients, same shape as `to`.",
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"email":{
+										"title":"email",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"cc",
+							"type":"array"
+						},
+						"subject":{
+							"help":"The email subject line.",
+							"title":"subject",
+							"type":"string"
+						},
+						"thread":{
+							"additionalProperties":false,
+							"help":"Set this to reply INSIDE an existing conversation instead of starting a new one. Take the values verbatim from an EmailThreadFinder result; never invent them. Omitting it composes a brand-new email.",
+							"properties":{
+								"deeplink":{
+									"help":"Link that opens the original message in the provider's web client.",
+									"title":"deeplink",
+									"type":"string"
+								},
+								"fromEmail":{
+									"help":"Email address of the sender of the original message.",
+									"title":"fromEmail",
+									"type":"string"
+								},
+								"fromName":{
+									"help":"Display name of the sender of the original message.",
+									"title":"fromName",
+									"type":"string"
+								},
+								"messageId":{
+									"help":"Provider id of the message being replied to.",
+									"title":"messageId",
+									"type":"string"
+								},
+								"provider":{
+									"help":"The mailbox the thread lives in (gmail / microsoft_outlook). The reply must be sent from that same mailbox.",
+									"title":"provider",
+									"type":"string"
+								},
+								"references":{
+									"help":"The References header chain of that message.",
+									"title":"references",
+									"type":"string"
+								},
+								"replyType":{
+									"help":"REPLY (default) answers the sender only; REPLY_ALL answers everyone on the thread.",
+									"title":"replyType",
+									"type":"string"
+								},
+								"rfcMessageId":{
+									"help":"The RFC Message-ID header of that message. Gmail needs it to thread the reply.",
+									"title":"rfcMessageId",
+									"type":"string"
+								},
+								"snippet":{
+									"help":"Short preview of the original message, for display.",
+									"title":"snippet",
+									"type":"string"
+								},
+								"subject":{
+									"help":"Subject of the original message; used to derive the Re: subject.",
+									"title":"subject",
+									"type":"string"
+								},
+								"threadId":{
+									"help":"Provider thread / conversation id.",
+									"title":"threadId",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"thread",
+							"type":"object"
+						},
+						"title":{
+							"help":"Short display title for the canvas tab (e.g. \"Q3 update to Ada\"). Defaults to the subject.",
+							"title":"title",
+							"type":"string"
+						},
+						"to":{
+							"help":"Primary recipients. Each item is {name?, email}. Omit the field entirely to leave existing recipients untouched; send [] to clear them.",
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"email":{
+										"title":"email",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"to",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_Sess",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1658,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_Vars",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"currentArtifact":{
+							"additionalProperties":false,
+							"properties":{
+								"id":{
+									"title":"Id",
+									"type":"string"
+								},
+								"pageInputs":{
+									"additionalProperties":true,
+									"properties":{},
+									"required":[],
+									"title":"Page Inputs",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"Current Artifact",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"currentArtifact":{
+							"additionalProperties":false,
+							"properties":{
+								"id":{
+									"title":"Id",
+									"type":"string"
+								},
+								"pageInputs":{
+									"additionalProperties":true,
+									"properties":{},
+									"required":[],
+									"title":"Page Inputs",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"Current Artifact",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_IfHd",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_Strt.outputs.artifactDetails.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Editing an existing draft?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":11311,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfHd@_EMCV1-1@y",
+			"id":"n_GtRc",
+			"index":5,
+			"inputs":{
+				"object_type":"e_artifact_detail",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_Strt.outputs.artifactDetails.id }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Artifact Detail Store",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1586,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfHd@_EMCV1-1@y",
+			"id":"n_UvHd",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_Vars.outputs.currentArtifact }}",
+						"value":{
+							"id":"{{ n_GtRc.outputs.id }}",
+							"pageInputs":"{{ n_GtRc.outputs.properties.pageInputs }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Existing artifact",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1678,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfHd@_EMCV1-1@n",
+			"id":"n_CrRc",
+			"index":7,
+			"inputs":{
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
+				"object_type":"e_artifact_detail",
+				"skipIfBlank":false,
+				"record":{
+					"caseId":"=IF(ISBLANK({{ n_Strt.outputs.caseId }}), IF(ISBLANK({{ n_Sess.outputs.caseId }}), \"\", {{ n_Sess.outputs.caseId }}), {{ n_Strt.outputs.caseId }})"
+				},
+				"useUuid":false,
+				"batching":false
+			},
+			"skip":false,
+			"subTitle":"Artifact Detail Store",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1586,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IfHd@_EMCV1-1@n",
+			"id":"n_UvNw",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_Vars.outputs.currentArtifact }}",
+						"value":{
+							"id":"{{ n_CrRc.outputs.id }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"New artifact",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_Bild",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentCount":{
+							"title":"Attachment Count",
+							"type":"integer"
+						},
+						"cardInputs":{
+							"additionalProperties":true,
+							"properties":{},
+							"title":"Card Inputs",
+							"type":"object"
+						},
+						"isReply":{
+							"title":"Is Reply",
+							"type":"boolean"
+						},
+						"pageInputs":{
+							"additionalProperties":true,
+							"properties":{},
+							"title":"Page Inputs",
+							"type":"object"
+						},
+						"recipientSummary":{
+							"title":"Recipient Summary",
+							"type":"string"
+						},
+						"status":{
+							"title":"Status",
+							"type":"string"
+						},
+						"subject":{
+							"title":"Subject",
+							"type":"string"
+						},
+						"title":{
+							"title":"Title",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"artifactId":{
+							"title":"Artifact Id",
+							"type":"string"
+						},
+						"attachments":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"mimeType":{
+										"title":"mimeType",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"ref":{
+										"additionalProperties":true,
+										"properties":{},
+										"required":[],
+										"title":"ref",
+										"type":"object"
+									},
+									"size":{
+										"title":"size",
+										"type":"integer"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Attachments",
+							"type":"array"
+						},
+						"bcc":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"email":{
+										"title":"email",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Bcc",
+							"type":"array"
+						},
+						"body":{
+							"title":"Body",
+							"type":"string"
+						},
+						"cc":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"email":{
+										"title":"email",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Cc",
+							"type":"array"
+						},
+						"head":{
+							"additionalProperties":true,
+							"properties":{},
+							"title":"Head",
+							"type":"object"
+						},
+						"subject":{
+							"title":"Subject",
+							"type":"string"
+						},
+						"thread":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Thread",
+							"type":"object"
+						},
+						"title":{
+							"title":"Title",
+							"type":"string"
+						},
+						"to":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"email":{
+										"title":"email",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"To",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\n\ndef head       = readVar('head', [:])\ndef artifactId = readVar('artifactId', '')\nif (!(head instanceof Map)) head = [:]\ndef headData = (head['data'] instanceof Map) ? head['data'] : [:]\n\ndef normRecipients = { Object raw ->\n    if (raw == null) return null\n    def list = (raw instanceof List) ? raw : [raw]\n    def out = []\n    def seen = [] as Set\n    list.each { r ->\n        if (r == null) return\n        def email = ''\n        def name = ''\n        if (r instanceof Map) {\n            email = (r['email'] ?: r['address'] ?: '').toString()\n            name = (r['name'] ?: r['displayName'] ?: '').toString()\n        } else {\n            email = r.toString()\n        }\n        email = email.trim()\n        if (!email) return\n        def key = email.toLowerCase()\n        if (seen.contains(key)) return\n        seen.add(key)\n        def m = [:]\n        m['email'] = email\n        if (name.trim()) m['name'] = name.trim()\n        out.add(m)\n    }\n    return out\n}\n\ndef normAttachments = { Object raw ->\n    if (raw == null) return null\n    def list = (raw instanceof List) ? raw : [raw]\n    def out = []\n    list.each { a ->\n        if (!(a instanceof Map)) return\n        def m = [:]\n        if (a['name'] != null) m['name'] = a['name']\n        if (a['mimeType'] != null) m['mimeType'] = a['mimeType']\n        if (a['size'] != null) m['size'] = a['size']\n        if (a['ref'] != null) m['ref'] = a['ref']\n        if (m['name'] != null || m['ref'] != null) out.add(m)\n    }\n    return out\n}\n\ndef sanitizeHtml = { Object raw ->\n    if (raw == null) return null\n    def s = raw.toString()\n    s = s.replaceAll('(?is)<\\\\s*script[^>]*>.*?<\\\\s*/\\\\s*script\\\\s*>', '')\n    s = s.replaceAll('(?is)<\\\\s*style[^>]*>.*?<\\\\s*/\\\\s*style\\\\s*>', '')\n    s = s.replaceAll('(?is)<\\\\s*iframe[^>]*>.*?<\\\\s*/\\\\s*iframe\\\\s*>', '')\n    s = s.replaceAll('(?is)\\\\son[a-z]+\\\\s*=\\\\s*\"[^\"]*\"', '')\n    s = s.replaceAll(\"(?is)\\\\son[a-z]+\\\\s*=\\\\s*'[^']*'\", '')\n    s = s.replaceAll('(?i)javascript:', '')\n    return s\n}\n\n// Thread identity for a reply. Identity + display only: the recipients of the reply are\n// ordinary `to`/`cc` on the canvas, so the user can still edit them.\ndef normThread = { Object raw ->\n    if (!(raw instanceof Map)) return null\n    def t = [:]\n    ['provider', 'messageId', 'threadId', 'rfcMessageId', 'references',\n     'replyType', 'subject', 'snippet', 'deeplink'].each { k ->\n        if (raw[k] != null && raw[k].toString().trim()) t[k] = raw[k].toString().trim()\n    }\n    // the sender arrives either flat (fromName/fromEmail, the tool schema) or nested (from{})\n    def f = (raw['from'] instanceof Map) ? raw['from'] : [:]\n    def em = (raw['fromEmail'] ?: f['email'] ?: f['address'] ?: '').toString().trim()\n    def nm = (raw['fromName'] ?: f['name'] ?: f['displayName'] ?: '').toString().trim()\n    if (em) {\n        def fm = [:]\n        fm['email'] = em\n        if (nm) fm['name'] = nm\n        t['from'] = fm\n    }\n    // no provider-side identity means there is nothing to reply into\n    if (!t['messageId'] && !t['threadId'] && !t['rfcMessageId']) return null\n    def rt = (t['replyType'] ?: 'REPLY').toString().toUpperCase()\n    t['replyType'] = (rt == 'REPLY_ALL') ? 'REPLY_ALL' : 'REPLY'\n    return t\n}\n\n// merge: start from whatever the user last saved, overwrite only what the agent supplied\ndef data = [:]\n['to', 'cc', 'bcc', 'subject', 'body', 'attachments', 'thread'].each { k ->\n    if (headData[k] != null) data[k] = headData[k]\n}\n\ndef to = normRecipients(readVar('to', null))\ndef cc = normRecipients(readVar('cc', null))\ndef bcc = normRecipients(readVar('bcc', null))\nif (to != null) data['to'] = to\nif (cc != null) data['cc'] = cc\nif (bcc != null) data['bcc'] = bcc\n\ndef subject = readVar('subject', null)\nif (subject != null && subject.toString().trim()) data['subject'] = subject.toString().trim()\n\ndef body = sanitizeHtml(readVar('body', null))\nif (body != null && body.trim()) data['body'] = body\n\ndef att = normAttachments(readVar('attachments', null))\nif (att != null) data['attachments'] = att\n\ndef thread = normThread(readVar('thread', null))\nif (thread != null) data['thread'] = thread\ndef activeThread = (data['thread'] instanceof Map) ? data['thread'] : null\n\n['to', 'cc', 'bcc', 'attachments'].each { k -> if (data[k] == null) data[k] = [] }\nif (data['subject'] == null) data['subject'] = ''\nif (data['body'] == null) data['body'] = ''\n\n// a reply inherits the thread's subject and sender unless the caller set them\nif (activeThread != null) {\n    if (!data['subject'].toString().trim() && activeThread['subject']) {\n        def os = activeThread['subject'].toString().trim()\n        data['subject'] = os.toLowerCase().startsWith('re:') ? os : ('Re: ' + os)\n    }\n    if (data['to'].isEmpty() && activeThread['from'] instanceof Map && activeThread['from']['email']) {\n        def m = [:]\n        m['email'] = activeThread['from']['email'].toString()\n        if (activeThread['from']['name']) m['name'] = activeThread['from']['name'].toString()\n        data['to'] = [m]\n    }\n}\n\ndef title = readVar('title', null)\ndef resolvedTitle = ''\nif (title != null && title.toString().trim()) {\n    resolvedTitle = title.toString().trim().replaceAll('\\\\s+', ' ')\n} else if (head['title'] != null && head['title'].toString().trim()) {\n    resolvedTitle = head['title'].toString()\n} else if (data['subject']) {\n    resolvedTitle = data['subject'].toString()\n} else {\n    resolvedTitle = 'Untitled email'\n}\n\ndef prev = (head['currentVersion'] instanceof Number) ? head['currentVersion'].intValue() : 0\ndef status = (head['status'] == 'sent') ? 'sent' : 'draft'\n\ndef pageInputs = [:]\npageInputs['artifactId'] = artifactId\npageInputs['title'] = resolvedTitle\npageInputs['canvasType'] = 'email_composer'\npageInputs['currentVersion'] = prev + 1\npageInputs['status'] = status\npageInputs['data'] = data\nif (head['sendResult'] != null) pageInputs['sendResult'] = head['sendResult']\n\ndef names = data['to'].collect { (it instanceof Map) ? (it['name'] ?: it['email']) : it.toString() }\ndef recipientSummary = ''\nif (names.isEmpty()) {\n    recipientSummary = 'No recipients'\n} else if (names.size() <= 2) {\n    recipientSummary = names.join(', ')\n} else {\n    recipientSummary = names[0].toString() + ' +' + (names.size() - 1) + ' more'\n}\n\ndef attachmentCount = data['attachments'].size()\ndef cardDescription = (activeThread != null ? 'Reply  -  To: ' : 'To: ') + recipientSummary + (attachmentCount > 0 ? '  -  ' + attachmentCount + ' attachment' + (attachmentCount == 1 ? '' : 's') : '')\n\n// the card's pageInputs are a SUPERSET of the canvas pageInputs: the card click\n// re-emits them verbatim as the canvas payload, so everything the composer needs is here\ndef cardInputs = [:]\npageInputs.each { k, v -> cardInputs[k] = v }\ncardInputs['description'] = cardDescription\ncardInputs['fileType'] = 'EMAIL'\ncardInputs['count'] = attachmentCount.toString()\ncardInputs['isActive'] = 'false'\ncardInputs['isReply'] = (activeThread != null) ? 'true' : 'false'\n\nreturn [\n    pageInputs      : pageInputs,\n    cardInputs      : cardInputs,\n    title           : resolvedTitle,\n    subject         : data['subject'],\n    recipientSummary: recipientSummary,\n    attachmentCount : attachmentCount,\n    status          : status,\n    isReply         : (activeThread != null)\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"artifactId":"{{ n_Vars.outputs.currentArtifact.id }}",
+					"attachments":{
+						"items":{
+							"mimeType":"{{ n_Strt.outputs.attachments[0].mimeType }}",
+							"name":"{{ n_Strt.outputs.attachments[0].name }}",
+							"ref":"{{ n_Strt.outputs.attachments[0].ref }}",
+							"size":"{{ n_Strt.outputs.attachments[0].size }}"
+						},
+						"source":"{{ n_Strt.outputs.attachments }}",
+						"ua:type":"mappedArray"
+					},
+					"bcc":{
+						"items":{
+							"email":"{{ n_Strt.outputs.bcc[0].email }}",
+							"name":"{{ n_Strt.outputs.bcc[0].name }}"
+						},
+						"source":"{{ n_Strt.outputs.bcc }}",
+						"ua:type":"mappedArray"
+					},
+					"body":"{{ n_Strt.outputs.body }}",
+					"cc":{
+						"items":{
+							"email":"{{ n_Strt.outputs.cc[0].email }}",
+							"name":"{{ n_Strt.outputs.cc[0].name }}"
+						},
+						"source":"{{ n_Strt.outputs.cc }}",
+						"ua:type":"mappedArray"
+					},
+					"head":"{{ n_Vars.outputs.currentArtifact.pageInputs }}",
+					"subject":"{{ n_Strt.outputs.subject }}",
+					"thread":"{{ n_Strt.outputs.thread }}",
+					"title":"{{ n_Strt.outputs.title }}",
+					"to":{
+						"items":{
+							"email":"{{ n_Strt.outputs.to[0].email }}",
+							"name":"{{ n_Strt.outputs.to[0].name }}"
+						},
+						"source":"{{ n_Strt.outputs.to }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"pageInputs",
+			"title":"Build pageInputs",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15943,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_UpRc",
+			"index":10,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_Vars.outputs.currentArtifact.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_artifact_detail",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.agentId",
+						"setValue":"{{ n_Sess.outputs.aiAgentId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.caseId",
+						"setValue":"=IF(ISBLANK({{ n_Strt.outputs.caseId }}), IF(ISBLANK({{ n_Sess.outputs.caseId }}), \"\", {{ n_Sess.outputs.caseId }}), {{ n_Strt.outputs.caseId }})"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.artifactType",
+						"setValue":"EMAIL"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.artifactName",
+						"setValue":"{{ n_Bild.outputs.result.title }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.artifactLcName",
+						"setValue":"=LOWER({{ n_Bild.outputs.result.title }})"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.pageInputs",
+						"setValue":"{{ n_Bild.outputs.result.pageInputs }}"
+					}
+				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Artifact Detail Store",
+			"title":"Persist artifact",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":992,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_Cnvs",
+			"index":11,
+			"inputs":{
+				"automationId":"689aed17aebbc06353598193",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ n_Sess.outputs.caseId }}",
+					"previewDetails":{
+						"canvas":{
+							"props":{
+								"displayFormat":"email",
+								"fileName":"{{ n_Bild.outputs.result.title }}",
+								"pageInputs":"{{ n_Bild.outputs.result.pageInputs }}"
+							},
+							"type":"email_composer"
+						},
+						"thumbnail":{
+							"display":"inline",
+							"props":{
+								"interfaceId":"ppt-interface",
+								"interfacePageId":"e_6a3e9024d5b5470382997e5b",
+								"interfacePageSlug":"homepage",
+								"pageInputs":"{{ n_Bild.outputs.result.cardInputs }}"
+							},
+							"type":"e_interface"
+						}
+					}
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Trigger Preview Interface (Canvas)",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15943,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_MsgI",
+			"index":12,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_Vars.outputs.currentArtifact.id }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_artifact_detail",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.messageId",
+						"setValue":"{{ n_Cnvs.outputs.messageId }}"
+					}
+				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Link message to artifact",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":963,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCV1-1",
+			"id":"n_Stop",
+			"index":13,
+			"inputs":{
+				"result":{
+					"artifactId":"{{ n_Vars.outputs.currentArtifact.id }}",
+					"currentVersion":"{{ n_Bild.outputs.result.pageInputs.currentVersion }}",
+					"isReply":"{{ n_Bild.outputs.result.isReply }}",
+					"note":"{{ n_Vars.outputs.currentArtifact.id }} is the artifactId of the email composer canvas this call created or updated. Keep it. To change ANY part of this email later — subject, body, recipients, attachments — call this same tool again and set `artifactDetails.id` to this value; that is what makes the edit replace this draft instead of creating a second one. Send only the fields you are changing: omitted fields keep whatever the user last typed in the canvas. Do NOT send the email — the user sends it themselves from the canvas. When `thread` was supplied this draft is a reply: it will be delivered into that conversation, and the thread stays attached to the artifact across later edits - do not resend `thread` unless you are pointing the draft at a different conversation.",
+					"status":"{{ n_Bild.outputs.result.status }}",
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":26
+}
