@@ -1,0 +1,182 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395148229,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395148272,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800cc39ee5f5ef70b5fac",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":3
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_HZ2gy",
+			"id":"next@n_HZ2gy@n_K2xCb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_K2xCb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_K2xCb",
+			"id":"next@n_K2xCb@n_EvpEk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EvpEk",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6aa17ec31acd7f311ba304eb",
+	"lastModifiedBy":-1,
+	"lcName":"ai agent | create pin record",
+	"modifiedTime":1789395393143,
+	"name":"Ai Agent | Create Pin Record",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8322,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Hi7Je-1",
+			"id":"n_HZ2gy",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"recordId":{
+							"title":"Record Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"applicationId":{
+							"title":"Application Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"spaceId":{
+							"title":"Space Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":14027,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Hi7Je-1",
+			"id":"n_K2xCb",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ n_HZ2gy.outputs.aiAgentId }}_{{ n_HZ2gy.outputs.caseId }}_{{ __RUN__.outputs.userId }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"pinned_chats",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"agentId":"{{ n_HZ2gy.outputs.aiAgentId }}",
+					"applicationId":"{{ n_HZ2gy.outputs.applicationId }}",
+					"caseId":"{{ n_HZ2gy.outputs.caseId }}",
+					"isPinned":true,
+					"spaceId":"{{ n_HZ2gy.outputs.spaceId }}",
+					"userId":"{{ __RUN__.outputs.userId }}"
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8358,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Hi7Je-1",
+			"id":"n_EvpEk",
+			"index":3,
+			"inputs":{
+				"result":{
+					"recordId":"{{ n_K2xCb.outputs.object.id }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":4
+}
