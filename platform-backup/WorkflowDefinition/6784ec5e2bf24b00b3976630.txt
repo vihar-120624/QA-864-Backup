@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743794271,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743794539,
+		"deployedAt":1789395187900,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece329d7c534668ef825b",
+		"deployedDefinitionId":"6aa800f3c6a14707f15036ec",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":72
+		"version":2,
+		"workflowVersion":75
 	},
 	"edges":[
 		{
@@ -224,7 +224,7 @@
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"Ra4i5",
+			"toNodeId":"n_SQ1536",
 			"type":"next"
 		},
 		{
@@ -788,6 +788,36 @@
 			"skip":false,
 			"toNodeId":"3gPQF",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SQ1536",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Ra4i5",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_SQ1536",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FR1536",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FR1536",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AD1536",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AD1536",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HIGrU",
+			"type":"next"
 		}
 	],
 	"grants":{
@@ -805,7 +835,7 @@
 	"id":"6784ec5e2bf24b00b3976630",
 	"lastModifiedBy":-1,
 	"lcName":"chunk fetcher",
-	"modifiedTime":1788252971729,
+	"modifiedTime":1789395396955,
 	"name":"Chunk Fetcher",
 	"nodes":[
 		{
@@ -3078,11 +3108,11 @@
 					"operator":"AND"
 				},
 				"searchField":{
-					"field":"properties.embeddings2",
+					"field":"properties.embeddings",
 					"op":"KNN",
 					"values":"{{ hqkdg.outputs.embeddings }}"
 				},
-				"object_type":"knowledge_vector_store_open_ai_3072",
+				"object_type":"knowledge_vector_store_1536_embedding_length_v_2",
 				"searchFields":[
 					{
 						"field":"properties.embeddings",
@@ -3597,7 +3627,7 @@
 					"operator":"AND"
 				},
 				"shouldSearchInAnalyticsStore":false,
-				"object_type":"knowledge_vector_store_open_ai_3072",
+				"object_type":"knowledge_vector_store_1536_embedding_length_v_2",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
 				"sortBy":[
@@ -3686,7 +3716,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_PdmAS@htKBO@FFUnJ-1@2@n",
+			"groupId":"n_SQ1536@n_PdmAS@htKBO@FFUnJ-1@2@n@y",
 			"id":"Ra4i5",
 			"index":29,
 			"inputs":{
@@ -3736,7 +3766,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_PdmAS@htKBO@FFUnJ-1@2@n",
+			"groupId":"n_SQ1536@n_PdmAS@htKBO@FFUnJ-1@2@n@y",
 			"id":"8w3Q4",
 			"index":30,
 			"inputs":{
@@ -9544,6 +9574,146 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":16,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_PdmAS@htKBO@FFUnJ-1@2@n",
+			"id":"n_SQ1536",
+			"index":89,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ hqkdg.outputs.isSemanticSearchQuery }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ hqkdg.outputs.isSemanticSearchQuery }}"
+					}
+				],
+				"operator":"OR"
+			},
+			"skip":false,
+			"subTitle":"semanticQuery?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1147,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_SQ1536@n_PdmAS@htKBO@FFUnJ-1@2@n@n",
+			"id":"n_FR1536",
+			"index":90,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"resolvedFilter":{
+								"filter":"{{ hqkdg.outputs.filter }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"knowledge_vector_store_1536_embedding_length_v_2",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"sortBy":[
+					{
+						"additionalSorts":"{{ hqkdg.outputs.sort }}"
+					}
+				],
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":"{{ __ENV__.outputs.CHUNK_FETCH_PAGE_SIZE }}",
+					"offset":0,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Filter & Sort Based Query",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemsToAdd.items.score",
+					"root.itemsToAdd.items.document.properties.knowledgeId",
+					"root.itemsToAdd.items.document.properties.chunkMetadata",
+					"root.itemsToAdd.items.document.properties.sharedWithIds.items",
+					"root.itemsToAdd.items.document.properties.text",
+					"root.itemsToAdd.items.document.properties.uniqueEntityId",
+					"root.itemsToAdd.items.document.properties.knowledgeType",
+					"root.itemsToAdd.items.document.properties.knowledgeSetId"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":187,
+				"resourceName":"variable_by_unifyapps_add_items_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_SQ1536@n_PdmAS@htKBO@FFUnJ-1@2@n@n",
+			"id":"n_AD1536",
+			"index":91,
+			"inputs":{
+				"insertLocation":"END",
+				"itemsToAdd":{
+					"items":{
+						"document":{
+							"chunkId":"{{ n_FR1536.outputs.objects[0].id }}",
+							"properties":{
+								"chunkMetadata":"{{ n_FR1536.outputs.objects[0].properties.chunkMetadata }}",
+								"knowledgeId":"{{ n_FR1536.outputs.objects[0].properties.knowledgeId }}",
+								"knowledgeSetId":"{{ n_FR1536.outputs.objects[0].properties.knowledgeSetId }}",
+								"knowledgeType":"{{ n_FR1536.outputs.objects[0].properties.knowledgeType }}",
+								"sharedWithIds":{
+									"items":"{{ n_FR1536.outputs.objects[0].properties.sharedWithIds[0] }}",
+									"source":"{{ n_FR1536.outputs.objects[0].properties.sharedWithIds }}",
+									"ua:type":"mappedArray"
+								},
+								"text":"{{ n_FR1536.outputs.objects[0].properties.text }}",
+								"uniqueEntityId":"{{ n_FR1536.outputs.objects[0].properties.uniqueEntityId }}"
+							}
+						}
+					},
+					"source":"{{ n_FR1536.outputs.objects }}",
+					"ua:type":"mappedArray"
+				},
+				"listName":"{{ aefh1.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add items to list",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":-1,
@@ -9566,5 +9736,5 @@
 		"release_27jan",
 		"release_27jan"
 	],
-	"version":74
+	"version":76
 }
