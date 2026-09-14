@@ -1,0 +1,607 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395033751,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395033852,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80059c6a14707f1502ea6",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Strt",
+			"id":"next@n_Strt@n_Sess",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sess",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Sess",
+			"id":"next@n_Sess@n_Rids",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rids",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rids",
+			"id":"next@n_Rids@n_Rslv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rslv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rslv",
+			"id":"next@n_Rslv@n_Prep",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Prep",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Prep",
+			"id":"next@n_Prep@n_IfEx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfEx",
+			"id":"if@n_IfEx@n_Exec",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Exec",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Exec",
+			"id":"next@n_Exec@n_Norm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Norm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfEx",
+			"id":"next@n_IfEx@n_Norm",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Norm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Norm",
+			"id":"next@n_Norm@n_Stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6aa3cdd922676357badce6e9",
+	"lastModifiedBy":-1,
+	"lcName":"email canvas | search contacts",
+	"modifiedTime":1789395033852,
+	"name":"Email Canvas | Search Contacts",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":940,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_Strt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"appName",
+							"type":"string"
+						},
+						"contacts":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"contacts",
+							"type":"array"
+						},
+						"errorCode":{
+							"title":"errorCode",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"errorMessage",
+							"type":"string"
+						},
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						},
+						"supported":{
+							"title":"supported",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"appName":{
+							"help":"Force a provider. Omit to use the agent's configured mailbox.",
+							"title":"appName",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"limit":{
+							"help":"Max contacts to return (default 10, max 50).",
+							"title":"limit",
+							"type":"integer"
+						},
+						"query":{
+							"help":"What the user has typed so far in a recipient field.",
+							"title":"query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_Sess",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_Rids",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inAgentId":{
+							"title":"In Agent Id",
+							"type":"string"
+						},
+						"inCaseId":{
+							"title":"In Case Id",
+							"type":"string"
+						},
+						"sessAgentId":{
+							"title":"Sess Agent Id",
+							"type":"string"
+						},
+						"sessCaseId":{
+							"title":"Sess Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef pick = { Object a, Object b ->\n    def x = (a == null) ? '' : a.toString().trim()\n    if (x) return x\n    def y = (b == null) ? '' : b.toString().trim()\n    return y\n}\nreturn [\n    agentId: pick(readVar('sessAgentId', ''), readVar('inAgentId', '')),\n    caseId : pick(readVar('sessCaseId', ''), readVar('inCaseId', ''))\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"inAgentId":"{{ n_Strt.outputs.aiAgentId }}",
+					"inCaseId":"{{ n_Strt.outputs.caseId }}",
+					"sessAgentId":"{{ n_Sess.outputs.aiAgentId }}",
+					"sessCaseId":"{{ n_Sess.outputs.caseId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"session wins, input is the fallback",
+			"title":"Resolve ids",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":992,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_EMCT1-1",
+			"id":"n_Rslv",
+			"index":4,
+			"inputs":{
+				"automationId":"6aa3c66432fa0205bbf4c34b",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_Rids.outputs.result.agentId }}",
+					"allowPrompt":false,
+					"caseId":"{{ n_Rids.outputs.result.caseId }}",
+					"preferredAppName":"{{ n_Strt.outputs.appName }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Email Canvas | Resolve Mailbox",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_Prep",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"context":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Context",
+							"type":"object"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"input":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Input",
+							"type":"object"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"ok":{
+							"title":"Ok",
+							"type":"boolean"
+						},
+						"supported":{
+							"title":"Supported",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"query":{
+							"title":"Query",
+							"type":"string"
+						},
+						"resolve":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Resolve",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef resolve = readVar('resolve', [:])\nif (!(resolve instanceof Map)) resolve = [:]\ndef profile = (resolve['profile'] instanceof Map) ? resolve['profile'] : [:]\ndef resource = (profile['contacts'] ?: '').toString()\n\ndef query = (readVar('query', '') ?: '').toString().trim()\ndef limit = readVar('limit', 10)\ndef lim = 10\ntry { lim = Integer.parseInt(limit.toString()) } catch (ignored) { lim = 10 }\nif (lim < 1) lim = 1\nif (lim > 50) lim = 50\n\n// a typeahead must never publish a chat card, so an unresolved connection is just\n// \"unsupported\" here rather than an error the user has to act on\nif (!resource || resolve['success'] != true) {\n    return [ok: false, supported: (resource ? true : false), appName: (resolve['appName'] ?: '').toString(),\n            limit: lim, context: [:], input: [:],\n            errorCode: resource ? (resolve['errorCode'] ?: 'CONNECTION_REQUIRED').toString() : '',\n            errorMessage: resource ? 'Connect a mailbox to search contacts' : 'This provider has no contact directory']\n}\nif (!query) {\n    return [ok: false, supported: true, appName: (resolve['appName'] ?: '').toString(), limit: lim,\n            context: [:], input: [:], errorCode: '', errorMessage: '']\n}\n\n// OData $filter passthrough: the connector hands `q` straight to queryMap[\"filter\"],\n// so single quotes must be doubled or the filter is malformed\ndef esc = query.replace(\"'\", \"''\")\ndef odata = \"startswith(displayName,'\" + esc + \"') or startswith(givenName,'\" + esc +\n            \"') or startswith(surname,'\" + esc + \"') or emailAddresses/any(a:startswith(a/address,'\" + esc + \"'))\"\n\ndef input = [:]\ninput['q'] = odata\ninput['maxResults'] = lim\n\ndef context = [:]\ncontext['appName'] = (resolve['appName'] ?: '').toString()\ncontext['resourceName'] = resource\ncontext['type'] = 'APPLICATION'\ndef cid = (resolve['connectionId'] ?: '').toString()\nif (cid) context['connectionId'] = cid\n\nreturn [ok: true, supported: true, appName: context['appName'], limit: lim,\n        context: context, input: input, errorCode: '', errorMessage: '']\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"limit":"{{ n_Strt.outputs.limit }}",
+					"query":"{{ n_Strt.outputs.query }}",
+					"resolve":"{{ n_Rslv.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"OData filter, quotes doubled",
+			"title":"Build contact query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_IfEx",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_Prep.outputs.result.ok }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Directory available?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"custom_application",
+				"resourceVersion":0,
+				"resourceName":"custom_application_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_IfEx@_EMCT1-1@y",
+			"id":"n_Exec",
+			"index":7,
+			"inputs":{
+				"input":"{{ n_Prep.outputs.result.input }}",
+				"context":"{{ n_Prep.outputs.result.context }}",
+				"options":{}
+			},
+			"skip":false,
+			"subTitle":"Dynamic provider action",
+			"title":"Execute Custom Application Request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_Norm",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"contacts":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Contacts",
+							"type":"array"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"supported":{
+							"title":"Supported",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"execOut":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Exec Out",
+							"type":"object"
+						},
+						"prep":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Prep",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef prep = readVar('prep', [:])\nif (!(prep instanceof Map)) prep = [:]\ndef supported = (prep['supported'] == true)\ndef appName = (prep['appName'] ?: '').toString()\ndef lim = (prep['limit'] instanceof Number) ? prep['limit'].intValue() : 10\n\nif (prep['ok'] != true) {\n    def code = (prep['errorCode'] ?: '').toString()\n    return [success: (supported && !code), supported: supported, appName: appName, contacts: [],\n            errorCode: (prep['errorCode'] ?: '').toString(),\n            errorMessage: (prep['errorMessage'] ?: '').toString()]\n}\n\ndef resp = readVar('execOut', [:])\nif (!(resp instanceof Map)) resp = [:]\ndef rows = null\n['value', 'contacts', 'items', 'objects'].each { k -> if (rows == null && resp[k] instanceof List) rows = resp[k] }\n['result', 'response', 'body', 'data'].each { envelope ->\n    def inner = resp[envelope]\n    if (rows == null && inner instanceof Map) {\n        ['value', 'contacts', 'items', 'objects'].each { k -> if (rows == null && inner[k] instanceof List) rows = inner[k] }\n    }\n    if (rows == null && inner instanceof List) rows = inner\n}\nif (rows == null) rows = []\n\ndef out = []\ndef seen = [] as Set\nrows.each { r ->\n    if (out.size() >= lim) return\n    if (!(r instanceof Map)) return\n    def name = (r['displayName'] ?: r['name'] ?: '').toString().trim()\n    def addrs = []\n    if (r['emailAddresses'] instanceof List) {\n        r['emailAddresses'].each { e ->\n            if (e instanceof Map) { def a = (e['address'] ?: e['email'] ?: '').toString(); if (a) addrs.add(a) }\n            else if (e != null) addrs.add(e.toString())\n        }\n    }\n    if (addrs.isEmpty() && r['mail']) addrs.add(r['mail'].toString())\n    if (addrs.isEmpty() && r['userPrincipalName']) addrs.add(r['userPrincipalName'].toString())\n    addrs.each { a ->\n        if (out.size() >= lim) return\n        def key = a.toLowerCase()\n        if (seen.contains(key)) return\n        seen.add(key)\n        def m = [:]\n        m['name'] = name ?: a\n        m['email'] = a\n        out.add(m)\n    }\n}\n\nreturn [success: true, supported: true, appName: appName, contacts: out, errorCode: '', errorMessage: '']\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"execOut":"{{ n_Exec.outputs }}",
+					"prep":"{{ n_Prep.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"dedupe on lowercased address",
+			"title":"Flatten contacts",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":963,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMCT1-1",
+			"id":"n_Stop",
+			"index":9,
+			"inputs":{
+				"result":{
+					"appName":"{{ n_Norm.outputs.result.appName }}",
+					"contacts":"{{ n_Norm.outputs.result.contacts }}",
+					"errorCode":"{{ n_Norm.outputs.result.errorCode }}",
+					"errorMessage":"{{ n_Norm.outputs.result.errorMessage }}",
+					"success":"{{ n_Norm.outputs.result.success }}",
+					"supported":"{{ n_Norm.outputs.result.supported }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":1
+}

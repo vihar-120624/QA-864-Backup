@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743431548,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743431868,
+		"deployedAt":1789395033915,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccc73f7ad93bb1670b49",
+		"deployedDefinitionId":"6aa8005939ee5f5ef70b5984",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":185
+		"version":2,
+		"workflowVersion":188
 	},
 	"edges":[
 		{
 			"fromNodeId":"_PLwhu",
+			"id":"next@_PLwhu@n_7Rxzk",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_7Rxzk",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_7Rxzk",
+			"id":"next@n_7Rxzk@n_3PJfJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_3PJfJ",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_3PJfJ",
+			"id":"if@n_3PJfJ@_DnFlm",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -38,6 +41,7 @@
 		},
 		{
 			"fromNodeId":"_DnFlm",
+			"id":"next@_DnFlm@_cJpoD",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_cJpoD",
@@ -45,6 +49,7 @@
 		},
 		{
 			"fromNodeId":"n_3PJfJ",
+			"id":"next@n_3PJfJ@n_dTcFA",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -53,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"n_dTcFA",
+			"id":"next@n_dTcFA@_qeeif",
 			"name":"success",
 			"priority":0,
 			"skip":false,
@@ -61,6 +67,7 @@
 		},
 		{
 			"fromNodeId":"n_dTcFA",
+			"id":"error@n_dTcFA@_Ur1WI",
 			"name":"error",
 			"priority":0,
 			"skip":false,
@@ -72,8 +79,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -83,7 +88,7 @@
 	"id":"69070cbc269b162d4115d353",
 	"lastModifiedBy":-1,
 	"lcName":"web scraping generic",
-	"modifiedTime":1788252971866,
+	"modifiedTime":1789395033916,
 	"name":"Web Scraping Generic",
 	"nodes":[
 		{
@@ -143,6 +148,12 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
+						"additionalConfig":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Additional Config",
+							"type":"object"
+						},
 						"aiAgentId":{
 							"title":"AI Agent Id",
 							"type":"string"
@@ -270,7 +281,9 @@
 			"index":4,
 			"inputs":{
 				"callableInterfaceId":"68d4f4958cb7f04ab450e243",
-				"runtimeConnections":{},
+				"runtimeConnections":{
+					"scraperapi":"=IF({{ _PLwhu.outputs.additionalConfig.applicationSearchConfig.scraperConfig.scraperConnectionId }},{{ _PLwhu.outputs.additionalConfig.applicationSearchConfig.scraperConfig.scraperConnectionId }},{{ n_7Rxzk.outputs.properties.connectionId }})"
+				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"DEFAULT",
 				"callableInterfaces":[
@@ -298,9 +311,16 @@
 										"value":"scrapper"
 									},
 									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"scraperapi"
+									},
+									"property":"{{ _PLwhu.outputs.additionalConfig.applicationSearchConfig.scraperConfig.scraperProviderId }}"
 								}
 							],
-							"operator":"AND"
+							"operator":"OR"
 						},
 						"workflowId":"68d4e4eeccdb95688ef26566"
 					},
@@ -439,7 +459,9 @@
 			"index":6,
 			"inputs":{
 				"callableInterfaceId":"68d4f4958cb7f04ab450e243",
-				"runtimeConnections":{},
+				"runtimeConnections":{
+					"scraperapi":"=IF({{ _PLwhu.outputs.additionalConfig.applicationSearchConfig.scraperConfig.scraperConnectionId }},{{ _PLwhu.outputs.additionalConfig.applicationSearchConfig.scraperConfig.scraperConnectionId }},{{ n_7Rxzk.outputs.properties.connectionId }})"
+				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"DEFAULT",
 				"callableInterfaces":[
@@ -467,9 +489,16 @@
 										"value":"scrapper"
 									},
 									"property":"{{ n_7Rxzk.outputs.properties.provider }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"scraperapi"
+									},
+									"property":"{{ _PLwhu.outputs.additionalConfig.applicationSearchConfig.scraperConfig.scraperProviderId }}"
 								}
 							],
-							"operator":"AND"
+							"operator":"OR"
 						},
 						"workflowId":"68d4e4eeccdb95688ef26566"
 					},
@@ -636,5 +665,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":187
+	"version":188
 }
