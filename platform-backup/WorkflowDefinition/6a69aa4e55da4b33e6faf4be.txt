@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743806150,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743806216,
+		"deployedAt":1789395198642,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece3e177b4b4aca57b53f",
+		"deployedDefinitionId":"6aa800fec6a14707f150374a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":4
+		"version":2,
+		"workflowVersion":7
 	},
 	"edges":[
 		{
@@ -50,7 +50,15 @@
 		},
 		{
 			"fromNodeId":"n_cmFuP",
-			"id":"next@n_cmFuP@n_Gj4cZ",
+			"id":"next@n_cmFuP@n_rVezE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rVezE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rVezE",
+			"id":"next@n_rVezE@n_Gj4cZ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Gj4cZ",
@@ -124,7 +132,7 @@
 	"id":"6a69aa4e55da4b33e6faf4be",
 	"lastModifiedBy":-1,
 	"lcName":"eval | governance | schedule/unschedule evaluator",
-	"modifiedTime":1788252972027,
+	"modifiedTime":1789395395863,
 	"name":"Eval | Governance | schedule/unschedule evaluator",
 	"nodes":[
 		{
@@ -296,6 +304,63 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1084,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yn461@n_8UeLs@_EFxM8-1@y@y",
+			"id":"n_rVezE",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"unit":{
+							"title":"Unit",
+							"type":"string"
+						},
+						"value":{
+							"title":"Value",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"unit":{
+							"title":"Unit",
+							"type":"string"
+						},
+						"value":{
+							"title":"Value",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def unit = binding.hasVariable('unit') ? unit : \"MINUTES\"\n\ndef value = binding.hasVariable('value') ? value : 5L\n\nreturn [unit: unit, value : value]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"unit":"{{ n_cmFuP.outputs.properties.evalSettings.runFrequency.unit }}",
+					"value":"{{ n_cmFuP.outputs.properties.evalSettings.runFrequency.value }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":797,
 				"resourceName":"callables_schedule_a_callable",
@@ -306,24 +371,27 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yn461@n_8UeLs@_EFxM8-1@y@y",
 			"id":"n_Gj4cZ",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"automation_id":"6a69aeb7a0c1952ad20a1d75",
 				"schedule_method":{
 					"schedule_type":"RECURRING",
 					"setup_config":{
 						"expression":"0 0 * * *",
-						"interval":"=INT({{ n_cmFuP.outputs.properties.evalSettings.runFrequency.value }})",
+						"interval":"=INT({{ n_rVezE.outputs.result.value }})",
 						"start_time":"=(NOW() - DATE(1970,1,1)) * 86400000",
 						"timezone":"Asia/Calcutta",
-						"unit":"{{ n_cmFuP.outputs.properties.evalSettings.runFrequency.unit }}"
+						"unit":"{{ n_rVezE.outputs.result.unit }}"
 					}
 				},
 				"runtimeConnections":{},
+				"infinite_retries":false,
 				"cancel_existing":true,
 				"runtimeType":"DEFAULT",
 				"parameters":{
 					"agentId":"{{ n_Nmxgo.outputs.agentId }}",
+					"assetType":"{{ n_cmFuP.outputs.properties.assetType }}",
+					"backfillMode":false,
 					"evaluatorId":""
 				},
 				"schedule_name":"EVAL_GOVERNANCE_{{ n_Nmxgo.outputs.agentId }}",
@@ -398,7 +466,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8UeLs@_EFxM8-1@n",
 			"id":"n_bI9Jh",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -428,7 +496,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_bI9Jh@n_8UeLs@_EFxM8-1@n@y",
 			"id":"n_KOeTq",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"schedule_name":"EVAL_GOVERNANCE_{{ n_Nmxgo.outputs.agentId }}"
 			},
@@ -449,7 +517,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_EFxM8-1",
 			"id":"n_ZccCX",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"result":{
 					"success":true
@@ -475,5 +543,5 @@
 		}
 	},
 	"standard":true,
-	"version":6
+	"version":8
 }

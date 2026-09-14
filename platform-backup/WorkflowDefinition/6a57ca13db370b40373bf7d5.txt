@@ -4,19 +4,28 @@
 	],
 	"createdTime":1787743549817,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743550307,
+		"deployedAt":1789395075777,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd3e3f7ad93bb167456a",
+		"deployedDefinitionId":"6aa8008339ee5f5ef70b5b20",
+		"deploymentTag":"V30",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":33
+		"version":2,
+		"workflowVersion":36
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_B80Yk",
-			"id":"next@n_B80Yk@n_T6LMJ",
+			"id":"next@n_B80Yk@n_CnDt1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CnDt1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CnDt1",
+			"id":"next@n_CnDt1@n_T6LMJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_T6LMJ",
@@ -150,10 +159,10 @@
 		},
 		{
 			"fromNodeId":"n_beta7",
-			"id":"next@n_beta7@n_NK56Y",
+			"id":"next@n_beta7@n_DF7tI",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_NK56Y",
+			"toNodeId":"n_DF7tI",
 			"type":"next"
 		}
 	],
@@ -172,7 +181,7 @@
 	"id":"6a57ca13db370b40373bf7d5",
 	"lastModifiedBy":-1,
 	"lcName":"agent profile group creation",
-	"modifiedTime":1788252973486,
+	"modifiedTime":1789395395903,
 	"name":"Agent profile group creation",
 	"nodes":[
 		{
@@ -245,6 +254,29 @@
 		},
 		{
 			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":879,
+				"resourceName":"standard_entities_get_connection_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_iuMYC-1",
+			"id":"n_CnDt1",
+			"index":2,
+			"inputs":{
+				"connectionIds":[
+					"{{ n_B80Yk.outputs.agentProfileGroupProperties.connection }}"
+				]
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get connection details",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -255,7 +287,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_T6LMJ",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -299,7 +331,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_V3a56",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"filters":[
 					{
@@ -328,7 +360,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_V3a56@_iuMYC-1@y",
 			"id":"n_nkjcH",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"result":{
 					"id":"{{ n_T6LMJ.outputs.id }}",
@@ -352,7 +384,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_U0PIt",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"filters":[
 					{
@@ -382,7 +414,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_U0PIt@_iuMYC-1@y",
 			"id":"n_60ZPw",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"object_type":"agent_profile_group",
 				"includeRoleMappings":false,
@@ -408,7 +440,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_U0PIt@_iuMYC-1@y",
 			"id":"n_YEvAt",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -437,7 +469,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_YEvAt@n_U0PIt@_iuMYC-1@y@y",
 			"id":"n_TG1kj",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"result":{
 					"id":"{{ n_60ZPw.outputs.id }}",
@@ -466,7 +498,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_YEvAt@n_U0PIt@_iuMYC-1@y@n",
 			"id":"n_6d4r0",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"recordId":"{{ n_B80Yk.outputs.agentProfileGroupProperties.application }}",
 				"useRawPayload":false,
@@ -478,6 +510,7 @@
 					"application":"{{ n_B80Yk.outputs.agentProfileGroupProperties.application }}",
 					"autoRegister":false,
 					"connection":"{{ n_B80Yk.outputs.agentProfileGroupProperties.connection }}",
+					"connectionName":"{{ n_CnDt1.outputs.connectionDetails[0].name }}",
 					"connectionType":"{{ n_B80Yk.outputs.agentProfileGroupProperties.connectionType }}",
 					"isInitialSyncInProgress":true,
 					"ownerId":"{{ __USER__.outputs.id }}",
@@ -502,7 +535,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_YEvAt@n_U0PIt@_iuMYC-1@y@n",
 			"id":"n_63IiP",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"automationId":"6a57a44a7f50e773af318923",
 				"distributeLoad":false,
@@ -537,7 +570,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_YEvAt@n_U0PIt@_iuMYC-1@y@n",
 			"id":"n_lEEsN",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"result":{
 					"id":"{{ n_6d4r0.outputs.object.id }}",
@@ -566,7 +599,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_ZOMr0",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -577,6 +610,7 @@
 					"application":"{{ n_B80Yk.outputs.agentProfileGroupProperties.application }}",
 					"autoRegister":false,
 					"connection":"{{ n_B80Yk.outputs.agentProfileGroupProperties.connection }}",
+					"connectionName":"{{ n_CnDt1.outputs.connectionDetails[0].name }}",
 					"connectionType":"{{ n_B80Yk.outputs.agentProfileGroupProperties.connectionType }}",
 					"isInitialSyncInProgress":true,
 					"ownerId":"{{ __USER__.outputs.id }}",
@@ -602,7 +636,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_tL4XI",
-			"index":13,
+			"index":14,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -670,7 +704,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_beta7",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"automationId":"6a57a44a7f50e773af318923",
 				"distributeLoad":false,
@@ -704,8 +738,8 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
-			"id":"n_NK56Y",
-			"index":15,
+			"id":"n_DF7tI",
+			"index":16,
 			"inputs":{
 				"result":{
 					"id":"{{ n_ZOMr0.outputs.id }}",
@@ -733,5 +767,5 @@
 		}
 	},
 	"standard":true,
-	"version":35
+	"version":37
 }

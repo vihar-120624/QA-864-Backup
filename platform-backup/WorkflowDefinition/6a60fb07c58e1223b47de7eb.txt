@@ -4,16 +4,15 @@
 	],
 	"createdTime":1787743734419,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743734533,
+		"deployedAt":1789395154866,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdf6177b4b4aca57afe4",
-		"deploymentNotes":"add boolean flag to return if this automation can be called from other automations (callables)",
-		"deploymentTag":"return-callableFromOtherAutomation",
+		"deployedDefinitionId":"6aa800d272fd792214e8c46e",
+		"deploymentTag":"optional-chaining",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":39
+		"version":2,
+		"workflowVersion":42
 	},
 	"description":"Used to fetch callable automations (trigger is callables_from_automations) via query or id(s)",
 	"edges":[
@@ -124,7 +123,7 @@
 	"id":"6a60fb07c58e1223b47de7eb",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) fetch callable automations",
-	"modifiedTime":1788252972657,
+	"modifiedTime":1789395395873,
 	"name":"(tool) Fetch Callable Automations",
 	"nodes":[
 		{
@@ -141,72 +140,72 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"automations"
-					],
 					"properties":{
 						"automations":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
+									"deployed":{
+										"title":"deployed",
+										"type":"boolean"
 									},
-									"name":{
-										"type":"string",
-										"title":"name"
+									"id":{
+										"title":"id",
+										"type":"string"
 									},
 									"inputSchema":{
-										"type":"object",
-										"properties":{},
 										"additionalProperties":false,
-										"title":"Input Schema"
+										"properties":{},
+										"title":"Input Schema",
+										"type":"object"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									},
 									"outputSchema":{
-										"type":"object",
-										"properties":{},
 										"additionalProperties":false,
-										"title":"outputSchema"
-									},
-									"deployed":{
-										"type":"boolean",
-										"title":"deployed"
+										"properties":{},
+										"title":"outputSchema",
+										"type":"object"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name"
-								]
+								],
+								"type":"object"
 							},
-							"title":"automations"
+							"title":"automations",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"automations"
+					],
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"automationIds":{
-							"type":"array",
 							"items":{
 								"type":"string"
 							},
-							"title":"automationIds"
+							"title":"automationIds",
+							"type":"array"
 						},
 						"searchQueries":{
-							"type":"array",
 							"items":{
 								"type":"string"
 							},
-							"title":"searchQueries"
+							"title":"searchQueries",
+							"type":"array"
 						}
-					}
+					},
+					"required":[],
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -233,17 +232,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_rnu4l.outputs.automationIds }}",
 						"filter":{
 							"operator":"EXISTS"
-						}
+						},
+						"property":"{{ n_rnu4l.outputs.automationIds }}"
 					},
 					{
-						"property":"=LEN({{ n_rnu4l.outputs.automationIds }})",
 						"filter":{
 							"operator":"GT",
 							"value":"=0"
-						}
+						},
+						"property":"=LEN({{ n_rnu4l.outputs.automationIds }})"
 					}
 				],
 				"operator":"AND"
@@ -298,63 +297,63 @@
 			"inputs":{
 				"output":{
 					"$schema":"http://json-schema.org/draft-07/schema#",
-					"type":"object",
 					"properties":{
 						"automationDetails":{
-							"type":"array",
 							"items":{
-								"type":"object",
 								"properties":{
-									"id":{
-										"type":"string"
-									},
-									"name":{
-										"type":"string"
+									"deployed":{
+										"title":"deployed",
+										"type":"boolean"
 									},
 									"description":{
+										"type":"string"
+									},
+									"id":{
 										"type":"string"
 									},
 									"inputSchema":{
 										"type":"object"
 									},
-									"outputSchema":{
-										"type":"object",
-										"properties":{},
-										"additionalProperties":false,
-										"title":"outputSchema"
+									"name":{
+										"type":"string"
 									},
-									"deployed":{
-										"type":"boolean",
-										"title":"deployed"
+									"outputSchema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"outputSchema",
+										"type":"object"
 									}
 								},
-								"required":[]
-							}
+								"required":[],
+								"type":"object"
+							},
+							"type":"array"
 						}
-					}
+					},
+					"type":"object"
 				},
 				"input":{
 					"$schema":"http://json-schema.org/draft-07/schema#",
-					"type":"object",
 					"properties":{
 						"automationDetails":{
-							"type":"array",
 							"items":{
-								"type":"object",
 								"properties":{},
-								"required":[]
-							}
+								"required":[],
+								"type":"object"
+							},
+							"type":"array"
 						}
-					}
+					},
+					"type":"object"
 				},
-				"code":"def automationDetails = binding.getVariable('automationDetails') ?: []\n\nresult = [\n    automationDetails: automationDetails\n        // .findAll { automation ->\n        //     automation.nodes[0].context.resourceName == 'callables_from_automation'\n        // }\n        .collect { automation ->\n            [\n                *: automation,\n                inputSchema: automation.nodes[0].inputs.setup ?: [:],\n                outputSchema: automation.nodes[0].inputs.result ?: [:],\n                deployed: automation.deployedVersion ? true : false,\n                callableFromOtherAutomation: automation.nodes[0].context.resourceName == 'callables_from_automation'\n            ]\n        }\n]",
+				"code":"def automationDetails = binding.hasVariable('automationDetails')\n    ? binding.getVariable('automationDetails')\n    : []\n\nresult = [\n    automationDetails: automationDetails.collect { automation ->\n        def firstNode = automation?.nodes?.getAt(0)\n\n        [\n            *: automation,\n            inputSchema: firstNode?.inputs?.setup ?: [:],\n            outputSchema: firstNode?.inputs?.result ?: [:],\n            deployed: !!automation.deployedVersion,\n            callableFromOtherAutomation:\n                firstNode?.context?.resourceName == 'callables_from_automation'\n        ]\n    }\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"automationDetails":{
+						"items":"{{ n_3Womd.outputs.automationDetails[0] }}",
 						"source":"{{ n_3Womd.outputs.automationDetails }}",
-						"ua:type":"mappedArray",
-						"items":"{{ n_3Womd.outputs.automationDetails[0] }}"
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -379,15 +378,15 @@
 			"inputs":{
 				"result":{
 					"automations":{
-						"ua:type":"mappedArray",
 						"items":{
+							"deployed":"{{ n_0whtk.outputs.result.automationDetails[0].deployed }}",
 							"id":"{{ n_0whtk.outputs.result.automationDetails[0].id }}",
-							"name":"{{ n_0whtk.outputs.result.automationDetails[0].name }}",
 							"inputSchema":"{{ n_0whtk.outputs.result.automationDetails[0].inputSchema }}",
-							"outputSchema":"{{ n_0whtk.outputs.result.automationDetails[0].outputSchema }}",
-							"deployed":"{{ n_0whtk.outputs.result.automationDetails[0].deployed }}"
+							"name":"{{ n_0whtk.outputs.result.automationDetails[0].name }}",
+							"outputSchema":"{{ n_0whtk.outputs.result.automationDetails[0].outputSchema }}"
 						},
-						"source":"{{ n_0whtk.outputs.result.automationDetails }}"
+						"source":"{{ n_0whtk.outputs.result.automationDetails }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -414,18 +413,18 @@
 				"dynamic":false,
 				"layout":{
 					"createList":{
-						"ui:title":"",
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
 						"ua:type":{
 							"ui:widget":"hidden"
-						},
-						"items":{
-							"ui:title":"Initial list items",
-							"ui:description":"Set the initial values of the list (defaults to empty)"
 						},
 						"ui:order":[
 							"*",
 							"items"
-						]
+						],
+						"ui:title":""
 					},
 					"ua:title":{
 						"ui:widget":"hidden"
@@ -447,13 +446,13 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
 											"items":{
-												"type":"object",
-												"properties":{}
+												"properties":{},
+												"type":"object"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -469,17 +468,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of String"
-											},
 											"items":{
 												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -495,17 +494,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Integers"
-											},
 											"items":{
 												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -521,17 +520,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Numbers"
-											},
 											"items":{
 												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -547,17 +546,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Booleans"
-											},
 											"items":{
 												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -566,12 +565,36 @@
 					"format":"ua:list",
 					"type":"object",
 					"properties":{
-						"ua:title":{
-							"type":"string"
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"id":{
+											"title":"id",
+											"type":"string"
+										},
+										"name":{
+											"title":"name",
+											"type":"string"
+										}
+									},
+									"type":"object"
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"ua:list_type":{
-							"type":"string",
-							"title":"List Type",
+							"default":"OBJECT",
 							"oneOf":[
 								{
 									"const":"OBJECT",
@@ -594,35 +617,11 @@
 									"title":"Boolean"
 								}
 							],
-							"default":"OBJECT"
+							"title":"List Type",
+							"type":"string"
 						},
-						"createList":{
-							"type":"object",
-							"properties":{
-								"ua:type":{
-									"type":"string",
-									"default":"mappedArray"
-								},
-								"source":{
-									"type":"string",
-									"format":"ua:source",
-									"title":"List Item Source"
-								},
-								"items":{
-									"type":"object",
-									"properties":{
-										"id":{
-											"type":"string",
-											"title":"id"
-										},
-										"name":{
-											"type":"string",
-											"title":"name"
-										}
-									},
-									"additionalProperties":false
-								}
-							}
+						"ua:title":{
+							"type":"string"
 						}
 					}
 				}
@@ -641,22 +640,22 @@
 					"type":"object",
 					"properties":{
 						"items":{
-							"type":"array",
-							"title":"Automations",
 							"disableActions":true,
 							"items":{
-								"type":"object",
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									}
-								}
-							}
+								},
+								"type":"object"
+							},
+							"title":"Automations",
+							"type":"array"
 						}
 					}
 				}
@@ -705,17 +704,17 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"MISSING"
-							}
+							},
+							"property":"deleted"
 						},
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"EQUAL",
 								"value":"=FALSE()"
-							}
+							},
+							"property":"deleted"
 						}
 					],
 					"operator":"OR"
@@ -726,11 +725,11 @@
 					"limit":20,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -752,50 +751,50 @@
 			"index":9,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"automations"
-					],
 					"properties":{
 						"automations":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name"
-								]
+								],
+								"type":"object"
 							},
-							"title":"automations"
+							"title":"automations",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"automations"
+					],
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
 					"required":[
 						"response"
 					],
-					"properties":{
-						"response":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"Response"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef objects = serializedResponse['objects']\n\nreturn [\"automations\": objects, \"responseClass\": response.getClass(), \"serializedResponseClass\": serializedResponse.getClass()]",
 				"compile_static":false,
@@ -832,12 +831,12 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"ua:type":"mappedArray",
-					"source":"{{ n_dEO7X.outputs.result.automations }}",
 					"items":{
 						"id":"{{ n_dEO7X.outputs.result.automations[0].id }}",
 						"name":"{{ n_dEO7X.outputs.result.automations[0].name }}"
-					}
+					},
+					"source":"{{ n_dEO7X.outputs.result.automations }}",
+					"ua:type":"mappedArray"
 				},
 				"listName":"{{ n_XyOyy.outputs.items[0] }}"
 			},
@@ -862,12 +861,12 @@
 			"inputs":{
 				"result":{
 					"automations":{
-						"source":"{{ n_XyOyy.outputs.items }}",
-						"ua:type":"mappedArray",
 						"items":{
 							"id":"{{ n_XyOyy.outputs.items[0].id }}",
 							"name":"{{ n_XyOyy.outputs.items[0].name }}"
-						}
+						},
+						"source":"{{ n_XyOyy.outputs.items }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -894,5 +893,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":41
+	"version":43
 }

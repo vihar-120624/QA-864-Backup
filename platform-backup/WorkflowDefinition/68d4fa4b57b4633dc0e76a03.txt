@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743908131,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743908348,
+		"deployedAt":1789395259740,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecea49d7c534668efa67b",
+		"deployedDefinitionId":"6aa8013b39ee5f5ef70b6486",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":19
+		"version":2,
+		"workflowVersion":22
 	},
 	"edges":[
 		{
@@ -24,15 +24,31 @@
 		},
 		{
 			"fromNodeId":"n_1pqbV",
-			"id":"next@n_1pqbV@9rY0P",
+			"id":"next@n_1pqbV@n_e9tua",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"9rY0P",
+			"toNodeId":"n_e9tua",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"9rY0P",
-			"id":"next@9rY0P@n_VMyRj",
+			"fromNodeId":"n_e9tua",
+			"id":"next@n_e9tua@n_nYM2i",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nYM2i",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nYM2i",
+			"id":"next@n_nYM2i@n_dPaoi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dPaoi",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dPaoi",
+			"id":"next@n_dPaoi@n_VMyRj",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_VMyRj",
@@ -120,7 +136,7 @@
 	"id":"68d4fa4b57b4633dc0e76a03",
 	"lastModifiedBy":-1,
 	"lcName":"user/assistant conversationhistory ",
-	"modifiedTime":1788252973048,
+	"modifiedTime":1789395395914,
 	"name":"User/Assistant ConversationHistory ",
 	"nodes":[
 		{
@@ -234,7 +250,7 @@
 		{
 			"context":{
 				"appName":"storage_by_unifyapps",
-				"resourceVersion":320,
+				"resourceVersion":1927,
 				"resourceName":"storage_by_unifyapps_fetch_records",
 				"type":"APPLICATION"
 			},
@@ -242,7 +258,7 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_b01QU-1",
-			"id":"9rY0P",
+			"id":"n_e9tua",
 			"index":3,
 			"inputs":{
 				"triggerInputCondition":{
@@ -257,18 +273,13 @@
 					],
 					"operator":"AND"
 				},
+				"shouldSearchInAnalyticsStore":false,
 				"object_type":"service_hub_message",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
-				"sortBy":[
-					{
-						"field":"cTm",
-						"order":"DESC"
-					}
-				],
 				"translationsOption":"DEFAULT",
 				"page":{
-					"limit":300,
+					"limit":20,
 					"paginateBy":"OFFSET"
 				},
 				"includeTotalCount":false,
@@ -276,7 +287,116 @@
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
-			"subTitle":"last 1000 messages",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.obj.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_b01QU-1",
+			"id":"n_nYM2i",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"messageList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Message List",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"obj":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Obj",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [messageList: obj.collect { it.id }]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"obj":{
+						"items":"{{ n_e9tua.outputs.objects[0] }}",
+						"source":"{{ n_e9tua.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1927,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_b01QU-1",
+			"id":"n_dPaoi",
+			"index":5,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"IN",
+								"value":"{{ n_nYM2i.outputs.result.messageList }}"
+							},
+							"property":"properties_serviceHubMessageId"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"service_hub_message_tool_use_detail",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
 			"title":"Fetch records",
 			"type":"ACTION"
 		},
@@ -292,7 +412,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_b01QU-1",
 			"id":"n_VMyRj",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"filters":[
 					{
@@ -327,19 +447,18 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_VMyRj@_b01QU-1@y",
 			"id":"_VenFI",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
 					"properties":{
-						"conversation_history":{
+						"conversationHistory":{
 							"items":{
 								"additionalProperties":false,
 								"properties":{},
-								"required":[],
 								"type":"object"
 							},
-							"title":"conversation_history",
+							"title":"Conversation History",
 							"type":"array"
 						}
 					},
@@ -366,13 +485,13 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def conversation_history = []\ndef sqlOutputNeeded = binding.hasVariable(\"sqlOutputNeeded\") ? binding.getVariable(\"sqlOutputNeeded\") : true\n\nif (binding.hasVariable('messages')) {\n    def messages = binding.getVariable('messages')\n    messages = messages.reverse()\n    messages.each { msg ->\n        def type = msg?.properties?.type\n        def content = msg?.properties?.content\n        def additional = msg?.properties?.additional ?: [:]\n\n        // User message (fan)\n        if (type == 'fan') {\n            def userText = content?.text?.toString()?.trim()\n            if (userText) conversation_history << [user: userText]\n        }\n\n        // Assistant message (bot) — only append SQL info, skip text/answer\n        if (type == 'bot') {\n            def asstPayload = [:]\n            def toolUseDetails = content?.agentResponse?.toolUseDetails\n\n            def sqlQuery = additional?.sqlQuery ?: additional?.sqlquery\n            def sqlOutput = additional?.sql_output ?: additional?.sqlOutput\n\n            // Also extract from toolUseDetails if not present\n            if (!sqlQuery && toolUseDetails?.toolInput?.sql_query) {\n                sqlQuery = toolUseDetails.toolInput.sql_query\n            }\n            if (!sqlOutput && toolUseDetails?.toolOutput) {\n                sqlOutput = toolUseDetails.toolOutput\n            }\n\n            if (sqlQuery) asstPayload.dax_query = sqlQuery\n            if (sqlOutput && sqlOutputNeeded) asstPayload.dax_output = sqlOutput\n\n            // Only push if there's actually SQL content — no bare/empty bot entries\n            if (asstPayload) conversation_history << [assistant: asstPayload]\n        }\n    }\n}\n\nconversation_history = conversation_history.findAll { it.user || (it.assistant && !it.assistant.isEmpty()) }\n\nreturn [conversation_history: conversation_history]\n\n// def conversation_history = []\n// def user_turn = null\n\n// if (binding.hasVariable('messages')) {\n//     def messages = binding.getVariable('messages')\n\n//     for (msg in messages) {\n//         // User message\n//         if (msg?.properties?.type == 'fan') {\n//             user_turn = [user: msg?.properties?.content?.text?.trim()]\n//         }\n\n//         // Assistant (bot) message\n//         if (msg?.properties?.type == 'bot') {\n//             def asst_reply = [:]\n//             def sql_query = msg?.properties?.additional?.sqlQuery\n//             def sql_output = msg?.properties?.additional?.sql_output\n//             def text_reply = msg?.properties?.content?.text?.trim()\n\n//             // Add sql/data if present\n//             if (sql_query) asst_reply['sql_query'] = sql_query\n//             if (sql_output) asst_reply['data'] = sql_output\n\n//             // Only add 'final_answer' if sql_query or data present (i.e., as supporting explanation)\n//             // if ((sql_query || sql_output) && text_reply) {\n//             //     asst_reply['final_answer'] = text_reply\n//             // }\n\n//             // Only add to history if asst_reply is non-empty\n//             if (!asst_reply.isEmpty()) {\n//                 // Pair with previous user message if pending\n//                 if (user_turn) {\n//                     user_turn['assistant'] = asst_reply\n//                     conversation_history << user_turn\n//                     user_turn = null\n//                 } else {\n//                     conversation_history << [assistant: asst_reply]\n//                 }\n//             }\n//         }\n//     }\n// }\n// // At end, if there's a user_turn (not paired), optionally add; but per your pattern looks like we don't.\n// return [conversation_history: conversation_history]\n",
+				"code":"def conversationHistory = []\n\nmessages?.each { msg ->\n    def details = msg?.properties?.toolAdditionalDetails  \n    if (details) {\n        def entry = [\n            \"query\"                  : details.query,\n            \"rephrasedQuery\"              : details.rephrasedQuery,\n            \"daxQuery\"                    : details.daxQuery,\n            \"daxQueryExplanation\"         : details.daxQueryExplanation,\n            \"assumptionForDAXGeneration\"  : details.assumptionForDAXGeneration,\n            \"sqlQuery\":details.sqlQuery,\n            \"assumptions_for_sql_generation\":details.assumptions_for_sql_generation,\n            \"queryExplanationByLLM\":details.queryExplanationByLLM\n        ]\n\n       boolean anyFieldPresent = entry.any { k, v -> v != null && v.toString().trim() }\n\n        if (anyFieldPresent) {\n            conversationHistory << entry\n        }\n    }\n}\n\nreturn [\n    \"conversationHistory\": conversationHistory\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"messages":{
-						"items":"{{ 9rY0P.outputs.objects[0] }}",
-						"source":"{{ 9rY0P.outputs.objects }}",
+						"items":"{{ n_dPaoi.outputs.objects[0] }}",
+						"source":"{{ n_dPaoi.outputs.objects }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -399,7 +518,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_VMyRj@_b01QU-1@y",
 			"id":"n_P89a8",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -438,8 +557,8 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"conversation_history":{
-						"items":"{{ _VenFI.outputs.result.conversation_history[0] }}",
-						"source":"{{ _VenFI.outputs.result.conversation_history }}",
+						"items":"{{ _VenFI.outputs.result.conversationHistory[0] }}",
+						"source":"{{ _VenFI.outputs.result.conversationHistory }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -461,7 +580,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_VMyRj@_b01QU-1@y",
 			"id":"n_G18nq",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"variables":[
 					{
@@ -496,19 +615,18 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_VMyRj@_b01QU-1@n",
 			"id":"_g8d29",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
 					"properties":{
-						"conversation_history":{
+						"conversationHistory":{
 							"items":{
 								"additionalProperties":false,
 								"properties":{},
-								"required":[],
 								"type":"object"
 							},
-							"title":"conversation_history",
+							"title":"Conversation History",
 							"type":"array"
 						}
 					},
@@ -530,13 +648,13 @@
 					},
 					"type":"object"
 				},
-				"code":"\ndef conversation_history = []\n\nif (binding.hasVariable('messages')) {\n    def messages = binding.getVariable('messages')\n    messages = messages.reverse()\n    messages.each { msg ->\n        def type = msg?.properties?.type\n        def content = msg?.properties?.content\n        def additional = msg?.properties?.additional ?: [:]\n\n        // User message (fan)\n        if (type == 'fan') {\n            def userText = content?.text?.toString()?.trim()\n            if(userText) conversation_history << [user: userText]\n        }\n        \n        // Assistant message (bot)\n        if (type == 'bot') {\n            def asstPayload = [:]\n            def toolUseDetails = content?.agentResponse?.toolUseDetails\n            \n            def botText = content?.text?.toString()?.trim()\n            if (botText) asstPayload.answer = botText\n            conversation_history << [assistant: asstPayload]\n        }\n    }\n}\n\nconversation_history = conversation_history.findAll { it.user || (it.assistant && !it.assistant.isEmpty()) }\n\nreturn [conversation_history: conversation_history]\n\n// def conversation_history = []\n// def user_turn = null\n\n// if (binding.hasVariable('messages')) {\n//     def messages = binding.getVariable('messages')\n\n//     for (msg in messages) {\n//         // User message\n//         if (msg?.properties?.type == 'fan') {\n//             user_turn = [user: msg?.properties?.content?.text?.trim()]\n//         }\n\n//         // Assistant (bot) message\n//         if (msg?.properties?.type == 'bot') {\n//             def asst_reply = [:]\n//             def sql_query = msg?.properties?.additional?.sqlQuery\n//             def sql_output = msg?.properties?.additional?.sql_output\n//             def text_reply = msg?.properties?.content?.text?.trim()\n\n//             // Add sql/data if present\n//             if (sql_query) asst_reply['sql_query'] = sql_query\n//             if (sql_output) asst_reply['data'] = sql_output\n\n//             // Only add 'final_answer' if sql_query or data present (i.e., as supporting explanation)\n//             // if ((sql_query || sql_output) && text_reply) {\n//             //     asst_reply['final_answer'] = text_reply\n//             // }\n\n//             // Only add to history if asst_reply is non-empty\n//             if (!asst_reply.isEmpty()) {\n//                 // Pair with previous user message if pending\n//                 if (user_turn) {\n//                     user_turn['assistant'] = asst_reply\n//                     conversation_history << user_turn\n//                     user_turn = null\n//                 } else {\n//                     conversation_history << [assistant: asst_reply]\n//                 }\n//             }\n//         }\n//     }\n// }\n// // At end, if there's a user_turn (not paired), optionally add; but per your pattern looks like we don't.\n// return [conversation_history: conversation_history]\n",
+				"code":"def conversationHistory = []\n\nmessages?.each { msg ->\n    def details = msg?.properties?.toolAdditionalDetails  \n    if (details) {\n        def entry = [\n            \"query\"                  : details.query,\n            \"rephrasedQuery\"              : details.rephrasedQuery,\n        \n            \"assumptionForDAXGeneration\"  : details.assumptionForDAXGeneration,\n            \n            \"assumptions_for_sql_generation\":details.assumptions_for_sql_generation\n        ]\n\n       boolean anyFieldPresent = entry.any { k, v -> v != null && v.toString().trim() }\n\n        if (anyFieldPresent) {\n            conversationHistory << entry\n        }\n    }\n}\n\nreturn [\n    \"conversationHistory\": conversationHistory\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"messages":{
-						"items":"{{ 9rY0P.outputs.objects[0] }}",
-						"source":"{{ 9rY0P.outputs.objects }}",
+						"items":"{{ n_dPaoi.outputs.objects[0] }}",
+						"source":"{{ n_dPaoi.outputs.objects }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -563,7 +681,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_VMyRj@_b01QU-1@n",
 			"id":"n_PYm4Q",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -602,8 +720,8 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"conversation_history":{
-						"items":"{{ _g8d29.outputs.result.conversation_history[0] }}",
-						"source":"{{ _g8d29.outputs.result.conversation_history }}",
+						"items":"{{ _g8d29.outputs.result.conversationHistory[0] }}",
+						"source":"{{ _g8d29.outputs.result.conversationHistory }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -625,7 +743,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_VMyRj@_b01QU-1@n",
 			"id":"_p1rrI",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"variables":[
 					{
@@ -655,7 +773,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_b01QU-1",
 			"id":"n_eJmlP",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"result":{
 					"conversation_history":{
@@ -676,9 +794,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":true,
-		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -688,5 +806,5 @@
 	"tags":[
 		
 	],
-	"version":21
+	"version":23
 }
