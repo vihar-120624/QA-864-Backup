@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787744075854,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744076034,
+		"deployedAt":1789395315878,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf4cba51514edfc7e840",
+		"deployedDefinitionId":"6aa8017339ee5f5ef70b677e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":30
+		"version":2,
+		"workflowVersion":33
 	},
 	"edges":[
 		{
 			"fromNodeId":"bugyk",
+			"id":"next@bugyk@FCCvW",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"FCCvW",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"FCCvW",
+			"id":"next@FCCvW@ZgU6I",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"ZgU6I",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"ZgU6I",
+			"id":"next@ZgU6I@Is4e8",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"Is4e8",
@@ -37,6 +40,7 @@
 		},
 		{
 			"fromNodeId":"Is4e8",
+			"id":"next@Is4e8@INSbU",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"INSbU",
@@ -44,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"INSbU",
+			"id":"next@INSbU@EVdeU",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"EVdeU",
@@ -65,7 +70,7 @@
 	"id":"6811f21cfc1fa91bfcc0012f",
 	"lastModifiedBy":-1,
 	"lcName":"execute google big query",
-	"modifiedTime":1788252973418,
+	"modifiedTime":1789395391530,
 	"name":"Execute Google Big Query",
 	"nodes":[
 		{
@@ -79,7 +84,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"gZqSf-1",
 			"id":"bugyk",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
@@ -146,7 +151,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"gZqSf-1",
 			"id":"FCCvW",
-			"index":0,
+			"index":2,
 			"inputs":{
 				"connectionIds":"{{ bugyk.outputs.connectionId }}"
 			},
@@ -167,7 +172,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"gZqSf-1",
 			"id":"ZgU6I",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -212,7 +217,7 @@
 					],
 					"type":"object"
 				},
-				"code":"def convertQuery(String sqlQuery, String projectId, String datasetId) {\n    // Pattern to match table names in FROM and JOIN clauses\n    def pattern = ~/(?i)(FROM|JOIN)\\s+([a-zA-Z_][a-zA-Z0-9_]*)/\n\n    // Replace all matches with fully qualified names\n    def convertedQuery = sqlQuery.replaceAll(pattern) { fullMatch, clause, tableName ->\n        \"${clause} ${projectId}.${datasetId}.${tableName}\"\n    }\n\n    return convertedQuery\n}\n\nif (binding.hasVariable('userInput')) {\n    return [\n        projectId: userInput.project_id,\n        datasetId: userInput.dataset_id,\n        convertedQuery: convertQuery(sqlQuery, userInput.project_id, userInput.dataset_id)\n    ]\n}\n",
+				"code":"// def convertQuery(String sqlQuery, String projectId, String datasetId) {\n//     // Pattern to match table names in FROM and JOIN clauses\n//     def pattern = ~/(?i)(FROM|JOIN)\\s+([a-zA-Z_][a-zA-Z0-9_]*)/\n\n//     // Replace all matches with fully qualified names\n//     def convertedQuery = sqlQuery.replaceAll(pattern) { fullMatch, clause, tableName ->\n//         \"${clause} ${projectId}.${datasetId}.${tableName}\"\n//     }\n\n//     return convertedQuery\n// }\n\ndef convertQuery(String sqlQuery, String projectId, String datasetId) {\n    // Pattern to match table names (normal OR backtick-quoted) in FROM and JOIN clauses\n    def pattern = ~/(?i)(FROM|JOIN)\\s+(`[^`]+`|[a-zA-Z_][a-zA-Z0-9_]*)/\n\n    // Replace all matches with fully qualified names\n    def convertedQuery = sqlQuery.replaceAll(pattern) { fullMatch, clause, tableName ->\n        \"${clause} `${projectId}.${datasetId}.${tableName.replaceAll('`', '')}`\"\n    }\n\n    return convertedQuery\n}\n\nif (binding.hasVariable('userInput')) {\n    return [\n        projectId: userInput.project_id,\n        datasetId: userInput.dataset_id,\n        convertedQuery: convertQuery(sqlQuery, userInput.project_id, userInput.dataset_id)\n    ]\n}\n",
 				"compile_static":false,
 				"parameters":{
 					"sqlQuery":"{{ bugyk.outputs.sqlQuery }}",
@@ -228,7 +233,7 @@
 			"context":{
 				"appName":"google_big_query",
 				"resourceVersion":46,
-				"connectionId":"6809e57a38944418b5e6480c",
+				"connectionId":"682c4f6e37bed030529290b9",
 				"resourceName":"google_big_query_execute_sql",
 				"type":"APPLICATION"
 			},
@@ -237,11 +242,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"gZqSf-1",
 			"id":"Is4e8",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"project_id":"{{ ZgU6I.outputs.result.projectId }}",
 				"maxResults":1000,
-				"timeoutMs":1000,
+				"timeoutMs":30000,
 				"query":"{{ ZgU6I.outputs.result.convertedQuery }}"
 			},
 			"skip":false,
@@ -261,7 +266,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"gZqSf-1",
 			"id":"INSbU",
-			"index":0,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -334,7 +339,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"gZqSf-1",
 			"id":"EVdeU",
-			"index":0,
+			"index":6,
 			"inputs":{
 				"result":{
 					"columnNames":{
@@ -376,5 +381,5 @@
 	"tags":[
 		
 	],
-	"version":32
+	"version":34
 }

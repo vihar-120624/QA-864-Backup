@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743757262,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743758241,
+		"deployedAt":1789395170756,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece0d45d2142160e6de97",
+		"deployedDefinitionId":"6aa800e2c6a14707f15035e3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":124
+		"version":2,
+		"workflowVersion":127
 	},
 	"edges":[
 		{
@@ -156,7 +156,15 @@
 		},
 		{
 			"fromNodeId":"ugcjl",
-			"id":"next@ugcjl@M1ZX3",
+			"id":"next@ugcjl@n_DArn1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DArn1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DArn1",
+			"id":"next@n_DArn1@M1ZX3",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"M1ZX3",
@@ -547,7 +555,7 @@
 	"id":"68b0148974e2bb27bbdcee15",
 	"lastModifiedBy":-1,
 	"lcName":"convert action to tool (batch)",
-	"modifiedTime":1788252971961,
+	"modifiedTime":1789395391532,
 	"name":"Convert Action to Tool (Batch)",
 	"nodes":[
 		{
@@ -2860,6 +2868,59 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":6006,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_yALIl-1",
+			"id":"n_DArn1",
+			"index":17,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"finalDescription":{
+							"title":"Final Description",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"description":{
+							"title":"Description",
+							"type":"string"
+						},
+						"instructionsToAdd":{
+							"title":"Instructions To Add",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// Read inputs from the binding with safe defaults\ndef desc         = binding.hasVariable('description')      && description      ? description.toString()      : \"\"\ndef instructions = binding.hasVariable('instructionsToAdd') && instructionsToAdd ? instructionsToAdd.toString() : \"\"\n\n// Concatenate — join with a blank line only when both sides have content\ndef finalDescription\nif (desc && instructions) {\n    finalDescription = desc + \"\\n\\n\" + instructions\n} else {\n    finalDescription = desc ?: instructions\n}\n\nreturn [ finalDescription: finalDescription ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"description":"{{ n_R5ujw.outputs.description }}",
+					"instructionsToAdd":"{{ ugcjl.outputs.instructionsToAdd }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":540,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -2870,7 +2931,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"M1ZX3",
-			"index":17,
+			"index":18,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2879,6 +2940,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"finalDescription":{
+							"title":"Final Description",
+							"type":"string"
+						},
 						"runTimeConnectionEnabled":{
 							"title":"Run Time Connection Enabled",
 							"type":"boolean"
@@ -2888,6 +2953,7 @@
 				}
 			},
 			"inputs":{
+				"finalDescription":"{{ n_DArn1.outputs.result.finalDescription }}",
 				"runTimeConnectionEnabled":false
 			},
 			"outputSchema":{
@@ -2897,26 +2963,9 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
+						"finalDescription":{
+							"title":"Final Description",
+							"type":"string"
 						},
 						"runTimeConnectionEnabled":{
 							"title":"Run Time Connection Enabled",
@@ -2943,7 +2992,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_gjUV0",
-			"index":18,
+			"index":19,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3182,27 +3231,6 @@
 				"schema":{
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -3242,7 +3270,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_c7EPf",
-			"index":19,
+			"index":20,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3292,7 +3320,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_x0ov7",
-			"index":20,
+			"index":21,
 			"inputs":{
 				"filters":[
 					{
@@ -3311,7 +3339,7 @@
 				],
 				"operator":"AND"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -3328,7 +3356,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_x0ov7@_yALIl-1@y",
 			"id":"n_KoM80",
-			"index":21,
+			"index":22,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -3342,6 +3370,7 @@
 					],
 					"operator":"AND"
 				},
+				"shouldSearchInAnalyticsStore":false,
 				"object_type":"e_action_ai_agent",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
@@ -3403,7 +3432,7 @@
 					]
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Storage by UnifyApps",
 			"title":"Fetch records",
 			"type":"ACTION"
@@ -3420,7 +3449,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_nDfkA",
-			"index":22,
+			"index":23,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3451,7 +3480,7 @@
 					"inputs":"{{ n_KoM80.outputs.properties.inputs }}"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"automationId",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -3468,7 +3497,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_6mWZi",
-			"index":23,
+			"index":24,
 			"inputs":{
 				"filters":[
 					{
@@ -3481,7 +3510,7 @@
 				],
 				"operator":"AND"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"automationId length > 0?",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -3498,7 +3527,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_6mWZi@_yALIl-1@y",
 			"id":"n_9Y6p6",
-			"index":24,
+			"index":25,
 			"inputs":{
 				"keys":[
 					"{{ n_nDfkA.outputs.result.automationId }}"
@@ -3560,7 +3589,7 @@
 					]
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Standard entities by UnifyApps",
 			"title":"Lookup Request",
 			"type":"ACTION"
@@ -3577,7 +3606,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_7nYCU",
-			"index":25,
+			"index":26,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3633,11 +3662,10 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"automationId":"{{ n_nDfkA.outputs.result.automationId }}",
-					"response":"{{ n_9Y6p6.outputs.response }}"
+					"automationId":"{{ n_nDfkA.outputs.result.automationId }}"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -3661,7 +3689,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_lyfZG",
-			"index":26,
+			"index":27,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3722,20 +3750,7 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"context":"{{ n_R5ujw.outputs.context }}",
-					"resourceList":{
-						"items":{
-							"appName":"{{ n_7nYCU.outputs.result.resourceList[0].appName }}",
-							"resourceName":"{{ n_7nYCU.outputs.result.resourceList[0].resourceName }}"
-						},
-						"source":"{{ n_7nYCU.outputs.result.resourceList }}",
-						"ua:type":"mappedArray"
-					},
-					"runTimeConnectionApplications":{
-						"items":"{{ n_7nYCU.outputs.result.runtimeConnectionObj[0] }}",
-						"source":"{{ n_7nYCU.outputs.result.runtimeConnectionObj }}",
-						"ua:type":"mappedArray"
-					}
+					"context":"{{ n_R5ujw.outputs.context }}"
 				}
 			},
 			"skip":false,
@@ -3755,7 +3770,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"6BmZz",
-			"index":27,
+			"index":28,
 			"inputs":{
 				"filters":[
 					{
@@ -3787,7 +3802,7 @@
 				],
 				"operator":"OR"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"runTime",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -3804,7 +3819,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"6BmZz@_yALIl-1@y",
 			"id":"KXL6n",
-			"index":28,
+			"index":29,
 			"inputs":{
 				"object_type":"e_ai_agent_conversation_state",
 				"includeRoleMappings":false,
@@ -3813,7 +3828,7 @@
 				"id":"{{ n_R5ujw.outputs.caseId }}",
 				"readThroughSessionVariables":false
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"convState",
 			"title":"Fetch records",
 			"type":"ACTION"
@@ -3830,7 +3845,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"6BmZz@_yALIl-1@y",
 			"id":"n_Oxg58",
-			"index":29,
+			"index":30,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3890,7 +3905,7 @@
 					]
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Create variables",
 			"type":"ACTION"
@@ -3907,7 +3922,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"6BmZz@_yALIl-1@y",
 			"id":"n_e9iyG",
-			"index":30,
+			"index":31,
 			"inputs":{
 				"variableSchema":{
 					"additionalProperties":false,
@@ -3921,7 +3936,7 @@
 					"type":"object"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Get Session Variables",
 			"type":"ACTION"
@@ -3938,7 +3953,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"6BmZz@_yALIl-1@y",
 			"id":"n_CeD98",
-			"index":31,
+			"index":32,
 			"inputs":{
 				"filters":[
 					{
@@ -3950,7 +3965,7 @@
 				],
 				"operator":"AND"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -3967,7 +3982,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CeD98@6BmZz@_yALIl-1@y@y",
 			"id":"n_poRuQ",
-			"index":32,
+			"index":33,
 			"inputs":{
 				"variables":[
 					{
@@ -3976,7 +3991,7 @@
 					}
 				]
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Update variables",
 			"type":"ACTION"
@@ -3998,7 +4013,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"6BmZz@_yALIl-1@y",
 			"id":"mp2CF",
-			"index":33,
+			"index":34,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4055,7 +4070,7 @@
 					}
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"appName filter",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -4072,13 +4087,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"6BmZz@_yALIl-1@y",
 			"id":"n_xxV9o",
-			"index":34,
+			"index":35,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ mp2CF.outputs.result.appNameList }}",
 				"captureIterations":false
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Loop",
 			"title":"For each loop",
 			"type":"LOOP"
@@ -4095,7 +4110,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"n_HEiIe",
-			"index":35,
+			"index":36,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -4136,7 +4151,7 @@
 				"numberOfRecordsToFetch":"SINGLE",
 				"readThroughSessionVariables":false
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"runtimeconnectionStore",
 			"title":"Fetch records",
 			"type":"ACTION"
@@ -4153,7 +4168,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"n_XHbIg",
-			"index":36,
+			"index":37,
 			"inputs":{
 				"filters":[
 					{
@@ -4165,7 +4180,7 @@
 				],
 				"operator":"AND"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -4182,7 +4197,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_XHbIg@n_xxV9o@6BmZz@_yALIl-1@y@l@y",
 			"id":"n_PvVSh",
-			"index":37,
+			"index":38,
 			"inputs":{
 				"keys":[
 					"{{ n_HEiIe.outputs.properties.connectionId }}"
@@ -4195,7 +4210,7 @@
 				},
 				"type":"ByKeys"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"connection Lookup",
 			"title":"Lookup Request",
 			"type":"ACTION"
@@ -4212,7 +4227,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"n_fiPwE",
-			"index":38,
+			"index":39,
 			"inputs":{
 				"options":"{{ n_xxV9o.outputs.item.connectionLookupOptions }}",
 				"lookupType":"CONNECTION",
@@ -4274,7 +4289,7 @@
 					]
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"connection Lookup",
 			"title":"Lookup Request",
 			"type":"ACTION"
@@ -4291,7 +4306,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"n_R84qZ",
-			"index":39,
+			"index":40,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4345,7 +4360,7 @@
 					"userId":"{{ __RUN__.outputs.userId }}"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"find connection",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -4362,7 +4377,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"n_Xv0wA",
-			"index":40,
+			"index":41,
 			"inputs":{
 				"filters":[
 					{
@@ -4375,7 +4390,7 @@
 				],
 				"operator":"AND"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -4392,7 +4407,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Xv0wA@n_xxV9o@6BmZz@_yALIl-1@y@l@y",
 			"id":"n_xC4Xo",
-			"index":41,
+			"index":42,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -4406,7 +4421,7 @@
 					"userId":"=CONCATENATE({{ __RUN__.outputs.userId }},\"\")"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Storage by UnifyApps",
 			"title":"Create record",
 			"type":"ACTION"
@@ -4423,7 +4438,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"HgyNd",
-			"index":42,
+			"index":43,
 			"inputs":{
 				"variables":[
 					{
@@ -4436,7 +4451,7 @@
 					}
 				]
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Update variables",
 			"type":"ACTION"
@@ -4453,7 +4468,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xxV9o@6BmZz@_yALIl-1@y@l",
 			"id":"n_jsgKF",
-			"index":43,
+			"index":44,
 			"inputs":{
 				"itemToAdd":{
 					"appName":"{{ n_xxV9o.outputs.item.appName }}",
@@ -4463,7 +4478,7 @@
 				"captureAddedItem":false,
 				"listName":"{{ n_gjUV0.outputs.items[0] }}"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Add item to list",
 			"type":"ACTION"
@@ -4486,7 +4501,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_yALIl-1",
 			"id":"_u6WJr",
-			"index":44,
+			"index":45,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4591,7 +4606,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def contextList = binding.hasVariable(\"contextList\") ? binding.contextList : []\ndef actionInput = binding.hasVariable(\"actionInput\") ? actionInput : null\ndef runTimeConnectionIds = binding.hasVariable('runTimeConnectionIds') ? runTimeConnectionIds : []\n\n// ─── Build unified connections list from all contexts ─────────────────────────\ndef allConnections = contextList.collect { ctx ->\n    def existingConn = runTimeConnectionIds.find { it[\"appName\"] == ctx?.appName }\n    [\"appName\": ctx?.appName, \"connectionId\": existingConn?.connectionId ?: \"\"]\n}\n\n// ─── Pick one representative context for resource-level checks ────────────────\ndef primaryContext = contextList ? contextList[0] : [:]\n\n// ─── temp fix: pathParams for custom_http_application_execute ─────────────────\nif (binding.hasVariable(\"actionInput\") && contextList.any { it?.resourceName == \"custom_http_application_execute\" }) {\n    def path = actionInput?.path\n    def paramsList = actionInput?.pathParamsList\n    def matcher = (path =~ /:(\\w+)/)\n    def pathParams = matcher.collect { it[1] }\n    def existingParams = paramsList?.collect { it.key } as Set\n    for (def param : pathParams) {\n        if (!existingParams.contains(param)) {\n            paramsList << [\"key\": param]\n        }\n    }\n}\n\n// ─── callables_call_automation: strip extra fields ────────────────────────────\ndef resolvedActionInput = actionInput\nif (binding.hasVariable(\"actionInput\") && contextList.any { it?.resourceName == \"callables_call_automation\" }) {\n    resolvedActionInput = actionInput.parameters ?: [:]\n}\n\n// ─── Schema processing (done once, shared across all contexts) ────────────────\ndef slots = []\ndef lookups = []\ndef inputSchema = null\n\nif (binding.hasVariable('inputSchemaObj')) {\n    inputSchema = com.unifyapps.infra.utils.JsonUtils.toJSON(inputSchemaObj)\n}\n\ndef dynamicSchema = []\ndef toolInputSchema = inputSchema?.schema\n\nif (toolInputSchema == null) toolInputSchema = [:]\nif (toolInputSchema.type == null) toolInputSchema.type = \"object\"\nif (toolInputSchema.properties == null) toolInputSchema.properties = [:]\n\ndef toolInputSchemaMain = toolInputSchema\nif (toolInputSchema?.properties?.containsKey(\"_ua_schema_override_\")) {\n    toolInputSchema = toolInputSchema.properties.get(\"_ua_schema_override_\")\n}\n\nif (toolInputSchema.containsKey(\"allOf\")) {\n    toolInputSchema.allOf = checkTemplateStrings(toolInputSchema.allOf)\n}\n\ndef schemaLayout = inputSchema?.layout\n\nprocessSchemaProperties(toolInputSchema, schemaLayout, lookups, dynamicSchema, resolvedActionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n\nif (toolInputSchema?.dependencies && !schemaLayout?.dependencies) {\n    toolInputSchema.dependencies.each { key, value ->\n        if (value instanceof Map && value.containsKey(\"oneOf\")) {\n            value.oneOf.each { entry ->\n                if (entry instanceof Map && entry.containsKey(\"properties\")) {\n                    processSchemaProperties(entry, schemaLayout, lookups, dynamicSchema, resolvedActionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n                }\n            }\n        }\n    }\n}\n\n// ─── descriptionToAdd ─────────────────────────────────────────────────────────\ndef descriptionToAdd = \"\"\nif (contextList.any { it?.resourceName == \"utility_by_unifyapps_generate_public_url\" }) {\n    descriptionToAdd = \" The file can be either base64-encoded file content or a file-details object produced by a previous tool call. Example: {\\\"expiryTime\\\":1, \\\"file\\\": {\\\"fileType\\\":\\\"{fileType}\\\",\\\"name\\\":\\\"{name}\\\",\\\"source\\\":\\\"{source}\\\",\\\"sourceType\\\":\\\"{sourceType}\\\",\\\"ua:type\\\":\\\"FILE\\\"}}\"\n}\n\nif (binding.hasVariable(\"actionInput\")) {\n    final int MAX_LEN = 30\n    def processUserInput\n    processUserInput = { input ->\n        if (input == null) return null\n        if (input instanceof String) return (input.length() > MAX_LEN) ? input[0..<MAX_LEN] + \"...\" : input\n        if (input instanceof Map) {\n            def processed = [:]\n            input.each { fieldName, fieldValue ->\n                def processedItem = processUserInput(fieldValue)\n                if (processedItem != null) processed[fieldName] = processedItem\n            }\n            return processed.isEmpty() ? null : processed\n        }\n        if (input instanceof List) {\n            def processed = input.collect { processUserInput(it) }.findAll { it != null }\n            return processed.isEmpty() ? null : processed\n        }\n        return input\n    }\n\n    def processedActionInput = processUserInput(resolvedActionInput)\n    if (processedActionInput != null) {\n        descriptionToAdd = \" These are the inputs currently prefilled by the user, consider these as well while creating the tool input: \" +\n                com.unifyapps.infra.utils.JsonUtils.toJson(processedActionInput)\n    }\n}\n\n// ─── Static params resources ──────────────────────────────────────────────────\ndef STATIC_PARAMS_RESOURCES = [\"oracledb_execute_sql\", \"databricks_execute_sql\"]\nif (contextList.any { STATIC_PARAMS_RESOURCES.contains(it?.resourceName) }) {\n    dynamicSchema.clear()\n    if (binding.hasVariable(\"actionInput\") && resolvedActionInput?.params instanceof Map && toolInputSchemaMain?.properties?.containsKey(\"params\")) {\n        toolInputSchemaMain.properties.params = resolvedActionInput.params\n    }\n}\n\nif (dynamicSchema.size() > 0) {\n    descriptionToAdd += \" and this tool has a field of type DynamicSchemaField, its schema must be retrieved using the FetchDynamicSchema tool, the FetchDynamicSchema tool must be executed before this tool to provide the necessary schema, regardless of whatever input formate provided by user. When using a dynamically fetched schema (e.g., for a \\\"record\\\" field), always nest the schema output under that field's name in the actual tool input. All other required fields (like \\\"objectId\\\") should remain at the top level. Flattening dynamic fields into the top-level of the input is strictly incorrect!\"\n}\n\n// ─── Runtime connection: single _ua_connectionId covering all apps ────────────\nif (runTimeConnectionEnabled && !allConnections.isEmpty()) {\n    def filledConnections  = allConnections.findAll { it[\"connectionId\"] && !it[\"connectionId\"].isBlank() }\n    def missingConnections = allConnections.findAll { !it[\"connectionId\"] || it[\"connectionId\"].isBlank() }\n\n    toolInputSchema?.properties << getRunTimeConnectionIdField(allConnections)\n\n    if (toolInputSchema?.required == null) {\n        toolInputSchema.put(\"required\", [\"_ua_connectionId\"])\n    } else if (!toolInputSchema.required.contains(\"_ua_connectionId\")) {\n        toolInputSchema.required.add(\"_ua_connectionId\")\n    }\n\n    descriptionToAdd = \" To call this tool we need _ua_connectionId which is an array of objects, each containing 'appName' and 'connectionId'. \"\n\n    if (filledConnections.size() == allConnections.size()) {\n        descriptionToAdd += \"All required connections are already resolved: \" +\n            filledConnections.collect { \"appName=${it['appName']} -> connectionId=${it['connectionId']}\" }.join(\", \") +\n            \". Use these values directly. If a tool call fails for any connection, use the ClarifyConnection tool with the corresponding appName to refresh that specific connectionId and update that entry in the _ua_connectionId array.\"\n    } else {\n        if (filledConnections) {\n            descriptionToAdd += \"Already resolved connections (use as-is): \" +\n                filledConnections.collect { \"appName=${it['appName']} -> connectionId=${it['connectionId']}\" }.join(\", \") + \". \"\n        }\n        if (missingConnections) {\n            descriptionToAdd += \"Missing connectionIds for apps: [\" +\n                missingConnections.collect { it['appName'] }.join(\", \") +\n                \"]. Call the ClarifyConnection tool at most once — only if there are missing connectionIds. \" +\n                    \"Collect ALL missing appNames and pass them together in a single batched call. \" +\n                    \"Do NOT call ClarifyConnection more than once. \" +\n                    \"Do NOT reuse a connectionId across different appNames. Do NOT guess or fabricate a connectionId. \" +\n                    \"Once all connectionIds are collected, pass them together as the _ua_connectionId array, e.g.: \" +\n                    \"[{\\\"appName\\\": \\\"app1\\\", \\\"connectionId\\\": \\\"<id1>\\\"}, {\\\"appName\\\": \\\"app2\\\", \\\"connectionId\\\": \\\"<id2>\\\"}]. \" +\n                    \"Do not execute this tool until all entries in _ua_connectionId are resolved.\"\n        }\n    }\n}\n\nif (toolInputSchemaMain?.properties?.inputFooter) {\n    toolInputSchemaMain?.properties.remove(\"inputFooter\")\n}\n\n// ─── Single unified result ────────────────────────────────────────────────────\nreturn [\n    \n        \"toolInputSchema\" : toolInputSchemaMain,\n        \"toolName\"        : getSanitizedName(toolName),\n        \"lookups\"         : lookups,\n        \"dynamicSchema\"   : dynamicSchema.size() > 0 ? true : false,\n        \"descriptionToAdd\": descriptionToAdd\n    \n]\n\n\n// ─── Helper functions ─────────────────────────────────────────────────────────\n\ndef getRunTimeConnectionIdField(List connections) {\n    def filledConnections  = connections.findAll { it[\"connectionId\"] && !it[\"connectionId\"].isBlank() }\n    def missingConnections = connections.findAll { !it[\"connectionId\"] || it[\"connectionId\"].isBlank() }\n\n    def desc = \"An array of connection objects, one per app, each with 'appName' and 'connectionId' (alphanumeric MongoId — never a name or label). This is a required field. \"\n\n    if (filledConnections) {\n        desc += \"Already resolved (use as-is): \" +\n            filledConnections.collect { \"[appName: ${it['appName']}, connectionId: ${it['connectionId']}]\" }.join(\", \") + \". \"\n    }\n    if (missingConnections) {\n        desc += \"Missing connectionIds for: [\" + missingConnections.collect { it['appName'] }.join(\", \") + \"]. \" +\n                \"Call the ClarifyConnection tool once per missing appName. Never reuse a connectionId from a different appName. Never fabricate a connectionId. \"\n    }\n    desc += \"Final value must cover all apps, e.g.: [{\\\"appName\\\": \\\"app1\\\", \\\"connectionId\\\": \\\"<id1>\\\"}, {\\\"appName\\\": \\\"app2\\\", \\\"connectionId\\\": \\\"<id2>\\\"}].\"\n\n    def schema = [\n        \"type\"       : \"array\",\n        \"description\": desc,\n        \"items\"      : [\n            \"type\"      : \"object\",\n            \"properties\": [\n                \"appName\"     : [\"type\": \"string\", \"description\": \"The application name this connectionId belongs to.\"],\n                \"connectionId\": [\"type\": \"string\", \"description\": \"Alphanumeric MongoId. Do not use a name or label here.\"]\n            ],\n            \"required\"  : [\"appName\", \"connectionId\"]\n        ]\n    ]\n\n    if (filledConnections.size() == connections.size() && !connections.isEmpty()) {\n        schema[\"const\"] = connections.collect { [\"appName\": it[\"appName\"], \"connectionId\": it[\"connectionId\"]] }\n    }\n\n    return [\"_ua_connectionId\": schema]\n}\n\n\n\ndef processSchemaProperties(schema, layout, lookups, dynamicSchema, actionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext) {\n    def properties = schema?.properties\n    def allOf = schema?.allOf\n    def required = schema?.required ?: []\n    def renameMap = [:]\n\n    properties.each { propName, propValue ->\n        def layoutProps = layout?.get(propName)\n\n        if (propValue instanceof Map || propValue instanceof List) {\n            propValue = checkTemplateStrings(propValue)\n        }\n\n        if (layoutProps?.get(\"ui:help\")) {\n            propValue[\"description\"] = layoutProps.get(\"ui:help\")\n        }\n        if (!propValue.containsKey('description') && (layoutProps?.get(\"ui:description\") != null)) {\n            propValue[\"description\"] = layoutProps.get(\"ui:description\")\n        }\n\n        if (actionInput instanceof Map && actionInput?.containsKey(propName)) {\n            if (!required.contains(propName)) {\n                required << propName\n            }\n        }\n\n        if (layoutProps?.get(\"ui:field\") == \"DynamicSchemaField\") {\n            def dynamicFieldName = layoutProps?.get(\"ui:options\")?.get(\"ua:field_name\")\n            def requirements = getDynamicSchemaRequirements(layoutProps?.get(\"ui:options\"))\n            if (runTimeConnectionEnabled) {\n                if (requirements == null) requirements = []\n                requirements.add(\"_ua_connectionId\")\n            }\n            if (dynamicFieldName != null) {\n                if (propValue.description == null) propValue.description = \"\"\n                propValue[\"description\"] += \", this field is of type DynamicSchemaField, its schema must be retrieved using the FetchDynamicSchema tool, the FetchDynamicSchema tool must be executed before this tool to provide the necessary schema, regardless of whatever input formate provided by user. All fields returned by FetchDynamicSchema must be nested inside this dynamic field (e.g., \\\"record\\\": { … }), not at the top level of the tool input.\"\n                if (requirements.size() > 0) {\n                    propValue[\"description\"] += \", required fields for fetching the schema are \" + requirements.toString()\n                }\n                if (required.contains(propName)) {\n                    required.remove(propName)\n                    required.add(dynamicFieldName)\n                }\n                renameMap[propName] = dynamicFieldName\n                dynamicSchema << dynamicFieldName\n            }\n        }\n\n        if (layoutProps?.get(\"ui:widget\") == \"LookupWidget\") {\n            def lookupType = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"lookupType\")\n            if (lookupType == \"ENTITY_FIELD\") {\n                def entityType = getTemplatedFields(layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"entityType\"))\n                def group = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"group\")\n                if (propValue.description == null) propValue.description = \"\"\n                def resourceName = group + \"_ENTITY_FIELD\"\n                propValue[\"description\"] += \", this field can be found using tool lookup_\" + group + \"_ENTITY_FIELD and taking the 'field' field from its response. Must call this lookup tool before puting anything into this property.\"\n                if (entityType.size() > 0) {\n                    propValue[\"description\"] += \", required fields for running lookup are [entityType]\"\n                }\n                def entityInputs = [:]\n                entityInputs[\"entityType\"] = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"entityType\")\n                def requirementsSchema = generateJsonSchema(entityInputs)\n                lookups << [\"resourceName\": resourceName, \"inputSchema\": requirementsSchema]\n            } else {\n                def resourceName = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"source_resource_name\")\n                def requirements = getTemplatedFieldsFromObj(layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"inputs\"))\n                def requirementsSchema = generateJsonSchema(layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"inputs\"))\n                if (resourceName != null) {\n                    if (propValue.description == null) propValue.description = \"\"\n                    propValue[\"description\"] += \", this field can be found using tool lookup_\" + resourceName + \" and taking the id field from its response\"\n                    if (requirements.size() > 0) {\n                        propValue[\"description\"] += \", required fields for running lookup are \" + requirements.toString()\n                    }\n                    if (runTimeConnectionEnabled) {\n                        if (requirementsSchema == null) requirementsSchema = [\"type\": \"object\", \"properties\": [:]]\n                        lookups << [\"appName\": primaryContext?.appName, \"resourceName\": resourceName, \"inputSchema\": requirementsSchema]\n                        def currentConnId = runTimeConnectionIds.find { it[\"appName\"] == primaryContext?.appName }?.connectionId\n                        if (currentConnId && !currentConnId.isBlank()) {\n                            lookups << [\"connectionId\": currentConnId]\n                        }\n                    } else {\n                        lookups << [\"appName\": primaryContext?.appName, \"resourceName\": resourceName, \"connectionId\": primaryContext?.connectionId, \"inputSchema\": requirementsSchema]\n                    }\n                }\n            }\n\n            if (layoutProps?.get(\"ui:options\")?.get(\"multiple\") == true) {\n                propValue[\"type\"] = \"array\"\n            }\n        }\n\n        if (propValue.type == \"object\" && propValue.properties != null) {\n            processSchemaProperties(propValue, layoutProps ?: [:], lookups, dynamicSchema, actionInput?.get(propName), runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n        }\n\n        if (propValue?.type == \"array\" && propValue?.items != null) {\n            def arr = (actionInput instanceof Map) ? actionInput.get(propName) : null\n            def actionInputForArray = (arr instanceof List && !arr.isEmpty()) ? arr[0] : null\n            processSchemaProperties(propValue.items, layoutProps?.items ? layoutProps?.items : [:], lookups, dynamicSchema, actionInputForArray, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n        }\n    }\n\n    if (required.size() > 0) schema.required = required\n\n    if (allOf instanceof List) {\n        allOf.each { allOfEntry ->\n            if (!(allOfEntry instanceof Map)) return\n            [\"then\", \"else\"].each { branch ->\n                def branchSchema = allOfEntry.get(branch)\n                if (branchSchema instanceof Map && branchSchema.properties instanceof Map) {\n                    processSchemaProperties(branchSchema, layout, lookups, dynamicSchema, actionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n                }\n            }\n        }\n    }\n\n    renameMap.each { oldName, newName ->\n        def oldValue = properties.remove(oldName)\n        properties[newName] = oldValue\n    }\n}\n\n\ndef getTemplatedFields(def template) {\n    if (template == null) {\n        return []\n    }\n\n    if (!(template instanceof String)) {\n        return []\n    }\n    \n    return (template =~ /\\{\\{\\s*(.*?)\\s*\\}\\}/).collect { it[1] }\n}\n\ndef getDynamicSchemaRequirements(layoutOptions) {\n    def operationId = layoutOptions?.get(\"ua:operationId\")\n    def payload = layoutOptions?.get(\"ua:payload\")\n\n    if (!operationId) {\n        return []\n    }\n\n    if (operationId.equals(\"getConnectorObject\"))\n        return getTemplatedFields(payload?.get(\"object\"))\n    else if (operationId.equals(\"getEntityType\"))\n        return getTemplatedFields(payload?.get(\"entityType\"))\n    else if (operationId.equals(\"getGeneratedSchema\"))\n        return getTemplatedFields(payload?.get(\"schema\"))\n    return []\n}\n\ndef removeTemplatedFields(def input1) {\n    if (!(input1 instanceof String)) {\n        return []\n    }\n    return input1.replaceAll(/\\{\\{\\s*.*?\\s*\\}\\}/, '')\n}\n\ndef getTemplatedFieldsFromObj(Object inputs) {\n    def templatedFields = []\n    if (inputs != null) {\n        inputs.each { key, value ->\n            templatedFields.addAll(getTemplatedFields(value))\n        }\n    }\n    return templatedFields\n}\n\ndef getSanitizedName(String header) {\n    String sanitized = header.trim().replaceAll(\"[^a-zA-Z0-9]\", \"_\")\n    if (sanitized.length() > 64) {\n        sanitized = sanitized.substring(0, 63)\n    }\n    return sanitized\n}\n\ndef checkTemplateStrings(obj) {\n    if (obj instanceof Map) {\n        obj.each { key, value ->\n            obj[key] = checkTemplateStrings(value)\n        }\n    } else if (obj instanceof List) {\n        obj = obj.collect { item -> checkTemplateStrings(item) }\n    } else if (obj instanceof String) {\n        obj = removeTemplatedFields(obj)\n    }\n    return obj\n}\n\ndef generateJsonSchema(def input) {\n    if (input == null) {\n        return null\n    }\n    def schema = [:]\n    if (input instanceof Map) {\n        schema.type = \"object\"\n        schema.properties = [:]\n        input.each { key, value ->\n            schema.properties[key] = generateJsonSchema(value)\n        }\n    } else if (input instanceof List) {\n        schema.type = \"array\"\n        if (!input.isEmpty()) {\n            schema.items = generateJsonSchema(input[0])\n        } else {\n            schema.items = [:]\n        }\n    } else {\n        schema.type = input.getClass().simpleName.toLowerCase()\n    }\n\n    return schema\n}\n\n// def getRunTimeConnectionIdField(String appName, String connectionId) {\n//     // def props = [\"type\": \"string\", \"description\": \"Never fill this field randomly always ask user if there isnt a value provided. Connection Id with which we are going to execute this tool and this is a required field, if value of this field is unknown and used has mentioned some name on what connection to use we can fetch this from lookup_CONNECTION_\" + appName + \" tool or else we can ask this connection from user Using the ClarifyConnection tool.\"]\n//     def props = [\"type\": \"string\", \"description\": \"This will be an alphaNumericId usually a mongoId , Do not fill in name. Connection Id with which we are going to execute this tool and this is a required field, if value of this field is unknown , we can ask this connection from user Using the ClarifyConnection tool\" + \" appName for this connection is \" + appName]\n//     if (connectionId && !connectionId.isBlank()) {\n//         props << [\"const\": connectionId]\n//     }\n//     return [\"_ua_connectionId\": props]\n// }",
+				"code":"def contextList = binding.hasVariable(\"contextList\") ? binding.contextList : []\ndef actionInput = binding.hasVariable(\"actionInput\") ? actionInput : null\ndef runTimeConnectionIds = binding.hasVariable('runTimeConnectionIds') ? runTimeConnectionIds : []\n\n// ─── Build unified connections list from all contexts ─────────────────────────\n// def allConnections = contextList.collect { ctx ->\n//     def existingConn = runTimeConnectionIds.find { it[\"appName\"] == ctx?.appName }\n//     [\"appName\": ctx?.appName, \"connectionId\": existingConn?.connectionId ?: \"\"]\n// }\n\n// ─── Pick one representative context for resource-level checks ────────────────\ndef primaryContext = contextList ? contextList[0] : [:]\n\n// ─── temp fix: pathParams for custom_http_application_execute ─────────────────\nif (binding.hasVariable(\"actionInput\") && contextList.any { it?.resourceName == \"custom_http_application_execute\" }) {\n    def path = actionInput?.path\n    def paramsList = actionInput?.pathParamsList\n    def matcher = (path =~ /:(\\w+)/)\n    def pathParams = matcher.collect { it[1] }\n    def existingParams = paramsList?.collect { it.key } as Set\n    for (def param : pathParams) {\n        if (!existingParams.contains(param)) {\n            paramsList << [\"key\": param]\n        }\n    }\n}\n\n// ─── callables_call_automation: strip extra fields ────────────────────────────\ndef resolvedActionInput = actionInput\nif (binding.hasVariable(\"actionInput\") && contextList.any { it?.resourceName == \"callables_call_automation\" }) {\n    resolvedActionInput = actionInput.parameters ?: [:]\n}\n\n// ─── Schema processing (done once, shared across all contexts) ────────────────\ndef slots = []\ndef lookups = []\ndef inputSchema = null\n\nif (binding.hasVariable('inputSchemaObj')) {\n    inputSchema = com.unifyapps.infra.utils.JsonUtils.toJSON(inputSchemaObj)\n}\n\ndef dynamicSchema = []\ndef toolInputSchema = inputSchema?.schema\n\nif (toolInputSchema == null) toolInputSchema = [:]\nif (toolInputSchema.type == null) toolInputSchema.type = \"object\"\nif (toolInputSchema.properties == null) toolInputSchema.properties = [:]\n\ndef toolInputSchemaMain = toolInputSchema\nif (toolInputSchema?.properties?.containsKey(\"_ua_schema_override_\")) {\n    toolInputSchema = toolInputSchema.properties.get(\"_ua_schema_override_\")\n}\n\nif (toolInputSchema.containsKey(\"allOf\")) {\n    toolInputSchema.allOf = checkTemplateStrings(toolInputSchema.allOf)\n}\n\ndef schemaLayout = inputSchema?.layout\n\nprocessSchemaProperties(toolInputSchema, schemaLayout, lookups, dynamicSchema, resolvedActionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n\nif (toolInputSchema?.dependencies && !schemaLayout?.dependencies) {\n    toolInputSchema.dependencies.each { key, value ->\n        if (value instanceof Map && value.containsKey(\"oneOf\")) {\n            value.oneOf.each { entry ->\n                if (entry instanceof Map && entry.containsKey(\"properties\")) {\n                    processSchemaProperties(entry, schemaLayout, lookups, dynamicSchema, resolvedActionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n                }\n            }\n        }\n    }\n}\n\n// ─── descriptionToAdd ─────────────────────────────────────────────────────────\ndef descriptionToAdd = \"\"\nif (contextList.any { it?.resourceName == \"utility_by_unifyapps_generate_public_url\" }) {\n    descriptionToAdd = \" The file can be either base64-encoded file content or a file-details object produced by a previous tool call. Example: {\\\"expiryTime\\\":1, \\\"file\\\": {\\\"fileType\\\":\\\"{fileType}\\\",\\\"name\\\":\\\"{name}\\\",\\\"source\\\":\\\"{source}\\\",\\\"sourceType\\\":\\\"{sourceType}\\\",\\\"ua:type\\\":\\\"FILE\\\"}}\"\n}\n\nif (binding.hasVariable(\"actionInput\")) {\n    final int MAX_LEN = 30\n    def processUserInput\n    processUserInput = { input ->\n        if (input == null) return null\n        if (input instanceof String) return (input.length() > MAX_LEN) ? input[0..<MAX_LEN] + \"...\" : input\n        if (input instanceof Map) {\n            def processed = [:]\n            input.each { fieldName, fieldValue ->\n                def processedItem = processUserInput(fieldValue)\n                if (processedItem != null) processed[fieldName] = processedItem\n            }\n            return processed.isEmpty() ? null : processed\n        }\n        if (input instanceof List) {\n            def processed = input.collect { processUserInput(it) }.findAll { it != null }\n            return processed.isEmpty() ? null : processed\n        }\n        return input\n    }\n\n    def processedActionInput = processUserInput(resolvedActionInput)\n    if (processedActionInput != null) {\n        descriptionToAdd = \" These are the inputs currently prefilled by the user, consider these as well while creating the tool input: \" +\n                com.unifyapps.infra.utils.JsonUtils.toJson(processedActionInput)\n    }\n}\n\n// ─── Static params resources ──────────────────────────────────────────────────\ndef STATIC_PARAMS_RESOURCES = [\"oracledb_execute_sql\", \"databricks_execute_sql\"]\nif (contextList.any { STATIC_PARAMS_RESOURCES.contains(it?.resourceName) }) {\n    dynamicSchema.clear()\n    if (binding.hasVariable(\"actionInput\") && resolvedActionInput?.params instanceof Map && toolInputSchemaMain?.properties?.containsKey(\"params\")) {\n        toolInputSchemaMain.properties.params = resolvedActionInput.params\n    }\n}\n\nif (dynamicSchema.size() > 0) {\n    descriptionToAdd += \" and this tool has a field of type DynamicSchemaField, its schema must be retrieved using the FetchDynamicSchema tool, the FetchDynamicSchema tool must be executed before this tool to provide the necessary schema, regardless of whatever input formate provided by user. When using a dynamically fetched schema (e.g., for a \\\"record\\\" field), always nest the schema output under that field's name in the actual tool input. All other required fields (like \\\"objectId\\\") should remain at the top level. Flattening dynamic fields into the top-level of the input is strictly incorrect!\"\n}\n\n// ─── Runtime connection: single _ua_connectionId covering all apps ────────────\n// if (runTimeConnectionEnabled && !allConnections.isEmpty()) {\n//     def filledConnections  = allConnections.findAll { it[\"connectionId\"] && !it[\"connectionId\"].isBlank() }\n//     def missingConnections = allConnections.findAll { !it[\"connectionId\"] || it[\"connectionId\"].isBlank() }\n\n//     toolInputSchema?.properties << getRunTimeConnectionIdField(allConnections)\n\n//     if (toolInputSchema?.required == null) {\n//         toolInputSchema.put(\"required\", [\"_ua_connectionId\"])\n//     } else if (!toolInputSchema.required.contains(\"_ua_connectionId\")) {\n//         toolInputSchema.required.add(\"_ua_connectionId\")\n//     }\n\n//     descriptionToAdd = \" To call this tool we need _ua_connectionId which is an array of objects, each containing 'appName' and 'connectionId'. \"\n\n//     if (filledConnections.size() == allConnections.size()) {\n//         descriptionToAdd += \"All required connections are already resolved: \" +\n//             filledConnections.collect { \"appName=${it['appName']} -> connectionId=${it['connectionId']}\" }.join(\", \") +\n//             \". Use these values directly. If a tool call fails for any connection, use the ClarifyConnection tool with the corresponding appName to refresh that specific connectionId and update that entry in the _ua_connectionId array.\"\n//     } else {\n//         if (filledConnections) {\n//             descriptionToAdd += \"Already resolved connections (use as-is): \" +\n//                 filledConnections.collect { \"appName=${it['appName']} -> connectionId=${it['connectionId']}\" }.join(\", \") + \". \"\n//         }\n//         if (missingConnections) {\n//             descriptionToAdd += \"Missing connectionIds for apps: [\" +\n//                 missingConnections.collect { it['appName'] }.join(\", \") +\n//                 \"]. Call the ClarifyConnection tool at most once — only if there are missing connectionIds. \" +\n//                     \"Collect ALL missing appNames and pass them together in a single batched call. \" +\n//                     \"Do NOT call ClarifyConnection more than once. \" +\n//                     \"Do NOT reuse a connectionId across different appNames. Do NOT guess or fabricate a connectionId. \" +\n//                     \"Once all connectionIds are collected, pass them together as the _ua_connectionId array, e.g.: \" +\n//                     \"[{\\\"appName\\\": \\\"app1\\\", \\\"connectionId\\\": \\\"<id1>\\\"}, {\\\"appName\\\": \\\"app2\\\", \\\"connectionId\\\": \\\"<id2>\\\"}]. \" +\n//                     \"Do not execute this tool until all entries in _ua_connectionId are resolved.\"\n//         }\n//     }\n// }\n\nif (toolInputSchemaMain?.properties?.inputFooter) {\n    toolInputSchemaMain?.properties.remove(\"inputFooter\")\n}\n\n// ─── Single unified result ────────────────────────────────────────────────────\nreturn [\n    \n        \"toolInputSchema\" : toolInputSchemaMain,\n        \"toolName\"        : getSanitizedName(toolName),\n        \"lookups\"         : lookups,\n        \"dynamicSchema\"   : dynamicSchema.size() > 0 ? true : false,\n        \"descriptionToAdd\": descriptionToAdd\n    \n]\n\n\n// ─── Helper functions ─────────────────────────────────────────────────────────\n\n// def getRunTimeConnectionIdField(List connections) {\n//     def filledConnections  = connections.findAll { it[\"connectionId\"] && !it[\"connectionId\"].isBlank() }\n//     def missingConnections = connections.findAll { !it[\"connectionId\"] || it[\"connectionId\"].isBlank() }\n\n//     def desc = \"An array of connection objects, one per app, each with 'appName' and 'connectionId' (alphanumeric MongoId — never a name or label). This is a required field. \"\n\n//     if (filledConnections) {\n//         desc += \"Already resolved (use as-is): \" +\n//             filledConnections.collect { \"[appName: ${it['appName']}, connectionId: ${it['connectionId']}]\" }.join(\", \") + \". \"\n//     }\n//     if (missingConnections) {\n//         desc += \"Missing connectionIds for: [\" + missingConnections.collect { it['appName'] }.join(\", \") + \"]. \" +\n//                 \"Call the ClarifyConnection tool once per missing appName. Never reuse a connectionId from a different appName. Never fabricate a connectionId. \"\n//     }\n//     desc += \"Final value must cover all apps, e.g.: [{\\\"appName\\\": \\\"app1\\\", \\\"connectionId\\\": \\\"<id1>\\\"}, {\\\"appName\\\": \\\"app2\\\", \\\"connectionId\\\": \\\"<id2>\\\"}].\"\n\n//     def schema = [\n//         \"type\"       : \"array\",\n//         \"description\": desc,\n//         \"items\"      : [\n//             \"type\"      : \"object\",\n//             \"properties\": [\n//                 \"appName\"     : [\"type\": \"string\", \"description\": \"The application name this connectionId belongs to.\"],\n//                 \"connectionId\": [\"type\": \"string\", \"description\": \"Alphanumeric MongoId. Do not use a name or label here.\"]\n//             ],\n//             \"required\"  : [\"appName\", \"connectionId\"]\n//         ]\n//     ]\n\n//     if (filledConnections.size() == connections.size() && !connections.isEmpty()) {\n//         schema[\"const\"] = connections.collect { [\"appName\": it[\"appName\"], \"connectionId\": it[\"connectionId\"]] }\n//     }\n\n//     return [\"_ua_connectionId\": schema]\n// }\n\n\n\ndef processSchemaProperties(schema, layout, lookups, dynamicSchema, actionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext) {\n    def properties = schema?.properties\n    def allOf = schema?.allOf\n    def required = schema?.required ?: []\n    def renameMap = [:]\n\n    properties.each { propName, propValue ->\n        def layoutProps = layout?.get(propName)\n\n        if (propValue instanceof Map || propValue instanceof List) {\n            propValue = checkTemplateStrings(propValue)\n        }\n\n        if (layoutProps?.get(\"ui:help\")) {\n            propValue[\"description\"] = layoutProps.get(\"ui:help\")\n        }\n        if (!propValue.containsKey('description') && (layoutProps?.get(\"ui:description\") != null)) {\n            propValue[\"description\"] = layoutProps.get(\"ui:description\")\n        }\n\n        if (actionInput instanceof Map && actionInput?.containsKey(propName)) {\n            if (!required.contains(propName)) {\n                required << propName\n            }\n        }\n\n        if (layoutProps?.get(\"ui:field\") == \"DynamicSchemaField\") {\n            def dynamicFieldName = layoutProps?.get(\"ui:options\")?.get(\"ua:field_name\")\n            def requirements = getDynamicSchemaRequirements(layoutProps?.get(\"ui:options\"))\n            if (runTimeConnectionEnabled) {\n                if (requirements == null) requirements = []\n                requirements.add(\"_ua_connectionId\")\n            }\n            if (dynamicFieldName != null) {\n                if (propValue.description == null) propValue.description = \"\"\n                propValue[\"description\"] += \", this field is of type DynamicSchemaField, its schema must be retrieved using the FetchDynamicSchema tool, the FetchDynamicSchema tool must be executed before this tool to provide the necessary schema, regardless of whatever input formate provided by user. All fields returned by FetchDynamicSchema must be nested inside this dynamic field (e.g., \\\"record\\\": { … }), not at the top level of the tool input.\"\n                if (requirements.size() > 0) {\n                    propValue[\"description\"] += \", required fields for fetching the schema are \" + requirements.toString()\n                }\n                if (required.contains(propName)) {\n                    required.remove(propName)\n                    required.add(dynamicFieldName)\n                }\n                renameMap[propName] = dynamicFieldName\n                dynamicSchema << dynamicFieldName\n            }\n        }\n\n        if (layoutProps?.get(\"ui:widget\") == \"LookupWidget\") {\n            def lookupType = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"lookupType\")\n            if (lookupType == \"ENTITY_FIELD\") {\n                def entityType = getTemplatedFields(layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"entityType\"))\n                def group = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"group\")\n                if (propValue.description == null) propValue.description = \"\"\n                def resourceName = group + \"_ENTITY_FIELD\"\n                propValue[\"description\"] += \", this field can be found using tool lookup_\" + group + \"_ENTITY_FIELD and taking the 'field' field from its response. Must call this lookup tool before puting anything into this property.\"\n                if (entityType.size() > 0) {\n                    propValue[\"description\"] += \", required fields for running lookup are [entityType]\"\n                }\n                def entityInputs = [:]\n                entityInputs[\"entityType\"] = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"entityType\")\n                def requirementsSchema = generateJsonSchema(entityInputs)\n                lookups << [\"resourceName\": resourceName, \"inputSchema\": requirementsSchema]\n            } else {\n                def resourceName = layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"source_resource_name\")\n                def requirements = getTemplatedFieldsFromObj(layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"inputs\"))\n                def requirementsSchema = generateJsonSchema(layoutProps?.get(\"ui:options\")?.get(\"ua:payload\")?.get(\"options\")?.get(\"inputs\"))\n                if (resourceName != null) {\n                    if (propValue.description == null) propValue.description = \"\"\n                    propValue[\"description\"] += \", this field can be found using tool lookup_\" + resourceName + \" and taking the id field from its response\"\n                    if (requirements.size() > 0) {\n                        propValue[\"description\"] += \", required fields for running lookup are \" + requirements.toString()\n                    }\n                    if (runTimeConnectionEnabled) {\n                        if (requirementsSchema == null) requirementsSchema = [\"type\": \"object\", \"properties\": [:]]\n                        lookups << [\"appName\": primaryContext?.appName, \"resourceName\": resourceName, \"inputSchema\": requirementsSchema]\n                        def currentConnId = runTimeConnectionIds.find { it[\"appName\"] == primaryContext?.appName }?.connectionId\n                        if (currentConnId && !currentConnId.isBlank()) {\n                            lookups << [\"connectionId\": currentConnId]\n                        }\n                    } else {\n                        lookups << [\"appName\": primaryContext?.appName, \"resourceName\": resourceName, \"connectionId\": primaryContext?.connectionId, \"inputSchema\": requirementsSchema]\n                    }\n                }\n            }\n\n            if (layoutProps?.get(\"ui:options\")?.get(\"multiple\") == true) {\n                propValue[\"type\"] = \"array\"\n            }\n        }\n\n        if (propValue.type == \"object\" && propValue.properties != null) {\n            processSchemaProperties(propValue, layoutProps ?: [:], lookups, dynamicSchema, actionInput?.get(propName), runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n        }\n\n        if (propValue?.type == \"array\" && propValue?.items != null) {\n            def arr = (actionInput instanceof Map) ? actionInput.get(propName) : null\n            def actionInputForArray = (arr instanceof List && !arr.isEmpty()) ? arr[0] : null\n            processSchemaProperties(propValue.items, layoutProps?.items ? layoutProps?.items : [:], lookups, dynamicSchema, actionInputForArray, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n        }\n    }\n\n    if (required.size() > 0) schema.required = required\n\n    if (allOf instanceof List) {\n        allOf.each { allOfEntry ->\n            if (!(allOfEntry instanceof Map)) return\n            [\"then\", \"else\"].each { branch ->\n                def branchSchema = allOfEntry.get(branch)\n                if (branchSchema instanceof Map && branchSchema.properties instanceof Map) {\n                    processSchemaProperties(branchSchema, layout, lookups, dynamicSchema, actionInput, runTimeConnectionEnabled, runTimeConnectionIds,primaryContext)\n                }\n            }\n        }\n    }\n\n    renameMap.each { oldName, newName ->\n        def oldValue = properties.remove(oldName)\n        properties[newName] = oldValue\n    }\n}\n\n\ndef getTemplatedFields(def template) {\n    if (template == null) {\n        return []\n    }\n\n    if (!(template instanceof String)) {\n        return []\n    }\n    \n    return (template =~ /\\{\\{\\s*(.*?)\\s*\\}\\}/).collect { it[1] }\n}\n\ndef getDynamicSchemaRequirements(layoutOptions) {\n    def operationId = layoutOptions?.get(\"ua:operationId\")\n    def payload = layoutOptions?.get(\"ua:payload\")\n\n    if (!operationId) {\n        return []\n    }\n\n    if (operationId.equals(\"getConnectorObject\"))\n        return getTemplatedFields(payload?.get(\"object\"))\n    else if (operationId.equals(\"getEntityType\"))\n        return getTemplatedFields(payload?.get(\"entityType\"))\n    else if (operationId.equals(\"getGeneratedSchema\"))\n        return getTemplatedFields(payload?.get(\"schema\"))\n    return []\n}\n\ndef removeTemplatedFields(def input1) {\n    if (!(input1 instanceof String)) {\n        return []\n    }\n    return input1.replaceAll(/\\{\\{\\s*.*?\\s*\\}\\}/, '')\n}\n\ndef getTemplatedFieldsFromObj(Object inputs) {\n    def templatedFields = []\n    if (inputs != null) {\n        inputs.each { key, value ->\n            templatedFields.addAll(getTemplatedFields(value))\n        }\n    }\n    return templatedFields\n}\n\ndef getSanitizedName(String header) {\n    String sanitized = header.trim().replaceAll(\"[^a-zA-Z0-9]\", \"_\")\n    if (sanitized.length() > 64) {\n        sanitized = sanitized.substring(0, 63)\n    }\n    return sanitized\n}\n\ndef checkTemplateStrings(obj) {\n    if (obj instanceof Map) {\n        obj.each { key, value ->\n            obj[key] = checkTemplateStrings(value)\n        }\n    } else if (obj instanceof List) {\n        obj = obj.collect { item -> checkTemplateStrings(item) }\n    } else if (obj instanceof String) {\n        obj = removeTemplatedFields(obj)\n    }\n    return obj\n}\n\ndef generateJsonSchema(def input) {\n    if (input == null) {\n        return null\n    }\n    def schema = [:]\n    if (input instanceof Map) {\n        schema.type = \"object\"\n        schema.properties = [:]\n        input.each { key, value ->\n            schema.properties[key] = generateJsonSchema(value)\n        }\n    } else if (input instanceof List) {\n        schema.type = \"array\"\n        if (!input.isEmpty()) {\n            schema.items = generateJsonSchema(input[0])\n        } else {\n            schema.items = [:]\n        }\n    } else {\n        schema.type = input.getClass().simpleName.toLowerCase()\n    }\n\n    return schema\n}\n\n// def getRunTimeConnectionIdField(String appName, String connectionId) {\n//     // def props = [\"type\": \"string\", \"description\": \"Never fill this field randomly always ask user if there isnt a value provided. Connection Id with which we are going to execute this tool and this is a required field, if value of this field is unknown and used has mentioned some name on what connection to use we can fetch this from lookup_CONNECTION_\" + appName + \" tool or else we can ask this connection from user Using the ClarifyConnection tool.\"]\n//     def props = [\"type\": \"string\", \"description\": \"This will be an alphaNumericId usually a mongoId , Do not fill in name. Connection Id with which we are going to execute this tool and this is a required field, if value of this field is unknown , we can ask this connection from user Using the ClarifyConnection tool\" + \" appName for this connection is \" + appName]\n//     if (connectionId && !connectionId.isBlank()) {\n//         props << [\"const\": connectionId]\n//     }\n//     return [\"_ua_connectionId\": props]\n// }",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -4604,11 +4619,6 @@
 					},
 					"inputSchemaObj":"{{ ugcjl.outputs.schema }}",
 					"runTimeConnectionEnabled":"{{ M1ZX3.outputs.runTimeConnectionEnabled }}",
-					"runTimeConnectionIds":{
-						"items":"{{ n_gjUV0.outputs.items[0] }}",
-						"source":"{{ n_gjUV0.outputs.items }}",
-						"ua:type":"mappedArray"
-					},
 					"toolName":"{{ n_R5ujw.outputs.name }}"
 				}
 			},
@@ -4663,7 +4673,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_u6WJr@_yALIl-1@error",
 			"id":"_B3lOV",
-			"index":45,
+			"index":46,
 			"inputs":{
 				"result":{
 					"enableClarifyConnection":"{{ 0DA7Z.outputs.enableClarifyConnection }}",
@@ -4724,7 +4734,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_dfjrh",
-			"index":46,
+			"index":47,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4752,7 +4762,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"// Recursive function to process the schema\nvoid processSchema(Map node) {\n    if (!(node instanceof Map) || node == null) return\n\n    if (node.containsKey('oneOf') && node.oneOf instanceof List) {\n      def values = node.oneOf.collect { [\"const\": it.const, \"title\": it.title] }\n      def oneOfString = com.unifyapps.infra.utils.JsonUtils.toJson(values)\n      def desc = node.description ?: \"\"\n      node.description = desc + \"\\n\\nPossible Values (stringified):\\n\" + oneOfString\n      node.remove('oneOf')\n    }\n    if (node.containsKey('allOf') && node.allOf instanceof List) {\n        def notes = []\n        node.allOf.each { branch ->\n            if (!(branch instanceof Map)) return\n            def thenBlock = branch.then\n            if (!(thenBlock instanceof Map)) return\n\n            // Merge then.properties into parent as optional fields\n            if (thenBlock.properties instanceof Map) {\n                if (!(node.properties instanceof Map)) node.properties = [:]\n                thenBlock.properties.each { propKey, propSchema ->\n                    if (!node.properties.containsKey(propKey)) {\n                        if (propSchema instanceof Map) processSchema(propSchema)\n                        node.properties[propKey] = propSchema\n                    }\n                }\n            }\n\n            // Build a readable note from the `if` condition\n            def ifBlock = branch.if\n            def condParts = []\n            if (ifBlock instanceof Map && ifBlock.properties instanceof Map) {\n                ifBlock.properties.each { k, v ->\n                    if (v?.const != null) condParts << \"${k}='${v.const}'\"\n                }\n            }\n            def addedFields = (thenBlock.properties instanceof Map)\n                ? thenBlock.properties.keySet().join(', ') : ''\n            def addedRequired = (thenBlock.required instanceof List)\n                ? thenBlock.required.join(', ') : ''\n\n            if (condParts && (addedFields || addedRequired)) {\n                def msg = \"When ${condParts.join(' AND ')}:\"\n                if (addedFields)   msg += \" fields [${addedFields}] apply.\"\n                if (addedRequired) msg += \" Required: [${addedRequired}].\"\n                notes << msg\n            }\n        }\n        if (notes) {\n            node.description = (node.description ?: '') + \"\\n\\nConditional rules:\\n\" + notes.join(\"\\n\")\n        }\n        node.remove('allOf')\n    }\n    if (node.containsKey('dependencies')) {\n        def depString = com.unifyapps.infra.utils.JsonUtils.toJson(node.dependencies)\n        def desc = node.description ?: \"\"\n        node.description = desc + \"\\n\\nDependencies (stringified):\\n\" + depString\n        node.remove('dependencies')\n    }\n    if (node.containsKey('properties') && (node.properties instanceof Map)){\n        node.properties.each { k, v ->\n            if (v instanceof Map) processSchema(v)\n        }\n    }\n\n    // items (array schemas) — support schema or tuple typing\n    if (node.containsKey('items')) {\n        def items = node.items\n        if (items instanceof Map) {\n            processSchema(items)\n        }\n    }\n}\nif(binding.hasVariable(\"toolInputSchema\")){\n    processSchema(toolInputSchema)\n    return [\n        \"toolInputSchema\": toolInputSchema\n    ]\n}\nreturn [\n    \"toolInputSchema\": [:]\n]",
+				"code":"// Recursive function to process the schema\nvoid processSchema(Map node) {\n    if (!(node instanceof Map) || node == null) return\n\n    if (node.containsKey('oneOf') && node.oneOf instanceof List) {\n      def values = node.oneOf.collect { [\"const\": it.const, \"title\": it.title] }\n      def oneOfString = com.unifyapps.infra.utils.JsonUtils.toJson(values)\n      def desc = node.description ?: \"\"\n      node.description = desc + \"\\n\\nPossible Values (stringified):\\n\" + oneOfString\n      node.remove('oneOf')\n    }\n    if (node.containsKey('allOf') && node.allOf instanceof List) {\n        def notes = []\n        node.allOf.each { branch ->\n            if (!(branch instanceof Map)) return\n            def thenBlock = branch.then\n            if (!(thenBlock instanceof Map)) return\n\n            // Merge then.properties into parent as optional fields\n            if (thenBlock.properties instanceof Map) {\n                if (!(node.properties instanceof Map)) node.properties = [:]\n                thenBlock.properties.each { propKey, propSchema ->\n                    if (!node.properties.containsKey(propKey)) {\n                        if (propSchema instanceof Map) processSchema(propSchema)\n                        node.properties[propKey] = propSchema\n                    }\n                }\n            }\n\n            // Build a readable note from the `if` condition\n            def ifBlock = branch.if\n            def condParts = []\n            if (ifBlock instanceof Map && ifBlock.properties instanceof Map) {\n                ifBlock.properties.each { k, v ->\n                    if (v?.const != null) condParts << \"${k}='${v.const}'\"\n                }\n            }\n            def addedFields = (thenBlock.properties instanceof Map)\n                ? thenBlock.properties.keySet().join(', ') : ''\n            def addedRequired = (thenBlock.required instanceof List)\n                ? thenBlock.required.join(', ') : ''\n\n            if (condParts && (addedFields || addedRequired)) {\n                def msg = \"When ${condParts.join(' AND ')}:\"\n                if (addedFields)   msg += \" fields [${addedFields}] apply.\"\n                if (addedRequired) msg += \" Required: [${addedRequired}].\"\n                notes << msg\n            }\n        }\n        if (notes) {\n            node.description = (node.description ?: '') + \"\\n\\nConditional rules:\\n\" + notes.join(\"\\n\")\n        }\n        node.remove('allOf')\n    }\n    if (node.containsKey('dependencies')) {\n        def depString = com.unifyapps.infra.utils.JsonUtils.toJson(node.dependencies)\n        def desc = node.description ?: \"\"\n        node.description = desc + \"\\n\\nDependencies (stringified):\\n\" + depString\n        node.remove('dependencies')\n    }\n    if (node.containsKey('properties') && (node.properties instanceof Map)){\n        node.properties.each { k, v ->\n            if (v instanceof Map) processSchema(v)\n        }\n    }\n\n    // items (array schemas) — support schema or tuple typing\n    if (node.containsKey('items')) {\n        def items = node.items\n        if (items instanceof Map) {\n            processSchema(items)\n        }\n    }\n\n    // A humanized 'title' ('Name', 'Case Id') is read by some models as the property KEY: the model\n    // emits {'Name': ...} against a schema whose key is 'name', and the receiving automation - which\n    // binds by key - silently drops it. The key is the contract, so drop the label entirely. Done\n    // last so the oneOf/allOf collapses above still read branch titles for their description text.\n    node.remove('title')\n}\nif(binding.hasVariable(\"toolInputSchema\")){\n    processSchema(toolInputSchema)\n    return [\n        \"toolInputSchema\": toolInputSchema\n    ]\n}\nreturn [\n    \"toolInputSchema\": [:]\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -4776,7 +4786,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"n_wNBoH",
-			"index":47,
+			"index":48,
 			"inputs":{
 				"filters":[
 					{
@@ -4806,7 +4816,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wNBoH@_yALIl-1@y",
 			"id":"n_JnxRl",
-			"index":48,
+			"index":49,
 			"inputs":{
 				"itemToAdd":"{{ _u6WJr.outputs.result.toolName }}",
 				"insertLocation":"END",
@@ -4837,7 +4847,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wNBoH@_yALIl-1@y",
 			"id":"_7H7j9",
-			"index":49,
+			"index":50,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -4883,11 +4893,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"_3f8LX",
-			"index":50,
+			"index":51,
 			"inputs":{
 				"itemToAdd":{
 					"deferToolLoading":"{{ n_R5ujw.outputs.deferToolLoading }}",
-					"description":"=CONCATENATE({{ n_R5ujw.outputs.description }},{{ _u6WJr.outputs.result.descriptionToAdd }})",
+					"description":"=CONCATENATE({{ M1ZX3.outputs.finalDescription }},{{ _u6WJr.outputs.result.descriptionToAdd }})",
 					"id":"{{ n_R5ujw.outputs.id }}",
 					"name":"{{ _u6WJr.outputs.result.toolName }}",
 					"toolInputSchema":"{{ n_dfjrh.outputs.result.toolInputSchema }}"
@@ -4913,7 +4923,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"_hNBbI",
-			"index":51,
+			"index":52,
 			"inputs":{
 				"variables":[
 					{
@@ -4939,7 +4949,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yALIl-1",
 			"id":"_WCurd",
-			"index":52,
+			"index":53,
 			"inputs":{
 				"result":{
 					"enableClarifyConnection":"{{ 0DA7Z.outputs.enableClarifyConnection }}",
@@ -5008,5 +5018,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":126
+	"version":128
 }
