@@ -2,21 +2,21 @@
 	"appsUsed":[
 		
 	],
-	"createdTime":1787743468220,
+	"createdTime":1789395297258,
 	"deleted":false,
-	"deployedVersion":2,
+	"deployedVersion":1,
 	"deploymentState":{
-		"deployedAt":1789395048531,
+		"deployedAt":1789395297300,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6aa80068c6a14707f1502f41",
+		"deployedDefinitionId":"6aa8016139ee5f5ef70b6625",
 		"status":"DEPLOYED",
-		"version":2,
-		"workflowVersion":4
+		"version":1,
+		"workflowVersion":7
 	},
 	"edges":[
 		{
-			"fromNodeId":"n_jLPeQ",
-			"id":"next@n_jLPeQ@gk2RF",
+			"fromNodeId":"n_MNKWS",
+			"id":"next@n_MNKWS@gk2RF",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"gk2RF",
@@ -32,10 +32,10 @@
 		},
 		{
 			"fromNodeId":"lMkfV",
-			"id":"next@lMkfV@n_9azRS",
+			"id":"next@lMkfV@n_bdGUZ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_9azRS",
+			"toNodeId":"n_bdGUZ",
 			"type":"next"
 		}
 	],
@@ -51,23 +51,23 @@
 			}
 		]
 	},
-	"id":"6a86d2afb811a955791b2477",
+	"id":"6a930b23c0f28638c100c240",
 	"lastModifiedBy":-1,
-	"lcName":"submit client tools",
-	"modifiedTime":1789395397673,
-	"name":"Submit Client Tools",
+	"lcName":"routine | submit connection details",
+	"modifiedTime":1789395397674,
+	"name":"ROUTINE | Submit Connection Details",
 	"nodes":[
 		{
 			"context":{
 				"appName":"callables",
-				"resourceVersion":1134,
+				"resourceVersion":7139,
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_AzCy0-1",
-			"id":"n_jLPeQ",
+			"groupId":"_bOrs5-1",
+			"id":"n_MNKWS",
 			"index":1,
 			"inputs":{
 				"result":{
@@ -84,28 +84,28 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
-						"caseId":{
-							"title":"Case Id",
-							"type":"string"
-						},
-						"toolResults":{
+						"appNameVsConnections":{
 							"items":{
 								"additionalProperties":false,
 								"properties":{
-									"isError":{
-										"title":"Is Error",
-										"type":"boolean"
+									"appName":{
+										"title":"App Name",
+										"type":"string"
 									},
-									"toolCallId":{
-										"title":"Tool Call Id",
+									"connectionId":{
+										"title":"Connection Id",
 										"type":"string"
 									}
 								},
 								"required":[],
 								"type":"object"
 							},
-							"title":"Tool Results",
+							"title":"App Name Vs Connections",
 							"type":"array"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
 						}
 					},
 					"required":[],
@@ -130,7 +130,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_AzCy0-1",
+			"groupId":"_bOrs5-1",
 			"id":"gk2RF",
 			"index":2,
 			"inputs":{
@@ -138,7 +138,7 @@
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
-				"id":"{{ n_jLPeQ.outputs.caseId }}",
+				"id":"{{ n_MNKWS.outputs.caseId }}",
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
@@ -161,7 +161,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_AzCy0-1",
+			"groupId":"_bOrs5-1",
 			"id":"lMkfV",
 			"index":3,
 			"inputs":{
@@ -172,7 +172,7 @@
 				"waitingInstanceId":"{{ gk2RF.outputs.properties.waitingInstanceId }}",
 				"signal_payload":{
 					"signal_payload":{
-						"received":"{{ n_jLPeQ.outputs.toolResults }}"
+						"received":"{{ n_MNKWS.outputs.appNameVsConnections }}"
 					},
 					"signal_time_out":false
 				},
@@ -186,15 +186,15 @@
 		{
 			"context":{
 				"appName":"callables",
-				"resourceVersion":1157,
+				"resourceVersion":7175,
 				"resourceName":"callables_return_to_automation",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_AzCy0-1",
-			"id":"n_9azRS",
+			"groupId":"_bOrs5-1",
+			"id":"n_bdGUZ",
 			"index":4,
 			"inputs":{
 				"result":{
@@ -221,5 +221,5 @@
 		}
 	},
 	"standard":true,
-	"version":5
+	"version":8
 }
