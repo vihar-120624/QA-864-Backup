@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743777138,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743777333,
+		"deployedAt":1789395180722,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece2145d2142160e6e057",
+		"deployedDefinitionId":"6aa800ecc6a14707f1503666",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":69
+		"version":2,
+		"workflowVersion":72
 	},
 	"edges":[
 		{
@@ -152,7 +152,7 @@
 	"id":"6a464b1f2037c23da627f252",
 	"lastModifiedBy":-1,
 	"lcName":"get indexing stats | knowledge overview v2",
-	"modifiedTime":1788252972588,
+	"modifiedTime":1789395395114,
 	"name":"Get Indexing Stats | Knowledge Overview v2",
 	"nodes":[
 		{
@@ -170,6 +170,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"entityIndexingStats":{
 							"items":{
@@ -517,7 +518,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"query":"SELECT _pr_status AS status, COUNT(*) AS data_count\nFROM ENTITY_knowledge_raw_data_store\nWHERE _pr_knowledgeId = '{{ n_IfJUX.outputs.knowledgeId }}'\n  AND _pr_knowledgeVersion = {{ n_oLFjF.outputs.result.indexingVersion }}\n  AND _pr_resourceType IN ({{ n_ZmOG9.outputs.result.allDataTypeStr }})\n  AND (_pr_isDeleted = false OR _pr_isDeleted IS NULL)\n  AND deleted = false\n  AND _pr_isArchived = false\nGROUP BY _pr_status;",
+				"query":"SELECT _pr_status AS status, COUNT(*) AS data_count\nFROM ENTITY_knowledge_raw_data_store\nWHERE _pr_knowledgeId = '{{ n_IfJUX.outputs.knowledgeId }}'\n  AND _pr_knowledgeVersion = {{ n_oLFjF.outputs.result.indexingVersion }}\n  AND _pr_resourceType IN ({{ n_ZmOG9.outputs.result.allDataTypeStr }})\n  AND (_pr_isDeleted = false OR _pr_isDeleted IS NULL)\n  AND deleted = false\n  AND (_pr_isArchived = false OR _pr_isArchived IS NULL)\nGROUP BY _pr_status;",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":false,
@@ -603,7 +604,7 @@
 			"id":"n_EJ30L",
 			"index":10,
 			"inputs":{
-				"query":"SELECT\n  _pr_resourceType AS resource_type,\n  CASE\n    WHEN _pr_resourceType IN ({{ n_ZmOG9.outputs.result.fileDataTypeStr }})\n    THEN COALESCE(_pr_additional__mimeType, _pr_additional__fileDetails__fileType)\n    ELSE NULL\n  END AS mime_type,\n  COUNT(*) AS data_count\nFROM ENTITY_knowledge_raw_data_store\nWHERE _pr_knowledgeId = '{{ n_IfJUX.outputs.knowledgeId }}'\n  AND _pr_resourceType IN ({{ n_ZmOG9.outputs.result.allDataTypeStr }})\n  AND _pr_status = 'PROCESSED'\n  AND _pr_knowledgeVersion = {{ n_oLFjF.outputs.result.indexingVersion }}\n  AND (_pr_isDeleted = false OR _pr_isDeleted IS NULL)\n  AND deleted = false\n  AND _pr_isArchived = false\nGROUP BY 1, 2;",
+				"query":"SELECT\n  _pr_resourceType AS resource_type,\n  CASE\n    WHEN _pr_resourceType IN ({{ n_ZmOG9.outputs.result.fileDataTypeStr }})\n    THEN COALESCE(_pr_additional__mimeType, _pr_additional__fileDetails__fileType)\n    ELSE NULL\n  END AS mime_type,\n  COUNT(*) AS data_count\nFROM ENTITY_knowledge_raw_data_store\nWHERE _pr_knowledgeId = '{{ n_IfJUX.outputs.knowledgeId }}'\n  AND _pr_resourceType IN ({{ n_ZmOG9.outputs.result.allDataTypeStr }})\n  AND _pr_status = 'PROCESSED'\n  AND _pr_knowledgeVersion = {{ n_oLFjF.outputs.result.indexingVersion }}\n  AND (_pr_isDeleted = false OR _pr_isDeleted IS NULL)\n  AND deleted = false\n  AND (_pr_isArchived = false OR _pr_isArchived IS NULL)\nGROUP BY 1, 2;",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":false,
@@ -852,7 +853,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"if (!binding.hasVariable(\"columns\") || !binding.hasVariable(\"reportingEntities\")) {\n  return [:]\n}\n\n// --- mime type lookups (by id, and by mime string e.g. \"application/pdf\") ---\ndef mts = binding.hasVariable(\"mimeTypes\") ? mimeTypes : []\ndef mimeIdVsName = mts.collectEntries { [(it.id): it.name] }\ndef mimeStrVsName = mts.findAll { it.mimeType }.collectEntries { [(it.mimeType): it.name] }  // adjust field if needed\n\n// --- per-entity setup ---\ndef entityStats = [:]        // entityId -> result object\ndef resourceTypeInfo = [:]   // dataType name -> [entityId, pluralName, isFile, isPrimary]\n\nreportingEntities.each { entity ->\n  def props = entity.properties ?: [:]\n  def fileDataType = props.isFileType ? props.fileDataType : null\n  def primaryType = props.type ?: fileDataType\n\n  def stats = [reportingEntity: entity.id, count: 0L, relatedDataTypes: [:]]\n  entityStats[entity.id] = stats\n\n  props.relatedDataTypes?.each { dt ->\n    resourceTypeInfo[dt.name] = [entityId: entity.id, pluralName: dt.pluralName]\n    if (dt.name != fileDataType) {\n      stats.relatedDataTypes[dt.pluralName] = 0L   // pre-fill so 0s show up\n    }\n  }\n\n  if (primaryType && !resourceTypeInfo.containsKey(primaryType)) {\n    resourceTypeInfo[primaryType] = [entityId: entity.id, pluralName: primaryType]\n  }\n  if (fileDataType && !resourceTypeInfo.containsKey(fileDataType)) {\n    resourceTypeInfo[fileDataType] = [entityId: entity.id, pluralName: fileDataType]\n  }\n\n  if (fileDataType) resourceTypeInfo[fileDataType].isFile = true\n  if (primaryType) resourceTypeInfo[primaryType].isPrimary = true\n}\n\n// --- fold in query results ---\ncolumns.each { column ->\n  def info = resourceTypeInfo[column.resource_type]\n  if (info == null) return   // resource type not declared by any entity\n\n  def stats = entityStats[info.entityId]\n  def count = (column.data_count ?: 0) as Long\n\n  if (info.isPrimary) stats.count += count\n\n  // file rows are keyed by resolved mime type name; others by pluralName\n  def key = info.isFile\n      ? (mimeIdVsName[column.mime_type] ?: mimeStrVsName[column.mime_type] ?: \"Others\")\n      : info.pluralName\n\n  stats.relatedDataTypes[key] = (stats.relatedDataTypes[key] ?: 0L) + count\n}\n\n// syncInProgress\ndef syncInProgress = false\n\nif (binding.hasVariable(\"syncInProgressColumns\") && syncInProgressColumns[0].syncInProgress) {\n  syncInProgress = true\n}\nif (binding.hasVariable(\"inProgressTask\")) {\n  syncInProgress = true\n}\n\nreturn [\n  \"entityIndexingStats\": entityStats.values() as List,\n  \"syncInProgress\": syncInProgress\n]",
+				"code":"// syncInProgress\ndef syncInProgress = false\n\nif (binding.hasVariable(\"syncInProgressColumns\") && syncInProgressColumns[0].syncInProgress) {\n  syncInProgress = true\n}\nif (binding.hasVariable(\"inProgressTask\")) {\n  syncInProgress = true\n}\n\nif (!binding.hasVariable(\"columns\") || !binding.hasVariable(\"reportingEntities\")) {\n  return [\"syncInProgress\": syncInProgress]\n}\n\n// --- mime type lookups (by id, and by mime string e.g. \"application/pdf\") ---\ndef mts = binding.hasVariable(\"mimeTypes\") ? mimeTypes : []\ndef mimeIdVsName = mts.collectEntries { [(it.id): it.name] }\ndef mimeStrVsName = mts.findAll { it.mimeType }.collectEntries { [(it.mimeType): it.name] }  // adjust field if needed\n\n// --- per-entity setup ---\ndef entityStats = [:]        // entityId -> result object\ndef resourceTypeInfo = [:]   // dataType name -> [entityId, pluralName, isFile, isPrimary]\n\nreportingEntities.each { entity ->\n  def props = entity.properties ?: [:]\n  def fileDataType = props.isFileType ? props.fileDataType : null\n  def primaryType = props.type ?: fileDataType\n\n  def stats = [reportingEntity: entity.id, count: 0L, relatedDataTypes: [:]]\n  entityStats[entity.id] = stats\n\n  props.relatedDataTypes?.each { dt ->\n    resourceTypeInfo[dt.name] = [entityId: entity.id, pluralName: dt.pluralName]\n    if (dt.name != fileDataType) {\n      stats.relatedDataTypes[dt.pluralName] = 0L   // pre-fill so 0s show up\n    }\n  }\n\n  if (primaryType && !resourceTypeInfo.containsKey(primaryType)) {\n    resourceTypeInfo[primaryType] = [entityId: entity.id, pluralName: primaryType]\n  }\n  if (fileDataType && !resourceTypeInfo.containsKey(fileDataType)) {\n    resourceTypeInfo[fileDataType] = [entityId: entity.id, pluralName: fileDataType]\n  }\n\n  if (fileDataType) resourceTypeInfo[fileDataType].isFile = true\n  if (primaryType) resourceTypeInfo[primaryType].isPrimary = true\n}\n\n// --- fold in query results ---\ncolumns.each { column ->\n  def info = resourceTypeInfo[column.resource_type]\n  if (info == null) return   // resource type not declared by any entity\n\n  def stats = entityStats[info.entityId]\n  def count = (column.data_count ?: 0) as Long\n\n  if (info.isPrimary) stats.count += count\n\n  // file rows are keyed by resolved mime type name; others by pluralName\n  def key = info.isFile\n      ? (mimeIdVsName[column.mime_type] ?: mimeStrVsName[column.mime_type] ?: \"Others\")\n      : info.pluralName\n\n  stats.relatedDataTypes[key] = (stats.relatedDataTypes[key] ?: 0L) + count\n}\n\n\n\nreturn [\n  \"entityIndexingStats\": entityStats.values() as List,\n  \"syncInProgress\": syncInProgress\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -939,5 +940,5 @@
 		}
 	},
 	"standard":true,
-	"version":71
+	"version":73
 }
