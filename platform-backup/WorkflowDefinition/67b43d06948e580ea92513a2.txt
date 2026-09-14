@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743889139,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743889368,
+		"deployedAt":1789395251117,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece919d7c534668ef9f41",
+		"deployedDefinitionId":"6aa80133c6a14707f1503a94",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":74
+		"version":2,
+		"workflowVersion":77
 	},
 	"edges":[
 		{
@@ -268,7 +268,7 @@
 	"id":"67b43d06948e580ea92513a2",
 	"lastModifiedBy":-1,
 	"lcName":"retrigger agent executor",
-	"modifiedTime":1788252971639,
+	"modifiedTime":1789395399794,
 	"name":"Retrigger Agent Executor",
 	"nodes":[
 		{
@@ -291,6 +291,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"messageId":{
 							"title":"Message Id",
@@ -325,9 +326,128 @@
 							"title":"Invoke By Workflow Id",
 							"type":"string"
 						},
+						"isPreviousContextChanged":{
+							"title":"Is Previous Context Changed",
+							"type":"boolean"
+						},
 						"lastExecutedTool":{
 							"title":"Last Executed Tool",
 							"type":"string"
+						},
+						"previousSystemPromptContext":{
+							"additionalProperties":false,
+							"properties":{
+								"availableTools":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"additional":{
+												"title":"additional",
+												"type":"object"
+											},
+											"deferToolLoading":{
+												"title":"deferToolLoading",
+												"type":"boolean"
+											},
+											"description":{
+												"title":"description",
+												"type":"string"
+											},
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"toolInputSchema":{
+												"title":"toolInputSchema",
+												"type":"object"
+											}
+										},
+										"type":"object"
+									},
+									"title":"availableTools",
+									"type":"array"
+								},
+								"currentTopic":{
+									"title":"currentTopic",
+									"type":"string"
+								},
+								"deepResearch":{
+									"title":"deepResearch",
+									"type":"boolean"
+								},
+								"disableInlineCitations":{
+									"title":"disableInlineCitations",
+									"type":"boolean"
+								},
+								"enableFollowups":{
+									"title":"enableFollowups",
+									"type":"boolean"
+								},
+								"internalWebSearch":{
+									"title":"internalWebSearch",
+									"type":"boolean"
+								},
+								"memoryEnabled":{
+									"title":"memoryEnabled",
+									"type":"boolean"
+								},
+								"modelId":{
+									"title":"modelId",
+									"type":"string"
+								},
+								"responseSchema":{
+									"title":"responseSchema",
+									"type":"object"
+								},
+								"response_format":{
+									"title":"response_format",
+									"type":"string"
+								},
+								"sandboxToolAdded":{
+									"title":"sandboxToolAdded",
+									"type":"boolean"
+								},
+								"stream":{
+									"title":"stream",
+									"type":"boolean"
+								},
+								"systemPrompt":{
+									"title":"systemPrompt",
+									"type":"string"
+								},
+								"textToSQLSettings":{
+									"additionalProperties":false,
+									"properties":{
+										"isOnlyTextToSQLAgent":{
+											"title":"isOnlyTextToSQLAgent",
+											"type":"boolean"
+										},
+										"sqlAndChart1LLMCall_Variant":{
+											"title":"sqlAndChart1LLMCall_Variant",
+											"type":"boolean"
+										},
+										"topicIdForOnlyText2SQL":{
+											"title":"topicIdForOnlyText2SQL",
+											"type":"string"
+										}
+									},
+									"title":"textToSQLSettings",
+									"type":"object"
+								},
+								"useProviderWebSearch":{
+									"title":"useProviderWebSearch",
+									"type":"boolean"
+								},
+								"websearchModelID":{
+									"title":"websearchModelID",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"task":{
 							"title":"Task",
@@ -893,6 +1013,38 @@
 			"type":"IF_ELSE"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.aiAgentId",
+					"root.parameters.caseId",
+					"root.parameters.instructionsToAppend",
+					"root.parameters.invokeByWorkflowId",
+					"root.parameters.task",
+					"root.parameters.taskId",
+					"root.parameters.previousSystemPromptContext.availableTools.source",
+					"root.parameters.previousSystemPromptContext.availableTools.ua:type",
+					"root.parameters.previousSystemPromptContext.availableTools.items.deferToolLoading",
+					"root.parameters.previousSystemPromptContext.availableTools.items.description",
+					"root.parameters.previousSystemPromptContext.availableTools.items.id",
+					"root.parameters.previousSystemPromptContext.availableTools.items.name",
+					"root.parameters.previousSystemPromptContext.currentTopic",
+					"root.parameters.previousSystemPromptContext.deepResearch",
+					"root.parameters.previousSystemPromptContext.disableInlineCitations",
+					"root.parameters.previousSystemPromptContext.enableFollowups",
+					"root.parameters.previousSystemPromptContext.internalWebSearch",
+					"root.parameters.previousSystemPromptContext.memoryEnabled",
+					"root.parameters.previousSystemPromptContext.modelId",
+					"root.parameters.previousSystemPromptContext.response_format",
+					"root.parameters.previousSystemPromptContext.sandboxToolAdded",
+					"root.parameters.previousSystemPromptContext.stream",
+					"root.parameters.previousSystemPromptContext.systemPrompt",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL",
+					"root.parameters.previousSystemPromptContext.useProviderWebSearch",
+					"root.parameters.previousSystemPromptContext.websearchModelID"
+				]
+			},
 			"context":{
 				"appName":"callables",
 				"resourceVersion":15,
@@ -916,6 +1068,40 @@
 					"caseId":"{{ od8bl.outputs.caseId }}",
 					"instructionsToAppend":"{{ od8bl.outputs.instructionsToAppend }}",
 					"invokeByWorkflowId":"{{ od8bl.outputs.invokeByWorkflowId }}",
+					"isPreviousContextChanged":"{{ od8bl.outputs.isPreviousContextChanged }}",
+					"previousSystemPromptContext":{
+						"availableTools":{
+							"items":{
+								"additional":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].additional }}",
+								"deferToolLoading":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].deferToolLoading }}",
+								"description":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].description }}",
+								"id":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].id }}",
+								"name":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].name }}",
+								"toolInputSchema":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].toolInputSchema }}"
+							},
+							"source":"{{ od8bl.outputs.previousSystemPromptContext.availableTools }}",
+							"ua:type":"mappedArray"
+						},
+						"currentTopic":"{{ od8bl.outputs.previousSystemPromptContext.currentTopic }}",
+						"deepResearch":"{{ od8bl.outputs.previousSystemPromptContext.deepResearch }}",
+						"disableInlineCitations":"{{ od8bl.outputs.previousSystemPromptContext.disableInlineCitations }}",
+						"enableFollowups":"{{ od8bl.outputs.previousSystemPromptContext.enableFollowups }}",
+						"internalWebSearch":"{{ od8bl.outputs.previousSystemPromptContext.internalWebSearch }}",
+						"memoryEnabled":"{{ od8bl.outputs.previousSystemPromptContext.memoryEnabled }}",
+						"modelId":"{{ od8bl.outputs.previousSystemPromptContext.modelId }}",
+						"responseSchema":"{{ od8bl.outputs.previousSystemPromptContext.responseSchema }}",
+						"response_format":"{{ od8bl.outputs.previousSystemPromptContext.response_format }}",
+						"sandboxToolAdded":"{{ od8bl.outputs.previousSystemPromptContext.sandboxToolAdded }}",
+						"stream":"{{ od8bl.outputs.previousSystemPromptContext.stream }}",
+						"systemPrompt":"{{ od8bl.outputs.previousSystemPromptContext.systemPrompt }}",
+						"textToSQLSettings":{
+							"isOnlyTextToSQLAgent":"{{ od8bl.outputs.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent }}",
+							"sqlAndChart1LLMCall_Variant":"{{ od8bl.outputs.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant }}",
+							"topicIdForOnlyText2SQL":"{{ od8bl.outputs.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL }}"
+						},
+						"useProviderWebSearch":"{{ od8bl.outputs.previousSystemPromptContext.useProviderWebSearch }}",
+						"websearchModelID":"{{ od8bl.outputs.previousSystemPromptContext.websearchModelID }}"
+					},
 					"task":"{{ od8bl.outputs.task }}",
 					"taskId":"{{ od8bl.outputs.taskId }}"
 				},
@@ -955,6 +1141,38 @@
 			"type":"CALL_WORKFLOW"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.aiAgentId",
+					"root.parameters.caseId",
+					"root.parameters.instructionsToAppend",
+					"root.parameters.invokeByWorkflowId",
+					"root.parameters.task",
+					"root.parameters.taskId",
+					"root.parameters.previousSystemPromptContext.availableTools.source",
+					"root.parameters.previousSystemPromptContext.availableTools.ua:type",
+					"root.parameters.previousSystemPromptContext.availableTools.items.deferToolLoading",
+					"root.parameters.previousSystemPromptContext.availableTools.items.description",
+					"root.parameters.previousSystemPromptContext.availableTools.items.id",
+					"root.parameters.previousSystemPromptContext.availableTools.items.name",
+					"root.parameters.previousSystemPromptContext.currentTopic",
+					"root.parameters.previousSystemPromptContext.deepResearch",
+					"root.parameters.previousSystemPromptContext.disableInlineCitations",
+					"root.parameters.previousSystemPromptContext.enableFollowups",
+					"root.parameters.previousSystemPromptContext.internalWebSearch",
+					"root.parameters.previousSystemPromptContext.memoryEnabled",
+					"root.parameters.previousSystemPromptContext.modelId",
+					"root.parameters.previousSystemPromptContext.response_format",
+					"root.parameters.previousSystemPromptContext.sandboxToolAdded",
+					"root.parameters.previousSystemPromptContext.stream",
+					"root.parameters.previousSystemPromptContext.systemPrompt",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL",
+					"root.parameters.previousSystemPromptContext.useProviderWebSearch",
+					"root.parameters.previousSystemPromptContext.websearchModelID"
+				]
+			},
 			"context":{
 				"appName":"callables",
 				"resourceVersion":15,
@@ -977,6 +1195,40 @@
 					"caseId":"{{ od8bl.outputs.caseId }}",
 					"instructionsToAppend":"{{ od8bl.outputs.instructionsToAppend }}",
 					"invokeByWorkflowId":"{{ od8bl.outputs.invokeByWorkflowId }}",
+					"isPreviousContextChanged":"{{ od8bl.outputs.isPreviousContextChanged }}",
+					"previousSystemPromptContext":{
+						"availableTools":{
+							"items":{
+								"additional":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].additional }}",
+								"deferToolLoading":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].deferToolLoading }}",
+								"description":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].description }}",
+								"id":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].id }}",
+								"name":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].name }}",
+								"toolInputSchema":"{{ od8bl.outputs.previousSystemPromptContext.availableTools[0].toolInputSchema }}"
+							},
+							"source":"{{ od8bl.outputs.previousSystemPromptContext.availableTools }}",
+							"ua:type":"mappedArray"
+						},
+						"currentTopic":"{{ od8bl.outputs.previousSystemPromptContext.currentTopic }}",
+						"deepResearch":"{{ od8bl.outputs.previousSystemPromptContext.deepResearch }}",
+						"disableInlineCitations":"{{ od8bl.outputs.previousSystemPromptContext.disableInlineCitations }}",
+						"enableFollowups":"{{ od8bl.outputs.previousSystemPromptContext.enableFollowups }}",
+						"internalWebSearch":"{{ od8bl.outputs.previousSystemPromptContext.internalWebSearch }}",
+						"memoryEnabled":"{{ od8bl.outputs.previousSystemPromptContext.memoryEnabled }}",
+						"modelId":"{{ od8bl.outputs.previousSystemPromptContext.modelId }}",
+						"responseSchema":"{{ od8bl.outputs.previousSystemPromptContext.responseSchema }}",
+						"response_format":"{{ od8bl.outputs.previousSystemPromptContext.response_format }}",
+						"sandboxToolAdded":"{{ od8bl.outputs.previousSystemPromptContext.sandboxToolAdded }}",
+						"stream":"{{ od8bl.outputs.previousSystemPromptContext.stream }}",
+						"systemPrompt":"{{ od8bl.outputs.previousSystemPromptContext.systemPrompt }}",
+						"textToSQLSettings":{
+							"isOnlyTextToSQLAgent":"{{ od8bl.outputs.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent }}",
+							"sqlAndChart1LLMCall_Variant":"{{ od8bl.outputs.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant }}",
+							"topicIdForOnlyText2SQL":"{{ od8bl.outputs.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL }}"
+						},
+						"useProviderWebSearch":"{{ od8bl.outputs.previousSystemPromptContext.useProviderWebSearch }}",
+						"websearchModelID":"{{ od8bl.outputs.previousSystemPromptContext.websearchModelID }}"
+					},
 					"task":"{{ od8bl.outputs.task }}",
 					"taskId":"{{ od8bl.outputs.taskId }}"
 				},
@@ -1030,5 +1282,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":76
+	"version":78
 }

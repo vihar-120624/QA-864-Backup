@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743620701,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743621402,
+		"deployedAt":1789395097680,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd85177b4b4aca57a171",
+		"deployedDefinitionId":"6aa80099c6a14707f1503100",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":118
+		"version":2,
+		"workflowVersion":121
 	},
 	"edges":[
 		{
@@ -56,7 +56,33 @@
 		},
 		{
 			"fromNodeId":"n_JEuXB",
-			"id":"next@n_JEuXB@n_IaBt4",
+			"id":"next@n_JEuXB@n_s2a8S",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_s2a8S",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_s2a8S",
+			"id":"if@n_s2a8S@n_ry012",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ry012",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_ry012",
+			"id":"next@n_ry012@n_IaBt4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IaBt4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_s2a8S",
+			"id":"next@n_s2a8S@n_IaBt4",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_IaBt4",
@@ -205,78 +231,19 @@
 		},
 		{
 			"fromNodeId":"n_TAlkD",
-			"id":"next@n_TAlkD@_LTeh6",
+			"id":"next@n_TAlkD@_NhPFs",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_LTeh6",
+			"toNodeId":"_NhPFs",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"_LTeh6",
-			"id":"next@_LTeh6@n_DMhri",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_DMhri",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_DMhri",
-			"id":"loop@n_DMhri@n_m2lEK",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_m2lEK",
-			"type":"loop"
-		},
-		{
-			"fromNodeId":"n_m2lEK",
-			"id":"if@n_m2lEK@n_pK7CS",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_pK7CS",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_pK7CS",
-			"id":"next@n_pK7CS@n_Xsfak",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Xsfak",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_m2lEK",
-			"id":"next@n_m2lEK@n_Xsfak",
-			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Xsfak",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Xsfak",
-			"id":"next@n_Xsfak@n_DMhri",
-			"name":"loopback",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_DMhri",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_DMhri",
-			"id":"next@n_DMhri@n_WWbuG",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_WWbuG",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_WWbuG",
-			"id":"next@n_WWbuG@_w6pQw",
+			"fromNodeId":"_NhPFs",
+			"id":"loop@_NhPFs@_w6pQw",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_w6pQw",
-			"type":"next"
+			"type":"loop"
 		},
 		{
 			"fromNodeId":"_w6pQw",
@@ -306,7 +273,16 @@
 		},
 		{
 			"fromNodeId":"_6UHGH",
-			"id":"next@_6UHGH@n_rk8oJ",
+			"id":"next@_6UHGH@_NhPFs",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_NhPFs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_NhPFs",
+			"id":"next@_NhPFs@n_rk8oJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_rk8oJ",
@@ -558,7 +534,7 @@
 	"id":"69a6697404373917b15072cb",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | confluence | space blogs (server)",
-	"modifiedTime":1788252972668,
+	"modifiedTime":1789395399846,
 	"name":"Knowledge Downloader | Confluence | Space Blogs (Server)",
 	"nodes":[
 		{
@@ -1701,6 +1677,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"batchSize":{
+							"title":"Batch Size",
+							"type":"integer"
+						},
 						"downloaderSuccess":{
 							"title":"Downloader Success",
 							"type":"boolean"
@@ -1720,7 +1700,8 @@
 			"inputs":{
 				"downloaderSuccess":true,
 				"offset":0,
-				"limit":30
+				"limit":30,
+				"batchSize":"{{ __ENV__.outputs.CONFLUENCE_BLOG_PROCESSING_BATCH_SIZE }}"
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -1729,6 +1710,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"batchSize":{
+							"title":"Batch Size",
+							"type":"integer"
+						},
 						"downloaderSuccess":{
 							"title":"Downloader Success",
 							"type":"boolean"
@@ -1753,6 +1738,61 @@
 		{
 			"context":{
 				"appName":"if_else",
+				"resourceVersion":922,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SQjXE-1",
+			"id":"n_s2a8S",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_JEuXB.outputs.batchSize }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1589,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_s2a8S@_SQjXE-1@y",
+			"id":"n_ry012",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_JEuXB.outputs.batchSize }}",
+						"value":10
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
 				"resourceVersion":52,
 				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
@@ -1762,7 +1802,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_IaBt4",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"filters":[
 					{
@@ -1797,7 +1837,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@y",
 			"id":"n_C599k",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1866,7 +1906,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@y",
 			"id":"n_iwCz8",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1930,7 +1970,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@y",
 			"id":"n_vB8mL",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"limit":"{{ n_JEuXB.outputs.limit }}",
 				"start":"{{ n_C599k.outputs.result.offset }}",
@@ -2028,7 +2068,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@y",
 			"id":"n_CEH31",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2214,7 +2254,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@y",
 			"id":"n_NiTB0",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2247,7 +2287,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@n",
 			"id":"n_MJenm",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -2299,7 +2339,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IaBt4@_SQjXE-1@n",
 			"id":"n_DOpbC",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2369,7 +2409,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_IaBt4@_SQjXE-1@n",
 			"id":"n_cSTFA",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"spaceKey":"{{ _RtZVN.outputs.result.mappedInputs.spaceKey }}",
 				"limit":"{{ n_JEuXB.outputs.limit }}",
@@ -2464,7 +2504,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_cSTFA@n_IaBt4@_SQjXE-1@n@success",
 			"id":"n_Duzdk",
-			"index":16,
+			"index":18,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2502,7 +2542,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_cSTFA@n_IaBt4@_SQjXE-1@n@error",
 			"id":"n_8FUfD",
-			"index":17,
+			"index":19,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -2546,11 +2586,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_CPRYj",
-			"index":18,
+			"index":20,
 			"inputs":{
-				"repeatMode":"SINGLE",
+				"repeatMode":"BATCH",
 				"listSource":"{{ n_6f0BA.outputs.items }}",
-				"captureIterations":false
+				"captureIterations":false,
+				"batchSize":"{{ n_JEuXB.outputs.batchSize }}"
 			},
 			"skip":false,
 			"subTitle":"Loop Single",
@@ -2599,7 +2640,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_1degv",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2763,23 +2804,18 @@
 				"parameters":{
 					"inputs":{
 						"items":{
-							"_links":{
-								"self":"{{ n_CPRYj.outputs.item[0].content._links.self }}",
-								"tinyui":"{{ n_CPRYj.outputs.item[0].content._links.tinyui }}",
-								"webui":"{{ n_CPRYj.outputs.item[0].content._links.webui }}"
-							},
-							"base":"{{ n_vB8mL.outputs._links.base }}",
+							"base":"{{ n_CPRYj.outputs.item[0].base }}",
 							"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}",
 							"grabberType":"{{ n_YxLaL.outputs.downloaderConfig.grabberType }}",
-							"id":"{{ n_CPRYj.outputs.item[0].content.id }}",
+							"id":"{{ n_CPRYj.outputs.item[0].id }}",
 							"includeAttachments":"{{ _RtZVN.outputs.result.mappedInputs.includeAttachments }}",
 							"includeComments":"{{ _RtZVN.outputs.result.mappedInputs.includeComments }}",
 							"indexingVersion":"{{ n_YxLaL.outputs.knowledge.indexingVersion }}",
 							"knowledgeId":"{{ n_YxLaL.outputs.knowledgeId }}",
 							"knowledgeSetId":"{{ n_YxLaL.outputs.knowledge.knowledgeSetId }}",
 							"spaceKey":"{{ _RtZVN.outputs.result.mappedInputs.spaceKey }}",
-							"status":"{{ n_CPRYj.outputs.item[0].content.status }}",
-							"title":"{{ n_CPRYj.outputs.item[0].content.title }}",
+							"status":"{{ n_CPRYj.outputs.item[0].status }}",
+							"title":"{{ n_CPRYj.outputs.item[0].title }}",
 							"version":{
 								"when":"{{ n_CPRYj.outputs.item.lastModified }}"
 							}
@@ -2789,7 +2825,7 @@
 					}
 				}
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -2806,7 +2842,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_48jT0",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2839,7 +2875,7 @@
 					"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}"
 				}
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -2856,7 +2892,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_TAlkD",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"automationId":"68c82cf26d4de43586f67a81",
 				"runtimeConnections":{},
@@ -2873,65 +2909,9 @@
 				"version":"-1",
 				"executeOnSameVM":false
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Callable",
 			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
-				"appName":"callables",
-				"resourceVersion":447,
-				"resourceName":"callables_call_automation_batch",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"_LTeh6",
-			"index":22,
-			"inputs":{
-				"automationId":"69a714fa2afe510f0ff44fc9",
-				"runtimeConnections":{
-					"confluence":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}",
-					"slack":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}"
-				},
-				"synchronous":true,
-				"triggerWorkflowWithRuntimeType":"DEFAULT",
-				"distributeWorkflowLoad":false,
-				"parametersList":{
-					"items":{
-						"_links":{
-							"self":"{{ n_CPRYj.outputs.item[0].content._links.self }}",
-							"tinyui":"{{ n_CPRYj.outputs.item[0].content._links.tinyui }}",
-							"webui":"{{ n_CPRYj.outputs.item[0].content._links.webui }}"
-						},
-						"base":"{{ n_vB8mL.outputs._links.base }}",
-						"body":{},
-						"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}",
-						"grabberType":"{{ n_YxLaL.outputs.downloaderConfig.grabberType }}",
-						"id":"{{ n_CPRYj.outputs.item[0].content.id }}",
-						"includeAttachments":"{{ _RtZVN.outputs.result.mappedInputs.includeAttachments }}",
-						"includeComments":"{{ _RtZVN.outputs.result.mappedInputs.includeComments }}",
-						"indexingVersion":"{{ n_YxLaL.outputs.knowledge.indexingVersion }}",
-						"knowledgeId":"{{ n_YxLaL.outputs.knowledgeId }}",
-						"knowledgeSetId":"{{ n_YxLaL.outputs.knowledge.knowledgeSetId }}",
-						"spaceKey":"{{ _RtZVN.outputs.result.mappedInputs.spaceKey }}",
-						"status":"{{ n_CPRYj.outputs.item[0].content.status }}",
-						"title":"{{ n_CPRYj.outputs.item[0].content.title }}",
-						"version":{
-							"when":"{{ n_CPRYj.outputs.item[0].lastModified }}"
-						}
-					},
-					"source":"{{ n_CPRYj.outputs.item }}",
-					"ua:type":"mappedArray"
-				},
-				"version":"-1"
-			},
-			"skip":true,
-			"subTitle":"Blog Downloader",
-			"title":"Call automation (batch)",
 			"type":"CALL_WORKFLOW"
 		},
 		{
@@ -2945,14 +2925,14 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"n_DMhri",
-			"index":23,
+			"id":"_NhPFs",
+			"index":24,
 			"inputs":{
 				"repeatMode":"SINGLE",
-				"listSource":"{{ _LTeh6.outputs.result }}",
+				"listSource":"{{ n_TAlkD.outputs.response }}",
 				"captureIterations":false
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Loop",
 			"title":"For each loop",
 			"type":"LOOP"
@@ -2967,202 +2947,17 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_DMhri@n_CPRYj@_SQjXE-1@l@l",
-			"id":"n_m2lEK",
-			"index":24,
-			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EQUAL",
-							"value":"false"
-						},
-						"property":"{{ n_DMhri.outputs.item.success }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":true,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":2208,
-				"resourceName":"variable_by_unifyapps_update_variables",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_m2lEK@n_DMhri@n_CPRYj@_SQjXE-1@l@l@y",
-			"id":"n_pK7CS",
+			"groupId":"_NhPFs@n_CPRYj@_SQjXE-1@l@l",
+			"id":"_w6pQw",
 			"index":25,
 			"inputs":{
-				"variables":[
-					{
-						"source":"{{ n_JEuXB.outputs.downloaderSuccess }}",
-						"value":false
-					}
-				]
-			},
-			"skip":true,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Update variables",
-			"type":"ACTION"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.itemsToAdd.items.isArchived",
-					"root.itemsToAdd.items.onlyMetadataModified",
-					"root.itemsToAdd.items.knowledgeId",
-					"root.itemsToAdd.items.knowledgeSetId",
-					"root.itemsToAdd.items.resourceType",
-					"root.itemsToAdd.items.sourceResponse",
-					"root.itemsToAdd.items.id",
-					"root.itemsToAdd.items.status",
-					"root.itemsToAdd.items.retryCount",
-					"root.itemsToAdd.items.metadata",
-					"root.itemsToAdd.items.additional.mimeType",
-					"root.itemsToAdd.items.additional.fileDetails.name",
-					"root.itemsToAdd.items.additional.fileDetails.source",
-					"root.itemsToAdd.items.additional.fileDetails.sourceType",
-					"root.itemsToAdd.items.additional.fileDetails.fileType",
-					"root.itemsToAdd.items.additional.fileDetails.size",
-					"root.itemsToAdd.items.additional.fileDetails.fileExtension",
-					"root.itemsToAdd.items.additional.fileDetails.url",
-					"root.itemsToAdd.items.isDeleted",
-					"root.itemsToAdd.items.sourceDetails.modifiedTime",
-					"root.itemsToAdd.items.sharedWithIds.items",
-					"root.itemsToAdd.items.knowledgeVersion",
-					"root.itemsToAdd.items.parentEntityId"
-				]
-			},
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":0,
-				"resourceName":"variable_by_unifyapps_add_items_to_list",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_DMhri@n_CPRYj@_SQjXE-1@l@l",
-			"id":"n_Xsfak",
-			"index":26,
-			"inputs":{
-				"captureAddedItems":false,
-				"insertLocation":"END",
-				"itemsToAdd":{
-					"items":{
-						"additional":{
-							"fileDetails":{
-								"fileExtension":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.fileExtension }}",
-								"fileType":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.fileType }}",
-								"name":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.name }}",
-								"size":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.size }}",
-								"source":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.source }}",
-								"sourceType":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.sourceType }}",
-								"url":"{{ n_DMhri.outputs.item.rawDataList[0].additional.fileDetails.url }}"
-							},
-							"mimeType":"{{ n_DMhri.outputs.item.rawDataList[0].additional.mimeType }}"
-						},
-						"id":"{{ n_DMhri.outputs.item.rawDataList[0].id }}",
-						"isArchived":"{{ n_DMhri.outputs.item.rawDataList[0].isArchived }}",
-						"isDeleted":"{{ n_DMhri.outputs.item.rawDataList[0].isDeleted }}",
-						"knowledgeId":"{{ n_DMhri.outputs.item.rawDataList[0].knowledgeId }}",
-						"knowledgeSetId":"{{ n_DMhri.outputs.item.rawDataList[0].knowledgeSetId }}",
-						"knowledgeVersion":"{{ n_DMhri.outputs.item.rawDataList[0].knowledgeVersion }}",
-						"metadata":"{{ n_DMhri.outputs.item.rawDataList[0].metadata }}",
-						"onlyMetadataModified":"{{ n_DMhri.outputs.item.rawDataList[0].onlyMetadataModified }}",
-						"parentEntityId":"{{ n_DMhri.outputs.item.rawDataList[0].parentEntityId }}",
-						"resourceType":"{{ n_DMhri.outputs.item.rawDataList[0].resourceType }}",
-						"retryCount":"{{ n_DMhri.outputs.item.rawDataList[0].retryCount }}",
-						"sharedWithIds":{
-							"items":"{{ n_DMhri.outputs.item.rawDataList[0].sharedWithIds[0] }}",
-							"source":"{{ n_DMhri.outputs.item.rawDataList[0].sharedWithIds }}",
-							"ua:type":"mappedArray"
-						},
-						"sourceDetails":{
-							"modifiedTime":"{{ n_DMhri.outputs.item.rawDataList[0].sourceDetails.modifiedTime }}"
-						},
-						"sourceResponse":"{{ n_DMhri.outputs.item.rawDataList[0].sourceResponse }}",
-						"status":"{{ n_DMhri.outputs.item.rawDataList[0].status }}"
-					},
-					"source":"{{ n_DMhri.outputs.item.rawDataList }}",
-					"ua:type":"mappedArray"
-				},
-				"listName":"{{ n_gFnII.outputs.items[0] }}"
-			},
-			"skip":true,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Add items to list",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"callables",
-				"resourceVersion":523,
-				"resourceName":"callables_call_automation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"n_WWbuG",
-			"index":27,
-			"inputs":{
-				"automationId":"69a714fa2afe510f0ff44fc9",
-				"runtimeConnections":{
-					"confluence":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}"
-				},
-				"synchronous":true,
-				"parameters":{
-					"base":"{{ n_CPRYj.outputs.item.base }}",
-					"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}",
-					"grabberType":"{{ n_YxLaL.outputs.downloaderConfig.grabberType }}",
-					"id":"{{ n_CPRYj.outputs.item.id }}",
-					"includeAttachments":"{{ _RtZVN.outputs.result.mappedInputs.includeAttachments }}",
-					"includeComments":"{{ _RtZVN.outputs.result.mappedInputs.includeComments }}",
-					"indexingVersion":"{{ n_YxLaL.outputs.knowledge.indexingVersion }}",
-					"knowledgeId":"{{ n_YxLaL.outputs.knowledgeId }}",
-					"knowledgeSetId":"{{ n_YxLaL.outputs.knowledge.knowledgeSetId }}",
-					"spaceKey":"{{ _RtZVN.outputs.result.mappedInputs.spaceKey }}",
-					"status":"{{ n_CPRYj.outputs.item.status }}",
-					"title":"{{ n_CPRYj.outputs.item.title }}"
-				},
-				"version":"-1"
-			},
-			"skip":false,
-			"subTitle":"Callable",
-			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
-				"appName":"if_else",
-				"resourceVersion":108,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"_w6pQw",
-			"index":28,
-			"inputs":{
 				"filters":[
 					{
 						"filter":{
 							"operator":"EQUAL",
 							"value":"false"
 						},
-						"property":"{{ n_WWbuG.outputs.success }}"
+						"property":"{{ _NhPFs.outputs.item.success }}"
 					}
 				],
 				"operator":"AND"
@@ -3182,9 +2977,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_w6pQw@n_CPRYj@_SQjXE-1@l@y",
+			"groupId":"_w6pQw@_NhPFs@n_CPRYj@_SQjXE-1@l@l@y",
 			"id":"_bUjuX",
-			"index":29,
+			"index":26,
 			"inputs":{
 				"variables":[
 					{
@@ -3221,12 +3016,12 @@
 					"root.itemsToAdd.items.additional.fileDetails.url",
 					"root.itemsToAdd.items.isDeleted",
 					"root.itemsToAdd.items.sourceDetails.modifiedTime",
-					"root.itemsToAdd.items.sourceDetails.rootEntityId",
 					"root.itemsToAdd.items.sharedWithIds.items",
 					"root.itemsToAdd.items.knowledgeVersion",
 					"root.itemsToAdd.items.parentEntityId",
 					"root.itemsToAdd.items.additional.grabberType",
-					"root.itemsToAdd.items.scheduledSync"
+					"root.itemsToAdd.items.scheduledSync",
+					"root.itemsToAdd.items.sourceDetails.rootEntityId"
 				]
 			},
 			"context":{
@@ -3238,9 +3033,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
+			"groupId":"_NhPFs@n_CPRYj@_SQjXE-1@l@l",
 			"id":"_6UHGH",
-			"index":30,
+			"index":27,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3248,42 +3043,42 @@
 					"items":{
 						"additional":{
 							"fileDetails":{
-								"fileExtension":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.fileExtension }}",
-								"fileType":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.fileType }}",
-								"name":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.name }}",
-								"size":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.size }}",
-								"source":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.source }}",
-								"sourceType":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.sourceType }}",
-								"url":"{{ n_WWbuG.outputs.rawDataList[0].additional.fileDetails.url }}"
+								"fileExtension":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.fileExtension }}",
+								"fileType":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.fileType }}",
+								"name":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.name }}",
+								"size":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.size }}",
+								"source":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.source }}",
+								"sourceType":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.sourceType }}",
+								"url":"{{ _NhPFs.outputs.item.rawDataList[0].additional.fileDetails.url }}"
 							},
-							"grabberType":"{{ n_WWbuG.outputs.rawDataList[0].additional.grabberType }}",
-							"mimeType":"{{ n_WWbuG.outputs.rawDataList[0].additional.mimeType }}"
+							"grabberType":"{{ _NhPFs.outputs.item.rawDataList[0].additional.grabberType }}",
+							"mimeType":"{{ _NhPFs.outputs.item.rawDataList[0].additional.mimeType }}"
 						},
-						"id":"{{ n_WWbuG.outputs.rawDataList[0].id }}",
-						"isArchived":"{{ n_WWbuG.outputs.rawDataList[0].isArchived }}",
-						"isDeleted":"{{ n_WWbuG.outputs.rawDataList[0].isDeleted }}",
-						"knowledgeId":"{{ n_WWbuG.outputs.rawDataList[0].knowledgeId }}",
-						"knowledgeSetId":"{{ n_WWbuG.outputs.rawDataList[0].knowledgeSetId }}",
-						"knowledgeVersion":"{{ n_WWbuG.outputs.rawDataList[0].knowledgeVersion }}",
-						"metadata":"{{ n_WWbuG.outputs.rawDataList[0].metadata }}",
-						"onlyMetadataModified":"{{ n_WWbuG.outputs.rawDataList[0].onlyMetadataModified }}",
-						"parentEntityId":"{{ n_WWbuG.outputs.rawDataList[0].parentEntityId }}",
-						"resourceType":"{{ n_WWbuG.outputs.rawDataList[0].resourceType }}",
-						"retryCount":"{{ n_WWbuG.outputs.rawDataList[0].retryCount }}",
-						"scheduledSync":"{{ n_WWbuG.outputs.rawDataList[0].scheduledSync }}",
+						"id":"{{ _NhPFs.outputs.item.rawDataList[0].id }}",
+						"isArchived":"{{ _NhPFs.outputs.item.rawDataList[0].isArchived }}",
+						"isDeleted":"{{ _NhPFs.outputs.item.rawDataList[0].isDeleted }}",
+						"knowledgeId":"{{ _NhPFs.outputs.item.rawDataList[0].knowledgeId }}",
+						"knowledgeSetId":"{{ _NhPFs.outputs.item.rawDataList[0].knowledgeSetId }}",
+						"knowledgeVersion":"{{ _NhPFs.outputs.item.rawDataList[0].knowledgeVersion }}",
+						"metadata":"{{ _NhPFs.outputs.item.rawDataList[0].metadata }}",
+						"onlyMetadataModified":"{{ _NhPFs.outputs.item.rawDataList[0].onlyMetadataModified }}",
+						"parentEntityId":"{{ _NhPFs.outputs.item.rawDataList[0].parentEntityId }}",
+						"resourceType":"{{ _NhPFs.outputs.item.rawDataList[0].resourceType }}",
+						"retryCount":"{{ _NhPFs.outputs.item.rawDataList[0].retryCount }}",
+						"scheduledSync":"{{ _NhPFs.outputs.item.rawDataList[0].scheduledSync }}",
 						"sharedWithIds":{
-							"items":"{{ n_WWbuG.outputs.rawDataList[0].sharedWithIds[0] }}",
-							"source":"{{ n_WWbuG.outputs.rawDataList[0].sharedWithIds }}",
+							"items":"{{ _NhPFs.outputs.item.rawDataList[0].sharedWithIds[0] }}",
+							"source":"{{ _NhPFs.outputs.item.rawDataList[0].sharedWithIds }}",
 							"ua:type":"mappedArray"
 						},
 						"sourceDetails":{
-							"modifiedTime":"{{ n_WWbuG.outputs.rawDataList[0].sourceDetails.modifiedTime }}",
-							"rootEntityId":"{{ n_WWbuG.outputs.rawDataList[0].sourceDetails.rootEntityId }}"
+							"modifiedTime":"{{ _NhPFs.outputs.item.rawDataList[0].sourceDetails.modifiedTime }}",
+							"rootEntityId":"{{ _NhPFs.outputs.item.rawDataList[0].sourceDetails.rootEntityId }}"
 						},
-						"sourceResponse":"{{ n_WWbuG.outputs.rawDataList[0].sourceResponse }}",
-						"status":"{{ n_WWbuG.outputs.rawDataList[0].status }}"
+						"sourceResponse":"{{ _NhPFs.outputs.item.rawDataList[0].sourceResponse }}",
+						"status":"{{ _NhPFs.outputs.item.rawDataList[0].status }}"
 					},
-					"source":"{{ n_WWbuG.outputs.rawDataList }}",
+					"source":"{{ _NhPFs.outputs.item.rawDataList }}",
 					"ua:type":"mappedArray"
 				},
 				"listName":"{{ n_gFnII.outputs.items[0] }}"
@@ -3305,7 +3100,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_rk8oJ",
-			"index":31,
+			"index":28,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3476,6 +3271,12 @@
 											"title":"Last Processed Time",
 											"type":"string"
 										},
+										"metadata":{
+											"additionalProperties":false,
+											"properties":{},
+											"title":"Metadata",
+											"type":"object"
+										},
 										"sharedWithIds":{
 											"items":{
 												"type":"string"
@@ -3571,6 +3372,12 @@
 										"title":"Last Processed Time",
 										"type":"string"
 									},
+									"metadata":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Metadata",
+										"type":"object"
+									},
 									"sharedWithIds":{
 										"items":{
 											"type":"string"
@@ -3618,7 +3425,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_YDza4",
-			"index":32,
+			"index":29,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3676,7 +3483,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_xuhkn",
-			"index":33,
+			"index":30,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_YDza4.outputs.result.rawDataIds }}",
@@ -3700,7 +3507,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xuhkn@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_Rw6cx",
-			"index":34,
+			"index":31,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -3741,7 +3548,8 @@
 					"root.itemsToAdd.items.sourceModifiedTime",
 					"root.itemsToAdd.items.sharedWithIds.items",
 					"root.itemsToAdd.items.status",
-					"root.itemsToAdd.items.lastProcessedTime"
+					"root.itemsToAdd.items.lastProcessedTime",
+					"root.itemsToAdd.items.metadata"
 				]
 			},
 			"context":{
@@ -3755,7 +3563,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xuhkn@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_WiJQB",
-			"index":35,
+			"index":32,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"START",
@@ -3763,6 +3571,7 @@
 					"items":{
 						"id":"{{ n_Rw6cx.outputs.objects[0].id }}",
 						"lastProcessedTime":"{{ n_Rw6cx.outputs.objects[0].properties.lastProcessedTime }}",
+						"metadata":"{{ n_Rw6cx.outputs.objects[0].properties.metadata }}",
 						"sharedWithIds":{
 							"items":"{{ n_Rw6cx.outputs.objects[0].properties.sharedWithIds[0] }}",
 							"source":"{{ n_Rw6cx.outputs.objects[0].properties.sharedWithIds }}",
@@ -3799,7 +3608,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_zTmgD",
-			"index":36,
+			"index":33,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4057,7 +3866,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def inputRawDataList = binding.hasVariable(\"inputRawDataList\") ? inputRawDataList : []\ndef currentRawDatas = binding.hasVariable(\"currentRawDatas\") ? currentRawDatas : []\ndef partialUpdateRawDataList = []\n\n// Single map: key = \"id\" -> existing object\ndef existingMap = currentRawDatas.collectEntries { item ->\n    def id = item?.id ?: \"\"\n    [(id): item]\n}\n\n// Normalizes metadata so comparison ignores list order, absent-vs-empty, and numeric type\ndef normalize\nnormalize = { obj ->\n    if (obj instanceof Map) {\n        def out = new TreeMap()\n        obj.each { k, v ->\n            def nv = normalize(v)\n            if (nv != null && nv != [] && nv != \"\") out[k as String] = nv\n        }\n        return out\n    }\n    if (obj instanceof Collection || obj instanceof Object[]) {\n        return (obj as List).findAll { it != null }.collect { normalize(it) }.sort { it.toString() }\n    }\n    if (obj instanceof Number) {\n        return new BigDecimal(obj.toString()).stripTrailingZeros().toPlainString()\n    }\n    return obj?.toString()\n}\n\n// Function to determine update\ndef isUpdateRequired = { existingSharedWithIds, incomingSharedWithIds, existingMetadata, incomingMetadata ->\n    def sharedWithChanged = incomingSharedWithIds && ((existingSharedWithIds as Set) != (incomingSharedWithIds as Set))\n    def metadataChanged = (incomingMetadata && existingMetadata &&\n                           (normalize(existingMetadata) != normalize(incomingMetadata)))\n    return sharedWithChanged || metadataChanged\n}\n\ndef fullUpdateRawDatas = []\ndef noUpdatesRawDataIds = []\n\ninputRawDataList.each { item ->\n    if (!(item instanceof Map)) return\n\n    def id = item?.id ?: \"\"\n    def key = id\n\n    def existingObj = existingMap[(key)]\n\n    if (existingObj) {\n        if(existingObj?.sourceModifiedTime == item?.sourceDetails?.modifiedTime){\n            if (isUpdateRequired(existingObj?.sharedWithIds ?: [], item?.sharedWithIds ?: [])) {\n                if(existingObj?.status == \"PROCESSED\"){\n                    item << [ \"onlyMetadataModified\" : true ]\n                    item << [ \"status\" : \"UNPROCESSED\" ]\n                    partialUpdateRawDataList << item\n                } else if(existingObj?.status == \"UNPROCESSED\"){\n                    partialUpdateRawDataList << item\n                } else{\n                    item << [ \"status\" : \"FAILED\" ]\n                    partialUpdateRawDataList << item\n                }\n            } else {\n                noUpdatesRawDataIds << item\n            }\n        } else {\n            item << [\"lastProcessedTime\" : existingObj?.lastProcessedTime]\n            fullUpdateRawDatas << item\n        }\n    } else {\n        fullUpdateRawDatas << item\n    }\n}\n\nreturn [\n    \"fullUpdateRawDatas\": fullUpdateRawDatas,\n    \"noUpdatesRawDataIds\": noUpdatesRawDataIds,\n    \"partialUpdateRawDataList\": partialUpdateRawDataList\n]",
+				"code":"def inputRawDataList = binding.hasVariable(\"inputRawDataList\") ? inputRawDataList : []\ndef currentRawDatas = binding.hasVariable(\"currentRawDatas\") ? currentRawDatas : []\ndef partialUpdateRawDataList = []\n\n// Single map: key = \"id\" -> existing object\ndef existingMap = currentRawDatas.collectEntries { item ->\n    def id = item?.id ?: \"\"\n    [(id): item]\n}\n\n// Normalizes metadata so comparison ignores list order, absent-vs-empty, and numeric type\ndef normalize\nnormalize = { obj ->\n    if (obj instanceof Map) {\n        def out = new TreeMap()\n        obj.each { k, v ->\n            def nv = normalize(v)\n            if (nv != null && nv != [] && nv != \"\") out[k as String] = nv\n        }\n        return out\n    }\n    if (obj instanceof Collection || obj instanceof Object[]) {\n        return (obj as List).findAll { it != null }.collect { normalize(it) }.sort { it.toString() }\n    }\n    if (obj instanceof Number) {\n        return new BigDecimal(obj.toString()).stripTrailingZeros().toPlainString()\n    }\n    return obj?.toString()\n}\n\n// Function to determine update\ndef isUpdateRequired = { existingSharedWithIds, incomingSharedWithIds, existingMetadata, incomingMetadata ->\n    def sharedWithChanged = incomingSharedWithIds && ((existingSharedWithIds as Set) != (incomingSharedWithIds as Set))\n    def metadataChanged = (incomingMetadata && existingMetadata &&\n                           (normalize(existingMetadata) != normalize(incomingMetadata)))\n    return sharedWithChanged || metadataChanged\n}\n\ndef fullUpdateRawDatas = []\ndef noUpdatesRawDataIds = []\n\ninputRawDataList.each { item ->\n    if (!(item instanceof Map)) return\n\n    def id = item?.id ?: \"\"\n    def key = id\n\n    def existingObj = existingMap[(key)]\n\n    if (existingObj) {\n        if(existingObj?.sourceModifiedTime == item?.sourceDetails?.modifiedTime){\n            if (isUpdateRequired(existingObj?.sharedWithIds ?: [], item?.sharedWithIds ?: [], existingObj?.metadata ?: [:], item?.metadata ?: [:])) {\n                if(existingObj?.status == \"PROCESSED\"){\n                    item << [ \"onlyMetadataModified\" : true ]\n                    item << [ \"status\" : \"UNPROCESSED\" ]\n                    partialUpdateRawDataList << item\n                } else if(existingObj?.status == \"UNPROCESSED\"){\n                    partialUpdateRawDataList << item\n                } else{\n                    item << [ \"status\" : \"FAILED\" ]\n                    partialUpdateRawDataList << item\n                }\n            } else {\n                noUpdatesRawDataIds << item\n            }\n        } else {\n            item << [\"lastProcessedTime\" : existingObj?.lastProcessedTime]\n            fullUpdateRawDatas << item\n        }\n    } else {\n        fullUpdateRawDatas << item\n    }\n}\n\nreturn [\n    \"fullUpdateRawDatas\": fullUpdateRawDatas,\n    \"noUpdatesRawDataIds\": noUpdatesRawDataIds,\n    \"partialUpdateRawDataList\": partialUpdateRawDataList\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -4090,7 +3899,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"_65Cey",
-			"index":37,
+			"index":34,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_zTmgD.outputs.result.fullUpdateRawDatas }}",
@@ -4145,7 +3954,18 @@
 					"root.records.items.status",
 					"root.records.items.waitCount",
 					"root.records.items.additional.attachments.items",
-					"root.records.items.sourceDetails.uniqueId"
+					"root.records.items.sourceDetails.uniqueId",
+					"root.records.items.additional.attachmentId",
+					"root.records.items.additional.fileDetails.mimeType",
+					"root.records.items.additional.grabberType",
+					"root.records.items.additional.indexingSkipped",
+					"root.records.items.additional.participantEmails.items",
+					"root.records.items.additional.participants.items",
+					"root.records.items.additional.reusedExistingChunks",
+					"root.records.items.failedCount",
+					"root.records.items.isTabular",
+					"root.records.items.scheduledSync",
+					"root.records.items.successCount"
 				]
 			},
 			"context":{
@@ -4159,7 +3979,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_65Cey@n_CPRYj@_SQjXE-1@l@l",
 			"id":"_kBM7H",
-			"index":38,
+			"index":35,
 			"inputs":{
 				"useRawPayload":false,
 				"object_type":"knowledge_raw_data_store",
@@ -4175,6 +3995,7 @@
 								"sourceType":"{{ _65Cey.outputs.item[0].additional.fileDetails.sourceType }}",
 								"url":"{{ _65Cey.outputs.item[0].additional.fileDetails.url }}"
 							},
+							"grabberType":"{{ _65Cey.outputs.item[0].additional.grabberType }}",
 							"mimeType":"{{ _65Cey.outputs.item[0].additional.mimeType }}"
 						},
 						"id":"{{ _65Cey.outputs.item[0].id }}",
@@ -4226,7 +4047,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_9VGe0",
-			"index":39,
+			"index":36,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_zTmgD.outputs.result.noUpdatesRawDataIds }}",
@@ -4250,7 +4071,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9VGe0@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_CdVVu",
-			"index":40,
+			"index":37,
 			"inputs":{
 				"automationId":"6a42386774e09c123f176f26",
 				"runtimeConnections":{},
@@ -4284,7 +4105,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_vaAOt",
-			"index":41,
+			"index":38,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_zTmgD.outputs.result.partialUpdateRawDataList }}",
@@ -4308,7 +4129,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_vaAOt@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_yFVUx",
-			"index":42,
+			"index":39,
 			"inputs":{
 				"automationId":"6a42386774e09c123f176f26",
 				"runtimeConnections":{},
@@ -4317,7 +4138,8 @@
 					"fileDetails":"{{ n_vaAOt.outputs.item.additional.fileDetails }}",
 					"rawDataId":"{{ n_vaAOt.outputs.item.id }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":true,
 			"subTitle":"delete files",
@@ -4336,7 +4158,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_vaAOt@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_rIA5B",
-			"index":43,
+			"index":40,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -4404,7 +4226,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_1ursX",
-			"index":44,
+			"index":41,
 			"inputs":{
 				"listName":"{{ n_gFnII.outputs.items[0] }}"
 			},
@@ -4425,7 +4247,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_NCZiE",
-			"index":45,
+			"index":42,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -4495,7 +4317,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_Pe7bT",
-			"index":46,
+			"index":43,
 			"inputs":{
 				"filters":[
 					{
@@ -4530,7 +4352,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@y",
 			"id":"_KefNv",
-			"index":47,
+			"index":44,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4621,7 +4443,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@y",
 			"id":"n_Y2Rk0",
-			"index":48,
+			"index":45,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4678,7 +4500,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@y",
 			"id":"n_Kdv4q",
-			"index":49,
+			"index":46,
 			"inputs":{
 				"variables":[
 					{
@@ -4717,7 +4539,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@n",
 			"id":"n_FOvdq",
-			"index":50,
+			"index":47,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4779,7 +4601,7 @@
 				"isAsync":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"currentOffset":"{{ n_C599k.outputs.result.offset }}",
+					"currentOffset":"{{ n_DOpbC.outputs.result.offset }}",
 					"currentTimeEpoch":"{{ n_YxLaL.outputs.downloaderConfig.currentTimeEpoch }}",
 					"cursor":"{{ n_YxLaL.outputs.cursor }}",
 					"limit":"{{ n_JEuXB.outputs.limit }}",
@@ -4813,7 +4635,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@n",
 			"id":"n_vtRdo",
-			"index":51,
+			"index":48,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4847,8 +4669,8 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"filteredBlogList":{
-						"items":"{{ n_CEH31.outputs.result.filteredBlogList[0] }}",
-						"source":"{{ n_CEH31.outputs.result.filteredBlogList }}",
+						"items":"{{ n_cSTFA.outputs.results[0] }}",
+						"source":"{{ n_cSTFA.outputs.results }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -4870,7 +4692,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@n",
 			"id":"n_hyfeb",
-			"index":52,
+			"index":49,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -4923,7 +4745,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Pe7bT@_SQjXE-1@n",
 			"id":"n_lumgF",
-			"index":53,
+			"index":50,
 			"inputs":{
 				"variables":[
 					{
@@ -4957,7 +4779,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_Rah3o",
-			"index":54,
+			"index":51,
 			"inputs":{
 				"result":{
 					"cursor":"{{ n_NCZiE.outputs.cursor }}",
@@ -4987,5 +4809,5 @@
 		}
 	},
 	"standard":true,
-	"version":120
+	"version":122
 }

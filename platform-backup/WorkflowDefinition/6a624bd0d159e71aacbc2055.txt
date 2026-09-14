@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787744055618,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744055949,
+		"deployedAt":1789395310803,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf372889f9507f11e81f",
-		"deploymentTag":"wrapper-pattern",
+		"deployedDefinitionId":"6aa8016ec6a14707f1503d4d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":57
+		"version":2,
+		"workflowVersion":60
 	},
 	"edges":[
 		{
@@ -47,7 +46,7 @@
 	"id":"6a624bd0d159e71aacbc2055",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) describe sql table wrapper",
-	"modifiedTime":1788252972341,
+	"modifiedTime":1789395399783,
 	"name":"(tool) Describe SQL Table Wrapper",
 	"nodes":[
 		{
@@ -64,61 +63,61 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"sampleData":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"sampleData",
+							"type":"object"
+						},
+						"tableSchema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"tableSchema",
+							"type":"object"
+						}
+					},
 					"required":[
 						"tableSchema"
 					],
-					"properties":{
-						"tableSchema":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"tableSchema"
-						},
-						"sampleData":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"sampleData"
-						}
-					}
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"help":"Name of the connector app (external DB service) ex. \"mysql\", \"oracledb\"",
+							"title":"appName",
+							"type":"string"
+						},
+						"catalogName":{
+							"title":"catalogName",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"connectionId",
+							"type":"string"
+						},
+						"dbName":{
+							"title":"dbName",
+							"type":"string"
+						},
+						"schemaName":{
+							"title":"schemaName",
+							"type":"string"
+						},
+						"tableName":{
+							"title":"tableName",
+							"type":"string"
+						}
+					},
 					"required":[
 						"tableName",
 						"appName",
 						"connectionId"
 					],
-					"properties":{
-						"appName":{
-							"type":"string",
-							"title":"appName",
-							"help":"Name of the connector app (external DB service) ex. \"mysql\", \"oracledb\""
-						},
-						"tableName":{
-							"type":"string",
-							"title":"tableName"
-						},
-						"dbName":{
-							"type":"string",
-							"title":"Db Name"
-						},
-						"schemaName":{
-							"type":"string",
-							"title":"Schema Name"
-						},
-						"catalogName":{
-							"type":"string",
-							"title":"Catalog Name"
-						},
-						"connectionId":{
-							"type":"string",
-							"title":"connectionId"
-						}
-					}
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -145,26 +144,26 @@
 			"inputs":{
 				"automationId":"6a71b37484ee1c1575416b41",
 				"runtimeConnections":{
-					"mariadb":"{{ n_OmmxA.outputs.connectionId }}",
-					"snowflake":"{{ n_OmmxA.outputs.connectionId }}",
-					"redshift":"{{ n_OmmxA.outputs.connectionId }}",
-					"sqlserver":"{{ n_OmmxA.outputs.connectionId }}",
-					"trino":"{{ n_OmmxA.outputs.connectionId }}",
-					"teradata":"{{ n_OmmxA.outputs.connectionId }}",
-					"oracledb":"{{ n_OmmxA.outputs.connectionId }}",
 					"databricks":"{{ n_OmmxA.outputs.connectionId }}",
+					"mariadb":"{{ n_OmmxA.outputs.connectionId }}",
 					"mysql":"{{ n_OmmxA.outputs.connectionId }}",
-					"postgres":"{{ n_OmmxA.outputs.connectionId }}"
+					"oracledb":"{{ n_OmmxA.outputs.connectionId }}",
+					"postgres":"{{ n_OmmxA.outputs.connectionId }}",
+					"redshift":"{{ n_OmmxA.outputs.connectionId }}",
+					"snowflake":"{{ n_OmmxA.outputs.connectionId }}",
+					"sqlserver":"{{ n_OmmxA.outputs.connectionId }}",
+					"teradata":"{{ n_OmmxA.outputs.connectionId }}",
+					"trino":"{{ n_OmmxA.outputs.connectionId }}"
 				},
 				"synchronous":true,
-				"version":"-1",
 				"parameters":{
 					"appName":"{{ n_OmmxA.outputs.appName }}",
-					"tableName":"{{ n_OmmxA.outputs.tableName }}",
+					"catalogName":"{{ n_OmmxA.outputs.catalogName }}",
 					"dbName":"{{ n_OmmxA.outputs.dbName }}",
 					"schemaName":"{{ n_OmmxA.outputs.schemaName }}",
-					"catalogName":"{{ n_OmmxA.outputs.catalogName }}"
-				}
+					"tableName":"{{ n_OmmxA.outputs.tableName }}"
+				},
+				"version":"-1"
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -186,8 +185,8 @@
 			"index":3,
 			"inputs":{
 				"result":{
-					"tableSchema":"{{ n_4uq5B.outputs.tableSchema }}",
-					"sampleData":"{{ n_4uq5B.outputs.sampleData }}"
+					"sampleData":"{{ n_4uq5B.outputs.sampleData }}",
+					"tableSchema":"{{ n_4uq5B.outputs.tableSchema }}"
 				}
 			},
 			"skip":false,
@@ -217,5 +216,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":59
+	"version":61
 }
