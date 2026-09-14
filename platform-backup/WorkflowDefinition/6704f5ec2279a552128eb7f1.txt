@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743816659,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743816813,
+		"deployedAt":1789395207996,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece489d7c534668ef8971",
+		"deployedDefinitionId":"6aa80107c6a14707f15037b3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":388
+		"version":2,
+		"workflowVersion":391
 	},
 	"edges":[
 		{
@@ -76,15 +76,7 @@
 		},
 		{
 			"fromNodeId":"0wB6H",
-			"id":"next@0wB6H@qIEeg",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"qIEeg",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"qIEeg",
-			"id":"next@qIEeg@RBTgA",
+			"id":"next@0wB6H@RBTgA",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"RBTgA",
@@ -108,7 +100,15 @@
 		},
 		{
 			"fromNodeId":"_pRMbs",
-			"id":"next@_pRMbs@_QCDzY",
+			"id":"next@_pRMbs@qIEeg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"qIEeg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"qIEeg",
+			"id":"next@qIEeg@_QCDzY",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_QCDzY",
@@ -221,7 +221,7 @@
 	"id":"6704f5ec2279a552128eb7f1",
 	"lastModifiedBy":-1,
 	"lcName":"[onedrive] get user sharedwithids",
-	"modifiedTime":1788252972018,
+	"modifiedTime":1789395392055,
 	"name":"[OneDrive] Get User SharedWithIds",
 	"nodes":[
 		{
@@ -744,30 +744,6 @@
 		},
 		{
 			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":62,
-				"resourceName":"variable_by_unifyapps_add_item_to_list",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_6rSJx@Iy42Q-1@n",
-			"id":"qIEeg",
-			"index":8,
-			"inputs":{
-				"itemToAdd":"microsoft_onedrive/u/{{ 101If.outputs.userEmailAddress }}",
-				"insertLocation":"START",
-				"captureAddedItem":false,
-				"listName":"{{ UFtTW.outputs.items[0] }}"
-			},
-			"skip":false,
-			"subTitle":"User Grant",
-			"title":"Add an item to list",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"code_by_unifyapps",
 				"resourceVersion":52,
 				"resourceName":"code_by_unifyapps_groovy",
@@ -778,7 +754,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_6rSJx@Iy42Q-1@n",
 			"id":"RBTgA",
-			"index":9,
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -825,7 +801,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_6rSJx@Iy42Q-1@n",
 			"id":"izRXQ",
-			"index":10,
+			"index":9,
 			"inputs":{
 				"itemToAdd":"microsoft_onedrive/ug/{{ RBTgA.outputs.result.domain }}",
 				"insertLocation":"END",
@@ -850,7 +826,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_6rSJx@Iy42Q-1@n",
 			"id":"_pRMbs",
-			"index":11,
+			"index":10,
 			"inputs":{
 				"email":"{{ 101If.outputs.userEmailAddress }}"
 			},
@@ -906,6 +882,30 @@
 			"skip":false,
 			"subTitle":"Microsoft OneDrive",
 			"title":"Get user details from email",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":62,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6rSJx@Iy42Q-1@n",
+			"id":"qIEeg",
+			"index":11,
+			"inputs":{
+				"itemToAdd":"microsoft_onedrive/u/{{ _pRMbs.outputs.value[0].mail }}",
+				"insertLocation":"START",
+				"captureAddedItem":false,
+				"listName":"{{ UFtTW.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"User Grant",
+			"title":"Add an item to list",
 			"type":"ACTION"
 		},
 		{
@@ -1394,5 +1394,5 @@
 		"release_27jan",
 		"msft_connectors"
 	],
-	"version":390
+	"version":392
 }

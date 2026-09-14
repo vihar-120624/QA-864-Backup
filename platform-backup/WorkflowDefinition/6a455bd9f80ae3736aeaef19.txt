@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744670251,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744670498,
+		"deployedAt":1789395365169,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed19ecee862008d75cf93",
+		"deployedDefinitionId":"6aa801a572fd792214e8d101",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":21
+		"version":2,
+		"workflowVersion":24
 	},
 	"edges":[
 		{
@@ -78,7 +78,7 @@
 	"id":"6a455bd9f80ae3736aeaef19",
 	"lastModifiedBy":-1,
 	"lcName":"enterprise search | feedback | positive feedback split",
-	"modifiedTime":1788252971305,
+	"modifiedTime":1789395392014,
 	"name":"Enterprise Search | Feedback | Positive Feedback Split",
 	"nodes":[
 		{
@@ -317,7 +317,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def startTime = binding.hasVariable(\"startTime\") ? startTime : 0\ndef endTime   = binding.hasVariable(\"endTime\")   ? endTime   : 0\n\ndef traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\n\ndef traceDynamicFilter = traceCond ? \" WHERE t.deleted = false AND \" + traceCond\n                                   : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\ndef sql =\n\"SELECT \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'CONTEXTUAL_RESPONSE')      THEN 1 ELSE 0 END) AS CONTEXTUAL_RESPONSE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'CONCISE_AND_TO_THE_POINT') THEN 1 ELSE 0 END) AS CONCISE_AND_TO_THE_POINT, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'RELEVANT_FOR_ME')          THEN 1 ELSE 0 END) AS RELEVANT_FOR_ME, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'BETTER_STRUCTURED')        THEN 1 ELSE 0 END) AS BETTER_STRUCTURED, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'ACCURATE_RESPONSE')        THEN 1 ELSE 0 END) AS ACCURATE_RESPONSE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'THOROUGH_RESPONSE')        THEN 1 ELSE 0 END) AS THOROUGH_RESPONSE \" +\n\"FROM ENTITY_service_hub_user_feedback f \" +\n\"JOIN ( \" +\n\"  SELECT DISTINCT filtered_t._pr_messageId AS messageId \" +\n\"  FROM (SELECT * FROM ENTITY_e_traces t \" +\n     traceDynamicFilter +\n\"  ) filtered_t \" +\n\"  JOIN (SELECT * FROM USER u \" +\n     userDynamicFilter +\n\"  ) filtered_u \" +\n\"    ON filtered_t._pr_userId = filtered_u.userId \" +\n\"  WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n\"    AND filtered_t._pr_messageId IS NOT NULL \" +\n\"    AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN \" + startTime + \" AND \" + endTime + \" \" +\n\") AS filtered_messages \" +\n\"  ON f._pr_fanMessageId = filtered_messages.messageId \" +\n\"WHERE f.deleted = false AND f._pr_positiveFeedbackCategories IS NOT NULL \" +\n\"  AND f.createdTime BETWEEN \" + startTime + \" AND \" + endTime + \";\"\n\nreturn [\"sql\": sql]",
+				"code":"def startTime = binding.hasVariable(\"startTime\") ? startTime : 0\ndef endTime   = binding.hasVariable(\"endTime\")   ? endTime   : 0\n\ndef traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\n\ndef traceDynamicFilter = traceCond ? \" WHERE t.deleted = false AND \" + traceCond\n                                   : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\ndef sql =\n\"SELECT \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'CONTEXTUAL_RESPONSE')      THEN 1 ELSE 0 END) AS CONTEXTUAL_RESPONSE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'CONCISE_AND_TO_THE_POINT') THEN 1 ELSE 0 END) AS CONCISE_AND_TO_THE_POINT, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'RELEVANT_FOR_ME')          THEN 1 ELSE 0 END) AS RELEVANT_FOR_ME, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'BETTER_STRUCTURED')        THEN 1 ELSE 0 END) AS BETTER_STRUCTURED, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'ACCURATE_RESPONSE')        THEN 1 ELSE 0 END) AS ACCURATE_RESPONSE, \" +\n\"  SUM(CASE WHEN array_contains(_pr_positiveFeedbackCategories, 'THOROUGH_RESPONSE')        THEN 1 ELSE 0 END) AS THOROUGH_RESPONSE \" +\n\"FROM ENTITY_service_hub_user_feedback f \" +\n\"JOIN ( \" +\n\"  SELECT DISTINCT filtered_t._pr_messageId AS messageId \" +\n\"  FROM (SELECT * FROM ENTITY_e_traces t \" +\n     traceDynamicFilter +\n\"  ) filtered_t \" +\n\"  JOIN (SELECT * FROM USER u \" +\n     userDynamicFilter +\n\"  ) filtered_u \" +\n\"    ON filtered_t._pr_userId = filtered_u.userId \" +\n\"  WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n\"    AND filtered_t._pr_messageId IS NOT NULL \" +\n\"    AND filtered_t._pr_currentType = 'LLM' \" +\n\"    AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN \" + startTime + \" AND \" + endTime + \" \" +\n\") AS filtered_messages \" +\n\"  ON f._pr_fanMessageId = filtered_messages.messageId \" +\n\"WHERE f.deleted = false AND f._pr_positiveFeedbackCategories IS NOT NULL \" +\n\"  AND f.createdTime BETWEEN \" + startTime + \" AND \" + endTime + \";\"\n\nreturn [\"sql\": sql]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -550,5 +550,5 @@
 		}
 	},
 	"standard":true,
-	"version":23
+	"version":25
 }
