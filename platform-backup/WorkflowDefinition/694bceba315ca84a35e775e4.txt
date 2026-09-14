@@ -1,0 +1,1347 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789394968714,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789394968783,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80018c6a14707f1502daa",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":59
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_iQ1Ru",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_M7osR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_M7osR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GD6UC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GD6UC",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cQMNU",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_cQMNU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qcRwS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GD6UC",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qcRwS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qcRwS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9KjbZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9KjbZ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_PGP0q",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9KjbZ",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_20Zuv",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_PGP0q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_20Zuv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_20Zuv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mn6Yl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mn6Yl",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4jTCN",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_mn6Yl",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sCMTV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sCMTV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_ZFFU1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_ZFFU1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QG8Yz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4jTCN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pjaAZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QG8Yz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pjaAZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pjaAZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BOWou",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_BOWou",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vZ8da",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"694bceba315ca84a35e775e4",
+	"lastModifiedBy":-1,
+	"lcName":"best practice | automation | get score",
+	"modifiedTime":1789394974563,
+	"name":"Best Practice | Automation | Get Score",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":90,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_iQ1Ru",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"automationId":{
+							"title":"automationId",
+							"type":"string"
+						},
+						"automationName":{
+							"title":"automationName",
+							"type":"string"
+						},
+						"passedChecks":{
+							"title":"passedChecks",
+							"type":"integer"
+						},
+						"score":{
+							"title":"score",
+							"type":"number"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"totalChecks":{
+							"title":"totalChecks",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"$comment":"best-practice-automation-score-input",
+					"additionalProperties":false,
+					"properties":{
+						"automation_id":{
+							"title":"Automation Id",
+							"type":"string"
+						},
+						"category":{
+							"title":"Category",
+							"type":"string"
+						},
+						"runtime_checks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"check_id":{
+										"title":"Check Id",
+										"type":"string"
+									},
+									"status":{
+										"title":"Status",
+										"type":"string"
+									},
+									"targets":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"path":{
+													"items":{
+														"type":"string"
+													},
+													"title":"Path",
+													"type":"array"
+												},
+												"taregt_id":{
+													"title":"Taregt Id",
+													"type":"string"
+												},
+												"target_type":{
+													"title":"Target Type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"Targets",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Runtime Checks",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{},
+				"visibleOptionalFields":[
+					"root.automationScorePayload.automationId",
+					"root.automationScorePayload.category",
+					"root.automationScorePayload.runtimeChecks.source",
+					"root.automationScorePayload.runtimeChecks.ua:type",
+					"root.automationScorePayload.runtimeChecks.items.checkId",
+					"root.automationScorePayload.runtimeChecks.items.status",
+					"root.automationScorePayload.runtimeChecks.items.targets.source",
+					"root.automationScorePayload.runtimeChecks.items.targets.ua:type",
+					"root.automationScorePayload.runtimeChecks.items.targets.items.targetId",
+					"root.automationScorePayload.runtimeChecks.items.targets.items.targetType",
+					"root.automationScorePayload.runtimeChecks.items.targets.items.path.source",
+					"root.automationScorePayload.runtimeChecks.items.targets.items.path.ua:type",
+					"root.automationScorePayload.runtimeChecks.items.targets.items.path.items",
+					"root.automationScorePayload.globalRuntimeChecks.source",
+					"root.automationScorePayload.globalRuntimeChecks.ua:type",
+					"root.automationScorePayload.globalRuntimeChecks.items.checkId",
+					"root.automationScorePayload.globalRuntimeChecks.items.status",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.source",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.ua:type",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.items.targetId",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.items.targetType",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.items.path.source",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.items.path.ua:type",
+					"root.automationScorePayload.globalRuntimeChecks.items.targets.items.path.items"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":26,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_M7osR",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"$comment":"best-practice-automation-score-input",
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"automationReport":{
+							"additionalProperties":false,
+							"properties":{
+								"checks":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"check_id":{
+												"title":"Check Id",
+												"type":"string"
+											},
+											"status":{
+												"title":"Status",
+												"type":"string"
+											},
+											"targets":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"path":{
+															"items":{
+																"type":"string"
+															},
+															"title":"Path",
+															"type":"array"
+														},
+														"targetId":{
+															"title":"Target Id",
+															"type":"string"
+														},
+														"targetType":{
+															"title":"Target Type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"type":"object"
+												},
+												"title":"Targets",
+												"type":"array"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Checks",
+									"type":"array"
+								},
+								"entityId":{
+									"title":"Entity Id",
+									"type":"string"
+								},
+								"entityType":{
+									"title":"Entity Type",
+									"type":"string"
+								},
+								"entityVersion":{
+									"title":"Entity Version",
+									"type":"integer"
+								},
+								"globalReportVersion":{
+									"title":"Global Report Version",
+									"type":"integer"
+								},
+								"id":{
+									"title":"Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Automation Report",
+							"type":"object"
+						},
+						"automationScorePayload":{
+							"additionalProperties":false,
+							"properties":{
+								"automationId":{
+									"title":"Automation Id",
+									"type":"string"
+								},
+								"category":{
+									"title":"category",
+									"type":"string"
+								},
+								"runtimeChecks":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"checkId":{
+												"title":"Check Id",
+												"type":"string"
+											},
+											"status":{
+												"title":"Status",
+												"type":"string"
+											},
+											"targets":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"path":{
+															"items":{
+																"type":"string"
+															},
+															"title":"Path",
+															"type":"array"
+														},
+														"targetId":{
+															"title":"Target Id",
+															"type":"string"
+														},
+														"targetType":{
+															"title":"Target Type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"type":"object"
+												},
+												"title":"Targets",
+												"type":"array"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Runtime Checks",
+									"type":"array"
+								}
+							},
+							"required":[],
+							"title":"Automation Score Payload",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"automationScorePayload":{
+					"automationId":"{{ n_iQ1Ru.outputs.automation_id }}",
+					"category":"{{ n_iQ1Ru.outputs.category }}",
+					"runtimeChecks":{
+						"items":{
+							"checkId":"{{ n_iQ1Ru.outputs.runtime_checks[0].check_id }}",
+							"status":"{{ n_iQ1Ru.outputs.runtime_checks[0].status }}",
+							"targets":{
+								"items":{
+									"path":{
+										"items":"{{ n_iQ1Ru.outputs.runtime_checks[0].targets[0].path[0] }}",
+										"source":"{{ n_iQ1Ru.outputs.runtime_checks[0].targets[0].path }}",
+										"ua:type":"mappedArray"
+									},
+									"targetId":"{{ n_iQ1Ru.outputs.runtime_checks[0].targets[0].taregt_id }}",
+									"targetType":"{{ n_iQ1Ru.outputs.runtime_checks[0].targets[0].target_type }}"
+								},
+								"source":"{{ n_iQ1Ru.outputs.runtime_checks[0].targets }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_iQ1Ru.outputs.runtime_checks }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"$comment":"best-practice-automation-score-input",
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
+						"automationReport":{
+							"additionalProperties":false,
+							"properties":{
+								"checks":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"check_id":{
+												"title":"Check Id",
+												"type":"string"
+											},
+											"status":{
+												"title":"Status",
+												"type":"string"
+											},
+											"targets":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"path":{
+															"items":{
+																"type":"string"
+															},
+															"title":"Path",
+															"type":"array"
+														},
+														"targetId":{
+															"title":"Target Id",
+															"type":"string"
+														},
+														"targetType":{
+															"title":"Target Type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"type":"object"
+												},
+												"title":"Targets",
+												"type":"array"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Checks",
+									"type":"array"
+								},
+								"entityId":{
+									"title":"Entity Id",
+									"type":"string"
+								},
+								"entityType":{
+									"title":"Entity Type",
+									"type":"string"
+								},
+								"entityVersion":{
+									"title":"Entity Version",
+									"type":"integer"
+								},
+								"globalReportVersion":{
+									"title":"Global Report Version",
+									"type":"integer"
+								},
+								"id":{
+									"title":"Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Automation Report",
+							"type":"object"
+						},
+						"automationScorePayload":{
+							"additionalProperties":false,
+							"properties":{
+								"automationId":{
+									"title":"Automation Id",
+									"type":"string"
+								},
+								"category":{
+									"title":"category",
+									"type":"string"
+								},
+								"runtimeChecks":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"checkId":{
+												"title":"Check Id",
+												"type":"string"
+											},
+											"status":{
+												"title":"Status",
+												"type":"string"
+											},
+											"targets":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"path":{
+															"items":{
+																"type":"string"
+															},
+															"title":"Path",
+															"type":"array"
+														},
+														"targetId":{
+															"title":"Target Id",
+															"type":"string"
+														},
+														"targetType":{
+															"title":"Target Type",
+															"type":"string"
+														}
+													},
+													"required":[],
+													"type":"object"
+												},
+												"title":"Targets",
+												"type":"array"
+											}
+										},
+										"required":[],
+										"type":"object"
+									},
+									"title":"Runtime Checks",
+									"type":"array"
+								}
+							},
+							"required":[],
+							"title":"Automation Score Payload",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Global Variables",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":8,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_GD6UC",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_M7osR.outputs.automationScorePayload.category }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Category Missing",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_GD6UC@_QIChk-1@y",
+			"id":"n_cQMNU",
+			"index":4,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_M7osR.outputs.automationScorePayload }}",
+						"value":{
+							"automationId":"{{ n_M7osR.outputs.automationScorePayload.automationId }}",
+							"category":"All",
+							"runtimeChecks":{
+								"items":{
+									"checkId":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].checkId }}",
+									"status":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].status }}",
+									"targets":{
+										"items":{
+											"path":{
+												"items":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].path[0] }}",
+												"source":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].path }}",
+												"ua:type":"mappedArray"
+											},
+											"targetId":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].targetId }}",
+											"targetType":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].targetType }}"
+										},
+										"source":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks }}",
+								"ua:type":"mappedArray"
+							}
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Category as All",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":143,
+				"resourceName":"standard_entities_get_automation_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_qcRwS",
+			"index":5,
+			"inputs":{
+				"workflowIds":"{{ n_M7osR.outputs.automationScorePayload.automationId }}",
+				"includeVersion":true,
+				"includeEverything":false,
+				"includeNodesAndEdges":false
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get automation details",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":8,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_9KjbZ",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_qcRwS.outputs.automationDetails[0].id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Automation Exists",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":89,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_9KjbZ@_QIChk-1@n",
+			"id":"_PGP0q",
+			"index":7,
+			"inputs":{
+				"result":{
+					"automationId":"{{ n_M7osR.outputs.automationScorePayload.automationId }}",
+					"automationName":"NOT FOUND",
+					"passedChecks":0,
+					"score":0,
+					"success":false,
+					"totalChecks":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Automation NOT FOUND",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":228,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_20Zuv",
+			"index":8,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_qcRwS.outputs.automationDetails[0].id }}"
+							},
+							"property":"properties_entityId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"WORKFLOW_DEFINITION"
+							},
+							"property":"properties_entityType"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_qcRwS.outputs.automationDetails[0].version }}"
+							},
+							"property":"properties_entityVersion"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __ENV__.outputs.AUTOMATION_BPC_REPORT_VERSION }}"
+							},
+							"property":"properties_globalReportVersion"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_automation_best_practice_report",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Automation Report",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":8,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_mn6Yl",
+			"index":9,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"GT",
+							"value":"0"
+						},
+						"property":"=LEN({{ n_20Zuv.outputs.properties.checks }})"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"{{ n_20Zuv.outputs.properties.globalReportVersion }}"
+						},
+						"property":"{{ __ENV__.outputs.AUTOMATION_BPC_REPORT_VERSION }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Report Exists",
+			"title":"If Conditions Match",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_mn6Yl@_QIChk-1@y",
+			"id":"n_4jTCN",
+			"index":10,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_M7osR.outputs.automationReport }}",
+						"value":{
+							"checks":{
+								"items":{
+									"check_id":"{{ n_20Zuv.outputs.properties.checks[0].check_id }}",
+									"status":"{{ n_20Zuv.outputs.properties.checks[0].status }}",
+									"targets":{
+										"items":{
+											"path":{
+												"items":"{{ n_20Zuv.outputs.properties.checks[0].targets[0].path[0] }}",
+												"source":"{{ n_20Zuv.outputs.properties.checks[0].targets[0].path }}",
+												"ua:type":"mappedArray"
+											},
+											"targetId":"{{ n_20Zuv.outputs.properties.checks[0].targets[0].targetId }}",
+											"targetType":"{{ n_20Zuv.outputs.properties.checks[0].targets[0].targetType }}"
+										},
+										"source":"{{ n_20Zuv.outputs.properties.checks[0].targets }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_20Zuv.outputs.properties.checks }}",
+								"ua:type":"mappedArray"
+							},
+							"entityId":"{{ n_20Zuv.outputs.properties.entityId }}",
+							"entityType":"{{ n_20Zuv.outputs.properties.entityType }}",
+							"entityVersion":"{{ n_20Zuv.outputs.properties.entityVersion }}",
+							"globalReportVersion":"{{ n_20Zuv.outputs.properties.globalReportVersion }}",
+							"id":"{{ n_20Zuv.outputs.properties.id }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Track Automation Report",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":108,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_mn6Yl@_QIChk-1@n",
+			"id":"n_sCMTV",
+			"index":11,
+			"inputs":{
+				"automationId":"694d1e0b294cd74928c22575",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"automation_id":"{{ n_M7osR.outputs.automationScorePayload.automationId }}",
+					"runtime_checks":{
+						"items":{
+							"check_id":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].checkId }}",
+							"status":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].status }}",
+							"targets":{
+								"items":{
+									"path":{
+										"items":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].path[0] }}",
+										"source":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].path }}",
+										"ua:type":"mappedArray"
+									},
+									"target_id":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].targetId }}",
+									"target_type":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets[0].targetType }}"
+								},
+								"source":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks[0].targets }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_M7osR.outputs.automationScorePayload.runtimeChecks }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Run Checks",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":228,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_mn6Yl@_QIChk-1@n",
+			"id":"_ZFFU1",
+			"index":12,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_qcRwS.outputs.automationDetails[0].id }}"
+							},
+							"property":"properties_entityId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"WORKFLOW_DEFINITION"
+							},
+							"property":"properties_entityType"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_qcRwS.outputs.automationDetails[0].version }}"
+							},
+							"property":"properties_entityVersion"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __ENV__.outputs.AUTOMATION_BPC_REPORT_VERSION }}"
+							},
+							"property":"properties_globalReportVersion"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_automation_best_practice_report",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Automation Report",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":23,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_mn6Yl@_QIChk-1@n",
+			"id":"n_QG8Yz",
+			"index":13,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_M7osR.outputs.automationReport }}",
+						"value":{
+							"checks":{
+								"items":{
+									"check_id":"{{ _ZFFU1.outputs.properties.checks[0].check_id }}",
+									"status":"{{ _ZFFU1.outputs.properties.checks[0].status }}",
+									"targets":{
+										"items":{
+											"path":{
+												"items":"{{ _ZFFU1.outputs.properties.checks[0].targets[0].path[0] }}",
+												"source":"{{ _ZFFU1.outputs.properties.checks[0].targets[0].path }}",
+												"ua:type":"mappedArray"
+											},
+											"targetId":"{{ _ZFFU1.outputs.properties.checks[0].targets[0].targetId }}",
+											"targetType":"{{ _ZFFU1.outputs.properties.checks[0].targets[0].targetType }}"
+										},
+										"source":"{{ _ZFFU1.outputs.properties.checks[0].targets }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ _ZFFU1.outputs.properties.checks }}",
+								"ua:type":"mappedArray"
+							},
+							"entityId":"{{ _ZFFU1.outputs.properties.entityId }}",
+							"entityType":"{{ _ZFFU1.outputs.properties.entityType }}",
+							"entityVersion":"{{ _ZFFU1.outputs.properties.entityVersion }}",
+							"globalReportVersion":"{{ _ZFFU1.outputs.properties.globalReportVersion }}",
+							"id":"{{ _ZFFU1.outputs.properties.id }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Track Automation Report",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":228,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_pjaAZ",
+			"index":14,
+			"inputs":{
+				"object_type":"e_workflow_best_practice_check",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":1000,
+					"offset":0,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Workflow BP Checks",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.reports.items",
+					"root.parameters.checks.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":89,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_BOWou",
+			"index":15,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"achieved_score":{
+							"title":"achieved_score",
+							"type":"integer"
+						},
+						"category":{
+							"title":"category",
+							"type":"string"
+						},
+						"max_possible_score":{
+							"title":"max_possible_score",
+							"type":"integer"
+						},
+						"pass_percentage":{
+							"title":"pass_percentage",
+							"type":"string"
+						},
+						"passed_checks":{
+							"title":"passed_checks",
+							"type":"integer"
+						},
+						"passed_targets":{
+							"title":"passed_targets",
+							"type":"integer"
+						},
+						"total_checks":{
+							"title":"total_checks",
+							"type":"integer"
+						},
+						"total_targets":{
+							"title":"total_targets",
+							"type":"integer"
+						},
+						"weighted_score":{
+							"title":"weighted_score",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"category":{
+							"title":"Category",
+							"type":"string"
+						},
+						"checks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Checks",
+							"type":"array"
+						},
+						"reports":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Reports",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def calculatePassPercentage(reports, checks, category = null) {\n  // Define base impact weights (using lowercase keys to match data)\n  // Weights use exponential scaling to ensure critical issues have significantly more impact\n  // Critical failures should dramatically affect the weighted score\n  def impactWeights = [\n      'critical': 100,  // 2x High, 4x Medium, 10x Low - ensures critical failures are heavily penalized\n      'high': 50,       // 2x Medium, 5x Low\n      'medium': 25,     // 2.5x Low\n      'low': 10\n  ]\n\n  // Filter checks by category if provided. Treat \"All\" or null as no filter.\n  def relevantChecks = (category && category != \"All\") \n      ? checks.findAll { it.properties?.category == category } \n      : checks\n  \n  // Check for empty relevantChecks (e.g., if a non-existent category was passed)\n  if (!relevantChecks) {\n      return [\n          category: category ?: \"All\", \n          totalChecks: 0, \n          passedChecks: 0, \n          passPercentage: \"0.00\",\n          weightedScore: \"0.00\"\n      ]\n  }\n  \n  // Create a map of check IDs to their impact levels and multipliers\n  def checkImpactMap = relevantChecks.collectEntries { \n      def impact = it.properties?.impact?.toLowerCase() ?: 'low'\n      def multiplier = it.properties?.impactMultiplier ?: 1\n      [(it.id): [impact: impact, multiplier: multiplier]] \n  }\n  \n  // Relevant check IDs - using 'id' field from checks\n  def relevantCheckIds = relevantChecks.collect { it.id }\n  \n  // Filter reports matching relevant checks - using 'check_id' from reports\n  def filteredReports = reports.findAll { relevantCheckIds.contains(it.check_id) }\n  \n  // Handle case where no reports match the relevant checks\n  if (!filteredReports) {\n      return [\n          category: category ?: \"All\", \n          totalChecks: 0, \n          passedChecks: 0, \n          passPercentage: \"0.00\",\n          weightedScore: \"0.00\"\n      ]\n  }\n  \n  // Calculate weighted score with impact multipliers\n  // Weight by number of targets, not just checks, since UI flattens checks with multiple targets\n  def totalWeightedScore = 0\n  def maxPossibleScore = 0\n  def totalTargets = 0\n  def passedTargets = 0\n  \n  filteredReports.each { report ->\n      def checkInfo = checkImpactMap[report.check_id]\n      def impact = checkInfo?.impact ?: 'low'\n      def multiplier = checkInfo?.multiplier ?: 1\n      \n      // Calculate weight per target: base impact weight * multiplier\n      def baseWeight = impactWeights[impact] ?: impactWeights['low']\n      def weightPerTarget = baseWeight * multiplier\n      \n      // Count targets for this report (default to 1 if no targets array for backward compatibility)\n      def targetCount = report.targets?.size() ?: 1\n      totalTargets += targetCount\n      \n      // Add weight for all targets of this check\n      def totalWeightForCheck = weightPerTarget * targetCount\n      maxPossibleScore += totalWeightForCheck\n      \n      if (report.status == 'passed') {\n          totalWeightedScore += totalWeightForCheck\n          passedTargets += targetCount\n      }\n  }\n  \n  // Calculate weighted percentage\n  def weightedPassPercentage = (maxPossibleScore > 0) \n      ? (totalWeightedScore / maxPossibleScore) * 100 \n      : 0\n  \n  // Calculate simple percentage based on targets (not checks)\n  def simplePassPercentage = (totalTargets > 0) \n      ? (passedTargets / totalTargets) * 100 \n      : 0\n  \n  return [\n      category: category ?: \"All\",\n      total_checks: filteredReports.size(),\n      total_targets: totalTargets,\n      passed_checks: filteredReports.count { it.status == 'passed' },\n      passed_targets: passedTargets,\n      pass_percentage: String.format(\"%.2f\", simplePassPercentage),\n      weighted_score: String.format(\"%.2f\", weightedPassPercentage),\n      max_possible_score: maxPossibleScore,\n      achieved_score: totalWeightedScore\n  ]\n}\n\ndef output = calculatePassPercentage(reports, checks, category)\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"category":"{{ n_M7osR.outputs.automationScorePayload.category }}",
+					"checks":{
+						"items":"{{ n_pjaAZ.outputs.objects[0] }}",
+						"source":"{{ n_pjaAZ.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"reports":{
+						"items":"{{ n_M7osR.outputs.automationReport.checks[0] }}",
+						"source":"{{ n_M7osR.outputs.automationReport.checks }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Calculate Score",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":89,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QIChk-1",
+			"id":"n_vZ8da",
+			"index":16,
+			"inputs":{
+				"result":{
+					"automationId":"{{ n_qcRwS.outputs.automationDetails[0].id }}",
+					"automationName":"{{ n_qcRwS.outputs.automationDetails[0].name }}",
+					"passedChecks":"{{ n_BOWou.outputs.result.passed_checks }}",
+					"score":"=CEILING.MATH(VALUE({{ n_BOWou.outputs.result.weighted_score }}))",
+					"success":true,
+					"totalChecks":"{{ n_BOWou.outputs.result.total_checks }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Score",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"BPC",
+		"Automation"
+	],
+	"version":60
+}
