@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744107021,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744107302,
+		"deployedAt":1789395322277,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf6bba51514edfc7ea00",
+		"deployedDefinitionId":"6aa8017ac6a14707f1503dce",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":285
+		"version":2,
+		"workflowVersion":288
 	},
 	"edges":[
 		{
@@ -181,7 +181,33 @@
 		},
 		{
 			"fromNodeId":"n_pNwTO",
+			"id":"error@n_pNwTO@n_PrepF",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PrepF",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_PrepF",
+			"id":"next@n_PrepF@n_PrepR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PrepR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pNwTO",
 			"id":"next@n_pNwTO@n_tyzul",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tyzul",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PrepR",
+			"id":"next@n_PrepR@n_tyzul",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tyzul",
@@ -189,7 +215,33 @@
 		},
 		{
 			"fromNodeId":"n_tyzul",
+			"id":"error@n_tyzul@n_BwrapF",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BwrapF",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_BwrapF",
+			"id":"next@n_BwrapF@n_BwrapR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BwrapR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tyzul",
 			"id":"next@n_tyzul@n_hom6d",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hom6d",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_BwrapR",
+			"id":"next@n_BwrapR@n_hom6d",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_hom6d",
@@ -219,7 +271,7 @@
 	"id":"6a34eef61d0e965a96d83ec3",
 	"lastModifiedBy":-1,
 	"lcName":"refreshskills",
-	"modifiedTime":1788252972399,
+	"modifiedTime":1789395400218,
 	"name":"RefreshSkills",
 	"nodes":[
 		{
@@ -239,6 +291,16 @@
 					"additionalProperties":false,
 					"dynamic":true,
 					"properties":{
+						"ignoredSkillList":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Ignored Skill List",
+							"type":"array"
+						},
 						"success":{
 							"title":"Success",
 							"type":"string"
@@ -346,9 +408,12 @@
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
-					"agentId":"{{ n_y5DJG.outputs.agentId }}"
+					"agentId":"{{ n_y5DJG.outputs.agentId }}",
+					"fetchCapabilityFiles":true,
+					"fetchChildSkills":true
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Fetch Skills",
@@ -1161,6 +1226,7 @@
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"uploaded_skill_markdown",
 				"skipIfBlank":false,
 				"record":{
@@ -1416,7 +1482,8 @@
 				},
 				"visibleOptionalFields":[
 					"root.parameters.skillRecords.items",
-					"root.parameters.attachments.items"
+					"root.parameters.attachments.items",
+					"root.parameters.standardSkillIds.items"
 				]
 			},
 			"context":{
@@ -1427,7 +1494,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_b5H4f-1",
 			"id":"n_pNwTO",
 			"index":18,
@@ -1508,6 +1575,21 @@
 							"title":"Attachments",
 							"type":"array"
 						},
+						"capabilityFiles":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Capability Files",
+							"type":"array"
+						},
+						"capabilityManifest":{
+							"additionalProperties":true,
+							"properties":{},
+							"title":"Capability Manifest",
+							"type":"object"
+						},
 						"skillRecords":{
 							"items":{
 								"additionalProperties":false,
@@ -1521,7 +1603,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"// def fileObj = binding.getVariable(\"input\")\ndef skillRecords = binding.hasVariable(\"skillRecords\")?binding.getVariable(\"skillRecords\"):[:]\ndef attachments = binding.hasVariable(\"attachments\")?binding.getVariable(\"attachments\"):[:]\ndef skillFileList = []\n// def attachmentList = []\n\nfor(skill in skillRecords){\n  def files = skill?.files\n  if(files){\n    for(file in files){\n      def fileObj = file.fileObject\n      fileObj[\"ua:type\"]=\"FILE\"\n      // skillFileList << [\"fileName\": skill.name + \"_\" + fileObj.name,\"fileObject\": fileObj]\n    }\n  }\n  skillFileList << skill\n}\n\nfor(attachment in attachments){\n  attachment[\"ua:type\"]=\"FILE\"\n}\n\nreturn [\n  \"skillFileList\": skillFileList,\n  \"attachments\": attachments\n]",
+				"code":"// def fileObj = binding.getVariable(\"input\")\ndef skillRecords = binding.hasVariable(\"skillRecords\")?binding.getVariable(\"skillRecords\"):[:]\ndef attachments = binding.hasVariable(\"attachments\")?binding.getVariable(\"attachments\"):[:]\ndef skillFileList = []\n// def attachmentList = []\n\nfor(skill in skillRecords){\n  def skillCopy = new LinkedHashMap(skill as Map)\n  def files = skillCopy.files\n  if(files){\n    for(file in files){\n      def fileObj = file.fileObject\n      fileObj[\"ua:type\"]=\"FILE\"\n      // skillFileList << [\"fileName\": skillCopy.name + \"_\" + fileObj.name,\"fileObject\": fileObj]\n    }\n  }\n  skillFileList << skillCopy\n}\n\nfor(attachment in attachments){\n  attachment[\"ua:type\"]=\"FILE\"\n}\n\n// Capability config (skill-backed standard actions). n_tyzul builds filesList from\n// these attachments and takes each file's sandbox name from .name, so a capability\n// file joins the session by being appended here with its collision-proof name --\n// n_tyzul itself needs no mapping of its own.\ndef attachmentList = (attachments instanceof List) ? attachments : []\ndef capabilityFiles = binding.hasVariable(\"capabilityFiles\") ? binding.getVariable(\"capabilityFiles\") : null\nfor (cf in (capabilityFiles ?: [])) {\n  def details = cf?.fileDetails\n  if (!(details instanceof Map)) continue\n  def copy = new LinkedHashMap(details)\n  copy[\"ua:type\"] = \"FILE\"\n  if (cf?.fileName) copy[\"name\"] = cf.fileName\n  attachmentList << copy\n}\ndef capabilityManifest = binding.hasVariable(\"capabilityManifest\") ? binding.getVariable(\"capabilityManifest\") : null\nif (capabilityManifest instanceof Map && capabilityManifest[\"source\"]) {\n  def manifest = new LinkedHashMap(capabilityManifest)\n  manifest[\"ua:type\"] = \"FILE\"\n  manifest[\"name\"] = \"capability-config.json\"\n  attachmentList << manifest\n}\n\nreturn [\n  \"skillFileList\": skillFileList,\n  \"attachments\": attachmentList\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1530,6 +1612,12 @@
 						"source":"{{ n_y5DJG.outputs.attachments }}",
 						"ua:type":"mappedArray"
 					},
+					"capabilityFiles":{
+						"items":"{{ n_vUnYv.outputs.capabilityFiles[0] }}",
+						"source":"{{ n_vUnYv.outputs.capabilityFiles }}",
+						"ua:type":"mappedArray"
+					},
+					"capabilityManifest":"{{ n_vUnYv.outputs.capabilityManifest }}",
 					"skillRecords":{
 						"items":"{{ n_yU994.outputs.items[0] }}",
 						"source":"{{ n_yU994.outputs.items }}",
@@ -1537,10 +1625,135 @@
 					}
 				}
 			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1415,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pNwTO@_b5H4f-1@error",
+			"id":"n_PrepF",
+			"index":19,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_y5DJG.outputs.caseId }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_ai_agent_conversation_state",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.sandboxExecution.executionState",
+						"setValue":"FAILED"
+					}
+				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Sandbox state = FAILED",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":942,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pNwTO@_b5H4f-1@error",
+			"id":"n_PrepR",
+			"index":20,
+			"inputs":{
+				"result":{
+					"ignoredSkillList":{
+						"items":"{{ n_vUnYv.outputs.ignoredSkillList[0] }}",
+						"source":"{{ n_vUnYv.outputs.ignoredSkillList }}",
+						"ua:type":"mappedArray"
+					},
+					"success":"false"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		},
 		{
 			"context":{
@@ -1551,10 +1764,10 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_b5H4f-1",
 			"id":"n_tyzul",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"skills":{
 					"items":{
@@ -1573,7 +1786,7 @@
 					"source":"{{ n_pNwTO.outputs.result.skillFileList }}",
 					"ua:type":"mappedArray"
 				},
-				"code":"pwd\ncd ../skills\npwd\nls -la",
+				"code":"pwd\ncd ../skills\npwd\nls -la\ncd ../input\npwd\nls -la",
 				"caseId":"{{ n_y5DJG.outputs.caseId }}",
 				"filesList":{
 					"items":{
@@ -1585,6 +1798,55 @@
 				},
 				"language":"bash",
 				"captureStdOutput":false
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Code by UnifyApps",
@@ -1601,9 +1863,85 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
+			"groupId":"n_tyzul@_b5H4f-1@error",
+			"id":"n_BwrapF",
+			"index":22,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_y5DJG.outputs.caseId }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_ai_agent_conversation_state",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.sandboxExecution.executionState",
+						"setValue":"FAILED"
+					}
+				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Sandbox state = FAILED",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":942,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_tyzul@_b5H4f-1@error",
+			"id":"n_BwrapR",
+			"index":23,
+			"inputs":{
+				"result":{
+					"ignoredSkillList":{
+						"items":"{{ n_vUnYv.outputs.ignoredSkillList[0] }}",
+						"source":"{{ n_vUnYv.outputs.ignoredSkillList }}",
+						"ua:type":"mappedArray"
+					},
+					"success":"false"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1415,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
 			"groupId":"_b5H4f-1",
 			"id":"n_hom6d",
-			"index":20,
+			"index":24,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -1651,9 +1989,14 @@
 			"fallbackMode":"STOP",
 			"groupId":"_b5H4f-1",
 			"id":"n_UGctu",
-			"index":21,
+			"index":25,
 			"inputs":{
 				"result":{
+					"ignoredSkillList":{
+						"items":"{{ n_vUnYv.outputs.ignoredSkillList[0] }}",
+						"source":"{{ n_vUnYv.outputs.ignoredSkillList }}",
+						"ua:type":"mappedArray"
+					},
 					"success":"true"
 				}
 			},
@@ -1677,5 +2020,5 @@
 		}
 	},
 	"standard":true,
-	"version":287
+	"version":289
 }

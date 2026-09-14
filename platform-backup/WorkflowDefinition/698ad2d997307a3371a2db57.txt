@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744106035,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744106507,
+		"deployedAt":1789395322117,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf6a2889f9507f11ed33",
+		"deployedDefinitionId":"6aa8017972fd792214e8cd53",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":121
+		"version":2,
+		"workflowVersion":124
 	},
 	"edges":[
 		{
@@ -227,7 +227,7 @@
 	"id":"698ad2d997307a3371a2db57",
 	"lastModifiedBy":-1,
 	"lcName":"jira chunkmetadata",
-	"modifiedTime":1788252971359,
+	"modifiedTime":1789395400233,
 	"name":"Jira ChunkMetadata",
 	"nodes":[
 		{
@@ -465,7 +465,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Issue",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -490,9 +491,17 @@
 				"output":{
 					"additionalProperties":false,
 					"properties":{
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"editCount":{
 							"title":"Edit Count",
 							"type":"integer"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
 						},
 						"issueApiResponse":{
 							"properties":{
@@ -618,6 +627,10 @@
 							"title":"Components",
 							"type":"array"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"createdAt":{
 							"title":"createdAt",
 							"type":"string"
@@ -643,6 +656,14 @@
 						"editCount":{
 							"title":"Edit Count",
 							"type":"integer"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
+						},
+						"issueId":{
+							"title":"Issue Id",
+							"type":"string"
 						},
 						"issueKey":{
 							"title":"issueKey",
@@ -743,7 +764,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\n\n///////////// : Description\n\ndef descriptionValue =\n    binding.hasVariable(\"description\")\n        ? description\n        : null\n\ndef finalText = \"\"\n\nif (descriptionValue instanceof String) {\n\n    finalText = descriptionValue\n\n} else if (descriptionValue instanceof Map) {\n\n    def parts = []\n\n    (descriptionValue?.content ?: []).each { item ->\n\n        // Extract text\n        if (item.type == \"paragraph\") {\n            item.content?.each { c ->\n                if (c.type == \"text\" && c.text) {\n                    parts << c.text\n                }\n            }\n        }\n\n        // Extract attachment names\n        if (item.type == \"mediaSingle\") {\n            item.content?.each { c ->\n                def fileName = c?.attrs?.alt\n                if (fileName) {\n                    parts << \"file : ${fileName}\"\n                }\n            }\n        }\n    }\n\n    finalText = parts.join(\" | \")\n}\n/////////////\n\n\ndef chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('title') && title ? [\"title\": title] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\n\nchunkMetadata << (binding.hasVariable('reporter') && reporter ? [\"reporter\": reporter] : [:])\nchunkMetadata << (binding.hasVariable('reporterEmail') && reporterEmail ? [\"reporterEmail\": reporterEmail] : [:])\n\n// chunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\n// chunkMetadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('priority') && priority ? [\"priority\": priority] : [:])\nchunkMetadata << (binding.hasVariable('status') && status ? [\"status\": status] : [:])\nchunkMetadata << (binding.hasVariable('commentCount') && commentCount ? [\"commentCount\": commentCount] : [ \"commentCount\": 0 ])\nif (binding.hasVariable('parentKey') && parentKey) {\n    chunkMetadata << [\"parentKey\": parentKey]\n} else {\n    chunkMetadata << [\"parentKey\": projectKey]\n}\nchunkMetadata << (binding.hasVariable('issueName') && issueName ? [\"issueName\": issueName] : [:])\n\nchunkMetadata << (binding.hasVariable('labels') && labels ? [\"labels\": labels.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('components') && components ? [\"components\": components.join(\", \")] : [:])\n\nchunkMetadata << (binding.hasVariable('editCount') && editCount ? [\"editCount\": editCount] : [:])\n\nchunkMetadata << (binding.hasVariable('storyPoint') && storyPoint ? [\"storyPoint\": storyPoint] : [:])\nchunkMetadata << (\n    binding.hasVariable('sprint') && sprint\n        ? [\n            \"sprintName\": sprint.collect { sprintValue ->\n                def matcher = (sprintValue =~ /name=([^,\\]]+)/)\n                matcher.find() ? matcher.group(1).trim() : null\n            }\n            .findAll { it }\n            .join(\", \")\n          ]\n        : [:]\n)\n\n\nchunkMetadata << ([\"description\": finalText])\ndef issueTypeMap = [\n    \"bug\"      : \"bug\",\n    \"task\"     : \"task\",\n    \"epic\"     : \"epic\",\n    \"story\"    : \"story\",\n    \"sub-task\" : \"subtask\",\n    \"subtask\"  : \"subtask\"\n]\n\nif (binding.hasVariable('issueType') && issueType) {\n    def key = issueType.toString().toLowerCase().trim()\n    def normalizedType = issueTypeMap[key] ?: issueType\n    chunkMetadata << [\"issueType\": normalizedType]\n}\n\nchunkMetadata << (binding.hasVariable('assignee') && assignee ? [\"assignee\": assignee] : [\"assignee\" : \"Unassigned\"])\nchunkMetadata << (binding.hasVariable('assigneeEmail') && assigneeEmail ? [\"assigneeEmail\": assigneeEmail] : [:])\nchunkMetadata << (binding.hasVariable('issueKey') && issueKey ? [\"issueKey\": issueKey] : [:])\nchunkMetadata << (binding.hasVariable('projectKey') && projectKey ? [\"projectKey\": projectKey] : [:])\nchunkMetadata << (binding.hasVariable('projectName') && projectName ? [\"projectName\": projectName] : [:])\nchunkMetadata << (binding.hasVariable('attachmentNames') && attachmentNames instanceof List && attachmentNames ? [\"attachmentNames\": attachmentNames.join(\", \")] : [:])\n\ndef hasAttachment = false\ndef attachmentCount = 0\n\nif (binding.hasVariable('attachmentNames') && attachmentNames instanceof List) {\n    attachmentCount = attachmentNames.size()\n    hasAttachment = attachmentCount > 0\n}\n\nchunkMetadata << [\n    \"hasAttachment\" : hasAttachment,\n    \"attachmentCount\" : attachmentCount\n]\n\n\nif (binding.hasVariable('referenceUrl') && referenceUrl && binding.hasVariable('key') && key) {\n    // Extract the base URL using a regex that matches the protocol and domain\n    def domainMatcher = referenceUrl =~ /^(https?:\\/\\/[^\\/]+)/\n    if (domainMatcher) {\n        def baseUrl = domainMatcher[0][1]\n        def newUrl = \"$baseUrl/jira/browse/$key\".toString()\n        chunkMetadata << [\"referenceUrl\": newUrl]\n    } else {\n        // Fallback if the regex does not match\n        chunkMetadata << [\"referenceUrl\": referenceUrl]\n    }\n}\n\n// Date-time conversion\ndef dateTimeStr = binding.hasVariable('createdAt') ? createdAt : null\nif (dateTimeStr) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdAt\": epochMillis]\n}\n\ndef dateTimeStr2 = binding.hasVariable('modifiedAt') ? modifiedAt : null\nif (dateTimeStr2) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr2, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedAt\": epochMillis]\n}\n\ndef dateTimeStr3 = binding.hasVariable('dueDate') ? dueDate : null\nif (dateTimeStr3) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr3, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"dueDate\": epochMillis]\n}\n\ndef dateTimeStr4 = binding.hasVariable('startDate') ? startDate : null\nif (dateTimeStr4) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr4, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"startDate\": epochMillis]\n}\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
+				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\n\n///////////// : Description\n\ndef descriptionValue =\n    binding.hasVariable(\"description\")\n        ? description\n        : null\n\ndef finalText = \"\"\n\nif (descriptionValue instanceof String) {\n\n    finalText = descriptionValue\n\n} else if (descriptionValue instanceof Map) {\n\n    def parts = []\n\n    (descriptionValue?.content ?: []).each { item ->\n\n        // Extract text\n        if (item.type == \"paragraph\") {\n            item.content?.each { c ->\n                if (c.type == \"text\" && c.text) {\n                    parts << c.text\n                }\n            }\n        }\n\n        // Extract attachment names\n        if (item.type == \"mediaSingle\") {\n            item.content?.each { c ->\n                def fileName = c?.attrs?.alt\n                if (fileName) {\n                    parts << \"file : ${fileName}\"\n                }\n            }\n        }\n    }\n\n    finalText = parts.join(\" | \")\n}\n/////////////\n\n\ndef chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('title') && title ? [\"title\": title] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\n\nchunkMetadata << (binding.hasVariable('reporter') && reporter ? [\"reporter\": reporter] : [:])\nchunkMetadata << (binding.hasVariable('reporterEmail') && reporterEmail ? [\"reporterEmail\": reporterEmail] : [:])\n\n// chunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\n// chunkMetadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('priority') && priority ? [\"priority\": priority] : [:])\nchunkMetadata << (binding.hasVariable('status') && status ? [\"status\": status] : [:])\nchunkMetadata << (binding.hasVariable('commentCount') && commentCount ? [\"commentCount\": commentCount] : [ \"commentCount\": 0 ])\nif (binding.hasVariable('parentKey') && parentKey) {\n    chunkMetadata << [\"parentKey\": parentKey]\n} else {\n    chunkMetadata << [\"parentKey\": projectKey]\n}\nchunkMetadata << (binding.hasVariable('issueName') && issueName ? [\"issueName\": issueName] : [:])\n\nchunkMetadata << (binding.hasVariable('labels') && labels ? [\"labels\": labels.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('components') && components ? [\"components\": components.join(\", \")] : [:])\n\nchunkMetadata << (binding.hasVariable('editCount') && editCount ? [\"editCount\": editCount] : [:])\n\nchunkMetadata << (binding.hasVariable('storyPoint') && storyPoint ? [\"storyPoint\": storyPoint] : [:])\nchunkMetadata << (\n    binding.hasVariable('sprint') && sprint\n        ? [\n            \"sprintName\": sprint.collect { sprintValue ->\n                def matcher = (sprintValue =~ /name=([^,\\]]+)/)\n                matcher.find() ? matcher.group(1).trim() : null\n            }\n            .findAll { it }\n            .join(\", \")\n          ]\n        : [:]\n)\n\n\nchunkMetadata << ([\"description\": finalText])\ndef issueTypeMap = [\n    \"bug\"      : \"bug\",\n    \"task\"     : \"task\",\n    \"epic\"     : \"epic\",\n    \"story\"    : \"story\",\n    \"sub-task\" : \"subtask\",\n    \"subtask\"  : \"subtask\"\n]\n\nif (binding.hasVariable('issueType') && issueType) {\n    def key = issueType.toString().toLowerCase().trim()\n    def normalizedType = issueTypeMap[key] ?: issueType\n    chunkMetadata << [\"issueType\": normalizedType]\n}\n\nchunkMetadata << (binding.hasVariable('assignee') && assignee ? [\"assignee\": assignee] : [\"assignee\" : \"Unassigned\"])\nchunkMetadata << (binding.hasVariable('assigneeEmail') && assigneeEmail ? [\"assigneeEmail\": assigneeEmail] : [:])\nchunkMetadata << (binding.hasVariable('issueKey') && issueKey ? [\"issueKey\": issueKey] : [:])\nchunkMetadata << (binding.hasVariable('projectKey') && projectKey ? [\"projectKey\": projectKey] : [:])\nchunkMetadata << (binding.hasVariable('projectName') && projectName ? [\"projectName\": projectName] : [:])\nchunkMetadata << (binding.hasVariable('issueId') && issueId ? [\"issueId\": issueId] : [:])\nchunkMetadata << (binding.hasVariable('attachmentNames') && attachmentNames instanceof List && attachmentNames ? [\"attachmentNames\": attachmentNames.join(\", \")] : [:])\n\ndef hasAttachment = false\ndef attachmentCount = 0\n\nif (binding.hasVariable('attachmentNames') && attachmentNames instanceof List) {\n    attachmentCount = attachmentNames.size()\n    hasAttachment = attachmentCount > 0\n}\n\nchunkMetadata << [\n    \"hasAttachment\" : hasAttachment,\n    \"attachmentCount\" : attachmentCount\n]\n\n\ndef connectionType = binding.hasVariable('connectionType') ? connectionType : null\ndef isCloud = connectionType?.toString()?.trim()?.equalsIgnoreCase('cloud')\n\nif (binding.hasVariable('key') && key) {\n\n    def newUrl = null\n\n    if (isCloud) {\n        // Cloud: referenceUrl points at the api.atlassian.com gateway, which has no\n        // /browse route -> must build from the site hostname instead.\n        def host = binding.hasVariable('hostname') && hostname ? hostname.toString().trim() : null\n        if (host) {\n            host = host.replaceAll(/^https?:\\/\\//, '').replaceAll('/+$', '')\n            newUrl = \"https://${host}/browse/${key}\".toString()\n        }\n    } else {\n        // Server/DC: referenceUrl is already on the real host -> reuse its origin.\n        if (binding.hasVariable('referenceUrl') && referenceUrl) {\n            def domainMatcher = referenceUrl =~ /^(https?:\\/\\/[^\\/]+)/\n            if (domainMatcher) {\n                newUrl = \"${domainMatcher[0][1]}/jira/browse/${key}\".toString()\n            }\n        }\n    }\n\n    // Fallback: keep whatever we had rather than emitting null\n    if (!newUrl && binding.hasVariable('referenceUrl') && referenceUrl) {\n        newUrl = referenceUrl\n    }\n\n    if (newUrl) {\n        chunkMetadata << [\"referenceUrl\": newUrl]\n    }\n}\n\n// Date-time conversion\ndef dateTimeStr = binding.hasVariable('createdAt') ? createdAt : null\nif (dateTimeStr) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdAt\": epochMillis]\n}\n\ndef dateTimeStr2 = binding.hasVariable('modifiedAt') ? modifiedAt : null\nif (dateTimeStr2) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr2, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedAt\": epochMillis]\n}\n\ndef dateTimeStr3 = binding.hasVariable('dueDate') ? dueDate : null\nif (dateTimeStr3) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr3, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"dueDate\": epochMillis]\n}\n\ndef dateTimeStr4 = binding.hasVariable('startDate') ? startDate : null\nif (dateTimeStr4) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr4, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"startDate\": epochMillis]\n}\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -762,12 +783,15 @@
 						"source":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.components }}",
 						"ua:type":"mappedArray"
 					},
+					"connectionType":"{{ n_FeUgW.outputs.result.connectionType }}",
 					"createdAt":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.created }}",
 					"createdBy":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.creator.displayName }}",
 					"createdByEmail":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.creator.emailAddress }}",
 					"description":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.description }}",
 					"dueDate":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.duedate }}",
 					"editCount":"{{ n_FeUgW.outputs.result.editCount }}",
+					"hostname":"{{ n_FeUgW.outputs.result.hostname }}",
+					"issueId":"{{ n_FeUgW.outputs.result.issueApiResponse.id }}",
 					"issueKey":"{{ n_FeUgW.outputs.result.issueApiResponse.key }}",
 					"issueName":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.summary }}",
 					"issueType":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.issuetype.name }}",
@@ -852,7 +876,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Attachment",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -888,6 +913,14 @@
 							"properties":{},
 							"title":"Attachment Details",
 							"type":"object"
+						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
 						},
 						"issueApiResponse":{
 							"title":"issueApiResponse",
@@ -992,6 +1025,10 @@
 							"title":"Components",
 							"type":"array"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"createdAt":{
 							"title":"createdAt",
 							"type":"string"
@@ -1010,6 +1047,10 @@
 						},
 						"dueDate":{
 							"title":"dueDate",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
 							"type":"string"
 						},
 						"issueKey":{
@@ -1103,7 +1144,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\ndef chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('title') && title ? [\"title\": title] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\n\nchunkMetadata << (binding.hasVariable('reporter') && reporter ? [\"reporter\": reporter] : [:])\nchunkMetadata << (binding.hasVariable('reporterEmail') && reporterEmail ? [\"reporterEmail\": reporterEmail] : [:])\n\n\nchunkMetadata << (binding.hasVariable('priority') && priority ? [\"priority\": priority] : [:])\nchunkMetadata << (binding.hasVariable('status') && status ? [\"status\": status] : [:])\nchunkMetadata << (binding.hasVariable('attachmentId') && attachmentId ? [\"attachmentId\": attachmentId] : [:])\nif (binding.hasVariable('parentKey') && parentKey) {\n    chunkMetadata << [\"parentKey\": parentKey]\n} \n// else {\n    // chunkMetadata << [\"parentKey\": projectKey]\n// }\nchunkMetadata << (binding.hasVariable('description') && description ? [\"description\": description] : [:])\ndef issueTypeMap = [\n    \"bug\"      : \"bug\",\n    \"task\"     : \"task\",\n    \"epic\"     : \"epic\",\n    \"story\"    : \"story\",\n    \"sub-task\" : \"subtask\",\n    \"subtask\"  : \"subtask\"\n]\n\nif (binding.hasVariable('issueType') && issueType) {\n    def key = issueType.toString().toLowerCase().trim()\n    def normalizedType = issueTypeMap[key] ?: issueType\n    chunkMetadata << [\"issueType\": normalizedType]\n}\nchunkMetadata << (binding.hasVariable('assignee') && assignee ? [\"assignee\": assignee] : [\"assignee\" : \"Unassigned\"])\nchunkMetadata << (binding.hasVariable('assigneeEmail') && assigneeEmail ? [\"assigneeEmail\": assigneeEmail] : [:])\nchunkMetadata << (binding.hasVariable('issueKey') && issueKey ? [\"issueKey\": issueKey] : [:])\nchunkMetadata << (binding.hasVariable('projectKey') && projectKey ? [\"projectKey\": projectKey] : [:])\nchunkMetadata << (binding.hasVariable('projectName') && projectName ? [\"projectName\": projectName] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << (binding.hasVariable('mimeType') && mimeType ? [\"mimeType\": mimeType] : [:])\nchunkMetadata << (binding.hasVariable('issueName') && issueName ? [\"issueName\": issueName] : [:])\n\nchunkMetadata << (binding.hasVariable('storyPoint') && storyPoint ? [\"storyPoint\": storyPoint] : [:])\nchunkMetadata << (\n    binding.hasVariable('sprint') && sprint\n        ? [\n            \"sprintName\": sprint.collect { sprintValue ->\n                def matcher = (sprintValue =~ /name=([^,\\]]+)/)\n                matcher.find() ? matcher.group(1).trim() : null\n            }\n            .findAll { it }\n            .join(\", \")\n          ]\n        : [:]\n)\n\n\nchunkMetadata << (binding.hasVariable('labels') && labels ? [\"labels\": labels.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('components') && components ? [\"components\": components.join(\", \")] : [:])\n\nif (binding.hasVariable('referenceUrl') && referenceUrl && binding.hasVariable('key') && key) {\n    // Extract the base URL using a regex that matches the protocol and domain\n    def domainMatcher = referenceUrl =~ /^(https?:\\/\\/[^\\/]+)/\n    if (domainMatcher) {\n        def baseUrl = domainMatcher[0][1]\n        def newUrl = \"$baseUrl/jira/browse/$key\".toString()\n        chunkMetadata << [\"referenceUrl\": newUrl]\n    } else {\n        // Fallback if the regex does not match\n        chunkMetadata << [\"referenceUrl\": referenceUrl]\n    }\n}\n\n// Date-time conversion\ndef dateTimeStr = binding.hasVariable('createdAt') ? createdAt : null\nif (dateTimeStr) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdAt\": epochMillis]\n}\n\ndef dateTimeStr2 = binding.hasVariable('modifiedAt') ? modifiedAt : null\nif (dateTimeStr2) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr2, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedAt\": epochMillis]\n}\n\ndef dateTimeStr3 = binding.hasVariable('dueDate') ? dueDate : null\nif (dateTimeStr3) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr3, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"dueDate\": epochMillis]\n}\n\ndef dateTimeStr4 = binding.hasVariable('startDate') ? startDate : null\nif (dateTimeStr4) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr4, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"startDate\": epochMillis]\n}\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
+				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\ndef chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('title') && title ? [\"title\": title] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\n\nchunkMetadata << (binding.hasVariable('reporter') && reporter ? [\"reporter\": reporter] : [:])\nchunkMetadata << (binding.hasVariable('reporterEmail') && reporterEmail ? [\"reporterEmail\": reporterEmail] : [:])\n\n\nchunkMetadata << (binding.hasVariable('priority') && priority ? [\"priority\": priority] : [:])\nchunkMetadata << (binding.hasVariable('status') && status ? [\"status\": status] : [:])\nchunkMetadata << (binding.hasVariable('attachmentId') && attachmentId ? [\"attachmentId\": attachmentId] : [:])\nif (binding.hasVariable('parentKey') && parentKey) {\n    chunkMetadata << [\"parentKey\": parentKey]\n} \n// else {\n    // chunkMetadata << [\"parentKey\": projectKey]\n// }\nchunkMetadata << (binding.hasVariable('description') && description ? [\"description\": description] : [:])\ndef issueTypeMap = [\n    \"bug\"      : \"bug\",\n    \"task\"     : \"task\",\n    \"epic\"     : \"epic\",\n    \"story\"    : \"story\",\n    \"sub-task\" : \"subtask\",\n    \"subtask\"  : \"subtask\"\n]\n\nif (binding.hasVariable('issueType') && issueType) {\n    def key = issueType.toString().toLowerCase().trim()\n    def normalizedType = issueTypeMap[key] ?: issueType\n    chunkMetadata << [\"issueType\": normalizedType]\n}\nchunkMetadata << (binding.hasVariable('assignee') && assignee ? [\"assignee\": assignee] : [\"assignee\" : \"Unassigned\"])\nchunkMetadata << (binding.hasVariable('assigneeEmail') && assigneeEmail ? [\"assigneeEmail\": assigneeEmail] : [:])\nchunkMetadata << (binding.hasVariable('issueKey') && issueKey ? [\"issueKey\": issueKey] : [:])\nchunkMetadata << (binding.hasVariable('projectKey') && projectKey ? [\"projectKey\": projectKey] : [:])\nchunkMetadata << (binding.hasVariable('projectName') && projectName ? [\"projectName\": projectName] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << (binding.hasVariable('mimeType') && mimeType ? [\"mimeType\": mimeType] : [:])\nchunkMetadata << (binding.hasVariable('issueName') && issueName ? [\"issueName\": issueName] : [:])\n\nchunkMetadata << (binding.hasVariable('storyPoint') && storyPoint ? [\"storyPoint\": storyPoint] : [:])\nchunkMetadata << (\n    binding.hasVariable('sprint') && sprint\n        ? [\n            \"sprintName\": sprint.collect { sprintValue ->\n                def matcher = (sprintValue =~ /name=([^,\\]]+)/)\n                matcher.find() ? matcher.group(1).trim() : null\n            }\n            .findAll { it }\n            .join(\", \")\n          ]\n        : [:]\n)\n\n\nchunkMetadata << (binding.hasVariable('labels') && labels ? [\"labels\": labels.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('components') && components ? [\"components\": components.join(\", \")] : [:])\n\ndef connectionType = binding.hasVariable('connectionType') ? connectionType : null\ndef isCloud = connectionType?.toString()?.trim()?.equalsIgnoreCase('cloud')\n\nif (binding.hasVariable('key') && key) {\n\n    def newUrl = null\n\n    if (isCloud) {\n        // Cloud: referenceUrl points at the api.atlassian.com gateway, which has no\n        // /browse route -> must build from the site hostname instead.\n        def host = binding.hasVariable('hostname') && hostname ? hostname.toString().trim() : null\n        if (host) {\n            host = host.replaceAll(/^https?:\\/\\//, '').replaceAll('/+$', '')\n            newUrl = \"https://${host}/browse/${key}\".toString()\n        }\n    } else {\n        // Server/DC: referenceUrl is already on the real host -> reuse its origin.\n        if (binding.hasVariable('referenceUrl') && referenceUrl) {\n            def domainMatcher = referenceUrl =~ /^(https?:\\/\\/[^\\/]+)/\n            if (domainMatcher) {\n                newUrl = \"${domainMatcher[0][1]}/jira/browse/${key}\".toString()\n            }\n        }\n    }\n\n    // Fallback: keep whatever we had rather than emitting null\n    if (!newUrl && binding.hasVariable('referenceUrl') && referenceUrl) {\n        newUrl = referenceUrl\n    }\n\n    if (newUrl) {\n        chunkMetadata << [\"referenceUrl\": newUrl]\n    }\n}\n\n// Date-time conversion\ndef dateTimeStr = binding.hasVariable('createdAt') ? createdAt : null\nif (dateTimeStr) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdAt\": epochMillis]\n}\n\ndef dateTimeStr2 = binding.hasVariable('modifiedAt') ? modifiedAt : null\nif (dateTimeStr2) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr2, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedAt\": epochMillis]\n}\n\ndef dateTimeStr3 = binding.hasVariable('dueDate') ? dueDate : null\nif (dateTimeStr3) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr3, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"dueDate\": epochMillis]\n}\n\ndef dateTimeStr4 = binding.hasVariable('startDate') ? startDate : null\nif (dateTimeStr4) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr4, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"startDate\": epochMillis]\n}\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -1117,10 +1158,12 @@
 						"source":"{{ _QpzRL.outputs.result.issueApiResponse.fields.components }}",
 						"ua:type":"mappedArray"
 					},
+					"connectionType":"{{ _QpzRL.outputs.result.connectionType }}",
 					"createdAt":"{{ _QpzRL.outputs.result.attachmentDetails.created }}",
 					"createdBy":"{{ _QpzRL.outputs.result.attachmentDetails.author.displayName }}",
 					"createdByEmail":"{{ _QpzRL.outputs.result.attachmentDetails.author.emailAddress }}",
 					"dueDate":"{{ _QpzRL.outputs.result.issueApiResponse.fields.duedate }}",
+					"hostname":"{{ _QpzRL.outputs.result.hostname }}",
 					"issueKey":"{{ _QpzRL.outputs.result.issueApiResponse.key }}",
 					"issueName":"{{ _QpzRL.outputs.result.issueApiResponse.fields.summary }}",
 					"issueType":"{{ _QpzRL.outputs.result.issueApiResponse.fields.issuetype.name }}",
@@ -1206,7 +1249,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Comment",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1237,9 +1281,17 @@
 							"title":"Comment",
 							"type":"object"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"editCount":{
 							"title":"Edit Count",
 							"type":"integer"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
 						},
 						"issueApiResponse":{
 							"additionalProperties":false,
@@ -1387,12 +1439,20 @@
 							"title":"assigneeEmail",
 							"type":"string"
 						},
+						"commentId":{
+							"title":"Comment Id",
+							"type":"string"
+						},
 						"components":{
 							"items":{
 								"type":"string"
 							},
 							"title":"Components",
 							"type":"array"
+						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
 						},
 						"content":{
 							"title":"Content",
@@ -1417,6 +1477,10 @@
 						"editCount":{
 							"title":"Edit Count",
 							"type":"integer"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
 						},
 						"issueKey":{
 							"title":"issueKey",
@@ -1469,6 +1533,10 @@
 							"title":"Project Name",
 							"type":"string"
 						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						},
 						"reporter":{
 							"title":"Reporter",
 							"type":"string"
@@ -1509,7 +1577,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\ndef chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('title') && title ? [\"title\": title] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\n\nchunkMetadata << (binding.hasVariable('reporter') && reporter ? [\"reporter\": reporter] : [:])\nchunkMetadata << (binding.hasVariable('reporterEmail') && reporterEmail ? [\"reporterEmail\": reporterEmail] : [:])\n\n\nchunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\nchunkMetadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('priority') && priority ? [\"priority\": priority] : [:])\nchunkMetadata << (binding.hasVariable('status') && status ? [\"status\": status] : [:])\nchunkMetadata << (binding.hasVariable('parentKey') && parentKey ? [\"parentKey\": parentKey] : [:])\n\n\nchunkMetadata << (binding.hasVariable('labels') && labels ? [\"labels\": labels.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('components') && components ? [\"components\": components.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('editCount') && editCount ? [\"editCount\": editCount] : [:])\n\nchunkMetadata << (binding.hasVariable('storyPoint') && storyPoint ? [\"storyPoint\": storyPoint] : [:])\nchunkMetadata << (\n    binding.hasVariable('sprint') && sprint\n        ? [\n            \"sprintName\": sprint.collect { sprintValue ->\n                def matcher = (sprintValue =~ /name=([^,\\]]+)/)\n                matcher.find() ? matcher.group(1).trim() : null\n            }\n            .findAll { it }\n            .join(\", \")\n          ]\n        : [:]\n)\n\n\nchunkMetadata << (binding.hasVariable('editCount') && editCount ? [\"editCount\": editCount] : [:])\n\ndef issueTypeMap = [\n    \"bug\"      : \"bug\",\n    \"task\"     : \"task\",\n    \"epic\"     : \"epic\",\n    \"story\"    : \"story\",\n    \"sub-task\" : \"subtask\",\n    \"subtask\"  : \"subtask\"\n]\n\nif (binding.hasVariable('issueType') && issueType) {\n    def key = issueType.toString().toLowerCase().trim()\n    def normalizedType = issueTypeMap[key] ?: issueType\n    chunkMetadata << [\"issueType\": normalizedType]\n}\nchunkMetadata << (binding.hasVariable('assignee') && assignee ? [\"assignee\": assignee] : [\"assignee\" : \"Unassigned\"])\nchunkMetadata << (binding.hasVariable('assigneeEmail') && assigneeEmail ? [\"assigneeEmail\": assigneeEmail] : [:])\nchunkMetadata << (binding.hasVariable('issueKey') && issueKey ? [\"issueKey\": issueKey] : [:])\nchunkMetadata << (binding.hasVariable('projectKey') && projectKey ? [\"projectKey\": projectKey] : [:])\nchunkMetadata << (binding.hasVariable('projectName') && projectName ? [\"projectName\": projectName] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << (binding.hasVariable('mimeType') && mimeType ? [\"mimeType\": mimeType] : [:])\nchunkMetadata << (binding.hasVariable('issueName') && issueName ? [\"issueName\": issueName] : [:])\nchunkMetadata << (binding.hasVariable('content') && content ? [\"content\": content] : [:])\n// chunkMetadata << (binding.hasVariable('hasAttachment') && hasAttachment ? [\"hasAttachment\": hasAttachment] : [:])\n\nif (binding.hasVariable('referenceUrl') && referenceUrl && binding.hasVariable('key') && key) {\n    // Extract the base URL using a regex that matches the protocol and domain\n    def domainMatcher = referenceUrl =~ /^(https?:\\/\\/[^\\/]+)/\n    if (domainMatcher) {\n        def baseUrl = domainMatcher[0][1]\n        def newUrl = \"$baseUrl/jira/browse/$key\".toString()\n        chunkMetadata << [\"referenceUrl\": newUrl]\n    } else {\n        // Fallback if the regex does not match\n        chunkMetadata << [\"referenceUrl\": referenceUrl]\n    }\n}\n\n// Date-time conversion\ndef dateTimeStr = binding.hasVariable('createdAt') ? createdAt : null\nif (dateTimeStr) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdAt\": epochMillis]\n}\n\ndef dateTimeStr2 = binding.hasVariable('modifiedAt') ? modifiedAt : null\nif (dateTimeStr2) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr2, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedAt\": epochMillis]\n}\n\ndef dateTimeStr3 = binding.hasVariable('dueDate') ? dueDate : null\nif (dateTimeStr3) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr3, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"dueDate\": epochMillis]\n}\n\ndef dateTimeStr4 = binding.hasVariable('startDate') ? startDate : null\nif (dateTimeStr4) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr4, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"startDate\": epochMillis]\n}\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
+				"code":"import java.time.OffsetDateTime\nimport java.time.format.DateTimeFormatter\ndef chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('appName') && appName ? [\"appName\": appName] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('title') && title ? [\"title\": title] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\n\nchunkMetadata << (binding.hasVariable('reporter') && reporter ? [\"reporter\": reporter] : [:])\nchunkMetadata << (binding.hasVariable('reporterEmail') && reporterEmail ? [\"reporterEmail\": reporterEmail] : [:])\n\n\nchunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\nchunkMetadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('priority') && priority ? [\"priority\": priority] : [:])\nchunkMetadata << (binding.hasVariable('status') && status ? [\"status\": status] : [:])\nchunkMetadata << (binding.hasVariable('parentKey') && parentKey ? [\"parentKey\": parentKey] : [:])\n\n\nchunkMetadata << (binding.hasVariable('labels') && labels ? [\"labels\": labels.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('components') && components ? [\"components\": components.join(\", \")] : [:])\nchunkMetadata << (binding.hasVariable('editCount') && editCount ? [\"editCount\": editCount] : [:])\n\nchunkMetadata << (binding.hasVariable('storyPoint') && storyPoint ? [\"storyPoint\": storyPoint] : [:])\nchunkMetadata << (\n    binding.hasVariable('sprint') && sprint\n        ? [\n            \"sprintName\": sprint.collect { sprintValue ->\n                def matcher = (sprintValue =~ /name=([^,\\]]+)/)\n                matcher.find() ? matcher.group(1).trim() : null\n            }\n            .findAll { it }\n            .join(\", \")\n          ]\n        : [:]\n)\n\n\nchunkMetadata << (binding.hasVariable('editCount') && editCount ? [\"editCount\": editCount] : [:])\n\ndef issueTypeMap = [\n    \"bug\"      : \"bug\",\n    \"task\"     : \"task\",\n    \"epic\"     : \"epic\",\n    \"story\"    : \"story\",\n    \"sub-task\" : \"subtask\",\n    \"subtask\"  : \"subtask\"\n]\n\nif (binding.hasVariable('issueType') && issueType) {\n    def key = issueType.toString().toLowerCase().trim()\n    def normalizedType = issueTypeMap[key] ?: issueType\n    chunkMetadata << [\"issueType\": normalizedType]\n}\nchunkMetadata << (binding.hasVariable('assignee') && assignee ? [\"assignee\": assignee] : [\"assignee\" : \"Unassigned\"])\nchunkMetadata << (binding.hasVariable('assigneeEmail') && assigneeEmail ? [\"assigneeEmail\": assigneeEmail] : [:])\nchunkMetadata << (binding.hasVariable('issueKey') && issueKey ? [\"issueKey\": issueKey] : [:])\nchunkMetadata << (binding.hasVariable('projectKey') && projectKey ? [\"projectKey\": projectKey] : [:])\nchunkMetadata << (binding.hasVariable('projectName') && projectName ? [\"projectName\": projectName] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << (binding.hasVariable('mimeType') && mimeType ? [\"mimeType\": mimeType] : [:])\nchunkMetadata << (binding.hasVariable('issueName') && issueName ? [\"issueName\": issueName] : [:])\nchunkMetadata << (binding.hasVariable('content') && content ? [\"content\": content] : [:])\n// chunkMetadata << (binding.hasVariable('hasAttachment') && hasAttachment ? [\"hasAttachment\": hasAttachment] : [:])\n\ndef connectionType = binding.hasVariable('connectionType') ? connectionType : null\ndef isCloud = connectionType?.toString()?.trim()?.equalsIgnoreCase('cloud')\n\ndef commentId = binding.hasVariable('commentId') && commentId ? commentId.toString().trim() : null\nchunkMetadata << [\"commentId\": commentId]\n\nif (binding.hasVariable('issueKey') && issueKey) {\n\n    // ---- resolve base URL ----\n    def baseUrl = null\n    if (isCloud) {\n        // Cloud: referenceUrl points at the api.atlassian.com gateway (no /browse route)\n        // -> build from the site hostname\n        def host = binding.hasVariable('hostname') && hostname ? hostname.toString().trim() : null\n        if (host) {\n            host = host.replaceAll(/^https?:\\/\\//, '').replaceAll('/+$', '')\n            baseUrl = \"https://${host}\"\n        }\n    } else {\n        // Server/DC: referenceUrl is already on the real host -> reuse its origin\n        if (binding.hasVariable('referenceUrl') && referenceUrl) {\n            def domainMatcher = referenceUrl =~ /^(https?:\\/\\/[^\\/]+)/\n            if (domainMatcher) {\n                baseUrl = \"${domainMatcher[0][1]}/jira\"\n            }\n        }\n    }\n    // ---- build the URL ----\n    def newUrl = null\n    if (baseUrl) {\n        newUrl = \"${baseUrl}/browse/${issueKey}\".toString()\n\n        if (commentId) {\n            newUrl += \"?focusedCommentId=${commentId}\"\n            if (!isCloud) {\n                // Server/DC needs the tab-panel params to actually scroll to the comment\n                newUrl += \"&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-${commentId}\"\n            }\n        }\n    }\n    // ---- fallback: keep what we had rather than emitting null ----\n    if (!newUrl && binding.hasVariable('referenceUrl') && referenceUrl) {\n        newUrl = referenceUrl\n    }\n    if (newUrl) {\n        chunkMetadata << [\"referenceUrl\": newUrl]\n    }\n}\n\n// Date-time conversion\ndef dateTimeStr = binding.hasVariable('createdAt') ? createdAt : null\nif (dateTimeStr) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"createdAt\": epochMillis]\n}\n\ndef dateTimeStr2 = binding.hasVariable('modifiedAt') ? modifiedAt : null\nif (dateTimeStr2) {\n    def offsetDateTime = java.time.OffsetDateTime.parse(dateTimeStr2, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\"))\n    def epochMillis = offsetDateTime.toInstant().toEpochMilli()\n    chunkMetadata << [\"modifiedAt\": epochMillis]\n}\n\ndef dateTimeStr3 = binding.hasVariable('dueDate') ? dueDate : null\nif (dateTimeStr3) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr3, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"dueDate\": epochMillis]\n}\n\ndef dateTimeStr4 = binding.hasVariable('startDate') ? startDate : null\nif (dateTimeStr4) {\n    def localDate = java.time.LocalDate.parse(dateTimeStr4, java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\"))\n    def epochMillis = localDate.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()\n    chunkMetadata << [\"startDate\": epochMillis]\n}\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -1517,17 +1585,20 @@
 					"appName":"jira",
 					"assignee":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.assignee.displayName }}",
 					"assigneeEmail":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.assignee.emailAddress }}",
+					"commentId":"{{ n_MhSlH.outputs.result.comment.id }}",
 					"components":{
 						"items":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.components[0].name }}",
 						"source":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.components }}",
 						"ua:type":"mappedArray"
 					},
+					"connectionType":"{{ n_MhSlH.outputs.result.connectionType }}",
 					"content":"{{ n_ENoDe.outputs.result.content }}",
 					"createdAt":"{{ n_MhSlH.outputs.result.comment.created }}",
 					"createdBy":"{{ n_MhSlH.outputs.result.comment.author.displayName }}",
 					"createdByEmail":"{{ n_MhSlH.outputs.result.comment.author.emailAddress }}",
 					"dueDate":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.duedate }}",
 					"editCount":"{{ n_MhSlH.outputs.result.editCount }}",
+					"hostname":"{{ n_MhSlH.outputs.result.hostname }}",
 					"issueKey":"{{ n_MhSlH.outputs.result.issueApiResponse.key }}",
 					"issueName":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.summary }}",
 					"issueType":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.issuetype.name }}",
@@ -1543,6 +1614,7 @@
 					"priority":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.priority.name }}",
 					"projectKey":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.project.key }}",
 					"projectName":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.project.name }}",
+					"referenceUrl":"{{ n_MhSlH.outputs.result.issueApiResponse.self }}",
 					"reporter":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.reporter.displayName }}",
 					"reporterEmail":"{{ n_MhSlH.outputs.result.issueApiResponse.fields.reporter.emailAddress }}",
 					"resourceType":"{{ n_H3eV0.outputs.resourceType }}",
@@ -1612,7 +1684,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Project",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1829,5 +1902,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":123
+	"version":125
 }
