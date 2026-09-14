@@ -1,0 +1,410 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395075512,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395075604,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80083c6a14707f150301c",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":23
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_pHb3K",
+			"id":"next@n_pHb3K@n_cKPgs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cKPgs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cKPgs",
+			"id":"next@n_cKPgs@n_yojkM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yojkM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yojkM",
+			"id":"next@n_yojkM@n_q6PMz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_q6PMz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_q6PMz",
+			"id":"next@n_q6PMz@n_Xt6nf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Xt6nf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Xt6nf",
+			"id":"next@n_Xt6nf@n_ucOau",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ucOau",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a96914e0193d16c58b3004c",
+	"lastModifiedBy":-1,
+	"lcName":"[routine] update input output tokens/cost of routine run",
+	"modifiedTime":1789395395011,
+	"name":"[Routine] Update Input Output Tokens/Cost of Routine Run",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":13277,
+				"resourceName":"storage_by_unifyapps_on_any_change"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dzyQ1-1",
+			"id":"n_pHb3K",
+			"index":1,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"COMPLETED"
+									},
+									"property":"{{ n_pHb3K.outputs.object.properties.status }}"
+								},
+								{
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"COMPLETED"
+									},
+									"property":"{{ n_pHb3K.outputs.before.properties.status }}"
+								}
+							],
+							"operator":"AND"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"FAILED"
+									},
+									"property":"{{ n_pHb3K.outputs.object.properties.status }}"
+								},
+								{
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"FAILED"
+									},
+									"property":"{{ n_pHb3K.outputs.before.properties.status }}"
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"OR"
+				},
+				"object_type":"e_routine_run"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Changed record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":11356,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dzyQ1-1",
+			"id":"n_cKPgs",
+			"index":2,
+			"inputs":{
+				"object_type":"service_hub_case",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_pHb3K.outputs.object.properties.caseId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.cost",
+					"root.parameters.inputTokens",
+					"root.parameters.outputTokens",
+					"root.parameters.cacheReadInputTokens",
+					"root.parameters.cacheWriteInputTokens",
+					"root.parameters.inputCost",
+					"root.parameters.outputCost",
+					"root.parameters.cacheReadCost",
+					"root.parameters.cacheWriteCost"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":6267,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dzyQ1-1",
+			"id":"n_yojkM",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadCost":{
+							"title":"Cache Read Cost",
+							"type":"number"
+						},
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteCost":{
+							"title":"Cache Write Cost",
+							"type":"number"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"inputCost":{
+							"title":"Input Cost",
+							"type":"number"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"integer"
+						},
+						"outputCost":{
+							"title":"Output Cost",
+							"type":"number"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadCost":{
+							"title":"Cache Read Cost",
+							"type":"number"
+						},
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteCost":{
+							"title":"Cache Write Cost",
+							"type":"number"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"inputCost":{
+							"title":"Input Cost",
+							"type":"number"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"integer"
+						},
+						"outputCost":{
+							"title":"Output Cost",
+							"type":"number"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def costVal                  = binding.hasVariable('cost')                  && cost                  != null ? cost                  : 0\ndef inputTokensVal           = binding.hasVariable('inputTokens')           && inputTokens           != null ? inputTokens           : 0\ndef outputTokensVal          = binding.hasVariable('outputTokens')          && outputTokens          != null ? outputTokens          : 0\ndef cacheReadInputTokensVal  = binding.hasVariable('cacheReadInputTokens')  && cacheReadInputTokens  != null ? cacheReadInputTokens  : 0\ndef cacheWriteInputTokensVal = binding.hasVariable('cacheWriteInputTokens') && cacheWriteInputTokens != null ? cacheWriteInputTokens : 0\ndef inputCostVal             = binding.hasVariable('inputCost')             && inputCost             != null ? inputCost             : 0\ndef outputCostVal            = binding.hasVariable('outputCost')            && outputCost            != null ? outputCost            : 0\ndef cacheReadCostVal         = binding.hasVariable('cacheReadCost')         && cacheReadCost         != null ? cacheReadCost         : 0\ndef cacheWriteCostVal        = binding.hasVariable('cacheWriteCost')        && cacheWriteCost        != null ? cacheWriteCost        : 0\n\nreturn [\n    cost:                  costVal,\n    inputTokens:           inputTokensVal,\n    outputTokens:          outputTokensVal,\n    cacheReadInputTokens:  cacheReadInputTokensVal,\n    cacheWriteInputTokens: cacheWriteInputTokensVal,\n    inputCost:             inputCostVal,\n    outputCost:            outputCostVal,\n    cacheReadCost:         cacheReadCostVal,\n    cacheWriteCost:        cacheWriteCostVal\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cacheReadCost":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.cacheReadCost }}",
+					"cacheReadInputTokens":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.cacheReadInputTokens }}",
+					"cacheWriteCost":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.cacheWriteCost }}",
+					"cacheWriteInputTokens":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.cacheWriteInputTokens }}",
+					"cost":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.cost }}",
+					"inputCost":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.inputCost }}",
+					"inputTokens":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.inputTokens }}",
+					"outputCost":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.outputCost }}",
+					"outputTokens":"{{ n_cKPgs.outputs.properties.additional.llmUsageDetails.outputTokens }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":11159,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dzyQ1-1",
+			"id":"n_q6PMz",
+			"index":4,
+			"inputs":{
+				"recordId":"{{ n_pHb3K.outputs.object.id }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"e_routine_run",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.cost",
+						"setValue":"{{ n_yojkM.outputs.result.cost }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.inputTokens",
+						"setValue":"{{ n_yojkM.outputs.result.inputTokens }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.outputTokens",
+						"setValue":"{{ n_yojkM.outputs.result.outputTokens }}"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":11180,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dzyQ1-1",
+			"id":"n_Xt6nf",
+			"index":5,
+			"inputs":{
+				"recordId":"{{ n_pHb3K.outputs.object.properties.routineId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"ai_routine",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"INCREMENT",
+						"fieldName":"properties.cost30d",
+						"setValue":"{{ n_yojkM.outputs.result.cost }}"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_dzyQ1-1",
+			"id":"n_ucOau",
+			"index":6,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":24
+}
