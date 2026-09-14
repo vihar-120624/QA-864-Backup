@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743886776,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743887058,
+		"deployedAt":1789395250280,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece8f9d7c534668ef9df8",
+		"deployedDefinitionId":"6aa8013239ee5f5ef70b640a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":76
+		"version":2,
+		"workflowVersion":79
 	},
 	"edges":[
 		{
@@ -64,7 +64,15 @@
 		},
 		{
 			"fromNodeId":"vPnvz",
-			"id":"next@vPnvz@fuLyt",
+			"id":"next@vPnvz@n_vhReh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vhReh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vhReh",
+			"id":"next@n_vhReh@fuLyt",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"fuLyt",
@@ -94,7 +102,7 @@
 	"id":"687a1caf6457a08e20135894",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | jira | issue (v2)",
-	"modifiedTime":1788252973538,
+	"modifiedTime":1789395392827,
 	"name":"Knowledge Indexer | Jira | Issue (V2)",
 	"nodes":[
 		{
@@ -211,6 +219,15 @@
 						"issueApiResponse":{
 							"title":"issueApiResponse",
 							"type":"object"
+						},
+						"remoteLinks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Remote Links",
+							"type":"array"
 						},
 						"response":{
 							"title":"response",
@@ -466,7 +483,8 @@
 				"visibleOptionalFields":[
 					"root.parameters.attachments.items",
 					"root.parameters.labels.items",
-					"root.parameters.components.items"
+					"root.parameters.components.items",
+					"root.parameters.remoteLinks.items"
 				]
 			},
 			"context":{
@@ -583,6 +601,15 @@
 							"title":"projectName",
 							"type":"string"
 						},
+						"remoteLinks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Remote Links",
+							"type":"array"
+						},
 						"reporter":{
 							"title":"Reporter",
 							"type":"string"
@@ -615,7 +642,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def namePart = (binding.hasVariable('name') && name) ? \"Issue Name: ${name}; \" : \"Issue Name: Not provided; \"\ndef descriptionPart = (binding.hasVariable('description') && description) ? \"Description: ${description}; \" : \"Description: Not provided; \"\ndef typePart = (binding.hasVariable('type') && type) ? \"Type: ${type}; \" : \"Type: Not provided; \"\ndef priorityPart = (binding.hasVariable('priority') && priority) ? \"Priority: ${priority}; \" : \"Priority: Not provided; \"\ndef statusPart = (binding.hasVariable('status') && status) ? \"Status: ${status}; \" : \"Status: Not updated yet; \"\ndef issueKey = (binding.hasVariable('issueKey') && issueKey) ? \"issueKey: ${issueKey}; \" : \"issueKey: Not provided; \"\ndef createdBy = (binding.hasVariable('createdBy') && createdBy) ? \"createdBy: ${createdBy}; \" : \"createdBy: Not provided; \"\ndef createdByEmail = (binding.hasVariable('createdByEmail') && createdByEmail) ? \"createdByEmail: ${createdByEmail}; \" : \"createdByEmail: Not provided; \"\ndef parentName = (binding.hasVariable('parentName') && parentName) ? \"Parent Name: ${parentName}; \" : \"Parent Name: Not provided; \"\ndef parentKey = (binding.hasVariable('parentKey') && parentKey) ? \"Parent Key: ${parentKey}; \" : \"Parent Key: Not provided; \"\ndef projectKey = (binding.hasVariable('projectKey') && projectKey) ? \"projectKey: ${projectKey}; \" : \"Project Key: Not provided; \"\ndef projectName = (binding.hasVariable('projectName') && projectName) ? \"projectName: ${projectName}; \" : \"projectName: Not provided; \"\ndef assigneeEmail = (binding.hasVariable('assigneeEmail') && assigneeEmail) ? \"assigneeEmail: ${assigneeEmail}; \" : \"assigneeEmail: Not provided; \"\ndef assigneePart = (binding.hasVariable('assignee') && assignee) ? \"Assignee: ${assignee}; \" : \"Assignee: Unassigned; \"\ndef reporterPart = (binding.hasVariable('reporter') && reporter) ? \"Reporter: ${reporter}; \" : \"Reporter: Not provided; \"\ndef reporterEmail = (binding.hasVariable('reporterEmail') && reporterEmail) ? \"ReporterEmail: ${reporterEmail}; \" : \"ReporterEmail: Not provided; \"\n\n\ndef labels = (binding.hasVariable('labels') && labels) ? \"Labels: ${labels.join(\", \")}; \" : \"Labels: Not set; \"\ndef components = (binding.hasVariable('components') && components) ? \"Components: ${components.join(\", \")}; \" : \"Components: Not set; \"\ndef storyPoint = (binding.hasVariable('storyPoint') && storyPoint) ? \"StoryPoint: ${storyPoint}; \" : \"StoryPoint: Not set; \"\n\n\ndef dueDatePart = (binding.hasVariable('dueDate') && dueDate) ? \"Due Date: ${dueDate}; \" : \"Due Date: Not set; \"\ndef createdTimePart = (binding.hasVariable('createdTime') && createdTime) ? \"Created: ${createdTime}; \" : \"Created: Not provided; \"\ndef updatedTimePart = (binding.hasVariable('updatedTime') && updatedTime) ? \"Last Updated: ${updatedTime}; \" : \"Last Updated: Not provided; \"\n\ndef attachmentPart = \"Attachments: None\"\n\nif (binding.hasVariable('attachments') && attachments instanceof List && !attachments.isEmpty()) {\n\n    def attachmentList = attachments.collect { att ->\n        [\n            filename     : att?.filename,\n            mimeType     : att?.mimeType,\n            authorName   : att?.author?.displayName,\n            authorEmail  : att?.author?.emailAddress,\n            referenceUrl : att?.self,\n            createdAt    : att?.created\n        ]\n    }\n\n    attachmentPart = \"Attachments: ${attachmentList}\"\n}\n\n\ndef commentsPart = \"\"\nif (binding.hasVariable('comments') && comments) {\n    commentsPart = \"${comments}; \"\n} else {\n    commentsPart = \"Comments: None; \"\n}\n\ndef subTasksPart = \"\"\nif (binding.hasVariable('subTasks') && subTasks) {\n    subTasksPart = \"${subTasks}; \"\n} else {\n    subTasksPart = \"Subtasks: None; \"\n}\n\ndef linkedIssuesPart = \"\"\nif (binding.hasVariable('linkedIssues') && linkedIssues) {\n    linkedIssuesPart = \"${linkedIssues}; \"\n} else {\n    linkedIssuesPart = \"Linked Issues: None; \"\n}\n\ndef data = \"${namePart}${descriptionPart}${issueKey}${createdBy}${createdByEmail}${typePart}${priorityPart}${statusPart}${parentName}${parentKey}${projectKey}${projectName}${assigneePart}${assigneeEmail}${reporterPart}${reporterEmail}${dueDatePart}${createdTimePart}${updatedTimePart}${attachmentPart}${subTasksPart}${linkedIssuesPart}${commentsPart}${labels}${components}${storyPoint}\".trim()\n\nreturn [ \"data\": data.toString() ]",
+				"code":"def namePart = (binding.hasVariable('name') && name) ? \"Issue Name: ${name}; \" : \"Issue Name: Not provided; \"\ndef descriptionPart = (binding.hasVariable('description') && description) ? \"Description: ${description}; \" : \"Description: Not provided; \"\ndef typePart = (binding.hasVariable('type') && type) ? \"Type: ${type}; \" : \"Type: Not provided; \"\ndef priorityPart = (binding.hasVariable('priority') && priority) ? \"Priority: ${priority}; \" : \"Priority: Not provided; \"\ndef statusPart = (binding.hasVariable('status') && status) ? \"Status: ${status}; \" : \"Status: Not updated yet; \"\ndef issueKey = (binding.hasVariable('issueKey') && issueKey) ? \"issueKey: ${issueKey}; \" : \"issueKey: Not provided; \"\ndef createdBy = (binding.hasVariable('createdBy') && createdBy) ? \"createdBy: ${createdBy}; \" : \"createdBy: Not provided; \"\ndef createdByEmail = (binding.hasVariable('createdByEmail') && createdByEmail) ? \"createdByEmail: ${createdByEmail}; \" : \"createdByEmail: Not provided; \"\ndef parentName = (binding.hasVariable('parentName') && parentName) ? \"Parent Name: ${parentName}; \" : \"Parent Name: Not provided; \"\ndef parentKey = (binding.hasVariable('parentKey') && parentKey) ? \"Parent Key: ${parentKey}; \" : \"Parent Key: Not provided; \"\ndef projectKey = (binding.hasVariable('projectKey') && projectKey) ? \"projectKey: ${projectKey}; \" : \"Project Key: Not provided; \"\ndef projectName = (binding.hasVariable('projectName') && projectName) ? \"projectName: ${projectName}; \" : \"projectName: Not provided; \"\ndef assigneeEmail = (binding.hasVariable('assigneeEmail') && assigneeEmail) ? \"assigneeEmail: ${assigneeEmail}; \" : \"assigneeEmail: Not provided; \"\ndef assigneePart = (binding.hasVariable('assignee') && assignee) ? \"Assignee: ${assignee}; \" : \"Assignee: Unassigned; \"\ndef reporterPart = (binding.hasVariable('reporter') && reporter) ? \"Reporter: ${reporter}; \" : \"Reporter: Not provided; \"\ndef reporterEmail = (binding.hasVariable('reporterEmail') && reporterEmail) ? \"ReporterEmail: ${reporterEmail}; \" : \"ReporterEmail: Not provided; \"\n\ndef remoteLinksPart = \"Web Links: None; \"\n\nif (binding.hasVariable('remoteLinks') && remoteLinks instanceof List && !remoteLinks.isEmpty()) {\n\n    def remoteLinkList = remoteLinks.findAll { it?.url }\n                                    .collect { link ->\n        [\n            url  : link?.url,\n            title: link?.title ?: link?.url\n        ]\n    }\n\n    if (!remoteLinkList.isEmpty()) {\n        remoteLinksPart = \"Web Links: ${remoteLinkList}; \"\n    }\n}\n\ndef labels = (binding.hasVariable('labels') && labels) ? \"Labels: ${labels.join(\", \")}; \" : \"Labels: Not set; \"\ndef components = (binding.hasVariable('components') && components) ? \"Components: ${components.join(\", \")}; \" : \"Components: Not set; \"\ndef storyPoint = (binding.hasVariable('storyPoint') && storyPoint) ? \"StoryPoint: ${storyPoint}; \" : \"StoryPoint: Not set; \"\n\n\ndef dueDatePart = (binding.hasVariable('dueDate') && dueDate) ? \"Due Date: ${dueDate}; \" : \"Due Date: Not set; \"\ndef createdTimePart = (binding.hasVariable('createdTime') && createdTime) ? \"Created: ${createdTime}; \" : \"Created: Not provided; \"\ndef updatedTimePart = (binding.hasVariable('updatedTime') && updatedTime) ? \"Last Updated: ${updatedTime}; \" : \"Last Updated: Not provided; \"\n\ndef attachmentPart = \"Attachments: None\"\n\nif (binding.hasVariable('attachments') && attachments instanceof List && !attachments.isEmpty()) {\n\n    def attachmentList = attachments.collect { att ->\n        [\n            filename     : att?.filename,\n            mimeType     : att?.mimeType,\n            authorName   : att?.author?.displayName,\n            authorEmail  : att?.author?.emailAddress,\n            createdAt    : att?.created\n        ]\n    }\n\n    attachmentPart = \"Attachments: ${attachmentList}\"\n}\n\n\ndef commentsPart = \"\"\nif (binding.hasVariable('comments') && comments) {\n    commentsPart = \"${comments}; \"\n} else {\n    commentsPart = \"Comments: None; \"\n}\n\ndef subTasksPart = \"\"\nif (binding.hasVariable('subTasks') && subTasks) {\n    subTasksPart = \"${subTasks}; \"\n} else {\n    subTasksPart = \"Subtasks: None; \"\n}\n\ndef linkedIssuesPart = \"\"\nif (binding.hasVariable('linkedIssues') && linkedIssues) {\n    linkedIssuesPart = \"${linkedIssues}; \"\n} else {\n    linkedIssuesPart = \"Linked Issues: None; \"\n}\n\ndef data = \"${namePart}${descriptionPart}${issueKey}${createdBy}${createdByEmail}${remoteLinksPart}${typePart}${priorityPart}${statusPart}${parentName}${parentKey}${projectKey}${projectName}${assigneePart}${assigneeEmail}${reporterPart}${reporterEmail}${dueDatePart}${createdTimePart}${updatedTimePart}${attachmentPart}${subTasksPart}${linkedIssuesPart}${commentsPart}${labels}${components}${storyPoint}\".trim()\n\nreturn [ \"data\": data.toString() ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -650,6 +677,11 @@
 					"priority":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.priority.name }}",
 					"projectKey":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.project.key }}",
 					"projectName":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.project.name }}",
+					"remoteLinks":{
+						"items":"{{ n_FeUgW.outputs.result.remoteLinks[0] }}",
+						"source":"{{ n_FeUgW.outputs.result.remoteLinks }}",
+						"ua:type":"mappedArray"
+					},
 					"reporter":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.reporter.displayName }}",
 					"reporterEmail":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.reporter.emailAddress }}",
 					"status":"{{ n_FeUgW.outputs.result.issueApiResponse.fields.status.name }}, {{ n_FeUgW.outputs.result.issueApiResponse.fields.status.description }}",
@@ -728,6 +760,94 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2070,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_vhReh",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"text":{
+							"title":"Text",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"issueKey":{
+							"title":"Issue Key",
+							"type":"string"
+						},
+						"issueName":{
+							"title":"Issue Name",
+							"type":"string"
+						},
+						"issuetype":{
+							"title":"Issuetype",
+							"type":"string"
+						},
+						"parentKey":{
+							"title":"Parent Key",
+							"type":"string"
+						},
+						"priority":{
+							"title":"Priority",
+							"type":"string"
+						},
+						"projectKey":{
+							"title":"Project Key",
+							"type":"string"
+						},
+						"projectName":{
+							"title":"Project Name",
+							"type":"string"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def priority=binding.hasVariable(\"priority\")?priority:null\ndef status=binding.hasVariable(\"status\")?status:null\ndef issuetype=binding.hasVariable(\"issuetype\")?issuetype:null\ndef projectKey=binding.hasVariable(\"projectKey\")?projectKey:null\ndef parentKey=binding.hasVariable(\"parentKey\")?parentKey:null\ndef projectName=binding.hasVariable(\"projectName\")?projectName:null\ndef issueKey=binding.hasVariable(\"issueKey\")?issueKey:null\ndef issueName=binding.hasVariable(\"issueName\")?issueName:null\ndef resourceType=binding.hasVariable(\"resourceType\")?resourceType:null\n\nreturn [\n\n  \"text\" : \"resourceType : \" + resourceType + \",priority : \" + priority + \",status : \" + status + \",issuetype : \" + issuetype + \",projectKey : \" + projectKey + \",parentKey : \" + parentKey + \",projectName : \" + projectName + \",issueKey : \" + issueKey + \",issueName : \" + issueName\n\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"issueKey":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.key }}",
+					"issueName":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.summary }}",
+					"issuetype":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.issuetype.name }}",
+					"parentKey":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.parent.key }}",
+					"priority":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.priority.name }}",
+					"projectKey":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.project.key }}",
+					"projectName":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.project.name }}",
+					"resourceType":"issue",
+					"status":"{{ n_YFuhI.outputs.sourceResponse.issueApiResponse.fields.status.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Common Text",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":48,
 				"resourceName":"callables_call_automation",
@@ -738,7 +858,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"fuLyt",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"automationId":"66af3ff4cd79b321cb478a37",
 				"runtimeConnections":{},
@@ -747,7 +867,7 @@
 					"chunkMetadata":"{{ _KUaTI.outputs.chunkMetadata }}",
 					"chunks":{
 						"items":{
-							"data":"{{ vPnvz.outputs.chunks[0] }}",
+							"data":"{{ vPnvz.outputs.chunks[0] }} ; {{ n_vhReh.outputs.result.text }}",
 							"sharedWithIds":{
 								"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}",
 								"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
@@ -762,7 +882,8 @@
 					"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
 					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Indexer With RBAC",
@@ -781,7 +902,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_POMRK",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"result":{
 					"success":true
@@ -811,5 +932,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":78
+	"version":80
 }
