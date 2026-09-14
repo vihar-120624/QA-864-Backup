@@ -1,0 +1,89 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789394967935,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa80017b91cc6613f663240",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_fEcIw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_I52KF",
+			"type":"next"
+		}
+	],
+	"id":"6aa80017c6a14707f1502da2",
+	"lastModifiedBy":-1,
+	"lcName":"ontology cancel schedule",
+	"modifiedTime":1789394967937,
+	"name":"Ontology Cancel Schedule",
+	"nodes":[
+		{
+			"context":{
+				"appName":"mdm_by_unifyapps",
+				"resourceVersion":379,
+				"resourceName":"mdm_by_unifyapps_on_unified_entity_deleted"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nrukJ-1",
+			"id":"n_fEcIw",
+			"index":1,
+			"inputs":{},
+			"skip":false,
+			"subTitle":"UDM by UnifyApps",
+			"title":"On Unified Entity Deleted",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1241,
+				"resourceName":"callables_cancel_scheduled_callable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_nrukJ-1",
+			"id":"n_I52KF",
+			"index":2,
+			"inputs":{
+				"schedule_name":"MDM_SCHEDULE_{{ n_fEcIw.outputs.modelId }}_{{ n_fEcIw.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Cancel scheduled callable",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"69385564c2a9b440ad612ed0",
+	"workflowVersion":3
+}

@@ -1,0 +1,796 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789394968987,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa80016b91cc6613f663237",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_5cTLi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jS4Ba",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jS4Ba",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_krLWC",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_krLWC",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_eFlbN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_krLWC",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JOYni",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_eFlbN",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jS4Ba",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JOYni",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jS4Ba",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jS4Ba",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iV1kl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iV1kl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_l8EVb",
+			"type":"next"
+		}
+	],
+	"id":"6aa8001872fd792214e8bcb7",
+	"lastModifiedBy":-1,
+	"lcName":"dqm save asset rule mappings from copilot",
+	"modifiedTime":1789394968989,
+	"name":"DQM Save Asset Rule Mappings From Copilot",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":102,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_htc1m-1",
+			"id":"n_5cTLi",
+			"index":1,
+			"inputs":{
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"assetRuleMappings":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"assetId":{
+										"title":"Asset Id",
+										"type":"string"
+									},
+									"filter":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Filter",
+										"type":"object"
+									},
+									"isFilterApplied":{
+										"title":"Is Filter Applied",
+										"type":"boolean"
+									},
+									"rules":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"attributes":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Attributes",
+													"type":"object"
+												},
+												"parameters":{
+													"additionalProperties":false,
+													"properties":{},
+													"title":"Parameters",
+													"type":"object"
+												},
+												"ruleConfig":{
+													"additionalProperties":false,
+													"properties":{
+														"id":{
+															"title":"id",
+															"type":"string"
+														},
+														"properties":{
+															"additionalProperties":false,
+															"properties":{
+																"attributes":{
+																	"items":{
+																		"additionalProperties":false,
+																		"properties":{
+																			"dataType":{
+																				"title":"Data Type",
+																				"type":"string"
+																			},
+																			"id":{
+																				"title":"Id",
+																				"type":"string"
+																			},
+																			"name":{
+																				"title":"Name",
+																				"type":"string"
+																			}
+																		},
+																		"required":[
+																			"id",
+																			"name",
+																			"dataType"
+																		],
+																		"type":"object"
+																	},
+																	"title":"Attributes",
+																	"type":"array"
+																},
+																"description":{
+																	"title":"Description",
+																	"type":"string"
+																},
+																"dimension":{
+																	"title":"Dimension",
+																	"type":"string"
+																},
+																"groups":{
+																	"items":{
+																		"additionalProperties":false,
+																		"properties":{
+																			"attributes":{
+																				"items":{
+																					"additionalProperties":false,
+																					"properties":{
+																						"dataType":{
+																							"title":"Data Type",
+																							"type":"string"
+																						},
+																						"id":{
+																							"title":"Id",
+																							"type":"string"
+																						},
+																						"name":{
+																							"title":"Name",
+																							"type":"string"
+																						}
+																					},
+																					"required":[
+																						"id",
+																						"name",
+																						"dataType"
+																					],
+																					"type":"object"
+																				},
+																				"title":"Attributes",
+																				"type":"array"
+																			},
+																			"groupId":{
+																				"title":"Group Id",
+																				"type":"string"
+																			},
+																			"groupName":{
+																				"title":"Group Name",
+																				"type":"string"
+																			}
+																		},
+																		"required":[
+																			"groupId",
+																			"groupName",
+																			"attributes"
+																		],
+																		"type":"object"
+																	},
+																	"title":"Groups",
+																	"type":"array"
+																},
+																"name":{
+																	"title":"Name",
+																	"type":"string"
+																},
+																"noMatchResult":{
+																	"title":"No Match Result",
+																	"type":"string"
+																},
+																"parameters":{
+																	"items":{
+																		"additionalProperties":false,
+																		"properties":{
+																			"dataType":{
+																				"title":"Data Type",
+																				"type":"string"
+																			},
+																			"id":{
+																				"title":"Id",
+																				"type":"string"
+																			},
+																			"name":{
+																				"title":"Name",
+																				"type":"string"
+																			}
+																		},
+																		"required":[
+																			"id",
+																			"name",
+																			"dataType"
+																		],
+																		"type":"object"
+																	},
+																	"title":"Parameters",
+																	"type":"array"
+																},
+																"ruleCategory":{
+																	"title":"Rule Category",
+																	"type":"string"
+																},
+																"ruleSets":{
+																	"items":{
+																		"additionalProperties":false,
+																		"properties":{},
+																		"type":"object"
+																	},
+																	"title":"Rule Sets",
+																	"type":"array"
+																},
+																"ruleState":{
+																	"title":"Rule State",
+																	"type":"string"
+																},
+																"ruleType":{
+																	"title":"Rule Type",
+																	"type":"string"
+																},
+																"variables":{
+																	"items":{
+																		"additionalProperties":false,
+																		"properties":{
+																			"id":{
+																				"title":"Id",
+																				"type":"string"
+																			},
+																			"inputAttribute":{
+																				"additionalProperties":false,
+																				"properties":{
+																					"dataType":{
+																						"title":"Data Type",
+																						"type":"string"
+																					},
+																					"id":{
+																						"title":"Id",
+																						"type":"string"
+																					},
+																					"name":{
+																						"title":"Name",
+																						"type":"string"
+																					}
+																				},
+																				"required":[
+																					"id",
+																					"name",
+																					"dataType"
+																				],
+																				"title":"Input Attribute",
+																				"type":"object"
+																			},
+																			"name":{
+																				"title":"Name",
+																				"type":"string"
+																			},
+																			"transformations":{
+																				"items":{
+																					"additionalProperties":false,
+																					"properties":{
+																						"metadata":{
+																							"additionalProperties":false,
+																							"properties":{},
+																							"title":"Metadata",
+																							"type":"object"
+																						},
+																						"type":{
+																							"title":"Type",
+																							"type":"string"
+																						}
+																					},
+																					"required":[
+																						"type"
+																					],
+																					"type":"object"
+																				},
+																				"title":"Transformations",
+																				"type":"array"
+																			}
+																		},
+																		"required":[
+																			"id",
+																			"name",
+																			"inputAttribute",
+																			"transformations"
+																		],
+																		"type":"object"
+																	},
+																	"title":"Variables",
+																	"type":"array"
+																}
+															},
+															"required":[
+																"ruleType",
+																"ruleCategory",
+																"dimension",
+																"ruleState",
+																"noMatchResult",
+																"name",
+																"attributes",
+																"variables",
+																"ruleSets"
+															],
+															"title":"Properties",
+															"type":"object"
+														}
+													},
+													"required":[
+														"properties",
+														"id"
+													],
+													"title":"Rule Config",
+													"type":"object"
+												}
+											},
+											"required":[
+												"ruleConfig",
+												"attributes"
+											],
+											"type":"object"
+										},
+										"title":"Rules",
+										"type":"array"
+									}
+								},
+								"required":[
+									"assetId",
+									"rules"
+								],
+								"type":"object"
+							},
+							"title":"Asset Rule Mappings",
+							"type":"array"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"monitoringExperimentId":{
+							"title":"Monitoring Experiment Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"assetRuleMappings",
+						"monitoringExperimentId",
+						"caseId",
+						"aiAgentId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":101,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_htc1m-1",
+			"id":"n_jS4Ba",
+			"index":2,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_5cTLi.outputs.assetRuleMappings }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":107,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_jS4Ba@_htc1m-1@l",
+			"id":"n_krLWC",
+			"index":3,
+			"inputs":{
+				"automationId":"6884b18728dbc644c960e05d",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"assetId":"{{ n_jS4Ba.outputs.item.assetId }}",
+					"monitoringExperimentId":"{{ n_5cTLi.outputs.monitoringExperimentId }}",
+					"rules":{
+						"items":{
+							"attributes":"{{ n_jS4Ba.outputs.item.rules[0].attributes }}",
+							"filter":"{{ n_jS4Ba.outputs.item.filter }}",
+							"isFilterApplied":"{{ n_jS4Ba.outputs.item.isFilterApplied }}",
+							"parameters":"{{ n_jS4Ba.outputs.item.rules[0].parameters }}",
+							"ruleConfig":{
+								"id":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.id }}",
+								"properties":{
+									"attributes":{
+										"items":{
+											"dataType":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.attributes[0].dataType }}",
+											"id":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.attributes[0].id }}",
+											"name":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.attributes[0].name }}"
+										},
+										"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.attributes }}",
+										"ua:type":"mappedArray"
+									},
+									"description":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.description }}",
+									"dimension":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.dimension }}",
+									"groups":{
+										"items":{
+											"attributes":{
+												"items":{
+													"dataType":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups[0].attributes[0].dataType }}",
+													"id":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups[0].attributes[0].id }}",
+													"name":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups[0].attributes[0].name }}"
+												},
+												"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups[0].attributes }}",
+												"ua:type":"mappedArray"
+											},
+											"groupId":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups[0].groupId }}",
+											"groupName":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups[0].groupName }}"
+										},
+										"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.groups }}",
+										"ua:type":"mappedArray"
+									},
+									"name":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.name }}",
+									"noMatchResult":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.noMatchResult }}",
+									"parameters":{
+										"items":{
+											"dataType":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.parameters[0].dataType }}",
+											"id":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.parameters[0].id }}",
+											"name":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.parameters[0].name }}"
+										},
+										"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.parameters }}",
+										"ua:type":"mappedArray"
+									},
+									"ruleCategory":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.ruleCategory }}",
+									"ruleSets":{
+										"items":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.ruleSets[0] }}",
+										"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.ruleSets }}",
+										"ua:type":"mappedArray"
+									},
+									"ruleState":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.ruleState }}",
+									"ruleType":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.ruleType }}",
+									"variables":{
+										"items":{
+											"id":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].id }}",
+											"inputAttribute":{
+												"dataType":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].inputAttribute.dataType }}",
+												"id":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].inputAttribute.id }}",
+												"name":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].inputAttribute.name }}"
+											},
+											"name":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].name }}",
+											"transformations":{
+												"items":{
+													"metadata":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].transformations[0].metadata }}",
+													"type":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].transformations[0].type }}"
+												},
+												"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables[0].transformations }}",
+												"ua:type":"mappedArray"
+											}
+										},
+										"source":"{{ n_jS4Ba.outputs.item.rules[0].ruleConfig.properties.variables }}",
+										"ua:type":"mappedArray"
+									}
+								}
+							}
+						},
+						"source":"{{ n_jS4Ba.outputs.item.rules }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Save associated rules for asset",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":107,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_krLWC@n_jS4Ba@_htc1m-1@l@success",
+			"id":"_eFlbN",
+			"index":4,
+			"inputs":{
+				"automationId":"67a31b86addac8605df79166",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_5cTLi.outputs.aiAgentId }}",
+					"caseId":"{{ n_5cTLi.outputs.caseId }}",
+					"createMessageIfAbsent":true,
+					"messageContent":"Successfully saved rule for asset: {{ n_jS4Ba.outputs.item.assetId }}!",
+					"messageType":"fan"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":107,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_krLWC@n_jS4Ba@_htc1m-1@l@error",
+			"id":"n_JOYni",
+			"index":5,
+			"inputs":{
+				"automationId":"67a31b86addac8605df79166",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_5cTLi.outputs.aiAgentId }}",
+					"caseId":"{{ n_5cTLi.outputs.caseId }}",
+					"createMessageIfAbsent":true,
+					"messageContent":"Failed to save rule for asset: {{ n_jS4Ba.outputs.item.assetId }} due to some error",
+					"messageType":"fan"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":101,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_htc1m-1",
+			"id":"n_iV1kl",
+			"index":6,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"result":{
+							"additionalProperties":false,
+							"properties":{
+								"completed":{
+									"title":"Completed",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"completed"
+							],
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					]
+				}
+			},
+			"inputs":{
+				"result":{
+					"completed":true
+				}
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"result":{
+							"additionalProperties":false,
+							"properties":{
+								"completed":{
+									"title":"Completed",
+									"type":"boolean"
+								}
+							},
+							"required":[
+								"completed"
+							],
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":103,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_htc1m-1",
+			"id":"n_l8EVb",
+			"index":7,
+			"inputs":{
+				"result":"{{ n_iV1kl.outputs.result }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"dqm",
+		"Internal"
+	],
+	"version":0,
+	"workflowDefinitionId":"689456f54514bc5c10d313da",
+	"workflowVersion":3
+}
