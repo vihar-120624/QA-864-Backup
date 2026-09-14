@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744718019,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744719235,
+		"deployedAt":1789395379946,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1ceba51514edfc81e55",
+		"deployedDefinitionId":"6aa801b3c6a14707f1504160",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":376
+		"version":2,
+		"workflowVersion":379
 	},
 	"edges":[
 		{
@@ -180,7 +180,23 @@
 		},
 		{
 			"fromNodeId":"_2SEgX",
-			"id":"next@_2SEgX@n_TwjSr",
+			"id":"next@_2SEgX@2t2pg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"2t2pg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"2t2pg",
+			"id":"next@2t2pg@_UOjqq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_UOjqq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_UOjqq",
+			"id":"next@_UOjqq@n_TwjSr",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_TwjSr",
@@ -544,7 +560,32 @@
 		},
 		{
 			"fromNodeId":"n_1ncKE",
-			"id":"next@n_1ncKE@_bIO8f",
+			"id":"next@n_1ncKE@n_NQuDV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NQuDV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NQuDV",
+			"id":"loop@n_NQuDV@n_aIKpP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aIKpP",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_aIKpP",
+			"id":"next@n_aIKpP@n_NQuDV",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NQuDV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NQuDV",
+			"id":"next@n_NQuDV@_bIO8f",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_bIO8f",
@@ -628,57 +669,7 @@
 		},
 		{
 			"fromNodeId":"4pZYn",
-			"id":"next@4pZYn@af1tm",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"af1tm",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"af1tm",
-			"id":"if@af1tm@n_kiqqZ",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_kiqqZ",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_kiqqZ",
-			"id":"next@n_kiqqZ@_WPW6W",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_WPW6W",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_WPW6W",
-			"id":"next@_WPW6W@_y3L0i",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_y3L0i",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_y3L0i",
-			"id":"next@_y3L0i@_78WBz",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_78WBz",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_78WBz",
-			"id":"next@_78WBz@n_6zgN6",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_6zgN6",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"af1tm",
-			"id":"next@af1tm@n_6zgN6",
-			"name":"no",
+			"id":"next@4pZYn@n_6zgN6",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_6zgN6",
@@ -752,7 +743,7 @@
 	"id":"679c6521a6583456a7198e97",
 	"lastModifiedBy":-1,
 	"lcName":"referfromknowledge tool",
-	"modifiedTime":1788252972776,
+	"modifiedTime":1789395389669,
 	"name":"ReferFromKnowledge Tool",
 	"nodes":[
 		{
@@ -2715,6 +2706,87 @@
 		},
 		{
 			"context":{
+				"appName":"callables",
+				"resourceVersion":20,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kFhpo-1",
+			"id":"2t2pg",
+			"index":20,
+			"inputs":{
+				"automationId":"679c6123a6583456a71988d2",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ GpPp2.outputs.triggeredByAgentId }}",
+					"caseId":"{{ GpPp2.outputs.caseId }}",
+					"filterByLLM":{
+						"knowledgeSetTags":{
+							"items":"{{ Oqpz0.outputs.result.filter.knowledgeSetTags[0] }}",
+							"source":"{{ Oqpz0.outputs.result.filter.knowledgeSetTags }}",
+							"ua:type":"mappedArray"
+						},
+						"knowledgeTags":{
+							"items":"{{ Oqpz0.outputs.result.filter.knowledgeTags[0] }}",
+							"source":"{{ Oqpz0.outputs.result.filter.knowledgeTags }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"includeKnowledgesFromKnowledgeSet":true,
+					"source":"referFromKnowledge"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Fetch applicable knowledges",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kFhpo-1",
+			"id":"_UOjqq",
+			"index":21,
+			"inputs":{
+				"automationId":"6942da7580e3116b585fd8c6",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"caseId":"{{ GpPp2.outputs.caseId }}",
+					"knowledges":{
+						"items":{
+							"id":"{{ 2t2pg.outputs.knowledges[0].id }}",
+							"properties":"{{ 2t2pg.outputs.knowledges[0].properties }}",
+							"tags":{
+								"items":"{{ 2t2pg.outputs.knowledges[0].tags[0] }}",
+								"source":"{{ 2t2pg.outputs.knowledges[0].tags }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ 2t2pg.outputs.knowledges }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":447,
 				"resourceName":"if_else_condition",
@@ -2725,7 +2797,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_TwjSr",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"filters":[
 					{
@@ -2784,7 +2856,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_TwjSr@kFhpo-1@y",
 			"id":"_KmAew",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"automationId":"67c89525ab51f86320c5f5f1",
 				"runtimeConnections":{},
@@ -2815,7 +2887,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_dbeqd",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"automationId":"67a48d37f8f1744841dabb63",
 				"runtimeConnections":{},
@@ -2843,7 +2915,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_rKh6P",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"object_type":"service_hub_case",
 				"includeRoleMappings":false,
@@ -2867,7 +2939,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_uxV8R",
-			"index":24,
+			"index":26,
 			"inputs":{
 				"branches":[
 					{
@@ -3033,7 +3105,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@1",
 			"id":"_uxV8R@1",
-			"index":25,
+			"index":27,
 			"inputs":{
 				"name":"Knowledge",
 				"conditions":{
@@ -3066,7 +3138,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@1",
 			"id":"_0C5yz",
-			"index":26,
+			"index":28,
 			"inputs":{
 				"automationId":"6784e8da2bf24b00b3975b17",
 				"runtimeConnections":{},
@@ -3175,7 +3247,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_uxV8R@kFhpo-1@1",
 			"id":"n_tdBrq",
-			"index":27,
+			"index":29,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3333,7 +3405,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@1",
 			"id":"Ds5Fs",
-			"index":28,
+			"index":30,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -3371,7 +3443,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@1",
 			"id":"ZzA7S",
-			"index":29,
+			"index":31,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3407,7 +3479,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@2",
 			"id":"_uxV8R@2",
-			"index":30,
+			"index":32,
 			"inputs":{
 				"name":"Data",
 				"conditions":{
@@ -3496,7 +3568,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_uxV8R@kFhpo-1@2",
 			"id":"_8pL4V",
-			"index":31,
+			"index":33,
 			"inputs":{
 				"automationId":"6759b44b0d889903a7bb41f7",
 				"runtimeConnections":{},
@@ -3506,6 +3578,7 @@
 					"aiAgentId":"{{ GpPp2.outputs.triggeredByAgentId }}",
 					"caseId":"{{ AU2XH.outputs.caseId }}",
 					"executeUsingModel":"{{ GpPp2.outputs.executeUsingModel }}",
+					"semanticSearchQuery":"{{ Oqpz0.outputs.result.isSemanticSearchQuery }}",
 					"tableIds":{
 						"items":"{{ AU2XH.outputs.tableIds[0] }}",
 						"source":"{{ AU2XH.outputs.tableIds }}",
@@ -3513,7 +3586,8 @@
 					},
 					"userQuery":"{{ Oqpz0.outputs.result.query }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"businessHoursConfig":{
@@ -3572,7 +3646,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@2",
 			"id":"_bug2y",
-			"index":32,
+			"index":34,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3597,8 +3671,8 @@
 			},
 			"context":{
 				"appName":"storage_by_unifyapps",
-				"resourceVersion":316,
-				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"resourceVersion":14119,
+				"resourceName":"storage_by_unifyapps_update_records",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -3606,46 +3680,60 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@2",
 			"id":"WHhlx",
-			"index":33,
+			"index":35,
 			"inputs":{
-				"recordId":"{{ GpPp2.outputs.agentResponseMessageId }}",
-				"writeThroughSessionVariables":true,
-				"object_type":"service_hub_message",
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ GpPp2.outputs.toolId }}"
+							},
+							"property":"properties_toolId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"service_hub_message_tool_use_detail",
 				"skipIfBlank":false,
-				"skipPermissionCheck":false,
 				"updateFields":[
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.IsDataRAGExecuted",
-						"setValue":"True"
+						"fieldName":"properties.toolAdditionalDetails.IsDataRAGExecuted",
+						"setValue":"true"
 					},
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.sqlQuery",
+						"fieldName":"properties.toolAdditionalDetails.sqlQuery",
 						"setValue":"{{ _8pL4V.outputs.sqlQuery }}"
 					},
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.hasMoreData",
+						"fieldName":"properties.toolAdditionalDetails.hasMoreData",
 						"setValue":"{{ _8pL4V.outputs.hasMoreData }}"
 					},
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.SQLServerAddditionalMetadata",
+						"fieldName":"properties.toolAdditionalDetails.SQLServerAddditionalMetadata",
 						"setValue":"{{ AU2XH.outputs.sqlServerRelatedDynamicMetadata }}"
 					},
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.sql_output",
-						"setValue":"{{ _8pL4V.outputs.formattedSqlOutput }}"
+						"fieldName":"properties.toolAdditionalDetails.sql_output",
+						"setValue":"{{ _8pL4V.outputs.rowData }}"
 					}
 				],
+				"page":{
+					"limit":20,
+					"offset":0
+				},
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record's fields",
+			"title":"Update records by query",
 			"type":"ACTION"
 		},
 		{
@@ -3660,7 +3748,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@2",
 			"id":"n_EHQwm",
-			"index":34,
+			"index":36,
 			"inputs":{
 				"filters":[
 					{
@@ -3696,7 +3784,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EHQwm@_uxV8R@kFhpo-1@2@y",
 			"id":"n_mxGTl",
-			"index":35,
+			"index":37,
 			"inputs":{
 				"recordId":"{{ GpPp2.outputs.agentResponseMessageId }}",
 				"writeThroughSessionVariables":true,
@@ -3730,7 +3818,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@3",
 			"id":"_uxV8R@3",
-			"index":36,
+			"index":38,
 			"inputs":{
 				"name":"GraphRAG",
 				"conditions":{
@@ -3776,7 +3864,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_uxV8R@kFhpo-1@3",
 			"id":"ELgUM",
-			"index":37,
+			"index":39,
 			"inputs":{
 				"automationId":"68f121430f27cd346b070e0c",
 				"runtimeConnections":{},
@@ -3872,7 +3960,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@3",
 			"id":"TCI2L",
-			"index":38,
+			"index":40,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -3906,7 +3994,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@3",
 			"id":"KmeLQ",
-			"index":39,
+			"index":41,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -3936,7 +4024,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@5",
 			"id":"_uxV8R@5",
-			"index":40,
+			"index":42,
 			"inputs":{
 				"name":"people",
 				"conditions":{
@@ -3969,7 +4057,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uxV8R@kFhpo-1@5",
 			"id":"n_Fu3L5",
-			"index":41,
+			"index":43,
 			"inputs":{
 				"hybridSearch":false,
 				"searchField":{
@@ -3997,7 +4085,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_R4rx6",
-			"index":42,
+			"index":44,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -4041,7 +4129,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_iBiNw",
-			"index":43,
+			"index":45,
 			"inputs":{
 				"variables":[
 					{
@@ -4067,7 +4155,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_mZsMR",
-			"index":44,
+			"index":46,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -4393,7 +4481,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_hEe57",
-			"index":45,
+			"index":47,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ WTTBI.outputs.items }}",
@@ -4417,7 +4505,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hEe57@kFhpo-1@l",
 			"id":"n_YGTk3",
-			"index":46,
+			"index":48,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4485,7 +4573,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hEe57@kFhpo-1@l",
 			"id":"_9STzm",
-			"index":47,
+			"index":49,
 			"inputs":{
 				"itemToAdd":{
 					"chunkId":"{{ _hEe57.outputs.item.chunkId }}",
@@ -4518,7 +4606,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hEe57@kFhpo-1@l",
 			"id":"_DNn0g",
-			"index":48,
+			"index":50,
 			"inputs":{
 				"variables":[
 					{
@@ -4544,7 +4632,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_5oII8",
-			"index":49,
+			"index":51,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ _PQSL0.outputs.items }}",
@@ -4568,7 +4656,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_5oII8@kFhpo-1@l",
 			"id":"_HTOxf",
-			"index":50,
+			"index":52,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4625,7 +4713,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_5oII8@kFhpo-1@l",
 			"id":"n_H3q2o",
-			"index":51,
+			"index":53,
 			"inputs":{
 				"itemToAdd":"{{ _HTOxf.outputs.result.chunkMetadata }}",
 				"insertLocation":"END",
@@ -4649,7 +4737,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_5oII8@kFhpo-1@l",
 			"id":"_c01vD",
-			"index":52,
+			"index":54,
 			"inputs":{
 				"variables":[
 					{
@@ -4675,7 +4763,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_1ncKE",
-			"index":53,
+			"index":55,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_mZsMR.outputs.items }}",
@@ -4699,7 +4787,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ncKE@kFhpo-1@l",
 			"id":"n_e3t0z",
-			"index":54,
+			"index":56,
 			"inputs":{
 				"automationId":"69c0fbda14773b659a234f6f",
 				"runtimeConnections":{},
@@ -4715,27 +4803,88 @@
 						"caseId":"{{ AU2XH.outputs.caseId }}",
 						"chunkId":"{{ n_1ncKE.outputs.item[0].chunkId }}",
 						"chunkNumber":"{{ n_1ncKE.outputs.item[0].chunkNumber }}",
+						"content":"{{ n_1ncKE.outputs.item[0].content }}",
+						"messageId":"{{ AU2XH.outputs.messageId }}",
+						"metadata":"{{ n_1ncKE.outputs.item[0].chunkMetadata }}",
+						"score":"{{ n_1ncKE.outputs.item[0].score }}",
+						"uniqueEntityId":"{{ n_1ncKE.outputs.item[0].uniqueEntityId }}",
+						"usageCount":0
+					},
+					"source":"{{ n_1ncKE.outputs.item }}",
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Create Citations Batch",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":99,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kFhpo-1",
+			"id":"n_NQuDV",
+			"index":57,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ 0Zjrm.outputs.items }}",
+				"captureIterations":false,
+				"batchSize":100
+			},
+			"skip":false,
+			"subTitle":"Loop on Citations",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":6636,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_NQuDV@kFhpo-1@l",
+			"id":"n_aIKpP",
+			"index":58,
+			"inputs":{
+				"automationId":"69c0fbda14773b659a234f6f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":{
+					"items":{
+						"caseId":"{{ AU2XH.outputs.caseId }}",
+						"chunkNumber":"{{ n_NQuDV.outputs.item[0].chunkNumber }}",
 						"columnData":{
 							"items":"{{ _8pL4V.outputs.columnData[0] }}",
 							"source":"{{ _8pL4V.outputs.columnData }}",
 							"ua:type":"mappedArray"
 						},
-						"content":"{{ n_1ncKE.outputs.item[0].content }}",
 						"hasMoreData":"{{ _8pL4V.outputs.hasMoreData }}",
 						"messageId":"{{ AU2XH.outputs.messageId }}",
-						"metadata":"{{ n_1ncKE.outputs.item[0].chunkMetadata }}",
+						"metadata":"{{ n_NQuDV.outputs.item[0] }}",
 						"rowData":{
 							"items":"{{ _8pL4V.outputs.rowData[0] }}",
 							"source":"{{ _8pL4V.outputs.rowData }}",
 							"ua:type":"mappedArray"
 						},
-						"score":"{{ n_1ncKE.outputs.item[0].score }}",
 						"sqlQuery":"{{ _8pL4V.outputs.sqlQuery }}",
 						"sqlQueryPlatformName":"{{ _8pL4V.outputs.sqlQueryPlatformName }}",
-						"uniqueEntityId":"{{ n_1ncKE.outputs.item[0].uniqueEntityId }}",
 						"usageCount":0
 					},
-					"source":"{{ n_1ncKE.outputs.item }}",
+					"source":"{{ n_NQuDV.outputs.item }}",
 					"ua:type":"mappedArray"
 				},
 				"version":"-1"
@@ -4757,8 +4906,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_bIO8f",
-			"index":55,
+			"index":59,
 			"inputs":{
+				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
 					"items":"{{ n_mZsMR.outputs.items[0].chunkMetadata }}",
@@ -4795,8 +4945,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_23iiv",
-			"index":56,
+			"index":60,
 			"inputs":{
+				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
 					"items":{
@@ -4830,7 +4981,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_mFTmG",
-			"index":57,
+			"index":61,
 			"inputs":{
 				"filters":[
 					{
@@ -4867,7 +5018,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_mFTmG@kFhpo-1@n",
 			"id":"n_p1Ye8",
-			"index":58,
+			"index":62,
 			"inputs":{
 				"filters":[
 					{
@@ -4915,7 +5066,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_p1Ye8@n_mFTmG@kFhpo-1@n@y",
 			"id":"n_Hu4Zy",
-			"index":59,
+			"index":63,
 			"inputs":{
 				"automationId":"689475b798afb57877127c83",
 				"runtimeConnections":{},
@@ -4950,7 +5101,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_p1Ye8@n_mFTmG@kFhpo-1@n@n",
 			"id":"_TzDNl",
-			"index":60,
+			"index":64,
 			"inputs":{
 				"automationId":"67ed33625e47b355f5f93529",
 				"runtimeConnections":{},
@@ -4984,7 +5135,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"kFhpo-1",
 			"id":"n_0LkTe",
-			"index":61,
+			"index":65,
 			"inputs":{
 				"automationId":"68c51597269ad81cc750a3ca",
 				"runtimeConnections":{},
@@ -5078,7 +5229,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"4pZYn",
-			"index":62,
+			"index":66,
 			"inputs":{
 				"automationId":"67cc3ab09c3ab54c438320aa",
 				"runtimeConnections":{},
@@ -5102,394 +5253,6 @@
 		{
 			"context":{
 				"appName":"if_else",
-				"resourceVersion":71,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"kFhpo-1",
-			"id":"af1tm",
-			"index":63,
-			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EXISTS"
-						},
-						"property":"{{ _8pL4V.outputs.columnData[0] }}"
-					},
-					{
-						"filter":{
-							"operator":"EXISTS"
-						},
-						"property":"{{ _8pL4V.outputs.rowData }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.parameters.cols.items",
-					"root.parameters.rows.items"
-				]
-			},
-			"context":{
-				"appName":"code_by_unifyapps",
-				"resourceVersion":69,
-				"resourceName":"code_by_unifyapps_groovy",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"af1tm@kFhpo-1@y",
-			"id":"n_kiqqZ",
-			"index":64,
-			"inputs":{
-				"output":{
-					"additionalProperties":false,
-					"properties":{
-						"colData":{
-							"items":{
-								"type":"string"
-							},
-							"title":"colData",
-							"type":"array"
-						},
-						"columns":{
-							"title":"Columns",
-							"type":"string"
-						},
-						"rowData":{
-							"items":{
-								"type":"object"
-							},
-							"title":"rowData",
-							"type":"array"
-						}
-					},
-					"required":[],
-					"type":"object"
-				},
-				"input":{
-					"additionalProperties":false,
-					"properties":{
-						"cols":{
-							"items":{
-								"type":"string"
-							},
-							"title":"Cols",
-							"type":"array"
-						},
-						"rows":{
-							"items":{
-								"additionalProperties":false,
-								"properties":{},
-								"type":"object"
-							},
-							"title":"Rows",
-							"type":"array"
-						}
-					},
-					"required":[],
-					"type":"object"
-				},
-				"code":"def cleanKey = { key ->\n    key.replaceAll(/[^A-Za-z0-9_]/, '')\n}\n\ndef columnData = []\ndef colString = \"\"\nif(binding.hasVariable('cols')) {\n    columnData = cols.collect { cleanKey(it) }\n    colString = columnData.join(\",\")  \n\n    \n}\n\ndef rowData = []\n\nif(binding.hasVariable('rows')) {\n    rowData = rows.collect { row ->\n        def newRow = [:]\n        row.each { k, v ->\n            newRow[cleanKey(k)] = v\n        }\n        newRow\n    }\n}\n\nreturn [\"colData\" : columnData, \"rowData\" : rowData, \"columns\" : colString]",
-				"compile_static":false,
-				"captureStdOutput":false,
-				"parameters":{
-					"cols":{
-						"items":"{{ _8pL4V.outputs.columnData[0] }}",
-						"source":"{{ _8pL4V.outputs.columnData }}",
-						"ua:type":"mappedArray"
-					},
-					"rows":{
-						"items":"{{ _8pL4V.outputs.rowData[0] }}",
-						"source":"{{ _8pL4V.outputs.rowData }}",
-						"ua:type":"mappedArray"
-					}
-				}
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"STOP",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				}
-			},
-			"skip":false,
-			"subTitle":"SpecialCharacterHandling",
-			"title":"Execute Groovy code",
-			"type":"ACTION"
-		},
-		{
-			"additional":{
-				"xsdSchemaConfig":{},
-				"visibleOptionalFields":[
-					"root.parameters.rows.items",
-					"root.parameters.cols.items"
-				]
-			},
-			"context":{
-				"appName":"code_by_unifyapps",
-				"resourceVersion":78,
-				"resourceName":"code_by_unifyapps_groovy",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"af1tm@kFhpo-1@y",
-			"id":"_WPW6W",
-			"index":65,
-			"inputs":{
-				"output":{
-					"additionalProperties":false,
-					"properties":{
-						"countRows":{
-							"title":"countRows",
-							"type":"integer"
-						},
-						"rows":{
-							"items":{
-								"additionalProperties":false,
-								"properties":{},
-								"type":"object"
-							},
-							"title":"Rows",
-							"type":"array"
-						}
-					},
-					"required":[],
-					"type":"object"
-				},
-				"input":{
-					"additionalProperties":false,
-					"properties":{
-						"rows":{
-							"items":{
-								"additionalProperties":false,
-								"properties":{},
-								"type":"object"
-							},
-							"title":"rows",
-							"type":"array"
-						}
-					},
-					"required":[],
-					"type":"object"
-				},
-				"code":"if (binding.hasVariable(\"rows\")) {\n    def formatRows = { rows ->\n        rows.collect { row ->\n            def rowMap = (row instanceof Map) ? row : (row instanceof Map.Entry ? [(row.key): row.value] : [:])\n            rowMap.collectEntries { k, v ->\n                if (v instanceof Number) {\n                    // Only round if the number has a decimal part (not a whole integer)\n                    if (v % 1 != 0) {\n                        [(k): Math.round(v * 100) / 100.0]   // round to 2 decimals\n                    } else {\n                        [(k): v]  // keep integers as is\n                    }\n                } else {\n                    [(k): v]\n                }\n            }\n        }\n    }\n\n    def rows1 = formatRows(rows)\n    return [\n        \"rows\"      : rows1,\n        \"countRows\" : rows.size()\n    ]\n\n} else {\n    return [\n        \"rows\"      : [],\n        \"countRows\" : 0\n    ]\n}\n",
-				"compile_static":false,
-				"isAsync":false,
-				"captureStdOutput":false,
-				"parameters":{
-					"rows":{
-						"items":"{{ n_kiqqZ.outputs.result.rowData[0] }}",
-						"source":"{{ n_kiqqZ.outputs.result.rowData }}",
-						"ua:type":"mappedArray"
-					}
-				}
-			},
-			"skip":false,
-			"subTitle":"round off to 2 decimal places",
-			"title":"Execute Groovy code",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"callables",
-				"resourceVersion":2327,
-				"resourceName":"callables_call_automation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"CONTINUE",
-			"groupId":"af1tm@kFhpo-1@y",
-			"id":"_y3L0i",
-			"index":66,
-			"inputs":{
-				"automationId":"69c0fbda14773b659a234f6f",
-				"runtimeConnections":{},
-				"synchronous":false,
-				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
-				"parameters":{
-					"citations":{
-						"items":{
-							"SQLServerAddditionalMetadata":"{{ AU2XH.outputs.sqlServerRelatedDynamicMetadata }}",
-							"caseId":"{{ AU2XH.outputs.caseId }}",
-							"chunkNumber":"{{ 2PDe8.outputs.counter }}",
-							"columnData":{
-								"items":"{{ n_kiqqZ.outputs.result.colData[0] }}",
-								"source":"{{ n_kiqqZ.outputs.result.colData }}",
-								"ua:type":"mappedArray"
-							},
-							"content":"List of Columns : {{ n_kiqqZ.outputs.result.columns }}",
-							"hasMoreData":"{{ _8pL4V.outputs.hasMoreData }}",
-							"messageId":"{{ AU2XH.outputs.messageId }}",
-							"metadata":"{{ _8pL4V.outputs.chunks[0] }}",
-							"rowData":{
-								"items":"{{ _WPW6W.outputs.result.rows[0] }}",
-								"source":"{{ _WPW6W.outputs.result.rows }}",
-								"ua:type":"mappedArray"
-							},
-							"sqlQuery":"{{ _8pL4V.outputs.sqlQuery }}",
-							"sqlQueryPlatformName":"{{ _8pL4V.outputs.sqlQueryPlatformName }}",
-							"tableIsPublished":false,
-							"usageCount":0
-						},
-						"ua:type":"mappedArray"
-					}
-				},
-				"version":"-1"
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"CONTINUE",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
-			},
-			"skip":false,
-			"subTitle":"Callable",
-			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":72,
-				"resourceName":"variable_by_unifyapps_update_variables",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"af1tm@kFhpo-1@y",
-			"id":"_78WBz",
-			"index":67,
-			"inputs":{
-				"variables":[
-					{
-						"source":"{{ 2PDe8.outputs.chartId }}",
-						"value":"{{ 2PDe8.outputs.counter }}"
-					},
-					{
-						"source":"{{ 2PDe8.outputs.counter }}",
-						"value":"=SUM({{ 2PDe8.outputs.counter }},1)"
-					}
-				]
-			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Update variables",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"if_else",
 				"resourceVersion":75,
 				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
@@ -5499,7 +5262,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_6zgN6",
-			"index":68,
+			"index":67,
 			"inputs":{
 				"filters":[
 					{
@@ -5534,7 +5297,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_6zgN6@kFhpo-1@y",
 			"id":"n_8IIin",
-			"index":69,
+			"index":68,
 			"inputs":{
 				"shouldSearchInAnalyticsStore":false,
 				"object_type":"knowledge_metadata_fields",
@@ -5631,7 +5394,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"CWe4P",
-			"index":70,
+			"index":69,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -5700,6 +5463,10 @@
 							"title":"Knowledge Metadata Fields",
 							"type":"array"
 						},
+						"noChartNeeded":{
+							"title":"No Chart Needed",
+							"type":"boolean"
+						},
 						"passMessageDirectlyToAgent":{
 							"title":"Pass Message Directly To Agent",
 							"type":"string"
@@ -5734,12 +5501,12 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"String finalOutput = \"\"\nString knowledge = \"\"\nList<Map<String, Object>> chunkMetadataArray = []\n\nint ctr = 0\n\nfinal String DEFAULT_TIMEZONE = \"Asia/Kolkata\"\n\nboolean hasFilter = binding.hasVariable('filter') && binding.getProperty('filter') != null\n\nList<Map<String, Object>> knowledgeMetadataFields = hasFilter && binding.hasVariable('knowledgeMetadataFields')\n    ? (List<Map<String, Object>>) binding.getVariable('knowledgeMetadataFields')\n    : []\n\nSet<String> uniqueMetadataFieldNames = (knowledgeMetadataFields ?: [])\n    .findAll { it != null && it.fieldName != null }\n    .collect { it.fieldName.toString().trim() }\n    .findAll { !it.isEmpty() }\n    .toSet()\n\nif (binding.hasVariable(\"relevantContent\")) {\n    List<Map<String, Object>> relevantContent = (List<Map<String, Object>>) binding.getVariable(\"relevantContent\")\n    if (relevantContent != null && !relevantContent.isEmpty()) {\n        for (Map<String, Object> text : relevantContent) {\n            if (text.containsKey(\"content\") && text.get(\"content\") instanceof String) {\n                if (text.containsKey('chunkNumber')) {\n                    ctr = (int) text.get(\"chunkNumber\")\n                }\n\n                String content = (String) text.get(\"content\")\n                Map<String, Object> metaMap = (Map<String, Object>) text.get(\"chunkMetadata\")\n                String metadata = \"\"\n\n                if (metaMap != null) {\n                    List<String> allowedKeys = [\"name\", \"appName\", \"title\", \"author\", \"createdAt\", \"modifiedAt\", \"labels\"]\n\n                    if (hasFilter && !uniqueMetadataFieldNames.isEmpty()) {\n                        allowedKeys.addAll(uniqueMetadataFieldNames)\n                    }\n\n                    Map<String, Object> filteredMeta = metaMap.findAll { k, v -> k in allowedKeys && v != null }\n                    if (!filteredMeta.isEmpty()) {\n                        def convertedMeta = filteredMeta.collectEntries { k, v ->\n                            def keyLower = k.toString().toLowerCase()\n                            boolean isDateOrTime = keyLower.contains(\"date\") || keyLower.contains(\"time\") || keyLower.contains(\"createdat\") || keyLower.contains(\"modifiedat\")\n\n                            if (isDateOrTime && v != null) {\n                                try {\n                                    def instant = java.time.Instant.ofEpochMilli(v as long)\n                                    def zoneId = java.time.ZoneId.of(DEFAULT_TIMEZONE)\n\n                                    if (binding.hasVariable(\"userTimezone\") && binding.getProperty(\"userTimezone\") != null) {\n                                        try {\n                                            zoneId = java.time.ZoneId.of(binding.getProperty(\"userTimezone\").toString())\n                                        } catch (Exception e) {\n                                            zoneId = java.time.ZoneId.of(DEFAULT_TIMEZONE)\n                                        }\n                                    }\n\n                                    def formatter = java.time.format.DateTimeFormatter\n                                        .ofPattern(\"yyyy-MM-dd HH:mm:ss z\")\n                                        .withZone(zoneId)\n                                    return [k + \"InISO\", formatter.format(instant)]\n                                } catch (Exception e) {\n                                    return [k, v]\n                                }\n                            }\n                            return [k, v]\n                        }\n                        metadata = convertedMeta.collect { k, v -> \"$k: $v\" }.join(\" \")\n                        metadata = \"<customMetadata>\" + metadata + \"</customMetadata>\\n\"\n                    }\n                }\n                knowledge += \"<chunk id=\\\"\" + ctr + \"\\\">\\n*****\\n\" + content + \"\\n*****\\n\" + metadata + \"</chunk>\\n\"\n            }\n\n            if (!text.containsKey(\"chunkMetadata\") || text.get(\"chunkMetadata\") == null) {\n                chunkMetadataArray << new LinkedHashMap<String, Object>()\n            } else {\n                chunkMetadataArray << (Map<String, Object>) text.get(\"chunkMetadata\")\n            }\n        }\n    }\n    finalOutput += \"####Here are the Relevant Knowledge chunks Fetched related to this query####\\n\" + knowledge\n}\n\nif (binding.hasVariable('passMessageDirectlyToAgent')) {\n    finalOutput += \"#### Message during SQL Execution : \" + binding.getProperty(\"passMessageDirectlyToAgent\")\n}\n\nif (binding.hasVariable(\"rowData\") && binding.getProperty(\"rowData\") != null && !(binding.getProperty(\"rowData\") as List).isEmpty()) {\n    finalOutput += \"#### SQL Output <chartId=\\\"\" + binding.getProperty(\"chartId\") + \"\\\">\\n####\\n\"\n    if (binding.hasVariable(\"sourcesNeeded\") && binding.getProperty(\"sourcesNeeded\")) {\n        finalOutput += \"[STRICTLY] Always use this chartId as the inline citation in the FinalAnswer. \\n\"\n    }\n    def rawData = binding.getProperty(\"rowData\")\n\n    def rows = (rawData instanceof List) ? rawData : []\n    def truncatedRows = rows.take(25)\n    finalOutput += \"#### SQL Output <chartId=\\\"\" + binding.getProperty(\"chartId\") + \"\\\">\\n####\\n\"\n    finalOutput += \"<rowData>\" + truncatedRows.toString() + \"</rowData>\"\n\n    finalOutput += \"If this data seems relevant to what user has asked, the data is plottable and sending charts or tables is relevant for this query, then make a tool call to \\\"GenerateCharts\\\" tool to correctly show this data to the user instead of writing it as markdown text. Note, if the user has explicitly asked for a table/chart/tabular representation/visual representation for this and this data is plottable, then make a tool call to GenerateCharts with appropriate chartId and then do not mention the table in markdown format in final answer (important). When giving the finalAnswer, always use the chartId as the chunkId for citations to indicate where the chart was generated from.\"\n\n    if (binding.hasVariable(\"hasMoreData\") && binding.getProperty(\"hasMoreData\")) {\n        finalOutput += \"This sql output only contains a limited (truncated) number of rows and does not represent the full data. DO NOT make any conclusions or statements about the total count, minimum, maximum, or other aggregate statistics based solely on this sample as it is a truncated form of data. DO NOT pass any such conclusions based solely on the truncated data in the FINAL ANSWER.\"\n    }\n\n    if (binding.hasVariable(\"assumptionsTaken\")\n        && binding.getProperty(\"assumptionsTaken\") != null\n        && binding.getProperty(\"assumptionsTaken\").toString().trim().length() > 0) {\n        finalOutput += \"#### Assumptions Taken By Agent [STRICTLY] to be mentioned in the FINAL ANSWER : \" + binding.getProperty(\"assumptionsTaken\") + \"\\n\"\n    }\n}\n\nreturn [\n    \"finalOutput\"  : (finalOutput == null || finalOutput.trim().isEmpty()) ? null : finalOutput.trim(),\n    \"chunkMetadata\": chunkMetadataArray\n] as Map<String, Object>",
+				"code":"String finalOutput = \"\"\nString knowledge = \"\"\nList<Map<String, Object>> chunkMetadataArray = []\n\nint ctr = 0\n\nfinal String DEFAULT_TIMEZONE = \"Asia/Kolkata\"\n\nboolean hasFilter = binding.hasVariable('filter') && binding.getProperty('filter') != null\ndef noChartNeeded = binding.hasVariable(\"noChartNeeded\")\n        ? binding.getVariable(\"noChartNeeded\") as Boolean\n        : false\n\nList<Map<String, Object>> knowledgeMetadataFields = hasFilter && binding.hasVariable('knowledgeMetadataFields')\n    ? (List<Map<String, Object>>) binding.getVariable('knowledgeMetadataFields')\n    : []\n\nSet<String> uniqueMetadataFieldNames = (knowledgeMetadataFields ?: [])\n    .findAll { it?.fieldName != null }\n    .collect { it.fieldName.toString().trim() }\n    .findAll { !it.isEmpty() }\n    .collect { it.contains(':') ? it.substring(it.indexOf(':') + 1) : it }   // gmail:mailRead -> mailRead\n    .toSet()\n\nif (binding.hasVariable(\"relevantContent\")) {\n    List<Map<String, Object>> relevantContent = (List<Map<String, Object>>) binding.getVariable(\"relevantContent\")\n    if (relevantContent != null && !relevantContent.isEmpty()) {\n        for (Map<String, Object> text : relevantContent) {\n            if (text.containsKey(\"content\") && text.get(\"content\") instanceof String) {\n                if (text.containsKey('chunkNumber')) {\n                    ctr = (int) text.get(\"chunkNumber\")\n                }\n\n                String content = (String) text.get(\"content\")\n                Map<String, Object> metaMap = (Map<String, Object>) text.get(\"chunkMetadata\")\n                String metadata = \"\"\n\n                if (metaMap != null) {\n                    List<String> allowedKeys = [\"name\", \"appName\", \"title\", \"author\", \"createdAt\", \"modifiedAt\"]\n\n                    if (hasFilter && !uniqueMetadataFieldNames.isEmpty()) {\n                        allowedKeys.addAll(uniqueMetadataFieldNames)\n                    }\n\n                    Map<String, Object> filteredMeta = metaMap.findAll { k, v -> k in allowedKeys && v != null }\n                    if (!filteredMeta.isEmpty()) {\n                        def convertedMeta = filteredMeta.collectEntries { k, v ->\n                            def keyLower = k.toString().toLowerCase()\n                            boolean isDateOrTime = keyLower.contains(\"date\") || keyLower.contains(\"time\") || keyLower.contains(\"createdat\") || keyLower.contains(\"modifiedat\")\n\n                            if (isDateOrTime && v != null) {\n                                try {\n                                    def instant = java.time.Instant.ofEpochMilli(v as long)\n                                    def zoneId = java.time.ZoneId.of(DEFAULT_TIMEZONE)\n\n                                    if (binding.hasVariable(\"userTimezone\") && binding.getProperty(\"userTimezone\") != null) {\n                                        try {\n                                            zoneId = java.time.ZoneId.of(binding.getProperty(\"userTimezone\").toString())\n                                        } catch (Exception e) {\n                                            zoneId = java.time.ZoneId.of(DEFAULT_TIMEZONE)\n                                        }\n                                    }\n\n                                    def formatter = java.time.format.DateTimeFormatter\n                                        .ofPattern(\"yyyy-MM-dd HH:mm:ss z\")\n                                        .withZone(zoneId)\n                                    return [k + \"InISO\", formatter.format(instant)]\n                                } catch (Exception e) {\n                                    return [k, v]\n                                }\n                            }\n                            return [k, v]\n                        }\n                        metadata = convertedMeta.collect { k, v -> \"$k: $v\" }.join(\" \")\n                        metadata = \"<customMetadata>\" + metadata + \"</customMetadata>\\n\"\n                    }\n                }\n                knowledge += \"<chunk id=\\\"\" + ctr + \"\\\">\\n*****\\n\" + content + \"\\n*****\\n\" + metadata + \"</chunk>\\n\"\n            }\n\n            if (!text.containsKey(\"chunkMetadata\") || text.get(\"chunkMetadata\") == null) {\n                chunkMetadataArray << new LinkedHashMap<String, Object>()\n            } else {\n                chunkMetadataArray << (Map<String, Object>) text.get(\"chunkMetadata\")\n            }\n        }\n    }\n    finalOutput += \"####Here are the Relevant Knowledge chunks Fetched related to this query####\\n\" + knowledge\n}\n\nif (binding.hasVariable('passMessageDirectlyToAgent')) {\n    finalOutput += \"#### Message during SQL Execution : \" + binding.getProperty(\"passMessageDirectlyToAgent\")\n}\n\nif (binding.hasVariable(\"rowData\") && binding.getProperty(\"rowData\") != null && !(binding.getProperty(\"rowData\") as List).isEmpty()) {\n    finalOutput += \"#### SQL Output <chartId=\\\"\" + binding.getProperty(\"chartId\") + \"\\\">\\n####\\n\"\n    if (binding.hasVariable(\"sourcesNeeded\") && binding.getProperty(\"sourcesNeeded\")) {\n        finalOutput += \"[STRICTLY] Always use this chartId as the inline citation in the FinalAnswer. \\n\"\n    }\n    def rawData = binding.getProperty(\"rowData\")\n\n    def rows = (rawData instanceof List) ? rawData : []\n    def truncatedRows = rows.take(25)\n    finalOutput += \"#### SQL Output <chartId=\\\"\" + binding.getProperty(\"chartId\") + \"\\\">\\n####\\n\"\n    finalOutput += \"<rowData>\" + truncatedRows.toString() + \"</rowData>\"\n    \n    if(!noChartNeeded){\n        finalOutput += \"If this data seems relevant to what user has asked, the data is plottable and sending charts or tables is relevant for this query, then make a tool call to \\\"GenerateCharts\\\" tool to correctly show this data to the user instead of writing it as markdown text. Note, if the user has explicitly asked for a table/chart/tabular representation/visual representation for this and this data is plottable, then make a tool call to GenerateCharts with appropriate chartId and then do not mention the table in markdown format in final answer (important). When giving the finalAnswer, always use the chartId as the chunkId for citations to indicate where the chart was generated from.\"\n    }\n\n    if (binding.hasVariable(\"hasMoreData\") && binding.getProperty(\"hasMoreData\")) {\n        finalOutput += \"This sql output only contains a limited (truncated) number of rows and does not represent the full data. DO NOT make any conclusions or statements about the total count, minimum, maximum, or other aggregate statistics based solely on this sample as it is a truncated form of data. DO NOT pass any such conclusions based solely on the truncated data in the FINAL ANSWER.\"\n    }\n\n    if (binding.hasVariable(\"assumptionsTaken\")\n        && binding.getProperty(\"assumptionsTaken\") != null\n        && binding.getProperty(\"assumptionsTaken\").toString().trim().length() > 0) {\n        finalOutput += \"#### Assumptions Taken By Agent [STRICTLY] to be mentioned in the FINAL ANSWER : \" + binding.getProperty(\"assumptionsTaken\") + \"\\n\"\n    }\n}\n\nreturn [\n    \"finalOutput\"  : (finalOutput == null || finalOutput.trim().isEmpty()) ? null : finalOutput.trim(),\n    \"chunkMetadata\": chunkMetadataArray\n] as Map<String, Object>",
 				"compile_static":true,
 				"captureStdOutput":false,
 				"parameters":{
 					"assumptionsTaken":"{{ _8pL4V.outputs.assumptions_for_sql_generation }}",
-					"chartId":"{{ 2PDe8.outputs.chartId }}",
+					"chartId":"=({{ 2PDe8.outputs.counter }}-1)",
 					"columnData":{
 						"items":"{{ _8pL4V.outputs.columnData[0] }}",
 						"source":"{{ _8pL4V.outputs.columnData }}",
@@ -5755,6 +5522,7 @@
 						"source":"{{ n_8IIin.outputs.objects }}",
 						"ua:type":"mappedArray"
 					},
+					"noChartNeeded":"{{ n_dbeqd.outputs.properties.textToSQLSettings.noChartNeeded }}",
 					"passMessageDirectlyToAgent":"{{ _8pL4V.outputs.passMessageDirectlyToAgent }}",
 					"relevantContent":{
 						"items":"{{ _2SEgX.outputs.items[0] }}",
@@ -5787,7 +5555,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"9yows",
-			"index":71,
+			"index":70,
 			"inputs":{
 				"filters":[
 					{
@@ -5816,7 +5584,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"9yows@kFhpo-1@y",
 			"id":"hIFiy",
-			"index":72,
+			"index":71,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -5840,7 +5608,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"9yows@kFhpo-1@n",
 			"id":"RCo9C",
-			"index":73,
+			"index":72,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -5868,5 +5636,5 @@
 		}
 	},
 	"standard":true,
-	"version":378
+	"version":380
 }

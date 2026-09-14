@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743609070,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743609264,
+		"deployedAt":1789395093725,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd793f7ad93bb1675691",
+		"deployedDefinitionId":"6aa8009572fd792214e8c108",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":3
+		"version":2,
+		"workflowVersion":6
 	},
 	"edges":[
 		{
@@ -32,7 +32,23 @@
 			"fromNodeId":"n_BgN3v",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_Kv7dQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Kv7dQ",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"n_9NmZk",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Kv7dQ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ms3BF",
 			"type":"next"
 		},
 		{
@@ -58,7 +74,7 @@
 	"id":"6a057218a91326050611f44d",
 	"lastModifiedBy":-1,
 	"lcName":"remove citations from servicehubmessage",
-	"modifiedTime":1788252972463,
+	"modifiedTime":1789395389711,
 	"name":"Remove Citations From ServiceHubMessage",
 	"nodes":[
 		{
@@ -233,6 +249,42 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_NGNpy-1",
+			"id":"n_Kv7dQ",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_sPLbW.outputs._hasPermission }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_sPLbW.outputs._hasPermission }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Message exists and is readable",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":439,
 				"resourceName":"storage_by_unifyapps_upsert_record",
@@ -241,9 +293,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_NGNpy-1",
+			"groupId":"n_Kv7dQ@_NGNpy-1@y",
 			"id":"n_9NmZk",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"service_hub_message",
@@ -281,7 +333,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NGNpy-1",
 			"id":"n_Ms3BF",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"result":{
 					"success":true
@@ -307,5 +359,5 @@
 		}
 	},
 	"standard":true,
-	"version":5
+	"version":7
 }
