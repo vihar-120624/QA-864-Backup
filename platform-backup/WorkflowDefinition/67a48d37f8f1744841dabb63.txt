@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743827874,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743828056,
+		"deployedAt":1789395222962,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece54177b4b4aca57b7e8",
+		"deployedDefinitionId":"6aa8011639ee5f5ef70b62a3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":424
+		"version":2,
+		"workflowVersion":427
 	},
 	"edges":[
 		{
@@ -374,7 +374,7 @@
 	"id":"67a48d37f8f1744841dabb63",
 	"lastModifiedBy":-1,
 	"lcName":"getagentcached",
-	"modifiedTime":1788252972042,
+	"modifiedTime":1789395399902,
 	"name":"GetAgentCached",
 	"nodes":[
 		{
@@ -394,6 +394,10 @@
 					"additionalProperties":false,
 					"dynamic":true,
 					"properties":{
+						"copilotAttachmentGuardrails":{
+							"title":"Copilot Attachment Guardrails",
+							"type":"boolean"
+						},
 						"createdTime":{
 							"title":"Created Time (Epoch)",
 							"type":"integer"
@@ -409,6 +413,10 @@
 						"id":{
 							"title":"Id",
 							"type":"string"
+						},
+						"indexAttachmentDisabled":{
+							"title":"indexAttachmentDisabled",
+							"type":"boolean"
 						},
 						"lastModifiedBy":{
 							"foreignKey":{
@@ -455,6 +463,10 @@
 									"sortable":false,
 									"title":"Agent Type",
 									"type":"string"
+								},
+								"appendSummaryMessage":{
+									"title":"Append Summary Message",
+									"type":"boolean"
 								},
 								"auditAutomationId":{
 									"title":"Audit Automation Id",
@@ -634,6 +646,10 @@
 											"title":"Create Excel",
 											"type":"boolean"
 										},
+										"createFile":{
+											"title":"Create File",
+											"type":"boolean"
+										},
 										"createPDF":{
 											"title":"Create PDF",
 											"type":"boolean"
@@ -650,12 +666,24 @@
 											"title":"Document Vision",
 											"type":"boolean"
 										},
+										"downloadAndRenderFile":{
+											"title":"Download And Render File",
+											"type":"boolean"
+										},
 										"executeCodeInSandbox":{
 											"title":"Execute Code In Sandbox",
 											"type":"boolean"
 										},
 										"executeCodeTool":{
 											"title":"Execute Code Tool",
+											"type":"boolean"
+										},
+										"generateAndEditCanvas":{
+											"title":"Generate And Edit Canvas",
+											"type":"boolean"
+										},
+										"generateAndEditEmail":{
+											"title":"Generate And Edit Email",
 											"type":"boolean"
 										},
 										"generateChartTool":{
@@ -682,6 +710,18 @@
 											"title":"Load Skill",
 											"type":"boolean"
 										},
+										"neo4jGraphToolDescriptionEnabled":{
+											"title":"Neo 4 J Graph Tool Description Enabled",
+											"type":"boolean"
+										},
+										"planTool":{
+											"title":"Plan Tool",
+											"type":"boolean"
+										},
+										"readDocument":{
+											"title":"Read Document",
+											"type":"boolean"
+										},
 										"requestClarification":{
 											"title":"Request Clarification",
 											"type":"boolean"
@@ -702,8 +742,8 @@
 											"title":"Todo Tool",
 											"type":"boolean"
 										},
-										"websearch":{
-											"title":"Websearch",
+										"webSearch":{
+											"title":"webSearch",
 											"type":"boolean"
 										}
 									},
@@ -1479,6 +1519,38 @@
 																"required":[],
 																"type":"object"
 															},
+															"documentParsingConfig":{
+																"additionalProperties":false,
+																"properties":{
+																	"agenticParsingModel":{
+																		"title":"Agentic Parsing Model",
+																		"type":"string"
+																	},
+																	"appName":{
+																		"title":"App Name",
+																		"type":"string"
+																	},
+																	"automationId":{
+																		"title":"Automation Id",
+																		"type":"string"
+																	},
+																	"connectionId":{
+																		"title":"Connection Id",
+																		"type":"string"
+																	},
+																	"type":{
+																		"title":"Type",
+																		"type":"string"
+																	},
+																	"version":{
+																		"title":"Version",
+																		"type":"string"
+																	}
+																},
+																"required":[],
+																"title":"Document Parsing Config",
+																"type":"object"
+															},
 															"mimeType":{
 																"items":{
 																	"type":"string"
@@ -1486,6 +1558,7 @@
 																"type":"array"
 															}
 														},
+														"required":[],
 														"type":"object"
 													},
 													"type":"array"
@@ -2245,9 +2318,21 @@
 											"title":"Chart Color Reqd",
 											"type":"boolean"
 										},
+										"chartToolInSQLOutput":{
+											"title":"Chart Tool In SQL Output",
+											"type":"boolean"
+										},
 										"clarificationQuestionNeeded":{
 											"title":"Clarification Question Needed",
 											"type":"boolean"
+										},
+										"connectionRelatedRBACenabled":{
+											"title":"Connection Related RBAC enabled",
+											"type":"boolean"
+										},
+										"customDataPublisherAutomationId":{
+											"title":"Custom Data Publisher Automation Id",
+											"type":"string"
 										},
 										"customRbacAutomationId":{
 											"title":"Custom Rbac Automation Id",
@@ -2255,6 +2340,10 @@
 										},
 										"customRbacCheckerAutomationId":{
 											"title":"Custom Rbac Checker Automation Id",
+											"type":"string"
+										},
+										"customTemplateAutomationId":{
+											"title":"Custom Template Automation Id",
 											"type":"string"
 										},
 										"describeChart":{
@@ -2324,6 +2413,10 @@
 										"platformSelectionCustomInstructions":{
 											"title":"Platform Selection Custom Instructions",
 											"type":"string"
+										},
+										"publishSQLOutputInFile":{
+											"title":"Publish SQL Output In File",
+											"type":"boolean"
 										},
 										"sourcesNeeded":{
 											"title":"Sources Needed",
@@ -2418,6 +2511,10 @@
 								},
 								"useSessionIdAuth":{
 									"title":"Use Session Id Auth",
+									"type":"boolean"
+								},
+								"userConnectionRuntimeCheck":{
+									"title":"User Connection Runtime Check",
 									"type":"boolean"
 								},
 								"voiceSettings":{
@@ -2595,6 +2692,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"aiAgentId":{
 							"title":"Ai Agent Id",
 							"type":"string"
@@ -2734,8 +2852,8 @@
 		{
 			"context":{
 				"appName":"storage_by_unifyapps",
-				"resourceVersion":54,
-				"resourceName":"storage_by_unifyapps_fetch_records",
+				"resourceVersion":214,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -2745,39 +2863,12 @@
 			"id":"mtswW",
 			"index":7,
 			"inputs":{
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ n_Uicsb.outputs.aiAgentId }}"
-							},
-							"property":"id"
-						},
-						{
-							"filter":{
-								"operator":"NOT_EQUAL",
-								"value":"true"
-							},
-							"property":"properties_archived"
-						}
-					],
-					"operator":"AND"
-				},
-				"shouldSearchInAnalyticsStore":false,
 				"object_type":"ai_agent",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
-				"page":{
-					"limit":20,
-					"paginateBy":"OFFSET"
-				},
-				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"SINGLE",
-				"readThroughSessionVariables":false,
-				"fetchDeployedEntity":"{{ 53LAF.outputs.ai_agent_use_deployed_entity }}",
-				"deployedEntityVersion":"{{ 53LAF.outputs.ai_agent_deployed_version }}"
+				"id":"{{ n_Uicsb.outputs.aiAgentId }}",
+				"readThroughSessionVariables":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -2791,7 +2882,7 @@
 				},
 				"cacheConfig":{
 					"cacheKey":"{{ TRoZH.outputs.aiAgentId }}",
-					"enabled":false,
+					"enabled":true,
 					"timeToLive":"3600",
 					"usagePolicy":"ALWAYS",
 					"useInMemoryCache":false
@@ -2826,7 +2917,7 @@
 			},
 			"skip":false,
 			"subTitle":"Agent",
-			"title":"Fetch Agent by Id",
+			"title":"Fetch record by ID",
 			"type":"ACTION"
 		},
 		{
@@ -3124,7 +3215,7 @@
 				},
 				"cacheConfig":{
 					"cacheKey":"{{ TRoZH.outputs.aiAgentId }}",
-					"enabled":false,
+					"enabled":true,
 					"timeToLive":"3600",
 					"usagePolicy":"ALWAYS",
 					"useInMemoryCache":false
@@ -3214,6 +3305,63 @@
 				"includeTotalCount":false,
 				"numberOfRecordsToFetch":"SINGLE",
 				"readThroughSessionVariables":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"GLOBAL",
+					"enabled":true,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -3351,6 +3499,58 @@
 				},
 				"version":"-1"
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Call automation",
@@ -3445,6 +3645,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"absoluteRecencyThreshold":{
 							"title":"Absolute Recency Threshold",
 							"type":"integer"
@@ -3874,7 +4095,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def result = [:]\n\ndef modelMaxTokens = 200000\nif (binding.hasVariable('maxInputTokens') && maxInputTokens > 0) {\n    modelMaxTokens = maxInputTokens   \n} else if (binding.hasVariable('maxOutputTokens') && maxOutputTokens > 0) {\n    modelMaxTokens = maxOutputTokens   \n}\n\nif (binding.hasVariable('tokensThresholdPercentageFloat') && tokensThresholdPercentageFloat > 0) {\n    result[\"charactersThreshold\"] = modelMaxTokens * (tokensThresholdPercentageFloat / 100)\n}\nelse if (binding.hasVariable('percentageTokenThreshold') && percentageTokenThreshold > 0) {\n    result[\"charactersThreshold\"] = modelMaxTokens * (percentageTokenThreshold / 100)\n} else {\n    result[\"charactersThreshold\"] = binding.hasVariable('absoluteTokenThreshold') ? absoluteTokenThreshold : Integer.MAX_VALUE\n}\n\nif (binding.hasVariable('recencyThresholdPercentageFloat') && recencyThresholdPercentageFloat > 0) {\n    result[\"recencyThreshold\"] = modelMaxTokens * (recencyThresholdPercentageFloat / 100)\n}\nelse if (binding.hasVariable('percentageRecencyThreshold') && percentageRecencyThreshold > 0) {\n    result[\"recencyThreshold\"] = modelMaxTokens * (percentageRecencyThreshold / 100)\n} else if (binding.hasVariable('absoluteRecencyThreshold') && absoluteRecencyThreshold > 0) {\n    result[\"recencyThreshold\"] = absoluteRecencyThreshold\n} else {\n  result[\"recencyThreshold\"] = result[\"charactersThreshold\"]\n}\n\nresult[\"charactersThreshold\"] = result[\"charactersThreshold\"] * 3\nresult[\"recencyThreshold\"] = result[\"recencyThreshold\"] * 3\nreturn result",
+				"code":"def result = [:]\n\ndef modelMaxTokens = 200000\nif (binding.hasVariable('maxInputTokens') && maxInputTokens > 0) {\n    modelMaxTokens = maxInputTokens   \n} \n\nif (binding.hasVariable('tokensThresholdPercentageFloat') && tokensThresholdPercentageFloat > 0) {\n    result[\"charactersThreshold\"] = modelMaxTokens * (tokensThresholdPercentageFloat / 100)\n}\nelse if (binding.hasVariable('percentageTokenThreshold') && percentageTokenThreshold > 0) {\n    result[\"charactersThreshold\"] = modelMaxTokens * (percentageTokenThreshold / 100)\n} else {\n    result[\"charactersThreshold\"] = binding.hasVariable('absoluteTokenThreshold') ? absoluteTokenThreshold : Integer.MAX_VALUE\n}\n\nif (binding.hasVariable('recencyThresholdPercentageFloat') && recencyThresholdPercentageFloat > 0) {\n    result[\"recencyThreshold\"] = modelMaxTokens * (recencyThresholdPercentageFloat / 100)\n}\nelse if (binding.hasVariable('percentageRecencyThreshold') && percentageRecencyThreshold > 0) {\n    result[\"recencyThreshold\"] = modelMaxTokens * (percentageRecencyThreshold / 100)\n} else if (binding.hasVariable('absoluteRecencyThreshold') && absoluteRecencyThreshold > 0) {\n    result[\"recencyThreshold\"] = absoluteRecencyThreshold\n} else {\n  result[\"recencyThreshold\"] = result[\"charactersThreshold\"]\n}\n\nresult[\"charactersThreshold\"] = result[\"charactersThreshold\"] * 3\nresult[\"recencyThreshold\"] = result[\"recencyThreshold\"] * 3\nreturn result",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -4621,10 +4842,12 @@
 			"index":33,
 			"inputs":{
 				"result":{
+					"copilotAttachmentGuardrails":"{{ mtswW.outputs.properties.copilotAttachmentGuardrails }}",
 					"createdTime":"{{ mtswW.outputs.createdTime }}",
 					"deleted":"{{ mtswW.outputs.deleted }}",
 					"entityType":"{{ mtswW.outputs.entityType }}",
 					"id":"{{ mtswW.outputs.id }}",
+					"indexAttachmentDisabled":"{{ mtswW.outputs.properties.indexAttachmentDisabled }}",
 					"lastModifiedBy":"{{ mtswW.outputs.lastModifiedBy }}",
 					"modifiedTime":"{{ mtswW.outputs.modifiedTime }}",
 					"ownerUserId":"{{ mtswW.outputs.ownerUserId }}",
@@ -4634,6 +4857,7 @@
 					},
 					"properties":{
 						"agentType":"{{ mtswW.outputs.properties.agentType }}",
+						"appendSummaryMessage":"{{ mtswW.outputs.properties.appendSummaryMessage }}",
 						"auditAutomationId":"{{ mtswW.outputs.properties.auditAutomationId }}",
 						"avatarUrl":"{{ mtswW.outputs.properties.avatarUrl }}",
 						"background":"{{ mtswW.outputs.properties.background }}",
@@ -4641,13 +4865,13 @@
 						"contextManagement":{
 							"batchCompressionEnabled":"{{ mtswW.outputs.properties.contextManagement.batchCompressionEnabled }}",
 							"compactionSettings":{
-								"charactersThreshold":"{{ mtswW.outputs.properties.contextManagement.compactionSettings.characterThreshold }}",
-								"compactionModel":"{{ mtswW.outputs.properties.contextManagement.compactionSettings.compactionModel }}",
-								"enabled":"{{ mtswW.outputs.properties.contextManagement.compactionSettings.enabled }}",
+								"charactersThreshold":"{{ n_QmChP.outputs.result.charactersThreshold }}",
+								"compactionModel":"{{ n_ZrQ5d.outputs.compactionModel }}",
+								"enabled":"{{ n_ZrQ5d.outputs.enabled }}",
 								"recencyThreshold":"{{ n_QmChP.outputs.result.recencyThreshold }}",
 								"templateId":"{{ n_ZrQ5d.outputs.promptTemplateId }}",
-								"trim":"{{ mtswW.outputs.properties.contextManagement.compactionSettings.trim }}",
-								"trimThreshold":"{{ mtswW.outputs.properties.contextManagement.compactionSettings.trimThreshold }}"
+								"trim":"{{ n_ZrQ5d.outputs.trimEnabled }}",
+								"trimThreshold":"{{ _ddMQD.outputs.result.trimThreshold }}"
 							},
 							"compressionBatchTokenLimit":"{{ mtswW.outputs.properties.contextManagement.compressionBatchTokenLimit }}",
 							"dynamic_context":"{{ mtswW.outputs.properties.contextManagement.dynamic_context }}",
@@ -4679,24 +4903,31 @@
 							"createDocx":"{{ mtswW.outputs.properties.defaultTools.createDocx }}",
 							"createDocxOrPdf":"{{ mtswW.outputs.properties.defaultTools.createDocxOrPdf }}",
 							"createExcel":"{{ mtswW.outputs.properties.defaultTools.createExcel }}",
+							"createFile":"{{ mtswW.outputs.properties.defaultTools.createFile }}",
 							"createPDF":"{{ mtswW.outputs.properties.defaultTools.createPDF }}",
 							"createPPTX":"{{ mtswW.outputs.properties.defaultTools.createPPTX }}",
 							"deepResearch":"{{ mtswW.outputs.properties.defaultTools.deepResearch }}",
 							"documentVision":"{{ mtswW.outputs.properties.defaultTools.documentVision }}",
+							"downloadAndRenderFile":"{{ mtswW.outputs.properties.defaultTools.downloadAndRenderFile }}",
 							"executeCodeInSandbox":"{{ mtswW.outputs.properties.defaultTools.executeCodeInSandbox }}",
 							"executeCodeTool":"{{ mtswW.outputs.properties.defaultTools.executeCodeTool }}",
+							"generateAndEditCanvas":"{{ mtswW.outputs.properties.defaultTools.generateAndEditCanvas }}",
+							"generateAndEditEmail":"{{ mtswW.outputs.properties.defaultTools.generateAndEditEmail }}",
 							"generateChartTool":"{{ mtswW.outputs.properties.defaultTools.generateChartTool }}",
 							"generateImageTool":"{{ mtswW.outputs.properties.defaultTools.generateImageTool }}",
 							"generatePublicFileUrl":"{{ mtswW.outputs.properties.defaultTools.generatePublicFileUrl }}",
 							"informationNotFoundTool":"{{ mtswW.outputs.properties.defaultTools.informationNotFoundTool }}",
 							"ingestKnowledge":"{{ mtswW.outputs.properties.defaultTools.ingestKnowledge }}",
 							"loadSkill":"{{ mtswW.outputs.properties.defaultTools.loadSkill }}",
+							"neo4jGraphToolDescriptionEnabled":"{{ mtswW.outputs.properties.defaultTools.load_neo4j_graph_tool_description }}",
+							"planTool":"{{ mtswW.outputs.properties.defaultTools.planTool }}",
+							"readDocument":"{{ mtswW.outputs.properties.defaultTools.readDocument }}",
 							"requestClarification":"{{ mtswW.outputs.properties.defaultTools.requestClarification }}",
 							"saveInstantMemoryTool":"{{ mtswW.outputs.properties.defaultTools.saveInstantMemoryTool }}",
 							"search_knowledge_graph":"{{ mtswW.outputs.properties.defaultTools.search_knowledge_graph }}",
 							"summaryTool":"{{ mtswW.outputs.properties.defaultTools.summaryTool }}",
 							"todo_tool":"{{ mtswW.outputs.properties.defaultTools.todo_tool }}",
-							"websearch":"{{ mtswW.outputs.properties.defaultTools.webSearch }}"
+							"webSearch":"{{ mtswW.outputs.properties.defaultTools.webSearch }}"
 						},
 						"defaultToolsNotNeeded":"{{ mtswW.outputs.properties.defaultToolsNotNeeded }}",
 						"deferTools":"{{ mtswW.outputs.properties.deferTools }}",
@@ -4851,7 +5082,7 @@
 											"indexingType":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.tabularData.indexingType }}"
 										},
 										"text":{
-											"algorithm":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.algorithm }}",
+											"algorithm":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.chunkingAlgorithm }}",
 											"chunkOverlap":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.chunkOverlap }}",
 											"delimiters":{
 												"items":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.delimiters[0] }}",
@@ -4928,6 +5159,14 @@
 												"maxChunkSize":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.maxChunkSize }}",
 												"thresholdType":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].contentTypeConfig.text.thresholdType }}"
 											}
+										},
+										"documentParsingConfig":{
+											"agenticParsingModel":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].documentParsingConfig.agenticParsingModel }}",
+											"appName":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].documentParsingConfig.appName }}",
+											"automationId":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].documentParsingConfig.automationId }}",
+											"connectionId":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].documentParsingConfig.connectionId }}",
+											"type":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].documentParsingConfig.type }}",
+											"version":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].documentParsingConfig.version }}"
 										},
 										"mimeType":{
 											"items":"{{ mtswW.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0].mimeType[0] }}",
@@ -5109,9 +5348,13 @@
 							"allJoins":"{{ mtswW.outputs.properties.textToSQLSettings.allJoins }}",
 							"allowMiscellaneousAggregation":"{{ mtswW.outputs.properties.textToSQLSettings.allowMiscellaneousAggregation }}",
 							"chartColorReqd":"{{ mtswW.outputs.properties.textToSQLSettings.chartColorReqd }}",
+							"chartToolInSQLOutput":"{{ mtswW.outputs.properties.textToSQLSettings.chartToolInSQLOutput }}",
 							"clarificationQuestionNeeded":"{{ mtswW.outputs.properties.textToSQLSettings.clarificationQuestionNeeded }}",
+							"connectionRelatedRBACenabled":"{{ mtswW.outputs.properties.textToSQLSettings.connectionRelatedRBACenabled }}",
+							"customDataPublisherAutomationId":"{{ mtswW.outputs.properties.textToSQLSettings.customDataPublisherAutomationId }}",
 							"customRbacAutomationId":"{{ mtswW.outputs.properties.textToSQLSettings.customRbacAutomationId }}",
 							"customRbacCheckerAutomationId":"{{ mtswW.outputs.properties.textToSQLSettings.customRbacCheckerAutomationId }}",
+							"customTemplateAutomationId":"{{ mtswW.outputs.properties.textToSQLSettings.customTemplateAutomationId }}",
 							"describeChart":"{{ mtswW.outputs.properties.textToSQLSettings.describeChart }}",
 							"enableSqlMetadataOverride":"{{ mtswW.outputs.properties.textToSQLSettings.enableSqlMetadataOverride }}",
 							"epoch_as_date":"{{ mtswW.outputs.properties.textToSQLSettings.epoch_as_date }}",
@@ -5129,6 +5372,7 @@
 							"noTableNeeded":"{{ mtswW.outputs.properties.textToSQLSettings.noTableNeeded }}",
 							"numRowsToPassInSQLOutput":"{{ mtswW.outputs.properties.textToSQLSettings.numRowsToPassInSQLOutput }}",
 							"platformSelectionCustomInstructions":"{{ mtswW.outputs.properties.textToSQLSettings.platformSelectionCustomInstructions }}",
+							"publishSQLOutputInFile":"{{ mtswW.outputs.properties.textToSQLSettings.publishSQLOutputInFile }}",
 							"sourcesNeeded":"{{ mtswW.outputs.properties.textToSQLSettings.sourcesNeeded }}",
 							"sqlAndChart1LLMCall_Variant":"{{ mtswW.outputs.properties.textToSQLSettings.sqlAndChart1LLMCall_Variant }}",
 							"summaryRequired":"{{ mtswW.outputs.properties.textToSQLSettings.summaryRequired }}",
@@ -5145,6 +5389,7 @@
 							"topicSelectionModel":"{{ mtswW.outputs.properties.topicExecutionSettings.topicSelectionModel }}"
 						},
 						"useSessionIdAuth":"{{ mtswW.outputs.properties.useSessionIdAuth }}",
+						"userConnectionRuntimeCheck":"{{ mtswW.outputs.properties.userConnectionRuntimeCheck }}",
 						"voiceSettings":{
 							"provider":"{{ mtswW.outputs.properties.voiceSettings.provider }}"
 						},
@@ -5396,6 +5641,7 @@
 					"deleted":"{{ OCPfh.outputs.deleted }}",
 					"entityType":"{{ OCPfh.outputs.entityType }}",
 					"id":"{{ OCPfh.outputs.id }}",
+					"indexAttachmentDisabled":false,
 					"lastModifiedBy":"{{ OCPfh.outputs.lastModifiedBy }}",
 					"modifiedTime":"{{ OCPfh.outputs.modifiedTime }}",
 					"ownerUserId":"{{ OCPfh.outputs.ownerUserId }}",
@@ -5427,7 +5673,9 @@
 							"clarifyConnection":"{{ mtswW.outputs.properties.defaultTools.clarifyConnection }}",
 							"clarifyFromUser":"{{ mtswW.outputs.properties.defaultTools.clarifyFromUser }}",
 							"createDocx":"{{ mtswW.outputs.properties.defaultTools.createDocx }}",
+							"createDocxOrPdf":"{{ mtswW.outputs.properties.defaultTools.createDocxOrPdf }}",
 							"createExcel":"{{ mtswW.outputs.properties.defaultTools.createExcel }}",
+							"createFile":"{{ mtswW.outputs.properties.defaultTools.createFile }}",
 							"createPDF":"{{ mtswW.outputs.properties.defaultTools.createPDF }}",
 							"createPPTX":"{{ mtswW.outputs.properties.defaultTools.createPPTX }}",
 							"deepResearch":"{{ mtswW.outputs.properties.defaultTools.deepResearch }}",
@@ -5438,11 +5686,13 @@
 							"informationNotFoundTool":"{{ mtswW.outputs.properties.defaultTools.informationNotFoundTool }}",
 							"ingestKnowledge":"{{ mtswW.outputs.properties.defaultTools.ingestKnowledge }}",
 							"loadSkill":"{{ mtswW.outputs.properties.defaultTools.loadSkill }}",
+							"planTool":"{{ mtswW.outputs.properties.defaultTools.planTool }}",
+							"readDocument":"{{ mtswW.outputs.properties.defaultTools.readDocument }}",
 							"requestClarification":"{{ mtswW.outputs.properties.defaultTools.requestClarification }}",
 							"search_knowledge_graph":"{{ mtswW.outputs.properties.defaultTools.search_knowledge_graph }}",
 							"summaryTool":"{{ mtswW.outputs.properties.defaultTools.summaryTool }}",
 							"todo_tool":"{{ mtswW.outputs.properties.defaultTools.todo_tool }}",
-							"websearch":"{{ mtswW.outputs.properties.defaultTools.webSearch }}"
+							"webSearch":"{{ mtswW.outputs.properties.defaultTools.webSearch }}"
 						},
 						"graphModelId":"{{ mtswW.outputs.properties.graphModelId }}",
 						"indexingSettings":{
@@ -5788,5 +6038,5 @@
 	"tags":[
 		"dev_migrate"
 	],
-	"version":426
+	"version":428
 }
