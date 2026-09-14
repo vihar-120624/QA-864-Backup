@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743600167,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743600302,
+		"deployedAt":1789395091831,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd703f7ad93bb16754cc",
+		"deployedDefinitionId":"6aa8009339ee5f5ef70b5c24",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":63
+		"version":2,
+		"workflowVersion":66
 	},
 	"edges":[
 		{
@@ -156,7 +156,7 @@
 	"id":"68bc29147b3f397105eafea2",
 	"lastModifiedBy":-1,
 	"lcName":"user rbac detail fetcher",
-	"modifiedTime":1788252973023,
+	"modifiedTime":1789395395568,
 	"name":"User RBAC Detail Fetcher",
 	"nodes":[
 		{
@@ -794,12 +794,20 @@
 				"version":"-1"
 			},
 			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
 				"businessHoursConfig":{
 					"enabled":false,
 					"waitForNextWindow":false
 				},
 				"cacheConfig":{
-					"enabled":false,
+					"cacheKey":"{{ _MKeoF.outputs.userEmailAddress }}_{{ _MKeoF.outputs.knowledgeId }}",
+					"enabled":true,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS",
 					"useInMemoryCache":false
 				},
 				"circuitBreakerConfig":{
@@ -825,6 +833,9 @@
 				"stepError":"MANUAL",
 				"telemetryConfig":{
 					"enableTelemetry":false
+				},
+				"timeoutConfig":{
+					"enabled":false
 				}
 			},
 			"skip":false,
@@ -958,9 +969,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":true,
-		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -972,5 +983,5 @@
 		"AI Agent",
 		"RBAC"
 	],
-	"version":65
+	"version":67
 }

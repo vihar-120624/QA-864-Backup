@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743915268,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743915327,
+		"deployedAt":1789395262238,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eceab45d2142160e6ed49",
+		"deployedDefinitionId":"6aa8013ec6a14707f1503b19",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":105
+		"version":2,
+		"workflowVersion":108
 	},
 	"edges":[
 		{
@@ -234,7 +234,7 @@
 	"id":"6854195c4a0205327f0f4712",
 	"lastModifiedBy":-1,
 	"lcName":"getagentmodelcached",
-	"modifiedTime":1788252972003,
+	"modifiedTime":1789395395610,
 	"name":"GetAgentModelCached",
 	"nodes":[
 		{
@@ -529,6 +529,13 @@
 								"providerSpecficDetails":{
 									"additionalProperties":false,
 									"properties":{
+										"allowedProviders":{
+											"items":{
+												"type":"string"
+											},
+											"title":"Allowed Providers",
+											"type":"array"
+										},
 										"aws_region":{
 											"title":"aws_region",
 											"type":"string"
@@ -808,7 +815,7 @@
 				},
 				"cacheConfig":{
 					"cacheKey":"{{ n_NCQCN.outputs.modelId }}",
-					"enabled":false,
+					"enabled":true,
 					"timeToLive":"3600",
 					"usagePolicy":"ALWAYS",
 					"useInMemoryCache":false
@@ -836,6 +843,9 @@
 				"stepError":"STOP",
 				"telemetryConfig":{
 					"enableTelemetry":false
+				},
+				"timeoutConfig":{
+					"enabled":false
 				}
 			},
 			"skip":false,
@@ -1438,6 +1448,11 @@
 						},
 						"provider":"{{ n_zqYqF.outputs.properties.provider }}",
 						"providerSpecficDetails":{
+							"allowedProviders":{
+								"items":"{{ n_zqYqF.outputs.properties.providerSpecficDetails.allowedProviders[0] }}",
+								"source":"{{ n_zqYqF.outputs.properties.providerSpecficDetails.allowedProviders }}",
+								"ua:type":"mappedArray"
+							},
 							"aws_region":"{{ n_zqYqF.outputs.properties.providerSpecficDetails.aws_region }}",
 							"labels":{
 								"items":"{{ mtswW.outputs.properties.providerSpecficDetails.labels[0] }}",
@@ -1655,6 +1670,11 @@
 						},
 						"provider":"{{ mtswW.outputs.properties.provider }}",
 						"providerSpecficDetails":{
+							"allowedProviders":{
+								"items":"{{ mtswW.outputs.properties.providerSpecficDetails.allowedProviders[0] }}",
+								"source":"{{ mtswW.outputs.properties.providerSpecficDetails.allowedProviders }}",
+								"ua:type":"mappedArray"
+							},
 							"aws_region":"{{ mtswW.outputs.properties.providerSpecficDetails.aws_region }}",
 							"labels":{
 								"items":"{{ mtswW.outputs.properties.providerSpecficDetails.labels[0] }}",
@@ -1729,5 +1749,5 @@
 	"tags":[
 		
 	],
-	"version":107
+	"version":109
 }
