@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743567018,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743567172,
+		"deployedAt":1789395079221,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd4f4cdb0358b9df29e4",
+		"deployedDefinitionId":"6aa8008739ee5f5ef70b5b56",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":20
+		"version":2,
+		"workflowVersion":23
 	},
 	"edges":[
 		{
@@ -33,7 +33,7 @@
 			"fromNodeId":"n_XMK4W",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_gWTfM",
+			"toNodeId":"_lpBn6",
 			"type":"next"
 		},
 		{
@@ -41,11 +41,41 @@
 			"name":"no",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"_lpBn6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_lpBn6",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"n_gWTfM",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_gWTfM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DsxJR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DsxJR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7VaA8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7VaA8",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_Jo3ME",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_7VaA8",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_8w9Xq",
@@ -66,9 +96,9 @@
 	},
 	"id":"68f9245c7f66d147d99eba99",
 	"lastModifiedBy":-1,
-	"lcName":"fetch user details",
-	"modifiedTime":1788252972567,
-	"name":"Fetch user details",
+	"lcName":"[dt] fetch user details",
+	"modifiedTime":1789395387500,
+	"name":"[DT] Fetch user details",
 	"nodes":[
 		{
 			"context":{
@@ -85,13 +115,17 @@
 				"result":{
 					"additionalProperties":false,
 					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
 						"author":{
 							"title":"Author",
 							"type":"string"
 						},
-						"userId":{
-							"title":"User Id",
-							"type":"string"
+						"isPined":{
+							"title":"Is Pined",
+							"type":"boolean"
 						}
 					},
 					"required":[],
@@ -100,6 +134,10 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
 						"ownerUserId":{
 							"title":"Owner User Id",
 							"type":"string"
@@ -137,12 +175,18 @@
 							"operator":"MISSING"
 						},
 						"property":"{{ _iscqw.outputs.ownerUserId }}"
+					},
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ _iscqw.outputs.aiAgentId }}"
 					}
 				],
 				"operator":"OR"
 			},
 			"skip":false,
-			"subTitle":"without user id?",
+			"subTitle":"without aiAgent id?",
 			"title":"Condition",
 			"type":"IF_ELSE"
 		},
@@ -160,12 +204,66 @@
 			"id":"n_XMK4W",
 			"index":3,
 			"inputs":{
-				"result":{}
+				"result":{
+					"isPined":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":546,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8quVE-1",
+			"id":"_lpBn6",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"userId":"=IF(ISBLANK({{ __RUN__.outputs.userId }}),{{ __USER__.outputs.id }},{{ __RUN__.outputs.userId }})"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -179,73 +277,95 @@
 			"fallbackMode":"STOP",
 			"groupId":"_8quVE-1",
 			"id":"n_gWTfM",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"fetchBy":"id",
 				"applicationId":"",
 				"user":"{{ _iscqw.outputs.ownerUserId }}"
 			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"cacheKey":"{{ _iscqw.outputs.ownerUserId }}",
-					"enabled":true,
-					"timeToLive":"7200",
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"STOP",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
-			},
 			"skip":false,
 			"subTitle":"author",
 			"title":"Fetch User",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":897,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8quVE-1",
+			"id":"n_DsxJR",
+			"index":6,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _lpBn6.outputs.userId }}"
+							},
+							"property":"properties_userId"
+						},
+						{
+							"filter":{
+								"operator":"IN",
+								"value":"{{ _iscqw.outputs.aiAgentId }}"
+							},
+							"property":"properties_value"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_pinned_entities",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":true,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Pinned",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":447,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_8quVE-1",
+			"id":"n_7VaA8",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_DsxJR.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"pined?",
+			"title":"Condition",
+			"type":"IF_ELSE"
 		},
 		{
 			"context":{
@@ -256,13 +376,38 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_8quVE-1",
-			"id":"_8w9Xq",
-			"index":5,
+			"groupId":"n_7VaA8@_8quVE-1@y",
+			"id":"_Jo3ME",
+			"index":8,
 			"inputs":{
 				"result":{
+					"aiAgentId":"{{ _iscqw.outputs.aiAgentId }}",
 					"author":"=IF(ISBLANK({{ n_gWTfM.outputs.name }}),{{ n_gWTfM.outputs.contactDetails.email }},{{ n_gWTfM.outputs.name }})",
-					"userId":"{{ _iscqw.outputs.ownerUserId }}"
+					"isPined":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7VaA8@_8quVE-1@n",
+			"id":"_8w9Xq",
+			"index":9,
+			"inputs":{
+				"result":{
+					"aiAgentId":"{{ _iscqw.outputs.aiAgentId }}",
+					"author":"=IF(ISBLANK({{ n_gWTfM.outputs.name }}),{{ n_gWTfM.outputs.contactDetails.email }},{{ n_gWTfM.outputs.name }})",
+					"isPined":false
 				}
 			},
 			"skip":false,
@@ -289,5 +434,5 @@
 	"tags":[
 		
 	],
-	"version":22
+	"version":24
 }

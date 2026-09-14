@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743915469,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743916121,
+		"deployedAt":1789395262501,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eceac45d2142160e6ed59",
+		"deployedDefinitionId":"6aa8013e72fd792214e8ca06",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":28
+		"version":2,
+		"workflowVersion":31
 	},
 	"edges":[
 		{
@@ -179,7 +179,7 @@
 	"id":"69b310aaa287e7683fc110c7",
 	"lastModifiedBy":-1,
 	"lcName":"default tools | execute python code",
-	"modifiedTime":1788252971911,
+	"modifiedTime":1789395387571,
 	"name":"Default Tools | Execute Python Code",
 	"nodes":[
 		{
@@ -370,13 +370,24 @@
 							},
 							"title":"imports",
 							"type":"array"
+						},
+						"python_version":{
+							"title":"Python Version",
+							"type":"string"
 						}
 					},
+					"required":[],
 					"type":"object"
 				},
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"toolAdditional":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Additional",
+							"type":"object"
+						},
 						"toolInputs":{
 							"additionalProperties":false,
 							"properties":{},
@@ -387,10 +398,11 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"String toPythonSafeVarName(String filename) {\n    if (!filename) return \"input_file\"\n\n    String base = filename.contains(\".\")\n        ? filename.substring(0, filename.lastIndexOf(\".\"))\n        : filename\n\n    base = base.replaceAll(\"[^A-Za-z0-9_]\", \"_\")\n\n    if (base ==~ /^[0-9].*/) {\n        base = \"_\" + base\n    }\n\n    return base ?: \"input_file\"\n}\n\nif (!(toolInputs instanceof Map)) {\n    return toolInputs\n}\n\ndef parsed = new LinkedHashMap(toolInputs)\n\ndef rawSetup = parsed.remove(\"setup\")\nString setup\n\nif (rawSetup) {\n    setup = rawSetup.toString().trim().toLowerCase()\n} else {\n    // setup not provided — infer manual if python_packages was given\n    setup = parsed.containsKey(\"python_packages\") ? \"manual\" : \"default\"\n}\n\nswitch (setup) {\n    case \"default\":\n        parsed[\"configurationMode\"] = \"DEFAULT\"\n        parsed.remove(\"entityId\")\n        parsed.remove(\"python_packages\")\n        break\n\n    case \"manual\":\n        parsed[\"configurationMode\"] = \"MANUAL\"\n        def packages = parsed.remove(\"python_packages\")\n        parsed[\"imports\"] = packages instanceof List ? packages : []\n        parsed.remove(\"entityId\")\n        break\n\n    case \"entity\":\n        parsed[\"configurationMode\"] = \"TEMPLATE\"\n        if (!parsed.entityId) {\n            throw new IllegalArgumentException(\"entityId is required when setup is 'entity'\")\n        }\n        parsed.remove(\"python_packages\")\n        break\n\n    default:\n        throw new IllegalArgumentException(\"Invalid setup value: $setup. Allowed values are default, manual, entity\")\n}\n\nif (parsed.fileDetails instanceof List) {\n    parsed[\"filesList\"] = parsed.fileDetails.collect { file ->\n        if (!(file instanceof Map)) {\n            return file\n        }\n\n        def originalFile = new LinkedHashMap(file)\n        def variableName = originalFile.remove(\"fileVariableName\") ?: toPythonSafeVarName(originalFile.name as String)\n\n        originalFile[\"ua:type\"] = \"FILE\"\n\n        return [\n            \"fileName\"   : variableName,\n            \"fileDetails\": originalFile\n        ]\n    }\n    parsed.remove(\"fileDetails\")\n}\n\nreturn parsed",
+				"code":"String toPythonSafeVarName(String filename) {\n    if (!filename) return \"input_file\"\n\n    String base = filename.contains(\".\")\n        ? filename.substring(0, filename.lastIndexOf(\".\"))\n        : filename\n\n    base = base.replaceAll(\"[^A-Za-z0-9_]\", \"_\")\n\n    if (base ==~ /^[0-9].*/) {\n        base = \"_\" + base\n    }\n\n    return base ?: \"input_file\"\n}\n\nif (!(toolInputs instanceof Map)) {\n    return toolInputs\n}\n\ndef parsed = new LinkedHashMap(toolInputs)\n\n// Safe check: toolAdditional may not exist in binding at all on some invocations.\nboolean hasToolAdditional = binding.hasVariable(\"toolAdditional\") &&\n        (toolAdditional instanceof Map) &&\n        !toolAdditional.isEmpty()\n\nif (hasToolAdditional) {\n    // toolAdditional fully dictates configuration — ignore setup-inference\n    // fields coming from toolInputs entirely.\n    parsed.remove(\"setup\")\n    parsed.remove(\"python_packages\")\n    parsed.remove(\"entityId\")\n\n    // Apply whatever is in toolAdditional as-is (overrides any leftover keys).\n    parsed.putAll(toolAdditional)\n\n    // Normalize 'packages' -> 'imports' for downstream consistency with the\n    // MANUAL-mode shape produced by the inference path below.\n    if (parsed.containsKey(\"packages\")) {\n        def packages = parsed.remove(\"packages\")\n        parsed[\"imports\"] = packages instanceof List ? packages : []\n    }\n\n    // toolAdditional present but no configurationMode inside it -> default.\n    if (!parsed[\"configurationMode\"]) {\n        parsed[\"configurationMode\"] = \"DEFAULT\"\n    }\n} else {\n    // toolAdditional not provided at all -> original behavior, unchanged.\n    def rawSetup = parsed.remove(\"setup\")\n    String setup\n\n    if (rawSetup) {\n        setup = rawSetup.toString().trim().toLowerCase()\n    } else {\n        // setup not provided — infer manual if python_packages was given\n        setup = parsed.containsKey(\"python_packages\") ? \"manual\" : \"default\"\n    }\n\n    switch (setup) {\n        case \"default\":\n            parsed[\"configurationMode\"] = \"DEFAULT\"\n            parsed.remove(\"entityId\")\n            parsed.remove(\"python_packages\")\n            break\n\n        case \"manual\":\n            parsed[\"configurationMode\"] = \"MANUAL\"\n            def packages = parsed.remove(\"python_packages\")\n            parsed[\"imports\"] = packages instanceof List ? packages : []\n            parsed.remove(\"entityId\")\n            break\n\n        case \"entity\":\n            parsed[\"configurationMode\"] = \"TEMPLATE\"\n            if (!parsed.entityId) {\n                throw new IllegalArgumentException(\"entityId is required when setup is 'entity'\")\n            }\n            parsed.remove(\"python_packages\")\n            break\n\n        default:\n            throw new IllegalArgumentException(\"Invalid setup value: $setup. Allowed values are default, manual, entity\")\n    }\n}\n\ndef allowedPythonVersions = [\"3.8\", \"3.9\", \"3.10\", \"3.11\", \"3.12\", \"3.13\"]\nString pythonVersion = parsed.remove(\"python_version\")?.toString()?.trim()\n\nif (!pythonVersion) {\n    pythonVersion = \"3.12\"\n} else if (!allowedPythonVersions.contains(pythonVersion)) {\n    throw new IllegalArgumentException(\n        \"Invalid python_version: ${pythonVersion}. Allowed values are ${allowedPythonVersions.join(', ')}\")\n}\n\nparsed[\"python_version\"] = pythonVersion\n\nif (parsed.fileDetails instanceof List) {\n    parsed[\"filesList\"] = parsed.fileDetails.collect { file ->\n        if (!(file instanceof Map)) {\n            return file\n        }\n\n        def originalFile = new LinkedHashMap(file)\n        def variableName = originalFile.remove(\"fileVariableName\") ?: toPythonSafeVarName(originalFile.name as String)\n\n        originalFile[\"ua:type\"] = \"FILE\"\n\n        return [\n            \"fileName\"   : variableName,\n            \"fileDetails\": originalFile\n        ]\n    }\n    parsed.remove(\"fileDetails\")\n}\n\nreturn parsed",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"toolAdditional":"{{ n_C39Wk.outputs.toolAdditional }}",
 					"toolInputs":"{{ n_C39Wk.outputs.toolInputs }}"
 				}
 			},
@@ -694,7 +706,7 @@
 					"ua:type":"mappedArray"
 				},
 				"isAsync":false,
-				"python_version":"3.12",
+				"python_version":"{{ n_1gxK3.outputs.result.python_version }}",
 				"outputFilesGlob":"*",
 				"entityId":"{{ n_1gxK3.outputs.result.entityId }}",
 				"captureStdOutput":false
@@ -1204,7 +1216,7 @@
 			"inputs":{
 				"result":{
 					"success":true,
-					"toolOutput":"Return this url to the to the agent{{ n_Az5Mj.outputs.items }} , Use this source file for your context if user wants to edit the same file DO NOT OUTPUT THIS FILE USER ALREADY HAS THE FILE: also here's the fileObjects {{ n_AK6SC.outputs.result.fileFinal }}. but fileObjects are for the internal use only. when you have to provide downloadable link then you will not use fileObjects."
+					"toolOutput":"RESULT: {{ n_T8uME.outputs.codeToolOutput.result }}; GENERATED FILES — share these URLs with the user: {{ n_Az5Mj.outputs.items }}; INTERNAL fileObjects — reuse as input in later tool calls, never show to the user:{{ n_AK6SC.outputs.result.fileFinal }}"
 				}
 			},
 			"skip":false,
@@ -1227,5 +1239,5 @@
 		}
 	},
 	"standard":true,
-	"version":30
+	"version":32
 }
