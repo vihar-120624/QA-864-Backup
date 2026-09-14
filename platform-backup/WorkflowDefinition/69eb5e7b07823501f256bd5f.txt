@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787744115004,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744115133,
+		"deployedAt":1789395323649,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf73ba51514edfc7eac5",
-		"deploymentNotes":"Composite model+scope spending limits: write modelId + namespaced recordId on user/team/agent exception rows",
+		"deployedDefinitionId":"6aa8017bc6a14707f1503ded",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":146
+		"version":2,
+		"workflowVersion":149
 	},
 	"edges":[
 		{
@@ -207,7 +206,7 @@
 	"id":"69eb5e7b07823501f256bd5f",
 	"lastModifiedBy":-1,
 	"lcName":"ai spending | limits | add & modify exception",
-	"modifiedTime":1788252973445,
+	"modifiedTime":1789395391817,
 	"name":"AI Spending | Limits | Add & Modify Exception",
 	"nodes":[
 		{
@@ -591,7 +590,7 @@
 			"id":"n_Tveot",
 			"index":7,
 			"inputs":{
-				"recordId":"=IF(ISBLANK({{ n_BkHrO.outputs.modelId }}), \"user_{{ n_BkHrO.outputs.userId }}\", \"user_{{ n_BkHrO.outputs.userId }}_model_{{ n_BkHrO.outputs.modelId }}\"){{ n_BkHrO.outputs.userId }}",
+				"recordId":"=IF(ISBLANK({{ n_BkHrO.outputs.modelId }}), CONCATENATE(\"user_\", {{ n_BkHrO.outputs.userId }}), CONCATENATE(\"user_\", {{ n_BkHrO.outputs.userId }}, \"_model_\", {{ n_BkHrO.outputs.modelId }}))",
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
 				"object_type":"e_ai_agent_limit_exception",
@@ -682,7 +681,7 @@
 			"id":"n_MEidY",
 			"index":9,
 			"inputs":{
-				"recordId":"=IF(ISBLANK({{ n_BkHrO.outputs.modelId }}), \"team_{{ n_BkHrO.outputs.teamId }}\", \"team_{{ n_BkHrO.outputs.teamId }}_model_{{ n_BkHrO.outputs.modelId }}\")",
+				"recordId":"=IF(ISBLANK({{ n_BkHrO.outputs.modelId }}), CONCATENATE(\"team_\", {{ n_BkHrO.outputs.teamId }}), CONCATENATE(\"team_\", {{ n_BkHrO.outputs.teamId }}, \"_model_\", {{ n_BkHrO.outputs.modelId }}))",
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
 				"object_type":"e_ai_agent_limit_exception",
@@ -773,7 +772,7 @@
 			"id":"n_4urKX",
 			"index":11,
 			"inputs":{
-				"recordId":"=IF(ISBLANK({{ n_BkHrO.outputs.modelId }}), \"aiAgent_{{ n_BkHrO.outputs.agentId }}\", \"aiAgent_{{ n_BkHrO.outputs.agentId }}_model_{{ n_BkHrO.outputs.modelId }}\")",
+				"recordId":"=IF(ISBLANK({{ n_BkHrO.outputs.modelId }}), CONCATENATE(\"aiAgent_\", {{ n_BkHrO.outputs.agentId }}), CONCATENATE(\"aiAgent_\", {{ n_BkHrO.outputs.agentId }}, \"_model_\", {{ n_BkHrO.outputs.modelId }}))",
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
 				"object_type":"e_ai_agent_limit_exception",
@@ -1028,5 +1027,5 @@
 		}
 	},
 	"standard":true,
-	"version":148
+	"version":150
 }
