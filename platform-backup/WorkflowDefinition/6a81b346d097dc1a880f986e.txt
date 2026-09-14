@@ -1,0 +1,824 @@
+{
+	"appsUsed":[
+		"microsoft_teams"
+	],
+	"createdTime":1789395097218,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395097330,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80099c6a14707f15030fe",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":22
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_UoyaB",
+			"id":"next@n_UoyaB@n_dt2Gz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dt2Gz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dt2Gz",
+			"id":"next@n_dt2Gz@n_jgwHI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jgwHI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jgwHI",
+			"id":"next@n_jgwHI@n_OfGhZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OfGhZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OfGhZ",
+			"id":"next@n_OfGhZ@n_xqbmD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xqbmD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xqbmD",
+			"id":"next@n_xqbmD@_vyqzU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_vyqzU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_vyqzU",
+			"id":"next@_vyqzU@n_4SgaH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4SgaH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4SgaH",
+			"id":"loop@n_4SgaH@n_BG64a",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BG64a",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_BG64a",
+			"id":"next@n_BG64a@n_4SgaH",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4SgaH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4SgaH",
+			"id":"next@n_4SgaH@n_H6cfS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_H6cfS",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a81b346d097dc1a880f986e",
+	"lastModifiedBy":-1,
+	"lcName":"[microsoft teams] channels attachtment",
+	"modifiedTime":1789395400878,
+	"name":"[Microsoft Teams] Channels Attachtment",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4694,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_UoyaB",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"files":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"files",
+							"type":"array"
+						},
+						"skipToken":{
+							"title":"Skip Token",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"channelId":{
+							"title":"Channel Id",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"skipToken":{
+							"title":"Skip Token",
+							"type":"string"
+						},
+						"teamId":{
+							"title":"Team Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_dt2Gz",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"parallelToolCalled":{
+							"title":"Parallel Tool Called",
+							"type":"boolean"
+						},
+						"toolIndex":{
+							"title":"Tool Index",
+							"type":"integer"
+						},
+						"ua_timeZone":{
+							"title":"Ua Time Zone",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":546,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_jgwHI",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def limit_ = 20\n\nif(binding.hasVariable('limit')) {\n  limit_ = limit\n}\n\nreturn [\n  \"limit\": limit_\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"limit":"{{ n_UoyaB.outputs.limit }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Extract limit",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_teams",
+				"resourceVersion":8,
+				"connectionId":"6a7f1d63f6176361a5732c2c",
+				"resourceName":"microsoft_teams_get_teams_channel_files_folder",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_OfGhZ",
+			"index":4,
+			"inputs":{
+				"team_id":"{{ n_UoyaB.outputs.teamId }}",
+				"channel_id":"{{ n_UoyaB.outputs.channelId }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":true,
+					"metricConfigs":[
+						{
+							"eventType":"ALWAYS_END",
+							"metricType":"WORKFLOW_NODE_EXECUTION_DURATION",
+							"name":"node_metric_timer",
+							"tags":[
+								{
+									"key":"app_name",
+									"value":"{{ appName }}"
+								},
+								{
+									"key":"resource_name",
+									"value":"{{ resourceName }}"
+								},
+								{
+									"key":"execution_status",
+									"value":"{{ status }}"
+								},
+								{
+									"key":"workflow_title",
+									"value":"{{ workflowTitle }}"
+								},
+								{
+									"key":"workflow_id",
+									"value":"{{ workflowId }}"
+								}
+							]
+						},
+						{
+							"eventType":"ALWAYS_END",
+							"metricType":"WORKFLOW_NODE_EXECUTION",
+							"name":"node_metric_count",
+							"tags":[
+								{
+									"key":"resource_name",
+									"value":"{{ resourceName }}"
+								},
+								{
+									"key":"app_name",
+									"value":"{{ appName }}"
+								},
+								{
+									"key":"workflow_title",
+									"value":"{{ workflowTitle }}"
+								},
+								{
+									"key":"execution_status",
+									"value":"{{ status }}"
+								},
+								{
+									"key":"workflow_id",
+									"value":"{{ workflowId }}"
+								}
+							]
+						}
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Microsoft Teams",
+			"title":"Get channel files folder",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_teams",
+				"resourceVersion":55,
+				"connectionId":"6a7f1d63f6176361a5732c2c",
+				"resourceName":"microsoft_teams_list_folder_children_files",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_xqbmD",
+			"index":5,
+			"inputs":{
+				"driveId":"{{ n_OfGhZ.outputs.parentReference.driveId }}",
+				"top":"{{ n_jgwHI.outputs.result.limit }}",
+				"skipToken":"{{ n_UoyaB.outputs.skipToken }}",
+				"folderId":"{{ n_OfGhZ.outputs.id }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":true,
+					"metricConfigs":[
+						{
+							"eventType":"ALWAYS_END",
+							"metricType":"WORKFLOW_NODE_EXECUTION_DURATION",
+							"name":"node_metric_timer",
+							"tags":[
+								{
+									"key":"app_name",
+									"value":"{{ appName }}"
+								},
+								{
+									"key":"resource_name",
+									"value":"{{ resourceName }}"
+								},
+								{
+									"key":"execution_status",
+									"value":"{{ status }}"
+								},
+								{
+									"key":"workflow_title",
+									"value":"{{ workflowTitle }}"
+								},
+								{
+									"key":"workflow_id",
+									"value":"{{ workflowId }}"
+								}
+							]
+						},
+						{
+							"eventType":"ALWAYS_END",
+							"metricType":"WORKFLOW_NODE_EXECUTION",
+							"name":"node_metric_count",
+							"tags":[
+								{
+									"key":"resource_name",
+									"value":"{{ resourceName }}"
+								},
+								{
+									"key":"app_name",
+									"value":"{{ appName }}"
+								},
+								{
+									"key":"workflow_title",
+									"value":"{{ workflowTitle }}"
+								},
+								{
+									"key":"execution_status",
+									"value":"{{ status }}"
+								},
+								{
+									"key":"workflow_id",
+									"value":"{{ workflowId }}"
+								}
+							]
+						}
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Microsoft Teams",
+			"title":"List folder children",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.value.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1527,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"_vyqzU",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"citations":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"caseId":{
+										"title":"caseId",
+										"type":"string"
+									},
+									"chunkId":{
+										"title":"chunkId",
+										"type":"string"
+									},
+									"chunkNumber":{
+										"title":"chunkNumber",
+										"type":"integer"
+									},
+									"content":{
+										"title":"content",
+										"type":"string"
+									},
+									"messageId":{
+										"title":"messageId",
+										"type":"string"
+									},
+									"metadata":{
+										"additionalProperties":false,
+										"properties":{},
+										"required":[],
+										"title":"metadata",
+										"type":"object"
+									},
+									"score":{
+										"title":"score",
+										"type":"integer"
+									},
+									"tableIsPublished":{
+										"title":"tableIsPublished",
+										"type":"boolean"
+									},
+									"usageCount":{
+										"title":"usageCount",
+										"type":"integer"
+									}
+								},
+								"type":"object"
+							},
+							"title":"citations",
+							"type":"array"
+						},
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"items":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"items",
+							"type":"array"
+						},
+						"skipToken":{
+							"title":"Skip Token",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"caseId",
+							"type":"string"
+						},
+						"limit":{
+							"title":"limit",
+							"type":"string"
+						},
+						"messageId":{
+							"title":"messageId",
+							"type":"string"
+						},
+						"nextLink":{
+							"title":"Next Link",
+							"type":"string"
+						},
+						"startChunkNumber":{
+							"title":"startChunkNumber",
+							"type":"integer"
+						},
+						"ua_timeZone":{
+							"title":"ua_timeZone",
+							"type":"string"
+						},
+						"value":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Value",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.time.*\nimport java.time.format.DateTimeFormatter\n\n// -------------------- Helpers --------------------\ndef resolveZone(tz) {\n    try {\n        String z = tz?.toString()?.trim()\n        if (z) return ZoneId.of(z)\n    } catch (Exception e) {\n        // invalid zone id -> fall back below\n    }\n    return ZoneId.of(\"Europe/Berlin\")\n}\n\ndef formatDate(String utcTime, ZoneId zone) {\n    if (!utcTime) return \"\"\n    try {\n        return Instant.parse(utcTime)\n            .atZone(zone)\n            .format(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\"))\n    } catch (Exception e) {\n        return utcTime\n    }\n}\n\ndef toEpochMillis(String utcTime) {\n    if (!utcTime) return 0L\n    try {\n        return Instant.parse(utcTime).toEpochMilli()\n    } catch (Exception e) {\n        return 0L\n    }\n}\n\ndef toLongSize(size) {\n    try {\n        return (size ?: 0L) as long\n    } catch (Exception e) {\n        return 0L\n    }\n}\n\ndef formatSize(size) {\n    long bytes = toLongSize(size)\n    if (bytes <= 0L) return \"0 B\"\n    def units = [\"B\", \"KB\", \"MB\", \"GB\", \"TB\"]\n    int i = 0\n    double val = bytes as double\n    while (val >= 1024.0d && i < units.size() - 1) {\n        val /= 1024.0d\n        i++\n    }\n    return i == 0 ? (bytes + \" B\") : String.format(\"%.1f %s\", val, units[i])\n}\n\ndef extractSkipToken(nextLink) {\n    String link = nextLink?.toString()?.trim()\n    if (!link) return \"\"\n    try {\n        // matches $skiptoken= or %24skiptoken=, any casing\n        def matcher = link =~ /(?i)[?&](?:\\$|%24)skiptoken=([^&]+)/\n        if (!matcher.find()) return \"\"\n        def token = matcher.group(1)\n        // only decode when actually percent-encoded, so a literal '+'\n        // inside the token is not turned into a space\n        return token.contains('%') ? URLDecoder.decode(token, \"UTF-8\") : token\n    } catch (Exception e) {\n        return \"\"\n    }\n}\n\n// -------------------- Mappers --------------------\ndef normalizeDriveItem(item, chunkNumber, ZoneId zone) {\n    if (item == null) return null\n\n    return [\n        chunkNumber         : chunkNumber,\n        id                  : item?.id ?: \"\",\n        driveId             : item?.parentReference?.driveId ?: \"\",\n        name                : item?.name ?: \"\",\n        type                : \"file\",\n        size                : toLongSize(item?.size),\n        fileExtension       : item?.file?.fileExtension ?: \"\",\n        createdDateTime     : formatDate(item?.createdDateTime, zone),\n        lastModifiedDateTime: formatDate(item?.lastModifiedDateTime, zone)\n    ]\n}\n\ndef buildDriveItemCitation(item, chunkNumber, caseId, messageId, ZoneId zone) {\n    def itemId        = item?.id ?: \"\"\n    def driveId       = item?.parentReference?.driveId ?: \"\"\n    def name          = item?.name ?: \"(unnamed)\"\n    def size          = toLongSize(item?.size)\n    def fileExtension = item?.file?.fileExtension ?: \"\"\n    def webUrl        = item?.webUrl ?: \"\"\n    def createdRaw    = item?.createdDateTime ?: \"\"\n    def modifiedRaw   = item?.lastModifiedDateTime ?: \"\"\n\n    def createdFmt  = formatDate(createdRaw, zone)\n    def modifiedFmt = formatDate(modifiedRaw, zone)\n\n    def chunkContent = \"File '\" + name + \"' (\" +\n        (fileExtension ? fileExtension + \", \" : \"\") + formatSize(size) + \").\" +\n        (createdFmt ? \" Created on \" + createdFmt + \".\" : \"\") +\n        (modifiedFmt ? \" Last modified on \" + modifiedFmt + \".\" : \"\")\n\n    return [\n        chunkNumber      : chunkNumber,\n        score            : 0.0,\n        metadata         : [\n            appName             : \"microsoft_teams\",\n            name                : name,\n            chunkContents       : [chunkContent],\n            chunkId             : itemId,\n            referenceUrl        : webUrl,\n            id                  : itemId,\n            driveId             : driveId,\n            fileExtension       : fileExtension,\n            createdDateTime     : createdFmt,\n            lastModifiedDateTime: modifiedFmt,\n            createdAt           : toEpochMillis(createdRaw),\n            modifiedAt          : toEpochMillis(modifiedRaw),\n            uniqueEntityId      : itemId\n        ],\n        caseId           : caseId,\n        messageId        : messageId,\n        tableIsPublished : false,\n        chunkId          : itemId,\n        content          : chunkContent,\n        usageCount       : 0\n    ]\n}\n\n// -------------------- Main --------------------\ndef rawItems         = binding.hasVariable('value')            && value instanceof List    ? value            : []\ndef startChunkNumber = binding.hasVariable('startChunkNumber') && startChunkNumber != null ? startChunkNumber : 1\ndef messageId        = binding.hasVariable('messageId')        && messageId        != null ? messageId        : \"\"\ndef caseId           = binding.hasVariable('caseId')           && caseId           != null ? caseId           : \"\"\n\n// keep whichever binding name your action actually uses\ndef nextLinkValue = \"\"\n[\"nextLink\", \"odata_nextLink\", \"@odata.nextLink\"].each { key ->\n    if (!nextLinkValue && binding.hasVariable(key) && binding.getVariable(key) != null) {\n        nextLinkValue = binding.getVariable(key)\n    }\n}\n\nZoneId zone = resolveZone(binding.hasVariable('ua_timeZone') ? ua_timeZone : null)\n\nint effectiveLimit = 50\ntry {\n    def parsed = binding.hasVariable('limit') && limit != null ? (limit.toString().trim() as int) : 0\n    if (parsed > 0) effectiveLimit = parsed\n} catch (Exception e) {\n    effectiveLimit = 50\n}\n\ndef items        = []\ndef citations    = []\ndef chunkCounter = startChunkNumber as int\n\nrawItems.take(effectiveLimit).each { item ->\n    items.add(normalizeDriveItem(item, chunkCounter, zone))\n    citations.add(buildDriveItemCitation(item, chunkCounter, caseId, messageId, zone))\n    chunkCounter++\n}\n\nreturn [\n    \"count\"        : items.size(),\n    \"skipToken\"    : extractSkipToken(nextLinkValue),\n    \"items\"        : items,\n    \"citations\"    : citations\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"caseId":"{{ n_dt2Gz.outputs.caseId }}",
+					"limit":"{{ n_jgwHI.outputs.result.limit }}",
+					"messageId":"{{ n_dt2Gz.outputs.messageId }}",
+					"nextLink":"{{ n_xqbmD.outputs.nextLink }}",
+					"startChunkNumber":"=({{ n_dt2Gz.outputs.toolIndex }}*500)+1",
+					"ua_timeZone":"{{ n_dt2Gz.outputs.ua_timeZone }}",
+					"value":{
+						"items":"{{ n_xqbmD.outputs.value[0] }}",
+						"source":"{{ n_xqbmD.outputs.value }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Generate Content & Citation",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":99,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_4SgaH",
+			"index":7,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ _vyqzU.outputs.result.citations }}",
+				"captureIterations":false,
+				"batchSize":100
+			},
+			"skip":false,
+			"subTitle":"Loop on Citations",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7254,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_4SgaH@_OveBs-1@l",
+			"id":"n_BG64a",
+			"index":8,
+			"inputs":{
+				"automationId":"69c0fbda14773b659a234f6f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":{
+					"items":{
+						"caseId":"{{ n_4SgaH.outputs.item[0].caseId }}",
+						"chunkId":"{{ n_4SgaH.outputs.item[0].chunkId }}",
+						"chunkNumber":"{{ n_4SgaH.outputs.item[0].chunkNumber }}",
+						"content":"{{ n_4SgaH.outputs.item[0].content }}",
+						"messageId":"{{ n_4SgaH.outputs.item[0].messageId }}",
+						"metadata":"{{ n_4SgaH.outputs.item[0].metadata }}",
+						"score":"{{ n_4SgaH.outputs.item[0].score }}",
+						"tableIsPublished":"{{ n_4SgaH.outputs.item[0].tableIsPublished }}",
+						"usageCount":"{{ n_4SgaH.outputs.item[0].usageCount }}"
+					},
+					"source":"{{ n_4SgaH.outputs.item }}",
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Create Citations",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4723,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OveBs-1",
+			"id":"n_H6cfS",
+			"index":9,
+			"inputs":{
+				"result":{
+					"count":"{{ _vyqzU.outputs.result.count }}",
+					"files":{
+						"items":"{{ _vyqzU.outputs.result.items[0] }}",
+						"source":"{{ _vyqzU.outputs.result.items }}",
+						"ua:type":"mappedArray"
+					},
+					"skipToken":"{{ _vyqzU.outputs.result.skipToken }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"microsoft_teams"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":23
+}
