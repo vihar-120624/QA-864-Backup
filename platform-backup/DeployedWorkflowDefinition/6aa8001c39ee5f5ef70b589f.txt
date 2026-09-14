@@ -1,0 +1,924 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789394972365,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa80016b91cc6613f663234",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_z5N35",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EHr2B",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EHr2B",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_d27vF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_d27vF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6mjmS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6mjmS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zPShs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zPShs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_kEuMZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_kEuMZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uLnvJ",
+			"type":"next"
+		}
+	],
+	"id":"6aa8001c39ee5f5ef70b589f",
+	"lastModifiedBy":-1,
+	"lcName":"best practice | automation | run group checks | storage",
+	"modifiedTime":1789394972367,
+	"name":"Best Practice | Automation | Run Group Checks | Storage",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":84,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_z5N35",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"checks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"check_id":{
+										"title":"Check Id",
+										"type":"string"
+									},
+									"status":{
+										"title":"Status",
+										"type":"string"
+									},
+									"targets":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"failureMessage":{
+													"title":"Failure Message",
+													"type":"string"
+												},
+												"path":{
+													"items":{
+														"type":"string"
+													},
+													"title":"Path",
+													"type":"array"
+												},
+												"target_id":{
+													"title":"Target Id",
+													"type":"string"
+												},
+												"target_type":{
+													"title":"Target Type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"Targets",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Checks",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"694d430f730d4541854abd6d",
+				"setup":{
+					"properties":{
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"maskingKeys":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Masking Keys",
+							"type":"array"
+						},
+						"workflow_details":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":26,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_EHr2B",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"fetchActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Fetch Actions Resource Names - Storage By UnifyApps",
+							"type":"array"
+						},
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"upsertActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Upsert Actions Resource Names - Storage By UnifyApps",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"fetchActions":[
+					"storage_by_unifyapps_get_record_by_id",
+					"storage_by_unifyapps_get_records_by_ids",
+					"storage_by_unifyapps_fetch_records"
+				],
+				"upsertActions":[
+					"storage_by_unifyapps_create_record",
+					"storage_by_unifyapps_clone_record",
+					"storage_by_unifyapps_update_record_by_id",
+					"storage_by_unifyapps_update_record_fields_by_id"
+				],
+				"workflowDetails":"{{ n_z5N35.outputs.workflow_details }}",
+				"groupChecks":{
+					"items":"{{ n_z5N35.outputs.groupChecks[0] }}",
+					"source":"{{ n_z5N35.outputs.groupChecks }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"fetchActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Fetch Actions Resource Names - Storage By UnifyApps",
+							"type":"array"
+						},
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"upsertActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Upsert Actions Resource Names - Storage By UnifyApps",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Global Variables",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":828,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_d27vF",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"workflowId":{
+							"title":"Workflow Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"\nif (!(workflowDetails instanceof Map)) \n  return null\n\nreturn [\n  \"workflowId\": workflowDetails.id as String\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"workflowDetails":"{{ n_EHr2B.outputs.workflowDetails }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Extract workflowId",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":23,
+				"resourceName":"standard_entities_get_index_recommendations_for_workflow",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_wwCYF-1",
+			"id":"n_6mjmS",
+			"index":4,
+			"inputs":{
+				"includeOnlyMissingIndexes":true,
+				"workflowId":"{{ n_d27vF.outputs.result.workflowId }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get index recommendations for automation",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.upsertActions.items",
+					"root.parameters.fetchActions.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":95,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_zPShs",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"fetchActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"fetchActions",
+							"type":"array"
+						},
+						"precomputedContext":{
+							"additionalProperties":false,
+							"properties":{
+								"branchIds":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Branch Ids",
+									"type":"object"
+								},
+								"branchVsConditionsMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Branch Vs Conditions Map",
+									"type":"object"
+								},
+								"conditionalBranchMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Conditional Branch Map",
+									"type":"object"
+								},
+								"fetchRecordsUsages":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"fetchRecordsUsages",
+									"type":"object"
+								},
+								"missingIndexesByNode":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Missing Indexes By Node",
+									"type":"object"
+								},
+								"nodeGroupMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"nodeGroupMap",
+									"type":"object"
+								},
+								"nodeIndexMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"nodeIndexMap",
+									"type":"object"
+								},
+								"nodeMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Node Map",
+									"type":"object"
+								},
+								"nodeReferenceMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"nodeReferenceMap",
+									"type":"object"
+								},
+								"nodesByObjectType":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"nodesByObjectType",
+									"type":"object"
+								},
+								"nodesByResourceName":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"nodesByResourceName",
+									"type":"object"
+								},
+								"recordOutputNodes":{
+									"additionalProperties":false,
+									"properties":{},
+									"required":[],
+									"title":"recordOutputNodes",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"precomputedContext",
+							"type":"object"
+						},
+						"upsertActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"upsertActions",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"workflowDetails",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fetchActions":{
+							"items":{
+								"required":[],
+								"type":"string"
+							},
+							"title":"fetchActions",
+							"type":"array"
+						},
+						"upsertActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"upsertActions",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"workflowDetails",
+							"type":"object"
+						},
+						"workflowIndexRecommendations":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Index Recommendations",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"/*\n * =============================================================================\n * PRECOMPUTATION SCRIPT FOR WORKFLOW BEST PRACTICE CHECKS\n * =============================================================================\n * \n * This script precomputes data structures to optimize the main check execution.\n * \n * PRECOMPUTED STRUCTURES:\n * 1. nodeReferenceMap     - Map<nodeId, List<referencedNodeIds>>\n * 2. nodesByResourceName  - Map<resourceName, List<nodeId>>\n * 3. nodesByObjectType    - Map<objectType, List<nodeId>>\n * 4. recordOutputNodes    - Map<objectType, List<nodeInfo>> for upsert actions\n * 5. fetchRecordsUsages   - Map<nodeId, usageInfo> for fetch actions\n * 6. nodeIndexMap         - Map<nodeId, index>\n * 7. nodeGroupMap         - Map<nodeId, groupId>\n * \n * =============================================================================\n */\n\n//---------------- HELPER FUNCTIONS ----------------//\n\n/**\n * Extracts all node IDs referenced via template syntax {/{ nodeId.xxx }/}\n */\nstatic def extractNodeReferences(Object value, Set refs) {\n    if (value instanceof Map) {\n        value.each { k, v -> extractNodeReferences(v, refs) }\n    } else if (value instanceof List) {\n        value.each { item -> extractNodeReferences(item, refs) }\n    } else if (value instanceof String) {\n        def templatePattern = /\\{\\{\\s*([^.\\s\\}]+)\\./\n        def matcher = (value as String) =~ templatePattern\n        while (matcher.find()) {\n            refs.add(matcher.group(1))\n        }\n    }\n}\n\n/**\n * Extracts hardcoded (non-template) string values\n */\nstatic def extractHardcodedValues(Object value, Set values) {\n    if (value instanceof Map) {\n        value.each { k, v -> extractHardcodedValues(v, values) }\n    } else if (value instanceof List) {\n        value.each { item -> extractHardcodedValues(item, values) }\n    } else if (value instanceof String) {\n        def str = value as String\n        if (!str.contains(\"{{\")) {\n            values.add(str)\n        }\n    }\n}\n\n/**\n * Checks if a filter condition contains an ID filter\n */\nstatic def checkForIdFilter(Object condition) {\n    if (condition instanceof Map) {\n        def property = condition.property ?: \"\"\n        if (property instanceof String) {\n            def lowerProp = property.toLowerCase()\n            if (lowerProp == \"id\" || lowerProp == \"_id\" || lowerProp.endsWith(\".id\")) {\n                return true\n            }\n        }\n        return condition.values().any { checkForIdFilter(it) }\n    } else if (condition instanceof List) {\n        return condition.any { checkForIdFilter(it) }\n    }\n    return false\n}\n\n/**\n * Extracts ID values from filter conditions\n */\nstatic def extractIdValuesFromFilter(Object condition, Set idValues) {\n    if (condition instanceof Map) {\n        def property = condition.property ?: \"\"\n        if (property instanceof String) {\n            def lowerProp = property.toLowerCase()\n            if (lowerProp == \"id\" || lowerProp == \"_id\" || lowerProp.endsWith(\".id\")) {\n                def filter = condition.filter\n                if (filter instanceof Map && filter.value != null) {\n                    extractHardcodedValues(filter.value, idValues)\n                }\n            }\n        }\n        def filters = condition.filters\n        if (filters instanceof List) {\n            filters.each { f -> extractIdValuesFromFilter(f, idValues) }\n        }\n    } else if (condition instanceof List) {\n        condition.each { item -> extractIdValuesFromFilter(item, idValues) }\n    }\n}\n\n/**\n * Finds all output references to a target node within a value structure\n */\nstatic def findOutputReferences(String targetNodeId, Object value, List results, String path = \"\") {\n    if (value instanceof Map) {\n        value.each { k, v ->\n            findOutputReferences(targetNodeId, v, results, path ? \"${path}.${k}\" : k)\n        }\n    } else if (value instanceof List) {\n        value.eachWithIndex { item, idx ->\n            findOutputReferences(targetNodeId, item, results, \"${path}[${idx}]\")\n        }\n    } else if (value instanceof String) {\n        def str = value as String\n        if (str.contains(\"{{\") && str.contains(\"${targetNodeId}.outputs\")) {\n            results.add([\n                value: str,\n                path : path\n            ])\n        }\n    }\n}\n\n/**\n * Checks if a formula is a count-only formula (LEN/COUNT/COUNTA)\n */\nstatic def isCountOnlyFormula(String value, String nodeId) {\n    if (!value) return false\n    \n    def normalizedValue = value.trim()\n    def countFormulaPattern = /^=\\s*(LEN|COUNT|COUNTA)\\s*\\(\\s*\\{\\{\\s*${nodeId}\\.outputs\\.objects\\s*\\}\\}\\s*\\)$/\n    \n    return normalizedValue ==~ countFormulaPattern\n}\n\n/**\n * Checks if a value represents data access usage (not just count)\n */\nstatic def isDataAccessUsage(String value, String nodeId) {\n    if (!value) return false\n    \n    if (isCountOnlyFormula(value, nodeId)) {\n        return false\n    }\n    \n    def outputsPattern = /\\{\\{\\s*${nodeId}\\.outputs\\./\n    if (!(value =~ outputsPattern)) {\n        return false\n    }\n    \n    return true\n}\n\n//---------------- PRECOMPUTATION FUNCTIONS ----------------//\n\n/**\n * Builds a map of nodeId -> List of referenced node IDs\n */\ndef buildNodeReferenceMap(nodes) {\n    def nodeReferenceMap = [:]\n    nodes?.each { node ->\n        def refs = [] as Set\n        extractNodeReferences(node.inputs, refs)\n        nodeReferenceMap[node.id] = refs.toList()\n    }\n    return nodeReferenceMap\n}\n\n/**\n * Builds a map of resourceName -> List of node IDs\n */\ndef buildNodesByResourceName(nodes) {\n    def nodesByResourceName = [:]\n    nodes?.each { node ->\n        def resourceName = node.context?.resourceName\n        if (resourceName) {\n            nodesByResourceName.computeIfAbsent(resourceName, { [] }).add(node.id)\n        }\n    }\n    return nodesByResourceName\n}\n\n/**\n * Builds a map of objectType -> List of node IDs\n */\ndef buildNodesByObjectType(nodes) {\n    def nodesByObjectType = [:]\n    nodes?.each { node ->\n        def objectType = node.inputs?.object_type\n        if (objectType) {\n            nodesByObjectType.computeIfAbsent(objectType, { [] }).add(node.id)\n        }\n    }\n    return nodesByObjectType\n}\n\n/**\n * Builds a map of nodeId -> index for quick lookups\n */\ndef buildNodeIndexMap(nodes) {\n    def nodeIndexMap = [:]\n    nodes?.each { node ->\n        nodeIndexMap[node.id] = node.index ?: 0\n    }\n    return nodeIndexMap\n}\n\n/**\n * Builds a map of nodeId -> groupId for quick lookups\n */\ndef buildNodeGroupMap(nodes) {\n    def nodeGroupMap = [:]\n    nodes?.each { node ->\n        nodeGroupMap[node.id] = node.groupId\n    }\n    return nodeGroupMap\n}\n\n/**\n * Builds a map of nodeId -> node for quick lookups\n */\nstatic def buildNodeMap(nodes) {\n    def nodeMap = [:]\n    nodes?.each { node ->\n        nodeMap[node.id] = node\n    }\n    return nodeMap\n}\n\n/**\n * Builds record output nodes map for upsert actions\n * Returns Map<objectType, List<nodeInfo>>\n */\ndef buildRecordOutputNodes(nodes, upsertActions) {\n    def recordOutputNodes = [:]\n\n    nodes?.each { node ->\n        def resourceName = node.context?.resourceName\n        if (upsertActions.contains(resourceName)) {\n            def objectType = node.inputs?.object_type\n            if (objectType) {\n                recordOutputNodes.computeIfAbsent(objectType, { [] })\n\n                def hardcodedIds = [] as Set\n\n                // switch (resourceName) {\n                //     case \"storage_by_unifyapps_create_record\" -> {\n                //         def recordId = node.inputs?.record?.id\n                //         if (recordId) extractHardcodedValues(recordId, hardcodedIds)\n                //     }\n                //     case \"storage_by_unifyapps_clone_record\" -> {\n                //         def newRecordId = node.inputs?.newRecordId\n                //         if (newRecordId) extractHardcodedValues(newRecordId, hardcodedIds)\n                //     }\n                //     case \"storage_by_unifyapps_update_record_by_id\",\n                //          \"storage_by_unifyapps_update_record_fields_by_id\" -> {\n                //         def updateRecordId = node.inputs?.recordId\n                //         if (updateRecordId) extractHardcodedValues(updateRecordId, hardcodedIds)\n                //     }\n                // }\n\n                switch (resourceName) {\n                    case \"storage_by_unifyapps_create_record\":\n                        def recordId = node.inputs?.record?.id\n                        if (recordId) extractHardcodedValues(recordId, hardcodedIds)\n                        break\n                    case \"storage_by_unifyapps_clone_record\":\n                        def newRecordId = node.inputs?.newRecordId\n                        if (newRecordId) extractHardcodedValues(newRecordId, hardcodedIds)\n                        break\n                    case \"storage_by_unifyapps_update_record_by_id\":\n                    case \"storage_by_unifyapps_update_record_fields_by_id\":\n                        def updateRecordId = node.inputs?.recordId\n                        if (updateRecordId) extractHardcodedValues(updateRecordId, hardcodedIds)\n                        break\n                }\n\n                recordOutputNodes[objectType].add([\n                    nodeId      : node.id,\n                    groupId     : node.groupId,\n                    hardcodedIds: hardcodedIds.toList(),\n                    index       : node.index ?: 0\n                ])\n            }\n        }\n    }\n    return recordOutputNodes\n}\n\n/**\n * Builds fetch records usage map\n * Returns Map<fetchNodeId, usageInfo>\n */\ndef buildFetchRecordsUsages(nodes, fetchActions) {\n    def fetchNodesUsages = [:]\n    \n    // First pass: identify all fetch nodes\n    def fetchNodeIds = [] as Set\n    nodes?.each { node ->\n        if (fetchActions.contains(node.context?.resourceName)) {\n            fetchNodeIds.add(node.id)\n            fetchNodesUsages[node.id] = [\n                nodeId      : node.id,\n                usages      : [],\n                hasDataUsage: false\n            ]\n        }\n    }\n    \n    // Second pass: find all references to fetch nodes\n    nodes?.each { node ->\n        fetchNodeIds.each { fetchNodeId ->\n            if (node.id == fetchNodeId) return\n            \n            def refs = []\n            findOutputReferences(fetchNodeId, node.inputs, refs)\n            \n            refs.each { ref ->\n                fetchNodesUsages[fetchNodeId].usages.add([\n                    referencingNodeId: node.id,\n                    value            : ref.value,\n                    path             : ref.path\n                ])\n                \n                if (isDataAccessUsage(ref.value, fetchNodeId)) {\n                    fetchNodesUsages[fetchNodeId].hasDataUsage = true\n                }\n            }\n        }\n    }\n    \n    return fetchNodesUsages\n}\n\nstatic def buildConditionalBranchMap(nodes, edges) {\n    def conditionalBranchMap = [:]\n    \n    // Find all if_else_condition nodes\n    def conditionNodes = nodes.findAll { node ->\n        node.context?.resourceName == \"if_else_condition\"\n    }\n    \n    conditionNodes.each { conditionNode ->\n        def nodeId = conditionNode.id\n        def groupId = conditionNode.groupId\n        \n        // Find edges from this condition node\n        def ifEdge = edges.find { edge ->\n            edge.fromNodeId == nodeId && edge.type == \"if\"\n        }\n        def elseEdge = edges.find { edge ->\n            edge.fromNodeId == nodeId && (edge.type == \"next\" || edge.type == \"else\")\n        }\n        \n        // Build group IDs as plain strings\n        def ifBranchGroupId = null\n        def elseBranchGroupId = null\n        \n        if (ifEdge?.toNodeId && groupId) {\n            ifBranchGroupId = nodeId + \"@\" + groupId + \"@y\"\n        }\n        \n        if (elseEdge?.toNodeId && groupId) {\n            elseBranchGroupId = nodeId + \"@\" + groupId + \"@n\"\n        }\n        \n        conditionalBranchMap[nodeId] = [\n            conditionNodeId: nodeId,\n            ifBranchNodeId: ifEdge?.toNodeId,\n            elseBranchNodeId: elseEdge?.toNodeId,\n            ifBranchGroupId: ifBranchGroupId,\n            elseBranchGroupId: elseBranchGroupId\n        ]\n    }\n    \n    return conditionalBranchMap\n}\n\n\nstatic def buildBranchContext(Object nodes) {\n    def branchIds = []\n    def branchVsConditionsMap = [:]\n    def nodesList = nodes as List ?: []\n    \n    nodesList.each { node ->\n        if (node instanceof Map && (node.type == \"BRANCH\" || node.context?.appName == \"branch\")) {\n            branchIds.add(node.id)\n            branchVsConditionsMap[node.id] = []\n        }\n    }\n    \n    // Construct BranchVSConditionsMap\n    nodesList.each { node ->\n        if (node instanceof Map && (node.type == \"BRANCH_CONDITION\" || node.context?.resourceName == \"branch_condition\")) {\n            def conditionId = node.id as String\n            def conditionGroupId = node.groupId as String\n            \n            if (conditionId && conditionGroupId) {\n                for (branchId in branchIds) {\n                    if (conditionId.startsWith(branchId + \"@\")) {\n                        branchVsConditionsMap[branchId].add(conditionGroupId)\n                        break\n                    }\n                }\n            }\n        }\n    }\n    \n    return [\n        branchIds: branchIds,\n        branchVsConditionsMap: branchVsConditionsMap\n    ]\n}\n\n// Build a lookup: nodeId -> [{objectId, fields:[..]}, ...]\nstatic def buildMissingIndexesByNode(Object workflowIndexRecommendations) {\n    def missingIndexesByNode = [:]\n    if (workflowIndexRecommendations == null) return missingIndexesByNode\n    def recs = workflowIndexRecommendations\n\n    if (!(recs instanceof List)) return missingIndexesByNode\n\n    for (rec in recs) {\n        def nodeId = rec?.nodeId as String\n        if (!nodeId) continue\n\n        def fields = []\n        for (f in (rec.indexFieldMetadataList ?: [])) {\n            if (f?.field) {\n                fields.add(f.field as String)\n            }\n        }\n        if (fields.isEmpty()) continue\n\n        def entry = [objectId: rec.objectId, fields: fields]\n        def existing = missingIndexesByNode[nodeId]\n        if (existing != null) {\n            existing.add(entry)\n        } else {\n            missingIndexesByNode[nodeId] = [entry]\n        }\n    }\n    return missingIndexesByNode\n}\n\n//---------------- MAIN ----------------//\n\ndef workflowDetails = binding.hasVariable(\"workflowDetails\") ? binding.getVariable(\"workflowDetails\") : null\ndef workflowIndexRecommendations = binding.hasVariable(\"workflowIndexRecommendations\") ? binding.getVariable(\"workflowIndexRecommendations\") : null\n\nif (workflowDetails == null) {\n    return [\n        precomputedContext: [:],\n        workflowDetails   : null,\n        upsertActions     : upsertActions,\n        fetchActions      : fetchActions\n    ]\n}\n\ndef nodes = workflowDetails?.nodes\n\ndef branchContext = buildBranchContext(nodes)\n\n// Build all precomputed structures\ndef precomputedContext = [\n    nodeReferenceMap   : buildNodeReferenceMap(nodes),\n    nodesByResourceName: buildNodesByResourceName(nodes),\n    nodesByObjectType  : buildNodesByObjectType(nodes),\n    nodeIndexMap       : buildNodeIndexMap(nodes),\n    nodeGroupMap       : buildNodeGroupMap(nodes),\n    nodeMap             : buildNodeMap(nodes),\n    recordOutputNodes  : buildRecordOutputNodes(nodes, upsertActions),\n    fetchRecordsUsages : buildFetchRecordsUsages(nodes, fetchActions),\n    conditionalBranchMap: buildConditionalBranchMap(nodes, workflowDetails?.edges ?: []),\n    branchIds            : branchContext.branchIds,\n    branchVsConditionsMap: branchContext.branchVsConditionsMap,\n    missingIndexesByNode : buildMissingIndexesByNode(workflowIndexRecommendations)\n\n]\n\nreturn [\n    precomputedContext: precomputedContext,\n    workflowDetails   : workflowDetails,\n    upsertActions     : upsertActions,\n    fetchActions      : fetchActions\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fetchActions":{
+						"items":"{{ n_EHr2B.outputs.fetchActions[0] }}",
+						"source":"{{ n_EHr2B.outputs.fetchActions }}",
+						"ua:type":"mappedArray"
+					},
+					"upsertActions":{
+						"items":"{{ n_EHr2B.outputs.upsertActions[0] }}",
+						"source":"{{ n_EHr2B.outputs.upsertActions }}",
+						"ua:type":"mappedArray"
+					},
+					"workflowDetails":"{{ n_EHr2B.outputs.workflowDetails }}",
+					"workflowIndexRecommendations":"{{ n_6mjmS.outputs.result.workflowIndexRecommendations }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Precompute Context",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.precomputedContext.nodeReferenceMap",
+					"root.parameters.precomputedContext.nodesByResourceName",
+					"root.parameters.precomputedContext.nodesByObjectType",
+					"root.parameters.precomputedContext.recordOutputNodes",
+					"root.parameters.precomputedContext.fetchRecordsUsages",
+					"root.parameters.precomputedContext.nodeIndexMap",
+					"root.parameters.precomputedContext.nodeGroupMap",
+					"root.parameters.precomputedContext.conditionalBranchMap",
+					"root.parameters.precomputedContext.nodeMap",
+					"root.parameters.precomputedContext.branchVsConditionsMap",
+					"root.parameters.precomputedContext.branchIds",
+					"root.parameters.upsertActions.items",
+					"root.parameters.fetchActions.items",
+					"root.parameters.groupChecks.items",
+					"root.parameters.precomputedContext.missingIndexesByNode"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":92,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"_kEuMZ",
+			"index":6,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"checks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"check_id":{
+										"title":"check_id",
+										"type":"string"
+									},
+									"status":{
+										"title":"status",
+										"type":"string"
+									},
+									"targets":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"failureMessage":{
+													"title":"Failure Message",
+													"type":"string"
+												},
+												"path":{
+													"items":{
+														"type":"string"
+													},
+													"title":"path",
+													"type":"array"
+												},
+												"target_id":{
+													"title":"target_id",
+													"type":"string"
+												},
+												"target_type":{
+													"title":"target_type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"targets",
+										"type":"array"
+									}
+								},
+								"type":"object"
+							},
+							"title":"checks",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fetchActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"fetchActions",
+							"type":"array"
+						},
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"precomputedContext":{
+							"additionalProperties":false,
+							"properties":{
+								"branchIds":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Branch Ids",
+									"type":"object"
+								},
+								"branchVsConditionsMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Branch Vs Conditions Map",
+									"type":"object"
+								},
+								"conditionalBranchMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Conditional Branch Map",
+									"type":"object"
+								},
+								"fetchRecordsUsages":{
+									"title":"fetchRecordsUsages",
+									"type":"object"
+								},
+								"missingIndexesByNode":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Missing Indexes By Node",
+									"type":"object"
+								},
+								"nodeGroupMap":{
+									"title":"nodeGroupMap",
+									"type":"object"
+								},
+								"nodeIndexMap":{
+									"title":"nodeIndexMap",
+									"type":"object"
+								},
+								"nodeMap":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"nodeMap",
+									"type":"object"
+								},
+								"nodeReferenceMap":{
+									"title":"nodeReferenceMap",
+									"type":"object"
+								},
+								"nodesByObjectType":{
+									"title":"nodesByObjectType",
+									"type":"object"
+								},
+								"nodesByResourceName":{
+									"title":"nodesByResourceName",
+									"type":"object"
+								},
+								"recordOutputNodes":{
+									"title":"recordOutputNodes",
+									"type":"object"
+								}
+							},
+							"required":[],
+							"title":"precomputedContext",
+							"type":"object"
+						},
+						"upsertActions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"upsertActions",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"title":"workflowDetails",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"/*\n * =============================================================================\n * WORKFLOW BEST PRACTICE CHECKS\n * =============================================================================\n *\n * This script uses precomputed context from the preceding \"Precompute Context\"\n * node for optimized check execution. The following structures are precomputed:\n * - nodeReferenceMap : Map<nodeId, List<referencedNodeId>>\n * - nodesByResourceName : Map<resourceName, List<nodeId>>\n * - nodesByObjectType : Map<objectType, List<nodeId>>\n * - recordOutputNodes : Map<objectType, List<info>> for upsert actions\n * - fetchRecordsUsages : Map<nodeId, usageInfo> for fetch actions\n * - nodeIndexMap : Map<nodeId, index>\n * - nodeGroupMap : Map<nodeId, groupId>\n *\n * =============================================================================\n *\n * CHECK_5: Redundant Fetch After Record Output\n * ---------------------------------------------\n * Detects when a record is fetched by ID after a previous action already\n * returned the full record data in its output. This is inefficient because\n * the record data is already available.\n *\n * RECORD OUTPUT ACTIONS (return full record in output):\n * - storage_by_unifyapps_create_record -> outputs full record with id\n * - storage_by_unifyapps_clone_record -> outputs cloned record with id\n * - storage_by_unifyapps_update_record_by_id -> outputs full record in 'object'\n * - storage_by_unifyapps_update_record_fields_by_id -> outputs full record in 'object'\n *\n * FETCH BY ID ACTIONS (controlled via include config):\n * - storage_by_unifyapps_get_record_by_id -> input: id\n * - storage_by_unifyapps_get_records_by_ids -> input: ids[]\n * - storage_by_unifyapps_fetch_records -> input: triggerInputCondition with id filter\n *\n * =============================================================================\n *\n * CHECK_9: Analytics SQL Query - Large Data Scan Warning\n * -------------------------------------------------------\n * Detects when Analytics SQL queries lack both LIMIT and WHERE clauses,\n * which can result in full table scans and performance issues.\n *\n * APPLICABLE RESOURCES (controlled via include config):\n * - analytics_by_unifyapps_export_sql\n * - analytics_by_unifyapps_execute_query\n *\n * DETECTION LOGIC:\n * 1. Extracts SQL query from node inputs (fields: query)\n * 2. Removes template syntax to avoid false positives from pill mappings\n * 3. Checks for presence of LIMIT clause\n * 4. Checks for presence of WHERE clause\n * 5. Fails if BOTH are missing\n *\n * VIOLATION CONDITIONS:\n * - Query has no LIMIT clause AND no WHERE clause\n *\n * PASSES WHEN:\n * - Query has LIMIT clause (with or without WHERE)\n * - Query has WHERE clause (with or without LIMIT)\n * - Query has both LIMIT and WHERE\n * - No SQL query found in inputs\n * - Query is only a pill mapping\n *\n * RECOMMENDATION: Add a LIMIT clause to restrict result set size, or add a\n * WHERE clause to filter data. Ideally, use both for optimal performance.\n *\n * =============================================================================\n *\n * CHECK_13: Fetch Records Used Only for Count\n * -------------------------------------------\n * Detects when storage_by_unifyapps_fetch_records is used but the output is\n * ONLY used to calculate the count/length of records via Excel formulas.\n *\n * APPLICABLE RESOURCES (controlled via include config):\n * - storage_by_unifyapps_fetch_records\n * - storage_by_unifyapps_get_records_by_ids\n *\n * =============================================================================\n *\n * CHECK_24: Multiple Data Joins in SQL Query\n * -------------------------------------------\n * Detects when Analytics SQL execution nodes contain queries with multiple\n * JOIN operations. Multiple joins can significantly degrade performance,\n * increase execution time, and cause memory issues with large datasets.\n *\n * APPLICABLE RESOURCES (controlled via include config):\n * - analytics_by_unifyapps_execute_sql\n * - analytics_by_unifyapps_run_query\n * - analytics_by_unifyapps_execute_query\n *\n * DETECTION LOGIC:\n * 1. Extracts SQL query from node inputs (fields: query, sql, sql_query, etc.)\n * 2. Removes template syntax {/{ }/} to avoid false positives from pill mappings\n * 3. Counts JOIN clauses (INNER JOIN, LEFT JOIN, etc. counted as single units)\n * 4. Fails if 2 or more JOINs are detected (multiple joins)\n *\n * VIOLATION CONDITIONS:\n * - Query contains 2 or more JOIN operations\n *\n * PASSES WHEN:\n * - No SQL query found in inputs\n * - Query is only a pill mapping (e.g., {/{ someNode.output }/})\n * - Query contains 0 or 1 JOIN operation\n *\n * RECOMMENDATION: Break down complex queries into multiple steps using\n * intermediate storage nodes, or leverage pre-aggregated data to reduce joins.\n *\n * =============================================================================\n *\n * CHECK_28: Large Batch Operation Without Pagination\n * ---------------------------------------------------\n * Detects when storage operations (create/update/delete/fetch) are configured\n * to process more than the maximum allowed records at once with hardcoded limits\n * instead of using dynamic pagination with pill mappings.\n *\n * APPLICABLE RESOURCES (controlled via include config):\n * - storage_by_unifyapps_fetch_records\n * - storage_by_unifyapps_get_records_by_ids\n * - storage_by_unifyapps_create_records\n * - storage_by_unifyapps_update_records\n * - storage_by_unifyapps_delete_records\n * - storage_by_unifyapps_bulk_create\n * - storage_by_unifyapps_bulk_update\n * - storage_by_unifyapps_bulk_delete\n *\n * DETECTION LOGIC:\n * 1. Checks page.limit, page.pageSize, or batchSize fields (NOT offset)\n * 2. Determines if value is hardcoded (number/string) vs pill mapping ({/{ }/})\n * 3. Extracts numeric value if hardcoded\n * 4. Fails if hardcoded value > MAX_BATCH_SIZE (default: 1000)\n * 5. Also checks hardcoded records/items arrays with > MAX_BATCH_SIZE elements\n *\n * VIOLATION CONDITIONS:\n * - page.limit is hardcoded and > MAX_BATCH_SIZE\n * - page.pageSize is hardcoded and > MAX_BATCH_SIZE\n * - batchSize is hardcoded and > MAX_BATCH_SIZE\n * - records/items array is hardcoded with > MAX_BATCH_SIZE elements\n *\n * PASSES WHEN:\n * - Limit/pageSize/batchSize uses pill mapping (e.g., {/{ variable.pageSize }/})\n * - Hardcoded value is ≤ MAX_BATCH_SIZE\n * - No pagination configured (allowed for single-record operations)\n * - Offset is any value (offset doesn't affect batch size)\n *\n * RECOMMENDATION: Use dynamic pagination with pill mappings to handle varying\n * data volumes. Implement offset/limit or cursor-based pagination in loops to\n * process large datasets in manageable chunks (e.g., 100-500 records per batch).\n *\n * =============================================================================\n *\n * CHECK_29: Conditional Create/Update Pattern\n * --------------------------------------------\n * Detects when create and update actions for the same object_type are used\n * in separate branches of an if-else condition. This pattern should be replaced\n * with a single upsert action for better maintainability and reliability.\n *\n * APPLICABLE RESOURCES (controlled via include config):\n * - if_else_condition\n *\n * DETECTION LOGIC:\n * 1. Identifies if_else_condition nodes\n * 2. Checks if first node in \"if\" branch is a create action\n * 3. Checks if first node in \"else\" branch is an update action\n * 4. Verifies both actions target the same object_type\n * 5. Fails the if_else_condition node (not the create/update nodes)\n *\n * CREATE ACTIONS:\n * - storage_by_unifyapps_create_record\n *\n * UPDATE ACTIONS:\n * - storage_by_unifyapps_update_record_by_id\n * - storage_by_unifyapps_update_record_fields_by_id\n * - storage_by_unifyapps_update_records\n *\n * VIOLATION CONDITIONS:\n * - If branch starts with create action for object_type X\n * - Else branch starts with update action for same object_type X\n * - Both nodes are immediate children of the condition branches\n *\n * PASSES WHEN:\n * - Different object_types in branches\n * - Create/update not first nodes in branches\n * - Only one branch has create or update\n * - Already using upsert action\n *\n * RECOMMENDATION: Replace the conditional create/update pattern with\n * storage_by_unifyapps_upsert_record action.\n *\n * =============================================================================\n *\n * CHECK_82: Missing DB Index for Workflow Queries\n * ------------------------------------------------\n * Detects workflow nodes whose data-source filter touches fields that have no\n * matching index on the target Mongo collection / StarRocks table. The\n * recommendations are precomputed externally and provided as\n * {@code precomputedContext.missingIndexByNode}: a Map<nodeId, List<{objectId,\n * fields:[..]}>> already filtered to \"missing\" recommendations only. A node\n * fails if it appears in that map; a per-node failureMessage describing the\n * missing fields per objectId is emitted via the check's return value.\n *\n * APPLICABLE: any node referenced in missingIndexByNode.\n *\n * =============================================================================\n *\n * CHECK_53: Analytics Query Inside Loop\n * -------------------------------------\n * Detects when an Analytics Query node is placed inside a Loop (For Each).\n * Executing heavy analytical queries inside a loop causes\n * significant performance degradation and potential timeouts.\n *\n * APPLICABLE RESOURCES (controlled via include config):\n * - analytics_by_unifyapps_query_reports\n *\n * DETECTION LOGIC:\n * 1. Checks the 'groupId' of the analytics node.\n * 2. If the groupId indicates nesting (contains '@'), identifies the parent node.\n * 3. Fails if the parent node is of type 'LOOP'.\n *\n * VIOLATION CONDITIONS:\n * - Analytics node is a child of a LOOP node.\n *\n * PASSES WHEN:\n * - Analytics node is at the root level.\n * - Analytics node is nested inside non-loop nodes (e.g., If/Else branches),\n * provided those branches are not themselves inside a loop.\n *\n * RECOMMENDATION: Move the analytics query outside the loop. Fetch all necessary\n * data in a single batch query before the loop starts.\n *\n * =============================================================================\n */\n\n//---------------- HELPER ----------------//\n\nstatic def toCheckListEntry(String checkId, String status, List targets) {\n    return [\n        \"check_id\": checkId,\n        \"status\" : status,\n        \"targets\" : targets ?: []\n    ]\n}\n\nstatic def isEmpty(List list) {\n    return list == null || list.isEmpty();\n}\n\nstatic def validNodesForCheck(checkMeta, workflowDetails) {\n    def allNodes = workflowDetails.nodes ?: []\n    \n    // If no check metadata, all nodes are valid (default behavior)\n    if (checkMeta == null) {\n        return allNodes.collect { it.id };\n    }\n    \n    def includeNodes = checkMeta?.include?.nodes ?: []\n    def includeResources = checkMeta?.include?.resources ?: []\n    def excludeNodes = checkMeta?.exclude?.nodes ?: []\n    def excludeResources = checkMeta?.exclude?.resources ?: []\n\n    if (isEmpty(includeNodes) && isEmpty(includeResources)) {\n        return allNodes.findAll( { !(excludeNodes.contains(it.context?.appName) || excludeResources.contains(it.context?.resourceName)) } ).collect( { it.id } );\n    }\n    else {\n        return allNodes.findAll( { (includeNodes.contains(it.context?.appName) || includeResources.contains(it.context?.resourceName)) } ).collect( { it.id } );\n    }\n}\n\nstatic def extractHardcodedValues(Object value, Set values) {\n    if (value instanceof Map) {\n        for (entry in (value as Map).entrySet()) {\n            extractHardcodedValues(entry.value, values)\n        }\n    } else if (value instanceof List) {\n        for (item in value) {\n            extractHardcodedValues(item, values)\n        }\n    } else if (value instanceof String) {\n        def str = value as String\n        if (!str.contains(\"{{\")) {\n            values.add(str)\n        }\n    }\n}\n\nstatic def checkForIdFilter(Object condition) {\n    if (condition instanceof Map) {\n        def property = condition.property ?: \"\"\n        if (property instanceof String) {\n            def lowerProp = property.toLowerCase()\n            if (lowerProp == \"id\" || lowerProp == \"_id\" || lowerProp.endsWith(\".id\")) {\n                return true\n            }\n        }\n        for (val in (condition as Map).values()) {\n            if (checkForIdFilter(val)) {\n                return true\n            }\n        }\n        return false\n    } else if (condition instanceof List) {\n        for (item in condition) {\n            if (checkForIdFilter(item)) {\n                return true\n            }\n        }\n        return false\n    }\n    return false\n}\n\nstatic def hasLimitClause(String query) {\n    if (!query) return false\n    \n    def normalizedQuery = query.toUpperCase()\n    def cleanedQuery = normalizedQuery.replaceAll(/\\{\\{[^}]+\\}\\}/, ' ')\n    return cleanedQuery =~ /\\bLIMIT\\b/\n}\n\nstatic def hasWhereClause(String query) {\n    if (!query) return false\n    \n    def normalizedQuery = query.toUpperCase()\n    def cleanedQuery = normalizedQuery.replaceAll(/\\{\\{[^}]+\\}\\}/, ' ')\n    return cleanedQuery =~ /\\bWHERE\\b/\n}\n\nstatic def extractIdValuesFromFilter(Object condition, Set idValues) {\n    if (condition instanceof Map) {\n        def property = condition.property ?: \"\"\n        if (property instanceof String) {\n            def lowerProp = property.toLowerCase()\n            if (lowerProp == \"id\" || lowerProp == \"_id\" || lowerProp.endsWith(\".id\")) {\n                def filter = condition.filter\n                if (filter instanceof Map && filter.value != null) {\n                    extractHardcodedValues(filter.value, idValues)\n                }\n            }\n        }\n        def filters = condition.filters\n        if (filters instanceof List) {\n            for (f in filters) {\n                extractIdValuesFromFilter(f, idValues)\n            }\n        }\n    } else if (condition instanceof List) {\n        for (item in condition) {\n            extractIdValuesFromFilter(item, idValues)\n        }\n    }\n}\n\nstatic def extractIdsFromArrayOrMapped(Object data, Set ids) {\n    if (data instanceof List) {\n        for (item in data) {\n            if (item instanceof Map && item.id) {\n                extractHardcodedValues(item.id, ids)\n            } else if (item instanceof String) {\n                extractHardcodedValues(item, ids)\n            }\n        }\n    } else if (data instanceof Map) {\n        def items = data.items\n        if (items instanceof Map) {\n            if (items.id) {\n                extractHardcodedValues(items.id, ids)\n            } else {\n                extractHardcodedValues(items, ids)\n            }\n        } else if (items instanceof List) {\n            for (item in items) {\n                if (item instanceof Map && item.id) {\n                    extractHardcodedValues(item.id, ids)\n                } else if (item instanceof String) {\n                    extractHardcodedValues(item, ids)\n                }\n            }\n        } else if (items instanceof String) {\n            extractHardcodedValues(items, ids)\n        }\n    }\n}\n\nstatic def parseGroupId(String groupId) {\n    if (!groupId || !groupId.contains(\"@\")) {\n        return [parentGroupId: groupId, controlNodeId: null, branchId: null]\n    }\n    def atIndex = groupId.indexOf(\"@\")\n    def lastAtIndex = groupId.lastIndexOf(\"@\")\n    return [\n        controlNodeId: groupId.substring(0, atIndex),\n        parentGroupId: groupId.substring(atIndex + 1, lastAtIndex),\n        branchId : groupId.substring(lastAtIndex + 1)\n    ]\n}\n\nstatic def isAncestorGroupOf(String ancestor, String descendant) {\n    if (ancestor == descendant || !descendant?.contains(\"@\")) return false\n    def current = descendant\n    while (current?.contains(\"@\")) {\n        def parsed = parseGroupId(current)\n        if (parsed.parentGroupId == ancestor) return true\n        current = parsed.parentGroupId\n    }\n    return false\n}\n\nstatic def areInCompatibleExecutionContext(String groupId1, String groupId2) {\n    if (groupId1 == groupId2) return true\n    if (isAncestorGroupOf(groupId1, groupId2) || isAncestorGroupOf(groupId2, groupId1)) return true\n\n    def parsed1 = parseGroupId(groupId1)\n    def parsed2 = parseGroupId(groupId2)\n\n    if (parsed1.parentGroupId == parsed2.parentGroupId &&\n        parsed1.controlNodeId == parsed2.controlNodeId &&\n        parsed1.controlNodeId != null &&\n        parsed1.branchId != parsed2.branchId) {\n        return false\n    }\n\n    return true\n}\n\nstatic def isCountOnlyFormula(String value, String nodeId) {\n    if (!value) return false\n    \n    def normalizedValue = value.trim()\n    def countFormulaPattern = /^=\\s*(LEN|COUNT|COUNTA)\\s*\\(\\s*\\{\\{\\s*${nodeId}\\.outputs\\.objects\\s*\\}\\}\\s*\\)$/\n    \n    return normalizedValue ==~ countFormulaPattern\n}\n\nstatic def checkAllUsagesCountOnly(List usages, String nodeId) {\n    if (!usages || usages.isEmpty()) {\n        return false\n    }\n    for (usage in usages) {\n        if (!isCountOnlyFormula(usage.value as String, nodeId)) {\n            return false\n        }\n    }\n    return true\n}\n\nstatic def countJoinsInQuery(String query) {\n    if (!query) return 0\n    \n    def normalizedQuery = query.toUpperCase()\n    \n    def cleanedQuery = normalizedQuery.replaceAll(/\\{\\{[^}]+\\}\\}/, ' ')\n    \n    def joinPattern = /(?:INNER\\s+|LEFT\\s+OUTER\\s+|RIGHT\\s+OUTER\\s+|FULL\\s+OUTER\\s+|LEFT\\s+|RIGHT\\s+|FULL\\s+|CROSS\\s+)?JOIN\\b/\n    \n    def joinCount = 0\n    def matcher = cleanedQuery =~ joinPattern\n    while (matcher.find()) {\n        joinCount++\n    }\n    \n    return joinCount\n}\n\nstatic def extractSqlQuery(Map inputs) {\n    def queryFields = ['query', 'sql', 'sql_query', 'sqlQuery', 'statement']\n    \n    for (field in queryFields) {\n        def value = inputs[field]\n        if (value instanceof String && !value.trim().isEmpty()) {\n            def trimmed = value.trim()\n            if (trimmed.contains('SELECT') || trimmed.contains('select') ||\n                trimmed.contains('FROM') || trimmed.contains('from')) {\n                return value\n            }\n        }\n    }\n    \n    return null\n}\n\nstatic def isHardcodedNumber(Object value) {\n    if (value == null) return false\n    \n    if (value instanceof Number) {\n        return true\n    }\n    \n    if (value instanceof String) {\n        def str = (value as String).trim()\n        if (str.contains(\"{{\")) {\n            return false\n        }\n        try {\n            Integer.parseInt(str)\n            return true\n        } catch (NumberFormatException e) {\n            return false\n        }\n    }\n    \n    return false\n}\n\nstatic def extractNumericValue(Object value) {\n    if (value == null) return null\n    \n    if (value instanceof Number) {\n        return value as Integer\n    }\n    \n    if (value instanceof String) {\n        def str = (value as String).trim()\n        // Don't parse pill mappings\n        if (str.contains(\"{{\")) {\n            return null\n        }\n        try {\n            return Integer.parseInt(str)\n        } catch (NumberFormatException e) {\n            return null\n        }\n    }\n    \n    return null\n}\n\nstatic def checkPaginationConfig(Map inputs, int maxBatchSize) {\n    def page = inputs.page\n    if (!page) {\n        return true\n    }\n    \n    if (page instanceof Map) {\n        def limit = page.limit\n        if (limit != null && isHardcodedNumber(limit)) {\n            def limitValue = extractNumericValue(limit)\n            if (limitValue != null && limitValue > maxBatchSize) {\n                return false\n            }\n        }\n        \n        def pageSize = page.pageSize\n        if (pageSize != null && isHardcodedNumber(pageSize)) {\n            def pageSizeValue = extractNumericValue(pageSize)\n            if (pageSizeValue != null && pageSizeValue > maxBatchSize) {\n                return false\n            }\n        }\n        \n    }\n    \n    def batchSize = inputs.batchSize ?: inputs.batch_size\n    if (batchSize != null && isHardcodedNumber(batchSize)) {\n        def batchSizeValue = extractNumericValue(batchSize)\n        if (batchSizeValue != null && batchSizeValue > maxBatchSize) {\n            return false\n        }\n    }\n    \n    def records = inputs.records ?: inputs.items ?: inputs.data\n    if (records instanceof List) {\n        if (records.size() > maxBatchSize) {\n            def hasPillMapping = records.any { item ->\n                if (item instanceof String) {\n                    return item.contains(\"{{\")\n                }\n                return false\n            }\n            if (!hasPillMapping) {\n                return false\n            }\n        }\n    }\n    \n    return true\n}\n\nstatic def isCreateAction(String resourceName) {\n    return resourceName == \"storage_by_unifyapps_create_record\"\n}\n\nstatic def isUpdateAction(String resourceName) {\n    def updateActions = [\n        \"storage_by_unifyapps_update_record_by_id\",\n        \"storage_by_unifyapps_update_record_fields_by_id\",\n        \"storage_by_unifyapps_update_records\"\n    ]\n    return updateActions.contains(resourceName)\n}\n\nstatic def getFirstNodeInBranch(String branchGroupId, List nodes, Map nodeIndexMap) {\n    if (!branchGroupId) return null\n    \n    // Find all nodes in this branch\n    def branchNodes = nodes.findAll { node ->\n        node.groupId == branchGroupId\n    }\n    \n    if (branchNodes.isEmpty()) return null\n    \n    // Return the node with the smallest index\n    return branchNodes.min { node ->\n        nodeIndexMap[node.id] ?: Integer.MAX_VALUE\n    }\n}\n\n\n// build a human-readable per-node failure message describing the missing\n// indexes that triggered CHECK_86 on that node.\nstatic def buildMissingIndexFailureMessage(List entries) {\n    if (!entries) {\n        return \"Missing index recommended for this node.\"\n    }\n    def parts = []\n    for (entry in entries) {\n        def objectId = entry.objectId ?: \"(unknown)\"\n        def fields = entry.fields ?: []\n        if (fields.size() == 1) {\n            parts.add(\"on ${objectId}: ${fields[0]}\")\n        } else {\n            parts.add(\"on ${objectId}: (${fields.join(', ')})\")\n        }\n    }\n    return \"Missing index \" + parts.join(\"; \") +\n            \". Add a custom index for these fields to avoid full collection/table scans.\"\n}\n\n//---------------- CHECKS ----------------//\n\n/**\n * CHECK_5: Redundant Fetch After Record Output\n * Applicable resources controlled via include config in groupChecks\n */\nstatic def performCheck5(Map node, Map precomputedContext) {\n    def resourceName = node.context?.resourceName\n    def inputs = node.inputs ?: [:]\n    def objectType = inputs.object_type\n    if (!objectType) return true\n\n    def recordOutputInfos = precomputedContext.recordOutputNodes?.get(objectType) ?: []\n    if (recordOutputInfos.isEmpty()) return true\n\n    def currentNodeIndex = precomputedContext.nodeIndexMap?.get(node.id) ?: 0\n    def currentGroupId = precomputedContext.nodeGroupMap?.get(node.id)\n\n    def referencedNodes = precomputedContext.nodeReferenceMap?.get(node.id) ?: []\n    def referencedNodesSet = referencedNodes.toSet()\n\n    def idValue = null\n    def isIdFilter = false\n\n    switch (resourceName) {\n        case \"storage_by_unifyapps_get_record_by_id\":\n            idValue = inputs.id\n            break\n        case \"storage_by_unifyapps_get_records_by_ids\":\n            idValue = inputs.ids\n            break\n        case \"storage_by_unifyapps_fetch_records\":\n            def filterCondition = inputs.triggerInputCondition\n            if (filterCondition && checkForIdFilter(filterCondition)) {\n                idValue = filterCondition\n                isIdFilter = true\n            }\n            break\n    }\n\n    if (!idValue) return true\n\n    for (info in recordOutputInfos) {\n        if (info.index >= currentNodeIndex) continue\n        if (!areInCompatibleExecutionContext(info.groupId as String, currentGroupId as String)) continue\n\n        if (referencedNodesSet.contains(info.nodeId)) {\n            return false\n        }\n    }\n\n    def fetchIds = [] as Set\n    if (isIdFilter) {\n        extractIdValuesFromFilter(idValue, fetchIds)\n    } else {\n        extractIdsFromArrayOrMapped(idValue, fetchIds)\n        extractHardcodedValues(idValue, fetchIds)\n    }\n\n    for (info in recordOutputInfos) {\n        if (info.index >= currentNodeIndex) continue\n        if (!areInCompatibleExecutionContext(info.groupId as String, currentGroupId as String)) continue\n\n        def infoHardcodedIds = info.hardcodedIds?.toSet() ?: [] as Set\n        if (!fetchIds.intersect(infoHardcodedIds).isEmpty()) {\n            return false\n        }\n    }\n\n    return true\n}\n\n/**\n * CHECK_9: Analytics SQL Query - Large Data Scan Warning\n * Applicable resources controlled via include config in groupChecks\n */\nstatic def performCheck9(Map node, Map precomputedContext) {\n    def inputs = node.inputs ?: [:]\n    def sqlQuery = extractSqlQuery(inputs)\n    \n    if (!sqlQuery) {\n        return true\n    }\n    \n    def hasLimit = hasLimitClause(sqlQuery)\n    def hasWhere = hasWhereClause(sqlQuery)\n    if (!hasLimit && !hasWhere) {\n        return false\n    }\n    return true\n}\n\n/**\n * CHECK_13: Fetch Records Used Only for Count\n * Applicable resources controlled via include config in groupChecks\n */\nstatic def performCheck13(Map node, Map precomputedContext) {\n    def nodeUsageInfo = precomputedContext.fetchRecordsUsages?.get(node.id)\n\n    if (!nodeUsageInfo || !nodeUsageInfo.usages || nodeUsageInfo.usages.isEmpty()) {\n        return true\n    }\n\n    if (nodeUsageInfo.hasDataUsage) {\n        return true\n    }\n\n    if (checkAllUsagesCountOnly(nodeUsageInfo.usages as List, node.id as String)) {\n        return false\n    }\n\n    return true\n}\n\n/**\n * CHECK_24: Multiple Data Joins in SQL Query\n * Applicable resources controlled via include config in groupChecks\n */\nstatic def performCheck24(Map node, Map precomputedContext) {\n    def inputs = node.inputs ?: [:]\n    \n    def sqlQuery = extractSqlQuery(inputs)\n    \n    if (!sqlQuery) {\n        return true\n    }\n    \n    def joinCount = countJoinsInQuery(sqlQuery)\n\n    if (joinCount > 1) {\n        return false\n    }\n    \n    return true\n}\n\n/**\n * CHECK_28: Large Batch Operation Without Pagination\n * Applicable resources controlled via include config in groupChecks\n */\nstatic def performCheck28(Map node, Map precomputedContext) {\n    final int MAX_BATCH_SIZE = 2000\n    \n    def inputs = node.inputs ?: [:]\n    \n    return checkPaginationConfig(inputs, MAX_BATCH_SIZE)\n}\n\n/**\n * CHECK_29: Conditional Create/Update Pattern\n * Applicable resources controlled via include config in groupChecks\n */\nstatic def performCheck29(Map node, Map precomputedContext) {\n    def nodeId = node.id\n    def conditionalBranchMap = precomputedContext.conditionalBranchMap ?: [:]\n    def nodeIndexMap = precomputedContext.nodeIndexMap ?: [:]\n    def nodeMap = precomputedContext.nodeMap ?: [:]\n    \n    // Get branch information for this condition node\n    def branchInfo = conditionalBranchMap[nodeId]\n    if (!branchInfo) {\n        return true // Not a condition node or no branch info\n    }\n    \n    def ifBranchGroupId = branchInfo.ifBranchGroupId\n    def elseBranchGroupId = branchInfo.elseBranchGroupId\n    \n    if (!ifBranchGroupId || !elseBranchGroupId) {\n        return true // Missing one or both branches\n    }\n    \n    def allNodes = nodeMap.values().toList()\n    \n    // Get first node in each branch\n    def ifFirstNode = getFirstNodeInBranch(ifBranchGroupId, allNodes, nodeIndexMap)\n    def elseFirstNode = getFirstNodeInBranch(elseBranchGroupId, allNodes, nodeIndexMap)\n    \n    if (!ifFirstNode || !elseFirstNode) {\n        return true // One or both branches are empty\n    }\n    \n    def ifResourceName = ifFirstNode.context?.resourceName\n    def elseResourceName = elseFirstNode.context?.resourceName\n    \n    // Check if one branch has create and the other has update\n    def ifIsCreate = isCreateAction(ifResourceName)\n    def ifIsUpdate = isUpdateAction(ifResourceName)\n    def elseIsCreate = isCreateAction(elseResourceName)\n    def elseIsUpdate = isUpdateAction(elseResourceName)\n    \n    // Pattern 1: if=create, else=update\n    if (ifIsCreate && elseIsUpdate) {\n        def ifObjectType = ifFirstNode.inputs?.object_type\n        def elseObjectType = elseFirstNode.inputs?.object_type\n        \n        if (ifObjectType && elseObjectType && ifObjectType == elseObjectType) {\n            return false // Violation: conditional create/update for same object_type\n        }\n    }\n    \n    // Pattern 2: if=update, else=create\n    if (ifIsUpdate && elseIsCreate) {\n        def ifObjectType = ifFirstNode.inputs?.object_type\n        def elseObjectType = elseFirstNode.inputs?.object_type\n        \n        if (ifObjectType && elseObjectType && ifObjectType == elseObjectType) {\n            return false // Violation: conditional update/create for same object_type\n        }\n    }\n    \n    return true\n}\n\n/**\n * CHECK_53: Analytics Query Inside For-Each Loop\n * ----------------------------------------------\n * Detects when an Analytics Query Report node is executed inside a \"For Each\" loop.\n */\nstatic def performCheck53(node, context) {\n    // 1. STRICT Resource Check: Only check analytics_by_unifyapps_query_reports\n    if (node.context?.resourceName != \"analytics_by_unifyapps_query_reports\") {\n        return true\n    }\n\n    // 2. Access the Node Map from the context\n    // Note: In your precompute script, you named it 'nodeMap', so we must access it via that key.\n    def nodesById = context.nodeMap ?: [:]\n\n    // 3. Get the current node's groupId\n    def groupId = node.groupId\n    \n    // Safety check: if no groupId (root level), we are safe (not in a loop)\n    if (groupId == null || !groupId.contains(\"@\")) {\n        return true\n    }\n    \n    // 4. Recursive check up the ancestry chain\n    def currentGroupId = groupId\n    int safetyCounter = 0\n    \n    while (currentGroupId != null && currentGroupId.contains(\"@\") && safetyCounter < 50) {\n        safetyCounter++\n        \n        // Extract immediate parent ID \n        def parentId = currentGroupId.split(\"@\")[0]\n        \n        // Look up the parent node object\n        def parentNode = nodesById[parentId]\n        \n        if (parentNode != null) {\n            // Check if the parent is the STRICT loop type\n            def resourceName = parentNode.context?.resourceName\n            \n            if (resourceName == \"loop_for_each\") {\n                // VIOLATION: We found a 'loop_for_each' in the ancestry!\n                return false\n            }\n            \n            // Climb up to the next parent\n            currentGroupId = parentNode.groupId\n        } else {\n            // Parent ID extracted from string but not found in map? \n            // This is unusual but we should break to avoid infinite loop.\n            break\n        }\n    }\n    \n    return true\n}\n\n\nstatic def isDatapill(String value) {\n    if (!value) return false\n    return value.startsWith('{{')\n}\n\n/**\n * CHECK_69: Race Condition in Storage Create-Create\n * ---------------------------------------------------------\n * Fails if a record is created in the same object across different parallel branches.\n */\nstatic def performCheck69(Object node, Object precomputedContext) {\n\n    def targetResources = [\n        \"storage_by_unifyapps_create_record\",\n        \"storage_by_unifyapps_upsert_record\",\n        \"storage_by_unifyapps_bulk_create_records\"\n    ]\n\n    def resourceName = node?.context?.resourceName as String\n    if (!targetResources.contains(resourceName)) return true\n\n    def nodeId = node?.id as String\n    def nodeGroupId = node?.groupId as String\n    if (!nodeGroupId) return true\n\n    def objectType = node?.inputs?.object_type as String\n\n    // Ignore datapills or missing object type\n    if (!objectType || isDatapill(objectType)) return true\n\n    def allNodes = precomputedContext?.nodeMap?.values()\n    def branchVsConditionsMap = precomputedContext?.branchVsConditionsMap\n\n    if (!branchVsConditionsMap) return true\n\n    // Extract branch, conditionGroupId for this node\n    def nodeBranchId = null\n    def nodeConditionGroupId = null\n\n    branchVsConditionsMap.each { branchId, conditionGroupIds ->\n        conditionGroupIds?.each { condId ->\n            if (nodeGroupId.contains(condId)) {\n                nodeBranchId = branchId\n                nodeConditionGroupId = condId\n            }\n        }\n    }\n\n    // If node not inside a branch, pass check\n    if (!nodeBranchId || !nodeConditionGroupId) return true\n\n    for (def otherNode in allNodes) {\n\n        def otherNodeId = otherNode?.id as String\n        if (!otherNodeId || otherNodeId == nodeId) continue\n\n        def otherResourceName = otherNode?.context?.resourceName as String\n        if (!targetResources.contains(otherResourceName)) continue\n\n        def otherNodeObjectType = otherNode?.inputs?.object_type as String\n        if (!otherNodeObjectType || isDatapill(otherNodeObjectType)) continue\n\n        // Must target same object\n        if (objectType != otherNodeObjectType) continue\n\n        def otherNodeGroupId = otherNode?.groupId as String\n        if (!otherNodeGroupId) continue\n\n        // Race condition\n        if (otherNodeGroupId.contains(nodeBranchId) &&\n            !otherNodeGroupId.contains(nodeConditionGroupId)) {\n            return false // FAIL\n        }\n    }\n\n    return true\n}\n\n/**\n * CHECK_72: Race Condition in Storage Update-Update\n * ---------------------------------------------------------\n * Fails if a record is updated in the same object across different parallel branches.\n */\nstatic def performCheck72(Object node, Object precomputedContext) {\n\n    def targetResources = [\n        \"storage_by_unifyapps_update_record_by_id\",\n        \"storage_by_unifyapps_update_record_fields_by_id\",\n        \"storage_by_unifyapps_update_records\"\n    ]\n\n    def resourceName = node?.context?.resourceName as String\n    if (!targetResources.contains(resourceName)) return true\n\n    def nodeId = node?.id as String\n    def nodeGroupId = node?.groupId as String\n    if (!nodeGroupId) return true\n\n    def objectType = node?.inputs?.object_type as String\n\n    // Ignore datapills or missing object type\n    if (!objectType || isDatapill(objectType)) return true\n\n    def allNodes = precomputedContext?.nodeMap?.values()\n    def branchVsConditionsMap = precomputedContext?.branchVsConditionsMap\n\n    if (!branchVsConditionsMap) return true\n\n    // Extract branch, conditionGroupId for this node\n    def nodeBranchId = null\n    def nodeConditionGroupId = null\n\n    branchVsConditionsMap.each { branchId, conditionGroupIds ->\n        conditionGroupIds?.each { condId ->\n            if (nodeGroupId.contains(condId)) {\n                nodeBranchId = branchId\n                nodeConditionGroupId = condId\n            }\n        }\n    }\n\n    // If node not inside a branch, pass check\n    if (!nodeBranchId || !nodeConditionGroupId) return true\n\n    for (def otherNode in allNodes) {\n\n        def otherNodeId = otherNode?.id as String\n        if (!otherNodeId || otherNodeId == nodeId) continue\n\n        def otherResourceName = otherNode?.context?.resourceName as String\n        if (!targetResources.contains(otherResourceName)) continue\n\n        def otherNodeObjectType = otherNode?.inputs?.object_type as String\n        if (!otherNodeObjectType || isDatapill(otherNodeObjectType)) continue\n\n        // Must target same object\n        if (objectType != otherNodeObjectType) continue\n\n        def otherNodeGroupId = otherNode?.groupId as String\n        if (!otherNodeGroupId) continue\n\n        // Race condition\n        if (otherNodeGroupId.contains(nodeBranchId) &&\n            !otherNodeGroupId.contains(nodeConditionGroupId)) {\n            return false // FAIL\n        }\n    }\n\n    return true\n}\n\n/**\n * CHECK_73: Race Condition in Storage Create-Update\n * ---------------------------------------------------------\n * Fails if a record is created in one branch and updated in a parallel branch.\n */\nstatic def performCheck73(Object node, Object precomputedContext) {\n\n    def createResources = [\n        \"storage_by_unifyapps_create_record\",\n        \"storage_by_unifyapps_upsert_record\",\n        \"storage_by_unifyapps_bulk_create_records\"\n    ]\n    def updateResources = [\n        \"storage_by_unifyapps_update_record_by_id\",\n        \"storage_by_unifyapps_update_record_fields_by_id\",\n        \"storage_by_unifyapps_update_records\"\n    ]\n\n    def resourceName = node?.context?.resourceName as String\n    def isNodeCreate = createResources.contains(resourceName)\n    def isNodeUpdate = updateResources.contains(resourceName)\n\n    // Current node must be either a Create or an Update action\n    if (!isNodeCreate && !isNodeUpdate) return true\n\n    def nodeId = node?.id as String\n    def nodeGroupId = node?.groupId as String\n    if (!nodeGroupId) return true\n\n    def objectType = node?.inputs?.object_type as String\n\n    // Ignore datapills or missing object type\n    if (!objectType || isDatapill(objectType)) return true\n\n    def allNodes = precomputedContext?.nodeMap?.values()\n    def branchVsConditionsMap = precomputedContext?.branchVsConditionsMap\n\n    if (!branchVsConditionsMap) return true\n\n    // Extract branch, conditionGroupId for this node\n    def nodeBranchId = null\n    def nodeConditionGroupId = null\n\n    branchVsConditionsMap.each { branchId, conditionGroupIds ->\n        conditionGroupIds?.each { condId ->\n            if (nodeGroupId.contains(condId)) {\n                nodeBranchId = branchId\n                nodeConditionGroupId = condId\n            }\n        }\n    }\n\n    // If node not inside a branch, pass check\n    if (!nodeBranchId || !nodeConditionGroupId) return true\n\n    for (def otherNode in allNodes) {\n\n        def otherNodeId = otherNode?.id as String\n        if (!otherNodeId || otherNodeId == nodeId) continue\n\n        def otherResourceName = otherNode?.context?.resourceName as String\n        def isOtherCreate = createResources.contains(otherResourceName)\n        def isOtherUpdate = updateResources.contains(otherResourceName)\n\n        // Only flag if it's a cross-match (Node Create vs Other Update OR Node Update vs Other Create)\n        if (!((isNodeCreate && isOtherUpdate) || (isNodeUpdate && isOtherCreate))) continue\n\n        def otherNodeObjectType = otherNode?.inputs?.object_type as String\n        if (!otherNodeObjectType || isDatapill(otherNodeObjectType)) continue\n\n        // Must target same object\n        if (objectType != otherNodeObjectType) continue\n\n        def otherNodeGroupId = otherNode?.groupId as String\n        if (!otherNodeGroupId) continue\n\n        // Race condition\n        if (otherNodeGroupId.contains(nodeBranchId) &&\n            !otherNodeGroupId.contains(nodeConditionGroupId)) {\n            return false // FAIL\n        }\n    }\n\n    return true\n}\n\n/**\n * CHECK_78: Fetch Records Returns All Columns\n * ---------------------------------------------------------\n * Detects if a fetch_records node is missing the 'fields' array,\n * meaning it is pulling every column from the database.\n */\nstatic def performCheck78(Object node, Object precomputedContext) {\n\n    if (node.context?.resourceName != \"storage_by_unifyapps_fetch_records\") {\n        return true\n    }\n\n    def inputs = node.inputs ?: [:]\n    def fields = inputs.fields\n\n    // Check if 'fields' exists and is not empty\n    if (fields == null) {\n        return false\n    }\n\n    if (fields instanceof List && fields.isEmpty()) {\n        return false\n    }\n\n    return true\n}\n\n/**\n * CHECK_81: Storage create/update missing data mapping\n * Simply checks if the payload keys exist and are not empty.\n */\nstatic def performCheck81(Object node, Object precomputedContext) {\n    \n    def inputs = node.inputs\n    if (!(inputs instanceof Map)) {\n        return false \n    }\n\n    def payloadKeys = [\"record\", \"records\", \"updateFields\", \"updates\"]\n    \n    for (String key in payloadKeys) {\n        if (inputs.containsKey(key)) {\n            def val = inputs[key]\n            \n            if (val == null) continue\n            \n\n            if (val instanceof Map && !val.isEmpty()) {\n                return true\n            }\n\n            if (val instanceof List) {\n                // Filter out any 'null' items before checking if it's empty\n                def nonNullItems = val.findAll { it != null }\n                if (!nonNullItems.isEmpty()) {\n                    return true\n                }\n            }\n            \n            if (val instanceof String && !val.toString().trim().isEmpty()) {\n                return true\n            }\n        }\n    }\n\n    // Fails if none of the keys exist, or if they were present but empty (like [], {}, or [null])\n    return false\n}\n\n/**\n * CHECK_86: Missing Index for Object Queries\n * ---------------------------------------------------------\n * Identify queries in workflow that run on unindexed fields \n * of Mongo collections or StarRocks tables, which slows down \n * performance and forces full table scans\n */\nstatic def performCheck86(Object node, Object precomputedContext) {\n    def nodeId = node?.id as String\n    if (!nodeId) return true\n\n    def entries = precomputedContext?.missingIndexesByNode?.get(nodeId)\n    if (!entries) return true\n\n    return buildMissingIndexFailureMessage(entries as List)\n}\n\n//---------------- MAIN ----------------//\n\ndef workflowDetails = binding.hasVariable(\"workflowDetails\") ? binding.getVariable(\"workflowDetails\") : null\ndef precomputedContext = binding.hasVariable(\"precomputedContext\") ? binding.getVariable(\"precomputedContext\") : [:]\ndef groupChecks = (List) (binding.hasVariable(\"groupChecks\") ? binding.getVariable(\"groupChecks\") : []);\n\n// Define check functions map\ndef WORKFLOW_CHECKS = [\n    \"CHECK_5\" : this.&performCheck5,\n    \"CHECK_9\" : this.&performCheck9,\n    \"CHECK_13\": this.&performCheck13,\n    \"CHECK_24\": this.&performCheck24,\n    \"CHECK_28\": this.&performCheck28,\n    \"CHECK_29\": this.&performCheck29,\n    \"CHECK_53\": this.&performCheck53,\n    \"CHECK_69\": this.&performCheck69,\n    \"CHECK_72\": this.&performCheck72,\n    \"CHECK_73\": this.&performCheck73,\n    \"CHECK_78\": this.&performCheck78,\n    \"CHECK_81\": this.&performCheck81,\n    \"CHECK_86\": this.&performCheck86\n]\n\n// Define all check IDs - these will ALWAYS appear in output\ndef ALL_CHECK_IDS = WORKFLOW_CHECKS.keySet().toList()\n\nif (workflowDetails == null || precomputedContext.isEmpty()) {\n    // Return all checks as passed when no workflow details\n    def checkList = []\n    for (check_id in ALL_CHECK_IDS) {\n        checkList.add(toCheckListEntry(check_id, \"passed\", []))\n    }\n    return [\n        \"checks\": checkList\n    ]\n}\n\n// Build groupChecks lookup map\ndef groupChecksById = groupChecks.collectEntries{ [it.check_id, it] }\n\n// Compute valid nodes for each check based on include/exclude rules from config\ndef validNodesPerCheck = [:]\nfor (check_id in ALL_CHECK_IDS) {\n    validNodesPerCheck[check_id] = validNodesForCheck(groupChecksById[check_id], workflowDetails).toSet()\n}\n\n// Initialize checksResult\n// Each check tracks:\n//   passed: List<String>  — nodeIds that passed\n//   failed: List<Map>     — entries of shape [nodeId: String, failureMessage: String|null]\ndef checksResult = [:]\nfor (check_id in ALL_CHECK_IDS) {\n    checksResult[check_id] = [\"passed\": [], \"failed\": []]\n}\n\n// Run checks on valid nodes only (controlled by include/exclude config).\n//\n// Check return contract:\n//   true        → passed\n//   false       → failed, no per-node message (consumer falls back to static description)\n//   String \"X\"  → failed, with per-node failureMessage \"X\"\ndef nodes = workflowDetails?.nodes ?: []\nfor (node in nodes) {\n    def nodeId = node.id\n\n    for (entry in WORKFLOW_CHECKS.entrySet()) {\n        def check_id = entry.key\n        def checkFunction = entry.value\n        def validNodes = validNodesPerCheck[check_id]\n\n        // Only run check if node is in the valid set (based on include/exclude config)\n        if (!validNodes.contains(nodeId)) continue\n\n        def result = checkFunction(node as Map, precomputedContext as Map)\n        if (result == true) {\n            checksResult[check_id][\"passed\"].add(nodeId)\n        } else {\n            checksResult[check_id][\"failed\"].add([\n                nodeId        : nodeId,\n                failureMessage: (result instanceof String) ? result : null\n            ])\n        }\n    }\n}\n\n// Build output check list.\n// Each failed entry carries an optional failureMessage; attach it to\n// the target when present, otherwise emit just target_id and target_type.\ndef checkList = []\nfor (check_id in ALL_CHECK_IDS) {\n    def result = checksResult[check_id] ?: [\"passed\": [], \"failed\": []]\n    def failed = result[\"failed\"] ?: []\n\n    if (failed.isEmpty()) {\n        checkList.add(toCheckListEntry(check_id, \"passed\", []))\n    } else {\n        def targets = []\n        for (failedEntry in failed) {\n            def target = [target_id: failedEntry.nodeId, target_type: \"node\"]\n            if (failedEntry.failureMessage) {\n                target.failureMessage = failedEntry.failureMessage\n            }\n            targets.add(target)\n        }\n        checkList.add(toCheckListEntry(check_id, \"failed\", targets))\n    }\n}\n\nreturn [\n    \"checks\": checkList\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fetchActions":{
+						"items":"{{ n_zPShs.outputs.result.fetchActions[0] }}",
+						"source":"{{ n_zPShs.outputs.result.fetchActions }}",
+						"ua:type":"mappedArray"
+					},
+					"groupChecks":{
+						"items":"{{ n_EHr2B.outputs.groupChecks[0] }}",
+						"source":"{{ n_EHr2B.outputs.groupChecks }}",
+						"ua:type":"mappedArray"
+					},
+					"precomputedContext":{
+						"branchIds":"{{ n_zPShs.outputs.result.precomputedContext.branchIds }}",
+						"branchVsConditionsMap":"{{ n_zPShs.outputs.result.precomputedContext.branchVsConditionsMap }}",
+						"conditionalBranchMap":"{{ n_zPShs.outputs.result.precomputedContext.conditionalBranchMap }}",
+						"fetchRecordsUsages":"{{ n_zPShs.outputs.result.precomputedContext.fetchRecordsUsages }}",
+						"missingIndexesByNode":"{{ n_zPShs.outputs.result.precomputedContext.missingIndexesByNode }}",
+						"nodeGroupMap":"{{ n_zPShs.outputs.result.precomputedContext.nodeGroupMap }}",
+						"nodeIndexMap":"{{ n_zPShs.outputs.result.precomputedContext.nodeIndexMap }}",
+						"nodeMap":"{{ n_zPShs.outputs.result.precomputedContext.nodeMap }}",
+						"nodeReferenceMap":"{{ n_zPShs.outputs.result.precomputedContext.nodeReferenceMap }}",
+						"nodesByObjectType":"{{ n_zPShs.outputs.result.precomputedContext.nodesByObjectType }}",
+						"nodesByResourceName":"{{ n_zPShs.outputs.result.precomputedContext.nodesByResourceName }}",
+						"recordOutputNodes":"{{ n_zPShs.outputs.result.precomputedContext.recordOutputNodes }}"
+					},
+					"upsertActions":{
+						"items":"{{ n_zPShs.outputs.result.upsertActions[0] }}",
+						"source":"{{ n_zPShs.outputs.result.upsertActions }}",
+						"ua:type":"mappedArray"
+					},
+					"workflowDetails":"{{ n_EHr2B.outputs.workflowDetails }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Perform Checks",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.checks.source",
+					"root.result.checks.ua:type",
+					"root.result.checks.items.check_id",
+					"root.result.checks.items.status",
+					"root.result.checks.items.targets.source",
+					"root.result.checks.items.targets.ua:type",
+					"root.result.checks.items.targets.items.target_id",
+					"root.result.checks.items.targets.items.target_type",
+					"root.result.checks.items.targets.items.path.source",
+					"root.result.checks.items.targets.items.path.ua:type",
+					"root.result.checks.items.targets.items.path.items"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":91,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_uLnvJ",
+			"index":7,
+			"inputs":{
+				"result":{
+					"checks":{
+						"items":{
+							"check_id":"{{ _kEuMZ.outputs.result.checks[0].check_id }}",
+							"status":"{{ _kEuMZ.outputs.result.checks[0].status }}",
+							"targets":{
+								"items":{
+									"failureMessage":"{{ _kEuMZ.outputs.result.checks[0].targets[0].failureMessage }}",
+									"path":{
+										"items":"{{ _kEuMZ.outputs.result.checks[0].targets[0].path[0] }}",
+										"source":"{{ _kEuMZ.outputs.result.checks[0].targets[0].path }}",
+										"ua:type":"mappedArray"
+									},
+									"target_id":"{{ _kEuMZ.outputs.result.checks[0].targets[0].target_id }}",
+									"target_type":"{{ _kEuMZ.outputs.result.checks[0].targets[0].target_type }}"
+								},
+								"source":"{{ _kEuMZ.outputs.result.checks[0].targets }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ _kEuMZ.outputs.result.checks }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"BPC",
+		"Automation"
+	],
+	"version":0,
+	"workflowDefinitionId":"6952c8473cdf2c341880d246",
+	"workflowVersion":123
+}
