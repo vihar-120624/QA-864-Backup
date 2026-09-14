@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743941913,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743941960,
+		"deployedAt":1789395279651,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecec545d2142160e6f531",
+		"deployedDefinitionId":"6aa8014f39ee5f5ef70b653d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":7
+		"version":2,
+		"workflowVersion":10
 	},
 	"edges":[
 		{
@@ -24,7 +24,33 @@
 		},
 		{
 			"fromNodeId":"n_ANVRd",
-			"id":"next@n_ANVRd@n_mRsJY",
+			"id":"next@n_ANVRd@n_rGxz6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rGxz6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rGxz6",
+			"id":"next@n_rGxz6@n_6qxeW",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6qxeW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rGxz6",
+			"id":"if@n_rGxz6@n_mRsJY",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mRsJY",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_6qxeW",
+			"id":"next@n_6qxeW@n_mRsJY",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_mRsJY",
@@ -54,7 +80,7 @@
 	"id":"6a79fe67ca90076bffba7222",
 	"lastModifiedBy":-1,
 	"lcName":"governance | policy evaluation (api)",
-	"modifiedTime":1788252972247,
+	"modifiedTime":1789395387604,
 	"name":"Governance | Policy Evaluation (API)",
 	"nodes":[
 		{
@@ -129,6 +155,16 @@
 						"textBody":{
 							"type":"string"
 						}
+					},
+					{
+						"contentType":"application/json",
+						"htmlBody":{
+							"type":"string"
+						},
+						"status":400,
+						"textBody":{
+							"type":"string"
+						}
 					}
 				],
 				"streamingResponse":false
@@ -169,6 +205,58 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":196,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lDyDO-1",
+			"id":"n_rGxz6",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_ANVRd.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rGxz6@_lDyDO-1@n",
+			"id":"n_6qxeW",
+			"index":4,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"400_undefined",
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":2523,
 				"resourceName":"callables_call_automation",
@@ -179,7 +267,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lDyDO-1",
 			"id":"n_mRsJY",
-			"index":3,
+			"index":5,
 			"inputs":{
 				"automationId":"6a4f383bbed7cf6a93af489a",
 				"runtimeConnections":{},
@@ -211,7 +299,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lDyDO-1",
 			"id":"n_2ITWL",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -241,5 +329,5 @@
 		}
 	},
 	"standard":true,
-	"version":9
+	"version":11
 }

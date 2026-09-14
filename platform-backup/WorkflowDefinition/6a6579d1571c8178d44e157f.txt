@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743816113,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743816154,
+		"deployedAt":1789395206965,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece4845d2142160e6e53d",
+		"deployedDefinitionId":"6aa80106c6a14707f15037aa",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":25
+		"version":2,
+		"workflowVersion":28
 	},
 	"description":"Receives a list of automation IDs via callable trigger and deploys each automation sequentially using the Deploy Automation action.",
 	"edges":[
@@ -25,7 +25,15 @@
 		},
 		{
 			"fromNodeId":"n_CrLst",
-			"id":"next@n_CrLst@n_LpEch",
+			"id":"next@n_CrLst@n_nH8GH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nH8GH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nH8GH",
+			"id":"next@n_nH8GH@n_LpEch",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_LpEch",
@@ -49,6 +57,14 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_acAml",
+			"id":"next@n_acAml@n_N2VOa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_N2VOa",
+			"type":"next"
+		},
+		{
 			"fromNodeId":"n_DpAu2",
 			"id":"error@n_DpAu2@n_AppIt",
 			"name":"error",
@@ -58,8 +74,8 @@
 			"type":"error"
 		},
 		{
-			"fromNodeId":"n_acAml",
-			"id":"next@n_acAml@n_LpEch",
+			"fromNodeId":"n_N2VOa",
+			"id":"next@n_N2VOa@n_LpEch",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -99,7 +115,7 @@
 	"id":"6a6579d1571c8178d44e157f",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) deploy automations",
-	"modifiedTime":1788252971233,
+	"modifiedTime":1789395387634,
 	"name":"(tool) Deploy Automations",
 	"nodes":[
 		{
@@ -115,38 +131,38 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"success":{
-							"type":"boolean",
-							"title":"Success"
+							"title":"Success",
+							"type":"boolean"
 						},
 						"undeployedAutomations":{
-							"type":"array",
-							"title":"Undeployed Automations",
 							"items":{
 								"type":"string"
-							}
+							},
+							"title":"Undeployed Automations",
+							"type":"array"
 						}
-					}
+					},
+					"required":[],
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"automationIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"automationIds",
+							"type":"array"
+						}
+					},
 					"required":[
 						"automationIds"
 					],
-					"properties":{
-						"automationIds":{
-							"type":"array",
-							"title":"Automation IDs",
-							"items":{
-								"type":"string"
-							}
-						}
-					}
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -177,29 +193,29 @@
 					"format":"ua:list",
 					"type":"object",
 					"properties":{
-						"ua:title":{
-							"type":"string"
-						},
-						"ua:list_type":{
-							"type":"string",
-							"default":"STRING"
-						},
 						"createList":{
-							"type":"object",
 							"properties":{
-								"ua:type":{
-									"type":"string",
-									"default":"mappedArray"
-								},
-								"source":{
-									"type":"string",
-									"format":"ua:source",
-									"title":"List Item Source"
-								},
 								"items":{
 									"type":"string"
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
 								}
-							}
+							},
+							"type":"object"
+						},
+						"ua:list_type":{
+							"default":"STRING",
+							"type":"string"
+						},
+						"ua:title":{
+							"type":"string"
 						}
 					}
 				}
@@ -218,11 +234,11 @@
 					"type":"object",
 					"properties":{
 						"items":{
-							"type":"array",
-							"title":"undeployedAutomations",
 							"items":{
 								"type":"string"
-							}
+							},
+							"title":"undeployedAutomations",
+							"type":"array"
 						}
 					}
 				}
@@ -230,6 +246,37 @@
 			"skip":false,
 			"subTitle":"Variable",
 			"title":"Create list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":13,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_nH8GH",
+			"index":3,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable ",
+			"title":"Get Session Variables",
 			"type":"ACTION"
 		},
 		{
@@ -243,7 +290,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"root_id-1",
 			"id":"n_LpEch",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_StaRt.outputs.automationIds }}",
@@ -265,7 +312,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_LpEch@root_id-1@l",
 			"id":"n_DpAu2",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"workflowId":"{{ n_LpEch.outputs.item }}"
 			},
@@ -341,20 +388,50 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_DpAu2@n_LpEch@root_id-1@l@success",
 			"id":"n_acAml",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"automationId":"6a63152d49a5537e8c784d3b",
 				"runtimeConnections":{},
 				"synchronous":true,
-				"version":"-1",
 				"parameters":{
 					"assetClass":"WORKFLOW_DEFINITION",
 					"assetId":"{{ n_LpEch.outputs.item }}"
-				}
+				},
+				"version":"-1"
 			},
 			"skip":false,
 			"subTitle":"Update automation",
 			"title":"Live update",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":350,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_DpAu2@n_LpEch@root_id-1@l@success",
+			"id":"n_N2VOa",
+			"index":7,
+			"inputs":{
+				"automationId":"6a830d35f901b247082c31f7",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"assetClass":"WORKFLOW_DEFINITION",
+					"assetId":"{{ n_DpAu2.outputs.workflowDefinitionId }}",
+					"caseId":"{{ n_nH8GH.outputs.caseId }}",
+					"status":"IN_PROGRESS"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
 		},
 		{
@@ -368,7 +445,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_DpAu2@n_LpEch@root_id-1@l@error",
 			"id":"n_AppIt",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"itemToAdd":"{{ n_LpEch.outputs.item }}",
 				"insertLocation":"END",
@@ -391,7 +468,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"root_id-1",
 			"id":"n_StpRt",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"result":{
 					"success":"=IF(LEN({{ n_CrLst.outputs.items }}) > 0, false, true)",
@@ -425,5 +502,5 @@
 		"text-to-workflow",
 		"AI Generated"
 	],
-	"version":27
+	"version":29
 }
