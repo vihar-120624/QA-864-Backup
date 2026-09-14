@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743691266,
 	"deleted":false,
-	"deployedVersion":2,
+	"deployedVersion":3,
 	"deploymentState":{
-		"deployedAt":1787743691623,
+		"deployedAt":1789395143524,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdcb9d7c534668ef642a",
+		"deployedDefinitionId":"6aa800c7c6a14707f15033b4",
 		"status":"DEPLOYED",
-		"version":2,
-		"workflowVersion":12
+		"version":3,
+		"workflowVersion":15
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_H87EL",
+			"id":"next@n_H87EL@n_t7rm6",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_t7rm6",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_t7rm6",
+			"id":"next@n_t7rm6@n_2tNoZ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_2tNoZ",
@@ -30,6 +32,15 @@
 		},
 		{
 			"fromNodeId":"n_2tNoZ",
+			"id":"next@n_2tNoZ@n_xyXby",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xyXby",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xyXby",
+			"id":"next@n_xyXby@n_hvwhm",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_hvwhm",
@@ -37,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"n_hvwhm",
+			"id":"next@n_hvwhm@n_rlMhH",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -45,6 +57,7 @@
 		},
 		{
 			"fromNodeId":"n_rlMhH",
+			"id":"next@n_rlMhH@n_BTNV1",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_BTNV1",
@@ -52,6 +65,7 @@
 		},
 		{
 			"fromNodeId":"n_hvwhm",
+			"id":"if@n_hvwhm@n_gk1T4",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -60,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"n_BTNV1",
+			"id":"next@n_BTNV1@n_gk1T4",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_gk1T4",
@@ -67,6 +82,7 @@
 		},
 		{
 			"fromNodeId":"n_gk1T4",
+			"id":"next@n_gk1T4@n_sdSdV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_sdSdV",
@@ -74,6 +90,7 @@
 		},
 		{
 			"fromNodeId":"n_sdSdV",
+			"id":"if@n_sdSdV@n_0LtkX",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -82,6 +99,7 @@
 		},
 		{
 			"fromNodeId":"n_sdSdV",
+			"id":"next@n_sdSdV@n_InNRK",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -104,7 +122,7 @@
 	"id":"69d4e806164b0f735db6ea41",
 	"lastModifiedBy":-1,
 	"lcName":"memory | add memories (add from user conversation)",
-	"modifiedTime":1788252972272,
+	"modifiedTime":1789395391355,
 	"name":"Memory | Add Memories (add from user conversation)",
 	"nodes":[
 		{
@@ -142,6 +160,10 @@
 							"title":"memoryProfileId",
 							"type":"integer"
 						},
+						"memoryRecordId":{
+							"title":"Memory Record Id",
+							"type":"string"
+						},
 						"memoryTypes":{
 							"items":{
 								"type":"string"
@@ -169,6 +191,14 @@
 						},
 						"modelId":{
 							"title":"Model Id",
+							"type":"string"
+						},
+						"operation":{
+							"title":"Operation",
+							"type":"string"
+						},
+						"updatedMemoryText":{
+							"title":"updatedMemoryText",
 							"type":"string"
 						},
 						"user_id":{
@@ -256,17 +286,47 @@
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"imported_memory_store",
 				"skipIfBlank":false,
 				"record":{
 					"UserId":"{{ n_H87EL.outputs.user_id }}",
 					"importText":"{{ n_t7rm6.outputs.mssg }}"
-				}
+				},
+				"useUuid":false,
+				"batching":false
 			},
 			"skip":false,
 			"subTitle":"ImportedMemoryStore",
 			"title":"Create record",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1222,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_9xYhE-1",
+			"id":"n_xyXby",
+			"index":4,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"enterprise_search_agent"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
 		},
 		{
 			"context":{
@@ -280,7 +340,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_9xYhE-1",
 			"id":"n_hvwhm",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"filters":[
 					{
@@ -323,7 +383,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_hvwhm@_9xYhE-1@n",
 			"id":"n_rlMhH",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -419,7 +479,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_hvwhm@_9xYhE-1@n",
 			"id":"n_BTNV1",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"variables":[
 					{
@@ -445,14 +505,16 @@
 			"fallbackMode":"STOP",
 			"groupId":"_9xYhE-1",
 			"id":"n_gk1T4",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"automationId":"69b2c6124df22e00555d2b58",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
+					"embeddingModelId":"{{ n_xyXby.outputs.properties.indexingSettings.embeddingModel }}",
 					"episodicFlag":false,
-					"llmModelId":"{{ __ENV__.outputs.memoryExtractionModel }}",
+					"importedMemoryRecordId":"{{ n_2tNoZ.outputs.id }}",
+					"llmModelId":"{{ n_xyXby.outputs.properties.topicExecutionSettings.topicExecutionModel }}",
 					"memoryProfileId":"{{ __ENV__.outputs.globalMemoryProfileId }}",
 					"messages":"{{ n_t7rm6.outputs.mssg }}",
 					"proceduralFlag":false,
@@ -479,7 +541,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_9xYhE-1",
 			"id":"n_sdSdV",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"filters":[
 					{
@@ -509,7 +571,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_sdSdV@_9xYhE-1@y",
 			"id":"n_0LtkX",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"result":{
 					"status":"200 - OK"
@@ -532,7 +594,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_sdSdV@_9xYhE-1@n",
 			"id":"n_InNRK",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"result":{
 					"status":"400 - Bad Request"
@@ -559,7 +621,7 @@
 	},
 	"standard":true,
 	"tags":[
-		
+		"text-to-agent"
 	],
-	"version":14
+	"version":16
 }
