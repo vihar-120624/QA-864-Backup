@@ -4,14 +4,16 @@
 	],
 	"createdTime":1787743767189,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743767264,
+		"deployedAt":1789395176348,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece1745d2142160e6def2",
+		"deployedDefinitionId":"6aa800e8c6a14707f1503619",
+		"deploymentNotes":"Multi-query path unioned per-query lookup results without dedupe, so overlapping searches (e.g. email/gmail/mail) returned the same connection 2-3 times. New groovy node dedupes by connection id (first occurrence wins) before the loop-path response.",
+		"deploymentTag":"dedupe-connections-by-id",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":29
+		"version":2,
+		"workflowVersion":32
 	},
 	"description":"Used to fetch connections for appName(s) via query or id(s)",
 	"edges":[
@@ -203,7 +205,15 @@
 		},
 		{
 			"fromNodeId":"n_CVgBE",
-			"id":"next@n_CVgBE@n_Y7R6y",
+			"id":"next@n_CVgBE@n_DedUp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DedUp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DedUp",
+			"id":"next@n_DedUp@n_Y7R6y",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Y7R6y",
@@ -225,7 +235,7 @@
 	"id":"6a62f9d2e53925678f4b3f88",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) fetch app connections",
-	"modifiedTime":1788252971621,
+	"modifiedTime":1789395388369,
 	"name":"(tool) Fetch App Connections",
 	"nodes":[
 		{
@@ -242,77 +252,77 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"connections"
-					],
 					"properties":{
 						"connections":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"active":{
-										"type":"boolean",
-										"title":"active"
+										"title":"active",
+										"type":"boolean"
 									},
 									"appName":{
-										"type":"string",
-										"title":"appName"
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name",
 									"active",
 									"appName"
-								]
+								],
+								"type":"object"
 							},
-							"title":"connections"
+							"title":"connections",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"connections"
+					],
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"appNames"
-					],
 					"properties":{
-						"connectionIds":{
-							"type":"array",
-							"items":{
-								"type":"string"
-							},
-							"title":"connectionIds",
-							"help":"If you have a list of connection ids, pass them as an array of strings"
-						},
 						"appNames":{
-							"type":"array",
+							"help":"Pass the app names whose connections you want to fetch, ex. [\"slack\", \"gsheets\", ...]",
 							"items":{
 								"type":"string"
 							},
 							"title":"appNames",
-							"help":"Pass the app names whose connections you want to fetch, ex. [\"slack\", \"gsheets\", ...]"
+							"type":"array"
 						},
-						"searchQueries":{
-							"type":"array",
+						"connectionIds":{
+							"help":"If you have a list of connection ids, pass them as an array of strings",
 							"items":{
 								"type":"string"
 							},
-							"title":"searchQueries"
+							"title":"connectionIds",
+							"type":"array"
+						},
+						"searchQueries":{
+							"items":{
+								"type":"string"
+							},
+							"title":"searchQueries",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"appNames"
+					],
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -339,17 +349,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_rnu4l.outputs.connectionIds }}",
 						"filter":{
 							"operator":"EXISTS"
-						}
+						},
+						"property":"{{ n_rnu4l.outputs.connectionIds }}"
 					},
 					{
-						"property":"=LEN({{ n_rnu4l.outputs.connectionIds }})",
 						"filter":{
 							"operator":"GT",
 							"value":"=0"
-						}
+						},
+						"property":"=LEN({{ n_rnu4l.outputs.connectionIds }})"
 					}
 				],
 				"operator":"AND"
@@ -396,14 +406,14 @@
 			"inputs":{
 				"result":{
 					"connections":{
-						"source":"{{ n_3Womd.outputs.connectionDetails }}",
-						"ua:type":"mappedArray",
 						"items":{
-							"id":"{{ n_3Womd.outputs.connectionDetails[0].id }}",
-							"name":"{{ n_3Womd.outputs.connectionDetails[0].name }}",
 							"active":"{{ n_3Womd.outputs.connectionDetails[0].active }}",
-							"appName":"{{ n_3Womd.outputs.connectionDetails[0].appName }}"
-						}
+							"appName":"{{ n_3Womd.outputs.connectionDetails[0].appName }}",
+							"id":"{{ n_3Womd.outputs.connectionDetails[0].id }}",
+							"name":"{{ n_3Womd.outputs.connectionDetails[0].name }}"
+						},
+						"source":"{{ n_3Womd.outputs.connectionDetails }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -428,17 +438,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_rnu4l.outputs.searchQueries }}",
 						"filter":{
 							"operator":"MISSING"
-						}
+						},
+						"property":"{{ n_rnu4l.outputs.searchQueries }}"
 					},
 					{
-						"property":"=LEN({{ n_rnu4l.outputs.searchQueries }})",
 						"filter":{
 							"operator":"EQUAL",
 							"value":"=0"
-						}
+						},
+						"property":"=LEN({{ n_rnu4l.outputs.searchQueries }})"
 					}
 				],
 				"operator":"OR"
@@ -464,17 +474,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_rnu4l.outputs.appNames }}",
 						"filter":{
 							"operator":"EXISTS"
-						}
+						},
+						"property":"{{ n_rnu4l.outputs.appNames }}"
 					},
 					{
-						"property":"=LEN({{ n_rnu4l.outputs.appNames }})",
 						"filter":{
 							"operator":"GT",
 							"value":"0"
-						}
+						},
+						"property":"=LEN({{ n_rnu4l.outputs.appNames }})"
 					}
 				],
 				"operator":"AND"
@@ -501,26 +511,26 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"appName",
 							"filter":{
 								"operator":"IN",
 								"value":"{{ n_rnu4l.outputs.appNames }}"
-							}
+							},
+							"property":"appName"
 						},
 						{
 							"filters":[
 								{
-									"property":"deleted",
 									"filter":{
 										"operator":"EQUAL",
 										"value":"=FALSE()"
-									}
+									},
+									"property":"deleted"
 								},
 								{
-									"property":"deleted",
 									"filter":{
 										"operator":"MISSING"
-									}
+									},
+									"property":"deleted"
 								}
 							],
 							"operator":"OR"
@@ -534,13 +544,13 @@
 					"limit":20,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name",
 					"appName",
 					"active"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -562,60 +572,60 @@
 			"index":8,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"connections"
-					],
 					"properties":{
 						"connections":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"active":{
-										"type":"boolean",
-										"title":"active"
+										"title":"active",
+										"type":"boolean"
 									},
 									"appName":{
-										"type":"string",
-										"title":"appName"
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name",
 									"active",
 									"appName"
-								]
+								],
+								"type":"object"
 							},
-							"title":"connections"
+							"title":"connections",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"connections"
+					],
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"response",
+							"type":"object"
+						}
+					},
 					"required":[
 						"response"
 					],
-					"properties":{
-						"response":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"response"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = binding.getVariable('response') ?: [objects:[:]]\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef objects = serializedResponse['objects']\n\nreturn [\"connections\": objects]",
 				"compile_static":false,
@@ -645,14 +655,14 @@
 			"inputs":{
 				"result":{
 					"connections":{
-						"ua:type":"mappedArray",
 						"items":{
-							"name":"{{ n_aGTWn.outputs.result.connections[0].name }}",
 							"active":"{{ n_aGTWn.outputs.result.connections[0].active }}",
 							"appName":"{{ n_aGTWn.outputs.result.connections[0].appName }}",
-							"id":"{{ n_aGTWn.outputs.result.connections[0].id }}"
+							"id":"{{ n_aGTWn.outputs.result.connections[0].id }}",
+							"name":"{{ n_aGTWn.outputs.result.connections[0].name }}"
 						},
-						"source":"{{ n_aGTWn.outputs.result.connections }}"
+						"source":"{{ n_aGTWn.outputs.result.connections }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -678,17 +688,17 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"EQUAL",
 								"value":"=FALSE()"
-							}
+							},
+							"property":"deleted"
 						},
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"MISSING"
-							}
+							},
+							"property":"deleted"
 						}
 					],
 					"operator":"OR"
@@ -699,13 +709,13 @@
 					"limit":20,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name",
 					"appName",
 					"active"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -727,60 +737,60 @@
 			"index":11,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"connections"
-					],
 					"properties":{
 						"connections":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"active":{
-										"type":"boolean",
-										"title":"active"
+										"title":"active",
+										"type":"boolean"
 									},
 									"appName":{
-										"type":"string",
-										"title":"appName"
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name",
 									"active",
 									"appName"
-								]
+								],
+								"type":"object"
 							},
-							"title":"connections"
+							"title":"connections",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"connections"
+					],
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"response",
+							"type":"object"
+						}
+					},
 					"required":[
 						"response"
 					],
-					"properties":{
-						"response":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"response"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = binding.getVariable('response') ?: [objects:[:]]\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef objects = serializedResponse['objects']\n\nreturn [\"connections\": objects]",
 				"compile_static":false,
@@ -810,14 +820,14 @@
 			"inputs":{
 				"result":{
 					"connections":{
-						"ua:type":"mappedArray",
 						"items":{
-							"name":"{{ n_GCSXd.outputs.result.connections[0].name }}",
 							"active":"{{ n_GCSXd.outputs.result.connections[0].active }}",
 							"appName":"{{ n_GCSXd.outputs.result.connections[0].appName }}",
-							"id":"{{ n_GCSXd.outputs.result.connections[0].id }}"
+							"id":"{{ n_GCSXd.outputs.result.connections[0].id }}",
+							"name":"{{ n_GCSXd.outputs.result.connections[0].name }}"
 						},
-						"source":"{{ n_GCSXd.outputs.result.connections }}"
+						"source":"{{ n_GCSXd.outputs.result.connections }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -844,18 +854,18 @@
 				"dynamic":false,
 				"layout":{
 					"createList":{
-						"ui:title":"",
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
 						"ua:type":{
 							"ui:widget":"hidden"
-						},
-						"items":{
-							"ui:title":"Initial list items",
-							"ui:description":"Set the initial values of the list (defaults to empty)"
 						},
 						"ui:order":[
 							"*",
 							"items"
-						]
+						],
+						"ui:title":""
 					},
 					"ua:title":{
 						"ui:widget":"hidden"
@@ -877,13 +887,13 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
 											"items":{
-												"type":"object",
-												"properties":{}
+												"properties":{},
+												"type":"object"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -899,17 +909,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of String"
-											},
 											"items":{
 												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -925,17 +935,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Integers"
-											},
 											"items":{
 												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -951,17 +961,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Numbers"
-											},
 											"items":{
 												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -977,17 +987,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Booleans"
-											},
 											"items":{
 												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -996,12 +1006,44 @@
 					"format":"ua:list",
 					"type":"object",
 					"properties":{
-						"ua:title":{
-							"type":"string"
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"active":{
+											"title":"active",
+											"type":"boolean"
+										},
+										"appName":{
+											"title":"appName",
+											"type":"string"
+										},
+										"id":{
+											"title":"id",
+											"type":"string"
+										},
+										"name":{
+											"title":"name",
+											"type":"string"
+										}
+									},
+									"type":"object"
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"ua:list_type":{
-							"type":"string",
-							"title":"List Type",
+							"default":"OBJECT",
 							"oneOf":[
 								{
 									"const":"OBJECT",
@@ -1024,43 +1066,11 @@
 									"title":"Boolean"
 								}
 							],
-							"default":"OBJECT"
+							"title":"List Type",
+							"type":"string"
 						},
-						"createList":{
-							"type":"object",
-							"properties":{
-								"ua:type":{
-									"type":"string",
-									"default":"mappedArray"
-								},
-								"source":{
-									"type":"string",
-									"format":"ua:source",
-									"title":"List Item Source"
-								},
-								"items":{
-									"type":"object",
-									"properties":{
-										"id":{
-											"type":"string",
-											"title":"id"
-										},
-										"name":{
-											"type":"string",
-											"title":"name"
-										},
-										"active":{
-											"type":"boolean",
-											"title":"active"
-										},
-										"appName":{
-											"type":"string",
-											"title":"appName"
-										}
-									},
-									"additionalProperties":false
-								}
-							}
+						"ua:title":{
+							"type":"string"
 						}
 					}
 				}
@@ -1079,30 +1089,30 @@
 					"type":"object",
 					"properties":{
 						"items":{
-							"type":"array",
-							"title":"Connections",
 							"disableActions":true,
 							"items":{
-								"type":"object",
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"active":{
-										"type":"boolean",
-										"title":"active"
+										"title":"active",
+										"type":"boolean"
 									},
 									"appName":{
-										"type":"string",
-										"title":"appName"
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
-								}
-							}
+								},
+								"type":"object"
+							},
+							"title":"Connections",
+							"type":"array"
 						}
 					}
 				}
@@ -1150,17 +1160,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_rnu4l.outputs.appNames }}",
 						"filter":{
 							"operator":"EXISTS"
-						}
+						},
+						"property":"{{ n_rnu4l.outputs.appNames }}"
 					},
 					{
-						"property":"=LEN({{ n_rnu4l.outputs.appNames }})",
 						"filter":{
 							"operator":"GT",
 							"value":"0"
-						}
+						},
+						"property":"=LEN({{ n_rnu4l.outputs.appNames }})"
 					}
 				],
 				"operator":"AND"
@@ -1187,26 +1197,26 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"appName",
 							"filter":{
 								"operator":"IN",
 								"value":"{{ n_rnu4l.outputs.appNames }}"
-							}
+							},
+							"property":"appName"
 						},
 						{
 							"filters":[
 								{
-									"property":"deleted",
 									"filter":{
 										"operator":"EQUAL",
 										"value":"=FALSE()"
-									}
+									},
+									"property":"deleted"
 								},
 								{
-									"property":"deleted",
 									"filter":{
 										"operator":"MISSING"
-									}
+									},
+									"property":"deleted"
 								}
 							],
 							"operator":"OR"
@@ -1220,13 +1230,13 @@
 					"limit":20,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name",
 					"appName",
 					"active"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -1248,60 +1258,60 @@
 			"index":17,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"connections"
-					],
 					"properties":{
 						"connections":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"active":{
-										"type":"boolean",
-										"title":"active"
+										"title":"active",
+										"type":"boolean"
 									},
 									"appName":{
-										"type":"string",
-										"title":"appName"
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name",
 									"active",
 									"appName"
-								]
+								],
+								"type":"object"
 							},
-							"title":"connections"
+							"title":"connections",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"connections"
+					],
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"response",
+							"type":"object"
+						}
+					},
 					"required":[
 						"response"
 					],
-					"properties":{
-						"response":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"response"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = binding.getVariable('response') ?: [objects:[:]]\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef objects = serializedResponse['objects']\n\nreturn [\"connections\": objects]",
 				"compile_static":false,
@@ -1340,14 +1350,14 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"ua:type":"mappedArray",
-					"source":"{{ n_dEO7X.outputs.result.connections }}",
 					"items":{
-						"id":"{{ n_dEO7X.outputs.result.connections[0].id }}",
-						"name":"{{ n_dEO7X.outputs.result.connections[0].name }}",
 						"active":"{{ n_dEO7X.outputs.result.connections[0].active }}",
-						"appName":"{{ n_dEO7X.outputs.result.connections[0].appName }}"
-					}
+						"appName":"{{ n_dEO7X.outputs.result.connections[0].appName }}",
+						"id":"{{ n_dEO7X.outputs.result.connections[0].id }}",
+						"name":"{{ n_dEO7X.outputs.result.connections[0].name }}"
+					},
+					"source":"{{ n_dEO7X.outputs.result.connections }}",
+					"ua:type":"mappedArray"
 				},
 				"listName":"{{ n_MBlfq.outputs.items[0] }}"
 			},
@@ -1373,17 +1383,17 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"EQUAL",
 								"value":"=FALSE()"
-							}
+							},
+							"property":"deleted"
 						},
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"MISSING"
-							}
+							},
+							"property":"deleted"
 						}
 					],
 					"operator":"OR"
@@ -1394,13 +1404,13 @@
 					"limit":20,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name",
 					"appName",
 					"active"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -1422,60 +1432,60 @@
 			"index":20,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"connections"
-					],
 					"properties":{
 						"connections":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"active":{
-										"type":"boolean",
-										"title":"active"
+										"title":"active",
+										"type":"boolean"
 									},
 									"appName":{
-										"type":"string",
-										"title":"appName"
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name",
 									"active",
 									"appName"
-								]
+								],
+								"type":"object"
 							},
-							"title":"connections"
+							"title":"connections",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"connections"
+					],
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"response",
+							"type":"object"
+						}
+					},
 					"required":[
 						"response"
 					],
-					"properties":{
-						"response":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"response"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = binding.getVariable('response') ?: [objects:[:]]\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef objects = serializedResponse['objects']\n\nreturn [\"connections\": objects]",
 				"compile_static":false,
@@ -1514,14 +1524,14 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"ua:type":"mappedArray",
-					"source":"{{ n_m4bdQ.outputs.result.connections }}",
 					"items":{
-						"id":"{{ n_m4bdQ.outputs.result.connections[0].id }}",
-						"name":"{{ n_m4bdQ.outputs.result.connections[0].name }}",
 						"active":"{{ n_m4bdQ.outputs.result.connections[0].active }}",
-						"appName":"{{ n_m4bdQ.outputs.result.connections[0].appName }}"
-					}
+						"appName":"{{ n_m4bdQ.outputs.result.connections[0].appName }}",
+						"id":"{{ n_m4bdQ.outputs.result.connections[0].id }}",
+						"name":"{{ n_m4bdQ.outputs.result.connections[0].name }}"
+					},
+					"source":"{{ n_m4bdQ.outputs.result.connections }}",
+					"ua:type":"mappedArray"
 				},
 				"listName":"{{ n_MBlfq.outputs.items[0] }}"
 			},
@@ -1546,14 +1556,14 @@
 			"inputs":{
 				"result":{
 					"connections":{
-						"source":"{{ n_MBlfq.outputs.items }}",
-						"ua:type":"mappedArray",
 						"items":{
-							"id":"{{ n_MBlfq.outputs.items[0].id }}",
-							"name":"{{ n_MBlfq.outputs.items[0].name }}",
-							"active":"{{ n_MBlfq.outputs.items[0].active }}",
-							"appName":"{{ n_MBlfq.outputs.items[0].appName }}"
-						}
+							"active":"{{ n_DedUp.outputs.result.connections[0].active }}",
+							"appName":"{{ n_DedUp.outputs.result.connections[0].appName }}",
+							"id":"{{ n_DedUp.outputs.result.connections[0].id }}",
+							"name":"{{ n_DedUp.outputs.result.connections[0].name }}"
+						},
+						"source":"{{ n_DedUp.outputs.result.connections }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -1561,6 +1571,91 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":113,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_RcXxH@n_F77Qw@_70992-1@n@n",
+			"id":"n_DedUp",
+			"index":23,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"connections":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"active":{
+										"title":"active",
+										"type":"boolean"
+									},
+									"appName":{
+										"title":"appName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									}
+								},
+								"required":[
+									"id",
+									"name",
+									"active",
+									"appName"
+								],
+								"type":"object"
+							},
+							"title":"connections",
+							"type":"array"
+						}
+					},
+					"required":[
+						"connections"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"items":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"items",
+							"type":"array"
+						}
+					},
+					"required":[
+						"items"
+					],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\n// Overlapping search queries surface the same connection once per query;\n// keep the first occurrence of each id so the caller sees each connection once.\ndef items = binding.getVariable('items') ?: []\ndef serialized = JsonUtils.toJSON([items: items])['items']\ndef seen = new LinkedHashMap()\nfor (item in serialized) {\n  def key = item['id']\n  if (key != null && !seen.containsKey(key)) { seen[key] = item }\n}\nreturn [\"connections\": new ArrayList(seen.values())]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"items":"{{ n_MBlfq.outputs.items }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code ",
+			"title":"Dedupe connections by id",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":-1,
@@ -1580,5 +1675,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":31
+	"version":33
 }

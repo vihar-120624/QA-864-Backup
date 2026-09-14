@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743916462,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743916518,
+		"deployedAt":1789395262793,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eceac45d2142160e6ed68",
+		"deployedDefinitionId":"6aa8013e72fd792214e8ca0d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":62
+		"version":2,
+		"workflowVersion":65
 	},
 	"edges":[
 		{
@@ -126,7 +126,15 @@
 		},
 		{
 			"fromNodeId":"_x4Og4",
-			"id":"next@_x4Og4@n_1pytx",
+			"id":"next@_x4Og4@n_fbCat",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fbCat",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_fbCat",
+			"id":"next@n_fbCat@n_1pytx",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_1pytx",
@@ -160,41 +168,7 @@
 		},
 		{
 			"fromNodeId":"_hLy7c",
-			"id":"next@_hLy7c@n_q6IhX",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_q6IhX",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_q6IhX",
-			"id":"if@n_q6IhX@n_tNqjL",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_tNqjL",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_q6IhX",
-			"id":"next@n_q6IhX@n_0UhqJ",
-			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_0UhqJ",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_tNqjL",
-			"id":"next@n_tNqjL@_FurYO",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_FurYO",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_0UhqJ",
-			"id":"next@n_0UhqJ@_FurYO",
+			"id":"next@_hLy7c@_FurYO",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_FurYO",
@@ -274,7 +248,7 @@
 	"id":"66ceb3cdbd8ae2117198c3af",
 	"lastModifiedBy":-1,
 	"lcName":"generic_co_pilot_feedback_collector",
-	"modifiedTime":1788252972318,
+	"modifiedTime":1789395388377,
 	"name":"GENERIC_CO_PILOT_Feedback_collector",
 	"nodes":[
 		{
@@ -912,6 +886,71 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":704,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"zQ5AD-1",
+			"id":"n_fbCat",
+			"index":12,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"feedbackCategories":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Feedback Categories",
+							"type":"array"
+						},
+						"rawFeedbackCategories":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Raw Feedback Categories",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"feedbackCategories":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Feedback Categories",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// Resolve client-supplied feedback categories to the canonical consts declared on\n// service_hub_user_feedback.feedbackCategories.\n//\n// That field is a closed oneOf and the entity has schemaValidationEnabled: true, so an\n// unrecognised value fails EntitySchemaValidator and aborts the create in _VinW9 - the\n// caller sees a 500 and the feedback is lost.\n//\n// Clients that render the FEEDBACK_CATEGORY picker (6978632eec4c1178730a8844) post the\n// const and pass through untouched. Clients with a hardcoded chip list post the display\n// label instead; those are normalised and, where the wording differs from ours, aliased.\n// Anything still unresolved becomes OTHER rather than failing the write.\n//\n// rawFeedbackCategories stays empty when every value arrived canonical, and carries the\n// verbatim submission whenever anything was rewritten. A non-empty value is therefore the\n// signal that a client is not speaking the const contract - and it is the only way to tell\n// a genuine OTHER from a label we could not resolve.\n\ndef CONSTS = [\n    'INACCURATE_INFORMATION', 'AMBIGOUS_RESPONSE', 'IS_NOT_RELEVANT',\n    'INAPPROPRIATE_CONTENT', 'INCOMPLETE_RESPONSE', 'FORMATTING_ISSUE',\n    'OUTDATED_INFORMATION', 'NOT_RELEVANT_OR_CONTEXTUAL', 'WRONG_CITATIONS',\n    'TOO_GENERIC', 'TOO_VERBOSE', 'NO_ANSWER', 'MISSING_CITATIONS', 'OTHER'\n] as Set\n\n// Wording variants that map onto a const we already have. Same shape as the\n// negativeIdToConstMap in Fetch Feedback Categories (6978632eec4c1178730a8844).\n//\n// NOTE: these keys are POST-NORMALISATION forms, not the literal strings a client sends.\n// A client posts \"Outdated answer\"; normalisation below upper-cases it and turns runs of\n// whitespace/hyphen into underscores, giving OUTDATED_ANSWER, and that is what is looked\n// up here. Add new entries in normalised form or they will never match.\ndef ALIASES = [\n    'OUTDATED_ANSWER'            : 'OUTDATED_INFORMATION',\n    'WRONG_ANSWER'               : 'INACCURATE_INFORMATION',\n    'WRONG_CITATION_OR_SOURCE'   : 'WRONG_CITATIONS',\n    'MISSING_CITATION_OR_SOURCE' : 'MISSING_CITATIONS'\n]\n\ndef raw = (binding.hasVariable('feedbackCategories') && feedbackCategories) ? feedbackCategories : []\n\ndef resolved = []\ndef rawKept = []\ndef rewritten = false\n\nraw.each { item ->\n    def text = item?.toString()?.trim()\n    if (!text) {\n        return\n    }\n    // \"Outdated answer\" -> \"OUTDATED ANSWER\" -> \"OUTDATED_ANSWER\"\n    def key = text.toUpperCase().replaceAll(/[\\s\\-]+/, '_')\n    def value = CONSTS.contains(key) ? key : (ALIASES[key] ?: 'OTHER')\n    if (text != value) {\n        rewritten = true\n    }\n    resolved << value\n    rawKept << text\n}\n\nreturn [\n    'feedbackCategories'   : resolved.unique(),\n    'rawFeedbackCategories': rewritten ? rawKept : []\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"feedbackCategories":{
+						"items":"{{ _x4Og4.outputs.feedbackCategories[0] }}",
+						"source":"{{ _x4Og4.outputs.feedbackCategories }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Resolve feedback categories",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":447,
 				"resourceName":"if_else_condition",
@@ -922,7 +961,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zQ5AD-1",
 			"id":"n_1pytx",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"filters":[
 					{
@@ -952,7 +991,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1pytx@zQ5AD-1@y",
 			"id":"_6xbbv",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1051,7 +1090,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1pytx@zQ5AD-1@y",
 			"id":"_A4fKn",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"filters":[
 					{
@@ -1080,7 +1119,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_A4fKn@n_1pytx@zQ5AD-1@y@y",
 			"id":"_hLy7c",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -1127,135 +1166,7 @@
 						"actionType":"SET",
 						"fieldName":"properties.includeSessionDetails",
 						"setValue":"{{ _x4Og4.outputs.includeSessionDetails }}"
-					}
-				],
-				"page":{
-					"limit":20,
-					"offset":0
-				},
-				"skipSchemaValidation":true,
-				"unsetIfNull":false
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"STOP",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
-			},
-			"skip":false,
-			"subTitle":"update required fields",
-			"title":"Update records by query",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"if_else",
-				"resourceVersion":472,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_A4fKn@n_1pytx@zQ5AD-1@y@y",
-			"id":"n_q6IhX",
-			"index":16,
-			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EQUAL",
-							"value":"true"
-						},
-						"property":"{{ _x4Og4.outputs.includeSessionDetails }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":793,
-				"resourceName":"storage_by_unifyapps_update_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_q6IhX@_A4fKn@n_1pytx@zQ5AD-1@y@y@y",
-			"id":"n_tNqjL",
-			"index":17,
-			"inputs":{
-				"numberOfRecordsToUpdate":"SINGLE",
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ _x4Og4.outputs.messageId }}"
-							},
-							"property":"properties_messageId"
-						}
-					],
-					"operator":"AND"
-				},
-				"object_type":"service_hub_user_feedback",
-				"skipIfBlank":false,
-				"updateFields":[
+					},
 					{
 						"actionType":"SET",
 						"fieldName":"properties.messageId",
@@ -1264,113 +1175,12 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.fanMessageId",
-						"setValue":"{{ _x4Og4.outputs.fanMessageId }}"
-					}
-				],
-				"page":{
-					"limit":20,
-					"offset":0
-				},
-				"skipSchemaValidation":true,
-				"unsetIfNull":false
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"STOP",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
-			},
-			"skip":false,
-			"subTitle":"update required fields",
-			"title":"Update records by query",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":793,
-				"resourceName":"storage_by_unifyapps_update_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_q6IhX@_A4fKn@n_1pytx@zQ5AD-1@y@y@n",
-			"id":"n_0UhqJ",
-			"index":18,
-			"inputs":{
-				"numberOfRecordsToUpdate":"SINGLE",
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ _x4Og4.outputs.messageId }}"
-							},
-							"property":"properties_messageId"
-						}
-					],
-					"operator":"AND"
-				},
-				"object_type":"service_hub_user_feedback",
-				"skipIfBlank":false,
-				"updateFields":[
-					{
-						"actionType":"UNSET",
-						"fieldName":"properties.fanMessageId"
+						"setValue":"{{ EEQFD.outputs.properties.additional.parentMessageId }}"
 					},
 					{
-						"actionType":"UNSET",
-						"fieldName":"properties.messageId"
+						"actionType":"SET",
+						"fieldName":"properties.caseId",
+						"setValue":"{{ _x4Og4.outputs.caseId }}"
 					}
 				],
 				"page":{
@@ -1452,7 +1262,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_A4fKn@n_1pytx@zQ5AD-1@y@y",
 			"id":"_FurYO",
-			"index":19,
+			"index":17,
 			"inputs":{
 				"variables":[
 					{
@@ -1496,7 +1306,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_A4fKn@n_1pytx@zQ5AD-1@y@n",
 			"id":"_VinW9",
-			"index":20,
+			"index":18,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -1512,20 +1322,26 @@
 						"source":"{{ _x4Og4.outputs.attachments }}",
 						"ua:type":"mappedArray"
 					},
-					"fanMessageId":"=IF({{ _x4Og4.outputs.includeSessionDetails }}, {{ EEQFD.outputs.properties.additional.parentMessageId }}, \"\")",
+					"caseId":"{{ _x4Og4.outputs.caseId }}",
+					"fanMessageId":"{{ EEQFD.outputs.properties.additional.parentMessageId }}",
 					"feedbackCategories":{
-						"items":"{{ _x4Og4.outputs.feedbackCategories[0] }}",
-						"source":"{{ _x4Og4.outputs.feedbackCategories }}",
+						"items":"{{ n_fbCat.outputs.result.feedbackCategories[0] }}",
+						"source":"{{ n_fbCat.outputs.result.feedbackCategories }}",
 						"ua:type":"mappedArray"
 					},
 					"includeSessionDetails":"{{ _x4Og4.outputs.includeSessionDetails }}",
-					"messageId":"=IF({{ _x4Og4.outputs.includeSessionDetails }}, {{ _x4Og4.outputs.messageId }}, \"\")",
+					"messageId":"{{ _x4Og4.outputs.messageId }}",
 					"positiveFeedbackCategories":{
 						"items":"{{ _x4Og4.outputs.positiveFeedbackCategories[0] }}",
 						"source":"{{ _x4Og4.outputs.positiveFeedbackCategories }}",
 						"ua:type":"mappedArray"
 					},
 					"processing_status":"unprocessed",
+					"rawFeedbackCategories":{
+						"items":"{{ n_fbCat.outputs.rawFeedbackCategories[0] }}",
+						"source":"{{ n_fbCat.outputs.rawFeedbackCategories }}",
+						"ua:type":"mappedArray"
+					},
 					"reaction":"{{ _x4Og4.outputs.reaction }}",
 					"userFeedback":"{{ _x4Og4.outputs.userFeedback }}"
 				},
@@ -1604,7 +1420,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1pytx@zQ5AD-1@y",
 			"id":"_QfJly",
-			"index":21,
+			"index":19,
 			"inputs":{
 				"result":{
 					"additional":{
@@ -1640,7 +1456,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1pytx@zQ5AD-1@n",
 			"id":"n_vhLgo",
-			"index":22,
+			"index":20,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1734,7 +1550,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1pytx@zQ5AD-1@n",
 			"id":"n_4DmXc",
-			"index":23,
+			"index":21,
 			"inputs":{
 				"result":{
 					"additional":{
@@ -1761,7 +1577,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zQ5AD-1",
 			"id":"n_dNQPB",
-			"index":24,
+			"index":22,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -1782,8 +1598,5 @@
 		}
 	},
 	"standard":true,
-	"tags":[
-		"AI Agent"
-	],
-	"version":64
+	"version":66
 }
