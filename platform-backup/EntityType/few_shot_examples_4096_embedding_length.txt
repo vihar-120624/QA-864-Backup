@@ -1,5 +1,5 @@
 {
-	"columnCounts":6,
+	"columnCounts":7,
 	"createdTime":1787743339064,
 	"deleted":false,
 	"grants":{
@@ -23,7 +23,8 @@
 				"query",
 				"type",
 				"agentID",
-				"embeddings"
+				"embeddings",
+				"knowledgeSetIds"
 			]
 		},
 		"schema":{
@@ -39,6 +40,7 @@
 					"efConstructionSize":100,
 					"efSearchSize":100,
 					"encoder":{
+						"name":"flat",
 						"params":{}
 					},
 					"engine":"faiss",
@@ -61,6 +63,16 @@
 				"knowledgeId":{
 					"title":"knowledgeId",
 					"type":"string"
+				},
+				"knowledgeSetIds":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Knowledge Set Id",
+					"type":"string",
+					"uniqueKey":false
 				},
 				"output":{
 					"title":"output",
@@ -94,6 +106,7 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
 		"encryptedFields":[
 			
@@ -102,6 +115,7 @@
 		"filterableFields":[
 			"agentID",
 			"knowledgeId",
+			"knowledgeSetIds",
 			"output",
 			"query",
 			"type"
@@ -127,7 +141,7 @@
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
 		"searchableFields":[
-			
+			"knowledgeSetIds"
 		],
 		"sessionBackedStorageEnabled":false,
 		"skipConfigSyncIfModified":false,
@@ -142,7 +156,8 @@
 		"skipVersionIncrementOnUpdate":false,
 		"storeDetails":{
 			"store":"OPEN_SEARCH",
-			"indexName":"few_shot_examples_4096_embedding_length_864",
+			"indexName":"few_shot_examples_4096_embedding_length_147",
+			"numberOfShards":2,
 			"resourceType":"OPEN_SEARCH",
 			"searchableFieldsAnalyzerName":"edge_ngram_analyzer",
 			"uniqueKeySupported":false
@@ -164,7 +179,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1787743339064,
+	"modifiedTime":1789394979960,
 	"name":"fewShotExamples_4096_embedding_length",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -185,6 +200,7 @@
 					"efConstructionSize":100,
 					"efSearchSize":100,
 					"encoder":{
+						"name":"flat",
 						"params":{}
 					},
 					"engine":"faiss",
@@ -208,6 +224,16 @@
 					"title":"knowledgeId",
 					"type":"string"
 				},
+				"knowledgeSetIds":{
+					"filterable":true,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":true,
+					"title":"Knowledge Set Id",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"output":{
 					"title":"output",
 					"type":"string"
@@ -227,5 +253,5 @@
 		}
 	},
 	"standard":true,
-	"version":3
+	"version":4
 }
