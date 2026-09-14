@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744008669,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744008790,
+		"deployedAt":1789395298983,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf08cee862008d74cd3f",
+		"deployedDefinitionId":"6aa80162c6a14707f1503c98",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":157
+		"version":2,
+		"workflowVersion":160
 	},
 	"edges":[
 		{
@@ -108,7 +108,15 @@
 		},
 		{
 			"fromNodeId":"iNEXV",
-			"id":"next@iNEXV@n_TEGBs",
+			"id":"next@iNEXV@n_dcVar",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dcVar",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dcVar",
+			"id":"next@n_dcVar@n_TEGBs",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_TEGBs",
@@ -124,7 +132,15 @@
 		},
 		{
 			"fromNodeId":"n_onImZ",
-			"id":"next@n_onImZ@n_CcUFe",
+			"id":"next@n_onImZ@n_cY4TS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cY4TS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cY4TS",
+			"id":"next@n_cY4TS@n_CcUFe",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_CcUFe",
@@ -157,7 +173,33 @@
 		},
 		{
 			"fromNodeId":"n_TEGBs",
-			"id":"next@n_TEGBs@n_5GAQk",
+			"id":"next@n_TEGBs@n_dcGat",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dcGat",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dcGat",
+			"id":"if@n_dcGat@n_dcEnd",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dcEnd",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_dcEnd",
+			"id":"next@n_dcEnd@n_5GAQk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5GAQk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dcGat",
+			"id":"next@n_dcGat@n_5GAQk",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_5GAQk",
@@ -237,7 +279,7 @@
 	"id":"6a2699b726a72a1d7120c7e4",
 	"lastModifiedBy":-1,
 	"lcName":"add skill tools",
-	"modifiedTime":1788252971878,
+	"modifiedTime":1789395394623,
 	"name":"Add Skill Tools",
 	"nodes":[
 		{
@@ -260,6 +302,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"tools":{
 							"items":{
@@ -569,6 +612,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1049,6 +1113,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1092,6 +1177,79 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":697,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UqsmO-1",
+			"id":"n_dcVar",
+			"index":11,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"codeDisabled":{
+							"title":"Code Disabled",
+							"type":"boolean"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"codeDisabled":true
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
+						"codeDisabled":{
+							"title":"Code Disabled",
+							"type":"boolean"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"codeDisabled",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"loop",
 				"resourceVersion":476,
 				"resourceName":"loop_for_each",
@@ -1102,7 +1260,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_UqsmO-1",
 			"id":"n_TEGBs",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_Yv6Ey.outputs.items }}",
@@ -1125,7 +1283,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_TEGBs@_UqsmO-1@l",
 			"id":"n_onImZ",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1160,6 +1318,32 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1586,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_TEGBs@_UqsmO-1@l",
+			"id":"n_cY4TS",
+			"index":14,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_dcVar.outputs.codeDisabled }}",
+						"value":"=AND({{ n_dcVar.outputs.codeDisabled }},IF({{ n_onImZ.outputs.properties.additional.disableCodeExecution }}=true,true,false))"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1383,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -1170,7 +1354,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_TEGBs@_UqsmO-1@l",
 			"id":"n_CcUFe",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1180,6 +1364,24 @@
 								"value":"{{ n_TEGBs.outputs.item }}"
 							},
 							"property":"properties_skillId"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"MISSING"
+									},
+									"property":"properties_isStandardAction"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"false"
+									},
+									"property":"properties_isStandardAction"
+								}
+							],
+							"operator":"OR"
 						}
 					],
 					"operator":"AND"
@@ -1216,7 +1418,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_TEGBs@_UqsmO-1@l",
 			"id":"n_tKLRj",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"automationId":"67a48baef8f1744841dab839",
 				"runtimeConnections":{},
@@ -1263,7 +1465,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_TEGBs@_UqsmO-1@l",
 			"id":"n_CXCtn",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -1295,8 +1497,71 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_UqsmO-1",
+			"id":"n_dcGat",
+			"index":18,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_dcVar.outputs.codeDisabled }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Code disabled by all skills?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":907,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dcGat@_UqsmO-1@y",
+			"id":"n_dcEnd",
+			"index":19,
+			"inputs":{
+				"result":{
+					"tools":{
+						"items":{
+							"additional":"{{ iNEXV.outputs.items[0].additional }}",
+							"description":"{{ iNEXV.outputs.items[0].description }}",
+							"id":"{{ iNEXV.outputs.items[0].id }}",
+							"name":"{{ iNEXV.outputs.items[0].name }}",
+							"toolInputSchema":"{{ iNEXV.outputs.items[0].toolInputSchema }}"
+						},
+						"source":"{{ iNEXV.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable (no code tool)",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":469,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_UqsmO-1",
 			"id":"n_5GAQk",
-			"index":16,
+			"index":20,
 			"inputs":{
 				"filters":[
 					{
@@ -1326,7 +1591,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5GAQk@_UqsmO-1@y",
 			"id":"n_YnNFo",
-			"index":17,
+			"index":21,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1362,7 +1627,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5GAQk@_UqsmO-1@y",
 			"id":"n_78AAX",
-			"index":18,
+			"index":22,
 			"inputs":{
 				"automationId":"6a59e1ddb0b1e01ee0e58910",
 				"runtimeConnections":{},
@@ -1390,7 +1655,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5GAQk@_UqsmO-1@y",
 			"id":"n_WHSg2",
-			"index":19,
+			"index":23,
 			"inputs":{
 				"itemToAdd":{
 					"description":"{{ n_78AAX.outputs.workspaceInstructions }}",
@@ -1419,7 +1684,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5GAQk@_UqsmO-1@n",
 			"id":"n_u4uny",
-			"index":20,
+			"index":24,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1455,7 +1720,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5GAQk@_UqsmO-1@n",
 			"id":"n_FMKSv",
-			"index":21,
+			"index":25,
 			"inputs":{
 				"itemToAdd":{
 					"description":"Executes Python code in a temporary working directory. The code must assign the final output to a variable named result and result should be JSON-serializable; unsupported values may be converted to strings.\nRUNTIME BEHAVIOR:\n- The code runs in a temporary working directory for each execution.\n- If fileDetails are provided, each file is downloaded/prepared before execution.\n- Each input file must be accessed in Python only through its fileVariableName.\n- Do not access files using quoted file names such as open(\"input.csv\").\n- The runtime should inject a Python variable for each file, where the variable name is fileVariableName and the variable value is the local file path string.\n- Example:\nIf a file detail contains:\n- name = \"uploaded_excel_file_name.xlsx\"\n- fileVariableName = \"uploaded_excel_file_name\"\nThen Python code should use:\nwith open(uploaded_excel_file_name, \"rb\") as f:\n    data = f.read()\n- Any file created by the Python code in the working directory during execution may be returned after execution as generated file objects.\n- If a generated file needs to be shared with the user, do NOT call Generate_public_file_URL. Instead, use the returned generated file object's source value and provide the user a markdown download link in this format:\n[Download](/api/file/download/<source>)\n- Example:\n[Download](/api/file/download/workflow_outputs/92b9c016-a2ef-4833-bff0-06aefaeea2cd/report.csv)\n- The final structured output must always be assigned to a variable named result.\nWHEN TO USE THIS TOOL:\n1. Large dataset generation, especially when the user asks for 1000, 2000, 5000, or more rows of synthetic or sample data.\n- You may use Python libraries such as faker, pandas, csv, json, or openpyxl.\n- Generate the dataset, save it as a file in the current folder, assign a useful summary to result, and provide the downloadable file to the user using:\n[Download](/api/file/download/<source>)\n2. Creating large CSV, JSON, TXT, or Excel-compatible data files when programmatic generation is more suitable than manually constructing rows.\n3. Reading, transforming, cleaning, filtering, aggregating, or merging input files such as CSV, TXT, JSON, XML, or Excel-related files.\n4. File-to-file transformations, such as converting JSON to CSV, combining multiple CSVs, extracting structured data from text files, or producing a processed output file.\n5. Advanced calculations, simulations, statistical analysis, forecasting, or algorithmic processing that are better handled in Python.\n6. Parsing logs, tabular data, or semi-structured documents to extract summaries, metrics, or machine-readable outputs.\n7. Batch processing tasks where multiple records, rows, files, or generated outputs must be handled efficiently in code.\n8. Creating derived artifacts such as processed datasets, analysis outputs, intermediate reports, or machine-readable files that should be returned after execution.\n9. Working with uploaded files when the task requires custom Python logic beyond direct file analysis.\n10. Situations where the user wants code-driven reproducible output instead of a plain natural-language answer.\nSPECIAL GUIDANCE FOR LARGE DATASET REQUESTS:\n- If the user asks for a very large dataset, prefer generate-and-save workflow instead of returning thousands of rows directly in the chat.\n- Save the generated dataset to a file such as .csv or .json in the working directory.\n- Put a concise summary in result, such as row count, column names, sample preview, and generated filename.\n- Then provide the file to the user with a markdown download link using the generated file object's source:\n[Download](/api/file/download/<source>)\nWHEN NOT TO USE THIS TOOL:\n- Do not use it if a dedicated tool is clearly better suited for the user’s request, such as email actions, document generation, PPT generation, chart publishing, or standard file generation workflows, unless Python-based processing is specifically needed.\n- Do not use it just to restate or summarize file content that is already visible in the conversation unless Python processing is necessary.\nCRITICAL FILE-PATH HANDLING RULE FOR EXTENSION-SENSITIVE PYTHON LIBRARIES:\nImportant: the runtime file path injected through fileVariableName may not include a file extension, even if the original uploaded file had one.\nBecause of this, some libraries, especially openpyxl and other extension-sensitive readers, may fail if you pass the runtime path directly.\nRequired handling for extension-sensitive files:\nIf the file is expected to be an Excel workbook, CSV, or another format where the library depends on the filename extension, first copy the runtime file to a new local path that ends with the correct extension, then open that copied file.\nRecommended pattern:\nimport shutil\nimport openpyxl\nfixed_excel_path = \"uploaded_excel_file_name.xlsx\"\nshutil.copyfile(uploaded_excel_file_name, fixed_excel_path)\nwb = openpyxl.load_workbook(fixed_excel_path, data_only=True)\nThis is especially important for:\n- openpyxl\n- some pandas readers/writers\n- other libraries that infer file type from the path suffix rather than file content",
@@ -1484,7 +1749,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_UqsmO-1",
 			"id":"n_ZMMeG",
-			"index":22,
+			"index":26,
 			"inputs":{
 				"result":{
 					"tools":{
@@ -1520,5 +1785,5 @@
 		}
 	},
 	"standard":true,
-	"version":159
+	"version":161
 }

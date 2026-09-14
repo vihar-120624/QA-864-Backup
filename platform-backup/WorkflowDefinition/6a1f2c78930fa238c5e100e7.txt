@@ -1,74 +1,46 @@
 {
 	"appsUsed":[
-		
+		"confluence"
 	],
 	"createdTime":1787744583061,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744583223,
+		"deployedAt":1789395345081,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1472889f9507f121859",
+		"deployedDefinitionId":"6aa8019139ee5f5ef70b6aa5",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":18
+		"version":2,
+		"workflowVersion":21
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_N77ou",
-			"id":"next@n_N77ou@n_to4dC",
+			"id":"next@n_N77ou@n_7ZzMI",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_to4dC",
+			"toNodeId":"n_7ZzMI",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_to4dC",
-			"id":"if@n_to4dC@n_OBwuk",
-			"name":"yes",
+			"fromNodeId":"n_7ZzMI",
+			"id":"next@n_7ZzMI@n_z0BOL",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_OBwuk",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_OBwuk",
-			"id":"next@n_OBwuk@n_HK7VV",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_HK7VV",
+			"toNodeId":"n_z0BOL",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_to4dC",
-			"id":"next@n_to4dC@n_HK7VV",
-			"name":"no",
+			"fromNodeId":"n_z0BOL",
+			"id":"next@n_z0BOL@n_oew3l",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_HK7VV",
+			"toNodeId":"n_oew3l",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_HK7VV",
-			"id":"if@n_HK7VV@n_hgKjR",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_hgKjR",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_hgKjR",
-			"id":"next@n_hgKjR@n_YKe1d",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_YKe1d",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_HK7VV",
-			"id":"next@n_HK7VV@n_YKe1d",
-			"name":"no",
+			"fromNodeId":"n_oew3l",
+			"id":"next@n_oew3l@n_YKe1d",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_YKe1d",
@@ -106,7 +78,7 @@
 	"id":"6a1f2c78930fa238c5e100e7",
 	"lastModifiedBy":-1,
 	"lcName":"store space details as chunks",
-	"modifiedTime":1788252972547,
+	"modifiedTime":1789395394520,
 	"name":"Store Space Details as Chunks",
 	"nodes":[
 		{
@@ -136,6 +108,10 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
+						"authorId":{
+							"title":"Author Id",
+							"type":"string"
+						},
 						"baseUrl":{
 							"title":"Base Url",
 							"type":"string"
@@ -148,12 +124,12 @@
 							"title":"Created At",
 							"type":"string"
 						},
-						"createdByEmail":{
-							"title":"Created By Email",
-							"type":"string"
-						},
 						"creatorDisplayName":{
 							"title":"Creator Display Name",
+							"type":"string"
+						},
+						"creatorEmail":{
+							"title":"Creator Email",
 							"type":"string"
 						},
 						"creatorUserName":{
@@ -172,20 +148,16 @@
 							"title":"Knowledge Id",
 							"type":"string"
 						},
-						"knowledgeSetId":{
-							"title":"Knowledge Set Id",
-							"type":"string"
-						},
 						"modifiedAt":{
 							"title":"Modified At",
 							"type":"string"
 						},
-						"modifiedByEmail":{
-							"title":"Modified By Email",
-							"type":"string"
-						},
 						"modifierDisplayName":{
 							"title":"Modifier Display Name",
+							"type":"string"
+						},
+						"modifierEmail":{
+							"title":"Modifier Email",
 							"type":"string"
 						},
 						"modifierUserName":{
@@ -231,241 +203,117 @@
 		},
 		{
 			"context":{
-				"appName":"if_else",
-				"resourceVersion":48,
-				"resourceName":"if_else_condition",
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2771,
+				"resourceName":"storage_by_unifyapps_fetch_records",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_gH3Hs-1",
-			"id":"n_to4dC",
+			"id":"n_7ZzMI",
 			"index":2,
 			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EXISTS"
-						},
-						"property":"{{ n_N77ou.outputs.creatorUserName }}"
-					},
-					{
-						"filter":{
-							"operator":"MISSING"
-						},
-						"property":"{{ n_N77ou.outputs.createdByEmail }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
-				"appName":"callables",
-				"resourceVersion":622,
-				"resourceName":"callables_call_automation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"CONTINUE",
-			"groupId":"n_to4dC@_gH3Hs-1@y",
-			"id":"n_OBwuk",
-			"index":3,
-			"inputs":{
-				"automationId":"6a229f51ca7e8c14ca26a4d8",
-				"runtimeConnections":{
-					"confluence":"{{ n_N77ou.outputs.connectionId }}"
-				},
-				"synchronous":true,
-				"parameters":{
-					"userName":"{{ n_N77ou.outputs.creatorUserName }}"
-				},
-				"version":"-1"
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_N77ou.outputs.authorId }}"
+							},
+							"property":"properties_userKey"
+						}
 					],
-					"preHooks":[
-						
-					]
+					"operator":"AND"
 				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"confluence_users",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
 				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"CONTINUE",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
 			},
 			"skip":false,
-			"subTitle":"get createdByEmail",
-			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
 		},
 		{
 			"context":{
-				"appName":"if_else",
-				"resourceVersion":48,
-				"resourceName":"if_else_condition",
+				"appName":"code_by_unifyapps",
+				"resourceVersion":6309,
+				"resourceName":"code_by_unifyapps_groovy",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_gH3Hs-1",
-			"id":"n_HK7VV",
-			"index":4,
+			"id":"n_z0BOL",
+			"index":3,
 			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EXISTS"
-						},
-						"property":"{{ n_N77ou.outputs.modifierUserName }}"
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"searchQuery":{
+							"title":"searchQuery",
+							"type":"string"
+						}
 					},
-					{
-						"filter":{
-							"operator":"MISSING"
-						},
-						"property":"{{ n_N77ou.outputs.modifiedByEmail }}"
-					}
-				],
-				"operator":"AND"
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"spaceKey":{
+							"title":"Space Key",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// Builds the CQL query for looking up a space by its key.\n// Input: spaceKey (e.g. \"PM\" or \"~712020ed89e1ebbf344c4f95e60d80b92fd7cd\").\n// The value is always double-quoted -- personal-space keys start with \"~\",\n// which CQL treats as an operator when unquoted -- and quotes/backslashes\n// are stripped so a malformed value can never break the query apart.\n\ndef spaceKeyVal = binding.hasVariable('spaceKey') && spaceKey != null ? spaceKey.toString().trim() : \"\"\n\ndef searchQuery = \"type = space\"\nif (spaceKeyVal) {\n    def safeKey = spaceKeyVal.replace('\\\\', '').replace('\"', '')\n    searchQuery = searchQuery + ' AND space = \"' + safeKey + '\"'\n}\n\nreturn [\"searchQuery\": searchQuery]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"spaceKey":"{{ n_N77ou.outputs.spaceKey }}"
+				}
 			},
 			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
+			"subTitle":"Code",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
 		},
 		{
 			"context":{
-				"appName":"callables",
-				"resourceVersion":622,
-				"resourceName":"callables_call_automation",
+				"appName":"confluence",
+				"resourceVersion":13370,
+				"connectionId":"6a314984c081411d14b397c7",
+				"resourceName":"confluence_cql_search",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"CONTINUE",
-			"groupId":"n_HK7VV@_gH3Hs-1@y",
-			"id":"n_hgKjR",
-			"index":5,
+			"fallbackMode":"STOP",
+			"groupId":"_gH3Hs-1",
+			"id":"n_oew3l",
+			"index":4,
 			"inputs":{
-				"automationId":"6a229f51ca7e8c14ca26a4d8",
-				"runtimeConnections":{
-					"confluence":"{{ n_N77ou.outputs.connectionId }}"
-				},
-				"synchronous":true,
-				"parameters":{
-					"userName":"{{ n_N77ou.outputs.modifierUserName }}"
-				},
-				"version":"-1"
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"CONTINUE",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
+				"cql":"{{ n_z0BOL.outputs.result.searchQuery }}"
 			},
 			"skip":false,
-			"subTitle":"get modifiedByEmail",
-			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
+			"subTitle":"Confluence",
+			"title":"Search through CQL query",
+			"type":"ACTION"
 		},
 		{
 			"additional":{
@@ -494,7 +342,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gH3Hs-1",
 			"id":"n_YKe1d",
-			"index":6,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -578,16 +426,16 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.Instant\n\ndef convertInEpoch(String time) {\n  return Instant.parse(time).toEpochMilli()\n}\n\n// -------- Build chunk string --------\ndef chunkString = \"\"\n\nif (binding.hasVariable('spaceId') && spaceId) {\n  chunkString += \"Space ID is : \" + spaceId + \"\\n\"\n}\nif (binding.hasVariable('spaceKey') && spaceKey) {\n  chunkString += \"Space key is : \" + spaceKey + \"\\n\"\n}\nif (binding.hasVariable('spaceTitle') && spaceTitle) {\n  chunkString += \"Space title is : \" + spaceTitle + \"\\n\"\n}\nif (binding.hasVariable('spaceType') && spaceType) {\n  chunkString += \"Space type is : \" + spaceType + \"\\n\"\n}\nif (binding.hasVariable('spaceStatus') && spaceStatus) {\n  chunkString += \"Space status is : \" + spaceStatus + \"\\n\"\n}\nif (binding.hasVariable('createdAt') && createdAt) {\n  chunkString += \"Space created time in epoch is : \" + convertInEpoch(createdAt) + \"\\n\"\n}\nif (binding.hasVariable('modifiedAt') && modifiedAt) {\n  chunkString += \"Space modified time in epoch is : \" + convertInEpoch(modifiedAt) + \"\\n\"\n}\nif (binding.hasVariable('creatorDisplayName') && creatorDisplayName) {\n  chunkString += \"Creator display name is : \" + creatorDisplayName + \"\\n\"\n}\nif (binding.hasVariable('creatorUserName') && creatorUserName) {\n  chunkString += \"Creator userName in confluence is : \" + creatorUserName + \"\\n\"\n}\nif (binding.hasVariable('modifierDisplayName') && modifierDisplayName) {\n  chunkString += \"Modifier display name is : \" + modifierDisplayName + \"\\n\"\n}\nif (binding.hasVariable('modifierUserName') && modifierUserName) {\n  chunkString += \"Modifier userName in confluence is : \" + modifierUserName + \"\\n\"\n}\nif (binding.hasVariable('createdByEmail') && createdByEmail) {\n  chunkString += \"createdBy email is : \" + createdByEmail + \"\\n\"\n}\nif (binding.hasVariable('modifiedByEmail') && modifiedByEmail) {\n  chunkString += \"modifiedBy email is : \" + modifiedByEmail + \"\\n\"\n}\n\n// -------- Build chunk metadata --------\ndef chunk_metadata = [:]\nchunk_metadata << ['appName': 'confluence']\nchunk_metadata << ['resourceType': 'space']\n\nchunk_metadata << (binding.hasVariable('spaceId') && spaceId ? [\"spaceId\": spaceId] : [:])\nchunk_metadata << (binding.hasVariable('spaceKey') && spaceKey ? [\"spaceKey\": spaceKey] : [:])\nchunk_metadata << (binding.hasVariable('spaceTitle') && spaceTitle ? [\"title\": spaceTitle] : [:])\nchunk_metadata << (binding.hasVariable('spaceTitle') && spaceTitle ? [\"spaceName\": spaceTitle] : [:])\nchunk_metadata << (binding.hasVariable('spaceType') && spaceType ? [\"spaceType\": spaceType] : [:])\nchunk_metadata << (binding.hasVariable('spaceStatus') && spaceStatus ? [\"spaceStatus\": spaceStatus] : [:])\nchunk_metadata << (binding.hasVariable('referenceUrl') && referenceUrl ? [\"referenceUrl\": referenceUrl] : [:])\nchunk_metadata << (binding.hasVariable('createdAt') && createdAt ? [\"createdAt\": convertInEpoch(createdAt)] : [:])\nchunk_metadata << (binding.hasVariable('modifiedAt') && modifiedAt ? [\"modifiedAt\": convertInEpoch(modifiedAt)] : [:])\nchunk_metadata << (binding.hasVariable('creatorDisplayName') && creatorDisplayName ? [\"createdBy\": creatorDisplayName] : [:])\nchunk_metadata << (binding.hasVariable('modifierDisplayName') && modifierDisplayName ? [\"modifiedBy\": modifierDisplayName] : [:])\nchunk_metadata << (binding.hasVariable('creatorUserName') && creatorUserName ? [\"createdByUserName\": creatorUserName] : [:])\nchunk_metadata << (binding.hasVariable('modifierUserName') && modifierUserName ? [\"modifiedByUserName\": modifierUserName] : [:])\nchunk_metadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\nchunk_metadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\n\n// -------- Build source response --------\ndef sourceResponse = [:]\n\nsourceResponse << [\"chunkString\": chunkString]\nsourceResponse << (binding.hasVariable('spaceId') && spaceId ? [\"spaceId\": spaceId] : [:])\nsourceResponse << (binding.hasVariable('spaceKey') && spaceKey ? [\"spaceKey\": spaceKey] : [:])\nsourceResponse << (binding.hasVariable('spaceTitle') && spaceTitle ? [\"spaceTitle\": spaceTitle] : [:])\nsourceResponse << (binding.hasVariable('spaceType') && spaceType ? [\"spaceType\": spaceType] : [:])\nsourceResponse << (binding.hasVariable('spaceStatus') && spaceStatus ? [\"spaceStatus\": spaceStatus] : [:])\nsourceResponse << (binding.hasVariable('createdAt') && createdAt ? [\"createdAt\": convertInEpoch(createdAt)] : [:])\nsourceResponse << (binding.hasVariable('modifiedAt') && modifiedAt ? [\"modifiedAt\": convertInEpoch(modifiedAt)] : [:])\nsourceResponse << (binding.hasVariable('creatorDisplayName') && creatorDisplayName ? [\"creatorDisplayName\": creatorDisplayName] : [:])\nsourceResponse << (binding.hasVariable('creatorUserName') && creatorUserName ? [\"creatorUserName\": creatorUserName] : [:])\nsourceResponse << (binding.hasVariable('modifierDisplayName') && modifierDisplayName ? [\"modifierDisplayName\": modifierDisplayName] : [:])\nsourceResponse << (binding.hasVariable('modifierUserName') && modifierUserName ? [\"modifierUserName\": modifierUserName] : [:])\nsourceResponse << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\nsourceResponse << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\n\nreturn ['sourceResponse': sourceResponse,\n        'chunkMetadata': chunk_metadata]",
+				"code":"import java.time.Instant\n\ndef convertInEpoch(String time) {\n  return Instant.parse(time).toEpochMilli()\n}\n\n// -------- Build chunk string --------\ndef chunkString = \"\"\n\nif (binding.hasVariable('spaceId') && spaceId) {\n  chunkString += \"Space ID is : \" + spaceId + \"\\n\"\n}\nif (binding.hasVariable('spaceKey') && spaceKey) {\n  chunkString += \"Space key is : \" + spaceKey + \"\\n\"\n}\nif (binding.hasVariable('spaceTitle') && spaceTitle) {\n  chunkString += \"Space title is : \" + spaceTitle + \"\\n\"\n}\nif (binding.hasVariable('spaceType') && spaceType) {\n  chunkString += \"Space type is : \" + spaceType + \"\\n\"\n}\nif (binding.hasVariable('spaceStatus') && spaceStatus) {\n  chunkString += \"Space status is : \" + spaceStatus + \"\\n\"\n}\nif (binding.hasVariable('createdAt') && createdAt) {\n  chunkString += \"Space created time in epoch is : \" + convertInEpoch(createdAt) + \"\\n\"\n}\nif (binding.hasVariable('modifiedAt') && modifiedAt) {\n  chunkString += \"Space modified time in epoch is : \" + convertInEpoch(modifiedAt) + \"\\n\"\n}\nif (binding.hasVariable('creatorDisplayName') && creatorDisplayName) {\n  chunkString += \"Creator display name is : \" + creatorDisplayName + \"\\n\"\n}\nif (binding.hasVariable('creatorUserName') && creatorUserName) {\n  chunkString += \"Creator userName in confluence is : \" + creatorUserName + \"\\n\"\n}\nif (binding.hasVariable('modifierDisplayName') && modifierDisplayName) {\n  chunkString += \"Modifier display name is : \" + modifierDisplayName + \"\\n\"\n}\nif (binding.hasVariable('modifierUserName') && modifierUserName) {\n  chunkString += \"Modifier userName in confluence is : \" + modifierUserName + \"\\n\"\n}\nif (binding.hasVariable('createdByEmail') && createdByEmail) {\n  chunkString += \"createdBy email is : \" + createdByEmail + \"\\n\"\n}\nif (binding.hasVariable('modifiedByEmail') && modifiedByEmail) {\n  chunkString += \"modifiedBy email is : \" + modifiedByEmail + \"\\n\"\n}\n\n// -------- Build chunk metadata --------\ndef chunk_metadata = [:]\nchunk_metadata << ['appName': 'confluence']\nchunk_metadata << ['resourceType': 'space']\n\nchunk_metadata << (binding.hasVariable('spaceId') && spaceId ? [\"spaceId\": spaceId] : [:])\nchunk_metadata << (binding.hasVariable('spaceKey') && spaceKey ? [\"spaceKey\": spaceKey] : [:])\nchunk_metadata << (binding.hasVariable('spaceTitle') && spaceTitle ? [\"title\": spaceTitle] : [:])\nchunk_metadata << (binding.hasVariable('spaceTitle') && spaceTitle ? [\"spaceName\": spaceTitle] : [:])\nchunk_metadata << (binding.hasVariable('spaceType') && spaceType ? [\"spaceType\": spaceType] : [:])\nchunk_metadata << (binding.hasVariable('spaceStatus') && spaceStatus ? [\"spaceStatus\": spaceStatus] : [:])\nchunk_metadata << (binding.hasVariable('referenceUrl') && referenceUrl ? [\"referenceUrl\": referenceUrl] : [:])\nchunk_metadata << (binding.hasVariable('createdAt') && createdAt ? [\"createdAt\": convertInEpoch(createdAt)] : [:])\nchunk_metadata << (binding.hasVariable('modifiedAt') && modifiedAt ? [\"modifiedAt\": convertInEpoch(modifiedAt)] : [:])\nchunk_metadata << (binding.hasVariable('creatorDisplayName') && creatorDisplayName ? [\"createdBy\": creatorDisplayName] : [:])\nchunk_metadata << (binding.hasVariable('modifierDisplayName') && modifierDisplayName ? [\"modifiedBy\": modifierDisplayName] : [:])\nchunk_metadata << (binding.hasVariable('creatorUserName') && creatorUserName ? [\"createdByUserName\": creatorUserName] : [:])\nchunk_metadata << (binding.hasVariable('modifierUserName') && modifierUserName ? [\"modifiedByUserName\": modifierUserName] : [:])\nchunk_metadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\nchunk_metadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\n\ndef sourceResponse = [:]\n\nsourceResponse << [\"chunkString\": chunkString]\n\nreturn ['sourceResponse': sourceResponse,\n        'chunkMetadata': chunk_metadata]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"createdAt":"{{ n_N77ou.outputs.createdAt }}",
-					"createdByEmail":"{{ n_OBwuk.outputs.emailAddress }}",
+					"createdByEmail":"{{ n_7ZzMI.outputs.properties.emailAddress }}",
 					"creatorDisplayName":"{{ n_N77ou.outputs.creatorDisplayName }}",
 					"creatorUserName":"{{ n_N77ou.outputs.creatorUserName }}",
-					"modifiedAt":"{{ n_N77ou.outputs.modifiedAt }}",
-					"modifiedByEmail":"{{ n_hgKjR.outputs.emailAddress }}",
+					"modifiedAt":"{{ n_oew3l.outputs.results[0].lastModified }}",
+					"modifiedByEmail":"{{ n_N77ou.outputs.modifierEmail }}",
 					"modifierDisplayName":"{{ n_N77ou.outputs.modifierDisplayName }}",
 					"modifierUserName":"{{ n_N77ou.outputs.modifierUserName }}",
 					"referenceUrl":"{{ n_N77ou.outputs.baseUrl }}{{ n_N77ou.outputs.webView }}",
@@ -615,7 +463,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gH3Hs-1",
 			"id":"_GmL7a",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
@@ -625,7 +473,6 @@
 					"grabberType":"{{ n_N77ou.outputs.grabberType }}",
 					"isTypeFile":false,
 					"knowledgeId":"{{ n_N77ou.outputs.knowledgeId }}",
-					"knowledgeSetId":"{{ n_N77ou.outputs.knowledgeSetId }}",
 					"knowledgeVersion":"{{ n_N77ou.outputs.indexingVersion }}",
 					"metadata":"{{ n_YKe1d.outputs.result.chunkMetadata }}",
 					"modifiedTime":"{{ n_YKe1d.outputs.result.chunkMetadata.modifiedAt }}",
@@ -659,7 +506,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gH3Hs-1",
 			"id":"n_wYQvl",
-			"index":8,
+			"index":7,
 			"inputs":{
 				"result":{
 					"success":true
@@ -685,5 +532,5 @@
 		}
 	},
 	"standard":true,
-	"version":20
+	"version":22
 }
