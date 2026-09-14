@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743419510,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743420131,
+		"deployedAt":1789395026099,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccbc3f7ad93bb16706f6",
+		"deployedDefinitionId":"6aa8005139ee5f5ef70b594b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":195
+		"version":2,
+		"workflowVersion":198
 	},
 	"edges":[
 		{
@@ -602,8 +602,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -613,7 +611,7 @@
 	"id":"699dd91d8b81b90adf681dcd",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | github | all files ",
-	"modifiedTime":1788252972970,
+	"modifiedTime":1789395026100,
 	"name":"Knowledge Downloader | Github | All files ",
 	"nodes":[
 		{
@@ -688,6 +686,10 @@
 								"currentTimeEpoch":{
 									"title":"Current Time Epoch",
 									"type":"integer"
+								},
+								"grabberSubtype":{
+									"title":"Grabber Subtype",
+									"type":"string"
 								},
 								"grabberType":{
 									"title":"Grabber Type",
@@ -837,6 +839,10 @@
 									"title":"Repo",
 									"type":"string"
 								},
+								"repoId":{
+									"title":"Repo Id",
+									"type":"string"
+								},
 								"sharedWithIds":{
 									"items":{
 										"type":"string"
@@ -881,7 +887,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.Instant\nimport java.time.ZoneOffset\nimport java.time.format.DateTimeFormatter\n\ndef mappedInputs = [:]\n\n// --- Defaults from downloaderConfig ---\ndef now = System.currentTimeMillis()\ndef configStartTimeEpoch   = binding.hasVariable(\"downloaderConfig\") ? (downloaderConfig.get(\"startTimeEpoch\", 0) as Long) : 0L\ndef currentTimeEpoch       = binding.hasVariable(\"downloaderConfig\") ? (downloaderConfig.get(\"currentTimeEpoch\", now) as Long) : now\ndef deletedFiles           = []\ndef indexedFiles           = []\ndef page                   = 1\ndef baseSha                = null\ndef headSha                = null\n\nif (binding.hasVariable('inputs')) {\n    mappedInputs['owner']         = inputs?.owner         ?: null\n    mappedInputs['repo']          = inputs?.repo          ?: null\n    mappedInputs['sharedWithIds'] = inputs?.sharedWithIds ?: ['github/g/-1']\n}\n\n// Helper: convert epoch millis to ISO 8601 (GitHub accepts YYYY-MM-DDTHH:MM:SSZ)\n// Accepts Number to safely handle both Integer and Long defaults from config maps\ndef convertEpochToISO(Number epochTime) {\n    if (epochTime == null) return null\n    return Instant.ofEpochMilli(epochTime.toLong())\n        .atOffset(ZoneOffset.UTC)\n        .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)\n}\n\n// --- Resolve cursor state ---\ndef cursorStartTimeEpoch = configStartTimeEpoch\n\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.deletedFiles != null) {\n        deletedFiles = cursor.deletedFiles\n    }\n    if (cursor?.indexedFiles != null) {\n        indexedFiles = cursor.indexedFiles\n    }\n\n    if (cursor?.page != null) {\n        page = cursor.page\n    }\n\n    // use ?: 0L to safely handle null before numeric comparison\n    // if ((cursor?.lastCommitTime ?: 0L) != 0L) {\n    //     cursorStartTimeEpoch = cursor.lastCommitTime as Long\n    // }\n\n    if (cursor?.baseSha != null) { \n        baseSha = cursor.baseSha \n    }\n\n    if (cursor?.headSha != null) { \n        headSha = cursor.headSha \n    }\n}\n\n// FIX: apply year-2000 floor BEFORE computing effectiveStart,\n//      so the clamp is actually reflected in the output\n// def year2000Epoch = 946684800000L\n// if (cursorStartTimeEpoch < year2000Epoch) {\n//     cursorStartTimeEpoch = year2000Epoch\n// }\n// if (configStartTimeEpoch < year2000Epoch) {\n//     configStartTimeEpoch = year2000Epoch\n// }\n\n// Use the earlier of the two start points to avoid missing commits\n// def effectiveStart = Math.min(cursorStartTimeEpoch, configStartTimeEpoch)\n\n// mappedInputs['startTime']    = convertEpochToISO(effectiveStart)    // maps to GitHub's `since` query param\n// mappedInputs['endTime']      = convertEpochToISO(currentTimeEpoch)  // maps to GitHub's `until` query param\n\nmappedInputs['baseSha']      = baseSha\nmappedInputs['headSha']      = headSha\nmappedInputs['deletedFiles'] = deletedFiles\nmappedInputs['indexedFiles'] = indexedFiles\nmappedInputs['page']         = page\n\nreturn [\n    'mappedInputs': mappedInputs\n]",
+				"code":"import java.time.Instant\nimport java.time.ZoneOffset\nimport java.time.format.DateTimeFormatter\n\ndef mappedInputs = [:]\n\n// --- Defaults from downloaderConfig ---\ndef now = System.currentTimeMillis()\ndef configStartTimeEpoch   = binding.hasVariable(\"downloaderConfig\") ? (downloaderConfig.get(\"startTimeEpoch\", 0) as Long) : 0L\ndef currentTimeEpoch       = binding.hasVariable(\"downloaderConfig\") ? (downloaderConfig.get(\"currentTimeEpoch\", now) as Long) : now\ndef deletedFiles           = []\ndef indexedFiles           = []\ndef page                   = 1\ndef baseSha                = null\ndef headSha                = null\n\nif (binding.hasVariable('inputs')) {\n    mappedInputs['owner']         = inputs?.owner         ?: null\n    mappedInputs['repo']          = inputs?.repo          ?: null\n    mappedInputs['repoId']        = inputs?.repoId        ?: null\n    mappedInputs['sharedWithIds'] = inputs?.sharedWithIds ?: ['github/g/-1']\n}\n\n// Helper: convert epoch millis to ISO 8601 (GitHub accepts YYYY-MM-DDTHH:MM:SSZ)\n// Accepts Number to safely handle both Integer and Long defaults from config maps\ndef convertEpochToISO(Number epochTime) {\n    if (epochTime == null) return null\n    return Instant.ofEpochMilli(epochTime.toLong())\n        .atOffset(ZoneOffset.UTC)\n        .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)\n}\n\n// --- Resolve cursor state ---\ndef cursorStartTimeEpoch = configStartTimeEpoch\n\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.deletedFiles != null) {\n        deletedFiles = cursor.deletedFiles\n    }\n    if (cursor?.indexedFiles != null) {\n        indexedFiles = cursor.indexedFiles\n    }\n\n    if (cursor?.page != null) {\n        page = cursor.page\n    }\n\n    // use ?: 0L to safely handle null before numeric comparison\n    // if ((cursor?.lastCommitTime ?: 0L) != 0L) {\n    //     cursorStartTimeEpoch = cursor.lastCommitTime as Long\n    // }\n\n    if (cursor?.baseSha != null) { \n        baseSha = cursor.baseSha \n    }\n\n    if (cursor?.headSha != null) { \n        headSha = cursor.headSha \n    }\n}\n\n// FIX: apply year-2000 floor BEFORE computing effectiveStart,\n//      so the clamp is actually reflected in the output\n// def year2000Epoch = 946684800000L\n// if (cursorStartTimeEpoch < year2000Epoch) {\n//     cursorStartTimeEpoch = year2000Epoch\n// }\n// if (configStartTimeEpoch < year2000Epoch) {\n//     configStartTimeEpoch = year2000Epoch\n// }\n\n// Use the earlier of the two start points to avoid missing commits\n// def effectiveStart = Math.min(cursorStartTimeEpoch, configStartTimeEpoch)\n\n// mappedInputs['startTime']    = convertEpochToISO(effectiveStart)    // maps to GitHub's `since` query param\n// mappedInputs['endTime']      = convertEpochToISO(currentTimeEpoch)  // maps to GitHub's `until` query param\n\nmappedInputs['baseSha']      = baseSha\nmappedInputs['headSha']      = headSha\nmappedInputs['deletedFiles'] = deletedFiles\nmappedInputs['indexedFiles'] = indexedFiles\nmappedInputs['page']         = page\n\nreturn [\n    'mappedInputs': mappedInputs\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1792,10 +1798,6 @@
 									"title":"File Path",
 									"type":"string"
 								},
-								"modifiedAt":{
-									"title":"Modified At",
-									"type":"string"
-								},
 								"name":{
 									"title":"Name",
 									"type":"string"
@@ -1837,7 +1839,6 @@
 				"fileMetadata":{
 					"appName":"github",
 					"filePath":"{{ n_o4e9Y.outputs.result.trimFilePath }}",
-					"modifiedAt":"{{ n_r8lAz.outputs.result.currentTimeEpoch }}",
 					"name":"{{ n_pn1e3.outputs.result.fileName }}",
 					"owner":"{{ n_XH5Lb.outputs.item.owner }}",
 					"referenceUrl":"https://github.com/{{ n_7ZzRO.outputs.result.mappedInputs.owner }}/{{ n_7ZzRO.outputs.result.mappedInputs.repo }}/blob/main/{{ n_o4e9Y.outputs.result.trimFilePath }}",
@@ -1868,10 +1869,6 @@
 								},
 								"filePath":{
 									"title":"File Path",
-									"type":"string"
-								},
-								"modifiedAt":{
-									"title":"Modified At",
 									"type":"string"
 								},
 								"name":{
@@ -2141,7 +2138,7 @@
 					"knowledgeVersion":"{{ n_kVHTU.outputs.knowledge.indexingVersion }}",
 					"metadata":"{{ n_grdWG.outputs.fileMetadata }}",
 					"modifiedTime":"{{ n_r8lAz.outputs.result.currentTimeEpoch }}",
-					"parentEntityId":"{{ n_7ZzRO.outputs.result.mappedInputs.repo }}",
+					"parentEntityId":"{{ n_7ZzRO.outputs.result.mappedInputs.repoId }}",
 					"resourceType":"file",
 					"rootEntityId":"{{ n_pn1e3.outputs.result.folderPath }}",
 					"sharedWithIds":{
@@ -3492,6 +3489,7 @@
 						"indexingVersion":"{{ n_kVHTU.outputs.knowledge.indexingVersion }}",
 						"knowledgeId":"{{ n_kVHTU.outputs.knowledgeId }}",
 						"knowledgeSetId":"{{ n_kVHTU.outputs.knowledge.knowledgeSetId }}",
+						"repoId":"{{ n_7ZzRO.outputs.result.mappedInputs.repoId }}",
 						"sharedWithIds":{
 							"items":"{{ n_7ZzRO.outputs.result.mappedInputs.sharedWithIds[0] }}",
 							"source":"{{ n_7ZzRO.outputs.result.mappedInputs.sharedWithIds }}",
@@ -3752,7 +3750,9 @@
 			"index":57,
 			"inputs":{
 				"automationId":"6a798d00472581081df98f20",
-				"runtimeConnections":{},
+				"runtimeConnections":{
+					"github":"{{ n_kVHTU.outputs.knowledge.applicationInfo.context.connectionId }}"
+				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"DEFAULT",
 				"distributeWorkflowLoad":false,
@@ -3825,5 +3825,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":197
+	"version":198
 }
