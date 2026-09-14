@@ -1,0 +1,595 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395069271,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395069316,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa8007d39ee5f5ef70b5ac0",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":36
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_GvaqH",
+			"id":"next@n_GvaqH@n_6BKgP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6BKgP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6BKgP",
+			"id":"next@n_6BKgP@n_Ify5k",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"id":"if@n_Ify5k@n_9U9zr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"id":"next@n_9U9zr@n_QJ9kk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QJ9kk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"id":"next@n_Ify5k@n_QJ9kk",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QJ9kk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QJ9kk",
+			"id":"next@n_QJ9kk@n_9a1Zm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9a1Zm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9a1Zm",
+			"id":"if@n_9a1Zm@n_kPDPE",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kPDPE",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_kPDPE",
+			"id":"next@n_kPDPE@n_V2TSO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V2TSO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9a1Zm",
+			"id":"next@n_9a1Zm@n_V2TSO",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V2TSO",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a81723644c2406e2cfd82b9",
+	"lastModifiedBy":-1,
+	"lcName":"[microsoft teams] list group/meetings chats wrapper",
+	"modifiedTime":1789395393844,
+	"name":"[Microsoft Teams] List Group/Meetings Chats wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4687,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pssMb-1",
+			"id":"n_GvaqH",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"chats":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chatType":{
+										"title":"chatType",
+										"type":"string"
+									},
+									"chunkNumber":{
+										"title":"Chunk Number",
+										"type":"integer"
+									},
+									"createdDateTime":{
+										"title":"createdDateTime",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"lastUpdatedDateTime":{
+										"title":"lastUpdatedDateTime",
+										"type":"string"
+									},
+									"members":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"displayName":{
+													"title":"displayName",
+													"type":"string"
+												},
+												"email":{
+													"title":"email",
+													"type":"string"
+												},
+												"roles":{
+													"items":{
+														"type":"string"
+													},
+													"title":"Roles",
+													"type":"array"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"members",
+										"type":"array"
+									},
+									"topic":{
+										"title":"topic",
+										"type":"string"
+									},
+									"webUrl":{
+										"title":"webUrl",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"chats",
+							"type":"array"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"skipToken":{
+							"title":"Skip Token",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"warningMessage":{
+							"title":"Warning Message",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"groupSearch":{
+							"title":"Group Search",
+							"type":"boolean"
+						},
+						"meetingSearch":{
+							"title":"Meeting Search",
+							"type":"boolean"
+						},
+						"search":{
+							"title":"Search",
+							"type":"string"
+						},
+						"searchPresent":{
+							"title":"Search Present",
+							"type":"boolean"
+						},
+						"skipToken":{
+							"title":"Skip Token",
+							"type":"string"
+						}
+					},
+					"required":[
+						"searchPresent"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pssMb-1",
+			"id":"n_6BKgP",
+			"index":2,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_teams"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pssMb-1",
+			"id":"n_Ify5k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_6BKgP.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_pssMb-1@y",
+			"id":"n_9U9zr",
+			"index":4,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_6BKgP.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4693,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pssMb-1",
+			"id":"n_QJ9kk",
+			"index":5,
+			"inputs":{
+				"automationId":"6a802c71d1e7dc4416bba204",
+				"runtimeConnections":{
+					"microsoft_teams":"{{ n_6BKgP.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"connectionId":"{{ n_6BKgP.outputs.connectionId }}",
+					"groupSearch":"{{ n_GvaqH.outputs.groupSearch }}",
+					"meetingSearch":"{{ n_GvaqH.outputs.meetingSearch }}",
+					"search":"{{ n_GvaqH.outputs.search }}",
+					"searchPresent":"{{ n_GvaqH.outputs.searchPresent }}",
+					"skipToken":"{{ n_GvaqH.outputs.skipToken }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":170,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pssMb-1",
+			"id":"n_9a1Zm",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_QJ9kk.outputs.chats[0] }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4832,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_9a1Zm@_pssMb-1@y",
+			"id":"n_kPDPE",
+			"index":7,
+			"inputs":{
+				"result":{
+					"warningMessage":"No chats were found according to the tool input."
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4708,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_pssMb-1",
+			"id":"n_V2TSO",
+			"index":8,
+			"inputs":{
+				"result":{
+					"chats":{
+						"items":{
+							"chatType":"{{ n_QJ9kk.outputs.chats[0].chatType }}",
+							"chunkNumber":"{{ n_QJ9kk.outputs.chats[0].chunkNumber }}",
+							"createdDateTime":"{{ n_QJ9kk.outputs.chats[0].createdDateTime }}",
+							"id":"{{ n_QJ9kk.outputs.chats[0].id }}",
+							"lastUpdatedDateTime":"{{ n_QJ9kk.outputs.chats[0].lastUpdatedDateTime }}",
+							"members":{
+								"items":{
+									"displayName":"{{ n_QJ9kk.outputs.chats[0].members[0].displayName }}",
+									"email":"{{ n_QJ9kk.outputs.chats[0].members[0].email }}",
+									"roles":{
+										"items":"{{ n_QJ9kk.outputs.chats[0].members[0].roles[0] }}",
+										"source":"{{ n_QJ9kk.outputs.chats[0].members[0].roles }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_QJ9kk.outputs.chats[0].members }}",
+								"ua:type":"mappedArray"
+							},
+							"topic":"{{ n_QJ9kk.outputs.chats[0].topic }}",
+							"webUrl":"{{ n_QJ9kk.outputs.chats[0].webUrl }}"
+						},
+						"source":"{{ n_QJ9kk.outputs.chats }}",
+						"ua:type":"mappedArray"
+					},
+					"skipToken":"{{ n_QJ9kk.outputs.skipToken }}",
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		},
+		"telemetryConfig":{
+			"enableTelemetry":true,
+			"metricConfigs":[
+				{
+					"buckets":[
+						1000.0,
+						2000.0,
+						3000.0,
+						4000.0,
+						5000.0,
+						10000.0,
+						15000.0,
+						20000.0,
+						50000.0
+					],
+					"eventType":"ALWAYS_END",
+					"metricType":"WORKFLOW_EXECUTION_DURATION",
+					"name":"node_metric_workflow_timer_dev",
+					"tags":[
+						{
+							"key":"workflow_id",
+							"value":"{{ workflowId }}"
+						},
+						{
+							"key":"workflow_title",
+							"value":"{{ workflowTitle }}"
+						},
+						{
+							"key":"execution_status",
+							"value":"{{ status }}"
+						}
+					]
+				},
+				{
+					"buckets":[
+						
+					],
+					"eventType":"ALWAYS_END",
+					"metricType":"WORKFLOW_EXECUTION",
+					"name":"node_metric_workflow_count",
+					"tags":[
+						{
+							"key":"workflow_title",
+							"value":"{{ workflowTitle }}"
+						},
+						{
+							"key":"workflow_id",
+							"value":"{{ workflowId }}"
+						},
+						{
+							"key":"execution_status",
+							"value":"{{ status }}"
+						}
+					]
+				}
+			]
+		}
+	},
+	"standard":true,
+	"version":37
+}
