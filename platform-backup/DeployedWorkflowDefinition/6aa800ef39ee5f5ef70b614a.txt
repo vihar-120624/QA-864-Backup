@@ -1,0 +1,545 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395183975,
+	"deleted":false,
+	"deployedWorkflowVersion":2,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"BXOwt",
+			"id":"next@BXOwt@n_uwaNo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uwaNo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uwaNo",
+			"id":"next@n_uwaNo@BLh1W",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"BLh1W",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"BLh1W",
+			"id":"next@BLh1W@3qBfx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"3qBfx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"3qBfx",
+			"id":"next@3qBfx@lmqhl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lmqhl",
+			"type":"next"
+		}
+	],
+	"id":"6aa800ef39ee5f5ef70b614a",
+	"lastModifiedBy":-1,
+	"lcName":"llm cost calculator",
+	"modifiedTime":1789395183977,
+	"name":"LLM Cost Calculator",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":295,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"BXOwt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadCost":{
+							"title":"cacheReadCost",
+							"type":"number"
+						},
+						"cacheWriteCost":{
+							"title":"cacheWriteCost",
+							"type":"number"
+						},
+						"inputTokenCost":{
+							"title":"Input Token Cost",
+							"type":"number"
+						},
+						"outputTokenCost":{
+							"title":"Output Token Cost",
+							"type":"number"
+						},
+						"totalCost":{
+							"title":"totalCost",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheCreationDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"cache_write_input_tokens_default":{
+									"title":"Cache Write Input Tokens Default",
+									"type":"integer"
+								},
+								"cache_write_input_tokens_extended":{
+									"title":"Cache Write Input Tokens Extended",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Cache Creation Details",
+							"type":"object"
+						},
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"cost_details":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cost Details",
+							"type":"object"
+						},
+						"imageTokens":{
+							"additionalProperties":false,
+							"properties":{
+								"cacheReadInputImageTokens":{
+									"title":"Cache Read Input Image Tokens",
+									"type":"integer"
+								},
+								"cacheWriteInputImageTokens":{
+									"title":"Cache Write Input Image Tokens",
+									"type":"integer"
+								},
+								"inputImageTokens":{
+									"title":"Input Image Tokens",
+									"type":"integer"
+								},
+								"outputImageTokens":{
+									"title":"Output Image Tokens",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Image Tokens",
+							"type":"object"
+						},
+						"inputTokens":{
+							"title":"inputTokens",
+							"type":"integer"
+						},
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						},
+						"outputTokens":{
+							"title":"outputTokens",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"n_uwaNo",
+			"index":2,
+			"inputs":{
+				"automationId":"6854195c4a0205327f0f4712",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"modelId":"{{ BXOwt.outputs.modelId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":302,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"BLh1W",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_uwaNo.outputs.properties.model }}"
+							},
+							"property":"properties_model"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"model",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_uwaNo.outputs.properties.model }}",
+					"enabled":false,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.imageTokens.inputImageTokens",
+					"root.parameters.imageTokens.outputImageTokens",
+					"root.parameters.imageTokens.cacheWriteInputImageTokens",
+					"root.parameters.imageTokens.cacheReadInputImageTokens"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":299,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"3qBfx",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheReadCost":{
+							"title":"Cache Read Cost",
+							"type":"number"
+						},
+						"cacheWriteCost":{
+							"title":"Cache Write Cost",
+							"type":"number"
+						},
+						"cacheWriteDefaultCost":{
+							"title":"Cache Write Default Cost",
+							"type":"number"
+						},
+						"cacheWriteExtendedCost":{
+							"title":"Cache Write Extended Cost",
+							"type":"number"
+						},
+						"inputCost":{
+							"title":"inputCost",
+							"type":"number"
+						},
+						"outputCost":{
+							"title":"outputCost",
+							"type":"number"
+						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheCreationDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cache Creation Details",
+							"type":"object"
+						},
+						"cacheReadInputTokens":{
+							"title":"Cache Read Input Tokens",
+							"type":"integer"
+						},
+						"cacheReadTokenCost":{
+							"title":"Cache Read Token Cost",
+							"type":"number"
+						},
+						"cacheWriteInputTokens":{
+							"title":"Cache Write Input Tokens",
+							"type":"integer"
+						},
+						"cacheWriteTokenCost":{
+							"title":"Cache Write Token Cost",
+							"type":"number"
+						},
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"cost_details":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Cost Details",
+							"type":"object"
+						},
+						"imageTokens":{
+							"additionalProperties":false,
+							"properties":{
+								"cacheReadInputImageTokens":{
+									"title":"Cache Read Input Image Tokens",
+									"type":"integer"
+								},
+								"cacheWriteInputImageTokens":{
+									"title":"Cache Write Input Image Tokens",
+									"type":"integer"
+								},
+								"inputImageTokens":{
+									"title":"Input Image Tokens",
+									"type":"integer"
+								},
+								"outputImageTokens":{
+									"title":"Output Image Tokens",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Image Tokens",
+							"type":"object"
+						},
+						"inputTokenCost":{
+							"title":"inputTokenCost",
+							"type":"number"
+						},
+						"inputTokens":{
+							"title":"inputTokens",
+							"type":"integer"
+						},
+						"longContextPricing":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Long Context Pricing",
+							"type":"object"
+						},
+						"outputTokenCost":{
+							"title":"outputTokenCost",
+							"type":"number"
+						},
+						"outputTokens":{
+							"title":"outputTokens",
+							"type":"integer"
+						},
+						"pricing":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Pricing",
+							"type":"object"
+						},
+						"provider":{
+							"title":"Provider",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// 0. Provider-aware short-circuit ------------------------------------------------\n// OpenRouter resolves and reports the cost on the response itself, so there is no\n// pricing table to apply — pass its numbers through instead of recomputing them.\ndef provider     = binding.hasVariable('provider') ? binding.provider : null\ndef reportedCost = binding.hasVariable('cost') ? binding.cost : null\ndef costDetails  = binding.hasVariable('cost_details') && binding.cost_details instanceof Map ? binding.cost_details : [:]\n\n// Tolerant numeric coercion: JSON may hand us Double, BigDecimal, or String.\ndef toNum = { v ->\n    if (v == null) return 0\n    if (v instanceof Number) return v\n    def s = v.toString().trim()\n    return s.isNumber() ? s.toBigDecimal() : 0\n}\n\nif (provider != null && provider.toString().trim().equalsIgnoreCase('openrouter')) {\n    def orInputCost  = toNum(costDetails.upstream_inference_prompt_cost)\n    def orOutputCost = toNum(costDetails.upstream_inference_completions_cost)\n\n    // Prefer the top-level 'cost' — it is the authoritative billed amount and can\n    // exceed prompt + completion (BYOK fees, surcharges). Fall back in order.\n    def orTotalCost = toNum(reportedCost)\n    if (orTotalCost == 0) {\n        orTotalCost = toNum(costDetails.upstream_inference_cost)\n    }\n    if (orTotalCost == 0) {\n        orTotalCost = orInputCost + orOutputCost\n    }\n\n    return [\n      inputCost              : orInputCost,\n      outputCost             : orOutputCost,\n      cacheReadCost          : 0,   // OpenRouter does not break cache out separately\n      cacheWriteCost         : 0,\n      cacheWriteDefaultCost  : 0,\n      cacheWriteExtendedCost : 0,\n      totalCost              : orTotalCost\n    ]\n}\n\n// ---------------------------------------------------------------------------------\n// Everything below is the existing flow, used by every non-OpenRouter provider.\n// ---------------------------------------------------------------------------------\n\ndef pricing = binding.hasVariable('pricing') ? binding.pricing : [:]\ndef longContextPricing = binding.hasVariable('longContextPricing') ? binding.longContextPricing : [:]\n\n// 1. Fetch input tokens FIRST so they can be evaluated against the threshold\ndef inputTokens = (binding.hasVariable('inputTokens') ? binding.inputTokens : 0) ?: 0\n\n// 2. Determine which pricing tier to use based strictly on input tokens\ndef longContextThreshold = longContextPricing?.threshold\ndef activePricing = pricing\n\nif (longContextThreshold != null && inputTokens > longContextThreshold) {\n    activePricing = longContextPricing\n}\n\n// 3. Extract rates using activePricing (ensures long-context rates apply if triggered)\n// Using '?: 0' fallback to prevent NullPointerExceptions during math operations\ndef inputTokenCost          = activePricing?.input?.text ?: 0\ndef outputTokenCost         = activePricing?.output?.text ?: 0\ndef cacheReadCostRate       = activePricing?.cacheread?.text ?: 0\ndef cacheWriteDefaultRate   = activePricing?.cachewrite?.text ?: 0\ndef cacheWriteExtendedRate  = activePricing?.cachewrite_extended?.text ?: 0\n\n// 3a. Parallel '.image' rates; a model without image pricing falls back to 0,\n// which makes every image component below a no-op.\ndef inputImageRate          = activePricing?.input?.image ?: 0\ndef outputImageRate         = activePricing?.output?.image ?: 0\ndef cacheReadImageRate      = activePricing?.cacheread?.image ?: 0\ndef cacheWriteImageRate     = activePricing?.cachewrite?.image ?: 0\n\n// 4. Fetch the remaining token counts\ndef outputTokens     = (binding.hasVariable('outputTokens') ? binding.outputTokens : 0) ?: 0\ndef cacheReadTokens  = (binding.hasVariable('cacheReadInputTokens') ? binding.cacheReadInputTokens : 0) ?: 0\ndef cacheWriteTokens = (binding.hasVariable('cacheWriteInputTokens') ? binding.cacheWriteInputTokens : 0) ?: 0\ndef cacheCreationDetails = binding.hasVariable('cacheCreationDetails') ? binding.cacheCreationDetails : [:]\n\n// 4a. Split cache-write tokens by TTL tier.\ndef hasTierBreakdown = cacheCreationDetails &&\n    (cacheCreationDetails.containsKey('cache_write_input_tokens_default') ||\n     cacheCreationDetails.containsKey('cache_write_input_tokens_extended'))\n\ndef cacheWriteDefaultTokens\ndef cacheWriteExtendedTokens\n\nif (hasTierBreakdown) {\n    cacheWriteDefaultTokens  = (cacheCreationDetails.cache_write_input_tokens_default ?: 0) as long\n    cacheWriteExtendedTokens = (cacheCreationDetails.cache_write_input_tokens_extended ?: 0) as long\n} else {\n    // No breakdown available (non-Anthropic provider, or a response predating the\n    // tiered cache fields) — treat the whole write as the default tier\n    // so cost math stays correct without branching per-provider.\n    cacheWriteDefaultTokens  = cacheWriteTokens\n    cacheWriteExtendedTokens = 0\n}\n\n// 4b. Image-modality token counts, reported SEPARATELY from the counts above (they are\n// not a subset of inputTokens / outputTokens), so they are priced additively.\ndef imageTokenCounts = binding.hasVariable('imageTokens') && binding.imageTokens instanceof Map ? binding.imageTokens : [:]\n\ndef inputImageTokens      = imageTokenCounts.inputImageTokens ?: 0\ndef outputImageTokens     = imageTokenCounts.outputImageTokens ?: 0\ndef cacheReadImageTokens  = imageTokenCounts.cacheReadInputImageTokens ?: 0\ndef cacheWriteImageTokens = imageTokenCounts.cacheWriteInputImageTokens ?: 0\n\n// 5. Adjust input tokens (remove cached tokens from the standard billable input)\ndef effectiveInputTokens = inputTokens - cacheReadTokens - cacheWriteTokens\nif (effectiveInputTokens < 0) {\n    effectiveInputTokens = 0\n}\n\nif (outputTokens < 0) {\n    outputTokens = 0\n}\n\n// 5a. Image costs (per million tokens) — same math, against the '.image' rates.\n// Cache writes arrive as a single image count with no per-TTL breakdown, so they are\n// priced at the default-tier image rate.\ndef inputImageCost      = inputImageTokens * inputImageRate / 1_000_000\ndef outputImageCost     = outputImageTokens * outputImageRate / 1_000_000\ndef cacheReadImageCost  = cacheReadImageTokens * cacheReadImageRate / 1_000_000\ndef cacheWriteImageCost = cacheWriteImageTokens * cacheWriteImageRate / 1_000_000\n\ndef totalImageCost = inputImageCost + outputImageCost + cacheReadImageCost + cacheWriteImageCost\n\n// 6. Cost calculations (per million tokens), each bucket inclusive of its image component\ndef inputCost               = effectiveInputTokens * inputTokenCost / 1_000_000 + inputImageCost\ndef outputCost              = outputTokens * outputTokenCost / 1_000_000 + outputImageCost\ndef cacheReadCost           = cacheReadTokens * cacheReadCostRate / 1_000_000 + cacheReadImageCost\ndef cacheWriteDefaultCost   = cacheWriteDefaultTokens * cacheWriteDefaultRate / 1_000_000\ndef cacheWriteExtendedCost  = cacheWriteExtendedTokens * cacheWriteExtendedRate / 1_000_000\ndef cacheWriteCost          = cacheWriteDefaultCost + cacheWriteExtendedCost + cacheWriteImageCost\n\ndef totalCost = inputCost + outputCost + cacheReadCost + cacheWriteCost\n\nreturn [\n  inputCost              : inputCost,               // text + image — unchanged key, now all-inclusive\n  outputCost             : outputCost,\n  cacheReadCost          : cacheReadCost,\n  cacheWriteCost         : cacheWriteCost,          // total across both tiers, text + image\n  cacheWriteDefaultCost  : cacheWriteDefaultCost,   // text-tier breakdown for transparency/debugging\n  cacheWriteExtendedCost : cacheWriteExtendedCost,\n//   inputImageCost         : inputImageCost,          // image component of each bucket above\n//   outputImageCost        : outputImageCost,\n//   cacheReadImageCost     : cacheReadImageCost,\n//   cacheWriteImageCost    : cacheWriteImageCost,\n//   totalImageCost         : totalImageCost,\n  totalCost              : totalCost\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cacheCreationDetails":"{{ BXOwt.outputs.cacheCreationDetails }}",
+					"cacheReadInputTokens":"{{ BXOwt.outputs.cacheReadInputTokens }}",
+					"cacheReadTokenCost":"{{ BLh1W.outputs.properties.Pricing.cacheread.text }}",
+					"cacheWriteInputTokens":"{{ BXOwt.outputs.cacheWriteInputTokens }}",
+					"cacheWriteTokenCost":"{{ BLh1W.outputs.properties.Pricing.cachewrite.text }}",
+					"cost":"{{ BXOwt.outputs.cost }}",
+					"cost_details":"{{ BXOwt.outputs.cost_details }}",
+					"imageTokens":{
+						"cacheReadInputImageTokens":"{{ BXOwt.outputs.imageTokens.cacheReadInputImageTokens }}",
+						"cacheWriteInputImageTokens":"{{ BXOwt.outputs.imageTokens.cacheWriteInputImageTokens }}",
+						"inputImageTokens":"{{ BXOwt.outputs.imageTokens.inputImageTokens }}",
+						"outputImageTokens":"{{ BXOwt.outputs.imageTokens.outputImageTokens }}"
+					},
+					"inputTokenCost":"{{ BLh1W.outputs.properties.Pricing.input.text }}",
+					"inputTokens":"{{ BXOwt.outputs.inputTokens }}",
+					"longContextPricing":"{{ BLh1W.outputs.properties.longContextPricing }}",
+					"outputTokenCost":"{{ BLh1W.outputs.properties.Pricing.output.text }}",
+					"outputTokens":"{{ BXOwt.outputs.outputTokens }}",
+					"pricing":"{{ BLh1W.outputs.properties.Pricing }}",
+					"provider":"{{ n_uwaNo.outputs.properties.provider }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":301,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Lccp2-1",
+			"id":"lmqhl",
+			"index":5,
+			"inputs":{
+				"result":{
+					"cacheReadCost":"{{ 3qBfx.outputs.result.cacheReadCost }}",
+					"cacheWriteCost":"{{ 3qBfx.outputs.result.cacheWriteCost }}",
+					"inputTokenCost":"{{ 3qBfx.outputs.result.inputCost }}",
+					"outputTokenCost":"{{ 3qBfx.outputs.result.outputCost }}",
+					"totalCost":"{{ 3qBfx.outputs.result.totalCost }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":0,
+	"workflowDefinitionId":"680bb38e89c13d6ab6b7babe",
+	"workflowVersion":298
+}
