@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743672505,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743672651,
+		"deployedAt":1789395123351,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdb845d2142160e6d5aa",
+		"deployedDefinitionId":"6aa800b33e2bb610bc877d2f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":315
+		"version":2,
+		"workflowVersion":318
 	},
 	"edges":[
 		{
@@ -94,7 +94,7 @@
 	"id":"688236dc7c84da64add7e3a3",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | hubspot | index deal",
-	"modifiedTime":1788252971350,
+	"modifiedTime":1789395400101,
 	"name":"Knowledge Indexer | Hubspot | Index deal",
 	"nodes":[
 		{
@@ -200,6 +200,20 @@
 				"output":{
 					"additionalProperties":false,
 					"properties":{
+						"companyList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Company List",
+							"type":"array"
+						},
+						"contactList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Contact List",
+							"type":"array"
+						},
 						"emails":{
 							"items":{
 								"additionalProperties":false,
@@ -584,8 +598,8 @@
 					"root":{}
 				},
 				"visibleOptionalFields":[
-					"root.parameters.emails.items",
-					"root.parameters.meetings.items"
+					"root.parameters.companyList.items",
+					"root.parameters.contactList.items"
 				]
 			},
 			"context":{
@@ -617,6 +631,20 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"companyList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Company List",
+							"type":"array"
+						},
+						"contactList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Contact List",
+							"type":"array"
+						},
 						"dealstage":{
 							"title":"Dealstage",
 							"type":"string"
@@ -635,10 +663,20 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def FIELD_LABELS = [\n  dealname   : \"dealname\",\n  dealname : \"title\",\n  description: \"description\",\n  dealstage  : \"dealstage\",\n  pipeline   : \"pipeline\",\n  hs_priority: \"priority\",\n  amount     : \"amount\",\n  closedate  : \"closeDate\",\n  closed_won_reason : \"closedWonRason\",\n  closed_lost_reason: \"closedLostReason\",\n  createdate : \"createDate\",\n  hs_is_closed      : \"isClosed\",\n  hs_is_closed_lost : \"isClosedLost\",\n  hs_is_closed_won : \"isClosedWon\",\n  owner : \"owner\",\n  ownerEmail :\"ownerEmail\"\n]\n\ndef ORDER = [\"dealname\", \"description\", \"dealstage\", \"pipeline\",\n             \"hs_priority\", \"amount\", \"closedate\",\n             \"closed_won_reason\", \"closed_lost_reason\",\n             \"createdate\", \"hs_is_closed\", \"hs_is_closed_lost\",\"hs_is_closed_won\" , \"owner\" , \"ownerEmail\"]\n\n// pull the resolved names from their own bindings\ndef pipelineName  = binding.hasVariable('pipeline')  ? pipeline  : null\ndef dealStageName = binding.hasVariable('dealstage') ? dealstage : null\n\n// copy properties, then override with resolved labels where available\ndef merged = [:]\nmerged.putAll(properties ?: [:])\nif (pipelineName)  merged.pipeline  = pipelineName\nif (dealStageName) merged.dealstage = dealStageName\n\ndef buildText = { Map props, Map labels, List order ->\n    order.findAll { props[it] != null && props[it].toString().trim() }\n         .collect { \"${labels[it]}: ${props[it].toString().trim()}\" }\n         .join(\", \")\n}\n\nreturn [\"eventData\": buildText(merged, FIELD_LABELS, ORDER).toString()]",
+				"code":"def FIELD_LABELS = [\n  dealname   : \"title\",\n  dealname  : \"dealname\",\n  description: \"description\",\n  dealstage  : \"dealstage\",\n  pipeline   : \"pipeline\",\n  hs_priority: \"priority\",\n  amount     : \"amount\",\n  closedate  : \"closeDate\",\n  closed_won_reason : \"closedWonRason\",\n  closed_lost_reason: \"closedLostReason\",\n  createdate : \"createDate\",\n  hs_is_closed      : \"isClosed\",\n  hs_is_closed_lost : \"isClosedLost\",\n  hs_is_closed_won  : \"isClosedWon\",\n  owner      : \"owner\",\n  ownerEmail : \"ownerEmail\",\n  companyList: \"associatedCompanies\",\n  contactList: \"associatedContacts\"\n]\n\ndef ORDER = [\"dealname\", \"description\", \"dealstage\", \"pipeline\",\n             \"hs_priority\", \"amount\", \"closedate\",\n             \"closed_won_reason\", \"closed_lost_reason\",\n             \"createdate\", \"hs_is_closed\", \"hs_is_closed_lost\", \"hs_is_closed_won\",\n             \"owner\", \"ownerEmail\",\n             \"companyList\", \"contactList\"]\n\n// pull the resolved names from their own bindings\ndef pipelineName  = binding.hasVariable('pipeline')    ? pipeline    : null\ndef dealStageName = binding.hasVariable('dealstage')   ? dealstage   : null\ndef companies     = binding.hasVariable('companyList') ? companyList : null\ndef contacts      = binding.hasVariable('contactList') ? contactList : null\n\n// normalize a list-ish binding into a clean \"A | B | C\" string\ndef joinList = { value ->\n    if (value == null) return null\n    def items = (value instanceof Collection || value instanceof Object[]) ? value.toList() : [value]\n    def cleaned = items.findResults { it?.toString()?.trim() ?: null }\n    cleaned ? cleaned.join(\" | \") : null\n}\n\n// copy properties, then override with resolved labels where available\ndef merged = [:]\nmerged.putAll(properties ?: [:])\nif (pipelineName)  merged.pipeline  = pipelineName\nif (dealStageName) merged.dealstage = dealStageName\n\ndef companyText = joinList(companies)\ndef contactText = joinList(contacts)\nif (companyText) merged.companyList = companyText\nif (contactText) merged.contactList = contactText\n\ndef buildText = { Map props, Map labels, List order ->\n    order.findAll { props[it] != null && props[it].toString().trim() }\n         .collect { \"${labels[it]}: ${props[it].toString().trim()}\" }\n         .join(\", \")\n}\n\nreturn [\"eventData\": buildText(merged, FIELD_LABELS, ORDER).toString()]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"companyList":{
+						"items":"{{ n_O9s6c.outputs.result.companyList[0] }}",
+						"source":"{{ n_O9s6c.outputs.result.companyList }}",
+						"ua:type":"mappedArray"
+					},
+					"contactList":{
+						"items":"{{ n_O9s6c.outputs.result.contactList[0] }}",
+						"source":"{{ n_O9s6c.outputs.result.contactList }}",
+						"ua:type":"mappedArray"
+					},
 					"dealstage":"{{ n_N3IsP.outputs.chunkMetadata.dealStage }}",
 					"pipeline":"{{ n_N3IsP.outputs.chunkMetadata.pipeline }}",
 					"properties":"{{ n_gCc75.outputs.result.properties }}"
@@ -670,7 +708,8 @@
 					"knowledgeId":"{{ n_QcFG1.outputs.knowledgeId }}",
 					"text":"{{ GmfPl.outputs.result.eventData }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Text Chunker",
@@ -771,7 +810,7 @@
 					"chunkMetadata":"{{ n_N3IsP.outputs.chunkMetadata }}",
 					"chunks":{
 						"items":{
-							"data":"{{ nebL9.outputs.chunks }} ; {{ n_vhReh.outputs.result.text }}",
+							"data":"{{ nebL9.outputs.chunks[0] }} ; {{ n_vhReh.outputs.result.text }}",
 							"sharedWithIds":{
 								"items":"{{ n_QcFG1.outputs.sharedWithIds }}",
 								"source":"{{ n_QcFG1.outputs.sharedWithIds }}",
@@ -832,5 +871,5 @@
 		}
 	},
 	"standard":true,
-	"version":317
+	"version":319
 }
