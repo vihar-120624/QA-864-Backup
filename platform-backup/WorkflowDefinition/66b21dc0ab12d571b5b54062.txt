@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743459030,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743459330,
+		"deployedAt":1789395043171,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecce33f7ad93bb1671808",
+		"deployedDefinitionId":"6aa80063c6a14707f1502f04",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":115
+		"version":2,
+		"workflowVersion":118
 	},
 	"edges":[
 		{
@@ -109,8 +109,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -120,7 +118,7 @@
 	"id":"66b21dc0ab12d571b5b54062",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer thread | slack",
-	"modifiedTime":1788252972034,
+	"modifiedTime":1789395043172,
 	"name":"Knowledge Indexer Thread | Slack",
 	"nodes":[
 		{
@@ -655,6 +653,31 @@
 										"title":"parent_user_id",
 										"type":"string"
 									},
+									"reactions":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"count":{
+													"title":"count",
+													"type":"integer"
+												},
+												"name":{
+													"title":"name",
+													"type":"string"
+												},
+												"users":{
+													"items":{
+														"type":"string"
+													},
+													"title":"users",
+													"type":"array"
+												}
+											},
+											"type":"object"
+										},
+										"title":"reactions",
+										"type":"array"
+									},
 									"replies":{
 										"items":{
 											"additionalProperties":false,
@@ -1012,6 +1035,19 @@
 						"last_read":"{{ n_O2yuj.outputs.item.last_read }}",
 						"latest_reply":"{{ n_O2yuj.outputs.item.latest_reply }}",
 						"parent_user_id":"{{ n_O2yuj.outputs.item.parent_user_id }}",
+						"reactions":{
+							"items":{
+								"count":"{{ n_O2yuj.outputs.item.reactions[0].count }}",
+								"name":"{{ n_O2yuj.outputs.item.reactions[0].name }}",
+								"users":{
+									"items":"{{ n_O2yuj.outputs.item.reactions[0].users[0] }}",
+									"source":"{{ n_O2yuj.outputs.item.reactions[0].users }}",
+									"ua:type":"mappedArray"
+								}
+							},
+							"source":"{{ n_O2yuj.outputs.item.reactions }}",
+							"ua:type":"mappedArray"
+						},
 						"replies":{
 							"items":{
 								"ts":"{{ n_O2yuj.outputs.item.replies[0].ts }}",
@@ -1125,5 +1161,5 @@
 		}
 	},
 	"standard":true,
-	"version":117
+	"version":118
 }
