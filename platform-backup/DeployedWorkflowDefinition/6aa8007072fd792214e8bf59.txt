@@ -1,0 +1,596 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395056001,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Qh7dW",
+			"id":"next@n_Qh7dW@n_bT2mK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bT2mK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bT2mK",
+			"id":"next@n_bT2mK@n_Zp9fL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Zp9fL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Zp9fL",
+			"id":"next@n_Zp9fL@n_Fq3nR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Fq3nR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Fq3nR",
+			"id":"if@n_Fq3nR@n_Wm8bX",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Wm8bX",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Wm8bX",
+			"id":"next@n_Wm8bX@n_Jv6cH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Jv6cH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Jv6cH",
+			"id":"next@n_Jv6cH@n_Nx5tP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Nx5tP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Nx5tP",
+			"id":"next@n_Nx5tP@n_nFwJ7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nFwJ7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nFwJ7",
+			"id":"if@n_nFwJ7@n_Gt4pV",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Gt4pV",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Gt4pV",
+			"id":"next@n_Gt4pV@n_Ac1qJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ac1qJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nFwJ7",
+			"id":"next@n_nFwJ7@n_Ac1qJ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ac1qJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Fq3nR",
+			"id":"next@n_Fq3nR@n_Ac1qJ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ac1qJ",
+			"type":"next"
+		}
+	],
+	"id":"6aa8007072fd792214e8bf59",
+	"lastModifiedBy":-1,
+	"lcName":"eval | governance | backfill evaluator",
+	"modifiedTime":1789395056003,
+	"name":"Eval | Governance | Backfill evaluator",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2448,
+				"resourceName":"callables_from_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bk9Fx-1",
+			"id":"n_Qh7dW",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"cursor":{
+							"title":"Cursor",
+							"type":"number"
+						},
+						"evaluatorId":{
+							"title":"Evaluator Id",
+							"type":"string"
+						},
+						"maxSessions":{
+							"title":"Max Sessions",
+							"type":"number"
+						},
+						"rangeUnit":{
+							"title":"Range Unit",
+							"type":"string"
+						},
+						"rangeValue":{
+							"title":"Range Value",
+							"type":"number"
+						},
+						"scoredSoFar":{
+							"title":"Scored So Far",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15305,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bk9Fx-1",
+			"id":"n_bT2mK",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ n_Qh7dW.outputs.evaluatorId }}",
+				"object_type":"e_agent_evaluator",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_Qh7dW.outputs.evaluatorId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bk9Fx-1",
+			"id":"n_Zp9fL",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"capHit":{
+							"title":"Cap Hit",
+							"type":"boolean"
+						},
+						"hasWork":{
+							"title":"Has Work",
+							"type":"boolean"
+						},
+						"sliceEnd":{
+							"title":"Slice End",
+							"type":"number"
+						},
+						"sliceStart":{
+							"title":"Slice Start",
+							"type":"number"
+						},
+						"windowCeiling":{
+							"title":"Window Ceiling",
+							"type":"number"
+						},
+						"windowFloor":{
+							"title":"Window Floor",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"createdTime":{
+							"title":"Created Time",
+							"type":"number"
+						},
+						"cursor":{
+							"title":"Cursor",
+							"type":"number"
+						},
+						"maxSessions":{
+							"title":"Max Sessions",
+							"type":"number"
+						},
+						"rangeUnit":{
+							"title":"Range Unit",
+							"type":"string"
+						},
+						"rangeValue":{
+							"title":"Range Value",
+							"type":"number"
+						},
+						"scoredSoFar":{
+							"title":"Scored So Far",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import java.util.concurrent.TimeUnit\n\ndef rangeValue  = binding.hasVariable('rangeValue')  ? rangeValue  : null\ndef rangeUnit   = binding.hasVariable('rangeUnit')   ? rangeUnit   : null\ndef createdTime = binding.hasVariable('createdTime') ? createdTime : null\ndef cursor      = binding.hasVariable('cursor')      ? cursor      : null\ndef maxSessions = binding.hasVariable('maxSessions') ? maxSessions : null\ndef scoredSoFar = binding.hasVariable('scoredSoFar') ? scoredSoFar : 0\n\n// Traces age out of retention after 30 days, so there is nothing to score below this.\nfinal long RETENTION_MILLIS = TimeUnit.DAYS.toMillis(30)\n// One day of history per invocation keeps a single execution well inside its timeout.\nfinal long SLICE_MILLIS = TimeUnit.DAYS.toMillis(1)\n\nlong toMillis(def value, String unit) {\n    if (value == null) return 0L\n    long v = (value as double) as long\n    switch ((unit ?: 'DAYS').toUpperCase()) {\n        case 'DAYS':    return TimeUnit.DAYS.toMillis(v)\n        case 'HOURS':   return TimeUnit.HOURS.toMillis(v)\n        case 'MINUTES': return TimeUnit.MINUTES.toMillis(v)\n        default: throw new IllegalArgumentException(\"Unsupported backfill range unit: ${unit}\")\n    }\n}\n\nlong now = System.currentTimeMillis()\nlong requested = toMillis(rangeValue, rangeUnit as String)\n\n// Floor: as far back as asked for, but never past trace retention.\nlong windowFloor = Math.max(now - requested, now - RETENTION_MILLIS)\n// Ceiling: the evaluator's own creation time. Anything after it is the scheduled run's job,\n// so backfill and forward scoring can never overlap and never double-charge.\nlong windowCeiling = (createdTime == null) ? now : (createdTime as double) as long\n\nlong sliceStart = (cursor != null && (cursor as double) > 0) ? ((cursor as double) as long) : windowFloor\nlong sliceEnd   = Math.min(sliceStart + SLICE_MILLIS, windowCeiling)\n\nlong cap       = (maxSessions == null) ? 0L : (maxSessions as double) as long\nlong scored    = (scoredSoFar == null) ? 0L : (scoredSoFar as double) as long\nboolean capHit = cap > 0 && scored >= cap\n\nboolean hasWork = (sliceStart < windowCeiling) && !capHit\n\nreturn [\n    windowFloor   : windowFloor,\n    windowCeiling : windowCeiling,\n    sliceStart    : sliceStart,\n    sliceEnd      : sliceEnd,\n    hasWork       : hasWork,\n    capHit        : capHit\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"createdTime":"{{ n_bT2mK.outputs.createdTime }}",
+					"cursor":"{{ n_Qh7dW.outputs.cursor }}",
+					"maxSessions":"{{ n_Qh7dW.outputs.maxSessions }}",
+					"rangeUnit":"{{ n_Qh7dW.outputs.rangeUnit }}",
+					"rangeValue":"{{ n_Qh7dW.outputs.rangeValue }}",
+					"scoredSoFar":"{{ n_Qh7dW.outputs.scoredSoFar }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Resolve slice window",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":188,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bk9Fx-1",
+			"id":"n_Fq3nR",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_Zp9fL.outputs.result.hasWork }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Slice remaining",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":15305,
+				"resourceName":"storage_by_unifyapps_count_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Fq3nR@_Bk9Fx-1@y",
+			"id":"n_Wm8bX",
+			"index":5,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_Qh7dW.outputs.agentId }}"
+							},
+							"property":"properties_aiAgentId"
+						},
+						{
+							"resolvedFilter":{
+								"filter":"{{ n_bT2mK.outputs.properties.filter }}"
+							}
+						},
+						{
+							"filter":{
+								"operator":"GTE",
+								"value":"{{ n_Zp9fL.outputs.result.sliceStart }}"
+							},
+							"property":"cTm"
+						},
+						{
+							"filter":{
+								"operator":"LT",
+								"value":"{{ n_Zp9fL.outputs.result.sliceEnd }}"
+							},
+							"property":"cTm"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_session"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Count sessions in slice",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2505,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Fq3nR@_Bk9Fx-1@y",
+			"id":"n_Jv6cH",
+			"index":6,
+			"inputs":{
+				"automationId":"6a69aeb7a0c1952ad20a1d75",
+				"distributeLoad":false,
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"agentId":"{{ n_Qh7dW.outputs.agentId }}",
+					"assetType":"{{ n_bT2mK.outputs.properties.assetType }}",
+					"backfillMode":true,
+					"evaluatorId":"{{ n_Qh7dW.outputs.evaluatorId }}",
+					"fromTime":"{{ n_Zp9fL.outputs.result.sliceStart }}",
+					"toTime":"{{ n_Zp9fL.outputs.result.sliceEnd }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Score this slice",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Fq3nR@_Bk9Fx-1@y",
+			"id":"n_Nx5tP",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						},
+						"nextCursor":{
+							"title":"Next Cursor",
+							"type":"number"
+						},
+						"scoredTotal":{
+							"title":"Scored Total",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"maxSessions":{
+							"title":"Max Sessions",
+							"type":"number"
+						},
+						"scoredSoFar":{
+							"title":"Scored So Far",
+							"type":"number"
+						},
+						"sliceCount":{
+							"title":"Slice Count",
+							"type":"number"
+						},
+						"sliceEnd":{
+							"title":"Slice End",
+							"type":"number"
+						},
+						"windowCeiling":{
+							"title":"Window Ceiling",
+							"type":"number"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def sliceEnd      = binding.hasVariable('sliceEnd')      ? sliceEnd      : 0\ndef windowCeiling = binding.hasVariable('windowCeiling') ? windowCeiling : 0\ndef sliceCount    = binding.hasVariable('sliceCount')    ? sliceCount    : 0\ndef scoredSoFar   = binding.hasVariable('scoredSoFar')   ? scoredSoFar   : 0\ndef maxSessions   = binding.hasVariable('maxSessions')   ? maxSessions   : null\n\nlong nextCursor = (sliceEnd as double) as long\nlong ceiling    = (windowCeiling as double) as long\nlong scored     = ((scoredSoFar as double) as long) + ((sliceCount as double) as long)\nlong cap        = (maxSessions == null) ? 0L : (maxSessions as double) as long\n\n// The cap is checked between slices, so the final slice may overshoot it slightly.\nboolean capHit  = cap > 0 && scored >= cap\nboolean hasMore = (nextCursor < ceiling) && !capHit\n\nreturn [\n    nextCursor  : nextCursor,\n    scoredTotal : scored,\n    hasMore     : hasMore\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"maxSessions":"{{ n_Qh7dW.outputs.maxSessions }}",
+					"scoredSoFar":"{{ n_Qh7dW.outputs.scoredSoFar }}",
+					"sliceCount":"{{ n_Wm8bX.outputs.count }}",
+					"sliceEnd":"{{ n_Zp9fL.outputs.result.sliceEnd }}",
+					"windowCeiling":"{{ n_Zp9fL.outputs.result.windowCeiling }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Advance cursor",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":191,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Fq3nR@_Bk9Fx-1@y",
+			"id":"n_nFwJ7",
+			"index":8,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_Nx5tP.outputs.result.hasMore }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2505,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_nFwJ7@n_Fq3nR@_Bk9Fx-1@y@y",
+			"id":"n_Gt4pV",
+			"index":9,
+			"inputs":{
+				"automationId":"6a8059e57e073438c33c1386",
+				"distributeLoad":false,
+				"runtimeConnections":{},
+				"synchronous":false,
+				"parameters":{
+					"agentId":"{{ n_Qh7dW.outputs.agentId }}",
+					"cursor":"{{ n_Nx5tP.outputs.result.nextCursor }}",
+					"evaluatorId":"{{ n_Qh7dW.outputs.evaluatorId }}",
+					"maxSessions":"{{ n_Qh7dW.outputs.maxSessions }}",
+					"rangeUnit":"{{ n_Qh7dW.outputs.rangeUnit }}",
+					"rangeValue":"{{ n_Qh7dW.outputs.rangeValue }}",
+					"scoredSoFar":"{{ n_Nx5tP.outputs.result.scoredTotal }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Continue with next slice",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Bk9Fx-1",
+			"id":"n_Ac1qJ",
+			"index":10,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a8059e57e073438c33c1386",
+	"workflowVersion":15
+}
