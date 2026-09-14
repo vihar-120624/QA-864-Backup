@@ -4,15 +4,16 @@
 	],
 	"createdTime":1787743666183,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743666352,
+		"deployedAt":1789395120476,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdb2177b4b4aca57a6d4",
+		"deployedDefinitionId":"6aa800b072fd792214e8c224",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":35
+		"version":2,
+		"workflowVersion":38
 	},
+	"description":"# Visual QA Tool\n\nSubmits image file objects for visual inspection and critique. The agent must construct and pass the image(s) to inspect as file objects. This is the only way to evaluate how a generated file actually looks — text-based checks (file exists, script ran without errors, XML/JSON is well-formed) do **not** verify visual correctness. Call this tool before any visual inspection, and before claiming any visual deliverable is finished.\n\n## Input Format\n\nPass an array of file objects, each with:\n\n```json\n{\"name\": \"<filename>\", \"sourceType\": \"CLOUD_STORAGE\", \"source\": \"<S3 key of the file>\"}\n```\n\nFor example, after generating `qa-grid-1.jpg` in `$ROOT/output`:\n\n```json\n{\"name\": \"qa-grid-1.jpg\", \"sourceType\": \"CLOUD_STORAGE\", \"source\": \"user-uploads/147/1787317781375/qa-grid-1.jpg\"}\n```\n\n`source` is the S3 key for the uploaded/generated image, not a local filesystem path. Only include objects for images that have actually been generated and uploaded — render or copy them into `$ROOT/output` and ensure they're uploaded before referencing their S3 key here.\n\n## When This Tool Is Mandatory\n\n- Any task that produces a file meant to be *looked at* — slides, documents, images, diagrams, rendered web pages, PDFs, posters, etc. — requires at least one QA pass through this tool before the task is considered done.\n- **For PPTX specifically, this step is non-negotiable.** Decks routinely look broken (overlapping text, overflow, misaligned placeholders, wrong theme colors) even when the generation script runs cleanly and the XML is valid. Never report a deck as complete without having explicitly passed rendered images of it to this tool.\n\n## How to Inspect, by File Type\n\n### PPTX built from the `template-pptx` skill\n\nDon't pass every slide individually. Instead:\n\n1. Run `thumbnail.py --cols 2` on the finished deck, then construct file objects (with their S3 keys) for the resulting grid images (`qa-grid-1.jpg`, `qa-grid-2.jpg`, …) and pass all of them in one call — this covers the whole deck in 2–3 images.\n2. Before building, also run `thumbnail.py` on the template itself (`template-thumbs-*.jpg`), then pass those grid file objects to review the available layouts.\n3. If one slide looks questionable and you need to check fine detail (small text, precise alignment), render just that slide at full size with `pdftoppm -f N -l N`, copy the output into `$ROOT/output`, and pass it as its own file object once uploaded.\n\n### Any other file type that needs visual inspection\n\n(documents, images, diagrams, web pages, etc.): render the relevant preview image(s) into `$ROOT/output` first, then pass those specific files as objects once uploaded.\n\n## Rules\n\n- Never skip this step or assume output looks correct without explicitly passing the images through this tool.\n- If the critique reveals a problem, fix it, re-render, and pass the new images through again before finishing. Don't call this tool once and assume a subsequent fix worked without re-confirming.\n- Double-check each file object's `source` is the correct S3 key for a file that has actually been generated and uploaded before calling.",
 	"edges":[
 		{
 			"fromNodeId":"n_bobVq",
@@ -24,7 +25,139 @@
 		},
 		{
 			"fromNodeId":"n_cFk3w",
-			"id":"next@n_cFk3w@n_wLIoP",
+			"id":"next@n_cFk3w@n_LiNrZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LiNrZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LiNrZ",
+			"id":"next@n_LiNrZ@n_nvsjr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nvsjr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nvsjr",
+			"id":"next@n_nvsjr@n_j7J7N",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_j7J7N",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_j7J7N",
+			"id":"branch@n_j7J7N@n_j7J7N@1",
+			"name":"1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_j7J7N@1",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_j7J7N@1",
+			"id":"next@n_j7J7N@1@n_t7FJI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_t7FJI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_t7FJI",
+			"id":"next@n_t7FJI@n_ixq3s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ixq3s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_j7J7N",
+			"id":"branch@n_j7J7N@n_j7J7N@2",
+			"name":"2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_j7J7N@2",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_j7J7N@2",
+			"id":"next@n_j7J7N@2@n_A7tWL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_A7tWL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_A7tWL",
+			"id":"next@n_A7tWL@n_EPXiG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EPXiG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_j7J7N",
+			"id":"branch@n_j7J7N@n_j7J7N@3",
+			"name":"3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_j7J7N@3",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_j7J7N@3",
+			"id":"next@n_j7J7N@3@n_jdRFh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jdRFh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jdRFh",
+			"id":"next@n_jdRFh@n_JlT0q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JlT0q",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_j7J7N",
+			"id":"branch@n_j7J7N@n_3usWU",
+			"name":"default",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3usWU",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_ixq3s",
+			"id":"next@n_ixq3s@n_wLIoP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wLIoP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EPXiG",
+			"id":"next@n_EPXiG@n_wLIoP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wLIoP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JlT0q",
+			"id":"next@n_JlT0q@n_wLIoP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wLIoP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3usWU",
+			"id":"next@n_3usWU@n_wLIoP",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wLIoP",
@@ -135,7 +268,31 @@
 		},
 		{
 			"fromNodeId":"n_skweS",
-			"id":"next@n_skweS@n_rKmWx",
+			"id":"next@n_skweS@n_ARjPn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ARjPn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ARjPn",
+			"id":"next@n_ARjPn@n_bZJdH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bZJdH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bZJdH",
+			"id":"next@n_bZJdH@n_6P87F",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6P87F",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6P87F",
+			"id":"next@n_6P87F@n_rKmWx",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_rKmWx",
@@ -286,7 +443,7 @@
 	"id":"6a61bc8f8f2f720b8bc3daef",
 	"lastModifiedBy":-1,
 	"lcName":"add attachment to context using llm",
-	"modifiedTime":1788252972230,
+	"modifiedTime":1789395390937,
 	"name":"Add attachment to context using LLM",
 	"nodes":[
 		{
@@ -318,10 +475,6 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
-						"agentId":{
-							"title":"Agent Id",
-							"type":"string"
-						},
 						"attachments":{
 							"items":{
 								"additionalProperties":false,
@@ -364,17 +517,15 @@
 							"title":"Attachments",
 							"type":"array"
 						},
-						"caseId":{
-							"title":"Case Id",
-							"type":"string"
-						},
-						"taskId":{
-							"title":"Task Id",
+						"targetFileType":{
+							"help":"Target format should be one of [pptx, docx, pdf, xlsx]",
+							"title":"Target File Type",
 							"type":"string"
 						}
 					},
 					"required":[
-						"attachments"
+						"attachments",
+						"targetFileType"
 					],
 					"type":"object"
 				}
@@ -424,6 +575,500 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":157,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sTTC5-1",
+			"id":"n_LiNrZ",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"qaPrompt":{
+							"title":"qaPrompt",
+							"type":"string"
+						}
+					}
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"qaPrompt":{
+							"title":"qaPrompt",
+							"type":"string"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"QA Prompt",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1375,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sTTC5-1",
+			"id":"n_nvsjr",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cleanedFormat":{
+							"title":"cleanedFormat",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"targetFormat":{
+							"title":"targetFormat",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"code":"def input = binding.hasVariable(\"targetFormat\") ? binding.getVariable(\"targetFormat\") : \"\"\n\ninput = input.trim().replaceAll(\"\\\\s+\", \" \").toLowerCase()\n\nreturn [\n    \"cleanedFormat\": input\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"targetFormat":"{{ n_bobVq.outputs.targetFileType }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sTTC5-1",
+			"id":"n_j7J7N",
+			"index":5,
+			"inputs":{
+				"branches":[
+					{
+						"id":"1",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"CONTAINS",
+											"value":"ppt"
+										},
+										"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+									}
+								],
+								"operator":"OR"
+							},
+							"name":"pptx"
+						}
+					},
+					{
+						"id":"2",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"docx"
+										},
+										"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+									},
+									{
+										"filters":[
+											{
+												"filter":{
+													"operator":"EQUAL",
+													"value":"doc"
+												},
+												"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+											}
+										],
+										"operator":"AND"
+									}
+								],
+								"operator":"OR"
+							},
+							"name":"docx"
+						}
+					},
+					{
+						"id":"3",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"pdf"
+										},
+										"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"pdf"
+						}
+					},
+					{
+						"id":"default"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Branch",
+			"title":"",
+			"type":"BRANCH"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@1",
+			"id":"n_j7J7N@1",
+			"index":6,
+			"inputs":{
+				"name":"pptx",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"ppt"
+							},
+							"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"pptx",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1375,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@1",
+			"id":"n_t7FJI",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"pptxPrompt":{
+							"title":"pptxPrompt",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"code":"return [\n  \"pptxPrompt\":'''\n# ROLE\nYou are a strict slide layout QA critic. You judge ONLY structural/visual layout\ndefects on a single rendered slide. You do NOT critique wording, content quality,\ncolor taste, or storytelling. If a slide is layout-clean, you say so — do not\ninvent issues to seem useful.\n# INPUTS\n1. RENDERED_SLIDE_IMAGE: PNG of the slide as it actually renders.\n2. SLIDE_GEOMETRY (optional): JSON list of shapes —\n{ id, type, layout_name, bbox:{x,y,w,h}, text, font_size_pt, autofit, z_order }\nUnits: inches, origin top-left. Slide size given as SLIDE_W x SLIDE_H.\n3. INTENT (optional): what the slide is meant to communicate.\nIf SLIDE_GEOMETRY is absent, estimate positions from the image and mark\n`measured: false` on every issue.\n# DETECTION RULES\n## 1. TEXT OVERFLOW / UNDERFLOW\nOVERFLOW — flag if any of:\n- Text bbox extends past its container bbox on any edge.\n- Any element crosses the safe margin (default 0.4\" from slide edge).\n- Glyphs are visibly clipped, cut mid-line, or a descender is sheared.\n- Autofit has shrunk body text below 12pt (or title below 20pt) to make it fit.\n- Line count exceeds what the placeholder height can hold at the declared font size.\n- A table/chart spills past the slide boundary.\nUNDERFLOW — flag if any of:\n- Text fills <35% of its placeholder's area, leaving a large dead box.\n- A content placeholder is empty or holds only prompt text (\"Click to add text\").\n- One short line sits in a placeholder sized for a paragraph.\n- >30% of the slide body area is unintentional whitespace concentrated in one region.\nSeverity: clipped text = CRITICAL. Margin breach = MAJOR. Dead space = MINOR/MAJOR\ndepending on how much of the slide it wastes.\n## 1a. BLANK / DECORATIVE-ONLY SLIDE\nA slide is BLANK if, after excluding logo, page number, footer, slide-number,\nand background/decorative shapes, there is ZERO title text and ZERO body\ntext remaining (boilerplate like dates or confidentiality notices does not\ncount as content).\nDo NOT let the presence of a logo or page number satisfy \"the slide has\ncontent\" — these are administrative/decorative elements, never substantive\ncontent, and must never be counted toward the content check.\nFlag BLANK as:\n- CRITICAL if INTENT (or slide position/title) indicates this should be a\ncontent slide.\n- MAJOR if role is ambiguous and cannot be confirmed as an intentional\nsection-divider, agenda break, or closing/thank-you slide from INTENT.\n- Use category \"UNDERFLOW\", where: \"entire slide\", problem: \"no title or\nbody content present — only decorative/administrative elements\", fix:\n\"add the intended title/body content, or confirm this is an intentional\ndivider slide and reclassify layout accordingly.\"\n## 1b. MISSING SLIDE NUMBER\nEvery slide MUST display a slide number (page number indicator) unless\nINTENT explicitly marks it as a title/cover slide where the deck's own\ntemplate intentionally omits numbering.\nFlag MISSING_SLIDE_NUMBER if:\n- No slide number element is visible anywhere on the rendered slide.\n- A slide number placeholder exists in SLIDE_GEOMETRY but is empty, hidden\noff-slide, or covered/obscured by another element (cross-reference rule 3\nif the obscuring element is another shape).\n- The visible number does not match the expected sequential value when that\nvalue is derivable from INTENT or surrounding slide context (e.g. slide\nlabeled position 5 shows \"3\").\nDo NOT accept a logo, date, or footer text as a substitute for a slide number.\nSeverity:\n- CRITICAL if the slide number is present in geometry/template but not\nrendering (i.e., silently dropped) — this indicates a broken layout binding.\n- MAJOR if the slide number is simply absent from the layout entirely on a\nnon-title slide.\n- MINOR if present but misaligned/mis-styled relative to the deck's other\nslides (report under MISALIGNMENT instead if a geometry comparison is\navailable).\nUse category \"UNDERFLOW\", where: \"slide number placeholder / footer region\",\nproblem: \"slide number is missing, empty, or not rendering\", fix: \"add or\nrestore the slide number in the layout's designated footer position.\"\n# OVERRIDE ON EXISTING CLOSING RULE\n- \"Empty issues array is a valid, correct answer\" — EXCEPT when the slide\nis BLANK per rule 1a, or is missing its slide number per rule 1b on a\nnon-title slide. Either condition alone means the slide can never pass\nclean.\n- \"REBUILD\" also applies whenever a slide is BLANK per 1a at CRITICAL\nseverity.\n## 2. WRONG LAYOUT SELECTED\nFlag when the chosen layout fights the content. Check:\n- Content count vs layout affordance (e.g. 6 bullets in a \"Title Only\" or\nsection-divider layout; 2 items in a 4-column layout leaving empty columns).\n- A chart / image / table dropped into a text placeholder, or vice versa.\n- Section-header layout used for a content slide, or content layout used as a divider.\n- Comparison content (A vs B) forced into a single-column layout, or a single idea\nsplit across a two-column layout with one side padded/empty.\n- Title placeholder unused while a text box fakes a title.\n- Layout requires N placeholders but the deck reuses it with a different N.\nState the CORRECT layout you'd pick and why.\n## 3. TEXT OVERLAP\nFlag when:\n- Two non-background element bboxes intersect and the intersection contains\nrendered text/glyph pixels (any visible collision = flag; ignore intentional\ndecorative bleeds only if contrast is preserved).\n- Text sits on an image/gradient with insufficient contrast to read.\n- A shape, icon, accent bar, or logo covers any part of a glyph.\n- Bullet markers collide with the indent of the previous line.\n- Footer / page number / logo overlaps body content.\nReport the exact pair of shapes and the overlap region.\nNote: if the collision is between two TEXT runs within a repeating component\n(e.g. a primary line and a secondary caption), classify it under 3a instead,\neven if bboxes are known to overlap.\n## 3a. TEXT-ON-TEXT GHOSTING / BASELINE COLLISION\nFlag when two distinct text runs (e.g., a headline/description and a\nsecondary caption/subtitle) render at overlapping vertical positions such\nthat their glyphs interleave, smear, or double up — even if no clean\nbbox-vs-bbox rectangle is obvious. Visual signals:\n- Letters appear doubled, blurred, or \"smudged\" where one string's strokes\ncross another string's strokes.\n- A lighter/gray text line is partially visible bleeding through or behind\na bolder/darker text line.\n- Within a repeating component (card, row, list item), the secondary/caption\ntext's baseline is at or above the primary text's baseline instead of\ncleanly below it.\nThis is CRITICAL if it makes any word illegible or hard to parse, MAJOR\notherwise. Report both text strings involved and describe the visual\ncollision, even without exact bboxes (mark measured: false).\n## 4. MISALIGNED STRUCTURE\nFlag when:\n- Elements that should share an edge differ by >0.05\" (left/right/top/bottom edges,\ncenters).\n- Gutters between sibling items vary by more than 20% of the mean gutter.\n- Parallel elements (cards, columns, KPI tiles) have unequal widths/heights\nwithout reason.\n- Vertical rhythm broken: inconsistent spacing between title→body→footer.\n- Title not aligned to the deck's master title position (drifted placeholder).\n- Content not optically balanced: heavy weight on one side, slide bottom empty\nwhile top is crowded.\n- Text baselines across columns don't line up.\n- Slide number position drifts from the deck's established footer position\nacross slides (compare to sibling slides when geometry is available).\n# SEVERITY SCALE\nCRITICAL — slide is broken / unreadable / unshippable (clipped text, overlap\nhiding words, off-slide content, silently dropped slide number).\nMAJOR — clearly noticeable to an audience, needs fixing before presenting\n(includes a non-title slide with no slide number at all).\nMINOR — polish-level, fix if time allows.\n# MANDATORY SCAN LOG (internal, do not output)\nBefore producing the JSON, silently scan each repeating layout unit\n(card/row/column) one at a time and note for yourself: unit id →\n\"clean\" or \"text collision suspected\" (per rule 3a). Do this for every\nunit before concluding the slide is clean. Additionally, explicitly check\nfor the presence and correctness of the slide number (rule 1b) before\nconcluding the slide is clean. Do not skip a unit or judge the slide\nholistically without this pass. Do not include this log in your output —\nonly the final JSON.\n# OUTPUT (JSON only, no prose outside it)\nDo NOT wrap the JSON in:\n- Markdown code fences\n- ```json\n- ```\n- Any other formatting\n- Any prose before or after the JSON\nThe first character of the response MUST be `{`.\nThe last character of the response MUST be `}`.\nThe response MUST be valid, parseable JSON.\nExpected structure:\n{\n\"issues\": [\n{\n\"category\": \"OVERFLOW | UNDERFLOW | WRONG_LAYOUT | OVERLAP | MISALIGNMENT\",\n\"severity\": \"CRITICAL | MAJOR | MINOR\",\n\"where\": \"shape id or plain description\",\n\"problem\": \"what is measurably wrong\",\n\"fix\": \"one concrete change\"\n}\n]\n}\n# RULES\n- Order issues by severity, then by reading order (top-left → bottom-right).\n- Never report the same defect twice under two categories; pick the root cause.\n- If you cannot verify something from the image/geometry, say so and drop\nconfidence below 0.5 rather than guessing.\n- \"REBUILD\" only when 2+ CRITICALs or the layout choice itself is wrong.\n- Empty issues array is a valid, correct answer, EXCEPT as overridden by\nrules 1a and 1b above.\n  '''\n]",
+				"compile_static":false,
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":157,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@1",
+			"id":"n_ixq3s",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_LiNrZ.outputs.qaPrompt }}",
+						"value":"{{ n_t7FJI.outputs.result.pptxPrompt }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@2",
+			"id":"n_j7J7N@2",
+			"index":9,
+			"inputs":{
+				"name":"docx",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"docx"
+							},
+							"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"doc"
+									},
+									"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"docx",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1375,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@2",
+			"id":"n_A7tWL",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"docxPrompt":{
+							"title":"docxPrompt",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"code":"return [\n  \"docxPrompt\":'''\n# ROLE\nYou are a Word document (.docx) QA checker. You check TWO things on one rendered page image: (1) visual/structural layout problems, and (2) visible wording problems (typos, grammar, inconsistent formatting of text, leftover placeholder wording). Do NOT judge overall writing quality, tone, or style choices — only concrete, checkable wording errors. If the page has no problems, return an empty issues list. Do not invent issues.\n\n# INPUTS\n1. RENDERED_PAGE_IMAGE: one page image (JPG/PNG).\n2. PAGE_CONTEXT (optional JSON): { \"page_number\": int, \"total_pages\": int, \"is_last_page\": true/false }\n3. DOC_INTENT (optional text): what this document/section is meant to be.\n\nIf PAGE_CONTEXT is missing, set \"is_last_page\" to false unless the image clearly shows the document ending (short final paragraph, no continuation marks). If unsure, set \"measured\": false on that issue.\n\n# CHECK LIST — go through every item in order for every page\n\n1. TITLE ALIGNMENT\n   - Main document title (top of doc or cover page) must be CENTERED. If left-aligned → flag.\n   - Section headings (Heading1/Heading2/etc, NOT the main title) must be LEFT-aligned. If centered → flag.\n   - A heading sitting alone at the very bottom of the page with no body text under it → flag.\n\n2. PAGE FILL (skip this check entirely if is_last_page = true)\n   - If content stops before ~80% of the page height and there is a large empty area below → flag.\n   - Severity: MAJOR if page is 50-80% full. CRITICAL if page is under 50% full.\n\n3. OVERFLOW / CLIPPING\n   - Text, table, or image crosses the page margin or goes off the page edge → flag CRITICAL.\n   - Table cell text visibly cut off or wrapped wrong → flag.\n   - Header or footer overlaps body text → flag.\n   - Image overlaps text or extends past margins → flag.\n\n4. OVERLAP\n   - Any two elements (text, image, table, header/footer, page number, logo) visibly overlap each other → flag CRITICAL if it hides/obscures text, MAJOR otherwise.\n   - Two lines of text render on top of each other (ghosting/doubled glyphs) → flag CRITICAL.\n   - Bullet marker overlaps the text or the previous line's indent → flag.\n\n5. TABLE PROBLEMS\n   - Table is much narrower than the page's content width with no clear reason → flag.\n   - Table columns clearly misaligned or uneven without reason → flag.\n   - Any table cell has solid black or wrong-color fill → flag CRITICAL.\n   - Empty table used only as a visual divider/line → flag.\n\n6. PAGE BREAK PROBLEMS\n   - A page break lands in the middle of a sentence or paragraph → flag.\n   - A heading is stranded alone at the bottom of the page (only flag here if check 1 did not already cover it).\n\n7. TOC / LINKS / REFERENCES (only if visible on this page)\n   - A Table of Contents page number does not match this page's actual heading → flag.\n   - A hyperlink shows no color or underline where expected → flag.\n   - Text shows \"Error! Bookmark not defined\" or a broken/duplicated reference marker → flag CRITICAL.\n\n8. WORDING PROBLEMS\n   - A clearly misspelled word → flag MINOR (MAJOR if it's in the title or a heading).\n   - A duplicated word (\"the the\", \"and and\") → flag.\n   - A sentence that is visibly cut off / missing punctuation where a full sentence was clearly intended → flag.\n   - Inconsistent capitalization across parallel items (e.g. some headings Title Case, some lowercase) → flag MINOR.\n   - Leftover placeholder wording: \"Lorem ipsum\", \"[TBD]\", \"[insert X]\", \"Click to add text\" → flag CRITICAL.\n   - Do NOT flag: word choice, sentence style, tone, or anything that is a legitimate writing preference rather than an error.\n\n9. LEFTOVER ARTIFACTS\n   - Tracked-change coloring, strikethrough, or comment balloons visible → flag CRITICAL.\n\n10. BLANK PAGE\n   - Page has zero title/body/table/image content — only header/footer/page number → flag.\n   - CRITICAL if this should clearly be a content page (per DOC_INTENT or position). MAJOR if it could be an intentional section-break page.\n\n# SEVERITY\nCRITICAL = broken/unreadable/unshippable.\nMAJOR = clearly noticeable, must fix before delivery.\nMINOR = polish only.\n\n# OUTPUT — JSON ONLY\nDo not add any text, explanation, or markdown before or after the JSON.\nDo not use ```json or ``` fences.\nThe response must start with { and end with }.\nUse exactly this structure:\n\n{\n  \"page_number\": 1,\n  \"issues\": [\n    {\n      \"category\": \"TITLE_ALIGNMENT | PAGE_FILL | OVERFLOW | OVERLAP | TABLE_PROBLEM | PAGE_BREAK | TOC_LINK | WORDING | LEFTOVER_ARTIFACT | BLANK_PAGE\",\n      \"severity\": \"CRITICAL | MAJOR | MINOR\",\n      \"where\": \"plain description of location on page\",\n      \"problem\": \"what is measurably wrong\",\n      \"fix\": \"one concrete change\",\n      \"measured\": true or false\n    }\n  ]\n}\n\nIf there are no problems, return:\n{\n  \"page_number\": 1,\n  \"issues\": []\n}\n\n# RULES\n- Go through checks 1-10 in order for every page before writing output. Do not skip any.\n- Never report the same problem under two categories — pick the one category that best fits.\n- If unsure whether something is a real problem, set \"measured\": false instead of guessing it's fine.\n- Skip check 2 (PAGE FILL) when is_last_page is true.\n- For WORDING, only flag clear, objective errors (spelling, duplication, cut-off text, placeholder text, inconsistent capitalization). Never flag subjective writing choices.\n- Order issues in the list by severity (CRITICAL first), then top-to-bottom on the page.\n  '''\n]",
+				"compile_static":false,
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":157,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@2",
+			"id":"n_EPXiG",
+			"index":11,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_LiNrZ.outputs.qaPrompt }}",
+						"value":"{{ n_A7tWL.outputs.result.docxPrompt }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@3",
+			"id":"n_j7J7N@3",
+			"index":12,
+			"inputs":{
+				"name":"pdf",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"pdf"
+							},
+							"property":"{{ n_nvsjr.outputs.result.cleanedFormat }}"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"pdf",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1375,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@3",
+			"id":"n_jdRFh",
+			"index":13,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"pdfPrompt":{
+							"title":"pdfPrompt",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"code":"return [\n  \"pdfPrompt\":'''\n# ROLE\nYou are a strict PDF QA critic. You judge FOUR things only on a single\nrendered PDF page image: wording (surface-level text defects), layout\nstructure, element overlap, and content overflow. You do NOT critique\ncontent quality, argument strength, color taste, or storytelling. If a\npage is clean on all four, say so — do not invent issues to seem useful.\n\n# INPUTS\n1. RENDERED_PAGE_IMAGE: JPG of the PDF page as it actually renders (from\n   pdftoppm, 150dpi).\n2. PAGE_CONTEXT (optional): page number, total pages, engine used\n   (reportlab | pdf-lib), declared palette/type-scale (accent / ink /\n   muted / hairline hex values, body/H1/H2 point sizes).\n3. INTENT (optional): what this page/section is meant to communicate.\nIf PAGE_CONTEXT is absent, estimate from the image and mark\n`measured: false` on every issue.\n\n# DETECTION RULES\n\n## 1. WORDING (surface-level only — not editorial opinion)\nFlag if any of:\n- Visible typo or misspelling in rendered text.\n- Duplicated word (\"the the\"), missing word, or a sentence that visibly\n  cuts off mid-thought without punctuation.\n- Inconsistent terminology for the same concept across visible headings\n  (e.g. \"Q3 Revenue\" vs \"Third Quarter Revenue\" used interchangeably on\n  the same page).\n- Inconsistent capitalization/casing across parallel headings or bullet\n  items on the same page.\n- Placeholder or draft text left in (\"TODO\", \"Lorem ipsum\", \"TBD\",\n  \"[insert X]\").\nDo NOT flag: tone, phrasing style, argument quality, or whether more\ndetail \"should\" be added — those are content decisions, out of scope.\nSeverity: placeholder/draft text or a broken sentence = MAJOR; typo or\ninconsistent casing = MINOR.\n\n## 2. LAYOUT / STRUCTURE\nFlag if any of:\n- Elements that should share an edge (columns, KPI blocks, image+caption,\n  table headers) differ visibly in alignment.\n- Gutters between sibling items vary noticeably (no consistent rhythm).\n- Body text is justified (rivers) instead of left-aligned.\n- Type-scale contrast between Cover/H1/H2/Body is flattened.\n- A heading is orphaned alone at the page bottom with its body pushed to\n  the next page.\n- Margins inconsistent with other pages.\n- Page number missing or wrong.\n- Content optically unbalanced — dense at top with a large unexplained\n  empty region at bottom, or vice versa.\nSeverity: orphaned heading, missing page number, or broken vertical\nrhythm = MAJOR; minor drift/flatness = MINOR.\n\n## 3. OVERLAP\nFlag if any of:\n- Two elements' bounding areas intersect and the intersection contains\n  rendered glyphs from both (any visible collision = flag).\n- Text sits on an image/gradient/tint with insufficient contrast to read.\n- A rule, accent bar, icon, or logo covers any part of a glyph.\n- Footer, page number, or header overlaps body content.\n- Table cell text touches or crosses its own border.\n- Two text runs (e.g. caption and body) render at overlapping vertical\n  positions so glyphs interleave or smear.\nSeverity: any overlap that makes a word illegible = CRITICAL; overlap\nthat's visible but still legible = MAJOR.\n\n## 4. OVERFLOW\nFlag if any of:\n- Text, table, or chart content is clipped/cut off at a page edge or box\n  boundary.\n- Content overflows a stated margin or the printable frame.\n- A table's column widths don't fill/exceed the table's own width,\n  causing overhang or clipping.\n- Glyphs are visibly sheared or truncated mid-line.\n- Page appears blank where content was clearly expected (a rendering\n  failure, not an intentional divider).\nSeverity: any clipped/cut-off content or blank-when-expected page =\nCRITICAL.\n\n# SEVERITY SCALE\nCRITICAL — page is broken/unreadable/unshippable (clipping, illegible\noverlap, missing expected content).\nMAJOR — clearly noticeable, must fix before delivery.\nMINOR — polish-level, fix if time allows.\n\n# MANDATORY SCAN LOG (internal, do not output)\nBefore producing JSON, silently scan the page in reading order —\nheader/title, body, tables/charts if present, footer — and note for\nyourself, per region: \"clean\" or \"issue suspected,\" checked against all\nfour categories. Do this for every region before concluding the page is\nclean. Do not skip a region or judge holistically without this pass. Do\nnot include this log in your output — only the final JSON.\n\n# OUTPUT (JSON only, no prose outside it)\nDo NOT wrap the JSON in:\n- Markdown code fences\n- ```json\n- ```\n- Any other formatting\n- Any prose before or after the JSON\nThe first character of the response MUST be `{`.\nThe last character of the response MUST be `}`.\nThe response MUST be valid, parseable JSON.\n\nExpected structure:\n{\n\"issues\": [\n{\n\"category\": \"WORDING | LAYOUT | OVERLAP | OVERFLOW\",\n\"severity\": \"CRITICAL | MAJOR | MINOR\",\n\"where\": \"plain description of location on the page\",\n\"problem\": \"what is measurably wrong\",\n\"fix\": \"one concrete change\",\n\"measured\": true | false\n}\n]\n}\n\n# RULES\n- Order issues by severity, then by reading order (top-to-bottom).\n- Never report the same defect under two categories; pick the root cause\n  (e.g. a table cell whose text is clipped by its own border is OVERFLOW,\n  not OVERLAP — reserve OVERLAP for two distinct elements colliding).\n- If you cannot verify something from the image/context, say so and set\n  `measured: false` rather than guessing.\n- Empty issues array is a valid, correct answer — do not invent issues on\n  a clean page.---\nname: pdf\ndescription: Use this skill whenever the user wants to do anything with PDF files. This includes creating new PDFs (reports, documents, letters), reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs. If the user mentions a .pdf file or asks to produce one, use this skill. Long-form flowing documents are generated with Python/reportlab; PDF manipulation and coordinate-precise overlays may use JS/pdf-lib via bash. Both engines are documented below.\nlicense: Proprietary. LICENSE.txt has complete terms\n---\n\n# PDF Processing Guide\n\n## ══════════════════════════════════════════════\n## DELIVERY CONTRACT — QA IS A SINGLE PASS, NOT A LOOP\n## ══════════════════════════════════════════════\nA PDF task is complete once `Rendering Artifact` has shown the document to the\nuser. The core flow is:\n\n    Script Execution (build)  →  QA (render + inspect, ONE TIME ONLY)  →  deliver\n\nException: for pdf-lib manipulation tasks (merge, split, rotate, watermark,\nstamp at fixed coordinates, encrypt/decrypt, form-fill, extraction) where the\nBOUNDING-BOX PRE-CHECK already validates placement, visual QA is optional —\nrender and inspect only if placement relative to existing content is\nambiguous. This does not apply to reportlab flowing documents, where a single\nvisual QA pass is still required.\n\n**STRICT RULE: `QA` may be called AT MOST ONCE per task. No exceptions.**\n- **Clean (zero issues) on that one QA pass:** copy to OUTPUT → `Rendering\n  Artifact` → then a brief summary.\n- **Any issue found on that one QA pass:** make ONE `Script Execution` call to\n  fix those specific issues — but do NOT call `QA` again afterward. Copy the\n  fixed file to OUTPUT and proceed straight to `Rendering Artifact`. Trust the\n  fix and the BOUNDING-BOX PRE-CHECK; do not re-render and re-inspect.\n- There is no repeated cycle of build → QA → fix → QA → fix. `QA` is a single\n  checkpoint, not a loop. Under no circumstances should `QA` be invoked a\n  second time in the same task, regardless of what the first QA pass found.\n\nFull order:\n1. STEP 0 pre-flight + read the ROUTER; open any sub-file whose trigger fires.\n2. Choose the engine (reportlab for flowing docs / pdf-lib for manipulation).\n3. State your palette + type-scale choices for THIS document (one line).\n4. `Script Execution`: generate inside WORKING; run the BOUNDING-BOX PRE-CHECK\n   before rendering; render page JPGs.\n5. `QA`: load the JPGs (max 3 per call, page 1 first) and inspect. This is\n   your ONE and ONLY QA call for this task.\n6. If QA found issues, make a single `Script Execution` fix call and move\n   straight to delivery — do NOT re-QA.\n7. Copy the final PDF to OUTPUT.\n8. `Rendering Artifact` with the final PDF.\n9. ONLY THEN write the summary — a few sentences naming the file and what it is\n   at a high level (a light mention of the main sections is fine). Do not\n   enumerate every section, design choice, palette, or feature, and do not\n   restate the user's requirements; the reader can open the delivered PDF for\n   the detail.\n\nOne tool call per turn. Never combine `Script Execution` with `QA` or `Rendering Artifact`\nin the same turn.\n\n---\n## ══════════════════════════════════════════════\n## STEP 0 — MANDATORY PRE-FLIGHT (DO THIS FIRST, ALWAYS)\n## ══════════════════════════════════════════════\nDiscover the skill directory so every sub-file/script is addressable — never\nhardcode the path:\n\n```bash\n# -iname matches skill.md OR SKILL.md (this repo uses lowercase). Never hardcode.\nSKILL_DIR=\"$(dirname \"$(find /mnt/bwrap/session/<case_id>/work/skills -iname 'skill.md' -path '*pdf*' 2>/dev/null | head -1)\")\"\necho \"SKILL_DIR=$SKILL_DIR\"\nls -1 \"$SKILL_DIR\" \"$SKILL_DIR/scripts\" 2>/dev/null   # confirm sub-files + scripts are staged\npython3.11 -c \"import reportlab, pypdf, pdfplumber; print('python pdf stack OK')\"\n# Global npm packages (pdf-lib, pptxgenjs, docx) are NOT on Node's default\n# resolution path. Node's globalPaths do not include `npm root -g`, and NODE_PATH\n# is unset — so require.resolve fails without this even when the package exists.\nexport NODE_PATH=\"$(npm root -g)\"    # = /usr/local/lib/node_modules in this env\nnode -e \"try{console.log('pdf-lib OK at '+require.resolve('pdf-lib'))}catch(e){console.log('pdf-lib absent — Python path only')}\"\n```\n\n`export` does not survive between separate `Script Execution` calls (each is a fresh\nshell), so re-set `NODE_PATH=\"$(npm root -g)\"` in any later call that runs `node`\n— see the pdf-lib recipe, which sets it inline.\n\nIf `scripts/` is empty, the scripts were not staged — STOP and report it;\nform-filling and box validation cannot run without them. Do not fabricate them.\n\nConfirm in your response:\n- \"Discovered SKILL_DIR; confirmed sub-files/scripts exist; python pdf stack OK ✓\"\n- \"I read the ROUTER and opened every sub-file whose trigger fired ✓\"\n- \"Engine choice for this task: [reportlab flowing doc | pdf-lib manipulation] ✓\"\n- \"My palette + type-scale choices for this document are: [state them] ✓\"\n- \"I will run the BOUNDING-BOX PRE-CHECK before rendering ✓\"\n- \"QA is a single pass, called at most once per task — no repeated QA cycles ✓\"\n\nRun executable steps — never describe them. \"I would run X\" is not acceptable\nwhere running X is possible.\n\n---\n## ══════════════════════════════════════════════\n## ROUTER — WHICH FILES TO READ, AND WHEN (progressive disclosure)\n## ══════════════════════════════════════════════\nThis SKILL.md is the entry point only. Detailed procedures live in the sub-files\nbelow. **Each row is a hard trigger.** When it matches, `cat` that file (or run\nthat script) BEFORE writing task code. Do NOT read every sub-file on every task\n— only the ones whose trigger fires.\n\n| If the task involves…                                  | You MUST first…                                              | What's in it |\n|--------------------------------------------------------|-------------------------------------------------------------|--------------|\n| Filling ANY existing PDF form (fillable or flat)       | `cat \"$SKILL_DIR/forms.md\"` and follow it end to end        | Detect → extract → fill decision tree, and which script per path |\n| Advanced reads / pdfplumber tuning / pypdfium2 / **JS pdf-lib** work | `cat \"$SKILL_DIR/reference.md\"` | Advanced pypdfium2, the pdf-lib (JS) API, safe-font list, troubleshooting |\n| Detecting whether a PDF has real AcroForm fields       | run `python3.11 \"$SKILL_DIR/scripts/check_fillable_fields.py\" <pdf>` FIRST | Routes fillable vs non-fillable |\n| Placing text/QA boxes on a flat (non-fillable) form    | run `python3.11 \"$SKILL_DIR/scripts/check_bounding_boxes.py\"`, fix every FAILURE before filling | Validates boxes don't overlap and fit text |\n| Rendering pages for coordinate work or QA              | `pdftoppm` (below) or `scripts/convert_pdf_to_images.py`     | Page → image |\n\nDo not hand-code coordinate math that `fill_pdf_form_with_annotations.py`\nalready handles. If two triggers fire, read both files before writing code.\n\n---\n## ══════════════════════════════════════════════\n## HARD FAIL CONDITIONS — NEVER SHIP IF ANY ARE TRUE\n## ══════════════════════════════════════════════\n- Text clipped/cut off at a page edge or box boundary\n- Content overflowing the margins\n- Page numbers missing or wrong\n- Table borders missing, columns misaligned, or cell text touching/crossing its border\n- Table column widths not summing to the usable frame width (columns clipped)\n- Plain strings used as table cells instead of `Paragraph` objects\n- Chart axes unlabeled or chart image missing/blank\n- Nested bullets flattened to their parent's indent level\n- A heading orphaned at a page bottom with its body on the next page\n- Inconsistent fonts/colors across pages (unless intentional)\n- Empty pages that should have content\n- File opens with a repair warning\n\nBecause QA runs only once, get these right on the build/pre-check pass — lean\nharder on the BOUNDING-BOX PRE-CHECK and careful code review before you ever\nrender, since there is no second QA pass to catch what the first one missed.\n\n---\n## ══════════════════════════════════════════════\n## DIRECTORY CONVENTIONS\n## ══════════════════════════════════════════════\nWORKING = /mnt/bwrap/session/<case_id>/work/working   (all generation + QA)\nOUTPUT  = /mnt/bwrap/session/<case_id>/work/output    (final PDF only; the sole directory returned)\nINPUT   = /mnt/bwrap/session/<case_id>/work/input     (source files for manipulation tasks)\nSKILL_DIR = /mnt/bwrap/session/<case_id>/work/skills  (discovered in STEP 0)\nSKILL_MD  = /mnt/bwrap/session/<case_id>/work/skill.md\n\nCopy only the final PDF to OUTPUT, last, after QA passes. Never copy early.\n\n---\n## ══════════════════════════════════════════════\n## CHOOSING YOUR ENGINE\n## ══════════════════════════════════════════════\nPick deliberately — the wrong engine is the main cause of rough output.\n\n- **Python / reportlab (Platypus) — DEFAULT for anything that FLOWS.** Reports,\n  articles, letters, multi-page docs — anything with paragraphs, headings,\n  wrapping tables, or automatic pagination. Platypus does wrapping, page breaks,\n  keep-together, and repeating headers for you. Correct engine for a \"long\n  detailed PDF.\"\n- **JS / pdf-lib via bash — MANIPULATION and PRECISE OVERLAYS only.** Stamping,\n  merging, splitting, drawing at exact coordinates on an existing page. Run via\n  `node script.js` with `NODE_PATH=\"$(npm root -g)\"` set (pdf-lib is installed\n  globally but is not on Node's default resolution path — without NODE_PATH it\n  falsely appears absent). Read `reference.md` first. **pdf-lib has no auto-wrap\n  or pagination** — never lay out a long flowing document with it. If you're\n  computing y-offsets for paragraph text in JS, stop and switch to reportlab.\n\nDecision: *does the content need to wrap and paginate itself?* Yes → reportlab.\nFixed-coordinate work on existing pages → pdf-lib.\n\n---\n## ══════════════════════════════════════════════\n## DESIGN PRINCIPLES — YOU CHOOSE THE VALUES; THE RULES ARE FIXED\n## ══════════════════════════════════════════════\nTwo layers. **Aesthetic choices are yours** — pick values that fit THIS\ndocument's subject and tone; a finance report, a children's worksheet, and a\nclimate brief should not look identical. **Invariants are fixed** — they prevent\nbroken output and apply every time. Do not ship reportlab's raw defaults;\nthat's what makes a PDF look generic.\n\n### Aesthetic — decide per document, then state your choices (one line, up front)\n- **Restraint is the aesthetic.** One accent, minimal rules, generous\n  whitespace. Decoration doesn't create the \"designed\" feel — hierarchy and\n  spacing do.\n- **Pick a palette from the menu below by SUBJECT — do NOT default to blue.**\n  The single biggest cause of every document looking identical is the model\n  reaching for corporate blue on every task. Open-ended \"choose a suitable hue\"\n  collapses back to blue because that's the default prior — so choose\n  deliberately *from* (or against) this menu. Blue is correct ONLY for\n  finance / governance / corporate / policy subjects. For anything else, pick\n  the row whose subject-fit is closest; if two fit, take the less obvious one.\n  Define the chosen roles ONCE at the top as named constants and reuse them —\n  never a one-off color mid-document. State in one line which palette you chose\n  and why.\n\n  | Palette | Fits subjects like | accent / accentDark / ink / muted / hairline / tint (starting hex — nudge freely) |\n  |---------|--------------------|-----------------------------------------------------------------------------------|\n  | Indigo–slate | finance, governance, corporate, policy | #3949AB / #1A237E /  #6B7280 / #D4D7E0 / #EEF0FA |\n  | Forest–teal | environment, ESG, health, agriculture | #0E7C66 / #094D40 /  #5F726C / #C7DAD3 / #EBF5F1 |\n  | Amber–rust | energy, industry, consumer, food | #C2611A / #7A3B0E / #8A7A6B / #E4D3C2 / #FBF1E7 |\n  | Plum–magenta | culture, arts, media, marketing | #9B2C7A / #5E1A4B /  #7C6B76 / #E0CEDA / #FAF0F6 |\n  | Ink monochrome | legal, technical, minimalist, reference |  #6E6E6E / #D0D0D0 / #F3F3F3 |\n  | Burgundy | academic, humanities, history, heritage | #8C2F39 / #5A1720 / #7A6A6C / #DDCBCD / #F8EEEF |\n\n  These are starting points, not a house style — adjust the hues to fit the\n  specific document. The menu exists to give variety *with* discipline: a fixed\n  set of good options beats both a single hardcoded look and open-ended freedom\n  that quietly reverts to blue every time.\n- **Type scale with LARGE jumps between levels** (cover ≫ H1 ≫ H2 ≫ body). The\n  exact points are yours; the *contrast* between levels is what reads as\n  designed — flattening it is the #1 reason a document looks dull. Sane starting\n  range if you have no reason to deviate: body ~10–11pt at ~1.4× leading,\n  headings clearly larger and heavier. Adjust to fit.\n- **Structure the content — no filler bullets, no filler subheadings.** Before\n  reaching for bullets, ask whether a short table, a callout, or plain prose\n  fits better. And never label subsections with generic placeholders like\n  \"Perspective 1 / Perspective 2 / Perspective 3\" — either give each H2 a\n  descriptive title that names the actual idea, or drop the H2 entirely and let\n  the paragraphs flow. Generic repeated labels make the table of contents and\n  the body read as machine-generated and are a common reason a document looks\n  \"mid\" even when the layout is clean.\n- Cover treatment, density, dividers, margins: your call, matched to formality.\n\n### Invariants — not negotiable (these prevent HARD FAILs)\n- Body text **left-aligned, never justified** (justification makes rivers).\n- Every table cell is a wrapped `Paragraph`, never a bare string.\n- Table `colWidths` **sum to `doc.width`** — assert it (BOUNDING-BOX PRE-CHECK).\n- Accent + neutrals defined once and reused — no scattered one-off values.\n- Heading + its first paragraph kept together, so headings never orphan.\n- Footer with a page number on every page; consistent margins throughout.\n- No Unicode sub/superscript glyphs (they render as black boxes in built-in\n  fonts) — use `<sub>` / `<super>` markup inside `Paragraph`.\n- Helvetica/Arial is the guaranteed-render default across pdftoppm QA. Use\n  another font only if confirmed embeddable (`reference.md` safe-font list).\n---\n## ══════════════════════════════════════════════\n## BOUNDING-BOX PRE-CHECK — DO THE ARITHMETIC BEFORE RENDERING\n## ══════════════════════════════════════════════\nTrust the math at least as much as the render; it catches clipping with no\nrender cycle. Since QA only happens once, this pre-check is your primary\ndefense against HARD FAILs — do not skip it.\n\n```python\nusable = doc.width  # frame width, already minus L+R margins\nassert abs(sum(col_widths) - usable) < 1.0, f\"cols {sum(col_widths):.0f} != frame {usable:.0f}\"\n\nfrom reportlab.pdfbase.pdfmetrics import stringWidth   # for hand-placed canvas text only\nassert stringWidth(text, font, size) <= box_width, \"text wider than its box\"\n```\nLet Platypus wrap flowing text (it won't clip horizontally). Guard fixed-height\nframes against vertical overflow with `KeepInFrame(w, h, mode='shrink')`.\n\n---\n## ══════════════════════════════════════════════\n## reportlab STRUCTURAL REFERENCE (mechanics, not a house style)\n## ══════════════════════════════════════════════\n**The colors and sizes below are EXAMPLE placeholders — replace them with the\nchoices you stated for this document.** What is NOT optional is the *mechanics*\nshown: constants defined once, `Paragraph` cells, `colWidths` summing to\n`doc.width`, `KeepTogether` on headings, and a footer on every page.\n\n```python\nfrom reportlab.lib.pagesizes import A4\nfrom reportlab.lib.units import cm\nfrom reportlab.lib import colors\nfrom reportlab.lib.enums import TA_LEFT\nfrom reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle\nfrom reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, PageBreak,\n    CondPageBreak, KeepTogether, Table, TableStyle, ListFlowable, ListItem, HRFlowable)\n\n# --- palette by ROLE: choose hues to fit the subject; defined ONCE, reused ---\nACCENT = colors.HexColor('#XXXXXX')   # your accent\nINK    = colors.HexColor('#XXXXXX')   # body text\nMUTED  = colors.HexColor('#XXXXXX')   # captions/footer\nHAIR   = colors.HexColor('#XXXXXX')   # thin rules / grid\nTINT   = colors.HexColor('#XXXXXX')   # optional zebra row\n\ndoc = SimpleDocTemplate('/mnt/bwrap/session/<case_id>/work/working/document.pdf', pagesize=A4, title='…',\n    leftMargin=1.8*cm, rightMargin=1.8*cm, topMargin=1.8*cm, bottomMargin=1.9*cm)\n\nss = getSampleStyleSheet()\n# --- type scale: keep large contrast between levels; exact sizes are your choice ---\nS = {\n 'Cover': ParagraphStyle('Cover', parent=ss['Title'], fontName='Helvetica-Bold',\n            fontSize=28, leading=34, textColor=ACCENT, spaceAfter=14),\n 'H1':    ParagraphStyle('H1', parent=ss['Heading1'], fontName='Helvetica-Bold',\n            fontSize=16, leading=20, textColor=ACCENT, spaceBefore=16, spaceAfter=7),\n 'H2':    ParagraphStyle('H2', parent=ss['Heading2'], fontName='Helvetica-Bold',\n            fontSize=12.5, leading=16, textColor=INK, spaceBefore=8, spaceAfter=5),\n 'Body':  ParagraphStyle('Body', parent=ss['BodyText'], fontSize=10.5, leading=15,\n            alignment=TA_LEFT, textColor=INK, spaceAfter=8),   # left-aligned = invariant\n 'Cap':   ParagraphStyle('Cap', parent=ss['BodyText'], fontName='Helvetica-Oblique',\n            fontSize=8.5, leading=11, textColor=MUTED),\n}\ndef P(t, s='Body'): return Paragraph(t, S[s])\ndef H1(t): return KeepTogether([P(t, 'H1')])   # heading won't orphan\n\nstory = [Spacer(1, 3*cm), P('Title', 'Cover'),\n         P('Abstract paragraph.'), PageBreak(),\n         H1('1. Section'), P('Body…')]\n\n# --- table: cells are Paragraphs; colWidths sum to the frame (asserted) ---\nusable = doc.width\ncol_w = [4.2*cm, usable - 4.2*cm - 5.0*cm, 5.0*cm]\nassert abs(sum(col_w) - usable) < 1.0\ndef cell(t, hdr=False):\n    st = S['Body'].clone('c'); st.spaceAfter = 0\n    st.fontName = 'Helvetica-Bold' if hdr else 'Helvetica'\n    st.textColor = colors.white if hdr else INK\n    return Paragraph(t, st)\ntbl = Table([[cell('A', True), cell('B', True), cell('C', True)],\n             [cell('x'), cell('wraps inside the cell'), cell('y')]],\n            colWidths=col_w, repeatRows=1)\ntbl.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),ACCENT), ('GRID',(0,0),(-1,-1),0.5,HAIR),\n    ('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,TINT]), ('VALIGN',(0,0),(-1,-1),'TOP'),\n    ('TOPPADDING',(0,0),(-1,-1),6),('BOTTOMPADDING',(0,0),(-1,-1),6),\n    ('LEFTPADDING',(0,0),(-1,-1),6),('RIGHTPADDING',(0,0),(-1,-1),6)]))\nstory += [Spacer(1,0.3*cm), tbl]\n\ndef footer(c, d):   # invariant: page number on every page\n    c.saveState(); c.setFont('Helvetica', 8.5); c.setFillColor(MUTED)\n    c.drawRightString(A4[0]-1.8*cm, 1.1*cm, f'Page {c.getPageNumber()}')\n    c.setStrokeColor(HAIR); c.line(1.8*cm, 1.4*cm, A4[0]-1.8*cm, 1.4*cm); c.restoreState()\n\ndoc.build(story, onFirstPage=footer, onLaterPages=footer)\n```\n- [CRITICAL] - Do not add a decorative `HRFlowable` rule beneath the title/cover heading — title separation should come from spacing (`spaceAfter` on the title style)\n  alone, not a divider line.\n---\n## ══════════════════════════════════════════════\n## pdf-lib via bash (JS) — manipulation / overlays only\n## ══════════════════════════════════════════════\nRead `reference.md` for the API first. Write the script, run with `node`.\n**Set `NODE_PATH` so `require('pdf-lib')` resolves the global package** — this\nenv must be present in the same call that runs `node` (it does not carry over\nfrom the pre-flight call).\n\n```bash\nexport NODE_PATH=\"$(npm root -g)\"   # global modules: pdf-lib, pptxgenjs, docx, pdfjs-dist\ncat > /mnt/bwrap/session/<case_id>/work/working/build.js <<'JS'\nconst { PDFDocument, StandardFonts, rgb } = require('pdf-lib');\nconst fs = require('fs');\n(async () => {\n  const src = await PDFDocument.load(fs.readFileSync('/mnt/bwrap/session/<case_id>/work/input/base.pdf'));\n  const font = await src.embedFont(StandardFonts.Helvetica);\n  const page = src.getPages()[0]; const { width } = page.getSize();\n  const t = 'APPROVED'; const w = font.widthOfTextAtSize(t, 12);   // measure — no auto-wrap\n  page.drawText(t, { x: width - w - 40, y: 40, size: 12, font, color: rgb(0.1,0.2,0.4) });\n  fs.writeFileSync('/mnt/bwrap/session/<case_id>/work/working/document.pdf', await src.save());\n})();\nJS\nnode /mnt/bwrap/session/<case_id>/work/working/build.js    # inherits NODE_PATH from the export above\n```\n\n---\n## ══════════════════════════════════════════════\n## QA — A SINGLE, STRICT CHECKPOINT (NOT A LOOP)\n## ══════════════════════════════════════════════\nQA exists to catch problems once, not to iterate a document toward perfection\nthrough repeated render/inspect cycles. Treat the BOUNDING-BOX PRE-CHECK and\ncareful code review as the primary quality gate; QA is a final confirmation.\n\n1. **`Script Execution`** — build the PDF; run the BOUNDING-BOX PRE-CHECK; render\n   page JPGs into WORKING.\n2. **`QA`** — load the JPGs and inspect against the checklist + HARD FAILs.\n   **This is the only `QA` call permitted for this task.**\n3. **Branch:**\n   - **Zero issues** → FINAL DELIVERY (copy → `Rendering Artifact` → summary).\n   - **One or more issues** → LIST them explicitly, then make exactly ONE\n     `Script Execution` call that edits the generation code to fix those\n     issues and rebuilds the PDF. Do **not** render/inspect again — copy the\n     rebuilt file straight to OUTPUT and proceed to `Rendering Artifact`.\n\nHard rules:\n- **`QA` is called at most once, ever, per task.** Do not re-QA after a fix,\n  no matter how significant the fix was.\n- **Never** call `Rendering Artifact` before the single `QA` pass (or the\n  post-fix rebuild) has happened.\n- If an issue is found and fixed, ship the fix on trust — the code edit plus\n  the BOUNDING-BOX PRE-CHECK is the verification, not a second render.\n- If, after the one allowed fix, you still suspect a problem, ship with a\n  one-line note to the user about the residual concern rather than looping\n  further. Do not call `QA` again to check.\n\n### Visual QA checklist (run on the single QA pass)\n- [ ] No clipped/cut-off content at any edge or box boundary\n- [ ] Body left-aligned and readable — no justified rivers, no wall of bullets\n- [ ] Consistent margins, type scale, and palette across every page\n- [ ] Headings never orphaned at a page bottom\n- [ ] Every table cell is a wrapped Paragraph; nothing overflows a border\n- [ ] Column widths fill the frame; header row repeats on multi-page tables\n- [ ] Footer + correct page number on every page\n- [ ] Cover reads as intentional\n- [ ] (If manipulated) overlays sit where intended and don't cover text\n- [ ] Opens with no repair warning\n\n---\n## ══════════════════════════════════════════════\n## FINAL DELIVERY — OUTPUT IS THE HANDOFF\n## ══════════════════════════════════════════════\nOnce the single QA pass is clean (or the one post-fix rebuild is done):\n```bash\ncp /mnt/bwrap/session/<case_id>/work/working/document.pdf /mnt/bwrap/session/<case_id>/work/output/\n```\nThen `Rendering Artifact` with the copied PDF. Only after that, write the summary —\nkeep it brief (see step 9): a short, high-level description, not a full account of\nthe document's contents. Never copy to OUTPUT early.\n\n---\n## ══════════════════════════════════════════════\n## QUICK REFERENCE\n## ══════════════════════════════════════════════\n| Task | Engine / tool |\n|------|---------------|\n| Long flowing document / report | Python reportlab Platypus |\n| Stamp / merge / overlay on existing PDF | JS pdf-lib via bash (`reference.md`) |\n| Extract text | pdfplumber `page.extract_text()` |\n| Extract tables | pdfplumber `page.extract_tables()` |\n| Fill a form | `check_fillable_fields.py`, then follow `forms.md` |\n| Validate box geometry (flat form) | `check_bounding_boxes.py` |\n| Render previews | `pdftoppm -jpeg -r 150 in.pdf prefix` |\n| OCR scanned PDF | convert to image first, then pytesseract (`reference.md`) |\n\nRead `reference.md` for advanced pypdfium2, the pdf-lib API, the safe-font list,\nand troubleshooting. Read `forms.md` before any form-fill task.\n  '''\n]",
+				"compile_static":false,
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":157,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@3",
+			"id":"n_JlT0q",
+			"index":14,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_LiNrZ.outputs.qaPrompt }}",
+						"value":"{{ n_jdRFh.outputs.result.pdfPrompt }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1770,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_j7J7N@_sTTC5-1@default",
+			"id":"n_3usWU",
+			"index":15,
+			"inputs":{
+				"result":{
+					"output":"Target format is : {{ n_bobVq.outputs.targetFileType }}. It should be one of [pptx, docx, pdf, xlsx]"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":3656,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -434,7 +1079,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_wLIoP",
-			"index":3,
+			"index":16,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -478,7 +1123,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_ZVT3w",
-			"index":4,
+			"index":17,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -774,7 +1419,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_Aax22",
-			"index":5,
+			"index":18,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1060,7 +1705,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_H1Sp8",
-			"index":6,
+			"index":19,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_bobVq.outputs.attachments }}",
@@ -1083,7 +1728,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_H1Sp8@_sTTC5-1@l",
 			"id":"n_awCMK",
-			"index":7,
+			"index":20,
 			"inputs":{
 				"filters":[
 					{
@@ -1127,7 +1772,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_awCMK@n_H1Sp8@_sTTC5-1@l@y",
 			"id":"n_p5Kim",
-			"index":8,
+			"index":21,
 			"inputs":{
 				"file":"{{ n_H1Sp8.outputs.item }}",
 				"encoding":"base64"
@@ -1204,7 +1849,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_p5Kim@n_awCMK@n_H1Sp8@_sTTC5-1@l@y@success",
 			"id":"n_DosvL",
-			"index":9,
+			"index":22,
 			"inputs":{
 				"itemToAdd":{
 					"mimeType":"{{ n_H1Sp8.outputs.item.mimeType }}",
@@ -1234,7 +1879,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_p5Kim@n_awCMK@n_H1Sp8@_sTTC5-1@l@y@error",
 			"id":"n_0DyMi",
-			"index":10,
+			"index":23,
 			"inputs":{
 				"itemToAdd":{
 					"failedReason":"File Location is incorrect",
@@ -1263,7 +1908,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_awCMK@n_H1Sp8@_sTTC5-1@l@n",
 			"id":"n_idsqv",
-			"index":11,
+			"index":24,
 			"inputs":{
 				"itemToAdd":{
 					"failedReason":"The filetype of the file is not image (jpeg,png)",
@@ -1297,7 +1942,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_skweS",
-			"index":12,
+			"index":25,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1376,6 +2021,159 @@
 		{
 			"context":{
 				"appName":"variable_by_unifyapps",
+				"resourceVersion":717,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sTTC5-1",
+			"id":"n_ARjPn",
+			"index":26,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						}
+					}
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"modelId":{
+							"title":"modelId",
+							"type":"string"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"critique llm model id",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1210,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sTTC5-1",
+			"id":"n_bZJdH",
+			"index":27,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_wLIoP.outputs.properties.currentAIAgentId }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"GetAgentCached",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":710,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_sTTC5-1",
+			"id":"n_6P87F",
+			"index":28,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_ARjPn.outputs.modelId }}",
+						"value":"{{ n_bZJdH.outputs.properties.topicExecutionSettings.topicExecutionModel }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
 				"resourceVersion":156,
 				"resourceName":"variable_by_unifyapps_create_list",
 				"type":"APPLICATION"
@@ -1385,7 +2183,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_rKmWx",
-			"index":13,
+			"index":29,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1667,7 +2465,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_lt2qS",
-			"index":14,
+			"index":30,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_skweS.outputs.result.attachments }}",
@@ -1691,7 +2489,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_lt2qS@_sTTC5-1@l",
 			"id":"n_eu3vS",
-			"index":15,
+			"index":31,
 			"inputs":{
 				"automationId":"6a61be35e447036b0abbf98a",
 				"runtimeConnections":{},
@@ -1701,8 +2499,8 @@
 				"parametersList":{
 					"items":{
 						"image":"{{ n_lt2qS.outputs.item[0] }}",
-						"modelID":"e_6a666842d974462ffaddb32e",
-						"prompt":"# ROLE\nYou are a strict slide layout QA critic. You judge ONLY structural/visual layout\ndefects on a single rendered slide. You do NOT critique wording, content quality,\ncolor taste, or storytelling. If a slide is layout-clean, you say so — do not\ninvent issues to seem useful.\n# INPUTS\n1. RENDERED_SLIDE_IMAGE: PNG of the slide as it actually renders.\n2. SLIDE_GEOMETRY (optional): JSON list of shapes —\n{ id, type, layout_name, bbox:{x,y,w,h}, text, font_size_pt, autofit, z_order }\nUnits: inches, origin top-left. Slide size given as SLIDE_W x SLIDE_H.\n3. INTENT (optional): what the slide is meant to communicate.\nIf SLIDE_GEOMETRY is absent, estimate positions from the image and mark\n`measured: false` on every issue.\n# DETECTION RULES\n## 1. TEXT OVERFLOW / UNDERFLOW\nOVERFLOW — flag if any of:\n- Text bbox extends past its container bbox on any edge.\n- Any element crosses the safe margin (default 0.4\" from slide edge).\n- Glyphs are visibly clipped, cut mid-line, or a descender is sheared.\n- Autofit has shrunk body text below 12pt (or title below 20pt) to make it fit.\n- Line count exceeds what the placeholder height can hold at the declared font size.\n- A table/chart spills past the slide boundary.\nUNDERFLOW — flag if any of:\n- Text fills <35% of its placeholder's area, leaving a large dead box.\n- A content placeholder is empty or holds only prompt text (\"Click to add text\").\n- One short line sits in a placeholder sized for a paragraph.\n- >30% of the slide body area is unintentional whitespace concentrated in one region.\nSeverity: clipped text = CRITICAL. Margin breach = MAJOR. Dead space = MINOR/MAJOR\ndepending on how much of the slide it wastes.\n## 1a. BLANK / DECORATIVE-ONLY SLIDE\nA slide is BLANK if, after excluding logo, page number, footer, slide-number,\nand background/decorative shapes, there is ZERO title text and ZERO body\ntext remaining (boilerplate like dates or confidentiality notices does not\ncount as content).\nDo NOT let the presence of a logo or page number satisfy \"the slide has\ncontent\" — these are administrative/decorative elements, never substantive\ncontent, and must never be counted toward the content check.\nFlag BLANK as:\n- CRITICAL if INTENT (or slide position/title) indicates this should be a\ncontent slide.\n- MAJOR if role is ambiguous and cannot be confirmed as an intentional\nsection-divider, agenda break, or closing/thank-you slide from INTENT.\n- Use category \"UNDERFLOW\", where: \"entire slide\", problem: \"no title or\nbody content present — only decorative/administrative elements\", fix:\n\"add the intended title/body content, or confirm this is an intentional\ndivider slide and reclassify layout accordingly.\"\n# OVERRIDE ON EXISTING CLOSING RULE\n- \"Empty issues array is a valid, correct answer\" — EXCEPT when the slide\nis BLANK per rule 1a. A blank content slide must always produce at least\none issue; it can never pass clean.\n- \"REBUILD\" also applies whenever a slide is BLANK per 1a at CRITICAL\nseverity.\n## 2. WRONG LAYOUT SELECTED\nFlag when the chosen layout fights the content. Check:\n- Content count vs layout affordance (e.g. 6 bullets in a \"Title Only\" or\nsection-divider layout; 2 items in a 4-column layout leaving empty columns).\n- A chart / image / table dropped into a text placeholder, or vice versa.\n- Section-header layout used for a content slide, or content layout used as a divider.\n- Comparison content (A vs B) forced into a single-column layout, or a single idea\nsplit across a two-column layout with one side padded/empty.\n- Title placeholder unused while a text box fakes a title.\n- Layout requires N placeholders but the deck reuses it with a different N.\nState the CORRECT layout you'd pick and why.\n## 3. TEXT OVERLAP\nFlag when:\n- Two non-background element bboxes intersect and the intersection contains\nrendered text/glyph pixels (any visible collision = flag; ignore intentional\ndecorative bleeds only if contrast is preserved).\n- Text sits on an image/gradient with insufficient contrast to read.\n- A shape, icon, accent bar, or logo covers any part of a glyph.\n- Bullet markers collide with the indent of the previous line.\n- Footer / page number / logo overlaps body content.\nReport the exact pair of shapes and the overlap region.\nNote: if the collision is between two TEXT runs within a repeating component\n(e.g. a primary line and a secondary caption), classify it under 3a instead,\neven if bboxes are known to overlap.\n## 3a. TEXT-ON-TEXT GHOSTING / BASELINE COLLISION\nFlag when two distinct text runs (e.g., a headline/description and a\nsecondary caption/subtitle) render at overlapping vertical positions such\nthat their glyphs interleave, smear, or double up — even if no clean\nbbox-vs-bbox rectangle is obvious. Visual signals:\n- Letters appear doubled, blurred, or \"smudged\" where one string's strokes\ncross another string's strokes.\n- A lighter/gray text line is partially visible bleeding through or behind\na bolder/darker text line.\n- Within a repeating component (card, row, list item), the secondary/caption\ntext's baseline is at or above the primary text's baseline instead of\ncleanly below it.\nThis is CRITICAL if it makes any word illegible or hard to parse, MAJOR\notherwise. Report both text strings involved and describe the visual\ncollision, even without exact bboxes (mark measured: false).\n## 4. MISALIGNED STRUCTURE\nFlag when:\n- Elements that should share an edge differ by >0.05\" (left/right/top/bottom edges,\ncenters).\n- Gutters between sibling items vary by more than 20% of the mean gutter.\n- Parallel elements (cards, columns, KPI tiles) have unequal widths/heights\nwithout reason.\n- Vertical rhythm broken: inconsistent spacing between title→body→footer.\n- Title not aligned to the deck's master title position (drifted placeholder).\n- Content not optically balanced: heavy weight on one side, slide bottom empty\nwhile top is crowded.\n- Text baselines across columns don't line up.\n# SEVERITY SCALE\nCRITICAL — slide is broken / unreadable / unshippable (clipped text, overlap\nhiding words, off-slide content).\nMAJOR — clearly noticeable to an audience, needs fixing before presenting.\nMINOR — polish-level, fix if time allows.\n# MANDATORY SCAN LOG (internal, do not output)\nBefore producing the JSON, silently scan each repeating layout unit\n(card/row/column) one at a time and note for yourself: unit id →\n\"clean\" or \"text collision suspected\" (per rule 3a). Do this for every\nunit before concluding the slide is clean. Do not skip a unit or judge\nthe slide holistically without this pass. Do not include this log in\nyour output — only the final JSON.\n# OUTPUT (JSON only, no prose outside it)\nDo NOT wrap the JSON in:\n- Markdown code fences\n- ```json\n- ```\n- Any other formatting\n- Any prose before or after the JSON\nThe first character of the response MUST be `{`.\nThe last character of the response MUST be `}`.\nThe response MUST be valid, parseable JSON.\nExpected structure:\n{\n  \"issues\": [\n    {\n      \"category\": \"OVERFLOW | UNDERFLOW | WRONG_LAYOUT | OVERLAP | MISALIGNMENT\",\n      \"severity\": \"CRITICAL | MAJOR | MINOR\",\n      \"where\": \"shape id or plain description\",\n      \"problem\": \"what is measurably wrong\",\n      \"fix\": \"one concrete change\"\n    }\n  ]\n}\n# RULES\n- Order issues by severity, then by reading order (top-left → bottom-right).\n- Never report the same defect twice under two categories; pick the root cause.\n- If you cannot verify something from the image/geometry, say so and drop\nconfidence below 0.5 rather than guessing.\n- \"REBUILD\" only when 2+ CRITICALs or the layout choice itself is wrong.\n- Empty issues array is a valid, correct answer."
+						"modelID":"{{ n_ARjPn.outputs.modelId }}",
+						"prompt":"{{ n_LiNrZ.outputs.qaPrompt }}"
 					},
 					"source":"{{ n_lt2qS.outputs.item }}",
 					"ua:type":"mappedArray"
@@ -1787,7 +2585,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_eu3vS@n_lt2qS@_sTTC5-1@l@success",
 			"id":"n_0iRC5",
-			"index":16,
+			"index":32,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -1822,7 +2620,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_sTTC5-1",
 			"id":"n_ZEEdz",
-			"index":17,
+			"index":33,
 			"inputs":{
 				"automationId":"67a31b86addac8605df79166",
 				"runtimeConnections":{},
@@ -1919,11 +2717,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZEEdz@_sTTC5-1@error",
 			"id":"n_J8dCh",
-			"index":18,
+			"index":34,
 			"inputs":{
-				"result":{
-					"success":"QA tool failed with following error {{ n_ZEEdz.outputs }} and Failed Files{{ n_Aax22.outputs.items }}"
-				}
+				"result":{}
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -1942,7 +2738,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_MvTXh",
-			"index":19,
+			"index":35,
 			"inputs":{
 				"filters":[
 					{
@@ -1972,7 +2768,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_MvTXh@_sTTC5-1@y",
 			"id":"n_DfKVk",
-			"index":20,
+			"index":36,
 			"inputs":{
 				"filters":[
 					{
@@ -2002,7 +2798,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_DfKVk@n_MvTXh@_sTTC5-1@y@y",
 			"id":"n_4lkSC",
-			"index":21,
+			"index":37,
 			"inputs":{
 				"result":{
 					"success":"QA verified all slides are well structured."
@@ -2025,7 +2821,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_MvTXh@_sTTC5-1@y",
 			"id":"n_Ung2r",
-			"index":22,
+			"index":38,
 			"inputs":{
 				"result":{
 					"output":"QA Tool Feedback: {{ n_rKmWx.outputs.items }}"
@@ -2048,7 +2844,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_sTTC5-1",
 			"id":"n_fiQF5",
-			"index":23,
+			"index":39,
 			"inputs":{
 				"result":{
 					"output":"These are the Failed Attachments with reasons {{ n_Aax22.outputs.items }} and QA tool Feedback {{ n_rKmWx.outputs.items }}"
@@ -2077,5 +2873,5 @@
 	"tags":[
 		"text-to-lowcode"
 	],
-	"version":37
+	"version":39
 }
