@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743953902,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743954105,
+		"deployedAt":1789395284491,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eced245d2142160e6f6b3",
+		"deployedDefinitionId":"6aa8015439ee5f5ef70b6597",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":55
+		"version":2,
+		"workflowVersion":58
 	},
 	"edges":[
 		{
@@ -397,7 +397,7 @@
 	"id":"6908918c49ce5318ecff87d2",
 	"lastModifiedBy":-1,
 	"lcName":"perform llm websearch (generic)",
-	"modifiedTime":1788252973231,
+	"modifiedTime":1789395398003,
 	"name":"Perform LLM Websearch (Generic)",
 	"nodes":[
 		{
@@ -1664,7 +1664,11 @@
 		{
 			"additional":{
 				"visibleOptionalFields":[
-					"root.parameters.urls.items"
+					"root.parameters.urls.items",
+					"root.parameters.citations.items.content",
+					"root.parameters.citations.items.iconUrl",
+					"root.parameters.citations.items.webUrl",
+					"root.parameters.citations.items.title"
 				]
 			},
 			"context":{
@@ -1709,6 +1713,33 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"citations":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"content":{
+										"title":"Content",
+										"type":"string"
+									},
+									"iconUrl":{
+										"title":"Icon Url",
+										"type":"string"
+									},
+									"title":{
+										"title":"Title",
+										"type":"string"
+									},
+									"webUrl":{
+										"title":"Web Url",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Citations",
+							"type":"array"
+						},
 						"urls":{
 							"items":{
 								"type":"string"
@@ -1720,10 +1751,20 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"class FaviconFetcher {\n\n    static String extractHost(String url) {\n        try {\n            // primary approach\n            def uri = new URI(url)\n            return uri.host\n        } catch (Throwable t) {\n            // fallback: sandbox may deny java.net.URI in this env\n            def matcher = url =~ /^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/(?:[^@\\/]+@)?([^\\/:?#]+)/\n            return matcher.find() ? matcher.group(1) : null\n        }\n    }\n\n    static Map processUrl(String url) {\n        String faviconUrl = null\n        String error = null\n\n        try {\n            def host = extractHost(url)\n\n            if (!host) {\n                throw new Exception(\"Invalid URL\")\n            }\n\n            faviconUrl = \"https://www.google.com/s2/favicons?domain=${host}&sz=64\"\n\n        } catch (Exception e) {\n            error = e.getMessage()\n            faviconUrl = null\n        }\n\n        def result = [\n            favicon: faviconUrl\n        ]\n\n        if (error) result.error = error\n\n        return result\n    }\n}\n\n\n// ===== MAIN EXECUTION =====\n\ndef results = []\n\nif (urls != null) {\n    for (String url : urls) {\n        results << FaviconFetcher.processUrl(url)\n    }\n\n    return [\n        favicon: results\n    ]\n} else {\n    return [\n        favicon: []\n    ]\n}",
+				"code":"class FaviconFetcher {\n\n    // Redirect shims / aggregators — their favicon is never the source's favicon.\n    static final Set OPAQUE_HOSTS = [\n        'vertexaisearch.cloud.google.com',\n        'grounding-api-redirect.googleapis.com',\n        'google.com', 'www.google.com', 'news.google.com',\n        'webcache.googleusercontent.com',\n        'bing.com', 'www.bing.com', 'duckduckgo.com',\n        'l.facebook.com', 'lm.facebook.com', 't.co'\n    ] as Set\n\n    static final java.util.regex.Pattern DOMAIN_RE = java.util.regex.Pattern.compile(\n        '(?i)^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$')\n\n    static boolean looksLikeDomain(String s) {\n        return s != null && DOMAIN_RE.matcher(s.trim()).matches()\n    }\n\n    /** \"https://www.IBEF.org/x\" or \"ibef.org\" -> \"ibef.org\"; null if not domain-shaped. */\n    static String normDomain(Object value) {\n        if (value == null) return null\n        String t = value.toString().trim()\n        if (!t) return null\n        t = t.replaceFirst('(?i)^[a-z][a-z0-9+.-]*://', '')\n             .replaceFirst('(?i)^www\\\\.', '')\n             .replaceFirst('/.*$', '')\n             .replaceFirst('\\\\?.*$', '')\n             .replaceFirst(':\\\\d+$', '')\n        return looksLikeDomain(t) ? t.toLowerCase() : null\n    }\n\n    /** Regex host extraction. Never references java.net.URI — that class is denied here. */\n    static String extractHost(Object value) {\n        if (value == null) return null\n        String url = value.toString()\n        if (!url) return null\n        def m = url =~ /^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/(?:[^@\\/]+@)?([^\\/:?#]+)/\n        return m.find() ? m.group(1).toLowerCase() : null\n    }\n\n    static boolean isOpaque(String host) {\n        if (!host) return true\n        return OPAQUE_HOSTS.contains(host) ||\n               OPAQUE_HOSTS.contains(host.replaceFirst('(?i)^www\\\\.', ''))\n    }\n\n    /** Stable key for matching a url against a citation's webUrl. */\n    static String canonical(Object value) {\n        if (value == null) return null\n        String u = value.toString().trim()\n        if (!u) return null\n        u = u.replaceFirst('#.*$', '')\n             .replaceFirst('(?i)^[a-z][a-z0-9+.-]*://', '')\n             .replaceFirst('(?i)^www\\\\.', '')\n             .replaceAll('/+$', '')\n        return u.toLowerCase()\n    }\n\n    static String faviconFor(String domain) {\n        return domain ? ('https://www.google.com/s2/favicons?domain=' + domain + '&sz=64') : null\n    }\n}\n\n\n// ===== INPUTS =====\n\ndef rawUrls = binding.hasVariable('urls') ? binding.getVariable('urls') : null\ndef rawCitations = binding.hasVariable('citations') ? binding.getVariable('citations') : null\n\ndef urlList = (rawUrls instanceof List) ? rawUrls\n            : (rawUrls != null)         ? [rawUrls]\n            : []\n\ndef citationList = (rawCitations instanceof List) ? rawCitations\n                 : (rawCitations instanceof Map)  ? [rawCitations]\n                 : []\n\n\n// ===== BUILD LOOKUPS FROM CITATIONS =====\n// Vertex grounding titles ARE the source domain (\"ibef.org\"), while every webUrl is the same\n// vertexaisearch redirect host — that's why every favicon came out identical before.\n\ndef byCanonUrl = [:]     // canonical(webUrl) -> citation\ndef domainPool = []      // ordered domains, for positional fallback\n\ncitationList.each { c ->\n    if (!(c instanceof Map)) return\n    def key = FaviconFetcher.canonical(c.webUrl)\n    if (key && !byCanonUrl.containsKey(key)) byCanonUrl[key] = c\n    domainPool << FaviconFetcher.normDomain(c.title)\n}\n\ndef resolve = { Object url, Map citation ->\n    // 1. matched citation's title (the real source domain)\n    if (citation != null) {\n        def d = FaviconFetcher.normDomain(citation.title)\n        if (d) return d\n        // citation may already carry a usable icon domain\n        def iconDomain = null\n        def icon = citation.iconUrl?.toString()\n        if (icon) {\n            def m = icon =~ /(?i)[?&]domain=([^&]+)/\n            if (m.find()) iconDomain = FaviconFetcher.normDomain(m.group(1))\n        }\n        if (iconDomain && !FaviconFetcher.isOpaque(iconDomain)) return iconDomain\n    }\n    // 2. the URL's own host, unless it's a redirect shim\n    def host = FaviconFetcher.extractHost(url)\n    if (host && !FaviconFetcher.isOpaque(host)) {\n        return host.replaceFirst('(?i)^www\\\\.', '')\n    }\n    return null\n}\n\n\n// ===== MAIN EXECUTION =====\n\ndef results = []\n\nif (!urlList.isEmpty()) {\n    // Output aligns 1:1 with the incoming urls array\n    urlList.eachWithIndex { u, i ->\n        def url = (u instanceof Map)\n                ? (u.url ?: u.webUrl ?: u.href ?: u.link ?: u.uri)?.toString()\n                : u?.toString()\n\n        def entry = [favicon: null]\n\n        if (!url) {\n            entry.error = 'Missing URL'\n            results << entry\n            return\n        }\n\n        def citation = byCanonUrl[FaviconFetcher.canonical(url)]\n\n        // positional fallback: urls and citations often come from the same upstream list\n        if (citation == null && i < citationList.size() && citationList[i] instanceof Map) {\n            def candidate = citationList[i]\n            if (FaviconFetcher.canonical(candidate.webUrl) == FaviconFetcher.canonical(url)\n                || FaviconFetcher.normDomain(candidate.title)) {\n                citation = candidate\n            }\n        }\n\n        def domain = resolve(url, citation)\n\n        if (domain) {\n            entry.favicon = FaviconFetcher.faviconFor(domain)\n        } else {\n            // Deliberately null, not the redirect host's icon — one wrong icon repeated\n            // across every source is worse than no icon.\n            entry.error = 'Opaque redirect URL and no source domain in citations'\n        }\n        results << entry\n    }\n} else {\n    // No urls passed — resolve straight from citations\n    citationList.each { c ->\n        def entry = [favicon: null]\n        if (!(c instanceof Map)) {\n            entry.error = 'Invalid citation'\n            results << entry\n            return\n        }\n        def domain = resolve(c.webUrl, c)\n        if (domain) {\n            entry.favicon = FaviconFetcher.faviconFor(domain)\n        } else {\n            entry.error = 'Opaque redirect URL and no source domain in citations'\n        }\n        results << entry\n    }\n}\n\nreturn [favicon: results]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"citations":{
+						"items":{
+							"content":"{{ n_RQArE.outputs.citations[0].content }}",
+							"iconUrl":"{{ n_RQArE.outputs.citations[0].iconUrl }}",
+							"title":"{{ n_RQArE.outputs.citations[0].title }}",
+							"webUrl":"{{ n_RQArE.outputs.citations[0].webUrl }}"
+						},
+						"source":"{{ n_RQArE.outputs.citations }}",
+						"ua:type":"mappedArray"
+					},
 					"urls":{
 						"items":"{{ n_fzcm0.outputs.items[0] }}",
 						"source":"{{ n_fzcm0.outputs.items }}",
@@ -1765,7 +1806,8 @@
 						"items":"{{ n_QLn5w.outputs.items[0] }}",
 						"source":"{{ n_QLn5w.outputs.items }}",
 						"ua:type":"mappedArray"
-					}
+					},
+					"searchModelId":"{{ n_MlBb6.outputs.searchModelId }}"
 				},
 				"version":"-1",
 				"executeOnSameVM":false
@@ -1784,7 +1826,9 @@
 					"root.parameters.citations.items.title",
 					"root.parameters.citations.items.content",
 					"root.parameters.citations.items.iconUrl",
-					"root.parameters.citations.items.webUrl"
+					"root.parameters.citations.items.webUrl",
+					"root.parameters.favicon.items.favicon",
+					"root.parameters.favicon.items.error"
 				]
 			},
 			"context":{
@@ -1859,11 +1903,31 @@
 							},
 							"title":"citations",
 							"type":"array"
+						},
+						"favicon":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"error":{
+										"title":"Error",
+										"type":"string"
+									},
+									"favicon":{
+										"title":"Favicon",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Favicon",
+							"type":"array"
 						}
 					},
+					"required":[],
 					"type":"object"
 				},
-				"code":"def citations = binding.hasVariable('citations')? binding.getVariable('citations') : []\n\ndef chunks = []\n\nfor (int idx = 0; idx < citations.size(); idx++) {\n    def item = citations[idx]\n\n    chunks << [\n        chunkMetadata: [\n            chunkContents   : item.content ? [ item.content ] : [],\n            name            : item?.title,\n            title           : item?.title,\n            referenceUrl    : item?.webUrl,\n            websiteUrl      : item?.webUrl,\n            uniqueEntityId  : item?.webUrl,\n            sourceType      : \"WEBSITE\",\n            iconUrl         : item?.iconUrl\n        ],\n        content: item.content ?: \"\"\n    ]\n}\n\nreturn [ chunks: chunks ]",
+				"code":"def citations = binding.hasVariable('citations')? binding.getVariable('citations') : []\ndef favicon = binding.hasVariable('favicon')? binding.getVariable('favicon') : []\n\ndef chunks = []\n\nfor (int idx = 0; idx < citations.size(); idx++) {\n    def item = citations[idx]\n    def fav = (idx < favicon.size() && !favicon[idx]?.error && favicon[idx]?.favicon) ? favicon[idx].favicon : item?.iconUrl\n\n    chunks << [\n        chunkMetadata: [\n            chunkContents   : item.content ? [ item.content ] : [],\n            name            : item?.title,\n            title           : item?.title,\n            referenceUrl    : item?.webUrl,\n            websiteUrl      : item?.webUrl,\n            uniqueEntityId  : item?.webUrl,\n            sourceType      : \"WEBSITE\",\n            iconUrl         : fav\n        ],\n        content: item.content ?: \"\"\n    ]\n}\n\nreturn [ chunks: chunks ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1875,6 +1939,14 @@
 							"webUrl":"{{ n_RQArE.outputs.citations[0].webUrl }}"
 						},
 						"source":"{{ n_RQArE.outputs.citations }}",
+						"ua:type":"mappedArray"
+					},
+					"favicon":{
+						"items":{
+							"error":"{{ n_yqSJX.outputs.result.favicon[0].error }}",
+							"favicon":"{{ n_yqSJX.outputs.result.favicon[0].favicon }}"
+						},
+						"source":"{{ n_yqSJX.outputs.result.favicon }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -2891,5 +2963,5 @@
 	"tags":[
 		
 	],
-	"version":57
+	"version":59
 }
