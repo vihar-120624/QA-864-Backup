@@ -4,25 +4,45 @@
 	],
 	"createdTime":1787744664927,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744665107,
+		"deployedAt":1789395363853,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed199cee862008d75c7d0",
+		"deployedDefinitionId":"6aa801a372fd792214e8d0e4",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":42
+		"version":2,
+		"workflowVersion":45
 	},
 	"edges":[
 		{
 			"fromNodeId":"_XKl4u",
+			"id":"next@_XKl4u@n_Qlo4q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Qlo4q",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Qlo4q",
+			"id":"next@n_Qlo4q@S6lWP",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"S6lWP",
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_Qlo4q",
+			"id":"if@n_Qlo4q@_nCXM5",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_nCXM5",
+			"type":"if"
+		},
+		{
 			"fromNodeId":"S6lWP",
+			"id":"next@S6lWP@_nCXM5",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_nCXM5",
@@ -30,6 +50,7 @@
 		},
 		{
 			"fromNodeId":"_nCXM5",
+			"id":"next@_nCXM5@1isRT",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"1isRT",
@@ -37,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"1isRT",
+			"id":"next@1isRT@Mj4Yd",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"Mj4Yd",
@@ -44,6 +66,7 @@
 		},
 		{
 			"fromNodeId":"Mj4Yd",
+			"id":"next@Mj4Yd@tsNbs",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"tsNbs",
@@ -51,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"tsNbs",
+			"id":"next@tsNbs@n_FRx5Z",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_FRx5Z",
@@ -58,6 +82,7 @@
 		},
 		{
 			"fromNodeId":"n_FRx5Z",
+			"id":"next@n_FRx5Z@tMBxB",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"tMBxB",
@@ -65,6 +90,7 @@
 		},
 		{
 			"fromNodeId":"tMBxB",
+			"id":"next@tMBxB@_hSNC9",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_hSNC9",
@@ -86,7 +112,7 @@
 	"id":"67133e74272bf52973eeed1f",
 	"lastModifiedBy":-1,
 	"lcName":"ai agent wait for user response",
-	"modifiedTime":1788252971473,
+	"modifiedTime":1789395390068,
 	"name":"AI Agent wait For User Response",
 	"nodes":[
 		{
@@ -124,6 +150,10 @@
 							"title":"Case Id",
 							"type":"string"
 						},
+						"skipStopStreaming":{
+							"title":"Skip Stop Streaming",
+							"type":"boolean"
+						},
 						"statusToResumeWith":{
 							"default":"USER_CLARIFICATION_RECEIVED",
 							"title":"Status To Resume With",
@@ -144,6 +174,36 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":915,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AKQGu-1",
+			"id":"n_Qlo4q",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ _XKl4u.outputs.skipStopStreaming }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":206,
 				"resourceName":"callables_call_automation",
@@ -152,9 +212,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"CONTINUE",
-			"groupId":"_AKQGu-1",
+			"groupId":"n_Qlo4q@_AKQGu-1@n",
 			"id":"S6lWP",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"automationId":"67b4908aaffe713b4ced2d83",
 				"runtimeConnections":{},
@@ -217,7 +277,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"_nCXM5",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -254,6 +314,7 @@
 				"code":"return [\"signalDetails\": [\"waitingInstanceRunTimeType\": waitingInstanceRunTimeType, \"waitingInstanceId\": waitingInstanceId, \"signalListener\": signalListener]]",
 				"compile_static":false,
 				"isAsync":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"signalListener":"rere",
 					"waitingInstanceId":"{{ __RUN__.outputs.executionId }}",
@@ -277,7 +338,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"1isRT",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"recordId":"{{ _XKl4u.outputs.caseId }}",
 				"writeThroughSessionVariables":true,
@@ -321,9 +382,10 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"Mj4Yd",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"unit":"MINUTES",
+				"persist":false,
 				"signal_payload":{
 					"additionalProperties":false,
 					"properties":{
@@ -353,7 +415,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"tsNbs",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -441,7 +503,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"n_FRx5Z",
-			"index":7,
+			"index":8,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -520,7 +582,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"tMBxB",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"recordId":"{{ _XKl4u.outputs.caseId }}",
 				"writeThroughSessionVariables":true,
@@ -554,7 +616,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AKQGu-1",
 			"id":"_hSNC9",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"result":{
 					"result":"{{ Mj4Yd.outputs.signal_payload.received }}"
@@ -583,5 +645,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":44
+	"version":46
 }

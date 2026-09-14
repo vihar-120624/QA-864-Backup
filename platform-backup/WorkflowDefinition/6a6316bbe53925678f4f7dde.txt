@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743799110,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743799156,
+		"deployedAt":1789395193085,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece3745d2142160e6e309",
+		"deployedDefinitionId":"6aa800f972fd792214e8c735",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":11
+		"version":2,
+		"workflowVersion":14
 	},
 	"edges":[
 		{
@@ -48,20 +48,12 @@
 		},
 		{
 			"fromNodeId":"n_jjiZ4",
-			"id":"if@n_jjiZ4@n_aAs3B",
+			"id":"if@n_jjiZ4@n_sNJoM",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_aAs3B",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_aAs3B",
-			"id":"next@n_aAs3B@n_sNJoM",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_sNJoM",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_jjiZ4",
@@ -114,7 +106,7 @@
 	"id":"6a6316bbe53925678f4f7dde",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover microsoft copilot studio agent",
-	"modifiedTime":1788252972496,
+	"modifiedTime":1789395390067,
 	"name":"Governance | Discover Microsoft Copilot Studio Agent",
 	"nodes":[
 		{
@@ -172,6 +164,10 @@
 									"title":"isInitialSyncInProgress",
 									"type":"boolean"
 								},
+								"ownerId":{
+									"title":"Owner Id",
+									"type":"string"
+								},
 								"status":{
 									"title":"status",
 									"type":"string"
@@ -181,6 +177,7 @@
 									"type":"string"
 								}
 							},
+							"required":[],
 							"type":"object"
 						},
 						"appName":{
@@ -271,13 +268,6 @@
 								"value":"{{ n_qBiLM.outputs.item.botid }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_pewTc.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -330,56 +320,6 @@
 			"type":"IF_ELSE"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_jjiZ4@n_qBiLM@_HXohN-1@l@y",
-			"id":"n_aAs3B",
-			"index":6,
-			"inputs":{
-				"recordId":"{{ n_1aJ9u.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_1aJ9u.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_1aJ9u.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_pewTc.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"agent",
-					"awaitingTraces":"{{ n_1aJ9u.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_1aJ9u.outputs.properties.connectionId }}",
-					"connectionType":"observe",
-					"enabled":"{{ n_1aJ9u.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_qBiLM.outputs.item.botid }}",
-					"name":"{{ n_qBiLM.outputs.item.name }}",
-					"registered":false,
-					"registered_first_time":"{{ n_1aJ9u.outputs.properties.registered_first_time }}",
-					"remainingRetryCount":"{{ n_pewTc.outputs.retryCount }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
@@ -391,7 +331,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_jjiZ4@n_qBiLM@_HXohN-1@l@y",
 			"id":"n_sNJoM",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile",
@@ -429,7 +369,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_jjiZ4@n_qBiLM@_HXohN-1@l@n",
 			"id":"n_stNdU",
-			"index":8,
+			"index":7,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -472,7 +412,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_HXohN-1",
 			"id":"n_L8fIz",
-			"index":9,
+			"index":8,
 			"inputs":{
 				"result":{
 					"success":true
@@ -502,5 +442,5 @@
 		}
 	},
 	"standard":true,
-	"version":13
+	"version":15
 }
