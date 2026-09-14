@@ -1,0 +1,777 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789394967621,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789394967714,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa8001739ee5f5ef70b5829",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":33
+	},
+	"description":"Callable workflow that upserts a table asset record and its metadata into the data catalog. Receives table details and creates/updates both the catalog asset and table-specific metadata records sequentially.",
+	"edges":[
+		{
+			"fromNodeId":"n_StrtA",
+			"id":"next@n_StrtA@n_TbAs1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TbAs1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TbAs1",
+			"id":"next@n_TbAs1@n_TbMt2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TbMt2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TbMt2",
+			"id":"next@n_TbMt2@n_LpFd1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LpFd1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LpFd1",
+			"id":"loop@n_LpFd1@n_FdAs3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FdAs3",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_FdAs3",
+			"id":"next@n_FdAs3@n_FdMt4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FdMt4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FdMt4",
+			"id":"next@n_FdMt4@n_LpFd1",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LpFd1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LpFd1",
+			"id":"next@n_LpFd1@n_StpRt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_StpRt",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a5df7442e0db41ccb663da5",
+	"lastModifiedBy":-1,
+	"lcName":"data catalog - table asset adder (single)",
+	"modifiedTime":1789394968073,
+	"name":"Data Catalog - Table Asset Adder (Single)",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_StrtA",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"field_mappings":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"field_name":{
+										"type":"string",
+										"title":"field_name"
+									},
+									"field_type":{
+										"type":"string",
+										"title":"field_type"
+									},
+									"data_type":{
+										"type":"string",
+										"title":"data_type"
+									},
+									"nullable":{
+										"type":"boolean",
+										"title":"nullable"
+									},
+									"primary":{
+										"type":"boolean",
+										"title":"primary"
+									}
+								},
+								"additionalProperties":false
+							},
+							"title":"field_mappings"
+						},
+						"table_name":{
+							"type":"string",
+							"title":"table_name"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"Data Catalog Asset":{
+							"type":"object",
+							"properties":{
+								"datacatalog_id":{
+									"type":"string",
+									"title":"datacatalog_id"
+								},
+								"connector_id":{
+									"type":"string",
+									"title":"connector_id"
+								},
+								"connector_type":{
+									"type":"string",
+									"title":"connector_type"
+								},
+								"user_id":{
+									"type":"string",
+									"title":"user_id"
+								},
+								"datacatalog_assets":{
+									"type":"object",
+									"properties":{
+										"database":{
+											"type":"string",
+											"title":"database"
+										},
+										"database_size_MB":{
+											"type":"integer",
+											"title":"database_size_MB"
+										},
+										"logo_link":{
+											"type":"string",
+											"title":"logo_link"
+										},
+										"schema":{
+											"type":"string",
+											"title":"schema"
+										}
+									},
+									"title":"datacatalog_assets",
+									"additionalProperties":false,
+									"required":[]
+								}
+							},
+							"title":"Data Catalog Asset",
+							"additionalProperties":false
+						},
+						"Source Details":{
+							"type":"object",
+							"properties":{
+								"sourceType":{
+									"type":"string",
+									"title":"sourceType"
+								},
+								"sourceName":{
+									"type":"string",
+									"title":"sourceName"
+								},
+								"sourceId":{
+									"type":"string",
+									"title":"sourceId"
+								},
+								"sourceAssetType":{
+									"type":"string",
+									"title":"sourceAssetType"
+								},
+								"sourceAssetId":{
+									"type":"string",
+									"title":"sourceAssetId"
+								},
+								"sourceIconUrl":{
+									"type":"string",
+									"title":"sourceIconUrl"
+								}
+							},
+							"title":"Source Details",
+							"additionalProperties":false
+						},
+						"Parent Asset Details":{
+							"type":"object",
+							"properties":{
+								"parentAssetType":{
+									"type":"string",
+									"title":"parentAssetType"
+								},
+								"parentAssetId":{
+									"type":"string",
+									"title":"parentAssetId"
+								},
+								"parentAssetName":{
+									"type":"string",
+									"title":"parentAssetName"
+								},
+								"parentAssetIconUrl":{
+									"type":"string",
+									"title":"parentAssetIconUrl"
+								},
+								"parentAssetTypeName":{
+									"type":"string",
+									"title":"parentAssetTypeName"
+								},
+								"parentAssetIds":{
+									"type":"array",
+									"items":{
+										"type":"string"
+									},
+									"title":"parentAssetIds"
+								}
+							},
+							"title":"Parent Asset Details",
+							"additionalProperties":false
+						},
+						"Parent Assets":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Parent Assets"
+						},
+						"Owners":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Owners"
+						},
+						"Shared With":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With"
+						},
+						"Certificate":{
+							"type":"string",
+							"title":"Certificate"
+						},
+						"Created By":{
+							"type":"string",
+							"title":"Created By"
+						},
+						"Edited By":{
+							"type":"string",
+							"title":"Edited By"
+						},
+						"Asset Icon Url":{
+							"type":"string",
+							"title":"Asset Icon Url"
+						},
+						"Classifications":{
+							"type":"array",
+							"title":"Classifications"
+						},
+						"Glossary":{
+							"type":"array",
+							"title":"Glossary"
+						},
+						"Tags":{
+							"type":"array",
+							"title":"Tags"
+						},
+						"table":{
+							"type":"string",
+							"title":"table"
+						},
+						"row_count":{
+							"type":"integer",
+							"title":"row_count"
+						},
+						"field_count":{
+							"type":"integer",
+							"title":"field_count"
+						},
+						"field_mappings":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"field_name":{
+										"type":"string",
+										"title":"field_name"
+									},
+									"field_type":{
+										"type":"string",
+										"title":"field_type"
+									},
+									"data_type":{
+										"type":"string",
+										"title":"data_type"
+									},
+									"nullable":{
+										"type":"boolean",
+										"title":"nullable"
+									},
+									"primary":{
+										"type":"boolean",
+										"title":"primary"
+									}
+								},
+								"additionalProperties":false
+							},
+							"title":"field_mappings"
+						},
+						"sizeInMB":{
+							"type":"string",
+							"title":"sizeInMB"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.sourceDetails.sourceType",
+					"root.record.sourceDetails.sourceName",
+					"root.record.sourceDetails.sourceId",
+					"root.record.sourceDetails.sourceAssetType",
+					"root.record.sourceDetails.sourceAssetId",
+					"root.record.sourceDetails.sourceIconUrl",
+					"root.record.parentAssetDetails.parentAssetType",
+					"root.record.parentAssetDetails.parentAssetId",
+					"root.record.parentAssetDetails.parentAssetName",
+					"root.record.parentAssetDetails.parentAssetIconUrl",
+					"root.record.parentAssetDetails.parentAssetTypeName",
+					"root.record.parentAssetDetails.parentAssetIds.items",
+					"root.record.owners.items",
+					"root.record.sharedWith.items",
+					"root.record.classifications.items",
+					"root.record.glossary.items",
+					"root.record.tags.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"RETRY",
+			"groupId":"root_id-1",
+			"id":"n_TbAs1",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}_{{ n_StrtA.outputs.Data Catalog Asset.connector_id }}_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.database }}_schema_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.schema }}_table_{{ n_StrtA.outputs.table }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"e_data_catalog_asset",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"name":"{{ n_StrtA.outputs.table }}",
+					"assetType":"e_data_catalog_table",
+					"sourceDetails":{
+						"sourceType":"{{ n_StrtA.outputs.Source Details.sourceType }}",
+						"sourceName":"{{ n_StrtA.outputs.Source Details.sourceName }}",
+						"sourceId":"{{ n_StrtA.outputs.Source Details.sourceId }}",
+						"sourceAssetType":"Table",
+						"sourceAssetId":"{{ n_StrtA.outputs.Source Details.sourceAssetId }}",
+						"sourceIconUrl":"{{ n_StrtA.outputs.Source Details.sourceIconUrl }}"
+					},
+					"parentAssetDetails":{
+						"parentAssetType":"{{ n_StrtA.outputs.Parent Asset Details.parentAssetType }}",
+						"parentAssetId":"{{ n_StrtA.outputs.Parent Asset Details.parentAssetId }}",
+						"parentAssetName":"{{ n_StrtA.outputs.Parent Asset Details.parentAssetName }}",
+						"parentAssetIconUrl":"{{ n_StrtA.outputs.Parent Asset Details.parentAssetIconUrl }}",
+						"parentAssetTypeName":"Schema",
+						"parentAssetIds":[
+							"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}_{{ n_StrtA.outputs.Data Catalog Asset.connector_id }}_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.database }}",
+							"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}_{{ n_StrtA.outputs.Data Catalog Asset.connector_id }}_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.database }}_schema_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.schema }}"
+						]
+					},
+					"certificate":"Verified",
+					"createdBy":"{{ n_StrtA.outputs.Data Catalog Asset.user_id }}",
+					"editedBy":"{{ n_StrtA.outputs.Data Catalog Asset.user_id }}",
+					"assetIconUrl":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.logo_link }}",
+					"dataCatalogId":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}",
+					"parentAssetIds":[
+						"{{ n_StrtA.outputs.databaseAssetId }}",
+						"{{ n_StrtA.outputs.schemaAssetId }}"
+					],
+					"owners":{
+						"items":"{{ n_StrtA.outputs.Data Catalog Asset.user_id }}",
+						"ua:type":"mappedArray"
+					},
+					"sharedWith":{
+						"items":"{{ n_StrtA.outputs.Data Catalog Asset.user_id }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Update record (Table-Asset)",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.sourceDetails.sourceType",
+					"root.record.sourceDetails.sourceName",
+					"root.record.sourceDetails.sourceId",
+					"root.record.sourceDetails.sourceAssetType",
+					"root.record.sourceDetails.sourceAssetId",
+					"root.record.parentAssetDetails.parentAssetType",
+					"root.record.parentAssetDetails.parentAssetId",
+					"root.record.owners.items",
+					"root.record.sharedWith.items",
+					"root.record.certificateNew.items",
+					"root.record.tags.items",
+					"root.record.classifications.items",
+					"root.record.glossary.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"RETRY",
+			"groupId":"root_id-1",
+			"id":"n_TbMt2",
+			"index":3,
+			"inputs":{
+				"recordId":"{{ n_TbAs1.outputs.object.id }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"e_data_catalog_table",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"name":"{{ n_StrtA.outputs.table }}",
+					"assetType":"Table",
+					"sourceDetails":{
+						"sourceType":"{{ n_TbAs1.outputs.object.properties.sourceDetails.sourceType }}",
+						"sourceName":"{{ n_TbAs1.outputs.object.properties.sourceDetails.sourceName }}",
+						"sourceId":"{{ n_TbAs1.outputs.object.properties.sourceDetails.sourceId }}",
+						"sourceAssetType":"Table",
+						"sourceAssetId":"{{ n_TbAs1.outputs.object.properties.sourceDetails.sourceAssetId }}"
+					},
+					"parentAssetDetails":{
+						"parentAssetType":"{{ n_TbAs1.outputs.object.properties.parentAssetDetails.parentAssetType }}",
+						"parentAssetId":"{{ n_TbAs1.outputs.object.properties.parentAssetDetails.parentAssetId }}"
+					},
+					"createdBy":"{{ __USER__.outputs.id }}",
+					"editedBy":"{{ __USER__.outputs.id }}",
+					"recordCount":"{{ n_StrtA.outputs.row_count }}",
+					"fieldCount":"{{ n_StrtA.outputs.field_count }}",
+					"sizeInMb":"{{ n_StrtA.outputs.sizeInMB }}",
+					"certificateNew":[
+						"Verified"
+					],
+					"dataCatalogId":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}",
+					"owners":{
+						"items":"{{ __USER__.outputs.id }}",
+						"ua:type":"mappedArray"
+					},
+					"sharedWith":{
+						"items":"{{ __USER__.outputs.id }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Update record (Table-metadata)",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_LpFd1",
+			"index":4,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_StrtA.outputs.field_mappings }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.sourceDetails.sourceType",
+					"root.record.sourceDetails.sourceName",
+					"root.record.sourceDetails.sourceId",
+					"root.record.sourceDetails.sourceAssetType",
+					"root.record.sourceDetails.sourceAssetId",
+					"root.record.sourceDetails.sourceIconUrl",
+					"root.record.parentAssetDetails.parentAssetType",
+					"root.record.parentAssetDetails.parentAssetId",
+					"root.record.parentAssetDetails.parentAssetName",
+					"root.record.parentAssetDetails.parentAssetIconUrl",
+					"root.record.parentAssetDetails.parentAssetTypeName",
+					"root.record.parentAssetDetails.parentAssetIds.items",
+					"root.record.owners.items",
+					"root.record.sharedWith.items",
+					"root.record.classifications.items",
+					"root.record.glossary.items",
+					"root.record.tags.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"RETRY",
+			"groupId":"n_LpFd1@root_id-1@l",
+			"id":"n_FdAs3",
+			"index":5,
+			"inputs":{
+				"recordId":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}_{{ n_StrtA.outputs.Data Catalog Asset.connector_id }}_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.database }}_schema_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.schema }}_table_{{ n_StrtA.outputs.table }}_field_{{ n_LpFd1.outputs.item.field_name }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"e_data_catalog_asset",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"name":"{{ n_LpFd1.outputs.item.field_name }}",
+					"assetType":"e_data_catalog_field",
+					"sourceDetails":{
+						"sourceType":"{{ n_StrtA.outputs.Source Details.sourceType }}",
+						"sourceName":"{{ n_StrtA.outputs.Source Details.sourceName }}",
+						"sourceId":"{{ n_StrtA.outputs.Source Details.sourceId }}",
+						"sourceAssetType":"Field",
+						"sourceAssetId":"{{ n_StrtA.outputs.Source Details.sourceAssetId }}",
+						"sourceIconUrl":"{{ n_StrtA.outputs.Source Details.sourceIconUrl }}"
+					},
+					"parentAssetDetails":{
+						"parentAssetType":"e_data_catalog_table",
+						"parentAssetId":"{{ n_TbAs1.outputs.object.id }}",
+						"parentAssetName":"{{ n_TbAs1.outputs.object.properties.name }}",
+						"parentAssetIconUrl":"{{ n_TbAs1.outputs.object.properties.assetIconUrl }}",
+						"parentAssetTypeName":"e_data_catalog_table",
+						"parentAssetIds":[
+							"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}_{{ n_StrtA.outputs.Data Catalog Asset.connector_id }}_{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.database }}",
+							"{{ n_StrtA.outputs.Parent Asset Details.parentAssetId }}",
+							"{{ n_TbAs1.outputs.object.id }}"
+						]
+					},
+					"certificate":"Verified",
+					"createdBy":"{{ __USER__.outputs.id }}",
+					"editedBy":"{{ __USER__.outputs.id }}",
+					"assetIconUrl":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_assets.logo_link }}",
+					"dataCatalogId":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}",
+					"parentAssetIds":[
+						"{{ n_StrtA.outputs.databaseAssetId }}",
+						"{{ n_StrtA.outputs.schemaAssetId }}",
+						"{{ n_TbAs1.outputs.object.id }}"
+					],
+					"owners":{
+						"items":"{{ __USER__.outputs.id }}",
+						"ua:type":"mappedArray"
+					},
+					"sharedWith":{
+						"items":"{{ __USER__.outputs.id }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Update record (field-asset)",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.sourceDetails.sourceType",
+					"root.record.sourceDetails.sourceName",
+					"root.record.sourceDetails.sourceId",
+					"root.record.sourceDetails.sourceAssetType",
+					"root.record.sourceDetails.sourceAssetId",
+					"root.record.parentAssetDetails.parentAssetType",
+					"root.record.parentAssetDetails.parentAssetId",
+					"root.record.owners.items",
+					"root.record.sharedWith.items",
+					"root.record.foreignKeyDetails.objectId",
+					"root.record.foreignKeyDetails.objectName",
+					"root.record.foreignKeyDetails.fieldId",
+					"root.record.foreignKeyDetails.fieldName",
+					"root.record.tags.items",
+					"root.record.classifications.items",
+					"root.record.glossary.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"RETRY",
+			"groupId":"n_LpFd1@root_id-1@l",
+			"id":"n_FdMt4",
+			"index":6,
+			"inputs":{
+				"recordId":"{{ n_FdAs3.outputs.object.id }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"e_data_catalog_field",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"name":"{{ n_FdAs3.outputs.object.properties.name }}",
+					"description":"{{ n_FdAs3.outputs.object.properties.description }}",
+					"assetType":"e_data_catalog_field",
+					"sourceDetails":{
+						"sourceType":"{{ n_FdAs3.outputs.object.properties.sourceDetails.sourceType }}",
+						"sourceName":"{{ n_FdAs3.outputs.object.properties.sourceDetails.sourceName }}",
+						"sourceId":"{{ n_FdAs3.outputs.object.properties.sourceDetails.sourceId }}",
+						"sourceAssetType":"Field",
+						"sourceAssetId":"{{ n_FdAs3.outputs.object.properties.sourceDetails.sourceAssetId }}"
+					},
+					"parentAssetDetails":{
+						"parentAssetType":"e_data_catalog_table",
+						"parentAssetId":"{{ n_FdAs3.outputs.object.properties.parentAssetDetails.parentAssetId }}"
+					},
+					"certificate":"Verified",
+					"createdBy":"{{ __USER__.outputs.id }}",
+					"editedBy":"{{ __USER__.outputs.id }}",
+					"primaryKey":"{{ n_LpFd1.outputs.item.primary }}",
+					"fieldType":"{{ n_LpFd1.outputs.item.field_type }}",
+					"dataType":"{{ n_LpFd1.outputs.item.data_type }}",
+					"isNullable":"{{ n_LpFd1.outputs.item.nullable }}",
+					"dataCatalogId":"{{ n_StrtA.outputs.Data Catalog Asset.datacatalog_id }}",
+					"sharedWith":{
+						"ua:type":"mappedArray",
+						"source":"{{ n_FdAs3.outputs.object.properties.sharedWith }}",
+						"items":"{{ n_FdAs3.outputs.object.properties.sharedWith[0] }}"
+					},
+					"owners":{
+						"source":"{{ n_FdAs3.outputs.object.properties.owners }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_FdAs3.outputs.object.properties.owners[0] }}"
+					},
+					"tags":{
+						"source":"{{ n_FdAs3.outputs.object.properties.tags }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_FdAs3.outputs.object.properties.tags[0] }}"
+					}
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Update record (field-metadata)",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"root_id-1",
+			"id":"n_StpRt",
+			"index":7,
+			"inputs":{
+				"result":{
+					"table_name":"{{ n_StrtA.outputs.table }}",
+					"field_mappings":{
+						"ua:type":"mappedArray",
+						"source":"{{ n_StrtA.outputs.field_mappings }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Generated"
+	],
+	"version":34
+}
