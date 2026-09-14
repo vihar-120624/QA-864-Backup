@@ -4,19 +4,45 @@
 	],
 	"createdTime":1787744026057,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744026331,
+		"deployedAt":1789395303548,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf1a2889f9507f11e558",
+		"deployedDefinitionId":"6aa80167c6a14707f1503cf3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":235
+		"version":2,
+		"workflowVersion":238
 	},
 	"edges":[
 		{
 			"fromNodeId":"0WoDm",
-			"id":"next@0WoDm@9dbcQ",
+			"id":"next@0WoDm@n_W7hCG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_W7hCG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_W7hCG",
+			"id":"if@n_W7hCG@n_wd6Qu",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wd6Qu",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_wd6Qu",
+			"id":"next@n_wd6Qu@9dbcQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"9dbcQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_W7hCG",
+			"id":"next@n_W7hCG@9dbcQ",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"9dbcQ",
@@ -144,7 +170,7 @@
 	"id":"67834374fc387b38c73b7972",
 	"lastModifiedBy":-1,
 	"lcName":"system prompt builder",
-	"modifiedTime":1788252972270,
+	"modifiedTime":1789395398993,
 	"name":"System Prompt Builder",
 	"nodes":[
 		{
@@ -224,6 +250,10 @@
 							"title":"Enable Followups",
 							"type":"boolean"
 						},
+						"internalWebSearch":{
+							"title":"Internal Web Search",
+							"type":"boolean"
+						},
 						"memoryEnabled":{
 							"title":"Memory Enabled",
 							"type":"boolean"
@@ -298,6 +328,125 @@
 						"currentTaskId":{
 							"title":"currentTaskId",
 							"type":"string"
+						},
+						"isPreviousContextChanged":{
+							"title":"Is Previous Context Changed",
+							"type":"boolean"
+						},
+						"previousSystemPromptContext":{
+							"additionalProperties":false,
+							"properties":{
+								"availableTools":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"additional":{
+												"title":"additional",
+												"type":"object"
+											},
+											"deferToolLoading":{
+												"title":"deferToolLoading",
+												"type":"boolean"
+											},
+											"description":{
+												"title":"description",
+												"type":"string"
+											},
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"toolInputSchema":{
+												"title":"toolInputSchema",
+												"type":"object"
+											}
+										},
+										"type":"object"
+									},
+									"title":"availableTools",
+									"type":"array"
+								},
+								"currentTopic":{
+									"title":"currentTopic",
+									"type":"string"
+								},
+								"deepResearch":{
+									"title":"deepResearch",
+									"type":"boolean"
+								},
+								"disableInlineCitations":{
+									"title":"disableInlineCitations",
+									"type":"boolean"
+								},
+								"enableFollowups":{
+									"title":"enableFollowups",
+									"type":"boolean"
+								},
+								"internalWebSearch":{
+									"title":"internalWebSearch",
+									"type":"boolean"
+								},
+								"memoryEnabled":{
+									"title":"memoryEnabled",
+									"type":"boolean"
+								},
+								"modelId":{
+									"title":"modelId",
+									"type":"string"
+								},
+								"responseSchema":{
+									"title":"responseSchema",
+									"type":"object"
+								},
+								"response_format":{
+									"title":"response_format",
+									"type":"string"
+								},
+								"sandboxToolAdded":{
+									"title":"sandboxToolAdded",
+									"type":"boolean"
+								},
+								"stream":{
+									"title":"stream",
+									"type":"boolean"
+								},
+								"systemPrompt":{
+									"title":"systemPrompt",
+									"type":"string"
+								},
+								"textToSQLSettings":{
+									"additionalProperties":false,
+									"properties":{
+										"isOnlyTextToSQLAgent":{
+											"title":"isOnlyTextToSQLAgent",
+											"type":"boolean"
+										},
+										"sqlAndChart1LLMCall_Variant":{
+											"title":"sqlAndChart1LLMCall_Variant",
+											"type":"boolean"
+										},
+										"topicIdForOnlyText2SQL":{
+											"title":"topicIdForOnlyText2SQL",
+											"type":"string"
+										}
+									},
+									"title":"textToSQLSettings",
+									"type":"object"
+								},
+								"useProviderWebSearch":{
+									"title":"useProviderWebSearch",
+									"type":"boolean"
+								},
+								"websearchModelID":{
+									"title":"websearchModelID",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						}
 					},
 					"required":[
@@ -317,6 +466,133 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":918,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"zGFGr-1",
+			"id":"n_W7hCG",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filters":[
+							{
+								"filter":{
+									"operator":"EXISTS"
+								},
+								"property":"{{ 0WoDm.outputs.isPreviousContextChanged }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"false"
+								},
+								"property":"{{ 0WoDm.outputs.isPreviousContextChanged }}"
+							}
+						],
+						"operator":"AND"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.preservePreviousSystemPromptContext }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.availableTools.source",
+					"root.result.availableTools.ua:type",
+					"root.result.availableTools.items.deferToolLoading",
+					"root.result.availableTools.items.description",
+					"root.result.availableTools.items.id",
+					"root.result.availableTools.items.name",
+					"root.result.currentTopic",
+					"root.result.deepResearch",
+					"root.result.disableInlineCitations",
+					"root.result.enableFollowups",
+					"root.result.internalWebSearch",
+					"root.result.memoryEnabled",
+					"root.result.modelId",
+					"root.result.response_format",
+					"root.result.sandboxToolAdded",
+					"root.result.stream",
+					"root.result.systemPrompt",
+					"root.result.textToSQLSettings.isOnlyTextToSQLAgent",
+					"root.result.textToSQLSettings.sqlAndChart1LLMCall_Variant",
+					"root.result.textToSQLSettings.topicIdForOnlyText2SQL",
+					"root.result.useProviderWebSearch",
+					"root.result.websearchModelID"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7646,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_W7hCG@zGFGr-1@y",
+			"id":"n_wd6Qu",
+			"index":3,
+			"inputs":{
+				"result":{
+					"availableTools":{
+						"items":{
+							"additional":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools[0].additional }}",
+							"deferToolLoading":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools[0].deferToolLoading }}",
+							"description":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools[0].description }}",
+							"id":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools[0].id }}",
+							"name":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools[0].name }}",
+							"toolInputSchema":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools[0].toolInputSchema }}"
+						},
+						"source":"{{ 0WoDm.outputs.previousSystemPromptContext.availableTools }}",
+						"ua:type":"mappedArray"
+					},
+					"currentTopic":"{{ 0WoDm.outputs.previousSystemPromptContext.currentTopic }}",
+					"deepResearch":"{{ 0WoDm.outputs.previousSystemPromptContext.deepResearch }}",
+					"disableInlineCitations":"{{ 0WoDm.outputs.previousSystemPromptContext.disableInlineCitations }}",
+					"enableFollowups":"{{ 0WoDm.outputs.previousSystemPromptContext.enableFollowups }}",
+					"internalWebSearch":"{{ 0WoDm.outputs.previousSystemPromptContext.internalWebSearch }}",
+					"memoryEnabled":"{{ 0WoDm.outputs.previousSystemPromptContext.memoryEnabled }}",
+					"modelId":"{{ 0WoDm.outputs.previousSystemPromptContext.modelId }}",
+					"responseSchema":"{{ 0WoDm.outputs.previousSystemPromptContext.responseSchema }}",
+					"response_format":"{{ 0WoDm.outputs.previousSystemPromptContext.response_format }}",
+					"sandboxToolAdded":"{{ 0WoDm.outputs.previousSystemPromptContext.sandboxToolAdded }}",
+					"stream":"{{ 0WoDm.outputs.previousSystemPromptContext.stream }}",
+					"systemPrompt":"{{ 0WoDm.outputs.previousSystemPromptContext.systemPrompt }}",
+					"textToSQLSettings":{
+						"isOnlyTextToSQLAgent":"{{ 0WoDm.outputs.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent }}",
+						"sqlAndChart1LLMCall_Variant":"{{ 0WoDm.outputs.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant }}",
+						"topicIdForOnlyText2SQL":"{{ 0WoDm.outputs.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL }}"
+					},
+					"useProviderWebSearch":"{{ 0WoDm.outputs.previousSystemPromptContext.useProviderWebSearch }}",
+					"websearchModelID":"{{ 0WoDm.outputs.previousSystemPromptContext.websearchModelID }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":173,
 				"resourceName":"callables_call_automation",
@@ -327,7 +603,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"9dbcQ",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"automationId":"67e26f9c2807cf04c7f860db",
 				"runtimeConnections":{},
@@ -395,7 +671,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_xe4TW",
-			"index":3,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -424,7 +700,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def tools = (binding.hasVariable(\"tools\") ? binding.getVariable(\"tools\") : null) ?: []\n\nreturn [\"todoToolEnabled\": tools.any { it?.name == \"TodoWriteTool\" }]",
+				"code":"def tools = (binding.hasVariable(\"tools\") ? binding.getVariable(\"tools\") : null) ?: []\n\nreturn [\"todoToolEnabled\": tools.any { it?.name in [\"update_plan\", \"TodoWriteTool\"] }]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -452,7 +728,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_eOYKQ",
-			"index":4,
+			"index":6,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -504,7 +780,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"jNHUU",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"automationId":"67d5ca385c39266befb90a21",
 				"runtimeConnections":{},
@@ -577,7 +853,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"896HW",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"variableSchema":{
 					"additionalProperties":false,
@@ -608,7 +884,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_tZvNw",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -652,7 +928,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_vjLXr",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -709,7 +985,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_G2D9J",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"filters":[
 					{
@@ -738,7 +1014,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"n_fO1cZ",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -795,7 +1071,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"n_BLduV",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"automationId":"{{ n_tZvNw.outputs.properties.preProcessingSettings.systemPromptSetting.addContextAutomationId }}",
 				"runtimeConnections":"",
@@ -820,7 +1096,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"n_UcIPe",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -873,7 +1149,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"_AnIBs",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"result":{
 					"availableTools":{
@@ -919,7 +1195,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"MmIks",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"result":{
 					"availableTools":{
@@ -938,6 +1214,7 @@
 					"deepResearch":"{{ n_tZvNw.outputs.properties.defaultTools.deepResearch }}",
 					"disableInlineCitations":"{{ 9dbcQ.outputs.agent_attributes.disableInlineCitations }}",
 					"enableFollowups":"{{ n_tZvNw.outputs.properties.responseGenerationSettings.sendSuggestedQueries }}",
+					"internalWebSearch":"{{ 9dbcQ.outputs.agent_attributes.internalWebSearch }}",
 					"memoryEnabled":"{{ 9dbcQ.outputs.agent_attributes.memoryEnabled }}",
 					"modelId":"{{ 9dbcQ.outputs.agent_attributes.modelId }}",
 					"responseSchema":"{{ 9dbcQ.outputs.agent_attributes.outputSchema }}",
@@ -975,5 +1252,5 @@
 		}
 	},
 	"standard":true,
-	"version":237
+	"version":239
 }
