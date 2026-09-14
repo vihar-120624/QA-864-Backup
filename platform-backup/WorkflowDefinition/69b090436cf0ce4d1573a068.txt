@@ -1,0 +1,546 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395367946,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395367992,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa801a7c6a14707f15040b8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":83
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Hb9fw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nSSNB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nSSNB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LC15A",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FWXq1",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69b090436cf0ce4d1573a068",
+	"lastModifiedBy":-1,
+	"lcName":"[outlook] fetch email wrapper",
+	"modifiedTime":1789395390590,
+	"name":"[Outlook] Fetch Email Wrapper",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1926,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_Hb9fw",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"emailDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Email Details",
+							"type":"array"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"todaysEmailsCount":{
+							"title":"Todays Emails Count",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"attachmentName":{
+							"help":"Array of attachment filenames to match. Pass ONLY when the user names a specific file/attachment (e.g. \"email with attachment named report.pdf\"). One array element per name; multiple names are OR'd — an email matches if ANY of its attachments matches ANY name. Matching is case-insensitive: exact filename first, substring fallback, so both \"report.pdf\" and \"report\" work. Pass each name EXACTLY as the user wrote it — no sanitizing, no wildcards, no delimiter packing. This field implies the email must have attachments.",
+							"items":{
+								"type":"string"
+							},
+							"title":"Attachment Name",
+							"type":"array"
+						},
+						"bcc":{
+							"help":"BCC recipient addresses or display names. Pass an array only when the user explicitly filters by BCC recipients; omit otherwise.",
+							"items":{
+								"type":"string"
+							},
+							"title":"Bcc",
+							"type":"array"
+						},
+						"categories":{
+							"help":"Outlook category labels explicitly requested by the user. Pass each requested label as a separate array element; omit when category is not part of the request.",
+							"items":{
+								"type":"string"
+							},
+							"title":"Categories",
+							"type":"array"
+						},
+						"cc":{
+							"help":"CC recipient addresses or display names. Pass an array only when the user explicitly filters by CC recipients; omit otherwise.",
+							"items":{
+								"type":"string"
+							},
+							"title":"Cc",
+							"type":"array"
+						},
+						"domainFilter":{
+							"help":"Sender-domain scope. Use exactly `external` or `internal` only when the user requests that scope; omit otherwise. Do not place domain patterns in `from`.",
+							"title":"Domain Filter",
+							"type":"string"
+						},
+						"endTime":{
+							"help":"Policy-required end of the direct window as a concrete ISO 8601 timestamp with the user's local offset. Preserve the user's explicit end, cap only at NOW when necessary, and never pass natural language or widen the range.",
+							"title":"End Time",
+							"type":"string"
+						},
+						"flagStatus":{
+							"help":"Specific Outlook flag state: `notFlagged`, `flagged`, or `complete`. Use only when that exact state is requested; otherwise omit.",
+							"title":"Flag Status",
+							"type":"string"
+						},
+						"from":{
+							"help":"Exact sender email address supplied by the user. For a display name without an address, use `fromUserName` instead; do not use both for the same person.",
+							"title":"from",
+							"type":"string"
+						},
+						"fromExclude":{
+							"help":"Exact sender email address to exclude when the user requests an exclusion. Omit otherwise; do not place it in `from`.",
+							"title":"From Exclude",
+							"type":"string"
+						},
+						"fromUserName":{
+							"help":"Sender display name supplied by the user. For an exact email address, use `from` instead; do not use both for the same person.",
+							"title":"From User Name",
+							"type":"string"
+						},
+						"hasAttachements":{
+							"help":"Attachment-presence filter; the property name intentionally uses the registered spelling. Pass `true` for messages with attachments or `false` for messages without them only when explicitly requested; omit otherwise.",
+							"title":"Has Attachements",
+							"type":"boolean"
+						},
+						"importance":{
+							"help":"Outlook importance value `low`, `normal`, or `high`. Use only when the user requests a specific level; omit otherwise.",
+							"title":"Importance",
+							"type":"string"
+						},
+						"isFlagged":{
+							"help":"Boolean flag filter. Pass `true` for flagged or `false` for unflagged only when explicitly requested; omit for both.",
+							"title":"Is Flagged",
+							"type":"boolean"
+						},
+						"isImportant":{
+							"help":"Boolean importance filter. Pass `true` for important or `false` for not important only when explicitly requested; omit for both.",
+							"title":"Is Important",
+							"type":"boolean"
+						},
+						"isRead":{
+							"help":"Read-state filter. Pass `false` for unread or `true` for read only when explicitly requested; omit for both.",
+							"title":"isRead",
+							"type":"boolean"
+						},
+						"limit":{
+							"help":"Positive page size, maximum 100 per call. Without a requested count use 20. For a larger requested count, page in batches of at most 100 until that count is reached; use 100 per page for an explicit `all` request.",
+							"title":"limit",
+							"type":"integer"
+						},
+						"offset":{
+							"help":"Number of sorted results to skip on a subsequent page. Omit on the first page; then increment by the page limit for continuation or an explicit `all` request.",
+							"title":"offset",
+							"type":"integer"
+						},
+						"orderBy":{
+							"default":"receivedDateTime",
+							"help":"Schema-required sort field. Use `receivedDateTime` for normal newest/oldest mail ordering. Other supported values are `from`, `subject`, and `size`, used only when requested.",
+							"title":"orderBy",
+							"type":"string"
+						},
+						"orderDir":{
+							"help":"Sort direction `desc` or `asc`. Use `desc` by default and `asc` only for an oldest-first, smallest-first, or A-to-Z request.",
+							"title":"orderDir",
+							"type":"string"
+						},
+						"parentFolderName":{
+							"help":"Exact opaque Outlook folder name. Set `Sent Items` for outbound/sent-mail intent or use the folder explicitly named by the user. Never parse or translate the operational value.",
+							"title":"Parent Folder Name",
+							"type":"string"
+						},
+						"startTime":{
+							"help":"Policy-required start of the direct window as a concrete ISO 8601 timestamp with the user's local offset. For normal retrieval it must be within the rolling last 24 hours; an older value is allowed only for the bounded attachment-ID lookup.",
+							"title":"Start Time",
+							"type":"string"
+						},
+						"subject":{
+							"help":"Subject text or fragment exactly as supplied by the user. Do not escape, sanitize, add wildcard syntax, or pack alternatives into this single-value field.",
+							"title":"Subject",
+							"type":"string"
+						},
+						"subjectExclude":{
+							"help":"Subject text to exclude exactly as supplied by the user. Use only for an explicit exclusion; omit otherwise.",
+							"title":"Subject Exclude",
+							"type":"string"
+						},
+						"to":{
+							"help":"To-recipient addresses or display names. Pass an array only when the user explicitly filters by recipients; omit otherwise.",
+							"items":{
+								"type":"string"
+							},
+							"title":"To",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_nSSNB",
+			"index":2,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_outlook"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_Ify5k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_nSSNB.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_AUDMw-1@y",
+			"id":"n_9U9zr",
+			"index":4,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_nSSNB.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.startEpoch",
+					"root.parameters.endEpoch",
+					"root.parameters.limit",
+					"root.parameters.offset",
+					"root.parameters.isRead",
+					"root.parameters.from",
+					"root.parameters.orderBy",
+					"root.parameters.orderDir"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1928,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_LC15A",
+			"index":5,
+			"inputs":{
+				"automationId":"69b092c1b6802e7f30e67e5a",
+				"runtimeConnections":{
+					"microsoft_outlook":"{{ n_nSSNB.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"attachmentName":{
+						"items":"{{ n_Hb9fw.outputs.attachmentName[0] }}",
+						"source":"{{ n_Hb9fw.outputs.attachmentName }}",
+						"ua:type":"mappedArray"
+					},
+					"bcc":{
+						"items":"{{ n_Hb9fw.outputs.bcc[0] }}",
+						"source":"{{ n_Hb9fw.outputs.bcc }}",
+						"ua:type":"mappedArray"
+					},
+					"categories":{
+						"items":"{{ n_Hb9fw.outputs.categories[0] }}",
+						"source":"{{ n_Hb9fw.outputs.categories }}",
+						"ua:type":"mappedArray"
+					},
+					"cc":{
+						"items":"{{ n_Hb9fw.outputs.cc[0] }}",
+						"source":"{{ n_Hb9fw.outputs.cc }}",
+						"ua:type":"mappedArray"
+					},
+					"connectionId":"{{ n_nSSNB.outputs.connectionId }}",
+					"domainFilter":"{{ n_Hb9fw.outputs.domainFilter }}",
+					"endTime":"{{ n_Hb9fw.outputs.endTime }}",
+					"flagStatus":"{{ n_Hb9fw.outputs.flagStatus }}",
+					"folderName":"{{ n_Hb9fw.outputs.parentFolderName }}",
+					"from":"{{ n_Hb9fw.outputs.from }}",
+					"fromExclude":"{{ n_Hb9fw.outputs.fromExclude }}",
+					"fromUserName":"{{ n_Hb9fw.outputs.fromUserName }}",
+					"hasAttachments":"{{ n_Hb9fw.outputs.hasAttachements }}",
+					"importance":"{{ n_Hb9fw.outputs.importance }}",
+					"isFlagged":"{{ n_Hb9fw.outputs.isFlagged }}",
+					"isImportant":"{{ n_Hb9fw.outputs.isImportant }}",
+					"isRead":"{{ n_Hb9fw.outputs.isRead }}",
+					"limit":"{{ n_Hb9fw.outputs.limit }}",
+					"offset":"{{ n_Hb9fw.outputs.offset }}",
+					"orderBy":"{{ n_Hb9fw.outputs.orderBy }}",
+					"orderDir":"{{ n_Hb9fw.outputs.orderDir }}",
+					"startTime":"{{ n_Hb9fw.outputs.startTime }}",
+					"subject":"{{ n_Hb9fw.outputs.subject }}",
+					"subjectExclude":"{{ n_Hb9fw.outputs.subjectExclude }}",
+					"to":{
+						"items":"{{ n_Hb9fw.outputs.to[0] }}",
+						"source":"{{ n_Hb9fw.outputs.to }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Fetch Emails",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_FWXq1",
+			"index":6,
+			"inputs":{
+				"result":{
+					"emailDetails":{
+						"items":"{{ n_LC15A.outputs.emailDetails[0] }}",
+						"source":"{{ n_LC15A.outputs.emailDetails }}",
+						"ua:type":"mappedArray"
+					},
+					"errorMessage":"{{ n_LC15A.outputs.errorMessage }}",
+					"todaysEmailsCount":"{{ n_LC15A.outputs.todaysEmailsCount }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Emails Data",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"release_27jan",
+		"release_27jan"
+	],
+	"version":84
+}

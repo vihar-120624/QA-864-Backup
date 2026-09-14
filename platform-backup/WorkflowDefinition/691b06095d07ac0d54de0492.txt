@@ -4,18 +4,41 @@
 	],
 	"createdTime":1787743805847,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743805893,
+		"deployedAt":1789395198170,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece3d177b4b4aca57b53b",
+		"deployedDefinitionId":"6aa800fec6a14707f1503743",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":7
+		"version":2,
+		"workflowVersion":10
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_BlQqv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_giy6l",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_giy6l",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_KlBU2",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_KlBU2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_qPiJx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_giy6l",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_qPiJx",
@@ -23,6 +46,36 @@
 		},
 		{
 			"fromNodeId":"_qPiJx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1glQt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1glQt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wZzir",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wZzir",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_CkO9s",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_CkO9s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_KNo6Y",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wZzir",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_KNo6Y",
@@ -80,9 +133,9 @@
 	},
 	"id":"691b06095d07ac0d54de0492",
 	"lastModifiedBy":-1,
-	"lcName":"set default agent",
-	"modifiedTime":1788252971510,
-	"name":"Set Default Agent",
+	"lcName":"[dt] set default agent",
+	"modifiedTime":1789395390474,
+	"name":"[DT] Set Default Agent",
 	"nodes":[
 		{
 			"context":{
@@ -134,6 +187,42 @@
 						"textBody":{
 							"type":"string"
 						}
+					},
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":404,
+						"textBody":{
+							"type":"string"
+						}
+					},
+					{
+						"body":{
+							"additionalProperties":false,
+							"properties":{
+								"message":{
+									"title":"Message",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"contentType":"application/json",
+						"status":400,
+						"textBody":{
+							"type":"string"
+						}
 					}
 				],
 				"streamingResponse":false
@@ -148,6 +237,68 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":113,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lbJ9u-1",
+			"id":"_giy6l",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_BlQqv.outputs.body.agentId }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"0"
+						},
+						"property":"=LEN({{ n_BlQqv.outputs.body.agentId }})"
+					}
+				],
+				"operator":"OR"
+			},
+			"skip":false,
+			"subTitle":"Agent not present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":652,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_giy6l@_lbJ9u-1@y",
+			"id":"_KlBU2",
+			"index":3,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"400_undefined",
+				"body":{
+					"message":"AGENT_ID NOT FOUND"
+				},
+				"status":400
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":591,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -158,7 +309,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lbJ9u-1",
 			"id":"_qPiJx",
-			"index":2,
+			"index":4,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -212,6 +363,144 @@
 		{
 			"context":{
 				"appName":"storage_by_unifyapps",
+				"resourceVersion":5490,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lbJ9u-1",
+			"id":"n_1glQt",
+			"index":5,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ _qPiJx.outputs.agentId }}",
+				"readThroughSessionVariables":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ _qPiJx.outputs.agentId }}",
+					"enabled":true,
+					"timeToLive":"60",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Fetch agent",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":113,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lbJ9u-1",
+			"id":"n_wZzir",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_1glQt.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Agent not present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":652,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_wZzir@_lbJ9u-1@y",
+			"id":"_CkO9s",
+			"index":7,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"404_undefined",
+				"body":{
+					"success":false
+				},
+				"status":404
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
 				"resourceVersion":520,
 				"resourceName":"storage_by_unifyapps_fetch_records",
 				"type":"APPLICATION"
@@ -221,7 +510,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lbJ9u-1",
 			"id":"_KNo6Y",
-			"index":3,
+			"index":8,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -235,6 +524,7 @@
 					],
 					"operator":"AND"
 				},
+				"shouldSearchInAnalyticsStore":false,
 				"object_type":"default_ai_agents",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
@@ -264,7 +554,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lbJ9u-1",
 			"id":"_qF7CM",
-			"index":4,
+			"index":9,
 			"inputs":{
 				"filters":[
 					{
@@ -293,11 +583,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qF7CM@_lbJ9u-1@y",
 			"id":"_DB7KZ",
-			"index":5,
+			"index":10,
 			"inputs":{
 				"recordId":"{{ _KNo6Y.outputs.id }}",
+				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
 				"object_type":"default_ai_agents",
+				"retryOnFailure":true,
 				"skipIfBlank":false,
 				"record":{
 					"aiAgentId":"{{ _qPiJx.outputs.agentId }}",
@@ -322,7 +614,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qF7CM@_lbJ9u-1@n",
 			"id":"_oIjRm",
-			"index":6,
+			"index":11,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"default_ai_agents",
@@ -349,7 +641,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lbJ9u-1",
 			"id":"_54fEQ",
-			"index":7,
+			"index":12,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -381,5 +673,5 @@
 	"tags":[
 		
 	],
-	"version":9
+	"version":11
 }
