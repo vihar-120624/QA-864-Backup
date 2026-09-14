@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743693666,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743693857,
+		"deployedAt":1789395144759,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdcd9d7c534668ef64bb",
+		"deployedDefinitionId":"6aa800c8c6a14707f15033cc",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":106
+		"version":2,
+		"workflowVersion":109
 	},
 	"edges":[
 		{
 			"fromNodeId":"3V1Pq",
+			"id":"next@3V1Pq@agentGate",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"agentGate",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"agentGate",
+			"id":"if@agentGate@invoke",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -31,14 +33,16 @@
 		},
 		{
 			"fromNodeId":"agentGate",
+			"id":"next@agentGate@agcAgent",
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"ZPXM8",
+			"toNodeId":"agcAgent",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"invoke",
+			"id":"next@invoke@242ha",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"242ha",
@@ -46,6 +50,7 @@
 		},
 		{
 			"fromNodeId":"ZPXM8",
+			"id":"next@ZPXM8@CsEc8",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"CsEc8",
@@ -53,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"CsEc8",
+			"id":"next@CsEc8@Cv4iw",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"Cv4iw",
@@ -60,6 +66,7 @@
 		},
 		{
 			"fromNodeId":"Cv4iw",
+			"id":"next@Cv4iw@n_uIyQb",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_uIyQb",
@@ -67,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"n_uIyQb",
+			"id":"next@n_uIyQb@4Oaru",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"4Oaru",
@@ -74,6 +82,7 @@
 		},
 		{
 			"fromNodeId":"4Oaru",
+			"id":"next@4Oaru@FxBER",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"FxBER",
@@ -81,6 +90,7 @@
 		},
 		{
 			"fromNodeId":"FxBER",
+			"id":"loop@FxBER@K3vIK",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"K3vIK",
@@ -88,6 +98,7 @@
 		},
 		{
 			"fromNodeId":"K3vIK",
+			"id":"next@K3vIK@rEdty",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"rEdty",
@@ -95,6 +106,7 @@
 		},
 		{
 			"fromNodeId":"rEdty",
+			"id":"loop@rEdty@MnURn",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"MnURn",
@@ -102,6 +114,7 @@
 		},
 		{
 			"fromNodeId":"MnURn",
+			"id":"next@MnURn@rEdty",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -110,6 +123,7 @@
 		},
 		{
 			"fromNodeId":"rEdty",
+			"id":"next@rEdty@FxBER",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -118,9 +132,36 @@
 		},
 		{
 			"fromNodeId":"FxBER",
+			"id":"next@FxBER@242ha",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"242ha",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcAgent",
+			"id":"next@agcAgent@agcFlagGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcFlagGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"if@agcFlagGate@invoke",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"invoke",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"next@agcFlagGate@ZPXM8",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ZPXM8",
 			"type":"next"
 		}
 	],
@@ -139,7 +180,7 @@
 	"id":"67dcfe388445037d9b0662c0",
 	"lastModifiedBy":-1,
 	"lcName":"test agent streaming",
-	"modifiedTime":1788252972454,
+	"modifiedTime":1789395393228,
 	"name":"Test Agent Streaming",
 	"nodes":[
 		{
@@ -372,6 +413,31 @@
 						"caseId":{
 							"type":"string"
 						},
+						"clientTools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"description":{
+										"title":"Description",
+										"type":"string"
+									},
+									"input_schema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Input Schema",
+										"type":"object"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Client Tools",
+							"type":"array"
+						},
 						"copilotType":{
 							"type":"string"
 						},
@@ -521,31 +587,6 @@
 							"properties":{},
 							"title":"Workflow Inputs",
 							"type":"object"
-						},
-						"clientTools":{
-							"type":"array",
-							"items":{
-								"type":"object",
-								"properties":{
-									"name":{
-										"type":"string",
-										"title":"Name"
-									},
-									"description":{
-										"type":"string",
-										"title":"Description"
-									},
-									"input_schema":{
-										"type":"object",
-										"properties":{},
-										"additionalProperties":false,
-										"title":"Input Schema"
-									}
-								},
-								"additionalProperties":false,
-								"required":[]
-							},
-							"title":"Client Tools"
 						}
 					},
 					"required":[
@@ -733,6 +774,15 @@
 					},
 					"background":"{{ 3V1Pq.outputs.background }}",
 					"caseId":"{{ 3V1Pq.outputs.caseId }}",
+					"clientTools":{
+						"items":{
+							"description":"{{ 3V1Pq.outputs.clientTools[0].description }}",
+							"input_schema":"{{ 3V1Pq.outputs.clientTools[0].input_schema }}",
+							"name":"{{ 3V1Pq.outputs.clientTools[0].name }}"
+						},
+						"source":"{{ 3V1Pq.outputs.clientTools }}",
+						"ua:type":"mappedArray"
+					},
 					"copilotType":"{{ 3V1Pq.outputs.copilotType }}",
 					"defaultTools":{
 						"deepResearch":"{{ 3V1Pq.outputs.defaultTools.deepResearch }}",
@@ -789,16 +839,7 @@
 						"source":"{{ 3V1Pq.outputs.toolIds }}",
 						"ua:type":"mappedArray"
 					},
-					"workflowInputs":"{{ 3V1Pq.outputs.workflowInputs }}",
-					"clientTools":{
-						"source":"{{ 3V1Pq.outputs.clientTools }}",
-						"ua:type":"mappedArray",
-						"items":{
-							"name":"{{ 3V1Pq.outputs.clientTools[0].name }}",
-							"description":"{{ 3V1Pq.outputs.clientTools[0].description }}",
-							"input_schema":"{{ 3V1Pq.outputs.clientTools[0].input_schema }}"
-						}
-					}
+					"workflowInputs":"{{ 3V1Pq.outputs.workflowInputs }}"
 				},
 				"version":"-1"
 			},
@@ -1281,6 +1322,62 @@
 			"subTitle":"Stop",
 			"title":"Stop",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agentGate@CmKop-1@n",
+			"id":"agcAgent",
+			"index":14,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ 3V1Pq.outputs.aiAgentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch the agent's rollout flag",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":20,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agentGate@CmKop-1@n",
+			"id":"agcFlagGate",
+			"index":15,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ agcAgent.outputs.properties.useAgentCore }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Agent opted into agent core?",
+			"title":"Use new agent core?",
+			"type":"IF_ELSE"
 		}
 	],
 	"ownerUserId":-1,
@@ -1300,5 +1397,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":108
+	"version":110
 }
