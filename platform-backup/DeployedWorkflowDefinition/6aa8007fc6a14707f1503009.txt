@@ -1,0 +1,625 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395071924,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"description":"UI probe: which mail providers are enabled on this agent and whether a usable connection exists. Returns candidates only.",
+	"edges":[
+		{
+			"fromNodeId":"n_Strt",
+			"id":"next@n_Strt@n_Sess",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sess",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Sess",
+			"id":"next@n_Sess@n_Rslv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rslv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rslv",
+			"id":"next@n_Rslv@n_Tpcs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Tpcs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Tpcs",
+			"id":"next@n_Tpcs@n_Pick",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Pick",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Pick",
+			"id":"next@n_Pick@n_List",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_List",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_List",
+			"id":"next@n_List@n_Loop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Loop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Loop",
+			"id":"loop@n_Loop@n_Chck",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Chck",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Chck",
+			"id":"next@n_Chck@n_AddI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AddI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AddI",
+			"id":"next@n_AddI@n_Loop",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Loop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Loop",
+			"id":"next@n_Loop@n_Emit",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Emit",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Emit",
+			"id":"next@n_Emit@n_Stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		}
+	],
+	"id":"6aa8007fc6a14707f1503009",
+	"lastModifiedBy":-1,
+	"lcName":"email canvas | mailbox candidates",
+	"modifiedTime":1789395071925,
+	"name":"Email Canvas | Mailbox Candidates",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":940,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Strt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"candidates":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"candidates",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"help":"Only needed when no agent session variables are available.",
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"caseId":{
+							"help":"Only needed when no agent session variables are available.",
+							"title":"caseId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Sess",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Rslv",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inAgentId":{
+							"title":"In Agent Id",
+							"type":"string"
+						},
+						"inCaseId":{
+							"title":"In Case Id",
+							"type":"string"
+						},
+						"sessAgentId":{
+							"title":"Sess Agent Id",
+							"type":"string"
+						},
+						"sessCaseId":{
+							"title":"Sess Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef pick = { Object a, Object b ->\n    def x = (a == null) ? '' : a.toString().trim()\n    if (x) return x\n    def y = (b == null) ? '' : b.toString().trim()\n    return y\n}\nreturn [\n    agentId: pick(readVar('sessAgentId', ''), readVar('inAgentId', '')),\n    caseId : pick(readVar('sessCaseId', ''), readVar('inCaseId', ''))\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"inAgentId":"{{ n_Strt.outputs.aiAgentId }}",
+					"inCaseId":"{{ n_Strt.outputs.caseId }}",
+					"sessAgentId":"{{ n_Sess.outputs.aiAgentId }}",
+					"sessCaseId":"{{ n_Sess.outputs.caseId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"session wins, input is the fallback",
+			"title":"Resolve ids",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2488,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Tpcs",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_Rslv.outputs.result.agentId }}"
+							},
+							"property":"properties_aiAgentId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"properties_enabled"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"properties_isAppConnector"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_topic_ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Apps enabled on this agent",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Pick",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"candidates":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Candidates",
+							"type":"array"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"mode":{
+							"title":"Mode",
+							"type":"string"
+						},
+						"profile":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Profile",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"preferredAppName":{
+							"title":"Preferred App Name",
+							"type":"string"
+						},
+						"topics":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Topics",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// The ONE place a mail provider is named. Adding a provider is one entry here plus the\n// matching connector resources - no branch anywhere else in the email-composer feature.\n//\n// `reply` and `search` are separate sub-maps because a reply is NOT a send with extra fields:\n// every provider exposes it as a different resource with its own recipient shape, its own\n// body field, and (on Graph) no response ids at all.\ndef PROFILES = [:]\nPROFILES['microsoft_outlook'] = [\n    send          : 'microsoft_outlook_send_email',\n    draft         : 'microsoft_outlook_create_draft_email_with_attachments',\n    contacts      : 'microsoft_outlook_search_contact',\n    contactsList  : 'microsoft_outlook_list_contacts',\n    contactsLimitField: 'top',\n    recipientShape: 'CSV',\n    toField       : 'toRecipients',\n    ccField       : 'ccRecipients',\n    bccField      : 'bccRecipients',\n    subjectField  : 'subject',\n    bodyField     : 'message',\n    bodyTypeField : 'emailType',\n    bodyType      : 'html',\n    attachmentOption: 'use_file_details',\n    messageIdField: 'id',\n    threadIdField : 'conversationId',\n    deeplinkFrom  : 'webLink',\n    deeplinkField : 'webLink',\n    // --- replying into an existing thread ---\n    // Graph's reply endpoint derives subject, recipients and quoted history itself. It accepts\n    // a `comment` (the new body) and, on REPLY only, an override for toRecipients. It answers\n    // {success:true} - no message id, no webLink - so the ids are carried over from the thread.\n    reply: [\n        send            : 'microsoft_outlook_reply_to_message',\n        draft           : null,\n        recipientShape  : 'GRAPH',\n        toField         : 'message.toRecipients',\n        ccField         : null,\n        bccField        : null,\n        subjectField    : null,\n        bodyField       : 'comment',\n        bodyTypeField   : 'emailType',\n        bodyType        : 'html',\n        attachmentOption: 'use_file_details',\n        replyTypeField  : 'reply_type',\n        threadMap       : [messageId: 'message_id'],\n        requires        : ['messageId'],\n        returnsIds      : false,\n        successField    : 'success'\n    ],\n    search: [\n        resource   : 'microsoft_outlook_fetch_messages',\n        queryField : 'filter',\n        limitField : 'count',\n        shape      : 'GRAPH'\n    ]\n]\nPROFILES['gmail'] = [\n    send          : 'gmail_send_email',\n    draft         : 'gmail_create_draft',\n    contacts      : null,\n    contactsList  : null,\n    contactsLimitField: null,\n    recipientShape: 'ARRAY',\n    toField       : 'to',\n    ccField       : 'cc',\n    bccField      : 'bcc',\n    subjectField  : 'subject',\n    bodyField     : 'message',\n    bodyTypeField : 'email_type',\n    bodyType      : 'html',\n    attachmentOption: 'use_file_url',\n    messageIdField: 'id',\n    threadIdField : 'threadId',\n    deeplinkFrom  : 'template',\n    deeplinkTemplate: 'https://mail.google.com/mail/u/0/#all/{threadId}',\n    // --- replying into an existing thread ---\n    // Gmail threads on the RFC headers, so a reply needs the original's Message-ID\n    // (In-Reply-To) and the References chain. Note the recipient shape differs from\n    // gmail_send_email: the reply resource takes CSV strings, the draft-reply takes arrays.\n    reply: [\n        send            : 'gmail_reply_in_thread',\n        draft           : 'gmail_create_draft_reply',\n        recipientShape  : 'CSV',\n        draftRecipientShape: 'ARRAY',\n        toField         : 'to',\n        ccField         : 'cc',\n        bccField        : 'bcc',\n        subjectField    : 'subject',\n        bodyField       : 'message',\n        bodyTypeField   : 'email_type',\n        bodyType        : 'html',\n        attachmentOption: 'use_file_url',\n        replyTypeField  : null,\n        threadMap       : [rfcMessageId: 'in_reply_to', references: 'references'],\n        draftThreadMap  : [rfcMessageId: 'in_reply_to', references: 'references', threadId: 'threadId'],\n        requires        : ['rfcMessageId'],\n        draftRequires   : ['threadId'],\n        requiresRecipients: true,\n        returnsIds      : true\n    ],\n    search: [\n        resource   : 'gmail_find_email',\n        queryField : 'searchQuery',\n        limitField : 'count',\n        shape      : 'GMAIL'\n    ]\n]\ndef PROVIDER_ORDER = ['microsoft_outlook', 'gmail']\n\ndef readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\n\ndef topics = readVar('topics', [])\ndef preferred = readVar('preferredAppName', '')\npreferred = (preferred == null) ? '' : preferred.toString().trim()\n\ndef candidates = []\ntopics.each { t ->\n    def p = (t instanceof Map && t['properties'] instanceof Map) ? t['properties'] : t\n    if (!(p instanceof Map)) return\n    def name = (p['name'] ?: '').toString()\n    if (!PROFILES.containsKey(name)) return\n    def runtime = (p['runTimeConnectionEnabled'] == true || p['runTimeConnectionEnabled'] == 'true')\n    def connId = (p['connectionId'] ?: '').toString()\n    def mode = (!runtime && connId) ? 'SHARED' : 'RUNTIME'\n    candidates.add([appName: name, mode: mode, connectionId: connId,\n                    topicId: (t instanceof Map ? (t['id'] ?: '') : '')])\n}\n\n// deterministic order: declared provider order, then anything else alphabetically\ncandidates = candidates.sort { a, b ->\n    def ia = PROVIDER_ORDER.indexOf(a['appName'])\n    def ib = PROVIDER_ORDER.indexOf(b['appName'])\n    if (ia < 0) ia = 99\n    if (ib < 0) ib = 99\n    ia == ib ? a['appName'].compareTo(b['appName']) : ia <=> ib\n}\n\ndef chosen = null\nif (preferred) {\n    chosen = candidates.find { it['appName'] == preferred }\n    if (chosen == null) {\n        return [errorCode: PROFILES.containsKey(preferred) ? 'NO_MAIL_APP' : 'PROVIDER_UNSUPPORTED',\n                errorMessage: preferred + ' is not an enabled mail app on this agent',\n                appName: '', mode: '', connectionId: '', candidates: candidates, profile: [:]]\n    }\n}\nif (chosen == null) chosen = candidates.find { it['mode'] == 'SHARED' }\nif (chosen == null) chosen = candidates.isEmpty() ? null : candidates[0]\n\nif (chosen == null) {\n    return [errorCode: 'NO_MAIL_APP',\n            errorMessage: 'No mail provider is enabled on this agent',\n            appName: '', mode: '', connectionId: '', candidates: [], profile: [:]]\n}\n\nreturn [errorCode   : '',\n        errorMessage: '',\n        appName     : chosen['appName'],\n        mode        : chosen['mode'],\n        connectionId: chosen['connectionId'],\n        candidates  : candidates,\n        profile     : PROFILES[chosen['appName']]]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"preferredAppName":"{{ n_Strt.outputs.preferredAppName }}",
+					"topics":"{{ n_Tpcs.outputs.objects }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"PROFILES - the only place a provider is named",
+			"title":"Pick provider",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":226,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_List",
+			"index":6,
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:title":"mailboxes",
+				"ua:list_type":"OBJECT"
+			},
+			"skip":false,
+			"subTitle":"One row per mail provider",
+			"title":"Create list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":25,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Loop",
+			"index":7,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_Pick.outputs.result.candidates }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Mail providers on this agent",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":992,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_Loop@_EMRM1-1@l",
+			"id":"n_Chck",
+			"index":8,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"{{ n_Loop.outputs.item.appName }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Check User Connection",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":226,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Loop@_EMRM1-1@l",
+			"id":"n_AddI",
+			"index":9,
+			"inputs":{
+				"itemToAdd":{
+					"appName":"{{ n_Loop.outputs.item.appName }}",
+					"mode":"{{ n_Loop.outputs.item.mode }}",
+					"sharedConnectionId":"{{ n_Loop.outputs.item.connectionId }}",
+					"topicId":"{{ n_Loop.outputs.item.topicId }}",
+					"userConnected":"{{ n_Chck.outputs.result.success }}",
+					"userConnectionId":"{{ n_Chck.outputs.result.connectionId }}"
+				},
+				"insertLocation":"END",
+				"listName":"{{ n_List.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Provider + both connection ids",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Emit",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"candidates":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Candidates",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"rows":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Rows",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// Sibling of \"Email Canvas | Resolve Mailbox\" for the UI. Same inputs, but it answers only\n// \"which mail providers does this agent have, and is a usable connection already there?\" -\n// no profile, no deeplink template, no Connect card. Never publishes anything.\n//\n// The provider list and the SHARED/RUNTIME rule are NOT restated here: n_Pick is still the one\n// place a provider is named, and n_Chck is still the one place a per-user connection is looked\n// up. This node only decides which of the two connection ids is the real one for each row.\ndef readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\n\ndef rows = readVar('rows', [])\nif (!(rows instanceof List)) rows = []\n// the list node hands back [ [ ...items... ] ]\nif (rows.size() == 1 && rows[0] instanceof List) rows = rows[0]\n\ndef out = []\nrows.each { r ->\n    if (!(r instanceof Map)) return\n    def mode = (r['mode'] ?: '').toString()\n    def shared = (r['sharedConnectionId'] ?: '').toString()\n    def userConn = (r['userConnectionId'] ?: '').toString()\n    def ok = r['userConnected']\n    if (ok instanceof String) ok = 'true'.equalsIgnoreCase(ok)\n\n    // On a RUNTIME row the topic's own connectionId is NOT the connection that will be used -\n    // it can be a leftover from before the toggle was flipped. Only the caller's own runtime\n    // connection counts, so a stale id must never read as connected.\n    def connId = (mode == 'SHARED') ? shared : (ok == true ? userConn : '')\n\n    out.add([appName     : (r['appName'] ?: '').toString(),\n             mode        : mode,\n             topicId     : (r['topicId'] ?: '').toString(),\n             connectionId: connId,\n             connected   : (connId ? true : false)])\n}\n\nreturn [candidates: out]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"rows":"{{ n_List.outputs.items }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"connectionId the UI can trust",
+			"title":"Shape candidates",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":963,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Stop",
+			"index":11,
+			"inputs":{
+				"result":{
+					"candidates":"{{ n_Emit.outputs.result.candidates }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6aa69090f6dc39055b6b5b2e",
+	"workflowVersion":1
+}
