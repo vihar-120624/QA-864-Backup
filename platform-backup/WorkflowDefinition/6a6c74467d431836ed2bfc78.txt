@@ -4,14 +4,15 @@
 	],
 	"createdTime":1787744011740,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744011915,
+		"deployedAt":1789395300316,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf0bcee862008d74cde2",
+		"deployedDefinitionId":"6aa80164c6a14707f1503cad",
+		"deploymentNotes":"fix v29 regression: objectId pill path corrected to n_Cw0.outputs.response.id (v29 had an extra .response level, returning success without ids and halting builds)",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":16
+		"version":2,
+		"workflowVersion":19
 	},
 	"edges":[
 		{
@@ -182,7 +183,7 @@
 	"id":"6a6c74467d431836ed2bfc78",
 	"lastModifiedBy":-1,
 	"lcName":"create or update object",
-	"modifiedTime":1788252973083,
+	"modifiedTime":1789395389164,
 	"name":"Create or Update Object",
 	"nodes":[
 		{
@@ -283,6 +284,10 @@
 							"title":"objectId",
 							"type":"string"
 						},
+						"op":{
+							"title":"Op",
+							"type":"string"
+						},
 						"payload":{
 							"title":"payload",
 							"type":"object"
@@ -291,12 +296,13 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def pl = binding.hasVariable(\"payload\") ? payload : null\ndef oid = binding.hasVariable(\"objectId\") ? objectId : null\ndef cid = binding.hasVariable(\"caseId\") ? caseId : null\nMap m = (pl instanceof Map) ? new LinkedHashMap((Map)pl) : [:]\nif (oid != null && oid.toString().trim() != \"\") { m.put(\"objectId\", oid) }\nif (cid != null && cid.toString().trim() != \"\") { m.put(\"caseId\", cid) }\nreturn [\"merged\": m]",
+				"code":"def pl = binding.hasVariable(\"payload\") ? payload : null\ndef oid = binding.hasVariable(\"objectId\") ? objectId : null\ndef cid = binding.hasVariable(\"caseId\") ? caseId : null\ndef opv = binding.hasVariable(\"op\") ? op?.toString() : null\nMap m = (pl instanceof Map) ? new LinkedHashMap((Map)pl) : [:]\nif (oid != null && oid.toString().trim() != \"\") { m.put(\"objectId\", oid) }\nif (cid != null && cid.toString().trim() != \"\") { m.put(\"caseId\", cid) }\n\n// On create, generate the object id here — random and generic — so it never\n// collides and never depends on the agent choosing one. Updates keep their objectId.\nif (opv == \"create\") {\n    def chars = ('a'..'z') + ('0'..'9')\n    def rnd = new Random()\n    def suffix = (1..8).collect { chars[rnd.nextInt(chars.size())] }.join()\n    m.put(\"uniqueId\", \"obj_\" + suffix)\n}\n\nreturn [\"merged\": m]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"caseId":"{{ n_St.outputs.caseId }}",
 					"objectId":"{{ n_St.outputs.objectId }}",
+					"op":"{{ n_St.outputs.op }}",
 					"payload":"{{ n_St.outputs.payload }}"
 				}
 			},
@@ -363,7 +369,8 @@
 					"store":"{{ n_Mg.outputs.result.merged.store }}",
 					"uniqueId":"{{ n_Mg.outputs.result.merged.uniqueId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -383,7 +390,9 @@
 			"id":"n_Rt0",
 			"index":5,
 			"inputs":{
-				"result":"{{ n_Cw0.outputs }}"
+				"result":{
+					"result":"{\"success\": true, \"objectId\": \"{{n_Cw0.outputs.response.id}}\"}"
+				}
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -462,7 +471,9 @@
 			"id":"n_Rt1",
 			"index":8,
 			"inputs":{
-				"result":"{{ n_Cw1.outputs }}"
+				"result":{
+					"result":"{{ n_Cw1.outputs.success }}"
+				}
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -541,7 +552,9 @@
 			"id":"n_Rt2",
 			"index":11,
 			"inputs":{
-				"result":"{{ n_Cw2.outputs }}"
+				"result":{
+					"result":"{\"success\": true}"
+				}
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -613,7 +626,8 @@
 						"ua:type":"mappedArray"
 					}
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -655,7 +669,9 @@
 			"id":"n_RtEmpty",
 			"index":15,
 			"inputs":{
-				"result":{}
+				"result":{
+					"result":"failed"
+				}
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -678,7 +694,8 @@
 	},
 	"standard":true,
 	"tags":[
-		"ai-fde"
+		"ai-fde",
+		"solution-builder"
 	],
-	"version":18
+	"version":20
 }
