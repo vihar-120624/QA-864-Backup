@@ -1,0 +1,836 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395168407,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395168498,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800e072fd792214e8c58f",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Strt",
+			"id":"next@n_Strt@n_Sess",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sess",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Sess",
+			"id":"next@n_Sess@n_Rslv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rslv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rslv",
+			"id":"next@n_Rslv@n_Tpcs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Tpcs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Tpcs",
+			"id":"next@n_Tpcs@n_Pick",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Pick",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Pick",
+			"id":"next@n_Pick@n_IfRt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfRt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfRt",
+			"id":"if@n_IfRt@n_Chck",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Chck",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Chck",
+			"id":"next@n_Chck@n_AppL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AppL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfRt",
+			"id":"next@n_IfRt@n_AppL",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AppL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AppL",
+			"id":"next@n_AppL@n_Finl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Finl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Finl",
+			"id":"next@n_Finl@n_IfPr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfPr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfPr",
+			"id":"if@n_IfPr@n_Conf",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Conf",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Conf",
+			"id":"next@n_Conf@n_Stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfPr",
+			"id":"next@n_IfPr@n_Stop",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6aa3c66432fa0205bbf4c34b",
+	"lastModifiedBy":-1,
+	"lcName":"email canvas | resolve mailbox",
+	"modifiedTime":1789395398335,
+	"name":"Email Canvas | Resolve Mailbox",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":940,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Strt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"appName",
+							"type":"string"
+						},
+						"candidates":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"candidates",
+							"type":"array"
+						},
+						"connectionId":{
+							"title":"connectionId",
+							"type":"string"
+						},
+						"displayLabel":{
+							"title":"displayLabel",
+							"type":"string"
+						},
+						"errorCode":{
+							"title":"errorCode",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"errorMessage",
+							"type":"string"
+						},
+						"iconUrl":{
+							"title":"iconUrl",
+							"type":"string"
+						},
+						"mode":{
+							"title":"mode",
+							"type":"string"
+						},
+						"profile":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"profile",
+							"type":"object"
+						},
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"help":"Only needed when no agent session variables are available.",
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"allowPrompt":{
+							"help":"true (default): publish the Connect card in chat when no connection exists. false: never publish (use for typeahead).",
+							"title":"allowPrompt",
+							"type":"boolean"
+						},
+						"caseId":{
+							"help":"Only needed when no agent session variables are available.",
+							"title":"caseId",
+							"type":"string"
+						},
+						"preferredAppName":{
+							"help":"Force a provider, e.g. gmail or microsoft_outlook. Omit to auto-pick.",
+							"title":"preferredAppName",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Sess",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Rslv",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inAgentId":{
+							"title":"In Agent Id",
+							"type":"string"
+						},
+						"inCaseId":{
+							"title":"In Case Id",
+							"type":"string"
+						},
+						"sessAgentId":{
+							"title":"Sess Agent Id",
+							"type":"string"
+						},
+						"sessCaseId":{
+							"title":"Sess Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef pick = { Object a, Object b ->\n    def x = (a == null) ? '' : a.toString().trim()\n    if (x) return x\n    def y = (b == null) ? '' : b.toString().trim()\n    return y\n}\nreturn [\n    agentId: pick(readVar('sessAgentId', ''), readVar('inAgentId', '')),\n    caseId : pick(readVar('sessCaseId', ''), readVar('inCaseId', ''))\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"inAgentId":"{{ n_Strt.outputs.aiAgentId }}",
+					"inCaseId":"{{ n_Strt.outputs.caseId }}",
+					"sessAgentId":"{{ n_Sess.outputs.aiAgentId }}",
+					"sessCaseId":"{{ n_Sess.outputs.caseId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"session wins, input is the fallback",
+			"title":"Resolve ids",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2488,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Tpcs",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_Rslv.outputs.result.agentId }}"
+							},
+							"property":"properties_aiAgentId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"properties_enabled"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"properties_isAppConnector"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_topic_ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":200,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Apps enabled on this agent",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Pick",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"candidates":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Candidates",
+							"type":"array"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"mode":{
+							"title":"Mode",
+							"type":"string"
+						},
+						"profile":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Profile",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"preferredAppName":{
+							"title":"Preferred App Name",
+							"type":"string"
+						},
+						"topics":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Topics",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// The ONE place a mail provider is named. Adding a provider is one entry here plus the\n// matching connector resources - no branch anywhere else in the email-composer feature.\n//\n// `reply` and `search` are separate sub-maps because a reply is NOT a send with extra fields:\n// every provider exposes it as a different resource with its own recipient shape, its own\n// body field, and (on Graph) no response ids at all.\ndef PROFILES = [:]\nPROFILES['microsoft_outlook'] = [\n    send          : 'microsoft_outlook_send_email',\n    draft         : 'microsoft_outlook_create_draft_email_with_attachments',\n    contacts      : 'microsoft_outlook_search_contact',\n    contactsList  : 'microsoft_outlook_list_contacts',\n    contactsLimitField: 'top',\n    recipientShape: 'CSV',\n    toField       : 'toRecipients',\n    ccField       : 'ccRecipients',\n    bccField      : 'bccRecipients',\n    subjectField  : 'subject',\n    bodyField     : 'message',\n    bodyTypeField : 'emailType',\n    bodyType      : 'html',\n    attachmentOption: 'use_file_details',\n    messageIdField: 'id',\n    threadIdField : 'conversationId',\n    deeplinkFrom  : 'webLink',\n    deeplinkField : 'webLink',\n    // --- replying into an existing thread ---\n    // Graph's reply endpoint derives subject, recipients and quoted history itself. It accepts\n    // a `comment` (the new body) and, on REPLY only, an override for toRecipients. It answers\n    // {success:true} - no message id, no webLink - so the ids are carried over from the thread.\n    reply: [\n        send            : 'microsoft_outlook_reply_to_message',\n        draft           : null,\n        recipientShape  : 'GRAPH',\n        toField         : 'message.toRecipients',\n        ccField         : null,\n        bccField        : null,\n        subjectField    : null,\n        bodyField       : 'comment',\n        bodyTypeField   : 'emailType',\n        bodyType        : 'html',\n        attachmentOption: 'use_file_details',\n        replyTypeField  : 'reply_type',\n        threadMap       : [messageId: 'message_id'],\n        requires        : ['messageId'],\n        returnsIds      : false,\n        successField    : 'success'\n    ],\n    search: [\n        resource   : 'microsoft_outlook_fetch_messages',\n        queryField : 'filter',\n        limitField : 'count',\n        shape      : 'GRAPH'\n    ]\n]\nPROFILES['gmail'] = [\n    send          : 'gmail_send_email',\n    draft         : 'gmail_create_draft',\n    contacts      : null,\n    contactsList  : null,\n    contactsLimitField: null,\n    recipientShape: 'ARRAY',\n    toField       : 'to',\n    ccField       : 'cc',\n    bccField      : 'bcc',\n    subjectField  : 'subject',\n    bodyField     : 'message',\n    bodyTypeField : 'email_type',\n    bodyType      : 'html',\n    attachmentOption: 'use_file_url',\n    messageIdField: 'id',\n    threadIdField : 'threadId',\n    deeplinkFrom  : 'template',\n    deeplinkTemplate: 'https://mail.google.com/mail/u/0/#all/{threadId}',\n    // --- replying into an existing thread ---\n    // Gmail threads on the RFC headers, so a reply needs the original's Message-ID\n    // (In-Reply-To) and the References chain. Note the recipient shape differs from\n    // gmail_send_email: the reply resource takes CSV strings, the draft-reply takes arrays.\n    reply: [\n        send            : 'gmail_reply_in_thread',\n        draft           : 'gmail_create_draft_reply',\n        recipientShape  : 'CSV',\n        draftRecipientShape: 'ARRAY',\n        toField         : 'to',\n        ccField         : 'cc',\n        bccField        : 'bcc',\n        subjectField    : 'subject',\n        bodyField       : 'message',\n        bodyTypeField   : 'email_type',\n        bodyType        : 'html',\n        attachmentOption: 'use_file_url',\n        replyTypeField  : null,\n        threadMap       : [rfcMessageId: 'in_reply_to', references: 'references'],\n        draftThreadMap  : [rfcMessageId: 'in_reply_to', references: 'references', threadId: 'threadId'],\n        requires        : ['rfcMessageId'],\n        draftRequires   : ['threadId'],\n        requiresRecipients: true,\n        returnsIds      : true\n    ],\n    search: [\n        resource   : 'gmail_find_email',\n        queryField : 'searchQuery',\n        limitField : 'count',\n        shape      : 'GMAIL'\n    ]\n]\ndef PROVIDER_ORDER = ['microsoft_outlook', 'gmail']\n\ndef readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\n\ndef topics = readVar('topics', [])\ndef preferred = readVar('preferredAppName', '')\npreferred = (preferred == null) ? '' : preferred.toString().trim()\n\ndef candidates = []\ntopics.each { t ->\n    def p = (t instanceof Map && t['properties'] instanceof Map) ? t['properties'] : t\n    if (!(p instanceof Map)) return\n    def name = (p['name'] ?: '').toString()\n    if (!PROFILES.containsKey(name)) return\n    def runtime = (p['runTimeConnectionEnabled'] == true || p['runTimeConnectionEnabled'] == 'true')\n    def connId = (p['connectionId'] ?: '').toString()\n    def mode = (!runtime && connId) ? 'SHARED' : 'RUNTIME'\n    candidates.add([appName: name, mode: mode, connectionId: connId,\n                    topicId: (t instanceof Map ? (t['id'] ?: '') : '')])\n}\n\n// deterministic order: declared provider order, then anything else alphabetically\ncandidates = candidates.sort { a, b ->\n    def ia = PROVIDER_ORDER.indexOf(a['appName'])\n    def ib = PROVIDER_ORDER.indexOf(b['appName'])\n    if (ia < 0) ia = 99\n    if (ib < 0) ib = 99\n    ia == ib ? a['appName'].compareTo(b['appName']) : ia <=> ib\n}\n\ndef chosen = null\nif (preferred) {\n    chosen = candidates.find { it['appName'] == preferred }\n    if (chosen == null) {\n        return [errorCode: PROFILES.containsKey(preferred) ? 'NO_MAIL_APP' : 'PROVIDER_UNSUPPORTED',\n                errorMessage: preferred + ' is not an enabled mail app on this agent',\n                appName: '', mode: '', connectionId: '', candidates: candidates, profile: [:]]\n    }\n}\nif (chosen == null) chosen = candidates.find { it['mode'] == 'SHARED' }\nif (chosen == null) chosen = candidates.isEmpty() ? null : candidates[0]\n\nif (chosen == null) {\n    return [errorCode: 'NO_MAIL_APP',\n            errorMessage: 'No mail provider is enabled on this agent',\n            appName: '', mode: '', connectionId: '', candidates: [], profile: [:]]\n}\n\nreturn [errorCode   : '',\n        errorMessage: '',\n        appName     : chosen['appName'],\n        mode        : chosen['mode'],\n        connectionId: chosen['connectionId'],\n        candidates  : candidates,\n        profile     : PROFILES[chosen['appName']]]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"preferredAppName":"{{ n_Strt.outputs.preferredAppName }}",
+					"topics":"{{ n_Tpcs.outputs.objects }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"PROFILES - the only place a provider is named",
+			"title":"Pick provider",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_IfRt",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"RUNTIME"
+						},
+						"property":"{{ n_Pick.outputs.result.mode }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Per-user connection?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":992,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_IfRt@_EMRM1-1@y",
+			"id":"n_Chck",
+			"index":7,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"{{ n_Pick.outputs.result.appName }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Check User Connection",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2488,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_EMRM1-1",
+			"id":"n_AppL",
+			"index":8,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_Pick.outputs.result.appName }}"
+							},
+							"property":"properties_appName"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"e_topic_app_library",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":1,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"App library (live copy)",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Finl",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"App Name",
+							"type":"string"
+						},
+						"candidates":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Candidates",
+							"type":"array"
+						},
+						"connectionId":{
+							"title":"Connection Id",
+							"type":"string"
+						},
+						"displayLabel":{
+							"title":"Display Label",
+							"type":"string"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"iconUrl":{
+							"title":"Icon Url",
+							"type":"string"
+						},
+						"mode":{
+							"title":"Mode",
+							"type":"string"
+						},
+						"needsPrompt":{
+							"title":"Needs Prompt",
+							"type":"boolean"
+						},
+						"profile":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Profile",
+							"type":"object"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"allowPrompt":{
+							"title":"Allow Prompt",
+							"type":"boolean"
+						},
+						"checkConnectionId":{
+							"title":"Check Connection Id",
+							"type":"string"
+						},
+						"checkSuccess":{
+							"title":"Check Success",
+							"type":"boolean"
+						},
+						"libRows":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Lib Rows",
+							"type":"array"
+						},
+						"pick":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Pick",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\n\ndef pick = readVar('pick', [:])\nif (!(pick instanceof Map)) pick = [:]\ndef appName = (pick['appName'] ?: '').toString()\ndef mode = (pick['mode'] ?: '').toString()\ndef allowPrompt = readVar('allowPrompt', true)\nif (allowPrompt instanceof String) allowPrompt = 'true'.equalsIgnoreCase(allowPrompt)\n\n// display metadata off the live app-library row (QA has no deployed copies of that entity)\ndef libRows = readVar('libRows', [])\ndef lib = [:]\nif (libRows instanceof List && !libRows.isEmpty()) {\n    def r = libRows[0]\n    lib = (r instanceof Map && r['properties'] instanceof Map) ? r['properties'] : (r instanceof Map ? r : [:])\n}\ndef displayLabel = (lib['displayLabel'] ?: appName).toString()\ndef iconUrl = (lib['icon'] ?: '').toString()\n\n// hard failure from the picker wins\ndef pickError = (pick['errorCode'] ?: '').toString()\nif (pickError) {\n    return [success: false, appName: appName, connectionId: '', mode: mode,\n            displayLabel: displayLabel, iconUrl: iconUrl,\n            errorCode: pickError, errorMessage: (pick['errorMessage'] ?: '').toString(),\n            needsPrompt: false, candidates: (pick['candidates'] ?: []), profile: (pick['profile'] ?: [:])]\n}\n\ndef connectionId = ''\nif (mode == 'SHARED') {\n    connectionId = (pick['connectionId'] ?: '').toString()\n} else {\n    def ok = readVar('checkSuccess', false)\n    if (ok instanceof String) ok = 'true'.equalsIgnoreCase(ok)\n    if (ok) connectionId = (readVar('checkConnectionId', '') ?: '').toString()\n}\n\nif (connectionId) {\n    return [success: true, appName: appName, connectionId: connectionId, mode: mode,\n            displayLabel: displayLabel, iconUrl: iconUrl, errorCode: '', errorMessage: '',\n            needsPrompt: false, candidates: (pick['candidates'] ?: []), profile: (pick['profile'] ?: [:])]\n}\n\nreturn [success: false, appName: appName, connectionId: '', mode: mode,\n        displayLabel: displayLabel, iconUrl: iconUrl,\n        errorCode: 'CONNECTION_REQUIRED',\n        errorMessage: 'Connect ' + displayLabel + ' to continue',\n        needsPrompt: allowPrompt,\n        candidates: (pick['candidates'] ?: []), profile: (pick['profile'] ?: [:])]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"allowPrompt":"{{ n_Strt.outputs.allowPrompt }}",
+					"checkConnectionId":"{{ n_Chck.outputs.connectionId }}",
+					"checkSuccess":"{{ n_Chck.outputs.success }}",
+					"libRows":"{{ n_AppL.outputs.objects }}",
+					"pick":"{{ n_Pick.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"combine pick + check + library",
+			"title":"Resolve connection",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_IfPr",
+			"index":10,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_Finl.outputs.result.needsPrompt }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Publish the Connect card?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":992,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_IfPr@_EMRM1-1@y",
+			"id":"n_Conf",
+			"index":11,
+			"inputs":{
+				"automationId":"67f8976fb643cc0d35c6a1bb",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"{{ n_Finl.outputs.result.appName }}",
+					"caseId":"{{ n_Rslv.outputs.result.caseId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Confirm Connection",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":963,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMRM1-1",
+			"id":"n_Stop",
+			"index":12,
+			"inputs":{
+				"result":{
+					"appName":"{{ n_Finl.outputs.result.appName }}",
+					"candidates":"{{ n_Finl.outputs.result.candidates }}",
+					"connectionId":"{{ n_Finl.outputs.result.connectionId }}",
+					"displayLabel":"{{ n_Finl.outputs.result.displayLabel }}",
+					"errorCode":"{{ n_Finl.outputs.result.errorCode }}",
+					"errorMessage":"{{ n_Finl.outputs.result.errorMessage }}",
+					"iconUrl":"{{ n_Finl.outputs.result.iconUrl }}",
+					"mode":"{{ n_Finl.outputs.result.mode }}",
+					"profile":"{{ n_Finl.outputs.result.profile }}",
+					"success":"{{ n_Finl.outputs.result.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":2
+}

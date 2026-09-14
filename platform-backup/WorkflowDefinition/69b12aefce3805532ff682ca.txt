@@ -4,18 +4,48 @@
 	],
 	"createdTime":1787743754529,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743754579,
+		"deployedAt":1789395165356,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece0a45d2142160e6de5c",
+		"deployedDefinitionId":"6aa800dd72fd792214e8c544",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":26
+		"version":2,
+		"workflowVersion":29
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_Hb9fw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_StKxZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_StKxZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_LC15A",
@@ -44,7 +74,7 @@
 	"id":"69b12aefce3805532ff682ca",
 	"lastModifiedBy":-1,
 	"lcName":"[outlook] fetch attachments details wrapper",
-	"modifiedTime":1788252971529,
+	"modifiedTime":1789395398275,
 	"name":"[Outlook] Fetch Attachments Details Wrapper",
 	"nodes":[
 		{
@@ -77,6 +107,10 @@
 							"title":"Attachment Details",
 							"type":"array"
 						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
 						"totalAttachments":{
 							"title":"Total Attachments",
 							"type":"integer"
@@ -89,13 +123,18 @@
 					"additionalProperties":false,
 					"properties":{
 						"attachmentId":{
-							"help":"Specific attachment ID to fetch. If omitted all attachments of the email are fetched.",
+							"help":"ID returned by the prerequisite `fetch_email` call. Supply it only for one specific named attachment and pair it with the matching `name`; omit it when all attachments are requested.",
 							"title":"Attachment Id",
 							"type":"string"
 						},
 						"messageId":{
-							"help":"The email message ID that contains the attachment.",
+							"help":"Operationally required Outlook message ID returned by `fetch_email`. Never guess, construct, translate, or reuse an ID from an unrelated message.",
 							"title":"Message Id",
+							"type":"string"
+						},
+						"name":{
+							"help":"Exact attachment filename returned by `fetch_email` that matches the user's selection. Supply it only with the matching `attachmentId` for one specific attachment.",
+							"title":"Name",
 							"type":"string"
 						}
 					},
@@ -110,6 +149,87 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_StKxZ",
+			"index":2,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_outlook"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_Ify5k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_StKxZ.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_AUDMw-1@y",
+			"id":"n_9U9zr",
+			"index":4,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_StKxZ.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
 		},
 		{
 			"additional":{
@@ -135,19 +255,21 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AUDMw-1",
 			"id":"n_LC15A",
-			"index":2,
+			"index":5,
 			"inputs":{
 				"automationId":"69b12bd5b0ce4465ffd33d97",
 				"runtimeConnections":{
-					"microsoft_outlook":"6a1717b35b2d5c0269ed714f"
+					"microsoft_outlook":"{{ n_StKxZ.outputs.connectionId }}"
 				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
 					"attachmentId":"{{ n_Hb9fw.outputs.attachmentId }}",
-					"messageId":"{{ n_Hb9fw.outputs.messageId }}"
+					"messageId":"{{ n_Hb9fw.outputs.messageId }}",
+					"name":"{{ n_Hb9fw.outputs.name }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -221,7 +343,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AUDMw-1",
 			"id":"n_FWXq1",
-			"index":3,
+			"index":6,
 			"inputs":{
 				"result":{
 					"attachmentDetails":{
@@ -255,5 +377,5 @@
 	"tags":[
 		
 	],
-	"version":28
+	"version":30
 }
