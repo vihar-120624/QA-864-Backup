@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743452163,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743452471,
+		"deployedAt":1789395039486,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccdc4cdb0358b9df1c20",
+		"deployedDefinitionId":"6aa8005fc6a14707f1502ee2",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":42
+		"version":2,
+		"workflowVersion":45
 	},
 	"edges":[
 		{
@@ -61,11 +61,34 @@
 			"fromNodeId":"n_f4yei",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"98eeS",
+			"toNodeId":"n_ihpL6",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_LhjzW",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ihpL6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ihpL6",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OED0q",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_OED0q",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"98eeS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ihpL6",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -84,8 +107,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -95,7 +116,7 @@
 	"id":"67b88a2b14bf7f1ad01d4a5e",
 	"lastModifiedBy":-1,
 	"lcName":"call custom http endpoint (openai type payload)",
-	"modifiedTime":1788252972044,
+	"modifiedTime":1789395039487,
 	"name":"Call Custom HTTP Endpoint (OpenAI type Payload)",
 	"nodes":[
 		{
@@ -468,6 +489,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"enable_thinking":{
+							"title":"Enable Thinking",
+							"type":"boolean"
+						},
 						"reasoning_effort":{
 							"title":"reasoning_effort",
 							"type":"string"
@@ -484,6 +509,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"enable_thinking":{
+							"title":"Enable Thinking",
+							"type":"boolean"
+						},
 						"reasoning_effort":{
 							"title":"reasoning_effort",
 							"type":"string"
@@ -781,10 +810,17 @@
 							"operator":"CONTAINS",
 							"value":"Qwen3-235B-A22B"
 						},
-						"property":"{{ _6odgE.outputs.model }}"
+						"property":"{{ WhBQ9.outputs.properties.model }}"
+					},
+					{
+						"filter":{
+							"operator":"CONTAINS",
+							"value":"qwen3.6-27b"
+						},
+						"property":"{{ WhBQ9.outputs.properties.model }}"
 					}
 				],
-				"operator":"AND"
+				"operator":"OR"
 			},
 			"skip":false,
 			"subTitle":"Qwen3-235B-A22B?",
@@ -818,6 +854,62 @@
 			"type":"ACTION"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":438,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_ZPQ2S-1",
+			"id":"n_ihpL6",
+			"index":8,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"CONTAINS",
+							"value":"qwen3.6-27b"
+						},
+						"property":"{{ WhBQ9.outputs.properties.model }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"qwen3.6-27b?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":446,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_ihpL6@_ZPQ2S-1@y",
+			"id":"n_OED0q",
+			"index":9,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ 65Qxb.outputs.enable_thinking }}",
+						"value":false
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"enable_thinking",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
 			"additional":{
 				"xsdSchemaConfig":{
 					"root.responseSchema":{}
@@ -834,12 +926,15 @@
 			"fallbackMode":"STOP",
 			"groupId":"_ZPQ2S-1",
 			"id":"98eeS",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
 				"requestTimeoutInSecs":-1,
 				"body":{
+					"chat_template_kwargs":{
+						"enable_thinking":"{{ 65Qxb.outputs.enable_thinking }}"
+					},
 					"frequency_penalty":"{{ _6odgE.outputs.frequency_penalty }}",
 					"max_tokens":"{{ _6odgE.outputs.max_tokens }}",
 					"messages":{
@@ -1042,6 +1137,18 @@
 				"bodySchema":{
 					"additionalProperties":false,
 					"properties":{
+						"chat_template_kwargs":{
+							"additionalProperties":false,
+							"properties":{
+								"enable_thinking":{
+									"title":"Enable Thinking",
+									"type":"boolean"
+								}
+							},
+							"required":[],
+							"title":"Chat Template Kwargs",
+							"type":"object"
+						},
 						"frequency_penalty":{
 							"title":"frequency_penalty",
 							"type":"integer"
@@ -1236,7 +1343,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_ZPQ2S-1",
 			"id":"_HhRdk",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"result":{
 					"finish_reason":"{{ 98eeS.outputs.result.choices[0].finish_reason }}",
@@ -1274,5 +1381,5 @@
 		}
 	},
 	"standard":true,
-	"version":44
+	"version":45
 }

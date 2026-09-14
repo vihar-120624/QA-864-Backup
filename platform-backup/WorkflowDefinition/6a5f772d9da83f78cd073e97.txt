@@ -4,14 +4,15 @@
 	],
 	"createdTime":1787743451006,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743451340,
+		"deployedAt":1789395039198,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccdb53a823318abfb9b6",
+		"deployedDefinitionId":"6aa8005f72fd792214e8be8f",
+		"deploymentTag":"V31",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":54
+		"version":2,
+		"workflowVersion":57
 	},
 	"edges":[
 		{
@@ -361,8 +362,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -372,7 +371,7 @@
 	"id":"6a5f772d9da83f78cd073e97",
 	"lastModifiedBy":-1,
 	"lcName":"governance | create agent/model",
-	"modifiedTime":1788252972205,
+	"modifiedTime":1789395039199,
 	"name":"Governance | Create Agent/Model",
 	"nodes":[
 		{
@@ -670,6 +669,7 @@
 					"department":"{{ n_lA5hR.outputs.agentProfileProperties.department }}",
 					"description":"{{ n_lA5hR.outputs.agentProfileProperties.description }}",
 					"enabled":true,
+					"lc_name":"=LOWER({{ n_lA5hR.outputs.agentProfileProperties.name }})",
 					"name":"{{ n_lA5hR.outputs.agentProfileProperties.name }}",
 					"ownerId":"{{ n_lA5hR.outputs.agentProfileProperties.ownerId }}",
 					"registered":true,
@@ -992,13 +992,6 @@
 								"value":"{{ n_lA5hR.outputs.assetIds }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ n_lA5hR.outputs.agentProfileProperties.connectionId }}"
-							},
-							"property":"properties_connectionId"
 						}
 					],
 					"operator":"AND"
@@ -1086,7 +1079,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def safeExisting = (existing ?: [])\ndef safeAssetIds = (assetIds ?: [])\ndef safeConnectionId = connectionId ?: \"\"\n\n// LangChain: no assetIds → skip dedup entirely, create once with null external_agent_id\nif (safeAssetIds.isEmpty()) {\n    return [\"unregisteredIds\": [null], \"hasNew\": true]\n}\n\n// Anthropic + Models: dedup by composite key\ndef alreadyRegistered = safeExisting\n    .collect { \"${it?.properties?.external_agent_id}::${it?.properties?.connectionId}\" }\n    .findAll { it && !it.startsWith(\"null::\") }\n    .toSet()\n\ndef newIds = safeAssetIds.findAll { id ->\n    !(\"${id}::${safeConnectionId}\" in alreadyRegistered)\n}\nreturn [\"unregisteredIds\": newIds, \"hasNew\": !newIds.isEmpty()]",
+				"code":"def safeExisting = (existing ?: [])\ndef safeAssetIds = (assetIds ?: [])\n\n// LangChain: no assetIds → skip dedup entirely, create once with null external_agent_id\nif (safeAssetIds.isEmpty()) {\n    return [\"unregisteredIds\": [null], \"hasNew\": true]\n}\n\n// Anthropic + Models: dedup by external_agent_id (same external agent across connections is one asset)\ndef alreadyRegistered = safeExisting\n    .collect { it?.properties?.external_agent_id }\n    .findAll { it != null }\n    .toSet()\n\ndef newIds = safeAssetIds.findAll { id ->\n    !(id in alreadyRegistered)\n}\nreturn [\"unregisteredIds\": newIds, \"hasNew\": !newIds.isEmpty()]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1388,7 +1381,6 @@
 					"root.records.items.connectionType",
 					"root.records.items.applicationId",
 					"root.records.items.awaitingTraces",
-					"root.records.items.agentProfileGroupId",
 					"root.records.items.registered",
 					"root.records.items.registered_first_time",
 					"root.records.items.external_agent_id",
@@ -1400,7 +1392,14 @@
 					"root.records.items.sourceType",
 					"root.records.items.status",
 					"root.records.items.remainingRetryCount",
-					"root.records.items.connectionId"
+					"root.records.items.connectionId",
+					"root.records.items.agentProfileGroupIds.items",
+					"root.records.items.evalSettings.runFrequency.unit",
+					"root.records.items.evalSettings.runFrequency.value",
+					"root.records.items.evalSettings.sessionCloseTime.value",
+					"root.records.items.lc_name",
+					"root.records.items.metadata",
+					"root.records.items.evalSettings.sessionCloseTime.unit"
 				]
 			},
 			"context":{
@@ -1429,6 +1428,7 @@
 						"description":"{{ n_lA5hR.outputs.agentProfileProperties.description }}",
 						"enabled":true,
 						"external_agent_id":"{{ n_gkyVB.outputs.result.unregisteredIds[0] }}",
+						"lc_name":"=LOWER(IF( {{ n_lA5hR.outputs.agentProfileProperties.assetType }}= \"llm\", {{ n_gkyVB.outputs.result.unregisteredIds[0] }}, {{ n_nz95j.outputs.name }}))",
 						"name":"=IF( {{ n_lA5hR.outputs.agentProfileProperties.assetType }}= \"llm\", {{ n_gkyVB.outputs.result.unregisteredIds[0] }}, {{ n_nz95j.outputs.name }})",
 						"ownerId":"{{ n_lA5hR.outputs.agentProfileProperties.ownerId }}",
 						"registered":true,
@@ -1770,5 +1770,5 @@
 		}
 	},
 	"standard":true,
-	"version":56
+	"version":57
 }
