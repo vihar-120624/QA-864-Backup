@@ -1,0 +1,477 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395333516,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395333575,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80185c6a14707f1503e80",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":8
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_R6jts",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FUVuV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FUVuV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qDFcr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qDFcr",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nI1Ls",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nI1Ls",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BJPPW",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_BJPPW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_L4c0w",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nI1Ls",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_L4c0w",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qDFcr",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_L4c0w",
+			"type":"error"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a23d3b1d4282047409505b7",
+	"lastModifiedBy":-1,
+	"lcName":"knowledge rawdata downloader wrapper | batch",
+	"modifiedTime":1789395392950,
+	"name":"Knowledge RawData Downloader Wrapper | Batch",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2046,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwek-1",
+			"id":"n_R6jts",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"id":{
+							"title":"Id",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"applicationInfo":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Application Info",
+							"type":"object"
+						},
+						"automationId":{
+							"title":"Automation Id",
+							"type":"string"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
+						"parentEntityId":{
+							"title":"Parent Entity Id",
+							"type":"string"
+						},
+						"rawDataId":{
+							"title":"Raw Data Id",
+							"type":"string"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Shared With Ids",
+							"type":"array"
+						},
+						"sourceDetails":{
+							"additionalProperties":false,
+							"properties":{
+								"rootEntityId":{
+									"title":"rootEntityId",
+									"type":"string"
+								},
+								"sourceId":{
+									"title":"sourceId",
+									"type":"string"
+								}
+							},
+							"type":"object"
+						},
+						"sourceResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Source Response",
+							"type":"object"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1601,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwek-1",
+			"id":"n_FUVuV",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"inputs":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Inputs",
+							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"applicationInfo":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Application Info",
+							"type":"object"
+						},
+						"indexingVersion":{
+							"title":"Indexing Version",
+							"type":"string"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"rawDataId":{
+							"title":"Raw Data Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"\ndef inputs = [:]\ndef importerConnections = [:]\ndef applicationInfo = binding.hasVariable(\"applicationInfo\") ? applicationInfo : [:]\ndef context = applicationInfo?.context?:[:]\n\ninputs.putAll(applicationInfo?.inputs?:[:])\napplicationInfo?.resourceInputs?.each { resourceInput -> \n  inputs.putAll(resourceInput?.inputs?:[:])\n}\n\n\nif (context?.appName != null ) {\n  importerConnections = [(context.appName) : context.connectionId]\n}\n\nreturn [\n  \"importerConnections\" : importerConnections,\n  \"inputs\" : inputs,\n  \"uniqueEntityId\" : rawDataId[(knowledgeId+\"_\").length()..rawDataId.length() - (\"_\"+indexingVersion).length() - 1]\n  ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"applicationInfo":"{{ n_R6jts.outputs.applicationInfo }}",
+					"indexingVersion":"{{ n_R6jts.outputs.indexingVersion }}",
+					"knowledgeId":"{{ n_R6jts.outputs.knowledgeId }}",
+					"rawDataId":"{{ n_R6jts.outputs.rawDataId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2048,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_PWwek-1",
+			"id":"n_qDFcr",
+			"index":3,
+			"inputs":{
+				"automationId":"69b3cc72bc190266adbe195d",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"automationId":"{{ n_R6jts.outputs.automationId }}",
+					"importerConnections":"{{ n_FUVuV.outputs.result.importerConnections }}",
+					"indexingVersion":"{{ n_R6jts.outputs.indexingVersion }}",
+					"inputs":"{{ n_FUVuV.outputs.result.inputs }}",
+					"knowledgeId":"{{ n_R6jts.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_R6jts.outputs.knowledgeSetId }}",
+					"parentEntityId":"{{ n_R6jts.outputs.parentEntityId }}",
+					"resourceType":"{{ n_R6jts.outputs.resourceType }}",
+					"sharedWithIds":{
+						"items":"{{ n_R6jts.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_R6jts.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"sourceDetails":{
+						"rootEntityId":"{{ n_R6jts.outputs.sourceDetails.rootEntityId }}",
+						"sourceId":"{{ n_R6jts.outputs.sourceDetails.sourceId }}"
+					},
+					"sourceResponse":"{{ n_R6jts.outputs.sourceResponse }}",
+					"uniqueEntityId":"{{ n_FUVuV.outputs.result.uniqueEntityId }}",
+					"userId":"{{ n_R6jts.outputs.userId }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":92,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_qDFcr@_PWwek-1@success",
+			"id":"n_nI1Ls",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_qDFcr.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Success?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2051,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_nI1Ls@n_qDFcr@_PWwek-1@success@y",
+			"id":"n_BJPPW",
+			"index":5,
+			"inputs":{
+				"result":{
+					"id":"{{ n_R6jts.outputs.rawDataId }}",
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2051,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwek-1",
+			"id":"n_L4c0w",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":9
+}

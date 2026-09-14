@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744331148,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744332108,
+		"deployedAt":1789395333321,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed04c2889f9507f120650",
+		"deployedDefinitionId":"6aa80185c6a14707f1503e78",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":63
+		"version":2,
+		"workflowVersion":66
 	},
 	"edges":[
 		{
@@ -251,7 +251,7 @@
 	"id":"697459ce09704c69923ddf23",
 	"lastModifiedBy":-1,
 	"lcName":"hubspot chunkmetadata",
-	"modifiedTime":1788252973095,
+	"modifiedTime":1789395392950,
 	"name":"Hubspot ChunkMetadata",
 	"nodes":[
 		{
@@ -1884,9 +1884,17 @@
 									"title":"num_associated_contacts",
 									"type":"string"
 								},
+								"num_associated_deals":{
+									"title":"Num Associated Deals",
+									"type":"string"
+								},
 								"num_notes":{
 									"title":"num_notes",
 									"type":"string"
+								},
+								"number_of_associated_tickets":{
+									"title":"Number Of Associated Tickets",
+									"type":"integer"
 								},
 								"owner":{
 									"title":"Owner",
@@ -2044,6 +2052,18 @@
 							"title":"notes_last_updated",
 							"type":"string"
 						},
+						"num_associated_contacts":{
+							"title":"Num Associated Contacts",
+							"type":"string"
+						},
+						"num_associated_deals":{
+							"title":"Num Associated Deals",
+							"type":"string"
+						},
+						"number_of_associated_tickets":{
+							"title":"Number Of Associated Tickets",
+							"type":"integer"
+						},
 						"owner":{
 							"title":"Owner",
 							"type":"string"
@@ -2084,7 +2104,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.*\ndef convertToUnixTimestamp = { isoTimestamp ->\n    isoTimestamp ? Instant.parse(isoTimestamp).toEpochMilli() : null\n}\n\ndef chunkMetadata = [:]\n\nchunkMetadata << [\"appName\" : \"hubspot\"]\nchunkMetadata << (binding.hasVariable('id') && id && id!=\"\" ? [\"id\": id] : [:])\nchunkMetadata << (binding.hasVariable('created_at') && created_at ? [\"createdAt\": java.time.Instant.parse(created_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('modified_at') && modified_at ? [\"modifiedAt\": java.time.Instant.parse(modified_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('owner') && owner && owner!=\"\" ? [\"ownerName\": owner] : [:])\nchunkMetadata << (binding.hasVariable('ownerEmail') && ownerEmail && ownerEmail!=\"\" ? [\"ownerEmail\": ownerEmail] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy && createdBy!=\"\" ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail && createdByEmail!=\"\" ? [\"createdByEmail\": createdByEmail] : [:])\nchunkMetadata << (binding.hasVariable('updatedBy') && updatedBy && updatedBy!=\"\" ? [\"updatedBy\": updatedBy] : [:])\nchunkMetadata << (binding.hasVariable('updatedByEmail') && updatedByEmail && updatedByEmail!=\"\" ? [\"updatedByEmail\": updatedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('name') && name && name!=\"\" ? [\"name\": name] : [:])\nchunkMetadata << (binding.hasVariable('name') && name && name!=\"\" ? [\"title\": name] : [:])\nchunkMetadata << (binding.hasVariable('referenceUrl') && referenceUrl && referenceUrl!=\"\" ? [\"referenceUrl\": referenceUrl] : [:])\nchunkMetadata << (binding.hasVariable('description') && description && description!=\"\" ? [\"description\": description] : [:])\nchunkMetadata << (binding.hasVariable('industry') && industry && industry!=\"\" ? [\"industry\": industry] : [:])\nchunkMetadata << (binding.hasVariable('website') && website && website!=\"\" ? [\"website\": website] : [:])\nchunkMetadata << (binding.hasVariable('notes_last_updated') && notes_last_updated && notes_last_updated!=\"\" ? [\"lastActivity\": convertToUnixTimestamp(notes_last_updated)] : [:])\nchunkMetadata << (binding.hasVariable('hs_num_open_deals') && hs_num_open_deals && hs_num_open_deals!=\"\" ? [\"numberOfDeals\": hs_num_open_deals] : [:])\nchunkMetadata << (binding.hasVariable('total_money_raised') && total_money_raised && total_money_raised!=\"\" ? [\"moneyRaised\": total_money_raised] : [:])\nchunkMetadata << (binding.hasVariable('hs_linkedin_handle') && hs_linkedin_handle && hs_linkedin_handle!=\"\" ? [\"linkedInHandle\": hs_linkedin_handle] : [:])\nchunkMetadata << (binding.hasVariable('city') && city && city!=\"\" ? [\"city\": city] : [:])\nchunkMetadata << (binding.hasVariable('lifecyclestage') && lifecyclestage && lifecyclestage!=\"\" ? [\"lifeCycleStage\": lifecyclestage] : [:])\nchunkMetadata << (binding.hasVariable('hs_lead_status') && hs_lead_status && hs_lead_status!=\"\" ? [\"leadStatus\": hs_lead_status] : [:])\nchunkMetadata << (binding.hasVariable('hs_domain_status') && hs_domain_status && hs_domain_status!=\"\" ? [\"domainStatus\": hs_domain_status] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType && resourceType!=\"\" ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('pipeline') && pipeline && pipeline!=\"\" ? [\"pipeline\": pipeline] : [:])\n\nreturn [\"chunkMetadata\":chunkMetadata]",
+				"code":"import java.time.*\ndef convertToUnixTimestamp = { isoTimestamp ->\n    isoTimestamp ? Instant.parse(isoTimestamp).toEpochMilli() : null\n}\n\ndef chunkMetadata = [:]\n\nchunkMetadata << [\"appName\" : \"hubspot\"]\nchunkMetadata << (binding.hasVariable('id') && id && id!=\"\" ? [\"id\": id] : [:])\nchunkMetadata << (binding.hasVariable('created_at') && created_at ? [\"createdAt\": java.time.Instant.parse(created_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('modified_at') && modified_at ? [\"modifiedAt\": java.time.Instant.parse(modified_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('owner') && owner && owner!=\"\" ? [\"ownerName\": owner] : [:])\nchunkMetadata << (binding.hasVariable('ownerEmail') && ownerEmail && ownerEmail!=\"\" ? [\"ownerEmail\": ownerEmail] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy && createdBy!=\"\" ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail && createdByEmail!=\"\" ? [\"createdByEmail\": createdByEmail] : [:])\nchunkMetadata << (binding.hasVariable('updatedBy') && updatedBy && updatedBy!=\"\" ? [\"updatedBy\": updatedBy] : [:])\nchunkMetadata << (binding.hasVariable('updatedByEmail') && updatedByEmail && updatedByEmail!=\"\" ? [\"updatedByEmail\": updatedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('name') && name && name!=\"\" ? [\"name\": name] : [:])\nchunkMetadata << (binding.hasVariable('name') && name && name!=\"\" ? [\"title\": name] : [:])\nchunkMetadata << (binding.hasVariable('referenceUrl') && referenceUrl && referenceUrl!=\"\" ? [\"referenceUrl\": referenceUrl] : [:])\nchunkMetadata << (binding.hasVariable('description') && description && description!=\"\" ? [\"description\": description] : [:])\nchunkMetadata << (binding.hasVariable('industry') && industry && industry!=\"\" ? [\"industry\": industry] : [:])\nchunkMetadata << (binding.hasVariable('website') && website && website!=\"\" ? [\"website\": website] : [:])\nchunkMetadata << (binding.hasVariable('notes_last_updated') && notes_last_updated && notes_last_updated!=\"\" ? [\"lastActivity\": convertToUnixTimestamp(notes_last_updated)] : [:])\nchunkMetadata << (binding.hasVariable('hs_num_open_deals') && hs_num_open_deals && hs_num_open_deals!=\"\" ? [\"numberOfDeals\": hs_num_open_deals] : [:])\nchunkMetadata << (binding.hasVariable('num_associated_deals') && num_associated_deals && num_associated_deals!=\"\" ? [\"numOfAssociatedDeals\": (num_associated_deals as Integer)] : [:])\nchunkMetadata << (binding.hasVariable('num_associated_contacts') && num_associated_contacts && num_associated_contacts!=\"\" ? [\"numOfAssociatedContacts\": (num_associated_contacts as Integer)] : [:])\nchunkMetadata << (binding.hasVariable('number_of_associated_tickets') && number_of_associated_tickets && number_of_associated_tickets!=\"\" ? [\"numOfAssociatedTickets\": (number_of_associated_tickets as Integer)] : [:])\nchunkMetadata << (binding.hasVariable('total_money_raised') && total_money_raised && total_money_raised!=\"\" ? [\"moneyRaised\": total_money_raised] : [:])\nchunkMetadata << (binding.hasVariable('hs_linkedin_handle') && hs_linkedin_handle && hs_linkedin_handle!=\"\" ? [\"linkedInHandle\": hs_linkedin_handle] : [:])\nchunkMetadata << (binding.hasVariable('city') && city && city!=\"\" ? [\"city\": city] : [:])\nchunkMetadata << (binding.hasVariable('lifecyclestage') && lifecyclestage && lifecyclestage!=\"\" ? [\"lifeCycleStage\": lifecyclestage] : [:])\nchunkMetadata << (binding.hasVariable('hs_lead_status') && hs_lead_status && hs_lead_status!=\"\" ? [\"leadStatus\": hs_lead_status] : [:])\nchunkMetadata << (binding.hasVariable('hs_domain_status') && hs_domain_status && hs_domain_status!=\"\" ? [\"domainStatus\": hs_domain_status] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType && resourceType!=\"\" ? [\"resourceType\": resourceType] : [:])\nchunkMetadata << (binding.hasVariable('pipeline') && pipeline && pipeline!=\"\" ? [\"pipeline\": pipeline] : [:])\n\nreturn [\"chunkMetadata\":chunkMetadata]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -2103,6 +2123,9 @@
 					"modified_at":"{{ _rgbNq.outputs.result.response.updatedAt }}",
 					"name":"{{ _H1PRG.outputs.result.properties.name }}",
 					"notes_last_updated":"{{ _H1PRG.outputs.result.properties.notes_last_updated }}",
+					"num_associated_contacts":"{{ _H1PRG.outputs.result.properties.num_associated_contacts }}",
+					"num_associated_deals":"{{ _H1PRG.outputs.result.properties.num_associated_deals }}",
+					"number_of_associated_tickets":"{{ _H1PRG.outputs.result.properties.number_of_associated_tickets }}",
 					"owner":"{{ _H1PRG.outputs.result.properties.owner }}",
 					"ownerEmail":"{{ _H1PRG.outputs.result.properties.ownerEmail }}",
 					"pipeline":"{{ _H1PRG.outputs.result.properties.hs_pipeline }}",
@@ -2407,6 +2430,10 @@
 									"title":"hubspot_owner_id",
 									"type":"string"
 								},
+								"jobtitle":{
+									"title":"Jobtitle",
+									"type":"string"
+								},
 								"lastmodifieddate":{
 									"title":"lastmodifieddate",
 									"type":"string"
@@ -2558,6 +2585,10 @@
 							"title":"Id",
 							"type":"string"
 						},
+						"jobtitle":{
+							"title":"Jobtitle",
+							"type":"string"
+						},
 						"lastName":{
 							"title":"Last Name",
 							"type":"string"
@@ -2606,7 +2637,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def chunkMetadata = [:]\n\nchunkMetadata << [\"appName\" : \"hubspot\"]\nchunkMetadata << (binding.hasVariable('id') && id && id!=\"\" ? [\"id\": id] : [:])\nchunkMetadata << (binding.hasVariable('created_at') && created_at ? [\"createdAt\": java.time.Instant.parse(created_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('modified_at') && modified_at ? [\"modifiedAt\": java.time.Instant.parse(modified_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('owner') && owner && owner!=\"\" ? [\"ownerName\": owner] : [:])\nchunkMetadata << (binding.hasVariable('ownerEmail') && ownerEmail && ownerEmail!=\"\" ? [\"ownerEmail\": ownerEmail] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy && createdBy!=\"\" ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail && createdByEmail!=\"\" ? [\"createdByEmail\": createdByEmail] : [:])\nchunkMetadata << (binding.hasVariable('updatedBy') && updatedBy && updatedBy!=\"\" ? [\"updatedBy\": updatedBy] : [:])\nchunkMetadata << (binding.hasVariable('updatedByEmail') && updatedByEmail && updatedByEmail!=\"\" ? [\"updatedByEmail\": updatedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('pipeline') && pipeline && pipeline!=\"\" ? [\"pipeline\": pipeline] : [:])\n\ndef name = binding.hasVariable('firstName') && firstName && firstName!=\"\" ? firstName+\" \" : \"\"\nname += binding.hasVariable('lastName') && lastName && lastName!=\"\" ? lastName : \"\"\nchunkMetadata << (name!=\"\" ? [\"name\": name.trim()] : [:])\nchunkMetadata << (name!=\"\" ? [\"title\": name.trim()] : [:])\nchunkMetadata << (binding.hasVariable('referenceUrl') && referenceUrl && referenceUrl!=\"\" ? [\"referenceUrl\": referenceUrl] : [:])\nchunkMetadata << (binding.hasVariable('company') && company && company!=\"\" ? [\"companyName\": company] : [:])\nchunkMetadata << (binding.hasVariable('hs_content_membership_status') && hs_content_membership_status && hs_content_membership_status!=\"\" ? [\"status\": hs_content_membership_status] : [:])\nchunkMetadata << (binding.hasVariable('total_revenue') && total_revenue && total_revenue!=\"\" ? [\"totalRevenue\": total_revenue] : [:])\nchunkMetadata << (binding.hasVariable('hs_linkedin_url') && hs_linkedin_url && hs_linkedin_url!=\"\" ? [\"linkedInUrl\": hs_linkedin_url] : [:])\nchunkMetadata << (binding.hasVariable('hs_lead_status') && hs_lead_status && hs_lead_status!=\"\" ? [\"leadStatus\": hs_lead_status] : [:])\nchunkMetadata << (binding.hasVariable('lifecyclestage') && lifecyclestage && lifecyclestage!=\"\" ? [\"lifeCycleStage\": lifecyclestage] : [:])\nchunkMetadata << (binding.hasVariable('email') && email && email!=\"\" ? [\"email\": email] : [:])\nchunkMetadata << (binding.hasVariable('companyList') && companyList && companyList!=null ? [\"associatedCompany\": companyList] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType && resourceType!=\"\" ? [\"resourceType\": resourceType] : [:])\n\n\n\nreturn [\"chunkMetadata\":chunkMetadata]",
+				"code":"def chunkMetadata = [:]\n\nchunkMetadata << [\"appName\" : \"hubspot\"]\nchunkMetadata << (binding.hasVariable('id') && id && id!=\"\" ? [\"id\": id] : [:])\nchunkMetadata << (binding.hasVariable('created_at') && created_at ? [\"createdAt\": java.time.Instant.parse(created_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('modified_at') && modified_at ? [\"modifiedAt\": java.time.Instant.parse(modified_at).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('owner') && owner && owner!=\"\" ? [\"ownerName\": owner] : [:])\nchunkMetadata << (binding.hasVariable('ownerEmail') && ownerEmail && ownerEmail!=\"\" ? [\"ownerEmail\": ownerEmail] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy && createdBy!=\"\" ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail && createdByEmail!=\"\" ? [\"createdByEmail\": createdByEmail] : [:])\nchunkMetadata << (binding.hasVariable('updatedBy') && updatedBy && updatedBy!=\"\" ? [\"updatedBy\": updatedBy] : [:])\nchunkMetadata << (binding.hasVariable('updatedByEmail') && updatedByEmail && updatedByEmail!=\"\" ? [\"updatedByEmail\": updatedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('pipeline') && pipeline && pipeline!=\"\" ? [\"pipeline\": pipeline] : [:])\n\ndef name = binding.hasVariable('firstName') && firstName && firstName!=\"\" ? firstName+\" \" : \"\"\nname += binding.hasVariable('lastName') && lastName && lastName!=\"\" ? lastName : \"\"\nchunkMetadata << (name!=\"\" ? [\"name\": name.trim()] : [:])\nchunkMetadata << (name!=\"\" ? [\"title\": name.trim()] : [:])\nchunkMetadata << (binding.hasVariable('referenceUrl') && referenceUrl && referenceUrl!=\"\" ? [\"referenceUrl\": referenceUrl] : [:])\nchunkMetadata << (binding.hasVariable('company') && company && company!=\"\" ? [\"companyName\": company] : [:])\nchunkMetadata << (binding.hasVariable('jobtitle') && jobtitle && jobtitle!=\"\" ? [\"jobTitle\": jobtitle] : [:])\nchunkMetadata << (binding.hasVariable('hs_content_membership_status') && hs_content_membership_status && hs_content_membership_status!=\"\" ? [\"status\": hs_content_membership_status] : [:])\nchunkMetadata << (binding.hasVariable('total_revenue') && total_revenue && total_revenue!=\"\" ? [\"totalRevenue\": total_revenue] : [:])\nchunkMetadata << (binding.hasVariable('hs_linkedin_url') && hs_linkedin_url && hs_linkedin_url!=\"\" ? [\"linkedInUrl\": hs_linkedin_url] : [:])\nchunkMetadata << (binding.hasVariable('hs_lead_status') && hs_lead_status && hs_lead_status!=\"\" ? [\"leadStatus\": hs_lead_status] : [:])\nchunkMetadata << (binding.hasVariable('lifecyclestage') && lifecyclestage && lifecyclestage!=\"\" ? [\"lifeCycleStage\": lifecyclestage] : [:])\nchunkMetadata << (binding.hasVariable('email') && email && email!=\"\" ? [\"email\": email] : [:])\nchunkMetadata << (binding.hasVariable('companyList') && companyList && companyList!=null ? [\"associatedCompany\": companyList] : [:])\nchunkMetadata << (binding.hasVariable('resourceType') && resourceType && resourceType!=\"\" ? [\"resourceType\": resourceType] : [:])\n\n\n\nreturn [\"chunkMetadata\":chunkMetadata]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -2625,6 +2656,7 @@
 					"hs_lead_status":"{{ _bnzTo.outputs.result.properties.hs_lead_status }}",
 					"hs_linkedin_url":"{{ _bnzTo.outputs.result.properties.hs_linkedin_url }}",
 					"id":"{{ _Bww82.outputs.result.response.id }}",
+					"jobtitle":"{{ _bnzTo.outputs.result.properties.jobtitle }}",
 					"lastName":"{{ _bnzTo.outputs.result.properties.lastname }}",
 					"lifecyclestage":"{{ _bnzTo.outputs.result.properties.lifecyclestage }}",
 					"modified_at":"{{ _Bww82.outputs.result.response.updatedAt }}",
@@ -2710,5 +2742,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":65
+	"version":67
 }
