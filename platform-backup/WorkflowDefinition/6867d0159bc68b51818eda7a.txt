@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743888015,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743888265,
+		"deployedAt":1789395250795,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece9045d2142160e6ea2a",
+		"deployedDefinitionId":"6aa80132c6a14707f1503a8c",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":69
+		"version":2,
+		"workflowVersion":72
 	},
 	"edges":[
 		{
@@ -24,7 +24,67 @@
 		},
 		{
 			"fromNodeId":"_cpUrc",
-			"id":"next@_cpUrc@n_QJq3p",
+			"id":"next@_cpUrc@n_NlDNV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NlDNV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NlDNV",
+			"id":"next@n_NlDNV@n_Rj6c0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rj6c0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rj6c0",
+			"id":"if@n_Rj6c0@n_YI1Kr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YI1Kr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_YI1Kr",
+			"id":"next@n_YI1Kr@n_DbkPL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DbkPL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DbkPL",
+			"id":"next@n_DbkPL@n_74dlL",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_74dlL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DbkPL",
+			"id":"if@n_DbkPL@n_QJq3p",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QJq3p",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_74dlL",
+			"id":"next@n_74dlL@n_QJq3p",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QJq3p",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rj6c0",
+			"id":"next@n_Rj6c0@n_QJq3p",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_QJq3p",
@@ -88,7 +148,7 @@
 	"id":"6867d0159bc68b51818eda7a",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | slack | file ",
-	"modifiedTime":1788252971612,
+	"modifiedTime":1789395388203,
 	"name":"Knowledge Indexer | Slack | File ",
 	"nodes":[
 		{
@@ -124,9 +184,19 @@
 							"title":"Knowledge Id",
 							"type":"string"
 						},
+						"knowledgeSetId":{
+							"title":"Knowledge Set Id",
+							"type":"string"
+						},
 						"knowledgeVersion":{
 							"title":"Knowledge Version",
-							"type":"string"
+							"type":"integer"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
 						},
 						"resourceType":{
 							"title":"Resource Type",
@@ -144,9 +214,15 @@
 							"properties":{},
 							"title":"Source Response",
 							"type":"object"
+						},
+						"uniqueEntityId":{
+							"title":"Unique Entity Id",
+							"type":"string"
 						}
 					},
-					"required":[],
+					"required":[
+						"uniqueEntityId"
+					],
 					"ua:modal":{
 						"field_type":"STRING",
 						"is_optional":true
@@ -341,6 +417,163 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":16,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_NlDNV",
+			"index":3,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"copyFromRawDataId":{
+							"title":"Copy From Raw Data Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":11,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_Rj6c0",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_NlDNV.outputs.copyFromRawDataId }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.KNOWLEDGE_COPY_CHUNKS_FROM_SOURCEID }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":246,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Rj6c0@_hNHYl-1@y",
+			"id":"n_YI1Kr",
+			"index":5,
+			"inputs":{
+				"automationId":"6a031648d37472343d038f7e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"copyFromRawDataId":"{{ n_NlDNV.outputs.copyFromRawDataId }}",
+					"indexingVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
+					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_YFuhI.outputs.knowledgeSetId }}",
+					"metadata":"{{ n_YFuhI.outputs.metadata }}",
+					"sharedWithIds":{
+						"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":11,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Rj6c0@_hNHYl-1@y",
+			"id":"n_DbkPL",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"0"
+						},
+						"property":"{{ n_YI1Kr.outputs.lastChunkId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":752,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_DbkPL@n_Rj6c0@_hNHYl-1@y@n",
+			"id":"n_74dlL",
+			"index":7,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":1515,
 				"resourceName":"callables_call_automation",
@@ -351,7 +584,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_QJq3p",
-			"index":3,
+			"index":8,
 			"inputs":{
 				"automationId":"696214695541230fa0df0c65",
 				"runtimeConnections":{},
@@ -379,7 +612,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"lJbSc",
-			"index":4,
+			"index":9,
 			"inputs":{
 				"automationId":"6708d0a1e5c64343ba9b24c8",
 				"runtimeConnections":{},
@@ -395,9 +628,10 @@
 						"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
 						"ua:type":"mappedArray"
 					},
-					"uniqueEntityId":"{{ _cpUrc.outputs.result.response.id }}"
+					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"File chunker",
@@ -416,7 +650,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"pj1md",
-			"index":5,
+			"index":10,
 			"inputs":{
 				"filters":[
 					{
@@ -445,7 +679,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"pj1md@_hNHYl-1@y",
 			"id":"MvnkC",
-			"index":6,
+			"index":11,
 			"inputs":{
 				"automationId":"66af3ff4cd79b321cb478a37",
 				"runtimeConnections":{},
@@ -467,9 +701,10 @@
 					},
 					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
 					"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
-					"uniqueEntityId":"{{ _cpUrc.outputs.result.response.id }}"
+					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Indexer With RBAC",
@@ -488,7 +723,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_POMRK",
-			"index":7,
+			"index":12,
 			"inputs":{
 				"result":{
 					"success":true
@@ -517,5 +752,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":71
+	"version":73
 }

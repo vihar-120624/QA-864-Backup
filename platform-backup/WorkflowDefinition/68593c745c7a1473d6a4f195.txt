@@ -4,19 +4,53 @@
 	],
 	"createdTime":1787743935557,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743935703,
+		"deployedAt":1789395278236,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecebf45d2142160e6f282",
+		"deployedDefinitionId":"6aa8014ec6a14707f1503b9f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":422
+		"version":2,
+		"workflowVersion":425
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_SgZeg",
-			"id":"next@n_SgZeg@n_nsMVW",
+			"id":"next@n_SgZeg@n_5ac71",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5ac71",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5ac71",
+			"id":"next@n_5ac71@n_YX2Qm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YX2Qm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YX2Qm",
+			"id":"if@n_YX2Qm@n_2Xh07",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2Xh07",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_2Xh07",
+			"id":"next@n_2Xh07@n_nsMVW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nsMVW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YX2Qm",
+			"id":"next@n_YX2Qm@n_nsMVW",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_nsMVW",
@@ -58,15 +92,7 @@
 		},
 		{
 			"fromNodeId":"n_7PnWy",
-			"id":"next@n_7PnWy@n_oHZCP",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_oHZCP",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_oHZCP",
-			"id":"next@n_oHZCP@_5RiXa",
+			"id":"next@n_7PnWy@_5RiXa",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_5RiXa",
@@ -82,8 +108,17 @@
 		},
 		{
 			"fromNodeId":"n_DlXvR",
-			"id":"next@n_DlXvR@_51O4H",
+			"id":"next@n_DlXvR@n_AhCUy",
 			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AhCUy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AhCUy",
+			"id":"next@n_AhCUy@_51O4H",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_51O4H",
@@ -97,6 +132,15 @@
 			"skip":false,
 			"toNodeId":"n_42AKs",
 			"type":"error"
+		},
+		{
+			"fromNodeId":"n_AhCUy",
+			"id":"if@n_AhCUy@_GeKOn",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_GeKOn",
+			"type":"if"
 		},
 		{
 			"fromNodeId":"_51O4H",
@@ -138,7 +182,7 @@
 	"id":"68593c745c7a1473d6a4f195",
 	"lastModifiedBy":-1,
 	"lcName":"schedule knowledge indexer",
-	"modifiedTime":1788252973448,
+	"modifiedTime":1789395388232,
 	"name":"Schedule Knowledge Indexer",
 	"nodes":[
 		{
@@ -177,6 +221,10 @@
 							"title":"Batch Size",
 							"type":"string"
 						},
+						"cursorType":{
+							"title":"Cursor Type",
+							"type":"string"
+						},
 						"dataType":{
 							"title":"Data Type",
 							"type":"string"
@@ -184,6 +232,10 @@
 						"errorCount":{
 							"title":"Error Count",
 							"type":"integer"
+						},
+						"fetchFullPayload":{
+							"title":"Fetch Full Payload",
+							"type":"boolean"
 						},
 						"indexerAutomation":{
 							"title":"Indexer Automation",
@@ -224,6 +276,113 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1658,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7uzFA-1",
+			"id":"n_5ac71",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"cursorType":{
+							"title":"Cursor Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"cursorType":"{{ n_SgZeg.outputs.cursorType }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"cursorType":{
+							"title":"Cursor Type",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7uzFA-1",
+			"id":"n_YX2Qm",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_SgZeg.outputs.cursorType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1586,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_YX2Qm@_7uzFA-1@y",
+			"id":"n_2Xh07",
+			"index":4,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_5ac71.outputs.cursorType }}",
+						"value":"indexer"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":19,
 				"resourceName":"if_else_condition",
@@ -234,7 +393,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_7uzFA-1",
 			"id":"n_nsMVW",
-			"index":2,
+			"index":5,
 			"inputs":{
 				"filters":[
 					{
@@ -263,7 +422,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_nsMVW@_7uzFA-1@y",
 			"id":"_FqNTN",
-			"index":3,
+			"index":6,
 			"inputs":{
 				"automationId":"68676a717693334d88bb539f",
 				"runtimeConnections":{},
@@ -273,10 +432,11 @@
 					"knowledgeId":"{{ n_SgZeg.outputs.knowledgeId }}",
 					"parentEntityId":"{{ n_SgZeg.outputs.dataType }}",
 					"status":"WAITING_FOR_PERMIT",
-					"type":"indexer",
+					"type":"{{ n_5ac71.outputs.cursorType }}",
 					"updateCursor":true
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Get or Create Cursor",
@@ -295,7 +455,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_nsMVW@_7uzFA-1@y",
 			"id":"n_4KtVY",
-			"index":4,
+			"index":7,
 			"inputs":{
 				"result":{
 					"processedCount":0,
@@ -319,7 +479,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_7uzFA-1",
 			"id":"n_7PnWy",
-			"index":5,
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -359,7 +519,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"if(binding.hasVariable('dataType') && dataType == \"file\"){\n  return [\n  \"rawDataIndexerBulkheadLimit\" : (binding.hasVariable(\"fileBulkhead\") ? fileBulkhead as int : 500),\n  \"indexerBulkheadLimit\" : (binding.hasVariable(\"indexerBulkheadLimit\") ? indexerBulkheadLimit as int : 200)\n]\n\n}\n\nreturn [\n  \"indexerBulkheadLimit\" : (binding.hasVariable(\"indexerBulkheadLimit\") ? indexerBulkheadLimit as int : 200),\n  \"rawDataIndexerBulkheadLimit\" : (binding.hasVariable(\"rawDataIndexerBulkheadLimit\") ? rawDataIndexerBulkheadLimit as int : 1000)\n]",
+				"code":"if(binding.hasVariable('dataType') && dataType == \"file\"){\n  return [\n    \"rawDataIndexerBulkheadLimit\" : (binding.hasVariable(\"fileBulkhead\") ? fileBulkhead as int : 500),\n    \"indexerBulkheadLimit\" : (binding.hasVariable(\"indexerBulkheadLimit\") ? indexerBulkheadLimit as int : 200)\n  ]\n}\n\nreturn [\n  \"indexerBulkheadLimit\" : (binding.hasVariable(\"indexerBulkheadLimit\") ? indexerBulkheadLimit as int : 200),\n  \"rawDataIndexerBulkheadLimit\" : (binding.hasVariable(\"rawDataIndexerBulkheadLimit\") ? rawDataIndexerBulkheadLimit as int : 1000)\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -377,94 +537,6 @@
 		{
 			"context":{
 				"appName":"storage_by_unifyapps",
-				"resourceVersion":780,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"CONTINUE",
-			"groupId":"_7uzFA-1",
-			"id":"n_oHZCP",
-			"index":6,
-			"inputs":{
-				"recordId":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.indexingVersion }}_{{ n_SgZeg.outputs.dataType }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"knowledge_indexer_details",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"dataType":"{{ n_SgZeg.outputs.dataType }}",
-					"knowledgeId":"{{ n_SgZeg.outputs.knowledgeId }}",
-					"knowledgeVersion":"{{ n_SgZeg.outputs.indexingVersion }}",
-					"lastExecutionId":"{{ __RUN__.outputs.executionId }}"
-				},
-				"upsert":true
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"CONTINUE",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
-			},
-			"skip":true,
-			"subTitle":"Upsert Indexing Details",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
 				"resourceVersion":1231,
 				"resourceName":"storage_by_unifyapps_upsert_record",
 				"type":"APPLICATION"
@@ -474,7 +546,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_7uzFA-1",
 			"id":"_5RiXa",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_state_cursor",
@@ -486,7 +558,7 @@
 						"setValue":"IN_PROGRESS"
 					}
 				],
-				"id":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.dataType }}_indexer",
+				"id":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.dataType }}_{{ n_5ac71.outputs.cursorType }}",
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
@@ -507,21 +579,24 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_7uzFA-1",
 			"id":"n_DlXvR",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"automationId":"68542c75651b6b3df907f38f",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
 					"batchSize":"{{ n_SgZeg.outputs.batchSize }}",
+					"cursorType":"{{ n_5ac71.outputs.cursorType }}",
 					"dataType":"{{ n_SgZeg.outputs.dataType }}",
+					"fetchFullPayload":"{{ n_SgZeg.outputs.fetchFullPayload }}",
 					"indexerAutomation":"{{ n_SgZeg.outputs.indexerAutomation }}",
 					"indexingVersion":"{{ n_SgZeg.outputs.indexingVersion }}",
 					"knowledgeId":"{{ n_SgZeg.outputs.knowledgeId }}",
 					"knowledgeType":"{{ n_SgZeg.outputs.knowledgeType }}",
 					"runtimeType":"{{ n_SgZeg.outputs.runtimeType }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"businessHoursConfig":{
@@ -579,6 +654,36 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_DlXvR@_7uzFA-1@success",
+			"id":"n_AhCUy",
+			"index":11,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"PAUSED"
+						},
+						"property":"{{ n_DlXvR.outputs.terminationReason }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"PAUSED?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1231,
 				"resourceName":"storage_by_unifyapps_upsert_record",
@@ -587,9 +692,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_DlXvR@_7uzFA-1@success",
+			"groupId":"n_AhCUy@n_DlXvR@_7uzFA-1@success@n",
 			"id":"_51O4H",
-			"index":9,
+			"index":12,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_state_cursor",
@@ -601,7 +706,7 @@
 						"setValue":"WAITING_FOR_PERMIT"
 					}
 				],
-				"id":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.dataType }}_indexer",
+				"id":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.dataType }}_{{ n_5ac71.outputs.cursorType }}",
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
@@ -622,7 +727,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_DlXvR@_7uzFA-1@error",
 			"id":"n_42AKs",
-			"index":10,
+			"index":13,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_state_cursor",
@@ -641,7 +746,7 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.type",
-						"setValue":"indexer"
+						"setValue":"{{ n_5ac71.outputs.cursorType }}"
 					},
 					{
 						"actionType":"INCREMENT",
@@ -669,7 +774,7 @@
 						"setValue":"{{ n_SgZeg.outputs }}"
 					}
 				],
-				"id":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.dataType }}_indexer",
+				"id":"{{ n_SgZeg.outputs.knowledgeId }}_{{ n_SgZeg.outputs.dataType }}_{{ n_5ac71.outputs.cursorType }}",
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
@@ -690,7 +795,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_7uzFA-1",
 			"id":"_GeKOn",
-			"index":11,
+			"index":14,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -794,7 +899,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_7uzFA-1",
 			"id":"n_xHwpp",
-			"index":12,
+			"index":15,
 			"inputs":{
 				"result":{
 					"processedCount":"{{ n_DlXvR.outputs.processedCount }}",
@@ -815,11 +920,15 @@
 		"enableNodeLevelLogging":false,
 		"enableRunLogging":false,
 		"enableVariableLogging":false,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
 	"standard":true,
-	"version":424
+	"version":426
 }
