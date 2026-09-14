@@ -4,15 +4,15 @@
 	],
 	"createdTime":1787744700013,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744700455,
+		"deployedAt":1789395375625,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1bcba51514edfc81cca",
+		"deployedDefinitionId":"6aa801af72fd792214e8d1d1",
 		"deploymentTag":"wrapper-pattern",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":79
+		"version":2,
+		"workflowVersion":82
 	},
 	"edges":[
 		{
@@ -47,7 +47,7 @@
 	"id":"6a623b7926b651760a2396f9",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) list sql db tables",
-	"modifiedTime":1788252972262,
+	"modifiedTime":1789395387181,
 	"name":"(tool) List SQL DB Tables",
 	"nodes":[
 		{
@@ -64,68 +64,68 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"tables":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"lcName":{
-										"type":"string",
-										"title":"Lc Name"
-									},
-									"description":{
-										"type":"string",
-										"title":"Description"
-									},
-									"name":{
-										"type":"string",
-										"title":"Name"
-									},
 									"appName":{
-										"type":"string",
-										"title":"App Name"
-									},
-									"dbName":{
-										"type":"string",
-										"title":"Db Name"
-									},
-									"schemaName":{
-										"type":"string",
-										"title":"Schema Name"
+										"title":"App Name",
+										"type":"string"
 									},
 									"catalogName":{
-										"type":"string",
-										"title":"Catalog Name"
+										"title":"Catalog Name",
+										"type":"string"
+									},
+									"dbName":{
+										"title":"Db Name",
+										"type":"string"
+									},
+									"description":{
+										"title":"Description",
+										"type":"string"
+									},
+									"lcName":{
+										"title":"Lc Name",
+										"type":"string"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"schemaName":{
+										"title":"Schema Name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
-								"required":[]
+								"required":[],
+								"type":"object"
 							},
-							"title":"Tables"
+							"title":"Tables",
+							"type":"array"
 						}
-					}
+					},
+					"required":[],
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"title":"appName",
+							"type":"string"
+						},
+						"connectionId":{
+							"title":"connectionId",
+							"type":"string"
+						}
+					},
 					"required":[
 						"appName",
 						"connectionId"
 					],
-					"properties":{
-						"appName":{
-							"type":"string",
-							"title":"appName"
-						},
-						"connectionId":{
-							"type":"string",
-							"title":"connectionId"
-						}
-					}
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -152,22 +152,22 @@
 			"inputs":{
 				"automationId":"6a71a82038b1c873e9948448",
 				"runtimeConnections":{
-					"mariadb":"{{ n_OmmxA.outputs.connectionId }}",
-					"snowflake":"{{ n_OmmxA.outputs.connectionId }}",
-					"redshift":"{{ n_OmmxA.outputs.connectionId }}",
-					"sqlserver":"{{ n_OmmxA.outputs.connectionId }}",
-					"trino":"{{ n_OmmxA.outputs.connectionId }}",
-					"teradata":"{{ n_OmmxA.outputs.connectionId }}",
-					"oracledb":"{{ n_OmmxA.outputs.connectionId }}",
 					"databricks":"{{ n_OmmxA.outputs.connectionId }}",
+					"mariadb":"{{ n_OmmxA.outputs.connectionId }}",
 					"mysql":"{{ n_OmmxA.outputs.connectionId }}",
-					"postgres":"{{ n_OmmxA.outputs.connectionId }}"
+					"oracledb":"{{ n_OmmxA.outputs.connectionId }}",
+					"postgres":"{{ n_OmmxA.outputs.connectionId }}",
+					"redshift":"{{ n_OmmxA.outputs.connectionId }}",
+					"snowflake":"{{ n_OmmxA.outputs.connectionId }}",
+					"sqlserver":"{{ n_OmmxA.outputs.connectionId }}",
+					"teradata":"{{ n_OmmxA.outputs.connectionId }}",
+					"trino":"{{ n_OmmxA.outputs.connectionId }}"
 				},
 				"synchronous":true,
-				"version":"-1",
 				"parameters":{
 					"appName":"{{ n_OmmxA.outputs.appName }}"
-				}
+				},
+				"version":"-1"
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -190,17 +190,17 @@
 			"inputs":{
 				"result":{
 					"tables":{
-						"source":"{{ n_00da0.outputs.tables }}",
-						"ua:type":"mappedArray",
 						"items":{
-							"lcName":"{{ n_00da0.outputs.tables[0].lcName }}",
-							"description":"{{ n_00da0.outputs.tables[0].description }}",
-							"name":"{{ n_00da0.outputs.tables[0].name }}",
 							"appName":"{{ n_00da0.outputs.tables[0].appName }}",
+							"catalogName":"{{ n_00da0.outputs.tables[0].catalogName }}",
 							"dbName":"{{ n_00da0.outputs.tables[0].dbName }}",
-							"schemaName":"{{ n_00da0.outputs.tables[0].schemaName }}",
-							"catalogName":"{{ n_00da0.outputs.tables[0].catalogName }}"
-						}
+							"description":"{{ n_00da0.outputs.tables[0].description }}",
+							"lcName":"{{ n_00da0.outputs.tables[0].lcName }}",
+							"name":"{{ n_00da0.outputs.tables[0].name }}",
+							"schemaName":"{{ n_00da0.outputs.tables[0].schemaName }}"
+						},
+						"source":"{{ n_00da0.outputs.tables }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -231,5 +231,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":81
+	"version":83
 }

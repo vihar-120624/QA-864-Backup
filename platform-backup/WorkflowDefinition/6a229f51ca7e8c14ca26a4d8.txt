@@ -4,18 +4,45 @@
 	],
 	"createdTime":1787744352357,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744353415,
+		"deployedAt":1789395334262,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed061ba51514edfc8093c",
+		"deployedDefinitionId":"6aa8018639ee5f5ef70b68ca",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":6
+		"version":2,
+		"workflowVersion":9
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_EcXWv",
+			"id":"next@n_EcXWv@n_S5HY3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S5HY3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S5HY3",
+			"id":"if@n_S5HY3@n_VFbmz",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VFbmz",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_VFbmz",
+			"id":"next@n_VFbmz@n_Cl3sM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Cl3sM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S5HY3",
+			"id":"next@n_S5HY3@n_Cl3sM",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Cl3sM",
@@ -23,6 +50,7 @@
 		},
 		{
 			"fromNodeId":"n_Cl3sM",
+			"id":"next@n_Cl3sM@n_3bpiR",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_3bpiR",
@@ -30,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"n_3bpiR",
+			"id":"next@n_3bpiR@n_8R3r8",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_8R3r8",
@@ -37,6 +66,7 @@
 		},
 		{
 			"fromNodeId":"n_8R3r8",
+			"id":"if@n_8R3r8@n_C43k3",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -45,6 +75,7 @@
 		},
 		{
 			"fromNodeId":"n_C43k3",
+			"id":"next@n_C43k3@n_OvNfo",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_OvNfo",
@@ -52,6 +83,7 @@
 		},
 		{
 			"fromNodeId":"n_8R3r8",
+			"id":"next@n_8R3r8@n_Q2tbU",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -60,6 +92,7 @@
 		},
 		{
 			"fromNodeId":"n_Q2tbU",
+			"id":"next@n_Q2tbU@n_kGpl0",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_kGpl0",
@@ -67,6 +100,7 @@
 		},
 		{
 			"fromNodeId":"n_OvNfo",
+			"id":"next@n_OvNfo@n_lNfDR",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_lNfDR",
@@ -74,6 +108,7 @@
 		},
 		{
 			"fromNodeId":"n_kGpl0",
+			"id":"next@n_kGpl0@n_lNfDR",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_lNfDR",
@@ -95,7 +130,7 @@
 	"id":"6a229f51ca7e8c14ca26a4d8",
 	"lastModifiedBy":-1,
 	"lcName":"get email from username",
-	"modifiedTime":1788252971249,
+	"modifiedTime":1789395387118,
 	"name":"Get Email From UserName",
 	"nodes":[
 		{
@@ -144,6 +179,54 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":37,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_yL4e0-1",
+			"id":"n_S5HY3",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_EcXWv.outputs.userName }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2229,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_S5HY3@_yL4e0-1@y",
+			"id":"n_VFbmz",
+			"index":3,
+			"inputs":{},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1441,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -154,7 +237,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yL4e0-1",
 			"id":"n_Cl3sM",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -204,7 +287,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yL4e0-1",
 			"id":"n_3bpiR",
-			"index":3,
+			"index":5,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -254,7 +337,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yL4e0-1",
 			"id":"n_8R3r8",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"filters":[
 					{
@@ -283,7 +366,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8R3r8@_yL4e0-1@y",
 			"id":"n_C43k3",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -383,7 +466,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8R3r8@_yL4e0-1@y",
 			"id":"n_OvNfo",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"variables":[
 					{
@@ -410,7 +493,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8R3r8@_yL4e0-1@n",
 			"id":"n_Q2tbU",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"username":"{{ n_EcXWv.outputs.userName }}"
 			},
@@ -495,7 +578,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8R3r8@_yL4e0-1@n",
 			"id":"n_kGpl0",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"variables":[
 					{
@@ -521,7 +604,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yL4e0-1",
 			"id":"n_lNfDR",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"result":{
 					"emailAddress":"{{ n_3bpiR.outputs.emailAddress }}"
@@ -551,5 +634,5 @@
 		}
 	},
 	"standard":true,
-	"version":8
+	"version":10
 }
