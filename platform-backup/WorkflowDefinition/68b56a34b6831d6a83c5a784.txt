@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787743756325,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743756497,
+		"deployedAt":1789395169454,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece0c45d2142160e6de86",
-		"deploymentNotes":"added thought",
+		"deployedDefinitionId":"6aa800e1c6a14707f1503563",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":84
+		"version":2,
+		"workflowVersion":87
 	},
 	"edges":[
 		{
@@ -63,7 +62,7 @@
 	"id":"68b56a34b6831d6a83c5a784",
 	"lastModifiedBy":-1,
 	"lcName":"create gemini models payload",
-	"modifiedTime":1788252972631,
+	"modifiedTime":1789395399426,
 	"name":"Create Gemini Models Payload",
 	"nodes":[
 		{
@@ -81,6 +80,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"payload":{
 							"title":"payload",
@@ -118,6 +118,10 @@
 							"help":"For Claude 4.6",
 							"title":"effort",
 							"type":"string"
+						},
+						"enable_eager_input_streaming":{
+							"title":"Enable Eager Input Streaming",
+							"type":"boolean"
 						},
 						"frequency_penalty":{
 							"title":"frequency_penalty",
@@ -230,12 +234,17 @@
 										"title":"content",
 										"type":"array"
 									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
+									},
 									"role":{
 										"default":"user",
 										"title":"role",
 										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"required":[],
@@ -298,6 +307,10 @@
 									"required":[],
 									"title":"format",
 									"type":"object"
+								},
+								"type":{
+									"title":"type",
+									"type":"string"
 								}
 							},
 							"required":[],
@@ -501,12 +514,14 @@
 								"source":"{{ RA2Aq.outputs.messages[0].content }}",
 								"ua:type":"mappedArray"
 							},
+							"modelId":"{{ RA2Aq.outputs.messages[0].modelId }}",
 							"role":"{{ RA2Aq.outputs.messages[0].role }}"
 						},
 						"source":"{{ RA2Aq.outputs.messages }}",
 						"ua:type":"mappedArray"
 					},
 					"model":"{{ RA2Aq.outputs.model }}",
+					"modelId":"{{ RA2Aq.outputs.modelId }}",
 					"systemPrompt":"{{ RA2Aq.outputs.systemPrompt }}"
 				},
 				"version":"-1"
@@ -810,6 +825,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"payload":{
 							"additionalProperties":false,
 							"properties":{
@@ -1359,7 +1395,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def response_format = binding.hasVariable(\"response_format\")?binding.getVariable(\"response_format\"):[:]\ndef thinkingConfig = binding.hasVariable(\"thinkingConfig\")?binding.getVariable(\"thinkingConfig\"):[:]\n// =======================\n// Detect response MIME type\n// =======================\ndef x = (response_format?['type'] ?: '')\n        ?.toString()\n        ?.toLowerCase()\n\ndef mimeType = \"text/plain\"\n\nif (x?.contains(\"json\") || response_format?.get('responseSchema')) {\n    mimeType = \"application/json\"\n}\n\n// =======================\n// Web search tool handling\n// =======================\ndef useProviderWebSearch =\n        binding.hasVariable(\"useProviderWebSearch\")\n                ? binding.getVariable(\"useProviderWebSearch\")\n                : false\n\nif (useProviderWebSearch) {\n    if (payload?.tools instanceof List) {\n        payload.tools = payload.tools.collect { tool ->\n            if (tool instanceof Map) {\n                def updatedTool = [:] + tool\n\n                if (updatedTool.functionDeclarations instanceof List) {\n                    updatedTool.functionDeclarations =\n                            updatedTool.functionDeclarations.findAll { fd ->\n                                !(fd instanceof Map &&\n                                        (fd.name == \"WebSearch\" ||\n                                         fd?.get(\"name\") == \"WebSearch\"))\n                            }\n                }\n                return updatedTool\n            }\n            return tool\n        }\n\n        payload.tools.add(\n                [enterpriseWebSearch: [blockingConfidence: \"PHISH_BLOCK_THRESHOLD_UNSPECIFIED\"]]\n        )\n    } else {\n        payload.tools = [\n                [enterpriseWebSearch: [blockingConfidence: \"PHISH_BLOCK_THRESHOLD_UNSPECIFIED\"]]\n        ]\n    }\n}\n\n// =======================\n// Strip Gemini-unsupported JSON Schema fields from tool declarations\n// =======================\n\n// Resolve a JSON Pointer ($ref) from the schema root\ndef resolveJsonPointer = { def root, String ref ->\n    if (!ref?.startsWith(\"#/\")) return null\n    def parts = ref.substring(2).split(\"/\")\n    def current = root\n    for (part in parts) {\n        if (current instanceof Map) current = current[part]\n        else return null\n        if (current == null) return null\n    }\n    return (current instanceof Map) ? current : null\n}\n\n// Deep-clone a map/list (avoid mutating the definition source)\ndef deepClone\ndeepClone = { def node ->\n    if (node instanceof Map)  return node.collectEntries { k, v -> [k, deepClone(v)] }\n    if (node instanceof List) return node.collect { deepClone(it) }\n    return node\n}\n\n// Pass 1: resolve all $ref nodes inline (must run before definitions are stripped)\ndef resolveRefs\nresolveRefs = { def node, def schemaRoot ->\n    if (node instanceof Map) {\n        if (node.containsKey('$ref') && node['$ref'] instanceof String) {\n            def resolved = resolveJsonPointer(schemaRoot, node['$ref'].toString())\n            def inlined  = resolved ? deepClone(resolved) : [type: \"object\", properties: [:], additionalProperties: false]\n            // carry over any sibling keys (description, etc.) but let resolved schema win on type/properties\n            node.each { k, v -> if (k != '$ref') inlined.putIfAbsent(k, v) }\n            return resolveRefs(inlined, schemaRoot)\n        }\n        return node.collectEntries { k, v -> [k, resolveRefs(v, schemaRoot)] } as Map\n    }\n    if (node instanceof List) return node.collect { resolveRefs(it, schemaRoot) }\n    return node\n}\n\n// Pass 2: strip fields Gemini's Schema object doesn't accept\ndef STRIP_KEYS = [\n    'help', 'title',\n    '$schema', '$defs', 'definitions',   // draft-07 meta / reuse\n    '$ref',                               // any refs that survived pass 1\n    'allOf', 'anyOf', 'oneOf',            // composition keywords\n    'if', 'then', 'else',                 // conditional keywords\n    'const',                              // used inside oneOf branches\n    'default',                            // not in Gemini Schema object\n    'pattern',                            // not in Gemini Schema object\n] as Set\n\ndef stripUnsupportedSchemaFields\nstripUnsupportedSchemaFields = { def node ->\n    if (node instanceof Map) {\n        STRIP_KEYS.each { node.remove(it) }\n\n        // -------------------------------------------------------------------\n        // NEW HANDLER: Vertex AI / Gemini Strict Array Alignment\n        // -------------------------------------------------------------------\n        // If a node defines \"items\", its type MUST strictly be \"array\".\n        // If it is incorrectly flagged as \"object\" or missing \"type\", we fix it.\n        if (node.containsKey('items')) {\n            if (node['type'] != 'array') {\n                node['type'] = 'array'\n            }\n        } \n        // Gemini requires `items` on every array-typed schema\n        else if (node['type'] == 'array' && !node.containsKey('items')) {\n            node['items'] = [type: 'object', properties: [:], additionalProperties: false]\n        }\n        // -------------------------------------------------------------------\n\n        node.each { k, v -> stripUnsupportedSchemaFields(v) }\n    } else if (node instanceof List) {\n        node.each { stripUnsupportedSchemaFields(it) }\n    }\n}\n\nif (payload?.tools instanceof List) {\n    payload.tools.each { tool ->\n        if (tool instanceof Map) {\n            tool.functionDeclarations?.each { fd ->\n                if (fd instanceof Map && fd.parameters instanceof Map) {\n                    // Pass 1: inline all $refs before definitions disappear\n                    fd.parameters = resolveRefs(fd.parameters, fd.parameters)\n                    // Pass 2: strip everything Gemini rejects\n                    stripUnsupportedSchemaFields(fd.parameters)\n                }\n            }\n        }\n    }\n}\n\n// =======================\n// Apply response MIME type\n// =======================\nif (payload != null) {\n    // Ensure generationConfig exists and is a Map\n    if (!(payload.generationConfig instanceof Map)) {\n        payload.generationConfig = [:]\n    }\n    payload.generationConfig.responseMimeType = mimeType\n} else {\n    // Optional: Handle case where the entire payload is missing\n    payload = [generationConfig: [responseMimeType: mimeType]]\n}\n\n\n// =======================\n// Apply thinkingConfig\n// =======================\nif (thinkingConfig?.includeThoughts != null || thinkingConfig?.thinkingLevel != null) {\n    if (!(payload.generationConfig instanceof Map)) {\n        payload.generationConfig = [:]\n    }\n    if (!(payload.generationConfig.thinkingConfig instanceof Map)) {\n        payload.generationConfig.thinkingConfig = [:]\n    }\n    def tc = payload.generationConfig.thinkingConfig\n\n    if (thinkingConfig.includeThoughts != null) {\n        tc.includeThoughts = thinkingConfig.includeThoughts\n    }\n    if (thinkingConfig.thinkingLevel != null) {\n        tc.thinkingLevel = thinkingConfig.thinkingLevel\n    }\n}\n\n// =======================\n// Response schema normalization\n// =======================\nif (mimeType == \"application/json\" && response_format?.responseSchema instanceof Map) {\n\n    // Clone to avoid mutating original\n    def cleanedSchema = [:] + response_format.responseSchema\n\n    // Remove UI / vendor specific metadata\n    cleanedSchema.remove(\"ua:modal\")\n\n    // Force root schema type\n    cleanedSchema['type'] = \"object\"\n\n    // Normalize properties:\n    // _ABC123 -> title value (e.g. \"text\")\n    if (cleanedSchema.properties instanceof Map) {\n        def normalizedProps = [:]\n\n        cleanedSchema.properties.each { key, value ->\n            if (value instanceof Map && value.title) {\n                def fieldName = value.title.toString()\n                normalizedProps[fieldName] = value\n            } else {\n                // Fallback if title missing\n                normalizedProps[key] = value\n            }\n        }\n\n        cleanedSchema.properties = normalizedProps\n\n        // OPTIONAL (recommended): mark all fields as required\n        cleanedSchema.required = normalizedProps.keySet().toList()\n    }\n\n    payload.generationConfig.responseSchema = cleanedSchema\n} else {\n    payload.generationConfig.remove(\"responseSchema\")\n}\n\n// =======================\n// Final output\n// =======================\ndef result = [output: payload]\nreturn result",
+				"code":"def response_format = binding.hasVariable(\"response_format\")?binding.getVariable(\"response_format\"):[:]\ndef thinkingConfig = binding.hasVariable(\"thinkingConfig\")?binding.getVariable(\"thinkingConfig\"):[:]\n// =======================\n// Detect response MIME type\n// =======================\ndef x = (response_format?['type'] ?: '')\n        ?.toString()\n        ?.toLowerCase()\n\ndef mimeType = \"text/plain\"\n\nif (x?.contains(\"json\") || response_format?.get('responseSchema')) {\n    mimeType = \"application/json\"\n}\n\n// =======================\n// Web search tool handling\n// =======================\ndef useProviderWebSearch =\n        binding.hasVariable(\"useProviderWebSearch\")\n                ? binding.getVariable(\"useProviderWebSearch\")\n                : false\n\nif (useProviderWebSearch) {\n    if (payload?.tools instanceof List) {\n        payload.tools = payload.tools.collect { tool ->\n            if (tool instanceof Map) {\n                def updatedTool = [:] + tool\n\n                if (updatedTool.functionDeclarations instanceof List) {\n                    updatedTool.functionDeclarations =\n                            updatedTool.functionDeclarations.findAll { fd ->\n                                !(fd instanceof Map &&\n                                        (fd.name == \"WebSearch\" ||\n                                         fd?.get(\"name\") == \"WebSearch\"))\n                            }\n                }\n                return updatedTool\n            }\n            return tool\n        }\n\n        payload.tools.add(\n                [googleSearch: [:]]\n        )\n    } else {\n        payload.tools = [\n                [googleSearch: [:]]\n        ]\n    }\n}\n\n// =======================\n// Strip Gemini-unsupported JSON Schema fields from tool declarations\n// =======================\n\n// Resolve a JSON Pointer ($ref) from the schema root\ndef resolveJsonPointer = { def root, String ref ->\n    if (!ref?.startsWith(\"#/\")) return null\n    def parts = ref.substring(2).split(\"/\")\n    def current = root\n    for (part in parts) {\n        if (current instanceof Map) current = current[part]\n        else return null\n        if (current == null) return null\n    }\n    return (current instanceof Map) ? current : null\n}\n\n// Deep-clone a map/list (avoid mutating the definition source)\ndef deepClone\ndeepClone = { def node ->\n    if (node instanceof Map)  return node.collectEntries { k, v -> [k, deepClone(v)] }\n    if (node instanceof List) return node.collect { deepClone(it) }\n    return node\n}\n\n// Pass 1: resolve all $ref nodes inline (must run before definitions are stripped)\ndef resolveRefs\nresolveRefs = { def node, def schemaRoot ->\n    if (node instanceof Map) {\n        if (node.containsKey('$ref') && node['$ref'] instanceof String) {\n            def resolved = resolveJsonPointer(schemaRoot, node['$ref'].toString())\n            def inlined  = resolved ? deepClone(resolved) : [type: \"object\", properties: [:], additionalProperties: false]\n            // carry over any sibling keys (description, etc.) but let resolved schema win on type/properties\n            node.each { k, v -> if (k != '$ref') inlined.putIfAbsent(k, v) }\n            return resolveRefs(inlined, schemaRoot)\n        }\n        return node.collectEntries { k, v -> [k, resolveRefs(v, schemaRoot)] } as Map\n    }\n    if (node instanceof List) return node.collect { resolveRefs(it, schemaRoot) }\n    return node\n}\n\n// Pass 2: strip fields Gemini's Schema object doesn't accept\ndef STRIP_KEYS = [\n    'title',                              // 'help' is NOT stripped - it is folded into 'description' below\n    '$schema', '$defs', 'definitions',   // draft-07 meta / reuse\n    '$ref',                               // any refs that survived pass 1\n    'allOf', 'anyOf', 'oneOf',            // composition keywords\n    'if', 'then', 'else',                 // conditional keywords\n    'const',                              // used inside oneOf branches\n    'default',                            // not in Gemini Schema object\n    'pattern',                            // not in Gemini Schema object\n    'examples', 'exampleValues', 'uniqueItems', 'readOnly', 'writeOnly','contentEncoding', 'contentMediaType', 'dateFormat', 'deprecated', 'uniqueValues'\n    \n] as Set\n\n// Flatten whatever sits under `help` into a single text blob.\n// Usually a String, but tolerate lists/maps rather than emitting \"[a, b]\".\ndef helpToText\nhelpToText = { def h ->\n    if (h == null) return null\n    if (h instanceof CharSequence) return h.toString()\n    if (h instanceof List)  return h.collect { helpToText(it) }.findAll { it }.join('\\n')\n    if (h instanceof Map)   return h.values().collect { helpToText(it) }.findAll { it }.join('\\n')\n    return h.toString()\n}\n\ndef stripUnsupportedSchemaFields\nstripUnsupportedSchemaFields = { def node ->\n    if (node instanceof Map) {\n        // -------------------------------------------------------------------\n        // `help` -> `description` (in place)\n        // Gemini's Schema object has no `help`, but it does have `description`,\n        // and the model actually reads it - so fold the text in instead of\n        // dropping it. Append when a description is already present.\n        // -------------------------------------------------------------------\n        if (node.containsKey('help')) {\n            def helpText = helpToText(node.remove('help'))?.trim()\n            if (helpText) {\n                def desc = node['description']?.toString()?.trim()\n                if (!desc) {\n                    node['description'] = helpText\n                } else if (!desc.contains(helpText)) {\n                    node['description'] = desc + '\\n' + helpText\n                }\n            }\n        }\n\n        STRIP_KEYS.each { node.remove(it) }\n\n        // -------------------------------------------------------------------\n        // NEW HANDLER: Vertex AI / Gemini Strict Array Alignment\n        // -------------------------------------------------------------------\n        // If a node defines \"items\", its type MUST strictly be \"array\".\n        // If it is incorrectly flagged as \"object\" or missing \"type\", we fix it.\n        if (node.containsKey('items')) {\n            if (node['type'] != 'array') {\n                node['type'] = 'array'\n            }\n        } \n        // Gemini requires `items` on every array-typed schema\n        else if (node['type'] == 'array' && !node.containsKey('items')) {\n            node['items'] = [type: 'object', properties: [:], additionalProperties: false]\n        }\n        // -------------------------------------------------------------------\n\n        // Recurse. Keys under `properties` are property NAMES chosen by the tool\n        // author, not schema keywords - so descend into their values, but never\n        // apply keyword handling (STRIP_KEYS / help->description) to the\n        // container itself. Otherwise a parameter literally called \"title\",\n        // \"default\", \"pattern\" or \"help\" gets eaten.\n        node.each { k, v ->\n            if (k == 'properties' && v instanceof Map) {\n                v.each { pk, pv -> stripUnsupportedSchemaFields(pv) }\n            } else {\n                stripUnsupportedSchemaFields(v)\n            }\n        }\n    } else if (node instanceof List) {\n        node.each { stripUnsupportedSchemaFields(it) }\n    }\n}\n\nif (payload?.tools instanceof List) {\n    payload.tools.each { tool ->\n        if (tool instanceof Map) {\n            tool.functionDeclarations?.each { fd ->\n                if (fd instanceof Map && fd.parameters instanceof Map) {\n                    // Pass 1: inline all $refs before definitions disappear\n                    fd.parameters = resolveRefs(fd.parameters, fd.parameters)\n                    // Pass 2: strip everything Gemini rejects\n                    stripUnsupportedSchemaFields(fd.parameters)\n                }\n            }\n        }\n    }\n}\n\n// =======================\n// Apply response MIME type\n// =======================\nif (payload != null) {\n    // Ensure generationConfig exists and is a Map\n    if (!(payload.generationConfig instanceof Map)) {\n        payload.generationConfig = [:]\n    }\n    payload.generationConfig.responseMimeType = mimeType\n} else {\n    // Optional: Handle case where the entire payload is missing\n    payload = [generationConfig: [responseMimeType: mimeType]]\n}\n\n\n// =======================\n// Apply thinkingConfig\n// =======================\nif (thinkingConfig?.includeThoughts != null || thinkingConfig?.thinkingLevel != null) {\n    if (!(payload.generationConfig instanceof Map)) {\n        payload.generationConfig = [:]\n    }\n    if (!(payload.generationConfig.thinkingConfig instanceof Map)) {\n        payload.generationConfig.thinkingConfig = [:]\n    }\n    def tc = payload.generationConfig.thinkingConfig\n\n    if (thinkingConfig.includeThoughts != null) {\n        tc.includeThoughts = thinkingConfig.includeThoughts\n    }\n    if (thinkingConfig.thinkingLevel != null) {\n        tc.thinkingLevel = thinkingConfig.thinkingLevel\n    }\n}\n\n// =======================\n// Response schema normalization\n// =======================\nif (mimeType == \"application/json\" && response_format?.responseSchema instanceof Map) {\n\n    // Clone to avoid mutating original\n    def cleanedSchema = [:] + response_format.responseSchema\n\n    // Remove UI / vendor specific metadata\n    cleanedSchema.remove(\"ua:modal\")\n\n    // Force root schema type\n    cleanedSchema['type'] = \"object\"\n\n    // Normalize properties:\n    // _ABC123 -> title value (e.g. \"text\")\n    if (cleanedSchema.properties instanceof Map) {\n        def normalizedProps = [:]\n\n        cleanedSchema.properties.each { key, value ->\n            if (value instanceof Map && value.title) {\n                def fieldName = value.title.toString()\n                normalizedProps[fieldName] = value\n            } else {\n                // Fallback if title missing\n                normalizedProps[key] = value\n            }\n        }\n\n        cleanedSchema.properties = normalizedProps\n\n        // OPTIONAL (recommended): mark all fields as required\n        cleanedSchema.required = normalizedProps.keySet().toList()\n    }\n\n    payload.generationConfig.responseSchema = cleanedSchema\n} else {\n    payload.generationConfig.remove(\"responseSchema\")\n}\n\n// =======================\n// Final output\n// =======================\ndef result = [output: payload]\nreturn result",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1418,5 +1454,5 @@
 		}
 	},
 	"standard":true,
-	"version":86
+	"version":88
 }

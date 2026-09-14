@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744038419,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744038686,
+		"deployedAt":1789395306199,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf262889f9507f11e6ec",
+		"deployedDefinitionId":"6aa8016ac6a14707f1503d1e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":19
+		"version":2,
+		"workflowVersion":22
 	},
 	"edges":[
 		{
@@ -48,20 +48,12 @@
 		},
 		{
 			"fromNodeId":"n_IiEDQ",
-			"id":"if@n_IiEDQ@n_Gsvy2",
+			"id":"if@n_IiEDQ@n_sNJoM",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_Gsvy2",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_Gsvy2",
-			"id":"next@n_Gsvy2@n_sNJoM",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_sNJoM",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_IiEDQ",
@@ -114,7 +106,7 @@
 	"id":"6a68b1c82eaed61ea4cdab40",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover core42 compass ai llm",
-	"modifiedTime":1788252972314,
+	"modifiedTime":1789395399459,
 	"name":"Governance | Discover Core42 Compass AI LLM",
 	"nodes":[
 		{
@@ -267,13 +259,6 @@
 								"value":"{{ n_xNeqF.outputs.item.id }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_RBuWW.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -326,55 +311,6 @@
 			"type":"IF_ELSE"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_IiEDQ@n_xNeqF@_QNnzl-1@l@y",
-			"id":"n_Gsvy2",
-			"index":6,
-			"inputs":{
-				"recordId":"{{ n_UjLcy.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_UjLcy.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_UjLcy.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_RBuWW.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"llm",
-					"awaitingTraces":"{{ n_UjLcy.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_UjLcy.outputs.properties.connectionId }}",
-					"connectionType":"observe",
-					"enabled":"{{ n_UjLcy.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_xNeqF.outputs.item.id }}",
-					"name":"{{ n_xNeqF.outputs.item.id }}",
-					"registered":false,
-					"registered_first_time":"{{ n_UjLcy.outputs.properties.registered_first_time }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
@@ -386,7 +322,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IiEDQ@n_xNeqF@_QNnzl-1@l@y",
 			"id":"n_sNJoM",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile",
@@ -396,6 +332,11 @@
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.agentProfileGroupIds",
 						"setValue":"{{ n_RBuWW.outputs.agentProfileGroupId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.metadata",
+						"setValue":"{{ n_xNeqF.outputs.item }}"
 					}
 				],
 				"id":"{{ n_UjLcy.outputs.id }}",
@@ -424,7 +365,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IiEDQ@n_xNeqF@_QNnzl-1@l@n",
 			"id":"n_8G6Ey",
-			"index":8,
+			"index":7,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -442,6 +383,8 @@
 					"connectionType":"observe",
 					"enabled":"{{ n_RBuWW.outputs.agentProfileGroupProperties.autoRegister }}",
 					"external_agent_id":"{{ n_xNeqF.outputs.item.id }}",
+					"lc_name":"=LOWER({{ n_xNeqF.outputs.item.id }})",
+					"metadata":"{{ n_xNeqF.outputs.item }}",
 					"name":"{{ n_xNeqF.outputs.item.id }}",
 					"registered":false,
 					"registered_first_time":false,
@@ -467,7 +410,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_QNnzl-1",
 			"id":"n_zegPJ",
-			"index":9,
+			"index":8,
 			"inputs":{
 				"result":{
 					"success":true
@@ -497,5 +440,5 @@
 		}
 	},
 	"standard":true,
-	"version":21
+	"version":23
 }
