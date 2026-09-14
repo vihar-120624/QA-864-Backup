@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787744039651,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744039873,
+		"deployedAt":1789395306458,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf27ba51514edfc7e4fe",
+		"deployedDefinitionId":"6aa8016ac6a14707f1503d27",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":77
+		"version":2,
+		"workflowVersion":80
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_NkK9l",
+			"id":"next@n_NkK9l@n_cFk3w",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_cFk3w",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_cFk3w",
+			"id":"next@n_cFk3w@n_4KmN8",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_4KmN8",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_4KmN8",
+			"id":"next@n_4KmN8@n_FXz4T",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_FXz4T",
@@ -37,6 +40,7 @@
 		},
 		{
 			"fromNodeId":"n_FXz4T",
+			"id":"next@n_FXz4T@n_skweS",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_skweS",
@@ -44,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"n_skweS",
+			"id":"next@n_skweS@n_TqiVR",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_TqiVR",
@@ -51,6 +56,15 @@
 		},
 		{
 			"fromNodeId":"n_TqiVR",
+			"id":"next@n_TqiVR@n_Txk5i",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Txk5i",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Txk5i",
+			"id":"next@n_Txk5i@n_xQIIE",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_xQIIE",
@@ -58,6 +72,7 @@
 		},
 		{
 			"fromNodeId":"n_xQIIE",
+			"id":"next@n_xQIIE@n_ZEEdz",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_ZEEdz",
@@ -65,6 +80,7 @@
 		},
 		{
 			"fromNodeId":"n_ZEEdz",
+			"id":"next@n_ZEEdz@n_BzE4I",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_BzE4I",
@@ -72,6 +88,7 @@
 		},
 		{
 			"fromNodeId":"n_BzE4I",
+			"id":"next@n_BzE4I@n_pj36H",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_pj36H",
@@ -93,7 +110,7 @@
 	"id":"69c76789f2c6946717c98d10",
 	"lastModifiedBy":-1,
 	"lcName":"call agent batch",
-	"modifiedTime":1788252972971,
+	"modifiedTime":1789395391157,
 	"name":"Call Agent Batch",
 	"nodes":[
 		{
@@ -196,10 +213,20 @@
 						"query":{
 							"title":"Query",
 							"type":"string"
+						},
+						"triggeredByAgentId":{
+							"title":"Triggered By Agent Id",
+							"type":"string"
+						},
+						"triggeredByAgentid":{
+							"title":"Triggered By Agentid",
+							"type":"string"
 						}
 					},
 					"required":[
-						"query"
+						"query",
+						"triggeredByAgentId",
+						"triggeredByAgentid"
 					],
 					"type":"object"
 				}
@@ -620,8 +647,65 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_AUpbz-1",
-			"id":"n_xQIIE",
+			"id":"n_Txk5i",
 			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"triggeredByAgentId":{
+							"title":"triggeredByAgentId",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"agentId",
+							"type":"string"
+						},
+						"triggeredByAgentId":{
+							"title":"Triggered By Agent Id",
+							"type":"string"
+						},
+						"triggeredByAgentId2":{
+							"title":"Triggered By Agent Id 2",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def a = binding.hasVariable(\"triggeredByAgentId\")  ? binding.getVariable(\"triggeredByAgentId\")?.toString()?.trim()  : null\ndef b = binding.hasVariable(\"triggeredByAgentId2\") ? binding.getVariable(\"triggeredByAgentId2\")?.toString()?.trim() : null\n\ndef resolved = a ?: b\n\nif (!resolved) {\n    throw new IllegalStateException(\n        \"triggeredByAgentId not supplied to Call Agent Batch. Bound variables: ${binding.variables.keySet()}\"\n    )\n}\n\nreturn [triggeredByAgentId: resolved]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"agentId":"{{ n_NkK9l.outputs.agentId }}",
+					"triggeredByAgentId":"{{ n_NkK9l.outputs.triggeredByAgentId }}",
+					"triggeredByAgentId2":"{{ n_NkK9l.outputs.triggeredByAgentid }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"triggeredByAgentId",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":495,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUpbz-1",
+			"id":"n_xQIIE",
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -650,7 +734,7 @@
 					"agentId":"{{ n_NkK9l.outputs.agentId }}"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"triggeredByAgentId",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -667,7 +751,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AUpbz-1",
 			"id":"n_ZEEdz",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"automationId":"67a31b86addac8605df79166",
 				"runtimeConnections":{},
@@ -709,7 +793,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AUpbz-1",
 			"id":"n_BzE4I",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"callableInterfaceId":"679484ef9c8ab5620dca9609",
 				"runtimeConnections":{},
@@ -719,7 +803,7 @@
 					"caseId":"{{ n_cFk3w.outputs.caseId }}",
 					"toolInputs":"{{ n_TqiVR.outputs.result.params }}",
 					"toolName":"InvokeAgent Tool",
-					"triggeredByAgentId":"{{ n_xQIIE.outputs.result.triggeredByAgentId }}"
+					"triggeredByAgentId":"{{ n_Txk5i.outputs.result.triggeredByAgentId }}"
 				}
 			},
 			"skip":false,
@@ -739,7 +823,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AUpbz-1",
 			"id":"n_pj36H",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"result":{
 					"agentResponse":"{{ n_BzE4I.outputs.toolOutput }}",
@@ -770,5 +854,5 @@
 	"tags":[
 		"text-to-lowcode"
 	],
-	"version":79
+	"version":81
 }

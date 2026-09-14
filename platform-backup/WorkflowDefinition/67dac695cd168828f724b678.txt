@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744034064,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744034317,
+		"deployedAt":1789395305008,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf222889f9507f11e6a1",
+		"deployedDefinitionId":"6aa80168c6a14707f1503d0d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":16
+		"version":2,
+		"workflowVersion":19
 	},
 	"edges":[
 		{
@@ -102,7 +102,7 @@
 	"id":"67dac695cd168828f724b678",
 	"lastModifiedBy":-1,
 	"lcName":"on agent archive",
-	"modifiedTime":1788252973380,
+	"modifiedTime":1789395391103,
 	"name":"On Agent Archive",
 	"nodes":[
 		{
@@ -116,7 +116,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"GGknE",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -152,30 +152,33 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"hJif8",
-			"index":0,
+			"index":2,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
 						{
 							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ GGknE.outputs.object.id }}"
+								"operator":"EQUAL",
+								"value":"ai_agent/{{ GGknE.outputs.object.id }}"
 							},
 							"property":"properties_accessibleTo"
 						}
 					],
 					"operator":"AND"
 				},
+				"shouldSearchInAnalyticsStore":false,
 				"object_type":"knowledge",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"limit":2000,
 					"offset":0,
 					"paginateBy":"OFFSET"
 				},
 				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"MULTIPLE"
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
 			},
 			"skip":false,
 			"subTitle":"knowledge",
@@ -194,7 +197,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"EUxLP",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ hJif8.outputs.objects }}",
@@ -217,7 +220,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"EUxLP@GAMUe-1@l",
 			"id":"qIj99",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"schedule_name":"{{ EUxLP.outputs.item.id }}_refresher"
 			},
@@ -238,7 +241,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"45ugZ",
-			"index":0,
+			"index":5,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -279,7 +282,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"dchZK",
-			"index":0,
+			"index":6,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ 45ugZ.outputs.objects }}",
@@ -302,7 +305,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"dchZK@GAMUe-1@l",
 			"id":"7uZDc",
-			"index":0,
+			"index":7,
 			"inputs":{
 				"operationType":"PAUSE",
 				"workflowId":"{{ 45ugZ.outputs.objects[0].properties.trigger.triggerAutomationId }}"
@@ -324,7 +327,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"LkkQS",
-			"index":0,
+			"index":8,
 			"inputs":{
 				"numberOfRecordsToUpdate":"MULTIPLE",
 				"triggerInputCondition":{
@@ -367,7 +370,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAMUe-1",
 			"id":"08bzY",
-			"index":0,
+			"index":9,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -379,9 +382,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":true,
-		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -392,5 +395,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":18
+	"version":20
 }

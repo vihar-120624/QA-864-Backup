@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743661350,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743661465,
+		"deployedAt":1789395117098,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdad177b4b4aca57a64f",
+		"deployedDefinitionId":"6aa800ad39ee5f5ef70b5d30",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":5
+		"version":2,
+		"workflowVersion":8
 	},
 	"edges":[
 		{
@@ -24,7 +24,15 @@
 		},
 		{
 			"fromNodeId":"n_esyVJ",
-			"id":"next@n_esyVJ@n_wkArJ",
+			"id":"next@n_esyVJ@n_N9oDj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_N9oDj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_N9oDj",
+			"id":"next@n_N9oDj@n_wkArJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wkArJ",
@@ -71,7 +79,7 @@
 	"id":"6a4a7f0b3129db63889c1cd4",
 	"lastModifiedBy":-1,
 	"lcName":"control delete handler",
-	"modifiedTime":1788252971919,
+	"modifiedTime":1789395391145,
 	"name":"Control Delete Handler",
 	"nodes":[
 		{
@@ -147,6 +155,58 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":991,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GwxvY-1",
+			"id":"n_N9oDj",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"controlSettingsPath":{
+							"title":"Control Settings Path",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"controlSettingsPath":"properties.controlSettings.{{n_hFuvY.outputs.id}}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"controlSettingsPath":{
+							"title":"Control Settings Path",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"loop",
 				"resourceVersion":480,
 				"resourceName":"loop_for_each",
@@ -157,7 +217,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_GwxvY-1",
 			"id":"n_wkArJ",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_esyVJ.outputs.objects }}",
@@ -180,7 +240,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wkArJ@_GwxvY-1@l",
 			"id":"n_zvTub",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -202,6 +262,10 @@
 						"actionType":"REMOVE_FROM_SET",
 						"fieldName":"properties.controls",
 						"setValue":"{{ n_hFuvY.outputs.id }}"
+					},
+					{
+						"actionType":"UNSET",
+						"fieldName":"{{ n_N9oDj.outputs.controlSettingsPath }}"
 					}
 				],
 				"page":{
@@ -225,7 +289,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_GwxvY-1",
 			"id":"n_XA2ee",
-			"index":5,
+			"index":6,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -246,5 +310,5 @@
 		}
 	},
 	"standard":true,
-	"version":7
+	"version":9
 }
