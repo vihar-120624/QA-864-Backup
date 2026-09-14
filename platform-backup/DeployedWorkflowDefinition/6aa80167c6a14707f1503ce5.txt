@@ -1,0 +1,603 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395303071,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_ViiUv",
+			"id":"next@n_ViiUv@n_VGBzp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VGBzp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VGBzp",
+			"id":"if@n_VGBzp@n_QeRr4",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QeRr4",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_QeRr4",
+			"id":"next@n_QeRr4@n_F6ukB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_F6ukB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_F6ukB",
+			"id":"next@n_F6ukB@n_25lcb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_25lcb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_25lcb",
+			"id":"next@n_25lcb@_80eKi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_80eKi",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VGBzp",
+			"id":"next@n_VGBzp@n_SPUsx",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SPUsx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SPUsx",
+			"id":"next@n_SPUsx@n_81ifZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_81ifZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_81ifZ",
+			"id":"next@n_81ifZ@n_MQdwZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MQdwZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MQdwZ",
+			"id":"next@n_MQdwZ@_0kbkt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_0kbkt",
+			"type":"next"
+		}
+	],
+	"id":"6aa80167c6a14707f1503ce5",
+	"lastModifiedBy":-1,
+	"lcName":"[onedrive] download file details",
+	"modifiedTime":1789395303072,
+	"name":"[Onedrive] download file Details",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3622,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_n9FSM-1",
+			"id":"n_ViiUv",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"title":"File",
+							"type":"string"
+						},
+						"filePath":{
+							"title":"File Path",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"ItemId":{
+							"title":"Item Id",
+							"type":"string"
+						},
+						"driveId":{
+							"title":"Drive Id",
+							"type":"string"
+						},
+						"filePath":{
+							"title":"File Path",
+							"type":"string"
+						},
+						"webUrl":{
+							"title":"Web Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":35,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_n9FSM-1",
+			"id":"n_VGBzp",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_ViiUv.outputs.driveId }}"
+					},
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_ViiUv.outputs.ItemId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@y",
+			"id":"n_QeRr4",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"fileName":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"path":{
+							"additionalProperties":false,
+							"properties":{
+								"context":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									},
+									"title":"context",
+									"type":"array"
+								},
+								"id":{
+									"title":"id",
+									"type":"string"
+								}
+							},
+							"title":"path",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inputPath":{
+							"title":"Input Path",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def inputPath = binding.hasVariable('inputPath') && inputPath != null ? inputPath : \"\"\ndef fileNameParam = binding.hasVariable('fileName') && fileName != null ? fileName.toString() : \"\"\n\n\ndef encodeSegment(String segment) {\n    return java.net.URLEncoder.encode(segment, \"UTF-8\").replace(\"+\", \"%20\")\n}\n\n\ndef convertPathToContext(String rawPath, String fileNameOverride) {\n    if (!rawPath?.trim()) {\n        return [path: [id: \"\", context: []], fileName: fileNameOverride ?: \"\"]\n    }\n\n    // Strip leading/trailing slashes and whitespace\n    def cleaned = rawPath.trim().replaceAll(\"^/+\", \"\").replaceAll(\"/+\\$\", \"\")\n\n    // Split into segments\n    def segments = cleaned.split(\"/\").findAll { it }\n\n    if (!segments) {\n        return [path: [id: \"\", context: []], fileName: fileNameOverride ?: \"\"]\n    }\n\n    // Last segment is the file name; everything before it is the folder path\n    def extractedFileName = segments[-1]\n    def folderSegments = segments.size() > 1 ? segments[0..-2] : []\n\n    // Build context: each folder segment becomes {id: <url-encoded segment>, name: <raw segment>}\n    def context = folderSegments.collect { segment ->\n        [\n            id  : encodeSegment(segment),\n            name: segment\n        ]\n    }\n\n    // The top-level id is the folder path with each segment url-encoded, joined by /\n    def encodedFolderPath = folderSegments\n        .collect { encodeSegment(it) }\n        .join(\"/\")\n\n    return [\n        path    : [\n            id     : encodedFolderPath,\n            context: context\n        ],\n        fileName: fileNameOverride ?: extractedFileName\n    ]\n}\n\n\nreturn convertPathToContext(inputPath.toString(), fileNameParam)",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"inputPath":"{{ n_ViiUv.outputs.filePath }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_onedrive",
+				"resourceVersion":4926,
+				"connectionId":"6a3fb6e4e2356644ba0603e2",
+				"resourceName":"microsoft_onedrive_download_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@y",
+			"id":"n_F6ukB",
+			"index":4,
+			"inputs":{
+				"path":"{{ n_QeRr4.outputs.result.path }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft OneDrive",
+			"title":"Download file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@y",
+			"id":"n_25lcb",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"updatedFileObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Updated File Obj",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def withWeb1 = { String url ->\n    if (!url) return url\n    if (url =~ /(?i)[?&]web=1(?=[&#]|$)/) return url        // already present, don't double-append\n    def hash = url.indexOf('#')\n    def base = hash < 0 ? url : url.substring(0, hash)\n    def frag = hash < 0 ? ''  : url.substring(hash)\n    return base + (base.contains('?') ? '&' : '?') + 'web=1' + frag\n}\n\ndef output = fileDetails\noutput[\"referenceUrl\"] = withWeb1(binding.hasVariable('referenceUrl') ? referenceUrl : null)\noutput[\"appName\"] = 'microsoft_onedrive'\nreturn [\"updatedFileObj\": output]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileDetails":"{{ n_F6ukB.outputs.file }}",
+					"referenceUrl":"{{ n_ViiUv.outputs.webUrl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3638,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@y",
+			"id":"_80eKi",
+			"index":6,
+			"inputs":{
+				"result":{
+					"file":"{{ n_F6ukB.outputs.file }}",
+					"filePath":"{{ n_ViiUv.outputs.filePath }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":5681,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@n",
+			"id":"n_SPUsx",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"fileName":{
+							"title":"File Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"filePath":{
+							"title":"File Path",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def filePath = binding.hasVariable('filePath') && filePath != null ? filePath : \"\"\n\n\ndef extractFileName = { String rawPath ->\n    if (!rawPath?.trim()) return \"\"\n\n    def trimmed = rawPath.trim()\n    if (trimmed.endsWith(\"/\")) return \"\"   // it's a folder, no file name\n\n    def segment = trimmed.replaceAll(\"^/+\", \"\").split(\"/\").findAll { it }[-1]\n    if (!segment) return \"\"\n\n    // Decode repeatedly to handle single- and double-encoded input.\n    // '+' is a literal plus in a file path, so protect it before decoding.\n    def current = segment\n    for (int i = 0; i < 3; i++) {\n        if (!(current =~ /%[0-9A-Fa-f]{2}/)) break\n        def next\n        try {\n            next = java.net.URLDecoder.decode(current.replace(\"+\", \"%2B\"), \"UTF-8\")\n        } catch (Exception e) {\n            break   // malformed escape, e.g. \"50% off.txt\" - keep as-is\n        }\n        if (next == current) break\n        current = next\n    }\n\n    return current\n}\n\n\nreturn [fileName: extractFileName(filePath.toString())]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"filePath":"{{ n_ViiUv.outputs.filePath }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_onedrive",
+				"resourceVersion":56,
+				"connectionId":"6a9748f7d9259c1b2874856a",
+				"resourceName":"microsoft_onedrive_download_file_by_drive_item",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@n",
+			"id":"n_81ifZ",
+			"index":8,
+			"inputs":{
+				"fileName":"{{ n_SPUsx.outputs.result.fileName }}",
+				"driveId":"{{ n_ViiUv.outputs.driveId }}",
+				"useDecompression":false,
+				"id":"{{ n_ViiUv.outputs.ItemId }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Microsoft OneDrive",
+			"title":"Download file (by drive item)",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@n",
+			"id":"n_MQdwZ",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"updatedFileObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Updated File Obj",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def withWeb1 = { String url ->\n    if (!url) return url\n    if (url =~ /(?i)[?&]web=1(?=[&#]|$)/) return url        // already present, don't double-append\n    def hash = url.indexOf('#')\n    def base = hash < 0 ? url : url.substring(0, hash)\n    def frag = hash < 0 ? ''  : url.substring(hash)\n    return base + (base.contains('?') ? '&' : '?') + 'web=1' + frag\n}\n\ndef output = fileDetails\noutput[\"referenceUrl\"] = withWeb1(binding.hasVariable('referenceUrl') ? referenceUrl : null)\noutput[\"appName\"] = 'microsoft_onedrive'\nreturn [\"updatedFileObj\": output]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileDetails":"{{ n_81ifZ.outputs.file }}",
+					"referenceUrl":"{{ n_ViiUv.outputs.webUrl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3638,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_VGBzp@_n9FSM-1@n",
+			"id":"_0kbkt",
+			"index":10,
+			"inputs":{
+				"result":{
+					"file":"{{ n_MQdwZ.outputs.result.updatedFileObj }}",
+					"filePath":"{{ n_ViiUv.outputs.filePath }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"runtimeConnectionAppNames":[
+		"microsoft_onedrive"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a12d42bafcac26cfb201cfa",
+	"workflowVersion":50
+}
