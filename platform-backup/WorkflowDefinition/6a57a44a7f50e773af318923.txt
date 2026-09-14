@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744047722,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744047869,
+		"deployedAt":1789395308737,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf2fcee862008d74d06c",
+		"deployedDefinitionId":"6aa8016c72fd792214e8cc67",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":85
+		"version":2,
+		"workflowVersion":88
 	},
 	"edges":[
 		{
@@ -82,7 +82,41 @@
 		},
 		{
 			"fromNodeId":"n_IJxiZ",
+			"id":"error@n_IJxiZ@n_YibJ9",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YibJ9",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_YibJ9",
+			"id":"next@n_YibJ9@n_oNNBD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_oNNBD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_oNNBD",
+			"id":"next@n_oNNBD@n_xKTAK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xKTAK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IJxiZ",
 			"id":"next@n_IJxiZ@n_RRWoJ",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RRWoJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xKTAK",
+			"id":"next@n_xKTAK@n_RRWoJ",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -91,7 +125,23 @@
 		},
 		{
 			"fromNodeId":"n_RRWoJ",
-			"id":"next@n_RRWoJ@n_bK1cY",
+			"id":"next@n_RRWoJ@n_uoFzu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uoFzu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uoFzu",
+			"id":"next@n_uoFzu@n_8xzdQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8xzdQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8xzdQ",
+			"id":"next@n_8xzdQ@n_bK1cY",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_bK1cY",
@@ -121,7 +171,7 @@
 	"id":"6a57a44a7f50e773af318923",
 	"lastModifiedBy":-1,
 	"lcName":"agent profile group sync",
-	"modifiedTime":1788252973513,
+	"modifiedTime":1789395392392,
 	"name":"Agent profile group sync",
 	"nodes":[
 		{
@@ -433,7 +483,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"n_RRWoJ@_iuMYC-1@l",
 			"id":"n_IJxiZ",
 			"index":8,
@@ -458,10 +508,303 @@
 					"retryCount":"{{ n_Cmw47.outputs.properties.retryCount }}"
 				}
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Call interface",
 			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IJxiZ@n_RRWoJ@_iuMYC-1@l@error",
+			"id":"n_YibJ9",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def extract(err) {\n  if (err == null) return null\n  if (err instanceof Map) {\n    def body = err.body\n    if (body instanceof Map && body.message) return body.message as String   // HTTP: { body: { message } }\n    if (err.rootCauseMessage) return err.rootCauseMessage as String           // platform: { rootCauseMessage }\n    if (err.message) return err.message as String\n    return err.toString()\n  }\n  return err.toString()\n}\n\ndef msg\ntry {\n  def ed = null\n  if (response instanceof Map) {\n    ed = response?.result?.errorDetails\n    if (ed == null) ed = response.errorDetails\n    if (ed == null) ed = response.result\n    if (ed == null) ed = response\n  }\n  msg = extract(ed)\n  if (!msg) msg = 'Discovery failed'\n} catch (e) {\n  msg = 'Discovery failed: ' + e.message\n}\nreturn [ errorMessage: msg ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"response":"{{ n_IJxiZ.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":14208,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IJxiZ@n_RRWoJ@_iuMYC-1@l@error",
+			"id":"n_oNNBD",
+			"index":10,
+			"inputs":{
+				"recordId":"{{ n_lhXBV.outputs.id }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"agent_profile_group",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.isInitialSyncInProgress",
+						"setValue":"false"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.status",
+						"setValue":"syncError"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.errorDetails.errorMessage",
+						"setValue":"{{ n_YibJ9.outputs.result.errorMessage }}"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":31725,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IJxiZ@n_RRWoJ@_iuMYC-1@l@error",
+			"id":"n_xKTAK",
+			"index":11,
+			"inputs":{
+				"result":{
+					"success":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iuMYC-1",
+			"id":"n_uoFzu",
+			"index":12,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"currentTimestamp":{
+							"title":"Current Timestamp",
+							"type":"string"
+						}
+					},
+					"required":[
+						"currentTimestamp"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [ currentTimestamp: System.currentTimeMillis() ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Get current timestamp",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":12750,
+				"resourceName":"standard_entities_get_connection_details",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_iuMYC-1",
+			"id":"n_8xzdQ",
+			"index":13,
+			"inputs":{
+				"connectionIds":{
+					"items":"{{ n_lhXBV.outputs.properties.connection }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get connection details",
+			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -475,18 +818,37 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_bK1cY",
-			"index":9,
+			"index":14,
 			"inputs":{
 				"recordId":"{{ n_lhXBV.outputs.id }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile_group",
-				"skipIfBlank":false,
+				"skipIfBlank":true,
 				"skipPermissionCheck":false,
 				"updateFields":[
 					{
 						"actionType":"SET",
 						"fieldName":"properties.isInitialSyncInProgress",
 						"setValue":"false"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.lastSyncTime",
+						"setValue":"{{ n_uoFzu.outputs.result.currentTimestamp }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.status",
+						"setValue":"connected"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.connectionName",
+						"setValue":"{{ n_8xzdQ.outputs.connectionDetails[0].name }}"
+					},
+					{
+						"actionType":"UNSET",
+						"fieldName":"properties.errorDetails"
 					}
 				],
 				"skipSchemaValidation":true,
@@ -509,7 +871,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_iuMYC-1",
 			"id":"n_NK56Y",
-			"index":10,
+			"index":15,
 			"inputs":{
 				"result":{
 					"success":true
@@ -539,5 +901,5 @@
 		}
 	},
 	"standard":true,
-	"version":87
+	"version":89
 }
