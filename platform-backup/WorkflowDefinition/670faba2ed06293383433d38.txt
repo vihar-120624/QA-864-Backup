@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744204672,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744206623,
+		"deployedAt":1789395327348,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecfce2889f9507f11f92d",
+		"deployedDefinitionId":"6aa8017f72fd792214e8cd96",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":115
+		"version":2,
+		"workflowVersion":118
 	},
 	"description":"",
 	"edges":[
@@ -145,7 +145,7 @@
 	"id":"670faba2ed06293383433d38",
 	"lastModifiedBy":-1,
 	"lcName":"data rag - search records ",
-	"modifiedTime":1788252972536,
+	"modifiedTime":1789395402030,
 	"name":"DATA RAG - Search Records ",
 	"nodes":[
 		{
@@ -310,20 +310,49 @@
 			"inputs":{
 				"filters":[
 					{
-						"filter":{
-							"operator":"EQUAL",
-							"value":"0"
-						},
-						"property":"=LEN({{ Cs8W8.outputs.knowledges }})"
+						"filters":[
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ Cs8W8.outputs.knowledgeSetIds }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"0"
+								},
+								"property":"=LEN({{ Cs8W8.outputs.knowledgeSetIds }})"
+							}
+						],
+						"operator":"OR"
 					},
 					{
-						"filter":{
-							"operator":"MISSING"
-						},
-						"property":"{{ Cs8W8.outputs.knowledges[0].id }}"
+						"filters":[
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ Cs8W8.outputs.knowledges }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"0"
+								},
+								"property":"=LEN({{ Cs8W8.outputs.knowledges }})"
+							},
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ Cs8W8.outputs.knowledges[0].id }}"
+							}
+						],
+						"operator":"OR"
 					}
 				],
-				"operator":"OR"
+				"operator":"AND"
 			},
 			"skip":false,
 			"subTitle":"Condition",
@@ -378,7 +407,8 @@
 					},
 					"userEmailAddress":"{{ Cs8W8.outputs.userEmail }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Generic User RBAC Detail Fetcher",
@@ -605,7 +635,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def result = knowledgeIds.collect { obj ->\n    [\n        id: obj.id,\n        readVersion: obj.properties?.readVersion\n    ]\n}\n\nreturn [\n    \"knowledgeIdsWithVersion\" : result \n]",
+				"code":"def result = []\n\nif (binding.hasVariable(\"knowledgeIds\") && knowledgeIds) {\n    result = knowledgeIds.findResults { obj ->\n        if (obj instanceof Map) {\n            [\n                id: obj.id,\n                readVersion: obj.properties?.readVersion\n            ]\n        }\n    }\n}\n\nreturn [\n    \"knowledgeIdsWithVersion\": result\n]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -787,7 +817,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def combinedFilter = [\n    op: 'AND',\n    values: []\n]\n\ndef knowledgeFilter = null\n\n// For every item: (knowledgeId AND readVersion EQUAL) OR (knowledgeId AND readVersion MISSING)\nif (binding.hasVariable('knowledgeIdsWithVersion') && knowledgeIdsWithVersion) {\n\n    def perItemFilters = knowledgeIdsWithVersion.collect { item ->\n        def knowledgeId = item.id\n        def rawReadVersion = item instanceof Map ? item.readVersion : null\n        def readVersion = null\n        if (rawReadVersion != null) {\n            readVersion = (rawReadVersion instanceof Number) ? rawReadVersion.intValue() : rawReadVersion.toString().toInteger()\n        }\n\n        def branches = []\n\n        if (readVersion != null) {\n            branches.add([\n                op: 'AND',\n                values: [\n                    [\n                        field: 'properties.knowledgeId',\n                        op: 'EQUAL',\n                        values: [knowledgeId]\n                    ],\n                    [\n                        field: 'properties.knowledgeVersion',\n                        op: 'EQUAL',\n                        values: [readVersion]\n                    ]\n                ]\n            ])\n        }\n\n        branches.add([\n            op: 'AND',\n            values: [\n                [\n                    field: 'properties.knowledgeId',\n                    op: 'EQUAL',\n                    values: [knowledgeId]\n                ],\n                [\n                    field: 'properties.knowledgeVersion',\n                    op: 'MISSING'\n                ]\n            ]\n        ])\n\n        // Only wrap in OR if there are actually 2 branches (readVersion + missing);\n        // if readVersion wasn't present, just return the single MISSING branch directly.\n        branches.size() == 1 ? branches[0] : [op: 'OR', values: branches]\n    }\n\n    // Only wrap across items in OR if there's more than one knowledgeId\n    knowledgeFilter = perItemFilters.size() == 1 ? perItemFilters[0] : [op: 'OR', values: perItemFilters]\n\n} else if (binding.hasVariable('knowledgeIds') && knowledgeIds) {\n    // fallback to old plain knowledgeIds behavior if new variable isn't provided\n    knowledgeFilter = [\n        op: 'OR',\n        values: knowledgeIds.collect { knowledgeId ->\n            [\n                field: 'properties.knowledgeId',\n                op: 'EQUAL',\n                values: [knowledgeId]\n            ]\n        }\n    ]\n}\n\ndef knowledgeSetFilter = null\nif (binding.hasVariable('knowledgeSetIds') && knowledgeSetIds) {\n    knowledgeSetFilter = [\n        op: 'OR',\n        values: knowledgeSetIds.collect { setId ->\n            [\n                op: 'OR',\n                values: [\n                    [\n                        field: 'properties.knowledgeSetId',\n                        op: 'EQUAL',\n                        values: [setId]\n                    ],\n                    [\n                        field: 'properties.knowledgeSetId.__raw__',\n                        op: 'EQUAL',\n                        values: [setId]\n                    ]\n                ]\n            ]\n        }\n    ]\n}\n\ndef knowledgeOrKnowledgeSetParts = []\n\nif (knowledgeFilter) {\n    knowledgeOrKnowledgeSetParts.add(knowledgeFilter)\n}\n\nif (knowledgeSetFilter) {\n    knowledgeOrKnowledgeSetParts.add(knowledgeSetFilter)\n}\n\nif (!knowledgeOrKnowledgeSetParts.isEmpty()) {\n    // Only wrap in OR if both knowledgeFilter and knowledgeSetFilter are present\n    def knowledgeOrKnowledgeSetBlock = knowledgeOrKnowledgeSetParts.size() == 1 ?\n        knowledgeOrKnowledgeSetParts[0] :\n        [op: 'OR', values: knowledgeOrKnowledgeSetParts]\n    combinedFilter.values.add(knowledgeOrKnowledgeSetBlock)\n}\n\n// SharedWithIds Filter\ndef sharedFilter = null\nif (binding.hasVariable('sharedWithIds')) {\n   sharedFilter = [\n        op: 'OR',\n        values: [\n            [\n                field: 'properties.sharedWithIds',\n                op: 'IN',\n                values: sharedWithIds\n            ], \n            [\n                field: 'properties.sharedWithIds',\n                op: 'MISSING'\n            ]\n        ]\n    ]\n    combinedFilter['values'].add(sharedFilter)\n}\n\nif(binding.hasVariable(\"tableIds\")) {\n    def tableFilter = null\n    tableFilter = [\n        field: 'properties.tableId',\n        op: 'IN',\n        values: tableIds\n    ]\n    combinedFilter['values'].add(tableFilter)\n}\n\nif (binding.hasVariable('filter') && filter instanceof Map && filter.values) {\n    filter.values.each { element ->\n        if (element instanceof Map &&\n            element.field == 'properties.chunkMetadata.appName' &&\n            element.op == 'IN') {\n            def appNameFilter = [\n                op: 'OR',\n                values: element.values.collect { appName ->\n                    [\n                        field: 'properties.metadataSource',\n                        op: 'STARTS_WITH',\n                        values: [appName]\n                    ]\n                }\n            ]\n            combinedFilter['values'].add(appNameFilter)\n        } else {\n            combinedFilter['values'].add(element)\n        }\n    }\n}\n\nreturn ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]",
+				"code":"def combinedFilter = [ op: 'AND', values: [] ]\ndef knowledgeFilter = null\n\nif (binding.hasVariable('knowledgeIdsWithVersion') && knowledgeIdsWithVersion) {\n    def idsByVersion = [:]\n    knowledgeIdsWithVersion.each { item ->\n        def id = item.id\n        def raw = item instanceof Map ? item.readVersion : null\n        def version = raw != null ? ((raw instanceof Number) ? raw.intValue() : raw.toString().toInteger()) : null\n        idsByVersion.computeIfAbsent(version) { [] }.add(id)\n    }\n    def branches = []\n    idsByVersion.each { version, ids ->\n        if (version != null) {\n            branches.add([ op: 'OR', values: [\n                [ op: 'AND', values: [\n                    [field: 'properties.knowledgeId', op: 'IN', values: ids],\n                    [field: 'properties.knowledgeVersion', op: 'EQUAL', values: [version]]\n                ]],\n                [ op: 'AND', values: [\n                    [field: 'properties.knowledgeId', op: 'IN', values: ids],\n                    [field: 'properties.knowledgeVersion', op: 'MISSING']\n                ]]\n            ]])\n        } else {\n            branches.add([ op: 'AND', values: [\n                [field: 'properties.knowledgeId', op: 'IN', values: ids],\n                [field: 'properties.knowledgeVersion', op: 'MISSING']\n            ]])\n        }\n    }\n    knowledgeFilter = branches.size() == 1 ? branches[0] : [op: 'OR', values: branches]\n} else if (binding.hasVariable('knowledgeIds') && knowledgeIds) {\n    knowledgeFilter = [field: 'properties.knowledgeId', op: 'IN', values: knowledgeIds]\n}\n\ndef knowledgeSetFilter = null\nif (binding.hasVariable('knowledgeSetIds') && knowledgeSetIds) {\n    knowledgeSetFilter = [ op: 'OR', values: knowledgeSetIds.collect { setId -> [op: 'OR', values: [\n        [field: 'properties.knowledgeSetId', op: 'EQUAL', values: [setId]],\n        [field: 'properties.knowledgeSetId.__raw__', op: 'EQUAL', values: [setId]]\n    ]]} ]\n}\n\ndef parts = []\nif (knowledgeFilter) parts.add(knowledgeFilter)\nif (knowledgeSetFilter) parts.add(knowledgeSetFilter)\nif (!parts.isEmpty()) {\n    combinedFilter.values.add(parts.size() == 1 ? parts[0] : [op: 'OR', values: parts])\n}\n\nif (binding.hasVariable('sharedWithIds') && sharedWithIds != null) {\n    combinedFilter['values'].add([ op: 'OR', values: [\n        [field: 'properties.sharedWithIds', op: 'IN', values: sharedWithIds],\n        [field: 'properties.sharedWithIds', op: 'MISSING']\n    ]])\n}\nif (binding.hasVariable(\"tableIds\") && tableIds) {\n    combinedFilter['values'].add([field: 'properties.tableId', op: 'IN', values: tableIds])\n}\nif (binding.hasVariable('filter') && filter instanceof Map && filter.values) {\n    filter.values.each { element ->\n        if (element instanceof Map && element.field == 'properties.chunkMetadata.appName' && element.op == 'IN') {\n            combinedFilter['values'].add([ op: 'OR', values: element.values.collect { a -> [field: 'properties.metadataSource', op: 'STARTS_WITH', values: [a]] } ])\n        } else {\n            combinedFilter['values'].add(element)\n        }\n    }\n}\nreturn ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -882,7 +912,8 @@
 					"aiAgentId":"{{ Cs8W8.outputs.aiAgentId }}",
 					"purpose":"AGENTS_embedModel"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"getModelId",
@@ -911,7 +942,8 @@
 					"step":"Retrieval",
 					"userQuery":"{{ Cs8W8.outputs.query }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"fetchEmbeddings",
@@ -938,7 +970,8 @@
 				"parameters":{
 					"aiAgentId":"{{ Cs8W8.outputs.aiAgentId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"getAgentCached",
@@ -971,7 +1004,8 @@
 					"filter":"{{ _4XK6R.outputs.result.filter }}",
 					"metadata_fetcher_limit":"{{ n_qtGLx.outputs.properties.textToSQLSettings.matadata_fetcher_limit }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"FetchMetadata",
@@ -1052,5 +1086,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":117
+	"version":119
 }

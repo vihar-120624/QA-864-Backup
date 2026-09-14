@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743572236,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743572404,
+		"deployedAt":1789395080419,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd5453a823318abfc8f6",
+		"deployedDefinitionId":"6aa8008839ee5f5ef70b5b7d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":63
+		"version":2,
+		"workflowVersion":66
 	},
 	"edges":[
 		{
@@ -98,7 +98,7 @@
 	"id":"6a1577cd88848b57e21dc49b",
 	"lastModifiedBy":-1,
 	"lcName":"confluence store userspace (wrapper)",
-	"modifiedTime":1788252973245,
+	"modifiedTime":1789395402050,
 	"name":"Confluence Store UserSpace (Wrapper)",
 	"nodes":[
 		{
@@ -161,7 +161,8 @@
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
 				"page":{
-					"limit":20,
+					"limit":100,
+					"offset":0,
 					"paginateBy":"OFFSET"
 				},
 				"includeTotalCount":false,
@@ -218,9 +219,12 @@
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
 					"connectionId":"{{ n_5jweO.outputs.item.properties.connectionId }}",
-					"connectionType":"{{ n_5jweO.outputs.item.properties.connectionType }}"
+					"connectionType":"{{ n_5jweO.outputs.item.properties.connectionType }}",
+					"suffix":"{{ __RUN__.outputs.executionId }}",
+					"syncNum":"=SUM({{ n_5jweO.outputs.item.properties.lastSuccessSyncNum }},1)"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -320,6 +324,11 @@
 					{
 						"actionType":"UNSET",
 						"fieldName":"properties.errorDetails"
+					},
+					{
+						"actionType":"INCREMENT",
+						"fieldName":"properties.lastSuccessSyncNum",
+						"setValue":"1"
 					}
 				],
 				"page":{
@@ -372,7 +381,7 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.errorDetails",
-						"setValue":"{{ n_5jweO.outputs.item.properties.errorDetails }}"
+						"setValue":"{{ n_0myIJ.outputs }}"
 					}
 				],
 				"page":{
@@ -417,5 +426,5 @@
 		}
 	},
 	"standard":true,
-	"version":65
+	"version":67
 }

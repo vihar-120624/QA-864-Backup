@@ -2,32 +2,32 @@
 	"appsUsed":[
 		
 	],
-	"createdTime":1787743876785,
+	"createdTime":1789395311991,
 	"deleted":false,
-	"deployedVersion":2,
+	"deployedVersion":1,
 	"deploymentState":{
-		"deployedAt":1789395245333,
+		"deployedAt":1789395312033,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6aa8012d72fd792214e8c8f1",
+		"deployedDefinitionId":"6aa8017039ee5f5ef70b6739",
 		"status":"DEPLOYED",
-		"version":2,
-		"workflowVersion":5
+		"version":1,
+		"workflowVersion":4
 	},
 	"edges":[
 		{
-			"fromNodeId":"n_smvBL",
-			"id":"next@n_smvBL@n_CXFG1",
+			"fromNodeId":"n_Klv8O",
+			"id":"next@n_Klv8O@n_3kISx",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_CXFG1",
+			"toNodeId":"n_3kISx",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_CXFG1",
-			"id":"next@n_CXFG1@n_TYTqP",
+			"fromNodeId":"n_3kISx",
+			"id":"next@n_3kISx@n_FPHJc",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_TYTqP",
+			"toNodeId":"n_FPHJc",
 			"type":"next"
 		}
 	],
@@ -43,47 +43,54 @@
 			}
 		]
 	},
-	"id":"6a43c8b548cf8d573ddec60d",
+	"id":"6a76f2cf78a96e20a002d911",
 	"lastModifiedBy":-1,
-	"lcName":"pdf file url",
-	"modifiedTime":1789395402011,
-	"name":"PDF File Url",
+	"lcName":"agent optimiser | movetooltotask",
+	"modifiedTime":1789395402005,
+	"name":"Agent Optimiser | moveTooltoTask",
 	"nodes":[
 		{
 			"context":{
 				"appName":"callables",
-				"resourceVersion":1515,
+				"resourceVersion":1365,
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_bCOFU-1",
-			"id":"n_smvBL",
+			"groupId":"_6zRPA-1",
+			"id":"n_Klv8O",
 			"index":1,
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
 					"properties":{
-						"url":{
-							"title":"Url",
-							"type":"string"
+						"success":{
+							"title":"Success",
+							"type":"boolean"
 						}
 					},
-					"required":[],
+					"required":[
+						"success"
+					],
 					"type":"object"
 				},
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
-						"pdfFile":{
-							"additionalProperties":false,
-							"properties":{},
-							"title":"PDF File",
-							"type":"object"
+						"newTaskId":{
+							"title":"New Task Id",
+							"type":"string"
+						},
+						"toolActionId":{
+							"title":"Tool Action Id",
+							"type":"string"
 						}
 					},
-					"required":[],
+					"required":[
+						"toolActionId",
+						"newTaskId"
+					],
 					"type":"object"
 				}
 			},
@@ -97,43 +104,54 @@
 		},
 		{
 			"context":{
-				"appName":"utility_by_unifyapps",
-				"resourceVersion":4023,
-				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2954,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_bCOFU-1",
-			"id":"n_CXFG1",
+			"groupId":"_6zRPA-1",
+			"id":"n_3kISx",
 			"index":2,
 			"inputs":{
-				"preview":false,
-				"file":"{{ n_smvBL.outputs.pdfFile }}",
-				"expiryTime":1
+				"recordId":"{{ n_Klv8O.outputs.toolActionId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"e_action_ai_agent",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.topicId",
+						"setValue":"{{ n_Klv8O.outputs.newTaskId }}"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
 			},
 			"skip":false,
-			"subTitle":"Utility by UnifyApps",
-			"title":"Generate public file URL",
+			"subTitle":"Storage",
+			"title":"Update an existing record's fields",
 			"type":"ACTION"
 		},
 		{
 			"context":{
 				"appName":"callables",
-				"resourceVersion":1516,
+				"resourceVersion":1365,
 				"resourceName":"callables_return_to_automation",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_bCOFU-1",
-			"id":"n_TYTqP",
+			"groupId":"_6zRPA-1",
+			"id":"n_FPHJc",
 			"index":3,
 			"inputs":{
 				"result":{
-					"url":"{{ n_CXFG1.outputs.url }}"
+					"success":"{{ n_3kISx.outputs.success }}"
 				}
 			},
 			"skip":false,
@@ -156,5 +174,9 @@
 		}
 	},
 	"standard":true,
-	"version":6
+	"tags":[
+		"AI Agent",
+		"Agent Optimiser"
+	],
+	"version":5
 }

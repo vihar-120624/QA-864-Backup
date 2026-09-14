@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743876549,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743876764,
+		"deployedAt":1789395245276,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece8445d2142160e6e966",
+		"deployedDefinitionId":"6aa8012d39ee5f5ef70b63d9",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":189
+		"version":2,
+		"workflowVersion":192
 	},
 	"edges":[
 		{
@@ -32,7 +32,23 @@
 		},
 		{
 			"fromNodeId":"undefined_9OChI",
-			"id":"next@undefined_9OChI@_CaWZ4",
+			"id":"next@undefined_9OChI@n_LspL6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LspL6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LspL6",
+			"id":"next@n_LspL6@n_F14Xf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_F14Xf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_F14Xf",
+			"id":"next@n_F14Xf@_CaWZ4",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_CaWZ4",
@@ -521,7 +537,7 @@
 	"id":"687a0ae0e048686b003020b8",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | jira | issue",
-	"modifiedTime":1788252971852,
+	"modifiedTime":1789395401975,
 	"name":"Knowledge Downloader | Jira | Issue",
 	"nodes":[
 		{
@@ -576,8 +592,16 @@
 							"title":"connectionId",
 							"type":"string"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"grabberType":{
 							"title":"Grabber Type",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
 							"type":"string"
 						},
 						"indexingVersion":{
@@ -782,8 +806,161 @@
 				}
 			},
 			"skip":false,
-			"subTitle":"Jira",
+			"subTitle":"Issue Details",
 			"title":"Get issue details",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"jira",
+				"resourceVersion":44,
+				"connectionId":"69f05600455b431045a50600",
+				"resourceName":"jira_get_issue_remote_links",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"8dIPB-1",
+			"id":"n_LspL6",
+			"index":4,
+			"inputs":{
+				"issueIdOrKey":"{{ _B7QXL.outputs.result.issueId }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":2000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Remote Links",
+			"title":"Get issue remote links",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.remoteLinks.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":6454,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"8dIPB-1",
+			"id":"n_F14Xf",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"remoteLink":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Remote Link",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"remoteLinks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Remote Links",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def input = binding.hasVariable(\"remoteLinks\")? remoteLinks : []\n// input: already-parsed List<Map> from the /remotelink response\ndef result = input.findAll { it?.object?.url }\n                  .collect { [url: it.object.url, title: it.object.title] }\n\nreturn [\n  \"remoteLink\" : result\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"remoteLinks":{
+						"items":"{{ n_LspL6.outputs.result[0] }}",
+						"source":"{{ n_LspL6.outputs.result }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"remoteLink",
+			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
 		{
@@ -798,7 +975,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"_CaWZ4",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"automationId":"6817292a0fe46226f62602a0",
 				"runtimeConnections":{
@@ -809,9 +986,10 @@
 					"issueKey":"{{ undefined_9OChI.outputs.key }}",
 					"projectId":"{{ _B7QXL.outputs.result.projectId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Content sharedWithIds",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
@@ -828,7 +1006,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"4JrCJ",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -881,7 +1059,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_OKl6e",
-			"index":6,
+			"index":8,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1141,7 +1319,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_CELSz",
-			"index":7,
+			"index":9,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1399,7 +1577,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_nPoiQ",
-			"index":8,
+			"index":10,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1655,7 +1833,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_ZS3oV",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"branches":[
 					{
@@ -1722,7 +1900,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@1",
 			"id":"n_ZS3oV@1",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"name":"Attachments",
 				"conditions":{
@@ -1739,7 +1917,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Attachments",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1754,7 +1933,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@1",
 			"id":"3bQex",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ undefined_9OChI.outputs.fields.attachment }}",
@@ -1777,7 +1956,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3bQex@n_ZS3oV@8dIPB-1@1@l",
 			"id":"n_NwJvv",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"filters":[
 					{
@@ -1807,7 +1986,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@y",
 			"id":"n_odirR",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"automationId":"68bf492eb9564171346f808d",
 				"runtimeConnections":{},
@@ -1816,9 +1995,15 @@
 					"knowledgeId":"{{ qscRv.outputs.knowledgeId }}",
 					"knowledgeSetId":"{{ qscRv.outputs.knowledgeSetId }}",
 					"knowledgeVersion":"{{ qscRv.outputs.indexingVersion }}",
+					"sharedWithIds":{
+						"items":"{{ _CaWZ4.outputs.sharedWithIds[0] }}",
+						"source":"{{ _CaWZ4.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
 					"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}_{{ 3bQex.outputs.item.id }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -1837,7 +2022,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_02K3A",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1886,7 +2071,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"oSqwk",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"fileName":"{{ n_02K3A.outputs.result.updateFileName }}",
 				"attachmentId":"{{ 3bQex.outputs.item.id }}"
@@ -1962,7 +2147,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"oSqwk@n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n@error",
 			"id":"n_niYsk",
-			"index":16,
+			"index":18,
 			"inputs":{
 				"loop":"3bQex",
 				"conditions":{
@@ -1995,7 +2180,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"oSqwk@n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n@error",
 			"id":"n_Xqubm",
-			"index":17,
+			"index":19,
 			"inputs":{
 				"automationId":"68b827559a4a9d0149caa07d",
 				"runtimeConnections":{},
@@ -2022,7 +2207,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_eAJrg",
-			"index":18,
+			"index":20,
 			"inputs":{
 				"itemToAdd":"{{ oSqwk.outputs.file }}",
 				"insertLocation":"END",
@@ -2046,7 +2231,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_Jey7v",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2076,6 +2261,14 @@
 							"title":"Attachment Details",
 							"type":"object"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
+						},
 						"issueApiResponse":{
 							"additionalProperties":false,
 							"properties":{},
@@ -2100,12 +2293,14 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response')){\n  sourceResponse << [\"response\": response]\n}\n\nif(binding.hasVariable('issueApiResponse')){\n  sourceResponse << [\"issueApiResponse\": issueApiResponse]\n}\n\nif(binding.hasVariable('attachmentApiResponse')){\n  sourceResponse << [\"attachmentApiResponse\": attachmentApiResponse]\n}\n\nif(binding.hasVariable('mimeType')){\n  sourceResponse << [\"mimeType\": mimeType]\n}\n\nif(binding.hasVariable('uniqueEntityId')){\n  sourceResponse << [\"uniqueEntityId\": uniqueEntityId]\n}\n\nif(binding.hasVariable('attachmentDetails')){\n  sourceResponse << [\"attachmentDetails\": attachmentDetails]\n}\n\nreturn [ \"sourceResponse\": sourceResponse ]",
+				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response')){\n  sourceResponse << [\"response\": response]\n}\n\nif(binding.hasVariable('connectionType')){\n  sourceResponse << [\"connectionType\": connectionType]\n}\n\nif(binding.hasVariable('hostname')){\n  sourceResponse << [\"hostname\": hostname]\n}\n\nif(binding.hasVariable('issueApiResponse')){\n  sourceResponse << [\"issueApiResponse\": issueApiResponse]\n}\n\nif(binding.hasVariable('attachmentApiResponse')){\n  sourceResponse << [\"attachmentApiResponse\": attachmentApiResponse]\n}\n\nif(binding.hasVariable('mimeType')){\n  sourceResponse << [\"mimeType\": mimeType]\n}\n\nif(binding.hasVariable('uniqueEntityId')){\n  sourceResponse << [\"uniqueEntityId\": uniqueEntityId]\n}\n\nif(binding.hasVariable('attachmentDetails')){\n  sourceResponse << [\"attachmentDetails\": attachmentDetails]\n}\n\nreturn [ \"sourceResponse\": sourceResponse ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"attachmentApiResponse":"{{ oSqwk.outputs }}",
 					"attachmentDetails":"{{ 3bQex.outputs.item }}",
+					"connectionType":"{{ qscRv.outputs.connectionType }}",
+					"hostname":"{{ qscRv.outputs.hostname }}",
 					"issueApiResponse":"{{ undefined_9OChI.outputs }}",
 					"mimeType":"{{ 3bQex.outputs.item.mimeType }}",
 					"response":"{{ qscRv.outputs }}",
@@ -2129,7 +2324,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_FkWbL",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2177,7 +2372,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_gKA7a",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"callableInterfaceId":"69463cac91a45a6faf92f4f2",
 				"runtimeConnections":{},
@@ -2207,7 +2402,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_W9Hg7",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
@@ -2224,11 +2419,17 @@
 					"parentEntityId":"{{ _B7QXL.outputs.result.projectId }}",
 					"resourceType":"file",
 					"rootEntityId":"{{ _B7QXL.outputs.result.issueId }}",
+					"sharedWithIds":{
+						"items":"{{ _CaWZ4.outputs.sharedWithIds[0] }}",
+						"source":"{{ _CaWZ4.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
 					"skipUpdate":"{{ qscRv.outputs.skipRawDataUpdate }}",
 					"sourceResponse":"{{ n_Jey7v.outputs.result.sourceResponse }}",
 					"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}_{{ 3bQex.outputs.item.id }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Store Raw Data",
@@ -2252,7 +2453,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_NwJvv@3bQex@n_ZS3oV@8dIPB-1@1@l@n",
 			"id":"n_V7vAC",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"itemToAdd":"{{ n_W9Hg7.outputs.rawData }}",
 				"insertLocation":"END",
@@ -2276,12 +2477,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@2",
 			"id":"n_ZS3oV@2",
-			"index":24,
+			"index":26,
 			"inputs":{
 				"name":"Issue"
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Issue",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -2296,7 +2498,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@2",
 			"id":"n_EbmKS",
-			"index":25,
+			"index":27,
 			"inputs":{
 				"filters":[
 					{
@@ -2326,7 +2528,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EbmKS@n_ZS3oV@8dIPB-1@2@y",
 			"id":"_0JsML",
-			"index":26,
+			"index":28,
 			"inputs":{
 				"automationId":"68bf492eb9564171346f808d",
 				"runtimeConnections":{},
@@ -2335,9 +2537,15 @@
 					"knowledgeId":"{{ qscRv.outputs.knowledgeId }}",
 					"knowledgeSetId":"{{ qscRv.outputs.knowledgeSetId }}",
 					"knowledgeVersion":"{{ qscRv.outputs.indexingVersion }}",
+					"sharedWithIds":{
+						"items":"{{ _CaWZ4.outputs.sharedWithIds[0] }}",
+						"source":"{{ _CaWZ4.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
 					"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -2347,7 +2555,7 @@
 		{
 			"additional":{
 				"visibleOptionalFields":[
-					"root.parameters.commentsApiResponse.items"
+					"root.parameters.remoteLinks.items"
 				]
 			},
 			"context":{
@@ -2361,7 +2569,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EbmKS@n_ZS3oV@8dIPB-1@2@n",
 			"id":"_Addig",
-			"index":27,
+			"index":29,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2379,11 +2587,28 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
+						},
 						"issueApiResponse":{
 							"additionalProperties":false,
 							"properties":{},
 							"title":"Issue Api Response",
 							"type":"object"
+						},
+						"remoteLinks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Remote Links",
+							"type":"array"
 						},
 						"response":{
 							"additionalProperties":false,
@@ -2399,11 +2624,18 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response')){\n  sourceResponse << [\"response\": response]\n}\n\nif(binding.hasVariable('issueApiResponse')){\n  sourceResponse << [\"issueApiResponse\": issueApiResponse]\n}\n\n// if(binding.hasVariable('commentsApiResponse')){\n//   sourceResponse << [\"commentsApiResponse\": commentsApiResponse]\n// }\n\nif(binding.hasVariable('uniqueEntityId')){\n  sourceResponse << [\"uniqueEntityId\": uniqueEntityId]\n}\nif(binding.hasVariable('editCount')){\n  sourceResponse << [\"editCount\": 0]\n}\n\n\nreturn [ \"sourceResponse\": sourceResponse ]",
+				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response')){\n  sourceResponse << [\"response\": response]\n}\n\nif(binding.hasVariable('remoteLinks')){\n  sourceResponse << [\"remoteLinks\": remoteLinks]\n}\n\nif(binding.hasVariable('connectionType')){\n  sourceResponse << [\"connectionType\": connectionType]\n}\n\nif(binding.hasVariable('hostname')){\n  sourceResponse << [\"hostname\": hostname]\n}\n\nif(binding.hasVariable('issueApiResponse')){\n  sourceResponse << [\"issueApiResponse\": issueApiResponse]\n}\n\n// if(binding.hasVariable('commentsApiResponse')){\n//   sourceResponse << [\"commentsApiResponse\": commentsApiResponse]\n// }\n\nif(binding.hasVariable('uniqueEntityId')){\n  sourceResponse << [\"uniqueEntityId\": uniqueEntityId]\n}\nif(binding.hasVariable('editCount')){\n  sourceResponse << [\"editCount\": 0]\n}\n\n\nreturn [ \"sourceResponse\": sourceResponse ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"connectionType":"{{ qscRv.outputs.connectionType }}",
+					"hostname":"{{ qscRv.outputs.hostname }}",
 					"issueApiResponse":"{{ undefined_9OChI.outputs }}",
+					"remoteLinks":{
+						"items":"{{ n_F14Xf.outputs.result.remoteLink[0] }}",
+						"source":"{{ n_F14Xf.outputs.result.remoteLink }}",
+						"ua:type":"mappedArray"
+					},
 					"response":"{{ qscRv.outputs }}",
 					"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}"
 				}
@@ -2425,7 +2657,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EbmKS@n_ZS3oV@8dIPB-1@2@n",
 			"id":"_KUaTI",
-			"index":28,
+			"index":30,
 			"inputs":{
 				"callableInterfaceId":"69463cac91a45a6faf92f4f2",
 				"runtimeConnections":{},
@@ -2455,7 +2687,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EbmKS@n_ZS3oV@8dIPB-1@2@n",
 			"id":"n_Ral5q",
-			"index":29,
+			"index":31,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2503,7 +2735,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EbmKS@n_ZS3oV@8dIPB-1@2@n",
 			"id":"n_Vqncw",
-			"index":30,
+			"index":32,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
@@ -2520,11 +2752,17 @@
 					"parentEntityId":"{{ _B7QXL.outputs.result.projectId }}",
 					"resourceType":"issue",
 					"rootEntityId":"{{ _B7QXL.outputs.result.issueId }}",
+					"sharedWithIds":{
+						"items":"{{ _CaWZ4.outputs.sharedWithIds[0] }}",
+						"source":"{{ _CaWZ4.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
 					"skipUpdate":"{{ qscRv.outputs.skipRawDataUpdate }}",
 					"sourceResponse":"{{ _Addig.outputs.result.sourceResponse }}",
 					"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Store Raw Data",
@@ -2543,7 +2781,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@3",
 			"id":"n_ZS3oV@3",
-			"index":31,
+			"index":33,
 			"inputs":{
 				"name":"Comment",
 				"conditions":{
@@ -2560,7 +2798,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Comment",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -2575,7 +2814,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@3",
 			"id":"n_RWKrq",
-			"index":32,
+			"index":34,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2833,7 +3072,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@3",
 			"id":"7htxA",
-			"index":33,
+			"index":35,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2896,7 +3135,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@3",
 			"id":"RCXxO",
-			"index":34,
+			"index":36,
 			"inputs":{
 				"condition":{
 					"filters":[
@@ -2937,7 +3176,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RCXxO@n_ZS3oV@8dIPB-1@3@l",
 			"id":"V786r",
-			"index":35,
+			"index":37,
 			"inputs":{
 				"issueIdOrKey":"{{ _B7QXL.outputs.result.issueId }}",
 				"maxResults":100,
@@ -3028,7 +3267,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RCXxO@n_ZS3oV@8dIPB-1@3@l",
 			"id":"n_y2DF4",
-			"index":36,
+			"index":38,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3056,7 +3295,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RCXxO@n_ZS3oV@8dIPB-1@3@l",
 			"id":"_GPT7I",
-			"index":37,
+			"index":39,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3114,7 +3353,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RCXxO@n_ZS3oV@8dIPB-1@3@l",
 			"id":"_k2ZIv",
-			"index":38,
+			"index":40,
 			"inputs":{
 				"variables":[
 					{
@@ -3144,7 +3383,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZS3oV@8dIPB-1@3",
 			"id":"n_ATfxK",
-			"index":39,
+			"index":41,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_RWKrq.outputs.items }}",
@@ -3168,7 +3407,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ATfxK@n_ZS3oV@8dIPB-1@3@l",
 			"id":"n_uzkKu",
-			"index":40,
+			"index":42,
 			"inputs":{
 				"filters":[
 					{
@@ -3198,7 +3437,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_uzkKu@n_ATfxK@n_ZS3oV@8dIPB-1@3@l@y",
 			"id":"n_rpzDc",
-			"index":41,
+			"index":43,
 			"inputs":{
 				"automationId":"68bf492eb9564171346f808d",
 				"runtimeConnections":{},
@@ -3210,6 +3449,11 @@
 						"knowledgeId":"{{ qscRv.outputs.knowledgeId }}",
 						"knowledgeSetId":"{{ qscRv.outputs.knowledgeSetId }}",
 						"knowledgeVersion":"{{ qscRv.outputs.indexingVersion }}",
+						"sharedWithIds":{
+							"items":"{{ _CaWZ4.outputs.sharedWithIds[0] }}",
+							"source":"{{ _CaWZ4.outputs.sharedWithIds }}",
+							"ua:type":"mappedArray"
+						},
 						"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}_{{ n_ATfxK.outputs.item[0].id }}"
 					},
 					"source":"{{ n_ATfxK.outputs.item }}",
@@ -3234,7 +3478,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_uzkKu@n_ATfxK@n_ZS3oV@8dIPB-1@3@l@n",
 			"id":"n_476wh",
-			"index":42,
+			"index":44,
 			"inputs":{
 				"automationId":"69fe317c81a064269d2982d4",
 				"runtimeConnections":{},
@@ -3244,13 +3488,20 @@
 				"parametersList":{
 					"items":{
 						"comment":"{{ n_ATfxK.outputs.item[0] }}",
+						"connectionType":"{{ qscRv.outputs.connectionType }}",
 						"editCount":0,
 						"grabberType":"{{ qscRv.outputs.grabberType }}",
+						"hostname":"{{ qscRv.outputs.hostname }}",
 						"indexingVersion":"{{ qscRv.outputs.indexingVersion }}",
 						"issueApiResponse":"{{ undefined_9OChI.outputs }}",
 						"knowledgeId":"{{ qscRv.outputs.knowledgeId }}",
 						"knowledgeSetId":"{{ qscRv.outputs.knowledgeSetId }}",
 						"response":"{{ qscRv.outputs }}",
+						"sharedWithIds":{
+							"items":"{{ _CaWZ4.outputs.sharedWithIds[0] }}",
+							"source":"{{ _CaWZ4.outputs.sharedWithIds }}",
+							"ua:type":"mappedArray"
+						},
 						"skipRawDataUpdate":"{{ qscRv.outputs.skipRawDataUpdate }}",
 						"uniqueEntityId":"{{ 4JrCJ.outputs.result.uniqueEntityId }}_{{ n_ATfxK.outputs.item[0].id }}"
 					},
@@ -3292,7 +3543,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_uzkKu@n_ATfxK@n_ZS3oV@8dIPB-1@3@l@n",
 			"id":"n_Muyq3",
-			"index":43,
+			"index":45,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3325,7 +3576,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_uKSwo",
-			"index":44,
+			"index":46,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3391,7 +3642,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_xvDtA",
-			"index":45,
+			"index":47,
 			"inputs":{
 				"filters":[
 					{
@@ -3437,7 +3688,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xvDtA@8dIPB-1@y",
 			"id":"n_jB7CV",
-			"index":46,
+			"index":48,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3470,7 +3721,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xvDtA@8dIPB-1@y",
 			"id":"n_LoaRx",
-			"index":47,
+			"index":49,
 			"inputs":{
 				"itemToAdd":"{{ n_uKSwo.outputs.result.newRawData }}",
 				"insertLocation":"END",
@@ -3499,7 +3750,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"n_idW7Q",
-			"index":48,
+			"index":50,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3561,7 +3812,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"8dIPB-1",
 			"id":"wbsYm",
-			"index":49,
+			"index":51,
 			"inputs":{
 				"result":{
 					"rawDataList":{
@@ -3599,5 +3850,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":191
+	"version":193
 }
