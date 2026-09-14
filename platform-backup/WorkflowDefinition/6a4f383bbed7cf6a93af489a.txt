@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743838897,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743838941,
+		"deployedAt":1789395230055,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece5e45d2142160e6e65b",
+		"deployedDefinitionId":"6aa8011ec6a14707f150390f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":53
+		"version":2,
+		"workflowVersion":56
 	},
 	"edges":[
 		{
@@ -56,11 +56,27 @@
 		},
 		{
 			"fromNodeId":"n_2feqv",
-			"id":"loop@n_2feqv@n_ckAEO",
+			"id":"loop@n_2feqv@n_Vwz4f",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Vwz4f",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Vwz4f",
+			"id":"next@n_Vwz4f@n_ZH8n8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZH8n8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZH8n8",
+			"id":"next@n_ZH8n8@n_ckAEO",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_ckAEO",
-			"type":"loop"
+			"type":"next"
 		},
 		{
 			"fromNodeId":"n_ckAEO",
@@ -162,7 +178,7 @@
 	"id":"6a4f383bbed7cf6a93af489a",
 	"lastModifiedBy":-1,
 	"lcName":"governance | policy evaluation",
-	"modifiedTime":1788252973129,
+	"modifiedTime":1789395397208,
 	"name":"Governance | Policy Evaluation",
 	"nodes":[
 		{
@@ -180,6 +196,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"block":{
 							"title":"Block",
@@ -362,6 +379,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"block":{
 							"title":"Block",
 							"type":"boolean"
@@ -633,6 +671,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -700,7 +759,8 @@
 				},
 				"fields":[
 					"id",
-					"properties.controls"
+					"properties.controls",
+					"properties.controlSettings"
 				],
 				"includeTotalCount":false,
 				"numberOfRecordsToFetch":"MULTIPLE",
@@ -736,6 +796,106 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_2feqv@_AdMRC-1@l",
+			"id":"n_Vwz4f",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"defaultIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Default Ids",
+							"type":"array"
+						},
+						"overrideIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Override Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"item":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Item",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def controls = (binding.hasVariable('item') && item?.properties?.controls != null) ? item.properties.controls : []\ndef settings = (binding.hasVariable('item') && item?.properties?.controlSettings != null) ? item.properties.controlSettings : [:]\ndef overrideIds = controls.findAll { cid -> settings[cid]?.enabled == true }\ndef defaultIds  = controls.findAll { cid -> settings[cid]?.enabled == null }\nreturn [ overrideIds: overrideIds, defaultIds: defaultIds ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"item":"{{ n_2feqv.outputs.item }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"continue",
+				"resourceVersion":191,
+				"resourceName":"continue",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_2feqv@_AdMRC-1@l",
+			"id":"n_ZH8n8",
+			"index":8,
+			"inputs":{
+				"loop":"n_2feqv",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"LT",
+								"value":"1"
+							},
+							"property":"=LEN({{ n_Vwz4f.outputs.result.overrideIds }})"
+						},
+						{
+							"filter":{
+								"operator":"LT",
+								"value":"1"
+							},
+							"property":"=LEN({{ n_Vwz4f.outputs.result.defaultIds }})"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Continue",
+			"title":"Continue",
+			"type":"CONTINUE"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1551,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -746,19 +906,38 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_2feqv@_AdMRC-1@l",
 			"id":"n_ckAEO",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
 						{
 							"filter":{
 								"operator":"IN",
-								"value":"{{ n_2feqv.outputs.item.properties.controls }}"
+								"value":"{{ n_Vwz4f.outputs.result.overrideIds }}"
 							},
 							"property":"id"
+						},
+						{
+							"filters":[
+								{
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"false"
+									},
+									"property":"properties_enabled"
+								},
+								{
+									"filter":{
+										"operator":"IN",
+										"value":"{{ n_Vwz4f.outputs.result.defaultIds }}"
+									},
+									"property":"id"
+								}
+							],
+							"operator":"AND"
 						}
 					],
-					"operator":"AND"
+					"operator":"OR"
 				},
 				"shouldSearchInAnalyticsStore":false,
 				"object_type":"controls",
@@ -798,7 +977,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_2feqv@_AdMRC-1@l",
 			"id":"n_v5hsc",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"itemToAdd":{
 					"controls":{
@@ -829,7 +1008,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AdMRC-1",
 			"id":"n_PhleE",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_yacTe.outputs.items }}",
@@ -853,7 +1032,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PhleE@_AdMRC-1@l",
 			"id":"n_fNP6Q",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"automationId":"6a4794b3d2e0097df226e56c",
 				"runtimeConnections":{},
@@ -875,7 +1054,8 @@
 					"traceId":"{{ n_rMcer.outputs.traceId }}",
 					"userQuery":"{{ n_rMcer.outputs.content }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -894,7 +1074,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PhleE@_AdMRC-1@l",
 			"id":"n_RTdRl",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"filters":[
 					{
@@ -924,7 +1104,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_RTdRl@n_PhleE@_AdMRC-1@l@y",
 			"id":"n_GTTwm",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"variables":[
 					{
@@ -950,12 +1130,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PhleE@_AdMRC-1@l",
 			"id":"n_2VdiD",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"variables":[
 					{
 						"source":"{{ n_m0dZy.outputs.content }}",
-						"value":"{{ n_fNP6Q.outputs.blockMessage }}"
+						"value":"=IF(OR({{ n_m0dZy.outputs.block }}=false, {{ n_fNP6Q.outputs.block }}=true), {{ n_fNP6Q.outputs.blockMessage }}, {{ n_m0dZy.outputs.content }})"
 					}
 				]
 			},
@@ -976,7 +1156,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AdMRC-1",
 			"id":"n_Y9oOq",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"result":{
 					"block":"{{ n_m0dZy.outputs.block }}",
@@ -1003,5 +1183,5 @@
 		}
 	},
 	"standard":true,
-	"version":55
+	"version":57
 }

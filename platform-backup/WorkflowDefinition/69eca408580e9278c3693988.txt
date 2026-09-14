@@ -4,19 +4,27 @@
 	],
 	"createdTime":1787744009304,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744009896,
+		"deployedAt":1789395299546,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf09cee862008d74cd5a",
+		"deployedDefinitionId":"6aa8016372fd792214e8cbd1",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":270
+		"version":2,
+		"workflowVersion":273
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_Evvj3",
-			"id":"next@n_Evvj3@n_spuil",
+			"id":"next@n_Evvj3@n_b8Num",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_b8Num",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_b8Num",
+			"id":"next@n_b8Num@n_spuil",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_spuil",
@@ -65,15 +73,67 @@
 		},
 		{
 			"fromNodeId":"n_V0Tmy",
-			"id":"next@n_V0Tmy@n_0RN5F",
+			"id":"next@n_V0Tmy@n_LQgJE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LQgJE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_twaqz",
+			"id":"next@n_twaqz@n_LQgJE",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LQgJE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LQgJE",
+			"id":"if@n_LQgJE@n_DceuO",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DceuO",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_DceuO",
+			"id":"next@n_DceuO@n_pEQqf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pEQqf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pEQqf",
+			"id":"if@n_pEQqf@n_zRQ3G",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zRQ3G",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_zRQ3G",
+			"id":"next@n_zRQ3G@n_0RN5F",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_0RN5F",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_twaqz",
-			"id":"next@n_twaqz@n_0RN5F",
+			"fromNodeId":"n_pEQqf",
+			"id":"next@n_pEQqf@n_0RN5F",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0RN5F",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LQgJE",
+			"id":"next@n_LQgJE@n_0RN5F",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -146,7 +206,7 @@
 	"id":"69eca408580e9278c3693988",
 	"lastModifiedBy":-1,
 	"lcName":"ai spending | limits | check usage",
-	"modifiedTime":1788252972801,
+	"modifiedTime":1789395397155,
 	"name":"AI Spending | Limits | Check Usage",
 	"nodes":[
 		{
@@ -201,6 +261,10 @@
 							"title":"Input String",
 							"type":"string"
 						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
 						"modelId":{
 							"title":"Model ID",
 							"type":"string"
@@ -228,6 +292,58 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1501,
+				"resourceName":"variable_by_unifyapps_set_session_variable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_b8Num",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"enforceConnectorUsageLimits":{
+							"title":"Enforce Connector Usage Limits",
+							"type":"boolean"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"enforceConnectorUsageLimits":false
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"enforceConnectorUsageLimits":{
+							"title":"Enforce Connector Usage Limits",
+							"type":"boolean"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Set Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"standard_entities",
 				"resourceVersion":13064,
 				"resourceName":"standard_entities_fetch_user",
@@ -238,11 +354,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_spuil",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"fetchBy":"id",
 				"applicationId":"",
-				"user":"{{ __USER__.outputs.id }}"
+				"user":"{{ __RUN__.outputs.userId }}"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by UnifyApps",
@@ -261,7 +377,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_RJZRu",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"shouldSearchInAnalyticsStore":false,
 				"object_type":"e_ai_agent_limit",
@@ -345,14 +461,14 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_Hw3rV",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
 						{
 							"filter":{
 								"operator":"EQUAL",
-								"value":"=IF(ISBLANK({{ __USER__.outputs.id }}), \"NA\", VALUE({{ __USER__.outputs.id }}))"
+								"value":"=IF(ISBLANK({{ __RUN__.outputs.userId }}), \"NA\", VALUE({{ __RUN__.outputs.userId }}))"
 							},
 							"property":"properties_userId"
 						},
@@ -401,7 +517,7 @@
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
-			"subTitle":"Fetch Overrides",
+			"subTitle":"Fetch All Overrides",
 			"title":"Fetch records",
 			"type":"ACTION"
 		},
@@ -417,7 +533,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_xztVx",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"object_type":"ai_agent_llm_model",
 				"includeRoleMappings":false,
@@ -427,7 +543,7 @@
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
-			"subTitle":"Fetch Overrides",
+			"subTitle":"Fetch LLM Model Overrides",
 			"title":"Fetch record by ID",
 			"type":"ACTION"
 		},
@@ -443,7 +559,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_twaqz",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"filters":[
 					{
@@ -480,7 +596,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_twaqz@_Upv6s-1@y",
 			"id":"n_V0Tmy",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"result":{
 					"maxOutputToken":"{{ n_Evvj3.outputs.outputMaxTokens }}",
@@ -494,7 +610,195 @@
 			"type":"STOP"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":484,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Upv6s-1",
+			"id":"n_LQgJE",
+			"index":9,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.enforceAiRequestRateLimits }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Check Rate Limits ?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
 			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.agentLimits.items",
+					"root.parameters.agentLimitExceptions.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1084,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LQgJE@_Upv6s-1@y",
+			"id":"n_DceuO",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"requestCount":{
+							"title":"Request Count",
+							"type":"integer"
+						},
+						"showAlert":{
+							"title":"Show Alert",
+							"type":"boolean"
+						},
+						"stopFlow":{
+							"title":"Stop Flow",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"agentLimitExceptions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Agent Limit Exceptions",
+							"type":"array"
+						},
+						"agentLimits":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Agent Limits",
+							"type":"array"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes\nimport com.unifyapps.infra.utils.context.UserContext\nimport io.quarkus.arc.Arc\nimport io.quarkus.arc.InstanceHandle\n\n/* =============================================================================\n * Per-user requests-per-minute gate.\n *\n * Limits how many DISTINCT messages a user can START within one minute.\n * TWO keys are kept per (user, message):\n *\n *   user_<userId>_<messageId>        counting marker, TTL 60s, set ONCE on\n *                                    admission — its live count IS the number\n *                                    of messages started in the last minute\n *   seen_user_<userId>_<messageId>   \"already counted\" flag, TTL 30min refreshed\n *                                    on every hop — a message is counted at\n *                                    most ONCE per conversation, even after\n *                                    its 60s counting marker has expired\n *\n * Why two keys: the counting marker must die after 60s (so the slot frees),\n * but a long conversation keeps making LLM calls for hours — without the seen\n * flag, a later hop would re-create the marker and the SAME message would eat\n * a fresh slot every minute it stays active.\n * NOTE: the seen_ prefix deliberately does NOT match the count scan pattern\n * user_<userId>_* — never rename it to something that would.\n *\n * Mechanics:\n *   - The seen flag is bumped with an atomic incrByFloat; the returned value\n *     tells us whether THIS call is the message's first-ever hop (== 1.0).\n *   - Only that first hop creates the counting marker and counts the keys;\n *     every later hop passes untouched, so a conversation mid-flight is\n *     never cut off by this gate (and the key scan runs once per message,\n *     not once per LLM call).\n *   - Counting uses SCAN (batched) — never findKeys/KEYS, which blocks Redis\n *     while walking the entire shared keyspace.\n *   - A blocked message deletes BOTH its keys, so a later retry is counted\n *     and re-evaluated honestly instead of passing as \"already seen\".\n *   - Any Redis failure fails OPEN: this gate must not take LLM traffic down.\n *\n * Limit resolution (limits[] rows with type \"request\" + period \"minute\"):\n *   base      = user override (pins) ?: max(team override, user default)\n *   effective = min(base, overall)  — overall is a CEILING that can never be\n *               breached; it is adopted alone when nothing lower is set.\n *   System users (userId 0 / -1) use an explicit user-scope override only.\n *   Multiple candidates in one tier -> highest wins.\n *\n * Inputs (all bindings optional):\n *   agentLimits          : List<Map>  e_ai_agent_limit rows\n *   agentLimitExceptions : List<Map>  e_ai_agent_limit_exception rows\n *                          (pre-filtered to this user/teams by Fetch Overrides)\n *   userId               : the requesting user\n *   messageId            : the agentic-turn id\n *\n * Output:\n *   { stopFlow: boolean, showAlert: boolean, error: String | null,\n *     requestCount: integer }   // counted on a message's first hop; 0 otherwise\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('userId'))               { userId = null }\nif (!binding.hasVariable('messageId'))            { messageId = null }\n\nfinal long REQUEST_WINDOW_MS = 60000L\n\n// A conversation is counted once within this window; idle conversations stop\n// holding their flag after 30 min. Refreshed on every hop.\nfinal long SEEN_TTL_MS = 1800000L\n\n// System/service callers (userId 0 or -1): only an explicit user-scope\n// override applies — no team, no user default, no overall default.\nfinal boolean SYSTEM_USER = (userId != null && [\"0\", \"-1\"].contains(userId.toString()))\n\n/* ---------- 1. Resolve the effective requestsPerMinute limit -------------- */\n\n// The limit lives in the limits[] array as\n//   { type: \"request\", period: \"minute\", enforcement: \"hard\", value: N }.\n// Enforcement is hard by definition for this gate, so only value is read.\ndef rpmFrom = { List entries, String scopeWanted ->\n    def vals = []\n    entries?.each { en ->\n        if ((en?.properties?.scope as String) != scopeWanted) return\n        en?.properties?.limits?.each { lim ->\n            if (lim?.type?.toString()?.equalsIgnoreCase(\"request\")\n                    && lim?.period?.toString()?.equalsIgnoreCase(\"minute\")\n                    && lim?.value != null) {\n                vals << (lim.value as Number).doubleValue()\n            }\n        }\n    }\n    return vals ? vals.max() : null\n}\n\n// Step 1 — the user's base limit: an override PINS (defaults never compete\n// with it); otherwise the team cap can raise the user default.\nDouble baseLimit = rpmFrom(agentLimitExceptions, \"user\")\nif (baseLimit == null && !SYSTEM_USER) {\n    Double teamLimit   = rpmFrom(agentLimitExceptions, \"team\")\n    Double userDefault = rpmFrom(agentLimits, \"user\")\n    if (teamLimit != null && userDefault != null) {\n        baseLimit = Math.max(teamLimit, userDefault)\n    } else {\n        baseLimit = (teamLimit != null) ? teamLimit : userDefault\n    }\n}\n\n// Step 2 — overall is a CEILING, never a competitor: it caps whatever step 1\n// picked (min), and is adopted as the limit when nothing lower is configured.\n// Same tier-then-clamp rule the period limits use. System users skip it.\nDouble rpmLimit = baseLimit\nif (!SYSTEM_USER) {\n    Double overallLimit = rpmFrom(agentLimits, \"overall\")\n    if (overallLimit != null) {\n        rpmLimit = (rpmLimit == null) ? overallLimit : Math.min(rpmLimit, overallLimit)\n    }\n}\n\n// No limit configured, or no user/message to key on -> gate inactive.\nif (rpmLimit == null || !messageId || userId == null || !userId.toString()) {\n    return [stopFlow: false, showAlert: false, error: null, requestCount: 0]\n}\n\n/* ---------- 2. Acquire Redis template ------------------------------------- */\n\ndef redisTemplate\ntry {\n    InstanceHandle<RedisTemplateFactory> handle =\n            Arc.container().instance(RedisTemplateFactory.class)\n    redisTemplate = handle.get().getRedisTemplate(\n            UserContext.getCurrentCustomerId(),\n            WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE\n    )\n} catch (Exception e) {\n    // Fail-open: rate limiting must not block traffic when Redis is unreachable.\n    return [stopFlow: false, showAlert: false, error: null, requestCount: 0]\n}\n\n/* ---------- 3. Count this message once and check the user's minute -------- */\n\ntry {\n    String seenKey   = \"seen_user_${userId}_${messageId}\".toString()\n    String markerKey = \"user_${userId}_${messageId}\".toString()\n\n    // Was this message already counted (any earlier hop, even minutes ago)?\n    // Atomic: exactly one hop of the conversation ever sees 1.0.\n    double seenTimes = redisTemplate.incrByFloat(seenKey, Number.class, 1.0d)\n    redisTemplate.expireAfter(seenKey, SEEN_TTL_MS, Number.class)\n\n    if (seenTimes > 1.0d) {\n        // Already-admitted message: later hops never count and never block,\n        // even after its 60s counting marker has expired.\n        return [stopFlow: false, showAlert: false, error: null, requestCount: 0]\n    }\n\n    // First-ever hop of this message: it occupies one slot for 60s.\n    redisTemplate.incrByFloat(markerKey, Number.class, 1.0d)\n    redisTemplate.expireAfter(markerKey, REQUEST_WINDOW_MS, Number.class)\n\n    // Count the user's live counting markers (messages started in the last minute).\n    long liveMessages = 0L\n    def iter = redisTemplate.scan(\"user_${userId}_*\".toString(), 500, Number.class)\n    while (iter.hasNext()) { liveMessages += iter.next().count() }\n\n    if (liveMessages > rpmLimit) {\n        // Not admitted: free the slot AND the seen flag, so a later retry is\n        // counted and re-evaluated instead of passing as \"already seen\".\n        redisTemplate.findAndDelete(markerKey, Number.class)\n        redisTemplate.findAndDelete(seenKey, Number.class)\n        return [stopFlow    : true,\n                showAlert   : true,\n                error       : \"Rate limit exceeded. Please retry after 60 seconds.\",\n                requestCount: liveMessages.intValue()]\n    }\n\n    return [stopFlow: false, showAlert: false, error: null, requestCount: liveMessages.intValue()]\n} catch (Exception e) {\n    // Fail-open on any Redis hiccup mid-check.\n    return [stopFlow: false, showAlert: false, error: null, requestCount: 0]\n}",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"agentLimitExceptions":{
+						"items":"{{ n_Hw3rV.outputs.objects[0] }}",
+						"source":"{{ n_Hw3rV.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"agentLimits":{
+						"items":"{{ n_RJZRu.outputs.objects[0] }}",
+						"source":"{{ n_RJZRu.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
+					"messageId":"{{ n_Evvj3.outputs.messageId }}",
+					"userId":"{{ __RUN__.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Request Per Minute Check",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":484,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LQgJE@_Upv6s-1@y",
+			"id":"n_pEQqf",
+			"index":11,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_DceuO.outputs.result.stopFlow }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Should Stop",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":836,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pEQqf@n_LQgJE@_Upv6s-1@y@y",
+			"id":"n_zRQ3G",
+			"index":12,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_DceuO.outputs.result.error }}",
+					"maxOutputToken":0,
+					"showAlert":true,
+					"stopFlow":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
 				"visibleOptionalFields":[
 					"root.parameters.agentLimits.items",
 					"root.parameters.agentLimitExceptions.items"
@@ -511,7 +815,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_0RN5F",
-			"index":8,
+			"index":13,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -531,6 +835,10 @@
 									"title":"enforcement",
 									"type":"string"
 								},
+								"scope":{
+									"title":"scope",
+									"type":"string"
+								},
 								"value":{
 									"title":"value",
 									"type":"integer"
@@ -544,6 +852,10 @@
 							"properties":{
 								"enforcement":{
 									"title":"enforcement",
+									"type":"string"
+								},
+								"scope":{
+									"title":"scope",
 									"type":"string"
 								},
 								"value":{
@@ -561,11 +873,16 @@
 									"title":"enforcement",
 									"type":"string"
 								},
+								"scope":{
+									"title":"scope",
+									"type":"string"
+								},
 								"value":{
 									"title":"value",
-									"type":"integer"
+									"type":"number"
 								}
 							},
+							"required":[],
 							"title":"maxQueryCost",
 							"type":"object"
 						},
@@ -618,7 +935,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"/* =============================================================================\n * Resolves effective per-call estimates by applying perQuery caps from\n * agentLimits + agentLimitExceptions.\n *\n * Resolution model (mirrors the \"How caps resolve\" UI):\n *   DEFAULT  : scope baseline from agentLimits (overall, user, aiAgent, model)\n *   TEAM     : floor for users only — multi-team users get highest team cap\n *   OVERRIDE : per-entity exception, beats default + team for that scope\n *   ORG CAP  : overall perQuery — final ceiling, nothing exceeds it\n *\n * Per-field cascade for a given scope:\n *   override(scope) ?: max(team_for_user, default(scope))   // user-only floor\n *   override(scope) ?: default(scope)                       // other scopes\n * Then clamp by overall (org cap).\n *\n * Per-query checks:\n *   token type:  estInputToken  > effective maxInputTokens\n *   cost  type:  estInputCost   > effective maxQueryCost   (input overflow)\n *                estTotalCost   > effective maxQueryCost   (total overflow)\n *\n *   Each resolved cap carries its own enforcement (the enforcement of the\n *   perQuery object that won). hard -> stopFlow = true; soft -> alert only.\n *\n * Inputs:\n *   agentLimits, agentLimitExceptions   : List<Map>\n *   inputToken, outputToken             : Number\n *   inputCost,  outputCost              : Number\n *\n * Output (feeds into the period-based pre-flight groovy):\n *   inputToken / outputToken / inputCost / outputCost : effective estimates\n *     - outputToken is overridden by effective maxOutputTokens when set\n *   maxInputTokens / maxOutputTokens / maxQueryCost   : effective caps + enforcement\n *   stopFlow / showAlert / error                       : per-query check result\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('inputString'))           { inputString = \"\" }\nif (!binding.hasVariable('outputToken'))          { outputToken = 0L }\n\n/* ---------- Calculate inputToken ------------------------------ */\n\ndef estimateTokens = { String inputString ->\n    if (!inputString?.trim()) return 0\n    \n    def wordCount = inputString.trim().split(/\\s+/).length\n\n    // Roughly 1 word ≈ 1.3 tokens (words often split into subword tokens)\n    return (int) Math.ceil(wordCount * 1.33)\n}\n\n/* ---------- Collect perQuery objects by tier ------------------------------ */\n\ndouble estInputToken  = (estimateTokens(inputString)  as Number).doubleValue()\ndouble estOutputToken = (outputToken as Number).doubleValue()\n\ndef NON_OVERALL_DEFAULT_SCOPES = [\"user\", \"aiAgent\", \"model\", \"workflow\"] as Set\n\ndef gatherPerQueries = { List source, Closure scopeFilter ->\n    def out = []\n    source?.each { entry ->\n        def scope = entry?.properties?.scope as String\n        def pq    = entry?.properties?.perQuery\n        if (pq && scopeFilter(scope)) out << pq\n    }\n    return out\n}\n\ndef overallDefaults  = gatherPerQueries(agentLimits,          { it == \"overall\" })\ndef scopeOverrides   = gatherPerQueries(agentLimitExceptions, { NON_OVERALL_DEFAULT_SCOPES.contains(it) })\ndef teamPerQueries   = gatherPerQueries(agentLimitExceptions, { it == \"team\" })\n\n/* ---------- Pick a single cap for a (field, requiredType) tuple ----------- *\n * Returns [value, enforcement] or null. When multiple candidates qualify in\n * the same tier (e.g. multi-team user), the highest value wins per the\n * \"raises it\" team semantics in the prototype.                              */\n\ndef maxCap = { List perQueries, String field, String requiredType ->\n    def matches = perQueries.findAll { pq ->\n        pq.type?.toString()?.equalsIgnoreCase(requiredType) && pq[field] != null\n    }\n    if (!matches) return null\n    def winner = matches.max { (it[field] as Number).doubleValue() }\n    return [\n            value      : (winner[field] as Number).doubleValue(),\n            enforcement: (winner.enforcement as String)?.toLowerCase()\n    ]\n}\n\ndef resolveCap = { String field, String requiredType ->\n    // 1. Override pins for the specific entity (user/agent/model).\n    def cap = maxCap(scopeOverrides, field, requiredType)\n\n    // 2. If no override, team cap is used\n    if (cap == null) {\n        cap = maxCap(teamPerQueries, field, requiredType)\n    }\n\n    // 3. Overall perQuery is the BASELINE — used only when no scope-level\n    //    perQuery applies. A scope override/team/default takes precedence and\n    //    is NOT clamped by overall.\n    if (cap == null) {\n        cap = maxCap(overallDefaults,  field, requiredType)\n    }\n\n    return cap\n}\n\ndef effMaxInputTokens  = resolveCap(\"maxInputTokens\",  \"token\")\ndef effMaxOutputTokens = resolveCap(\"maxOutputTokens\", \"token\")\ndef effMaxQueryCost    = resolveCap(\"maxQueryCost\",    \"cost\")\n\n/* ---------- Apply maxOutputTokens override to outputToken ---------------- *\n * Strict override (not min). perQuery caps the LLM's max_tokens, so reserve\n * for worst case and let capture-usage reconcile to actuals.                */\n\ndouble effOutputToken = estOutputToken\nif (effMaxOutputTokens != null) {\n    effOutputToken = effMaxOutputTokens.value\n}\n\n/* ---------- Per-query checks --------------------------------------------- */\n\ndef errors = []\nboolean stopFlow = false\nboolean showAlert = false\n\ndef applyVerdict = { Map cap, String message ->\n    if (!cap) return\n    boolean isHard = (cap.enforcement == \"hard\")\n    if (isHard) stopFlow = true\n    showAlert = true\n    errors << message\n}\n\nif (effMaxInputTokens != null && estInputToken > effMaxInputTokens.value) {\n    applyVerdict(effMaxInputTokens,\n            \"Per-query token limit reached (${effMaxInputTokens.enforcement}): \" +\n            \"input (${estInputToken}) exceeds max input tokens of ${effMaxInputTokens.value}\".toString())\n}\n\nreturn [\n        inputToken     : estInputToken,\n        outputToken    : effOutputToken,\n        maxInputTokens : effMaxInputTokens,\n        maxOutputTokens: effMaxOutputTokens,\n        maxQueryCost   : effMaxQueryCost,\n        stopFlow       : stopFlow,\n        showAlert      : showAlert,\n        error          : errors.isEmpty() ? null : errors.join(\"; \")\n]",
+				"code":"/* =============================================================================\n * Resolves effective per-call estimates by applying perQuery caps from\n * agentLimits + agentLimitExceptions.\n *\n * Resolution model (mirrors the \"How caps resolve\" UI):\n *   DEFAULT  : scope baseline from agentLimits (overall, user, aiAgent, model)\n *   TEAM     : floor for users only — multi-team users get highest team cap\n *   OVERRIDE : per-entity exception, beats default + team for that scope\n *   ORG CAP  : overall perQuery — baseline when no scope-level cap applies\n *\n * Note: the fetched agentLimitExceptions are already filtered to rows relevant\n * to THIS call (userId / teams / agentId / modelId / workflowId) by the\n * Fetch Overrides node, so every candidate here is applicable.\n *\n * Per-query caps (input and output are tracked SEPARATELY):\n *   maxInputTokens  : per-hop context guard — checked HERE on this call's\n *                     prompt — AND turn-total input tokens, checked in\n *                     pre-flight against messages_<id>_<scope>_token_in.\n *   maxOutputTokens : per-call max_tokens (overrides the output estimate)\n *                     AND turn-total output tokens, checked in pre-flight\n *                     against messages_<id>_<scope>_token_out.\n *   maxQueryCost    : turn-total cost — checked in pre-flight.\n *\n * Each resolved cap carries [value, enforcement, scope]. `scope` is the scope\n * of the perQuery object that won; the pre-flight uses it to pick the matching\n * message-scoped accumulator (messages_<messageId>_<scopePrefix>_<metric>).\n *\n * Inputs:\n *   agentLimits, agentLimitExceptions   : List<Map>\n *   inputString                         : String (prompt for this call)\n *   outputToken                         : Number (model's configured max)\n *\n * Output (feeds into the pre-flight groovy):\n *   inputToken / outputToken                     : effective estimates\n *     - outputToken is overridden by effective maxOutputTokens when set\n *   maxInputTokens / maxOutputTokens             : caps + enforcement + scope\n *   maxQueryCost                                 : cap + enforcement + scope\n *   stopFlow / showAlert / error                 : per-hop input-token result\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('inputString'))           { inputString = \"\" }\nif (!binding.hasVariable('outputToken'))          { outputToken = 0L }\n\n/* ---------- Calculate inputToken ------------------------------ */\n\ndef estimateTokens = { String inputString ->\n    if (!inputString?.trim()) return 0\n\n    def wordCount = inputString.trim().split(/\\s+/).length\n\n    // Roughly 1 word ≈ 1.3 tokens (words often split into subword tokens)\n    return (int) Math.ceil(wordCount * 1.33)\n}\n\n/* ---------- Collect perQuery objects by tier ------------------------------ */\n\ndouble estInputToken  = (estimateTokens(inputString)  as Number).doubleValue()\ndouble estOutputToken = (outputToken as Number).doubleValue()\n\ndef NON_OVERALL_DEFAULT_SCOPES = [\"user\", \"aiAgent\", \"model\", \"workflow\"] as Set\n\n// Each candidate is kept as [scope, pq] so the winning cap can report which\n// scope produced it — the pre-flight needs that to pick the matching\n// message-scoped turn accumulator.\ndef gatherPerQueries = { List source, Closure scopeFilter ->\n    def out = []\n    source?.each { entry ->\n        def scope = entry?.properties?.scope as String\n        def pq    = entry?.properties?.perQuery\n        if (pq && scopeFilter(scope)) out << [scope: scope, pq: pq]\n    }\n    return out\n}\n\ndef overallDefaults  = gatherPerQueries(agentLimits,          { it == \"overall\" })\ndef scopeOverrides   = gatherPerQueries(agentLimitExceptions, { NON_OVERALL_DEFAULT_SCOPES.contains(it) })\ndef teamPerQueries   = gatherPerQueries(agentLimitExceptions, { it == \"team\" })\n\n/* ---------- Pick a single cap for a (field, requiredType) tuple ----------- *\n * Returns [value, enforcement, scope] or null. When multiple candidates\n * qualify in the same tier (e.g. multi-team user), the highest value wins per\n * the \"raises it\" team semantics in the prototype.                          */\n\ndef maxCap = { List entries, String field, String requiredType ->\n    def matches = entries.findAll { en ->\n        en.pq.type?.toString()?.equalsIgnoreCase(requiredType) && en.pq[field] != null\n    }\n    if (!matches) return null\n    def winner = matches.max { (it.pq[field] as Number).doubleValue() }\n    return [\n            value      : (winner.pq[field] as Number).doubleValue(),\n            enforcement: (winner.pq.enforcement as String)?.toLowerCase(),\n            scope      : winner.scope\n    ]\n}\n\ndef resolveCap = { String field, String requiredType ->\n    // 1. Override pins for the specific entity (user/agent/model/workflow).\n    def cap = maxCap(scopeOverrides, field, requiredType)\n\n    // 2. If no override, team cap is used\n    if (cap == null) {\n        cap = maxCap(teamPerQueries, field, requiredType)\n    }\n\n    // 3. Overall perQuery is the BASELINE — used only when no scope-level\n    //    perQuery applies. A scope override/team/default takes precedence and\n    //    is NOT clamped by overall.\n    if (cap == null) {\n        cap = maxCap(overallDefaults,  field, requiredType)\n    }\n\n    return cap\n}\n\ndef effMaxInputTokens  = resolveCap(\"maxInputTokens\",  \"token\")\ndef effMaxOutputTokens = resolveCap(\"maxOutputTokens\", \"token\")\ndef effMaxQueryCost    = resolveCap(\"maxQueryCost\",    \"cost\")\n\n/* ---------- Apply maxOutputTokens override to outputToken ---------------- *\n * Strict override (not min). perQuery caps the LLM's max_tokens, so reserve\n * for worst case and let capture-usage reconcile to actuals.                */\n\ndouble effOutputToken = estOutputToken\nif (effMaxOutputTokens != null) {\n    effOutputToken = effMaxOutputTokens.value\n}\n\n/* ---------- Per-hop input-token check ------------------------------------ *\n * Early exit before the cost calculator when a SINGLE prompt already exceeds\n * the cap. The turn-accumulated version of this check runs in the pre-flight. */\n\ndef errors = []\nboolean stopFlow = false\nboolean showAlert = false\n\ndef applyVerdict = { Map cap, String message ->\n    if (!cap) return\n    boolean isHard = (cap.enforcement == \"hard\")\n    if (isHard) stopFlow = true\n    showAlert = true\n    errors << message\n}\n\nif (effMaxInputTokens != null && estInputToken > effMaxInputTokens.value) {\n    applyVerdict(effMaxInputTokens,\n            \"Per-query token limit reached (${effMaxInputTokens.enforcement}): \" +\n            \"input (${estInputToken}) exceeds max input tokens of ${effMaxInputTokens.value}\".toString())\n}\n\nreturn [\n        inputToken     : estInputToken,\n        outputToken    : effOutputToken,\n        maxInputTokens : effMaxInputTokens,\n        maxOutputTokens: effMaxOutputTokens,\n        maxQueryCost   : effMaxQueryCost,\n        stopFlow       : stopFlow,\n        showAlert      : showAlert,\n        error          : errors.isEmpty() ? null : errors.join(\"; \")\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -653,7 +970,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_6vRpu",
-			"index":9,
+			"index":14,
 			"inputs":{
 				"filters":[
 					{
@@ -683,7 +1000,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_6vRpu@_Upv6s-1@y",
 			"id":"n_NROLd",
-			"index":10,
+			"index":15,
 			"inputs":{
 				"result":{
 					"errorMessage":"{{ n_0RN5F.outputs.result.error }}",
@@ -709,7 +1026,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_wp1rW",
-			"index":11,
+			"index":16,
 			"inputs":{
 				"automationId":"680bb38e89c13d6ab6b7babe",
 				"runtimeConnections":{},
@@ -745,7 +1062,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_zXoCH",
-			"index":12,
+			"index":17,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -811,11 +1128,27 @@
 							"title":"Input Token Errors",
 							"type":"string"
 						},
+						"maxInputTokens":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Max Input Tokens",
+							"type":"object"
+						},
+						"maxOutputTokens":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Max Output Tokens",
+							"type":"object"
+						},
 						"maxQueryCost":{
 							"additionalProperties":false,
 							"properties":{},
 							"title":"Max Query Cost",
 							"type":"object"
+						},
+						"messageId":{
+							"title":"Message Id",
+							"type":"string"
 						},
 						"modelId":{
 							"title":"Model Id",
@@ -854,7 +1187,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes\nimport com.unifyapps.infra.utils.context.UserContext\nimport io.quarkus.arc.Arc\nimport io.quarkus.arc.InstanceHandle\nimport java.time.Duration\nimport java.util.Calendar\n\n/* =============================================================================\n * Pre-flight rate-limit check for an LLM call.\n *\n *   1. Reserve estimates against the FULL set of (scope, period, metric)\n *      counters ‚Äî even ones with no limit defined ‚Äî so capture-usage can\n *      uniformly subtract the same reservation from every counter.\n *   2. Resolve effective per-scope period limits using the prototype's\n *      tiered cascade: override pins ‚Üí team raises default ‚Üí all clamped\n *      by overall (org cap).\n *   3. Look up each limit's currentUsage from the counter map and classify.\n *   4. Select ONE prioritized message to surface (see message selection).\n *   5a. stopFlow = true  -> revert every increment.\n *   5b. stopFlow = false -> keep increments and persist\n *                          {estimatedCostPrefix}_token / _cost so\n *                          capture-usage can reconcile.\n *\n * Message selection (single message returned in every case):\n *   Priority: org hard  >  other hard  >  org soft  >  other soft.\n *   The highest-priority violation's message wins; the rest are dropped.\n *\n * Per-query checks live in the resolver script (run before this one) and\n * are NOT duplicated here, except the per-query cost check which uses the\n * resolved maxQueryCost binding.\n *\n * Decision:\n *   stopFlow = true  iff at least one row has (currentUsage + estimatedInput)\n *                    exceeding its limit AND that row's enforcement is \"hard\".\n *\n * Inputs (all bindings optional):\n *   agentLimits, agentLimitExceptions    : List<Map>\n *   userId, aiAgentId, modelId           : scope ids\n *   inputToken, outputToken              : Number (already-resolved estimates)\n *   inputCost,  outputCost               : Number\n *   maxQueryCost                         : Map [value, enforcement] from resolver\n *   inputTokenErrors                     : String from resolver (per-query token)\n *   estimatedCostPrefix                  : opaque id; reservation keyed on it\n *\n * Output:\n *   { stopFlow: boolean, error: String,\n *     showAlert: boolean, maxOutputTokens: Number | null }\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('userId'))               { userId = null }\nif (!binding.hasVariable('aiAgentId'))            { aiAgentId = null }\nif (!binding.hasVariable('modelId'))              { modelId = null }\nif (!binding.hasVariable('workflowId'))           { workflowId = null }\nif (!binding.hasVariable('inputToken'))           { inputToken = 0L }\nif (!binding.hasVariable('outputToken'))          { outputToken = 0L }\nif (!binding.hasVariable('inputCost'))            { inputCost = 0.0d }\nif (!binding.hasVariable('outputCost'))           { outputCost = 0.0d }\nif (!binding.hasVariable('maxQueryCost'))         { maxQueryCost = [:] }\nif (!binding.hasVariable('estimatedCostPrefix'))  { estimatedCostPrefix = null }\nif (!binding.hasVariable('inputTokenErrors'))     { inputTokenErrors = \"\" }\nif (!binding.hasVariable('teamIds'))              { teamIds = [] }\n\n// Caller's team ids (from userGroups resolver), used for model+team composite caps.\nfinal List CALLER_TEAM_IDS = ((teamIds ?: []) as List).findAll { it != null && it.toString() }.collect { it.toString() }.unique()\n\nfinal double EST_INPUT_TOKEN  = (inputToken  as Number).doubleValue()\nfinal double EST_OUTPUT_TOKEN = (outputToken as Number).doubleValue()\nfinal double EST_INPUT_COST   = (inputCost   as Number).doubleValue()\nfinal double EST_OUTPUT_COST  = (outputCost  as Number).doubleValue()\nfinal double TOTAL_TOKEN      = EST_INPUT_TOKEN + EST_OUTPUT_TOKEN\nfinal double TOTAL_COST       = EST_INPUT_COST  + EST_OUTPUT_COST\n\nfinal long RESERVATION_TTL_SECONDS = 3600L\n\n/* ---------- pure helpers -------------------------------------------------- */\n\ndef computePeriodRange = { period ->\n    if (!period) return [startTime: null, endTime: null]\n    def cal = Calendar.getInstance()\n    cal.set(Calendar.HOUR_OF_DAY, 0)\n    cal.set(Calendar.MINUTE, 0)\n    cal.set(Calendar.SECOND, 0)\n    cal.set(Calendar.MILLISECOND, 0)\n    Long start = null, end = null\n    switch (period.toLowerCase()) {\n        case \"daily\":\n            start = cal.timeInMillis\n            cal.add(Calendar.DAY_OF_MONTH, 1)\n            end = cal.timeInMillis - 1\n            break\n        case \"weekly\":\n            cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)\n            start = cal.timeInMillis\n            cal.add(Calendar.WEEK_OF_YEAR, 1)\n            end = cal.timeInMillis - 1\n            break\n        case \"monthly\":\n            cal.set(Calendar.DAY_OF_MONTH, 1)\n            start = cal.timeInMillis\n            cal.add(Calendar.MONTH, 1)\n            end = cal.timeInMillis - 1\n            break\n    }\n    [startTime: start, endTime: end]\n}\n\ndef buildKeyPrefix = { String category ->\n    switch (category) {\n        case \"overall\": return \"overall\"\n        case \"user\":    return userId    ? \"users_${userId}\".toString()        : null\n        case \"aiAgent\": return aiAgentId ? \"ai_agents_${aiAgentId}\".toString() : null\n        case \"model\":   return modelId   ? \"models_${modelId}\".toString()      : null\n        case \"workflow\": return workflowId ? \"workflows_${workflowId}\".toString() : null\n        default:        return null\n    }\n}\n\ndef estimatesFor = { String type ->\n    def t = type?.toString()?.toLowerCase()\n    if (t == \"token\") return [input: EST_INPUT_TOKEN, output: EST_OUTPUT_TOKEN, total: TOTAL_TOKEN]\n    if (t == \"cost\")  return [input: EST_INPUT_COST,  output: EST_OUTPUT_COST,  total: TOTAL_COST]\n    return [input: 0.0d, output: 0.0d, total: 0.0d]\n}\n\ndef resolveCategory = { entry ->\n    entry?.properties?.scope as String\n}\n\n/* ---------- 1. Build the FULL set of counters to reserve against ---------- */\n\ndef categories = [\"overall\", \"user\", \"aiAgent\", \"model\", \"workflow\"].findAll { buildKeyPrefix(it) != null }\n\ndef counters = [:]\n[\"daily\", \"weekly\", \"monthly\"].each { period ->\n    def range = computePeriodRange(period)\n    if (range.startTime == null) return\n    categories.each { category ->\n        def prefix = buildKeyPrefix(category)\n        [\"token\", \"cost\"].each { metric ->\n            def est = estimatesFor(metric)\n            def key = \"${prefix}_${metric}_${period}_${range.startTime}\".toString()\n            counters[key] = [\n                    key         : key,\n                    category    : category,\n                    period      : period,\n                    metric      : metric,\n                    amount      : est.total,\n                    endTime     : range.endTime,\n                    currentUsage: 0.0d,\n                    incremented : false\n            ]\n        }\n    }\n}\n\n/* ---------- 1b. Reserve composite (model-anchored) + team counters -------- *\n * Composite prefix = models_<m>_<subPrefix> (model first). MUST be byte-identical\n * to Capture-Usage so reservations reconcile (else counters drift/go negative). */\n\ndef compositePrefixesForCaller = {\n    def out = []\n    if (modelId) {\n        if (userId)    out << \"models_${modelId}_users_${userId}\".toString()\n        if (aiAgentId) out << \"models_${modelId}_ai_agents_${aiAgentId}\".toString()\n        CALLER_TEAM_IDS.each { t -> out << \"models_${modelId}_teams_${t}\".toString() }\n    }\n    return out\n}()\n\n[\"daily\", \"weekly\", \"monthly\"].each { period ->\n    def range = computePeriodRange(period)\n    if (range.startTime == null) return\n    compositePrefixesForCaller.each { prefix ->\n        [\"token\", \"cost\"].each { metric ->\n            def est = estimatesFor(metric)\n            def key = \"${prefix}_${metric}_${period}_${range.startTime}\".toString()\n            if (!counters.containsKey(key)) {\n                counters[key] = [\n                        key         : key,\n                        category    : \"composite\",\n                        period      : period,\n                        metric      : metric,\n                        amount      : est.total,\n                        endTime     : range.endTime,\n                        currentUsage: 0.0d,\n                        incremented : false\n                ]\n            }\n        }\n    }\n}\n\n/* ---------- 2. Resolve effective period limits (tiered cascade) ----------- */\n\ndef flattenLimits = { entry ->\n    def rows = []\n    entry?.properties?.limits?.each { lim ->\n        def p = lim.period?.toString()?.toLowerCase()\n        def t = lim.type?.toString()?.toLowerCase()\n        if (!p || !t) return\n        rows << [\n                period     : p,\n                type       : t,\n                value      : (lim.value as Number).doubleValue(),\n                enforcement: (lim.enforcement as String)?.toLowerCase()\n        ]\n    }\n    return rows\n}\n\ndef indexByTier = { List entries ->\n    def out = [:]\n    entries.each { entry ->\n        flattenLimits(entry).each { limit ->\n            def k = \"${limit.period}|${limit.type}\".toString()\n            out[k] = out[k] ?: []\n            out[k] << limit\n        }\n    }\n    return out\n}\n\n// A model-anchored exception row carries properties.modelId. Those are handled as\n// INDEPENDENT composite caps below; exclude them from the plain single-scope cascade\n// so a \"user+model\" row does not also pin the plain \"user\" cap (backward compat).\ndef isPlain = { entry -> !(entry?.properties?.modelId) }\n\ndef overallDefaults  = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"overall\" })\ndef userDefaults     = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"user\" })\ndef userOverrides    = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"user\"    && isPlain(it) })\ndef teamOverrides    = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"team\"    && isPlain(it) })\ndef agentDefaults    = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"aiAgent\" })\ndef agentOverrides   = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"aiAgent\" && isPlain(it) })\ndef modelDefaults    = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"model\" })\ndef modelOverrides   = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"model\" })\ndef workflowDefaults = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"workflow\" })\ndef workflowOverrides= indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"workflow\" })\n\ndef maxRow = { List rows ->\n    rows ? rows.max { it.value } : null\n}\n\ndef allKeysUnion = { Map... maps ->\n    def s = new LinkedHashSet<String>()\n    maps.each { m -> if (m) s.addAll(m.keySet()) }\n    return s\n}\n\ndef resolveScope = {\n    String scopeName,\n    Map defaults, Map overrides,\n    boolean applyTeams,            // teams only raise users\n    Map orgDefaults ->\n\n    def keys = allKeysUnion(defaults, overrides,\n                            applyTeams ? teamOverrides : null,\n                            orgDefaults)\n    def out = []\n    keys.each { k ->\n        // Tier 1 ‚Äî entity override pins\n        def cap = maxRow(overrides[k])\n\n        // Tier 2 ‚Äî team raises default (users only); multi-team => highest\n        if (cap == null) {\n            def teamCap    = applyTeams ? maxRow(teamOverrides[k]) : null\n            def defaultCap = maxRow(defaults[k])\n            if (teamCap != null && defaultCap != null) {\n                cap = (teamCap.value >= defaultCap.value) ? teamCap : defaultCap\n            } else {\n                cap = teamCap ?: defaultCap\n            }\n        }\n\n        // Tier 3 ‚Äî clamp by org cap\n        def orgCap = maxRow(orgDefaults[k])\n        if (orgCap != null) {\n            if (cap == null || cap.value > orgCap.value) cap = orgCap\n        }\n\n        if (cap == null) return\n        def (period, type) = k.tokenize(\"|\")\n        out << [\n                scope      : scopeName,\n                period     : period,\n                type       : type,\n                value      : cap.value,\n                enforcement: cap.enforcement\n        ]\n    }\n    return out\n}\n\ndef overallRows = []\noverallDefaults.each { k, rows ->\n    def cap = maxRow(rows)\n    if (!cap) return\n    def (period, type) = k.tokenize(\"|\")\n    overallRows << [scope: \"overall\", period: period, type: type,\n                    value: cap.value, enforcement: cap.enforcement]\n}\n\ndef userRows  = resolveScope(\"user\",    userDefaults,  userOverrides,  true,  overallDefaults)\ndef agentRows = resolveScope(\"aiAgent\", agentDefaults, agentOverrides, false, overallDefaults)\ndef modelRows = resolveScope(\"model\",   modelDefaults, modelOverrides, false, overallDefaults)\ndef workflowRows = resolveScope(\"workflow\", workflowDefaults, workflowOverrides, false, overallDefaults)\n\n// Map resolved rows into the shape the classifier expects.\ndef buildRow = { Map r ->\n    def metric = r.type\n    def prefix = buildKeyPrefix(r.scope)\n    def range  = computePeriodRange(r.period)\n    def redisKey = (prefix && metric && range.startTime != null)\n            ? \"${prefix}_${metric}_${r.period}_${range.startTime}\".toString()\n            : null\n    def est = estimatesFor(metric)\n    return [\n            scope          : r.scope,\n            period         : r.period,\n            enforcement    : r.enforcement,\n            limit          : r.value,\n            type           : r.type,\n            estimatedInput : est.input,\n            estimatedOutput: est.output,\n            redisKey       : redisKey\n    ]\n}\n\n/* ---- Composite (model-anchored) INDEPENDENT caps -----------------------------\n * A model-anchored exception row (properties.modelId set) that matches the CURRENT\n * call's model becomes an independent cap keyed by models_<m>_<subPrefix>_<subId>.\n * Rows for a DIFFERENT model are skipped (no cross-model leakage). Enforced\n * conjunctively alongside the single-scope caps (strictest HARD wins).            */\ndef curModel = modelId?.toString()\n\ndef compositeSubPrefix = { String sc, String subId ->\n    if (!subId) return null\n    switch (sc) {\n        case \"user\":    return \"users_${subId}\".toString()\n        case \"team\":    return \"teams_${subId}\".toString()\n        case \"aiAgent\": return \"ai_agents_${subId}\".toString()\n        default:        return null\n    }\n}\n\ndef compositeCaps = []\nif (curModel) {\n    agentLimitExceptions.each { entry ->\n        def rowModel = entry?.properties?.modelId?.toString()\n        if (!rowModel || rowModel != curModel) return          // skip non-model + other-model rows\n        def sc = resolveCategory(entry)\n        if (!(sc in [\"user\", \"team\", \"aiAgent\"])) return       // model-global handled by modelRows\n        def subId = (sc == \"user\") ? entry?.properties?.userId\n                  : (sc == \"team\") ? entry?.properties?.teamId\n                  :                  entry?.properties?.agentId\n        def sid = subId?.toString()\n        // Anchor enforcement to the SAME identity as the reservation (the caller).\n        // The exceptions fetch ORs its filters, so a row for ANOTHER user/agent/team can be\n        // returned via the modelId clause. Apply only rows that belong to THIS caller ‚Äî else\n        // the cap key would miss the reserved counter (currentUsage read as 0 -> under-enforced)\n        // and could leak another identity's limit onto this call.\n        if (sc == \"user\"    && sid != userId?.toString())      return\n        if (sc == \"aiAgent\" && sid != aiAgentId?.toString())   return\n        if (sc == \"team\"    && !CALLER_TEAM_IDS.contains(sid)) return\n        def subPfx = compositeSubPrefix(sc, sid)\n        if (!subPfx) return\n        def prefix = \"models_${curModel}_${subPfx}\".toString()\n        def label  = \"Model+\" + (sc == \"aiAgent\" ? \"agent\" : sc)\n        flattenLimits(entry).each { lim ->\n            compositeCaps << [scopeLabel: label, prefix: prefix, period: lim.period,\n                              type: lim.type, value: lim.value, enforcement: lim.enforcement]\n        }\n    }\n}\n\n// buildRow for an explicit-prefix (composite) cap.\ndef buildCompositeRow = { Map r ->\n    def range    = computePeriodRange(r.period)\n    def redisKey = (r.prefix && r.type && range.startTime != null)\n            ? \"${r.prefix}_${r.type}_${r.period}_${range.startTime}\".toString()\n            : null\n    def est = estimatesFor(r.type)\n    return [\n            scope          : r.scopeLabel,\n            period         : r.period,\n            enforcement    : r.enforcement,\n            limit          : r.value,\n            type           : r.type,\n            estimatedInput : est.input,\n            estimatedOutput: est.output,\n            redisKey       : redisKey\n    ]\n}\n\ndef limitRows = []\nlimitRows.addAll(overallRows.collect(buildRow))\nlimitRows.addAll(userRows.collect(buildRow))\nlimitRows.addAll(agentRows.collect(buildRow))\nlimitRows.addAll(modelRows.collect(buildRow))\nlimitRows.addAll(workflowRows.collect(buildRow))\nlimitRows.addAll(compositeCaps.collect(buildCompositeRow))\n\n/* ---------- 3. Acquire Redis template ------------------------------------- */\n\ndef redisTemplate\ntry {\n    InstanceHandle<RedisTemplateFactory> handle =\n            Arc.container().instance(RedisTemplateFactory.class)\n    redisTemplate = handle.get().getRedisTemplate(\n            UserContext.getCurrentCustomerId(),\n            WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE\n    )\n} catch (Exception e) {\n    return [stopFlow: false,\n            error: \"Rate-limit check unavailable: ${e.toString()}\".toString(),\n            showAlert: false,\n            maxOutputTokens: (EST_OUTPUT_TOKEN.toInteger() > 0 ? EST_OUTPUT_TOKEN.toInteger() : 4096)]\n}\n\n/* ---------- 4. Reserve against EVERY counter ------------------------------ */\n\nlong now = System.currentTimeMillis()\n\ncounters.values().each { c ->\n    if (c.amount == 0.0d) {\n        try {\n            def v = redisTemplate.find(c.key, Number.class)\n            c.currentUsage = (v != null) ? (v as Number).doubleValue() : 0.0d\n        } catch (Exception e) {\n            c.currentUsage = 0.0d\n            c.error = e.toString()\n        }\n        return\n    }\n    try {\n        double newTotal = redisTemplate.incrByFloat(c.key, Number.class, c.amount)\n        long ttlMs = (c.endTime as Long) - now\n        if (ttlMs > 0) redisTemplate.expireAfter(c.key, ttlMs, Number.class)\n        c.currentUsage = newTotal - c.amount\n        c.incremented  = true\n    } catch (Exception e) {\n        c.currentUsage = Double.MAX_VALUE\n        c.error        = e.toString()\n    }\n}\n\n/* ---------- 5. Classify each limit row into prioritized violations -------- *\n * Each violation is tagged with:\n *   isOrg    : true if scope == \"overall\"\n *   severity : \"hard\" | \"soft\"   (only hard violations set stopFlow)\n *   message  : user-facing text\n * A single message is selected later by priority:\n *   org hard > other hard > org soft > other soft.                          */\n\ndef violations = []        // [ {isOrg, severity, message} ]\nboolean stopFlow = false\nboolean showAlert = false\n\ndef addViolation = { boolean isOrg, String severity, String message ->\n    violations << [isOrg: isOrg, severity: severity, message: message]\n    showAlert = true\n    if (severity == \"hard\") stopFlow = true\n}\n\n// Per-query token violation passed in from the resolver. We don't know its\n// enforcement here, so treat a non-empty string as a org soft violation\n// (the resolver only emits this string when it intends to block on input).\nif (inputTokenErrors != null && inputTokenErrors.size() > 0) {\n    addViolation(true, \"soft\", inputTokenErrors as String)\n}\n\nlimitRows.each { row ->\n    def counter  = row.redisKey ? counters[row.redisKey] : null\n    double current = counter ? (counter.currentUsage as double) : 0.0d\n    double limit   = ((row.limit ?: 0.0) as Number).doubleValue()\n    double estIn   = (row.estimatedInput  as Number).doubleValue()\n    double estOut  = (row.estimatedOutput as Number).doubleValue()\n    String enforce = (row.enforcement as String)?.toLowerCase() ?: \"soft\"\n    String scope   = row.scope as String\n    boolean isOrg  = (scope == \"overall\")\n\n    double withInput = current + estIn\n    double withTotal = withInput + estOut\n\n    if (withInput > limit) {\n        // Input alone exceeds: severity follows the limit's own enforcement.\n        addViolation(isOrg, enforce,\n                \"${scope.capitalize()} ${row.period} ${row.type} ${enforce} limit reached: \" +\n                \"input alone (${withInput}) exceeds limit of ${row.limit}\".toString())\n    } else if (withTotal > limit) {\n        // Estimated total exceeds: always a soft warning (call hasn't overrun\n        // anything yet ‚Äî output is only a projection).\n        addViolation(isOrg, \"soft\",\n                \"${scope.capitalize()} ${row.period} ${row.type} ${enforce} limit reached: \" +\n                \"estimated total (${withTotal}) exceeds limit of ${row.limit}\".toString())\n    }\n}\n\n// Per-query cost check (resolved maxQueryCost binding).\nif (maxQueryCost != null && maxQueryCost.value != null) {\n    boolean isOrg = true    // perQuery is an overall-scope (org) concept\n    if (EST_INPUT_COST > (maxQueryCost.value as Number).doubleValue()) {\n        // Input cost overflow follows perQuery enforcement.\n        String sev = ((maxQueryCost.enforcement as String)?.toLowerCase() == \"hard\") ? \"hard\" : \"soft\"\n        addViolation(isOrg, sev,\n                \"Per-query cost limit reached (${maxQueryCost.enforcement}): \" +\n                \"input cost (${EST_INPUT_COST}) exceeds max query cost of ${maxQueryCost.value}\".toString())\n    } else if (TOTAL_COST > (maxQueryCost.value as Number).doubleValue()) {\n        // Total overflow is always a soft warning.\n        addViolation(isOrg, \"soft\",\n                \"Per-query cost limit reached (${maxQueryCost.enforcement}): \" +\n                \"estimated total (${TOTAL_COST}) exceeds max query cost of ${maxQueryCost.value}\".toString())\n    }\n}\n\n/* ---------- 5b. Select the message ---------------------------------------- *\n * Priority tiers, descending ‚Äî return the first non-empty one:\n *   1. org hard    -> single highest org-hard message\n *   2. other hard  -> all non-org hard messages, combined (\"; \")\n *   3. org soft    -> single org-soft message\n *   4. other soft  -> all non-org soft messages, combined (\"; \")            */\n\ndef selectMessage = { List vios ->\n    if (!vios) return \"\"\n\n    def orgHard   = vios.find    { it.isOrg  && it.severity == \"hard\" }\n    def otherHard = vios.findAll { !it.isOrg && it.severity == \"hard\" }\n    def orgSoft   = vios.find    { it.isOrg  && it.severity == \"soft\" }\n    def otherSoft = vios.findAll { !it.isOrg && it.severity == \"soft\" }\n\n    if (orgHard)   return orgHard.message as String\n    if (otherHard) return otherHard.collect { it.message }.join(\"; \")\n    if (orgSoft)   return orgSoft.message as String\n    if (otherSoft) return otherSoft.collect { it.message }.join(\"; \")\n    return \"\"\n}\n\nString selectedMessage = selectMessage(violations)\n\n/* ---------- 6. Revert helper -------------------------------------------- */\n\ndef revertAll = {\n    counters.values().each { c ->\n        if (c.incremented && c.amount != 0.0d) {\n            try { redisTemplate.incrByFloat(c.key, Number.class, -c.amount) }\n            catch (Exception ignore) { /* best-effort; key has TTL backstop */ }\n        }\n    }\n}\n\n/* ---------- 6a. stopFlow = true: revert all reservations ------------------ */\n\nif (stopFlow) {\n    revertAll()\n    return [stopFlow: true,\n            error: selectedMessage,\n            showAlert: true,\n            maxOutputTokens: null]\n}\n\n/* ---------- 6b. stopFlow = false: persist case totals --------------------- */\n\nif (estimatedCostPrefix) {\n    try {\n        def expiry = Duration.ofSeconds(RESERVATION_TTL_SECONDS)\n        redisTemplate.update(\"${estimatedCostPrefix}_token\".toString(), TOTAL_TOKEN as Number, expiry, Number.class)\n        redisTemplate.update(\"${estimatedCostPrefix}_cost\".toString(),  TOTAL_COST  as Number, expiry, Number.class)\n    } catch (Exception e) {\n        revertAll()\n        return [stopFlow: true,\n                error: \"Reservation persistence failed; aborting to avoid orphaned counters: ${e.toString()}\".toString(),\n                showAlert: showAlert,\n                maxOutputTokens: null]\n    }\n}\n\n// TODO: future ‚Äî return effective max_tokens for the LLM call as\n//   tightest_remaining_token_headroom = min over token-typed limit rows of\n//       (row.limit - row.currentUsage - row.estimatedInput)\n//   clamped at 0. This lets the caller pass `max_tokens` to the LLM so the\n//   model can't overrun the soft headroom we just reserved against.\n// def usableOutputToken = limitRows\n//         .findAll { it.type?.toString()?.equalsIgnoreCase(\"token\") }\n//         .collect { row ->\n//             def counter = row.redisKey ? counters[row.redisKey] : null\n//             double current = counter ? (counter.currentUsage as double) : 0.0d\n//             double limit   = ((row.limit ?: 0.0) as Number).doubleValue()\n//             double estIn   = (row.estimatedInput as Number).doubleValue()\n//             Math.max(0.0d, limit - current - estIn)\n//         }\n//         .min()\n// // Then return: maxOutputTokens: usableOutputToken ?: EST_OUTPUT_TOKEN\n\nreturn [\"stopFlow\": false,\n        \"error\": selectedMessage,\n        \"showAlert\": showAlert,\n        \"maxOutputTokens\": (EST_OUTPUT_TOKEN.toInteger() > 0 ? EST_OUTPUT_TOKEN.toInteger() : 4096)]",
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes\nimport com.unifyapps.infra.utils.context.UserContext\nimport io.quarkus.arc.Arc\nimport io.quarkus.arc.InstanceHandle\nimport java.time.Duration\nimport java.util.Calendar\n\n/* =============================================================================\n * Pre-flight rate-limit check for an LLM call.\n *\n *   1.  Reserve estimates against the FULL set of (scope, period, metric)\n *       counters — even ones with no limit defined — so capture-usage can\n *       uniformly subtract the same reservation from every counter.\n *   1c. Reserve message-scoped (agentic-turn) counters, one per scope, so\n *       per-query caps apply to the whole QUERY rather than one LLM hop.\n *   2.  Resolve effective per-scope period limits (tiered cascade).\n *   3.  Look up each limit's currentUsage from the counter map and classify.\n *   4.  Select ONE prioritized message; soft warnings are deduplicated to\n *       ONCE per messageId (hard blocks are always reported).\n *   5a. stopFlow = true  -> revert every increment.\n *   5b. stopFlow = false -> keep increments and persist the three receipts.\n *\n * Message-scoped per-query keys (NO period suffix). Input and output tokens\n * are tracked SEPARATELY. MUST be byte-identical to Capture-Usage §4b:\n *      messages_<messageId>_<scopePrefix>_token_in\n *      messages_<messageId>_<scopePrefix>_token_out\n *      messages_<messageId>_<scopePrefix>_cost\n * plus the alert-dedup flag  messages_<messageId>_alerted  (pre-flight only).\n * <scopePrefix> is overall | users_<id> | ai_agents_<id> | models_<id> |\n * workflows_<id>. A team-scoped cap reads the users_ key.\n *\n * Per-query semantics (turn-accumulated, message-scoped):\n *   maxInputTokens  : accum_in + this call's input   — committed, so a breach\n *                     follows the cap's own enforcement.\n *   maxOutputTokens : accum_out alone over cap       -> follows enforcement\n *                     (committed); accum_out + projected output -> soft only.\n *                     When this cap is HARD, the returned maxOutputTokens is\n *                     the REMAINING turn budget (cap - accum_out, floor 0) so\n *                     the LLM call cannot overrun it.\n *   maxQueryCost    : accum + input cost -> enforcement; + projected -> soft.\n * Period counters remain COMBINED (token = input + output) and unchanged.\n *\n * System users (userId 0 / -1): only explicit user-scope overrides apply.\n * Counters are still reserved so Capture-Usage reconciliation stays symmetric.\n *\n * Message selection priority: org hard > other hard > org soft > other soft.\n *\n * Inputs (all bindings optional):\n *   agentLimits, agentLimitExceptions    : List<Map>\n *   userId, aiAgentId, modelId,\n *   workflowId                           : scope ids\n *   messageId                            : agentic-turn id (per-query scope)\n *   inputToken, outputToken              : Number (already-resolved estimates)\n *   inputCost,  outputCost               : Number\n *   maxInputTokens, maxOutputTokens,\n *   maxQueryCost                         : Map [value, enforcement, scope]\n *   inputTokenErrors                     : String from resolver\n *   estimatedCostPrefix                  : opaque id; reservation keyed on it\n *\n * Output:\n *   { stopFlow: boolean, error: String,\n *     showAlert: boolean, maxOutputTokens: Number | null }\n * ========================================================================== */\n\nif (!binding.hasVariable('agentLimits'))          { agentLimits = [] }\nif (!binding.hasVariable('agentLimitExceptions')) { agentLimitExceptions = [] }\nif (!binding.hasVariable('userId'))               { userId = null }\nif (!binding.hasVariable('aiAgentId'))            { aiAgentId = null }\nif (!binding.hasVariable('modelId'))              { modelId = null }\nif (!binding.hasVariable('workflowId'))           { workflowId = null }\nif (!binding.hasVariable('inputToken'))           { inputToken = 0L }\nif (!binding.hasVariable('outputToken'))          { outputToken = 0L }\nif (!binding.hasVariable('inputCost'))            { inputCost = 0.0d }\nif (!binding.hasVariable('outputCost'))           { outputCost = 0.0d }\nif (!binding.hasVariable('maxQueryCost'))         { maxQueryCost = [:] }\nif (!binding.hasVariable('maxInputTokens'))       { maxInputTokens = [:] }\nif (!binding.hasVariable('maxOutputTokens'))      { maxOutputTokens = [:] }\nif (!binding.hasVariable('estimatedCostPrefix'))  { estimatedCostPrefix = null }\nif (!binding.hasVariable('inputTokenErrors'))     { inputTokenErrors = \"\" }\nif (!binding.hasVariable('messageId'))            { messageId = null }\n\nfinal double EST_INPUT_TOKEN  = (inputToken  as Number).doubleValue()\nfinal double EST_OUTPUT_TOKEN = (outputToken as Number).doubleValue()\nfinal double EST_INPUT_COST   = (inputCost   as Number).doubleValue()\nfinal double EST_OUTPUT_COST  = (outputCost  as Number).doubleValue()\nfinal double TOTAL_TOKEN      = EST_INPUT_TOKEN + EST_OUTPUT_TOKEN\nfinal double TOTAL_COST       = EST_INPUT_COST  + EST_OUTPUT_COST\n\nfinal long RESERVATION_TTL_SECONDS = 3600L\n\n// Message (agentic-turn) counters outlive the per-call receipt. Observed turns\n// run ~45 min; 2h gives headroom. TTL refreshes on every hop.\nfinal long MESSAGE_TTL_MS = 7200000L\n\n// System/service callers (userId 0 or -1): only explicit user-scope overrides\n// apply. User defaults, team raises, and org adoption are all skipped for the\n// user scope; every other scope resolves unchanged.\nfinal boolean SYSTEM_USER = (userId != null && [\"0\", \"-1\"].contains(userId.toString()))\n\n/* ---------- pure helpers -------------------------------------------------- */\n\ndef computePeriodRange = { period ->\n    if (!period) return [startTime: null, endTime: null]\n    def cal = Calendar.getInstance()\n    cal.set(Calendar.HOUR_OF_DAY, 0)\n    cal.set(Calendar.MINUTE, 0)\n    cal.set(Calendar.SECOND, 0)\n    cal.set(Calendar.MILLISECOND, 0)\n    Long start = null, end = null\n    switch (period.toLowerCase()) {\n        case \"daily\":\n            start = cal.timeInMillis\n            cal.add(Calendar.DAY_OF_MONTH, 1)\n            end = cal.timeInMillis - 1\n            break\n        case \"weekly\":\n            cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)\n            start = cal.timeInMillis\n            cal.add(Calendar.WEEK_OF_YEAR, 1)\n            end = cal.timeInMillis - 1\n            break\n        case \"monthly\":\n            cal.set(Calendar.DAY_OF_MONTH, 1)\n            start = cal.timeInMillis\n            cal.add(Calendar.MONTH, 1)\n            end = cal.timeInMillis - 1\n            break\n    }\n    [startTime: start, endTime: end]\n}\n\n// Null/empty test must match Capture-Usage's prefix test exactly — a bare\n// truthiness check treats numeric 0 as absent, which would drop the user\n// scope here while Capture-Usage still writes to it (negative counters).\ndef buildKeyPrefix = { String category ->\n    switch (category) {\n        case \"overall\":  return \"overall\"\n        case \"user\":     return (userId     != null && userId.toString())     ? \"users_${userId}\".toString()         : null\n        case \"aiAgent\":  return (aiAgentId  != null && aiAgentId.toString())  ? \"ai_agents_${aiAgentId}\".toString()  : null\n        case \"model\":    return (modelId    != null && modelId.toString())    ? \"models_${modelId}\".toString()       : null\n        case \"workflow\": return (workflowId != null && workflowId.toString()) ? \"workflows_${workflowId}\".toString() : null\n        default:         return null\n    }\n}\n\n// Message-scoped prefix, mirroring buildKeyPrefix exactly. \"team\" maps to the\n// user prefix: one user per turn, so team spend within a turn is that user's\n// spend, and the winning team cap carries no teamId.\ndef buildMessagePrefix = { String category ->\n    if (!messageId) return null\n    String cat = (category == \"team\") ? \"user\" : category\n    def base = buildKeyPrefix(cat)\n    return base ? \"messages_${messageId}_${base}\".toString() : null\n}\n\n// Period counters stay COMBINED (token = input + output).\ndef estimatesFor = { String type ->\n    def t = type?.toString()?.toLowerCase()\n    if (t == \"token\") return [input: EST_INPUT_TOKEN, output: EST_OUTPUT_TOKEN, total: TOTAL_TOKEN]\n    if (t == \"cost\")  return [input: EST_INPUT_COST,  output: EST_OUTPUT_COST,  total: TOTAL_COST]\n    return [input: 0.0d, output: 0.0d, total: 0.0d]\n}\n\n// Message counters are SPLIT: input tokens, output tokens, and cost each get\n// their own accumulator so the three per-query caps can be checked separately.\nfinal Map MESSAGE_METRICS = [\"token_in\" : EST_INPUT_TOKEN,\n                             \"token_out\": EST_OUTPUT_TOKEN,\n                             \"cost\"     : TOTAL_COST]\n\ndef resolveCategory = { entry ->\n    entry?.properties?.scope as String\n}\n\n/* ---------- 1. Build the FULL set of counters to reserve against ---------- */\n\ndef categories = [\"overall\", \"user\", \"aiAgent\", \"model\", \"workflow\"].findAll { buildKeyPrefix(it) != null }\n\ndef counters = [:]\n[\"daily\", \"weekly\", \"monthly\"].each { period ->\n    def range = computePeriodRange(period)\n    if (range.startTime == null) return\n    categories.each { category ->\n        def prefix = buildKeyPrefix(category)\n        [\"token\", \"cost\"].each { metric ->\n            def est = estimatesFor(metric)\n            def key = \"${prefix}_${metric}_${period}_${range.startTime}\".toString()\n            counters[key] = [\n                    key         : key,\n                    category    : category,\n                    period      : period,\n                    metric      : metric,\n                    amount      : est.total,\n                    endTime     : range.endTime,\n                    currentUsage: 0.0d,\n                    incremented : false\n            ]\n        }\n    }\n}\n\n/* ---------- 2. Resolve effective period limits (tiered cascade) ----------- */\n\ndef flattenLimits = { entry ->\n    def rows = []\n    entry?.properties?.limits?.each { lim ->\n        def p = lim.period?.toString()?.toLowerCase()\n        def t = lim.type?.toString()?.toLowerCase()\n        if (!p || !t) return\n        rows << [\n                period     : p,\n                type       : t,\n                value      : (lim.value as Number).doubleValue(),\n                enforcement: (lim.enforcement as String)?.toLowerCase()\n        ]\n    }\n    return rows\n}\n\ndef indexByTier = { List entries ->\n    def out = [:]\n    entries.each { entry ->\n        flattenLimits(entry).each { limit ->\n            def k = \"${limit.period}|${limit.type}\".toString()\n            out[k] = out[k] ?: []\n            out[k] << limit\n        }\n    }\n    return out\n}\n\ndef overallDefaults  = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"overall\" })\ndef userDefaults     = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"user\" })\ndef userOverrides    = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"user\" })\ndef teamOverrides    = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"team\" })\ndef agentDefaults    = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"aiAgent\" })\ndef agentOverrides   = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"aiAgent\" })\ndef modelDefaults    = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"model\" })\ndef modelOverrides   = indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"model\" })\ndef workflowDefaults = indexByTier(agentLimits.findAll          { resolveCategory(it) == \"workflow\" })\ndef workflowOverrides= indexByTier(agentLimitExceptions.findAll { resolveCategory(it) == \"workflow\" })\n\ndef maxRow = { List rows ->\n    rows ? rows.max { it.value } : null\n}\n\ndef allKeysUnion = { Map... maps ->\n    def s = new LinkedHashSet<String>()\n    maps.each { m -> if (m) s.addAll(m.keySet()) }\n    return s\n}\n\ndef resolveScope = {\n    String scopeName,\n    Map defaults, Map overrides,\n    boolean applyTeams,            // teams only raise users\n    Map orgDefaults ->\n\n    def keys = allKeysUnion(defaults, overrides,\n                            applyTeams ? teamOverrides : null,\n                            orgDefaults)\n    def out = []\n    keys.each { k ->\n        // Tier 1 — entity override pins\n        def cap = maxRow(overrides[k])\n\n        // Tier 2 — team raises default (users only); multi-team => highest\n        if (cap == null) {\n            def teamCap    = applyTeams ? maxRow(teamOverrides[k]) : null\n            def defaultCap = maxRow(defaults[k])\n            if (teamCap != null && defaultCap != null) {\n                cap = (teamCap.value >= defaultCap.value) ? teamCap : defaultCap\n            } else {\n                cap = teamCap ?: defaultCap\n            }\n        }\n\n        // Tier 3 — clamp by org cap\n        def orgCap = maxRow(orgDefaults[k])\n        if (orgCap != null) {\n            if (cap == null || cap.value > orgCap.value) cap = orgCap\n        }\n\n        if (cap == null) return\n        def (period, type) = k.tokenize(\"|\")\n        out << [\n                scope      : scopeName,\n                period     : period,\n                type       : type,\n                value      : cap.value,\n                enforcement: cap.enforcement\n        ]\n    }\n    return out\n}\n\ndef overallRows = []\noverallDefaults.each { k, rows ->\n    def cap = maxRow(rows)\n    if (!cap) return\n    def (period, type) = k.tokenize(\"|\")\n    overallRows << [scope: \"overall\", period: period, type: type,\n                    value: cap.value, enforcement: cap.enforcement]\n}\n\n// System users resolve the user scope from explicit overrides ONLY: empty\n// defaults + empty orgDefaults means no default fallback, no team raise, and\n// no org adoption — a missing override yields no user-scope rows at all.\ndef userRows  = SYSTEM_USER\n        ? resolveScope(\"user\", [:], userOverrides, false, [:])\n        : resolveScope(\"user\", userDefaults, userOverrides, true, overallDefaults)\ndef agentRows = resolveScope(\"aiAgent\", agentDefaults, agentOverrides, false, overallDefaults)\ndef modelRows = resolveScope(\"model\",   modelDefaults, modelOverrides, false, overallDefaults)\ndef workflowRows = resolveScope(\"workflow\", workflowDefaults, workflowOverrides, false, overallDefaults)\n\n// Map resolved rows into the shape the classifier expects.\ndef buildRow = { Map r ->\n    def metric = r.type\n    def prefix = buildKeyPrefix(r.scope)\n    def range  = computePeriodRange(r.period)\n    // MUST stay byte-identical to the key built in §1 above.\n    def redisKey = (prefix && metric && range.startTime != null)\n            ? \"${prefix}_${metric}_${r.period}_${range.startTime}\".toString()\n            : null\n    def est = estimatesFor(metric)\n    return [\n            scope          : r.scope,\n            period         : r.period,\n            enforcement    : r.enforcement,\n            limit          : r.value,\n            type           : r.type,\n            estimatedInput : est.input,\n            estimatedOutput: est.output,\n            redisKey       : redisKey\n    ]\n}\n\ndef limitRows = []\nlimitRows.addAll(overallRows.collect(buildRow))\nlimitRows.addAll(userRows.collect(buildRow))\nlimitRows.addAll(agentRows.collect(buildRow))\nlimitRows.addAll(modelRows.collect(buildRow))\nlimitRows.addAll(workflowRows.collect(buildRow))\n\n/* ---------- 3. Acquire Redis template ------------------------------------- */\n\ndef redisTemplate\ntry {\n    InstanceHandle<RedisTemplateFactory> handle =\n            Arc.container().instance(RedisTemplateFactory.class)\n    redisTemplate = handle.get().getRedisTemplate(\n            UserContext.getCurrentCustomerId(),\n            WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE\n    )\n} catch (Exception e) {\n    return [stopFlow: false,\n            error: \"Rate-limit check unavailable: ${e.toString()}\".toString(),\n            showAlert: false,\n            maxOutputTokens: (EST_OUTPUT_TOKEN.toInteger() > 0 ? EST_OUTPUT_TOKEN.toInteger() : 4096)]\n}\n\n/* ---------- 4. Reserve against EVERY counter ------------------------------ */\n\nlong now = System.currentTimeMillis()\n\n/* ---------- 1c. Reserve message-scoped (agentic turn) counters ------------ *\n * Three metrics per scope (token_in / token_out / cost), mirroring §1's\n * category loop so Capture-Usage can rebuild the identical key set. Placed\n * here because `now` is defined just above; the reservation loop below then\n * reserves / TTLs / reverts them unchanged. */\n\nif (messageId) {\n    categories.each { category ->\n        def mPrefix = buildMessagePrefix(category)\n        if (!mPrefix) return\n        MESSAGE_METRICS.each { metric, amount ->\n            def key = \"${mPrefix}_${metric}\".toString()\n            if (!counters.containsKey(key)) {\n                counters[key] = [\n                        key         : key,\n                        category    : \"message_${category}\".toString(),\n                        period      : \"message\",\n                        metric      : metric,\n                        amount      : amount,\n                        endTime     : now + MESSAGE_TTL_MS,\n                        currentUsage: 0.0d,\n                        incremented : false\n                ]\n            }\n        }\n    }\n}\n\ncounters.values().each { c ->\n    if (c.amount == 0.0d) {\n        try {\n            def v = redisTemplate.find(c.key, Number.class)\n            c.currentUsage = (v != null) ? (v as Number).doubleValue() : 0.0d\n        } catch (Exception e) {\n            c.currentUsage = 0.0d\n            c.error = e.toString()\n        }\n        return\n    }\n    try {\n        double newTotal = redisTemplate.incrByFloat(c.key, Number.class, c.amount)\n        long ttlMs = (c.endTime as Long) - now\n        if (ttlMs > 0) redisTemplate.expireAfter(c.key, ttlMs, Number.class)\n        c.currentUsage = newTotal - c.amount\n        c.incremented  = true\n    } catch (Exception e) {\n        c.currentUsage = Double.MAX_VALUE\n        c.error        = e.toString()\n    }\n}\n\n/* ---------- 5. Classify each limit row into prioritized violations -------- *\n * Each violation is tagged with:\n *   isOrg    : true if scope == \"overall\"\n *   severity : \"hard\" | \"soft\"   (only hard violations set stopFlow)\n *   message  : user-facing text\n * A single message is selected later by priority:\n *   org hard > other hard > org soft > other soft.                          */\n\ndef violations = []        // [ {isOrg, severity, message} ]\nboolean stopFlow = false\nboolean showAlert = false\n\ndef addViolation = { boolean isOrg, String severity, String message ->\n    violations << [isOrg: isOrg, severity: severity, message: message]\n    showAlert = true\n    if (severity == \"hard\") stopFlow = true\n}\n\n// Per-hop input-token violation passed in from the resolver. We don't know its\n// enforcement here, so treat a non-empty string as a org soft violation\n// (the resolver already stops the flow itself when it intends to block).\nif (inputTokenErrors != null && inputTokenErrors.size() > 0) {\n    addViolation(true, \"soft\", inputTokenErrors as String)\n}\n\nlimitRows.each { row ->\n    def counter  = row.redisKey ? counters[row.redisKey] : null\n    double current = counter ? (counter.currentUsage as double) : 0.0d\n    double limit   = ((row.limit ?: 0.0) as Number).doubleValue()\n    double estIn   = (row.estimatedInput  as Number).doubleValue()\n    double estOut  = (row.estimatedOutput as Number).doubleValue()\n    String enforce = (row.enforcement as String)?.toLowerCase() ?: \"soft\"\n    String scope   = row.scope as String\n    boolean isOrg  = (scope == \"overall\")\n\n    double withInput = current + estIn\n    double withTotal = withInput + estOut\n\n    if (withInput > limit) {\n        // Input alone exceeds: severity follows the limit's own enforcement.\n        addViolation(isOrg, enforce,\n                \"${scope.capitalize()} ${row.period} ${row.type} ${enforce} limit reached: \" +\n                \"input alone (${withInput}) exceeds limit of ${row.limit}\".toString())\n    } else if (withTotal > limit) {\n        // Estimated total exceeds: always a soft warning (call hasn't overrun\n        // anything yet — output is only a projection).\n        addViolation(isOrg, \"soft\",\n                \"${scope.capitalize()} ${row.period} ${row.type} ${enforce} limit reached: \" +\n                \"estimated total (${withTotal}) exceeds limit of ${row.limit}\".toString())\n    }\n}\n\n/* ---------- 5a. Per-query checks (message-scoped accumulation) ------------ *\n * The caps resolved by the resolver carry the scope that won, so each check\n * accumulates against that scope's turn counter (falling back to the overall\n * turn counter when the winning scope has no id on this call). Without\n * messageId the accumulators stay 0.0 and every check collapses to the\n * per-hop behaviour.\n *\n * The accumulators hold prior hops' reconciled ACTUALS — committed spend. */\n\ndef msgAccumFor = { Map cap, String metric ->\n    if (!messageId || cap == null || cap.value == null) return [accum: 0.0d, scope: null]\n    String capScope = (cap.scope as String) ?: \"overall\"\n    def mPrefix = buildMessagePrefix(capScope) ?: buildMessagePrefix(\"overall\")\n    def mc = mPrefix ? counters[\"${mPrefix}_${metric}\".toString()] : null\n    if (mc == null) return [accum: 0.0d, scope: capScope]\n    return [accum: Math.max(0.0d, (mc.currentUsage as double)), scope: capScope]\n}\n\n// ★★★ NEW — remaining turn output budget, set only when a HARD maxOutputTokens\n// cap is active; -1 means \"no hard cap\" and the caller gets the plain estimate.\ndouble outputHeadroom = -1.0d\n\n// ---- 5a-i. Per-query COST check (turn-accumulated maxQueryCost) ----\nif (maxQueryCost != null && maxQueryCost.value != null) {\n    boolean isOrg = true    // perQuery is an overall-scope (org) concept\n    double capValue = (maxQueryCost.value as Number).doubleValue()\n    def acc = msgAccumFor(maxQueryCost, \"cost\")\n    double msgAccumCost = acc.accum\n    double queryInputCost = msgAccumCost + EST_INPUT_COST\n    double queryTotalCost = msgAccumCost + TOTAL_COST\n    String accumNote = (msgAccumCost > 0.0d)\n            ? \" [${acc.scope} query so far ${msgAccumCost} + this call ${EST_INPUT_COST}]\".toString() : \"\"\n\n    if (queryInputCost > capValue) {\n        // Committed spend (prior hops' actuals + this call's input) exceeds the\n        // cap: severity follows the cap's own enforcement — hard blocks.\n        String sev = ((maxQueryCost.enforcement as String)?.toLowerCase() == \"hard\") ? \"hard\" : \"soft\"\n        addViolation(isOrg, sev,\n                \"Per-query cost limit reached (${maxQueryCost.enforcement}): \" +\n                \"input cost (${queryInputCost}) exceeds max query cost of ${maxQueryCost.value}${accumNote}\".toString())\n    } else if (queryTotalCost > capValue) {\n        // Projected total exceeds: always a soft warning (output is only a projection).\n        addViolation(isOrg, \"soft\",\n                \"Per-query cost limit reached (${maxQueryCost.enforcement}): \" +\n                \"estimated total (${queryTotalCost}) exceeds max query cost of ${maxQueryCost.value}${accumNote}\".toString())\n    }\n}\n\n// ---- 5a-ii. Per-query INPUT TOKEN check (turn-accumulated maxInputTokens) ----\n// Input tokens are fully committed (the prompt is real), so a breach follows\n// the cap's own enforcement — there is no projected component.\nif (maxInputTokens != null && maxInputTokens.value != null) {\n    boolean isOrg = true\n    double capValue = (maxInputTokens.value as Number).doubleValue()\n    def acc = msgAccumFor(maxInputTokens, \"token_in\")\n    double msgAccumIn = acc.accum\n    double queryInputToken = msgAccumIn + EST_INPUT_TOKEN\n    String note = (msgAccumIn > 0.0d)\n            ? \" [${acc.scope} query so far ${msgAccumIn} + this call ${EST_INPUT_TOKEN}]\".toString() : \"\"\n\n    if (queryInputToken > capValue) {\n        String sev = ((maxInputTokens.enforcement as String)?.toLowerCase() == \"hard\") ? \"hard\" : \"soft\"\n        addViolation(isOrg, sev,\n                \"Per-query input token limit reached (${maxInputTokens.enforcement}): \" +\n                \"input tokens (${queryInputToken}) exceed max input tokens of ${maxInputTokens.value}${note}\".toString())\n    }\n}\n\n// ---- 5a-iii. Per-query OUTPUT TOKEN check (turn-accumulated maxOutputTokens) ----\n// Only the accumulated output is committed; this call's output is a projection,\n// so it can only raise a soft warning.\nif (maxOutputTokens != null && maxOutputTokens.value != null) {\n    boolean isOrg = true\n    double capValue = (maxOutputTokens.value as Number).doubleValue()\n    def acc = msgAccumFor(maxOutputTokens, \"token_out\")\n    double msgAccumOut = acc.accum\n    double queryTotalOut = msgAccumOut + EST_OUTPUT_TOKEN\n    // ★★★ NEW — a hard cap clamps the LLM call to the remaining turn budget.\n    if (((maxOutputTokens.enforcement as String)?.toLowerCase()) == \"hard\") {\n        outputHeadroom = Math.max(0.0d, capValue - msgAccumOut)\n    }\n    String note = (msgAccumOut > 0.0d)\n            ? \" [${acc.scope} query so far ${msgAccumOut} + this call ${EST_OUTPUT_TOKEN}]\".toString() : \"\"\n\n    if (msgAccumOut > capValue) {\n        // Already-generated output exceeds the cap: committed, follows enforcement.\n        String sev = ((maxOutputTokens.enforcement as String)?.toLowerCase() == \"hard\") ? \"hard\" : \"soft\"\n        addViolation(isOrg, sev,\n                \"Per-query output token limit reached (${maxOutputTokens.enforcement}): \" +\n                \"generated tokens (${msgAccumOut}) exceed max output tokens of ${maxOutputTokens.value}\".toString())\n    } else if (queryTotalOut > capValue) {\n        // Projection would exceed: soft warning only.\n        addViolation(isOrg, \"soft\",\n                \"Per-query output token limit reached (${maxOutputTokens.enforcement}): \" +\n                \"estimated total (${queryTotalOut}) exceeds max output tokens of ${maxOutputTokens.value}${note}\".toString())\n    }\n}\n\n/* ---------- 5b. Select the message ---------------------------------------- *\n * Priority tiers, descending — return the first non-empty one:\n *   1. org hard    -> single highest org-hard message\n *   2. other hard  -> all non-org hard messages, combined (\"; \")\n *   3. org soft    -> single org-soft message\n *   4. other soft  -> all non-org soft messages, combined (\"; \")            */\n\ndef selectMessage = { List vios ->\n    if (!vios) return \"\"\n\n    def orgHard   = vios.find    { it.isOrg  && it.severity == \"hard\" }\n    def otherHard = vios.findAll { !it.isOrg && it.severity == \"hard\" }\n    def orgSoft   = vios.find    { it.isOrg  && it.severity == \"soft\" }\n    def otherSoft = vios.findAll { !it.isOrg && it.severity == \"soft\" }\n\n    if (orgHard)   return orgHard.message as String\n    if (otherHard) return otherHard.collect { it.message }.join(\"; \")\n    if (orgSoft)   return orgSoft.message as String\n    if (otherSoft) return otherSoft.collect { it.message }.join(\"; \")\n    return \"\"\n}\n\nString selectedMessage = selectMessage(violations)\n\n/* ---------- 5c. Once-per-message alert dedup ------------------------------- *  ★★★ NEW\n * Soft warnings fire ONCE per messageId: an atomic counter marks the first\n * alerting hop; later hops keep full enforcement but stay silent. Hard blocks\n * (stopFlow) are never suppressed. Flag key shares the turn TTL. */\n\nif (messageId && showAlert && !stopFlow) {\n    try {\n        String flagKey = \"messages_${messageId}_alerted\".toString()\n        double seen = redisTemplate.incrByFloat(flagKey, Number.class, 1.0d)\n        redisTemplate.expireAfter(flagKey, MESSAGE_TTL_MS, Number.class)\n        if (seen > 1.0d) {\n            showAlert = false\n            selectedMessage = \"\"\n        }\n    } catch (Exception ignore) {\n        // Best effort: on Redis failure prefer alerting over silence.\n    }\n}\n\n/* ---------- 6. Revert helper -------------------------------------------- */\n// Message counters live in `counters` too, so a blocked call's reservation is\n// removed from the turn totals automatically.\n\ndef revertAll = {\n    counters.values().each { c ->\n        if (c.incremented && c.amount != 0.0d) {\n            try { redisTemplate.incrByFloat(c.key, Number.class, -c.amount) }\n            catch (Exception ignore) { /* best-effort; key has TTL backstop */ }\n        }\n    }\n}\n\n/* ---------- 6a. stopFlow = true: revert all reservations ------------------ */\n\nif (stopFlow) {\n    revertAll()\n    return [stopFlow: true,\n            error: selectedMessage,\n            showAlert: true,\n            maxOutputTokens: null]\n}\n\n/* ---------- 6b. stopFlow = false: persist the three receipts -------------- *\n * Split token receipts so Capture-Usage can reconcile the input and output\n * accumulators independently. The period counters use their sum.            */\n\nif (estimatedCostPrefix) {\n    try {\n        def expiry = Duration.ofSeconds(RESERVATION_TTL_SECONDS)\n        redisTemplate.update(\"${estimatedCostPrefix}_token_in\".toString(),  EST_INPUT_TOKEN  as Number, expiry, Number.class)\n        redisTemplate.update(\"${estimatedCostPrefix}_token_out\".toString(), EST_OUTPUT_TOKEN as Number, expiry, Number.class)\n        redisTemplate.update(\"${estimatedCostPrefix}_cost\".toString(),      TOTAL_COST       as Number, expiry, Number.class)\n    } catch (Exception e) {\n        revertAll()\n        return [stopFlow: true,\n                error: \"Reservation persistence failed; aborting to avoid orphaned counters: ${e.toString()}\".toString(),\n                showAlert: showAlert,\n                maxOutputTokens: null]\n    }\n}\n\n// ★★★ NEW — under a hard output cap, hand the caller the remaining turn\n// budget so the LLM call cannot overrun it; otherwise the plain estimate.\nreturn [stopFlow: false,\n        error: selectedMessage,\n        showAlert: showAlert,\n        maxOutputTokens: (outputHeadroom >= 0.0d\n                ? outputHeadroom.toInteger()\n                : (EST_OUTPUT_TOKEN.toInteger() > 0 ? EST_OUTPUT_TOKEN.toInteger() : 4096))]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -873,7 +1206,10 @@
 					"inputCost":"{{ n_wp1rW.outputs.inputTokenCost }}",
 					"inputToken":"{{ n_0RN5F.outputs.result.inputToken }}",
 					"inputTokenErrors":"{{ n_0RN5F.outputs.result.error }}",
+					"maxInputTokens":"{{ n_0RN5F.outputs.result.maxInputTokens }}",
+					"maxOutputTokens":"{{ n_0RN5F.outputs.result.maxOutputTokens }}",
 					"maxQueryCost":"{{ n_0RN5F.outputs.result.maxQueryCost }}",
+					"messageId":"{{ n_Evvj3.outputs.messageId }}",
 					"modelId":"{{ n_Evvj3.outputs.modelId }}",
 					"modelSpendingLimit":"{{ n_xztVx.outputs.properties.spendingLimit }}",
 					"outputCost":"{{ n_wp1rW.outputs.outputTokenCost }}",
@@ -883,7 +1219,7 @@
 						"source":"{{ n_spuil.outputs.userGroups }}",
 						"ua:type":"mappedArray"
 					},
-					"userId":"{{ __USER__.outputs.id }}",
+					"userId":"{{ __RUN__.outputs.userId }}",
 					"workflowId":"{{ n_Evvj3.outputs.workflowId }}"
 				}
 			},
@@ -904,7 +1240,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Upv6s-1",
 			"id":"n_81Qui",
-			"index":13,
+			"index":18,
 			"inputs":{
 				"result":{
 					"errorMessage":"{{ n_zXoCH.outputs.result.error }}",
@@ -924,7 +1260,7 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
+		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
 		"route":{
@@ -933,5 +1269,5 @@
 		}
 	},
 	"standard":true,
-	"version":272
+	"version":274
 }
