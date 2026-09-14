@@ -1,0 +1,770 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395060386,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_rdFLh",
+			"id":"next@n_rdFLh@n_zILFF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zILFF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zILFF",
+			"id":"next@n_zILFF@n_GrvEx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GrvEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GrvEx",
+			"id":"next@n_GrvEx@n_spHEF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_spHEF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_spHEF",
+			"id":"next@n_spHEF@n_spyW4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_spyW4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_spyW4",
+			"id":"next@n_spyW4@n_QlUVO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QlUVO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QlUVO",
+			"id":"next@n_QlUVO@n_qiF2t",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qiF2t",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qiF2t",
+			"id":"next@n_qiF2t@n_GtSsV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GtSsV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GtSsV",
+			"id":"next@n_GtSsV@n_GtOpR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GtOpR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GtOpR",
+			"id":"next@n_GtOpR@n_GrvyC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GrvyC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GrvyC",
+			"id":"next@n_GrvyC@n_RtRsp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RtRsp",
+			"type":"next"
+		}
+	],
+	"id":"6aa8007472fd792214e8bf80",
+	"lastModifiedBy":-1,
+	"lcName":"agent optimiser | eval | latency | metrics",
+	"modifiedTime":1789395060387,
+	"name":"Agent Optimiser | Eval | Latency | Metrics",
+	"nodes":[
+		{
+			"context":{
+				"appName":"ai_evaluator_by_unifyapps",
+				"resourceVersion":2132,
+				"resourceName":"ai_evaluator_by_unifyapps_trigger_conversational_metric_evaluation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_rdFLh",
+			"index":1,
+			"inputs":{
+				"setup":{
+					"properties":{
+						"testCases":{
+							"items":{
+								"properties":{
+									"actual_output":{
+										"type":"string"
+									},
+									"additional":{
+										"additionalProperties":true,
+										"title":"Additional Input Properties",
+										"type":"object"
+									},
+									"additional_output_properties":{
+										"additionalProperties":true,
+										"type":"object"
+									},
+									"context":{
+										"type":"string"
+									},
+									"expected_output":{
+										"type":"string"
+									},
+									"expected_tools":{
+										"items":{
+											"type":"object"
+										},
+										"type":"array"
+									},
+									"input":{
+										"type":"string"
+									},
+									"metadataFields":{
+										"additionalProperties":true,
+										"title":"metadataFields",
+										"type":"object"
+									},
+									"retrieved_context":{
+										"type":"string"
+									},
+									"tools_called":{
+										"items":{
+											"type":"object"
+										},
+										"type":"array"
+									}
+								},
+								"type":"object"
+							},
+							"type":"array"
+						}
+					},
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"AI Evaluator by UnifyApps",
+			"title":"Triggers Conversational metrics evaluation",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":188,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_zILFF",
+			"index":2,
+			"inputs":{
+				"duration":2,
+				"unit":"MINUTES"
+			},
+			"skip":false,
+			"subTitle":"Delay",
+			"title":"Set delay duration",
+			"type":"DELAY"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.testCases.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_GrvEx",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"experimentId":{
+							"title":"Experiment Id",
+							"type":"string"
+						},
+						"runId":{
+							"title":"Run Id",
+							"type":"string"
+						},
+						"testCaseId":{
+							"title":"Test Case Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"testCaseId"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"testCases":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Test Cases",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def rowsRaw = binding.hasVariable('testCases') ? testCases : []\n\ndef rows = (rowsRaw ?: []).findAll { it instanceof Map }\n\nif (rows.isEmpty()) {\n    throw new IllegalStateException(\"testCases is empty - nothing to extract\")\n}\n\ndef first = rows[0]\ndef additional = (first.additional instanceof Map) ? first.additional : [:]\n\ndef testCaseId   = additional.testcaseId?.toString()?.trim()\ndef runId        = additional.runId?.toString()?.trim()\ndef experimentId = additional.experimentId?.toString()?.trim()\n\nif (!testCaseId) {\n    throw new IllegalStateException(\"testcaseId not found on testCases[0].additional\")\n}\n\nreturn [\n    testCaseId   : testCaseId,\n    runId        : runId ?: null,\n    experimentId : experimentId ?: null\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"testCases":{
+						"items":"{{ n_rdFLh.outputs.testCases[0] }}",
+						"source":"{{ n_rdFLh.outputs.testCases }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Extract caseId from additionalProperties",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":2214,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_spHEF",
+			"index":4,
+			"inputs":{
+				"query":"SELECT\n    r._pr_caseId       AS caseId,\n    r._pr_testCaseId   AS testCaseId,\n    r._pr_runId        AS runId,\n    r._pr_experimentId AS experimentId,\n    r._pr_agentCost    AS agentCost,\n    r._pr_agentLatency AS agentLatency,\n    r._pr_messageId    AS messageId\nFROM ENTITY_test_case_runs r\nWHERE r._pr_testCaseId = :testCaseId\n  AND r._pr_runId = :runId\n  AND r._pr_caseId IS NOT NULL",
+				"record":{
+					"runId":"{{ n_GrvEx.outputs.result.runId }}",
+					"testCaseId":"{{ n_GrvEx.outputs.result.testCaseId }}"
+				},
+				"params":{
+					"additionalProperties":false,
+					"properties":{
+						"runId":{
+							"title":"Run Id",
+							"type":"string"
+						},
+						"testCaseId":{
+							"title":"Test Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"group":"PLATFORM"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.sqlRows.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_spyW4",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"reportedAgentCost":{
+							"title":"Reported Agent Cost",
+							"type":"number"
+						},
+						"reportedAgentLatency":{
+							"title":"Reported Agent Latency",
+							"type":"number"
+						}
+					},
+					"required":[
+						"caseId"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"sqlRows":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Sql Rows",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def rowsRaw = binding.hasVariable('sqlRows') ? sqlRows : []\n\ndef rows = (rowsRaw ?: [])\n        .collect { it instanceof Map && it.columns instanceof Map ? it.columns : it }\n        .findAll { it instanceof Map }\n\nif (rows.isEmpty()) {\n    throw new IllegalStateException(\"No test_case_run found for the given testCaseId/runId\")\n}\n\nif (rows.size() > 1) {\n    throw new IllegalStateException((\"Ambiguous: \" + rows.size() + \" test_case_run rows matched - refine the filter\").toString())\n}\n\ndef r = rows[0]\n\ndef liveCaseId = r.caseId?.toString()?.trim()\n\nif (!liveCaseId) {\n    throw new IllegalStateException(\"test_case_run matched but caseId is empty\")\n}\n\ndef toNum = { v ->\n    if (v instanceof Number) return v.toDouble()\n    def s = v?.toString()\n    return (s?.isDouble() || s?.isNumber()) ? new BigDecimal(s).doubleValue() : null\n}\n\nreturn [\n    caseId              : liveCaseId,\n    reportedAgentCost   : toNum(r.agentCost),\n    reportedAgentLatency: toNum(r.agentLatency)\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"sqlRows":{
+						"items":"{{ n_spHEF.outputs.objects[0] }}",
+						"source":"{{ n_spHEF.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":2212,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_QlUVO",
+			"index":6,
+			"inputs":{
+				"query":"SELECT\n    t._pr_caseId    AS caseId,\n    t._pr_messageId AS messageId,\n    MIN(t._pr_startTime) AS turnStart,\n    MAX(t._pr_startTime + COALESCE(t._pr_llmTimeTaken, 0)) AS turnEnd,\n    (MAX(t._pr_startTime + COALESCE(t._pr_llmTimeTaken, 0))\n     - MIN(t._pr_startTime)) AS turnLatencyMs,\n    COUNT(*) AS spans\nFROM ENTITY_e_traces t\nWHERE t._pr_caseId = :caseId\n  AND t._pr_messageId IS NOT NULL\n  AND t._pr_startTime IS NOT NULL\nGROUP BY t._pr_caseId, t._pr_messageId\nORDER BY turnLatencyMs",
+				"record":{
+					"caseId":"{{ n_spyW4.outputs.result.caseId }}"
+				},
+				"params":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"group":"PLATFORM"
+			},
+			"skip":false,
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.latencyRows.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_qiF2t",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"degenerate":{
+							"title":"Degenerate",
+							"type":"boolean"
+						},
+						"maxTurnLatencyMs":{
+							"title":"Max Turn Latency Ms",
+							"type":"integer"
+						},
+						"measurable":{
+							"title":"Measurable",
+							"type":"boolean"
+						},
+						"minTurnLatencyMs":{
+							"title":"Min Turn Latency Ms",
+							"type":"integer"
+						},
+						"negativeTurns":{
+							"title":"Negative Turns",
+							"type":"integer"
+						},
+						"p95TurnLatencyMs":{
+							"title":"P95 Turn Latency Ms",
+							"type":"integer"
+						},
+						"reason":{
+							"title":"Reason",
+							"type":"string"
+						},
+						"turnCount":{
+							"title":"Turn Count",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"measurable",
+						"turnCount"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"latencyRows":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Latency Rows",
+							"type":"array"
+						}
+					},
+					"required":[
+						"caseId"
+					],
+					"type":"object"
+				},
+				"code":"def rowsRaw = binding.hasVariable('latencyRows') ? latencyRows : []\ndef theCaseId = binding.hasVariable('caseId') ? caseId : null\n\ndef rows = (rowsRaw ?: [])\n        .collect { it instanceof Map && it.columns instanceof Map ? it.columns : it }\n        .findAll { it instanceof Map }\n\ndef toLong = { v ->\n    if (v instanceof Number) return v.longValue()\n    def s = v?.toString()\n    return (s?.isNumber()) ? new BigDecimal(s).longValue() : null\n}\n\ndef latencies = rows.collect { toLong(it.turnLatencyMs) }\n                    .findAll { it != null && it >= 0 }\n                    .sort()\n\nif (latencies.isEmpty()) {\n    return[\n        measurable       : false,\n        reason           : \"No reconstructable turns for caseId\",\n        caseId           : theCaseId,\n        p95TurnLatencyMs : null,\n        turnCount        : 0\n    ]\n}\n\ndef n = latencies.size()\n\ndef rank = { double p ->\n    def i = (int) Math.ceil(p * n) - 1\n    if (i < 0) i = 0\n    if (i >= n) i = n - 1\n    return latencies[i]\n}\n\ndef negatives = rows.count { def v = toLong(it.turnLatencyMs); v != null && v < 0 }\n\nreturn [\n    measurable       : true,\n    reason           : (\"Computed p95 over \" + n + \" turns\").toString(),\n    caseId           : theCaseId,\n    p95TurnLatencyMs : rank(0.95d),\n    minTurnLatencyMs : latencies[0],\n    maxTurnLatencyMs : latencies[n - 1],\n    turnCount        : n,\n    degenerate       : n < 20,\n    negativeTurns    : negatives\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"caseId":"{{ n_spyW4.outputs.result.caseId }}",
+					"latencyRows":{
+						"items":"{{ n_QlUVO.outputs.objects[0] }}",
+						"source":"{{ n_QlUVO.outputs.objects }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_GtSsV",
+			"index":8,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"optimisationRunId":{
+							"title":"Optimisation Run Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"optimisationRunId"
+					]
+				}
+			},
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"optimisationRunId":{
+							"title":"Optimisation Run Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"optimisationRunId":{
+							"title":"Optimisation Run Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"optimisationRunId"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Get session variable optimisationRunId",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_GtOpR",
+			"index":9,
+			"inputs":{
+				"object_type":"optimization_run",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_GtSsV.outputs.optimisationRunId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Get Optimisation Run record by id",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.constraints.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_GrvyC",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"evaluated":{
+							"title":"Evaluated",
+							"type":"boolean"
+						},
+						"p95TurnLatencyMs":{
+							"title":"P95 Turn Latency Ms",
+							"type":"number"
+						},
+						"reason":{
+							"title":"Reason",
+							"type":"string"
+						},
+						"score":{
+							"title":"Score",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"score",
+						"reason",
+						"evaluated"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"constraints":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Constraints",
+							"type":"array"
+						},
+						"degenerate":{
+							"title":"Degenerate",
+							"type":"boolean"
+						},
+						"measurable":{
+							"title":"Measurable",
+							"type":"boolean"
+						},
+						"p95TurnLatencyMs":{
+							"title":"P95 Turn Latency Ms",
+							"type":"number"
+						},
+						"reason":{
+							"title":"Reason",
+							"type":"string"
+						},
+						"turnCount":{
+							"title":"Turn Count",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"p95TurnLatencyMs",
+						"measurable"
+					],
+					"type":"object"
+				},
+				"code":"def p95Raw          = binding.hasVariable('p95TurnLatencyMs') ? p95TurnLatencyMs : null\ndef isMeasurable    = binding.hasVariable('measurable') ? measurable : false\ndef upstreamReason  = binding.hasVariable('reason') ? reason : null\ndef turns           = binding.hasVariable('turnCount') ? turnCount : null\ndef isDegenerate    = binding.hasVariable('degenerate') ? degenerate : false\ndef constraintsList = binding.hasVariable('constraints') ? constraints : []\n\ndef targetMetricName = 'Agent Optimiser | Eval | Latency | Metrics'\n\ndef matchedConstraint = (constraintsList instanceof List)\n        ? constraintsList.find { it?.metricName == targetMetricName }\n        : null\n\ndef toNum = { v ->\n    if (v instanceof Number) return v.toDouble()\n    def s = v?.toString()\n    return (s?.isDouble() || s?.isNumber()) ? new BigDecimal(s).doubleValue() : null\n}\n\ndef p95 = toNum(p95Raw)\n\nif (!isMeasurable || p95 == null) {\n    return [\n        score            : 0,\n        reason           : (\"Not measurable: \" + (upstreamReason ?: 'p95TurnLatencyMs unavailable from upstream')).toString(),\n        p95TurnLatencyMs : null,\n        evaluated        : false\n    ]\n}\n\nif (matchedConstraint == null) {\n    return [\n        score            : 0,\n        reason           : (\"No constraint found for metric '\" + targetMetricName + \"'\").toString(),\n        p95TurnLatencyMs : p95,\n        evaluated        : false\n    ]\n}\n\ndef operator = matchedConstraint?.operator?.toString()?.toUpperCase() ?: ''\ndef constraintNum = toNum(matchedConstraint?.value)\n\nif (constraintNum == null) {\n    return [\n        score            : 0,\n        reason           : (\"Constraint value is not numeric: \" + matchedConstraint?.value).toString(),\n        p95TurnLatencyMs : p95,\n        evaluated        : false\n    ]\n}\n\ndef passed\nswitch (operator) {\n    case ['LT', 'LESS_THAN']:              passed = p95 <  constraintNum; break\n    case ['GT', 'GREATER_THAN']:           passed = p95 >  constraintNum; break\n    case ['LTE', 'LESS_THAN_OR_EQUAL']:    passed = p95 <= constraintNum; break\n    case ['GTE', 'GREATER_THAN_OR_EQUAL']: passed = p95 >= constraintNum; break\n    case ['EQ', 'EQUAL']:                  passed = Math.abs(p95 - constraintNum) < 1e-9; break\n    default:\n        return [\n            score            : 0,\n            reason           : (\"Unrecognised operator '\" + operator + \"' for metric '\" + targetMetricName + \"'\").toString(),\n            p95TurnLatencyMs : p95,\n            evaluated        : false\n        ]\n}\n\ndef note = isDegenerate ? (\" [degenerate: p95 over \" + turns + \" turns is effectively the max]\") : \"\"\n\nreturn [\n    score            : passed ? 1 : 0,\n    reason           : (\"p95TurnLatencyMs=\" + p95 + \", constraint: \" + operator + \" \" + constraintNum + \", result: \" + passed + note).toString(),\n    p95TurnLatencyMs : p95,\n    evaluated        : true\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"constraints":{
+						"items":"{{ n_GtOpR.outputs.properties.constraints[0] }}",
+						"source":"{{ n_GtOpR.outputs.properties.constraints }}",
+						"ua:type":"mappedArray"
+					},
+					"degenerate":"{{ n_qiF2t.outputs.result.degenerate }}",
+					"measurable":"{{ n_qiF2t.outputs.result.measurable }}",
+					"p95TurnLatencyMs":"{{ n_qiF2t.outputs.result.p95TurnLatencyMs }}",
+					"reason":"{{ n_qiF2t.outputs.result.reason }}",
+					"turnCount":"{{ n_qiF2t.outputs.result.turnCount }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Compute cost-per-turn and evaluate constraint",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"ai_evaluator_by_unifyapps",
+				"resourceName":"ai_evaluator_by_unifyapps_return_response_to_metric_evaluation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_GaqNF-1",
+			"id":"n_RtRsp",
+			"index":11,
+			"inputs":{
+				"result":{
+					"cost":"{{ n_GrvyC.outputs.result.costPerTurn }}",
+					"reason":"{{ n_GrvyC.outputs.result.reason }}",
+					"score":"{{ n_GrvyC.outputs.result.score }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"AI Evaluator by UnifyApps",
+			"title":"Return metric evaluation response",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a8e9a92ab8c686698f4e746",
+	"workflowVersion":3
+}
