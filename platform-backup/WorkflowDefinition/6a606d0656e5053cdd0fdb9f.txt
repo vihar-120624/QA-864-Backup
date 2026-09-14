@@ -4,19 +4,45 @@
 	],
 	"createdTime":1787743664424,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743664602,
+		"deployedAt":1789395118741,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdb045d2142160e6d505",
+		"deployedDefinitionId":"6aa800aec6a14707f1503258",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":35
+		"version":2,
+		"workflowVersion":38
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_vaHSu",
-			"id":"next@n_vaHSu@n_tfNH0",
+			"id":"next@n_vaHSu@n_LWm60",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LWm60",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LWm60",
+			"id":"next@n_LWm60@n_zXUTQ",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zXUTQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LWm60",
+			"id":"if@n_LWm60@n_tfNH0",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tfNH0",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_zXUTQ",
+			"id":"next@n_zXUTQ@n_tfNH0",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tfNH0",
@@ -237,7 +263,7 @@
 	"id":"6a606d0656e5053cdd0fdb9f",
 	"lastModifiedBy":-1,
 	"lcName":"purview raw data processor - schedule | sharepoint | failed job",
-	"modifiedTime":1788252972531,
+	"modifiedTime":1789395390617,
 	"name":"Purview Raw Data Processor - Schedule | Sharepoint | Failed Job",
 	"nodes":[
 		{
@@ -271,6 +297,51 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":918,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OnOvv-1",
+			"id":"n_LWm60",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.process_realtime_raw_data }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LWm60@_OnOvv-1@n",
+			"id":"n_zXUTQ",
+			"index":3,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"code_by_unifyapps",
 				"resourceVersion":0,
 				"resourceName":"code_by_unifyapps_groovy",
@@ -281,7 +352,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_tfNH0",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -317,7 +388,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_jFbtr",
-			"index":3,
+			"index":5,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -349,6 +420,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"cTm":{
 							"title":"cTm",
 							"type":"integer"
@@ -378,7 +470,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_SxZzK",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -422,7 +514,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_7FGJN",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -478,7 +570,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_7sBHn",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -556,7 +648,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_A9du8",
-			"index":7,
+			"index":9,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -787,6 +879,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -815,7 +928,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_SIXh4",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -884,7 +997,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_ZOoTC",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_SIXh4.outputs.objects }}",
@@ -913,7 +1026,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZOoTC@_OnOvv-1@l",
 			"id":"n_Q6KDT",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -991,7 +1104,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZOoTC@_OnOvv-1@l",
 			"id":"n_KOD7K",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"variables":[
 					{
@@ -1021,7 +1134,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_ZOoTC@_OnOvv-1@l",
 			"id":"n_AVVpK",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_Q6KDT.outputs.result.groupedWebhookRawData }}",
@@ -1044,7 +1157,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AVVpK@n_ZOoTC@_OnOvv-1@l@l",
 			"id":"n_fQRVq",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1122,7 +1235,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AVVpK@n_ZOoTC@_OnOvv-1@l@l",
 			"id":"n_EUhxt",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"branches":[
 					{
@@ -1190,7 +1303,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EUhxt@n_AVVpK@n_ZOoTC@_OnOvv-1@l@l@1",
 			"id":"n_EUhxt@1",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"name":"404",
 				"conditions":{
@@ -1214,7 +1327,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"404",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1229,7 +1343,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EUhxt@n_AVVpK@n_ZOoTC@_OnOvv-1@l@l@1",
 			"id":"n_qaV3I",
-			"index":16,
+			"index":18,
 			"inputs":{
 				"numberOfRecordsToUpdate":"MULTIPLE",
 				"triggerInputCondition":{
@@ -1277,7 +1391,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EUhxt@n_AVVpK@n_ZOoTC@_OnOvv-1@l@l@2",
 			"id":"n_EUhxt@2",
-			"index":17,
+			"index":19,
 			"inputs":{
 				"name":"403",
 				"conditions":{
@@ -1294,7 +1408,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"403",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1309,7 +1424,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EUhxt@n_AVVpK@n_ZOoTC@_OnOvv-1@l@l@2",
 			"id":"n_pFhO6",
-			"index":18,
+			"index":20,
 			"inputs":{
 				"numberOfRecordsToUpdate":"MULTIPLE",
 				"triggerInputCondition":{
@@ -1357,7 +1472,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EUhxt@n_AVVpK@n_ZOoTC@_OnOvv-1@l@l@default",
 			"id":"n_72clE",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"automationId":"6a0c3817d25d356916f185b7",
 				"distributeLoad":false,
@@ -1462,7 +1577,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_I4dpr",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1541,7 +1656,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_F46Ku",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -1586,7 +1701,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OnOvv-1",
 			"id":"n_VnLoy",
-			"index":22,
+			"index":24,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -1607,5 +1722,5 @@
 		}
 	},
 	"standard":true,
-	"version":37
+	"version":39
 }

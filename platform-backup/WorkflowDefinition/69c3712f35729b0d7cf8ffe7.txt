@@ -4,19 +4,53 @@
 	],
 	"createdTime":1787744053349,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744053576,
+		"deployedAt":1789395310444,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf352889f9507f11e7cf",
+		"deployedDefinitionId":"6aa8016ec6a14707f1503d4b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":60
+		"version":2,
+		"workflowVersion":63
 	},
 	"edges":[
 		{
 			"fromNodeId":"3iNEX",
-			"id":"next@3iNEX@n_qFcgZ",
+			"id":"next@3iNEX@n_PG3UH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_PG3UH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_PG3UH",
+			"id":"next@n_PG3UH@n_duXae",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_duXae",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_duXae",
+			"id":"if@n_duXae@n_zzcoC",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zzcoC",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_zzcoC",
+			"id":"next@n_zzcoC@n_qFcgZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qFcgZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_duXae",
+			"id":"next@n_duXae@n_qFcgZ",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_qFcgZ",
@@ -164,15 +198,7 @@
 		},
 		{
 			"fromNodeId":"n_qFcgZ@2",
-			"id":"next@n_qFcgZ@2@n_PG3UH",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_PG3UH",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_PG3UH",
-			"id":"next@n_PG3UH@n_jpZ7y",
+			"id":"next@n_qFcgZ@2@n_jpZ7y",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_jpZ7y",
@@ -235,7 +261,7 @@
 	"id":"69c3712f35729b0d7cf8ffe7",
 	"lastModifiedBy":-1,
 	"lcName":"observability | get case traces info v2",
-	"modifiedTime":1788252972920,
+	"modifiedTime":1789395390660,
 	"name":"Observability | Get Case Traces Info V2",
 	"nodes":[
 		{
@@ -253,7 +279,6 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
-					"dynamic":true,
 					"properties":{
 						"result":{
 							"items":{
@@ -321,6 +346,106 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":978,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"vhHXW-1",
+			"id":"n_PG3UH",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ 3iNEX.outputs.caseId }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"service_hub_case",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":484,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"vhHXW-1",
+			"id":"n_duXae",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"private"
+						},
+						"property":"{{ __ENV__.outputs.AGENT_TRACE_VISIBILITY }}"
+					},
+					{
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"{{ n_PG3UH.outputs.ownerUserId }}"
+						},
+						"property":"{{ __RUN__.outputs.userId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1194,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_duXae@vhHXW-1@y",
+			"id":"n_zzcoC",
+			"index":4,
+			"inputs":{},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"branch",
 				"type":"APPLICATION"
 			},
@@ -329,7 +454,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vhHXW-1",
 			"id":"n_qFcgZ",
-			"index":2,
+			"index":5,
 			"inputs":{
 				"branches":[
 					{
@@ -366,12 +491,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_qFcgZ@1",
-			"index":3,
+			"index":6,
 			"inputs":{
 				"name":"trace"
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"trace",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -386,7 +512,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_Inbzp",
-			"index":4,
+			"index":7,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -616,27 +742,6 @@
 				"schema":{
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -667,7 +772,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_4auVC",
-			"index":5,
+			"index":8,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -704,10 +809,22 @@
 							"operator":"OR"
 						},
 						{
-							"filter":{
-								"operator":"MISSING"
-							},
-							"property":"properties_additional_internalMessageType"
+							"filters":[
+								{
+									"filter":{
+										"operator":"MISSING"
+									},
+									"property":"properties_additional_internalMessageType"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"CLARIFICATION_RESPONSE"
+									},
+									"property":"properties_additional_internalMessageType"
+								}
+							],
+							"operator":"OR"
 						}
 					],
 					"operator":"AND"
@@ -748,7 +865,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_8Yd4U",
-			"index":6,
+			"index":9,
 			"inputs":{
 				"filters":[
 					{
@@ -778,7 +895,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8Yd4U@n_qFcgZ@vhHXW-1@1@y",
 			"id":"n_LgTyb",
-			"index":7,
+			"index":10,
 			"inputs":{
 				"result":{
 					"result":{
@@ -810,7 +927,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_29FLv",
-			"index":8,
+			"index":11,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -871,7 +988,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_wCZ8e",
-			"index":9,
+			"index":12,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -903,27 +1020,6 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
 						"endTime":{
 							"title":"End Time",
 							"type":"integer"
@@ -953,7 +1049,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_s1pjQ",
-			"index":10,
+			"index":13,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1184,27 +1280,6 @@
 				"schema":{
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1238,7 +1313,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_cauiU",
-			"index":11,
+			"index":14,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1308,7 +1383,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_t5KGn",
-			"index":12,
+			"index":15,
 			"inputs":{
 				"outputSchema":{
 					"additionalProperties":false,
@@ -1383,7 +1458,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_1dwVN",
-			"index":13,
+			"index":16,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1461,27 +1536,6 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
 						"traceInfo":{
 							"items":{
 								"additionalProperties":false,
@@ -1545,7 +1599,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_8UIVA",
-			"index":14,
+			"index":17,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1621,7 +1675,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_nOWW3",
-			"index":15,
+			"index":18,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1680,27 +1734,6 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
 						"botResponses":{
 							"items":{
 								"additionalProperties":false,
@@ -1770,7 +1803,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_f5mmo",
-			"index":16,
+			"index":19,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1953,7 +1986,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@1",
 			"id":"n_xxIqY",
-			"index":17,
+			"index":20,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -1981,57 +2014,14 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@2",
 			"id":"n_qFcgZ@2",
-			"index":18,
+			"index":21,
 			"inputs":{
 				"name":"total"
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"total",
 			"type":"BRANCH_CONDITION"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":978,
-				"resourceName":"storage_by_unifyapps_fetch_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_qFcgZ@vhHXW-1@2",
-			"id":"n_PG3UH",
-			"index":19,
-			"inputs":{
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ 3iNEX.outputs.caseId }}"
-							},
-							"property":"id"
-						}
-					],
-					"operator":"AND"
-				},
-				"shouldSearchInAnalyticsStore":false,
-				"object_type":"service_hub_case",
-				"includeRoleMappings":false,
-				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
-				"page":{
-					"limit":20,
-					"paginateBy":"OFFSET"
-				},
-				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"SINGLE",
-				"readThroughSessionVariables":false
-			},
-			"skip":false,
-			"subTitle":"Storage",
-			"title":"Fetch records",
-			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -2045,7 +2035,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@2",
 			"id":"n_jpZ7y",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2107,7 +2097,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@2",
 			"id":"_SvAJM",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"filter":{
 					"filters":[
@@ -2116,7 +2106,7 @@
 								"operator":"EQUAL",
 								"value":"{{ n_PG3UH.outputs.properties.additional.aiAgentId }}"
 							},
-							"property":"ENTITY_service_hub_case=::=additional__aiAgentId"
+							"property":"ENTITY_e_traces=::=aiAgentId"
 						},
 						{
 							"filter":{
@@ -2222,7 +2212,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qFcgZ@vhHXW-1@2",
 			"id":"n_j4qIV",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2349,7 +2339,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vhHXW-1",
 			"id":"7o210",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"result":{
 					"result":{
@@ -2389,5 +2379,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":62
+	"version":64
 }
