@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743596005,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743596148,
+		"deployedAt":1789395090315,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd6c3f7ad93bb16753b6",
+		"deployedDefinitionId":"6aa80092c6a14707f15030a3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":104
+		"version":2,
+		"workflowVersion":107
 	},
 	"edges":[
 		{
@@ -363,7 +363,7 @@
 	"id":"67cc525547eaf7139db954c6",
 	"lastModifiedBy":-1,
 	"lcName":"subject summarizer",
-	"modifiedTime":1788252972970,
+	"modifiedTime":1789395394875,
 	"name":"Subject Summarizer",
 	"nodes":[
 		{
@@ -1453,7 +1453,7 @@
 					],
 					"type":"object"
 				},
-				"code":"def testcontent = (binding.hasVariable('content') && content) ? content.toString().trim() : \"\"\ndef agentContext = (binding.hasVariable('agentContext') && binding.getVariable('agentContext')) ? binding.getVariable('agentContext').toString().trim() : \"\"\n\ndef prompt = \"\"\"\nYour task is to generate a conversation title.\n\nRules (must follow):\n1. Examine ONLY messages written by the user.\n2. Completely ignore all assistant messages when determining the language.\n3. Detect the dominant language across all user messages.\n4. Output the title ONLY in that language.\n5. Never translate the title into another language.\n6. If the conversation contains multiple languages, use the language that appears most in the user's messages.\n7. Maximum 6 words.\n8. Return only the title. No quotes, punctuation, markdown, or explanation.\n\nIf the detected language is X, the output language MUST also be X.\n\"\"\".trim()\n\nif (agentContext) {\n  prompt += \"\"\"\n\nAdditional context (use only to disambiguate; do not summarize this context unless it is also in the content):\n${agentContext}\n\"\"\".stripIndent().trim()\n}\n\nprompt += \"\"\"\n\nContent:\n${testcontent}\n\"\"\".stripIndent().trim()\n\nreturn [\"prompt\": prompt]",
+				"code":"def testcontent = (binding.hasVariable('content') && content) ? content.toString().trim() : \"\"\ndef agentContext = (binding.hasVariable('agentContext') && binding.getVariable('agentContext')) ? binding.getVariable('agentContext').toString().trim() : \"\"\n\n// agentContext arrives from the previous node as\n//   \"Name of the agent: <name>, \\nDescription of the agent: <description>\"\n// - pull the two pieces back out so they can be framed as labels, not as language signal.\ndef agentName = \"\"\ndef agentDescription = \"\"\nagentContext.split(/\\r?\\n/).each { line ->\n    def l = line.trim()\n    if (l.startsWith(\"Name of the agent:\")) {\n        agentName = l.substring(\"Name of the agent:\".length()).trim().replaceAll(/,+$/, \"\").trim()\n    } else if (l.startsWith(\"Description of the agent:\")) {\n        agentDescription = l.substring(\"Description of the agent:\".length()).trim()\n    }\n}\n\n// Rules + few-shot examples. The model must commit to the language (Language: line) BEFORE it writes the title.\ndef rules = \"\"\"You write short titles for chat conversations.\n\nYou will be given the messages a USER wrote to an assistant. Produce a title for the conversation.\n\nStep 1 - decide the language:\n- Look only at the words the user typed. Decide which natural language the user is WRITING in (the language of their sentences, grammar and function words).\n- Product names, company names, people's names and the assistant's name are labels, not language. They must never influence this decision. A user writing \"who are Acme's competitors\" or \"how do I reset my Northwind password\" is writing in English, whatever the names sound like.\n- A greeting or short phrase in a clearly identifiable language (\"hola\", \"bonjour\", \"danke\") counts as that language.\n- Only if the messages carry no language signal at all (an emoji, punctuation, \"ok\", \"hi\", a single word that exists in many languages, or a bare product/person name) does the language default to English.\n- If several languages appear, pick the one most of the user's words are in.\n\nStep 2 - write the title in exactly that language:\n- At most 6 words.\n- Noun-led (e.g. \"Password Reset Request\", \"Competitor Analysis\"), never adjective-led (\"Friendly Greeting\") and never generic (\"Conversation\", \"Question\").\n- Do not translate it into any other language. Do not mix languages.\n- No quotes, no trailing punctuation, no markdown, no explanation.\n\nOutput format - exactly two lines, nothing else:\nLanguage: <language name in English>\nTitle: <the title, written in that language>\n\nExamples:\n\n<user_messages>\nwho are acme's main competitors\nhow does acme compare to northwind on pricing?\n</user_messages>\nLanguage: English\nTitle: Acme Competitor Comparison\n\n<user_messages>\n¿Cómo puedo restablecer mi contraseña?\n</user_messages>\nLanguage: Spanish\nTitle: Restablecimiento de Contraseña\n\n<user_messages>\nNorthwindのパスワードをリセットするにはどうすればいいですか\n</user_messages>\nLanguage: Japanese\nTitle: Northwindパスワードのリセット方法\n\n<user_messages>\nhola\n</user_messages>\nLanguage: Spanish\nTitle: Saludo\n\n<user_messages>\nhi\n</user_messages>\nLanguage: English\nTitle: Greeting\"\"\"\n\nStringBuilder sb = new StringBuilder(rules)\n\n// The agent name/description are labels, never a language signal - say so explicitly, and keep them\n// clearly separated from the user's messages (the old builder trimmed the separators away and the\n// agent name ran straight into the content).\nif (agentName || agentDescription) {\n    sb.append(\"\\n\\n\")\n    if (agentName) {\n        sb.append(\"The assistant in this conversation is named \\\"\").append(agentName).append(\"\\\".\")\n    }\n    if (agentDescription) {\n        sb.append(agentName ? \" Its description: \\\"\" : \"The assistant's description: \\\"\").append(agentDescription).append(\"\\\".\")\n    }\n    sb.append(agentName ? \" That is a product label only; it says nothing about the user's language.\" : \" That is a product description only; it says nothing about the user's language.\")\n}\n\nsb.append(\"\\n\\nNow the real conversation. Remember: the language is decided from the user's own sentences only.\\n\\n<user_messages>\\n\")\n  .append(testcontent)\n  .append(\"\\n</user_messages>\")\n\nreturn [\"prompt\": sb.toString()]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1712,7 +1712,7 @@
 					],
 					"type":"object"
 				},
-				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\nString response = binding.hasVariable(\"summarized\") ? binding.getVariable(\"summarized\")?.toString() : \"\"\nString finalAnswer = response\nif(response && getFinalAnswer(removeXmlThoughtTags(response))){\n    finalAnswer = getFinalAnswer(removeXmlThoughtTags(response))\n}\nelse if(response && removeXmlThoughtTags(response)){\n    finalAnswer = removeXmlThoughtTags(response)\n}\n\nreturn [\n    sanitized : finalAnswer?:\"Conversation\"\n]\n\nstatic String getFinalAnswer(String llmResponse) {\n    Pattern pattern = Pattern.compile('Final\\\\s*Answer:([\\\\s\\\\S]*?)(?=\\\\n{1,}Thought:|\\\\n{1,}Action:|\\\\n{1,}ActionInput:|\\\\n{1,}Final\\\\s*Answer:|\\\\n{1,}chunk\\\\s*Ids:|$)')\n    Matcher match = pattern.matcher(llmResponse)\n    return (match.find() && match.groupCount() >= 1) ? match.group(1).trim() : null\n}\n\nstatic String removeXmlThoughtTags(String text) {\n    return text.replaceAll('(?s)<(think|thought)>.*?</\\\\1>', \"\").trim()\n}",
+				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\nString response = binding.hasVariable(\"summarized\") ? binding.getVariable(\"summarized\")?.toString() : \"\"\nString finalAnswer = null\n\nif (response) {\n    String cleaned = removeXmlThoughtTags(response)\n    // legacy ReAct-style wrapper, if a model ever emits it\n    String fa = getFinalAnswer(cleaned)\n    if (fa) cleaned = fa\n    // new format:  \"Language: <name>\\nTitle: <title>\"  -> take the Title line\n    String t = getTitleLine(cleaned)\n    if (!t) {\n        // no Title: line - fall back to the last non-empty line, dropping a stray \"Language:\" line\n        def lines = cleaned.split(/\\r?\\n/).collect { it.trim() }.findAll { it && !(it ==~ /(?i)^language\\s*:.*/) }\n        t = lines ? lines[-1] : null\n    }\n    finalAnswer = cleanTitle(t)\n}\n\nreturn [\n    sanitized : finalAnswer ?: \"Conversation\"\n]\n\nstatic String getTitleLine(String text) {\n    Matcher m = Pattern.compile('(?im)^\\\\s*title\\\\s*:\\\\s*(.+?)\\\\s*$').matcher(text)\n    return m.find() ? m.group(1) : null\n}\n\nstatic String cleanTitle(String t) {\n    if (t == null) return null\n    t = t.trim()\n    // strip wrapping quotes / markdown emphasis and trailing sentence punctuation\n    // trailing sentence punctuation may sit outside or inside closing quotes - strip in both orders\n    t = t.replaceAll(\"[.!?。！？]+\\$\", \"\")\n    t = t.replaceAll(\"^[\\\"'`*_「『«]+\", \"\").replaceAll(\"[\\\"'`*_」』»]+\\$\", \"\")\n    t = t.replaceAll(\"[.!?。！？]+\\$\", \"\").trim()\n    return t ?: null\n}\n\nstatic String getFinalAnswer(String llmResponse) {\n    Pattern pattern = Pattern.compile('Final\\\\s*Answer:([\\\\s\\\\S]*?)(?=\\\\n{1,}Thought:|\\\\n{1,}Action:|\\\\n{1,}ActionInput:|\\\\n{1,}Final\\\\s*Answer:|\\\\n{1,}chunk\\\\s*Ids:|$)')\n    Matcher match = pattern.matcher(llmResponse)\n    return (match.find() && match.groupCount() >= 1) ? match.group(1).trim() : null\n}\n\nstatic String removeXmlThoughtTags(String text) {\n    return text.replaceAll('(?s)<(think|thought)>.*?</\\\\1>', \"\").trim()\n}\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1935,5 +1935,5 @@
 		}
 	},
 	"standard":true,
-	"version":106
+	"version":108
 }
