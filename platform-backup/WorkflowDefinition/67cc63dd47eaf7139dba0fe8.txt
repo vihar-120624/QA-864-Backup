@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743438477,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743438797,
+		"deployedAt":1789395035849,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccce4cdb0358b9df19f5",
+		"deployedDefinitionId":"6aa8005bc6a14707f1502ebc",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":53
+		"version":2,
+		"workflowVersion":56
 	},
 	"edges":[
 		{
@@ -146,67 +146,83 @@
 		},
 		{
 			"fromNodeId":"n_l2cnw",
-			"id":"next@n_l2cnw@n_OaxXe",
+			"id":"next@n_l2cnw@n_wGCRe",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_OaxXe",
+			"toNodeId":"n_wGCRe",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_OaxXe",
-			"id":"next@n_OaxXe@n_TsNtT",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_TsNtT",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_TsNtT",
-			"id":"if@n_TsNtT@n_QuGCX",
+			"fromNodeId":"n_wGCRe",
+			"id":"if@n_wGCRe@n_dKldw",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_QuGCX",
+			"toNodeId":"n_dKldw",
 			"type":"if"
 		},
 		{
-			"fromNodeId":"n_TsNtT",
-			"id":"next@n_TsNtT@n_8G0cj",
-			"name":"no",
+			"fromNodeId":"n_dKldw",
+			"id":"next@n_dKldw@n_EtR0m",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_8G0cj",
+			"toNodeId":"n_EtR0m",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_8G0cj",
-			"id":"next@n_8G0cj@n_Oz3tS",
+			"fromNodeId":"n_EtR0m",
+			"id":"if@n_EtR0m@n_P7eDo",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_P7eDo",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_EtR0m",
+			"id":"next@n_EtR0m@n_QerIi",
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_Oz3tS",
+			"toNodeId":"n_QerIi",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_QuGCX",
-			"id":"next@n_QuGCX@qNOEi",
+			"fromNodeId":"n_QerIi",
+			"id":"next@n_QerIi@n_3dH8p",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3dH8p",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3dH8p",
+			"id":"next@n_3dH8p@n_gY5AT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gY5AT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_P7eDo",
+			"id":"next@n_P7eDo@qNOEi",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"qNOEi",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_8G0cj",
-			"id":"if@n_8G0cj@qNOEi",
-			"name":"yes",
+			"fromNodeId":"n_gY5AT",
+			"id":"next@n_gY5AT@qNOEi",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"qNOEi",
-			"type":"if"
+			"type":"next"
 		},
 		{
-			"fromNodeId":"n_Oz3tS",
-			"id":"next@n_Oz3tS@qNOEi",
+			"fromNodeId":"n_wGCRe",
+			"id":"next@n_wGCRe@qNOEi",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"qNOEi",
@@ -233,8 +249,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -244,7 +258,7 @@
 	"id":"67cc63dd47eaf7139dba0fe8",
 	"lastModifiedBy":-1,
 	"lcName":"actionlookup tool",
-	"modifiedTime":1788252973019,
+	"modifiedTime":1789395035850,
 	"name":"ActionLookup Tool",
 	"nodes":[
 		{
@@ -1185,6 +1199,12 @@
 							"properties":{},
 							"title":"Tool Name Vs Connection Map",
 							"type":"object"
+						},
+						"toolNameVsRuntimeEnabled":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Name Vs Runtime Enabled",
+							"type":"object"
 						}
 					},
 					"required":[],
@@ -1206,7 +1226,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def getSanitizedName(String header) {\n    String sanitized = header.trim().replaceAll(\"[^a-zA-Z0-9]\", \"_\")\n    if (sanitized.length() > 64) {\n        sanitized = sanitized.substring(0, 63)\n    }\n    return sanitized\n}\n\nreturn [\n    \"toolNameVsConnectionMap\": toolList.collectEntries { tool ->\n        [(getSanitizedName(tool.name)): tool?.context?.connectionId]\n    },\n    \"toolNameVsAppName\": toolList.collectEntries { tool ->\n        [(getSanitizedName(tool.name)): tool?.context?.appName]\n    }\n]",
+				"code":"def getSanitizedName(String header) {\n    String sanitized = header.trim().replaceAll(\"[^a-zA-Z0-9]\", \"_\")\n    if (sanitized.length() > 64) {\n        sanitized = sanitized.substring(0, 63)\n    }\n    return sanitized\n}\n\nreturn [\n    \"toolNameVsConnectionMap\": toolList.collectEntries { tool ->\n        [(getSanitizedName(tool.name)): tool?.context?.connectionId]\n    },\n    \"toolNameVsAppName\": toolList.collectEntries { tool ->\n        [(getSanitizedName(tool.name)): tool?.context?.appName]\n    },\n    \"toolNameVsRuntimeEnabled\": toolList.collectEntries { tool ->\n        [(getSanitizedName(tool.name)): (tool?.runTimeConnectionEnabled ?: false)]\n    }\n\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1272,6 +1292,10 @@
 						"query":{
 							"title":"Query",
 							"type":"string"
+						},
+						"runTimeEnabled":{
+							"title":"Run Time Enabled",
+							"type":"boolean"
 						}
 					},
 					"required":[],
@@ -1299,19 +1323,26 @@
 							"properties":{},
 							"title":"Tool Name Vs Connection Map",
 							"type":"object"
+						},
+						"toolNameVsRuntimeEnabled":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Name Vs Runtime Enabled",
+							"type":"object"
 						}
 					},
 					"required":[],
 					"type":"object"
 				},
-				"code":"if (!binding.hasVariable('inputs') || !binding.hasVariable('toolId')){\n  return [:]\n}\nint page = 1;\nString query = null\nif (inputs.lookup_page != null){\n  page = inputs.remove(\"lookup_page\")\n}\nif (inputs.lookup_query != null){\n  query = inputs.remove(\"lookup_query\")\n}\nString targetToolName = inputs.remove(\"targetToolName\")\nString connectionId = toolNameVsConnectionMap.get(targetToolName)\nString appName = toolNameVsAppName.get(targetToolName)\n\nreturn [\n  \"page\": page,\n  \"query\": query,\n  \"options\": [\n    \"inputs\":inputs.inputs,\n    \"source_resource_name\": toolId.substring(7),\n    \"connectionId\": connectionId\n  ],\n  \"appName\":appName\n]",
+				"code":"if (!binding.hasVariable('inputs') || !binding.hasVariable('toolId')){\n  return [:]\n}\nint page = 1;\nString query = null\nif (inputs.lookup_page != null){\n  page = inputs.remove(\"lookup_page\")\n}\nif (inputs.lookup_query != null){\n  query = inputs.remove(\"lookup_query\")\n}\nString targetToolName = inputs.remove(\"targetToolName\")\nString connectionId = toolNameVsConnectionMap.get(targetToolName)\nString appName = toolNameVsAppName.get(targetToolName)\nboolean runTimeEnabled = toolNameVsRuntimeEnabled.get(targetToolName)\n\nreturn [\n  \"page\": page,\n  \"query\": query,\n  \"options\": [\n    \"inputs\":inputs.inputs,\n    \"source_resource_name\": toolId.substring(7),\n    \"connectionId\": connectionId\n  ],\n  \"appName\":appName,\n  \"runTimeEnabled\":runTimeEnabled\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"inputs":"{{ V10Fj.outputs.toolInputs }}",
 					"toolId":"{{ V10Fj.outputs.toolName }}",
 					"toolNameVsAppName":"{{ n_Nrgnn.outputs.result.toolNameVsAppName }}",
-					"toolNameVsConnectionMap":"{{ n_Nrgnn.outputs.result.toolNameVsConnectionMap }}"
+					"toolNameVsConnectionMap":"{{ n_Nrgnn.outputs.result.toolNameVsConnectionMap }}",
+					"toolNameVsRuntimeEnabled":"{{ n_Nrgnn.outputs.result.toolNameVsRuntimeEnabled }}"
 				}
 			},
 			"skip":false,
@@ -1413,6 +1444,36 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":918,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"U3iPd-1",
+			"id":"n_wGCRe",
+			"index":17,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ q4RaM.outputs.result.runTimeEnabled }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1246,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -1421,9 +1482,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"U3iPd-1",
-			"id":"n_OaxXe",
-			"index":17,
+			"groupId":"n_wGCRe@U3iPd-1@y",
+			"id":"n_dKldw",
+			"index":18,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1479,16 +1540,16 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"U3iPd-1",
-			"id":"n_TsNtT",
-			"index":18,
+			"groupId":"n_wGCRe@U3iPd-1@y",
+			"id":"n_EtR0m",
+			"index":19,
 			"inputs":{
 				"filters":[
 					{
 						"filter":{
 							"operator":"EXISTS"
 						},
-						"property":"{{ n_OaxXe.outputs.id }}"
+						"property":"{{ n_dKldw.outputs.id }}"
 					}
 				],
 				"operator":"AND"
@@ -1508,15 +1569,15 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_TsNtT@U3iPd-1@y",
-			"id":"n_QuGCX",
-			"index":19,
+			"groupId":"n_EtR0m@n_wGCRe@U3iPd-1@y@y",
+			"id":"n_P7eDo",
+			"index":20,
 			"inputs":{
 				"variables":[
 					{
 						"source":"{{ n_l2cnw.outputs.options }}",
 						"value":{
-							"connectionId":"{{ n_OaxXe.outputs.properties.connectionId }}",
+							"connectionId":"{{ n_dKldw.outputs.properties.connectionId }}",
 							"inputs":"{{ n_l2cnw.outputs.options.inputs }}",
 							"source_resource_name":"{{ n_l2cnw.outputs.options.source_resource_name }}"
 						}
@@ -1530,55 +1591,119 @@
 		},
 		{
 			"context":{
-				"appName":"if_else",
-				"resourceVersion":466,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_TsNtT@U3iPd-1@n",
-			"id":"n_8G0cj",
-			"index":20,
-			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EXISTS"
-						},
-						"property":"{{ n_l2cnw.outputs.options.connectionId }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
 				"appName":"callables",
-				"resourceVersion":836,
-				"resourceName":"callables_return_to_automation",
+				"resourceVersion":7635,
+				"resourceName":"callables_call_automation",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_8G0cj@n_TsNtT@U3iPd-1@n@n",
-			"id":"n_Oz3tS",
+			"groupId":"n_EtR0m@n_wGCRe@U3iPd-1@y@n",
+			"id":"n_QerIi",
 			"index":21,
 			"inputs":{
-				"result":{
-					"toolOutput":"Connection for  {{ q4RaM.outputs.result.appName }} is not exist. Please Use ClarifyConnection tool first to make the connection for  {{ q4RaM.outputs.result.appName }}."
-				}
+				"automationId":"67f8976fb643cc0d35c6a1bb",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"{{ q4RaM.outputs.result.appName }}",
+					"caseId":"{{ V10Fj.outputs.caseId }}"
+				},
+				"version":"-1"
 			},
 			"skip":false,
 			"subTitle":"Callable",
-			"title":"Respond to automation",
-			"type":"STOP"
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1246,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EtR0m@n_wGCRe@U3iPd-1@y@n",
+			"id":"n_3dH8p",
+			"index":22,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ V10Fj.outputs.triggeredByAgentId }}"
+							},
+							"property":"properties_aiAgentId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ __USER__.outputs.id }}"
+							},
+							"property":"properties_userId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ q4RaM.outputs.result.appName }}"
+							},
+							"property":"properties_appName"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"run_time_connection_store",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":690,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EtR0m@n_wGCRe@U3iPd-1@y@n",
+			"id":"n_gY5AT",
+			"index":23,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_l2cnw.outputs.options }}",
+						"value":{
+							"connectionId":"{{ n_3dH8p.outputs.properties.connectionId }}",
+							"inputs":"{{ n_l2cnw.outputs.options.inputs }}",
+							"source_resource_name":"{{ n_l2cnw.outputs.options.source_resource_name }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -1592,7 +1717,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"U3iPd-1",
 			"id":"qNOEi",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"query":"{{ q4RaM.outputs.result.query }}",
 				"options":"{{ n_l2cnw.outputs.options }}",
@@ -1621,7 +1746,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"U3iPd-1",
 			"id":"n_WGly1",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"object":"{{ qNOEi.outputs.response }}"
 			},
@@ -1642,7 +1767,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"U3iPd-1",
 			"id":"FRrQ7",
-			"index":24,
+			"index":26,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -1673,5 +1798,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":55
+	"version":56
 }

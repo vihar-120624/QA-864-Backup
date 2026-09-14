@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743433658,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743433973,
+		"deployedAt":1789395034568,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccc94cdb0358b9df194f",
+		"deployedDefinitionId":"6aa8005ac6a14707f1502eac",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":154
+		"version":2,
+		"workflowVersion":157
 	},
 	"edges":[
 		{
@@ -84,8 +84,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -95,7 +93,7 @@
 	"id":"68546783e08a0558ef2c2db1",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | slack | channel",
-	"modifiedTime":1788252973175,
+	"modifiedTime":1789395034569,
 	"name":"Knowledge Downloader | Slack | Channel",
 	"nodes":[
 		{
@@ -170,6 +168,10 @@
 								"currentTimeEpoch":{
 									"title":"Current Time Epoch",
 									"type":"integer"
+								},
+								"grabberSubtype":{
+									"title":"Grabber Subtype",
+									"type":"string"
 								},
 								"grabberType":{
 									"title":"Grabber Type",
@@ -355,7 +357,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.lang.Math\n\ndef inputs = binding.hasVariable(\"inputs\") ? inputs : [:]\ndef currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"currentTimeEpoch\", 0) : 0\ndef currentTimeEpochInSeconds = (currentTimeEpoch / 1000).longValue()\ndef startTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"startTimeEpoch\",0) : 0\ndef startTimeEpochInSeconds = (startTimeEpoch/1000).longValue()\n\n\ndef userSpecifiedStartDate = inputs?.startDate?:0 \ndef userSpecifiedEndDate = inputs?.endDate ?: currentTimeEpochInSeconds\n\ndef startDate = Math.max(userSpecifiedStartDate, startTimeEpochInSeconds).longValue()\ndef endDate = Math.min(userSpecifiedEndDate, currentTimeEpochInSeconds).longValue()\n\ninputs << [\n    \"startDate\": startDate, \n    \"endDate\": endDate\n]\n\n// If cursor exists\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.startTime != null) {\n        inputs.startDate = cursor.startTime\n    }\n    \n    if (cursor?.endTime != null) {\n        inputs.endDate = cursor.endTime\n    }\n}\n\nreturn [\n    \"mappedInputs\": inputs\n]",
+				"code":"def inputs = binding.hasVariable(\"inputs\") ? inputs : [:]\n\ndef currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"currentTimeEpoch\", 0) : 0\ndef currentTimeEpochInSeconds = (currentTimeEpoch / 1000).longValue()\n\ndef startTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"startTimeEpoch\", 0) : 0\ndef startTimeEpochInSeconds = (startTimeEpoch / 1000).longValue()\n\n// inputs may hold Integer, Long, BigDecimal (fractional JSON number) or a\n// numeric String (cursor round-trip) — coerce to long so Math.max/min get\n// (long, long) and dispatch is unambiguous\ndef userSpecifiedStartDate = inputs?.startDate != null\n        ? (inputs.startDate as BigDecimal).longValue()\n        : 0L\n\ndef userSpecifiedEndDate = inputs?.endDate != null\n        ? (inputs.endDate as BigDecimal).longValue()\n        : currentTimeEpochInSeconds\n\ndef startDate = Math.max(userSpecifiedStartDate, startTimeEpochInSeconds)\ndef endDate = Math.min(userSpecifiedEndDate, currentTimeEpochInSeconds)\n\n// strings on both paths so the output type is consistent with the cursor branch\ninputs << [\n    \"startDate\": startDate.toString(),\n    \"endDate\": endDate.toString()\n]\n\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.startTime != null) {\n        inputs.startDate = (cursor.startTime as BigDecimal).toPlainString()\n    }\n    if (cursor?.endTime != null) {\n        inputs.endDate = (cursor.endTime as BigDecimal).toPlainString()\n    }\n}\n\nreturn [\n    \"mappedInputs\": inputs\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -660,6 +662,31 @@
 									"parent_user_id":{
 										"type":"string"
 									},
+									"reactions":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"count":{
+													"title":"count",
+													"type":"integer"
+												},
+												"name":{
+													"title":"name",
+													"type":"string"
+												},
+												"users":{
+													"items":{
+														"type":"string"
+													},
+													"title":"users",
+													"type":"array"
+												}
+											},
+											"type":"object"
+										},
+										"title":"reactions",
+										"type":"array"
+									},
 									"replies":{
 										"items":{
 											"properties":{
@@ -898,6 +925,19 @@
 							"last_read":"{{ n_CPRYj.outputs.item[0].last_read }}",
 							"latest_reply":"{{ n_CPRYj.outputs.item[0].latest_reply }}",
 							"parent_user_id":"{{ n_CPRYj.outputs.item[0].parent_user_id }}",
+							"reactions":{
+								"items":{
+									"count":"{{ n_CPRYj.outputs.item[0].reactions[0].count }}",
+									"name":"{{ n_CPRYj.outputs.item[0].reactions[0].name }}",
+									"users":{
+										"items":"{{ n_CPRYj.outputs.item[0].reactions[0].users[0] }}",
+										"source":"{{ n_CPRYj.outputs.item[0].reactions[0].users }}",
+										"ua:type":"mappedArray"
+									}
+								},
+								"source":"{{ n_CPRYj.outputs.item[0].reactions }}",
+								"ua:type":"mappedArray"
+							},
 							"replies":{
 								"items":{
 									"ts":"{{ n_CPRYj.outputs.item[0].replies[0].ts }}",
@@ -1028,7 +1068,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def startTime = null\ndef endTime = null\ndef nextStartTime = null\n\ndef startTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"startTimeEpoch\", 0) : 0\ndef startTimeEpochInSeconds = (startTimeEpoch / 1000).longValue()\ndef currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? downloaderConfig.get(\"currentTimeEpoch\", 0) : 0\ndef currentTimeEpochInSeconds = (currentTimeEpoch / 1000).longValue()\n\ndef lastMessageTime = null\n\nif (binding.hasVariable('messages') && messages.size() != 0) {\n    lastMessageTime = messages[-1].toString().toDouble()\n}\n\nif (binding.hasVariable(\"cursor\")) {\n    if (cursor?.startTime != null) {\n        startTime = cursor.startTime\n    }\n    if (cursor?.endTime != null) {\n        endTime = cursor.endTime\n    }\n    if (cursor?.nextStartTime != null) {\n        nextStartTime = cursor.nextStartTime\n    }\n}\n\nif (startTime == null) {\n    startTime = apiStartDate\n}\nif (nextStartTime == null) {\n    nextStartTime = apiEndDate\n}\n\nboolean hasMore = channelApiHasMore ?: false\n\nif (hasMore) {\n    endTime = lastMessageTime\n} else {\n    startTime = nextStartTime\n    endTime = null\n    nextStartTime = null\n}\n\nboolean userSpecifiedTimeReached = binding.hasVariable(\"userSpecifiedEndTime\") ? (currentTimeEpochInSeconds > userSpecifiedEndTime) : false\n\nreturn [\n    \"cursor\": [\n        \"startTime\": startTime,           // Oldest boundary (lower bound)\n        \"endTime\": endTime,               // Current position or completion point\n        \"nextStartTime\": nextStartTime    // Next batch starts from here\n    ],\n    \"hasMore\": hasMore,\n    \"knowledgeDownloadFinished\": !channelApiHasMore && userSpecifiedTimeReached,\n    \"count\": messages.size() ?: 0\n]",
+				"code":"// any numeric type or numeric string -> plain decimal string\n// (never scientific notation, never a Double in the cursor)\ndef toTsString = { v ->\n    v == null ? null : (v as BigDecimal).toPlainString()\n}\n\ndef toEpochLong = { v ->\n    v == null ? null : (v as BigDecimal).longValue()\n}\n\ndef currentTimeEpoch = binding.hasVariable(\"downloaderConfig\") ? (downloaderConfig?.currentTimeEpoch ?: 0) : 0\ndef currentTimeEpochInSeconds = (currentTimeEpoch / 1000).longValue()\n\ndef lastMessageTime = null\nif (binding.hasVariable(\"messages\") && messages && messages.size() != 0) {\n    // exact Slack ts (keeps sub-second precision the next page's latest needs)\n    lastMessageTime = toTsString(messages[-1])\n}\n\ndef startTime = null\ndef endTime = null\ndef nextStartTime = null\n\nif (binding.hasVariable(\"cursor\")) {\n    startTime = toTsString(cursor?.startTime)\n    endTime = toTsString(cursor?.endTime)\n    nextStartTime = toTsString(cursor?.nextStartTime)\n}\n\nif (startTime == null && binding.hasVariable(\"apiStartDate\")) {\n    startTime = toTsString(apiStartDate)\n}\nif (nextStartTime == null && binding.hasVariable(\"apiEndDate\")) {\n    nextStartTime = toTsString(apiEndDate)\n}\n\nboolean hasMore = binding.hasVariable(\"channelApiHasMore\") ? (channelApiHasMore ?: false) : false\n\nif (hasMore) {\n    endTime = lastMessageTime\n} else {\n    startTime = nextStartTime\n    endTime = null\n    nextStartTime = null\n}\n\nboolean userSpecifiedTimeReached = false\nif (binding.hasVariable(\"userSpecifiedEndTime\") && userSpecifiedEndTime != null) {\n    userSpecifiedTimeReached = currentTimeEpochInSeconds > toEpochLong(userSpecifiedEndTime)\n}\n\nreturn [\n    \"cursor\": [\n        \"startTime\": startTime,           // Oldest boundary (lower bound)\n        \"endTime\": endTime,               // Current position or completion point\n        \"nextStartTime\": nextStartTime    // Next batch starts from here\n    ],\n    \"hasMore\": hasMore,\n    \"knowledgeDownloadFinished\": !hasMore && userSpecifiedTimeReached,\n    \"count\": (binding.hasVariable(\"messages\") && messages != null) ? messages.size() : 0\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1098,5 +1138,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":156
+	"version":157
 }
