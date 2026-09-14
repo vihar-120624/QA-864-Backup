@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787743767341,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743767464,
+		"deployedAt":1789395176597,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece179d7c534668ef77d6",
-		"deploymentNotes":"FINAL PAKKA",
+		"deployedDefinitionId":"6aa800e8c6a14707f150361e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":328
+		"version":2,
+		"workflowVersion":331
 	},
 	"edges":[
 		{
@@ -454,6 +453,91 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"d6LdH",
+			"id":"branch@d6LdH@d6LdH@3",
+			"name":"3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"d6LdH@3",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"d6LdH@3",
+			"id":"next@d6LdH@3@n_NzYMo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NzYMo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NzYMo",
+			"id":"next@n_NzYMo@n_vRAGp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vRAGp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vRAGp",
+			"id":"next@n_vRAGp@n_7JZIE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7JZIE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7JZIE",
+			"id":"if@n_7JZIE@n_BGOfc",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BGOfc",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_BGOfc",
+			"id":"next@n_BGOfc@n_O2Ctu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O2Ctu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7JZIE",
+			"id":"next@n_7JZIE@n_O2Ctu",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O2Ctu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_O2Ctu",
+			"id":"if@n_O2Ctu@n_lH1Sa",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lH1Sa",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_lH1Sa",
+			"id":"next@n_lH1Sa@n_qxuqY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qxuqY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_O2Ctu",
+			"id":"next@n_O2Ctu@n_qxuqY",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qxuqY",
+			"type":"next"
+		},
+		{
 			"fromNodeId":"n_yXXZB",
 			"id":"next@n_yXXZB@4xHWc",
 			"priority":0,
@@ -464,6 +548,14 @@
 		{
 			"fromNodeId":"n_VSiWQ",
 			"id":"next@n_VSiWQ@4xHWc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"4xHWc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qxuqY",
+			"id":"next@n_qxuqY@4xHWc",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"4xHWc",
@@ -550,7 +642,7 @@
 	"id":"6708d355e5c64343ba9b278e",
 	"lastModifiedBy":-1,
 	"lcName":"indexing strategy settings fetcher",
-	"modifiedTime":1788252972563,
+	"modifiedTime":1789395387374,
 	"name":"Indexing Strategy Settings Fetcher",
 	"nodes":[
 		{
@@ -2121,6 +2213,24 @@
 						}
 					},
 					{
+						"id":"3",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"e_space"
+										},
+										"property":"{{ 4k2Nw.outputs.result.type }}"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"Space "
+						}
+					},
+					{
 						"id":"default"
 					}
 				]
@@ -2172,7 +2282,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"AI Agent",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -2195,7 +2306,8 @@
 				"parameters":{
 					"aiAgentId":"{{ ZFTaA.outputs.agentOrKnowledgeSetId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"GetAgentCached",
@@ -2434,7 +2546,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"KnowledgeSet",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -2693,6 +2806,269 @@
 		},
 		{
 			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"d6LdH@_xzMKo-1@3",
+			"id":"d6LdH@3",
+			"index":44,
+			"inputs":{
+				"name":"Space ",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"e_space"
+							},
+							"property":"{{ 4k2Nw.outputs.result.type }}"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Branch Condition",
+			"title":"Branch 3",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"d6LdH@_xzMKo-1@3",
+			"id":"n_NzYMo",
+			"index":45,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"enterprise_search_agent"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"GetAgentCached",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":72,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"d6LdH@_xzMKo-1@3",
+			"id":"n_vRAGp",
+			"index":46,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ ZFTaA.outputs.defaultStrategy }}",
+						"value":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy }}"
+					},
+					{
+						"source":"{{ ZFTaA.outputs.mimeTypeStrategies }}",
+						"value":{
+							"items":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride[0] }}",
+							"source":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.mimeTypeOverride }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ n_YbxiQ.outputs.indexingSetting }}",
+						"value":{
+							"vectorStore":"{{ n_NzYMo.outputs.properties.indexingSettings.vectorStore }}",
+							"vectorStoreConnectionId":"{{ n_NzYMo.outputs.properties.indexingSettings.vectorStoreConnectionId }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":339,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"d6LdH@_xzMKo-1@3",
+			"id":"n_7JZIE",
+			"index":47,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.type }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_7qAz3.outputs.isKnowledgeParsed }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":345,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7JZIE@d6LdH@_xzMKo-1@3@y",
+			"id":"n_BGOfc",
+			"index":48,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ h59wM.outputs.documentParsing }}",
+						"value":{
+							"agenticParsingModel":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.agenticParsingModel }}",
+							"appName":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.appName }}",
+							"automationId":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.automationId }}",
+							"connectionId":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.connectionId }}",
+							"type":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.type }}",
+							"version":"{{ n_NzYMo.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.version }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":439,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"d6LdH@_xzMKo-1@3",
+			"id":"n_O2Ctu",
+			"index":49,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ ZyXzA.outputs.graphRAGSettings.enable }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":151,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_O2Ctu@d6LdH@_xzMKo-1@3@y",
+			"id":"n_lH1Sa",
+			"index":50,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ ZyXzA.outputs.graphRAGSettings }}",
+						"value":{
+							"dedupSimilarityThreshold":"{{ n_NzYMo.outputs.properties.indexingSettings.graphRAGSettings.dedupSimilarityThreshold }}",
+							"enable":"{{ n_NzYMo.outputs.properties.indexingSettings.graphRAGSettings.enable }}",
+							"graphId":"{{ n_NzYMo.outputs.properties.indexingSettings.graphRAGSettings.graphId }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"GRAG",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"d6LdH@_xzMKo-1@3",
+			"id":"n_qxuqY",
+			"index":51,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_9WtpG.outputs.crawlScope }}",
+						"value":"{{ n_NzYMo.outputs.properties.indexingSettings.websiteIndexingSettings.crawlScope }}"
+					},
+					{
+						"source":"{{ n_9WtpG.outputs.extractFiles }}",
+						"value":"{{ n_NzYMo.outputs.properties.indexingSettings.websiteIndexingSettings.extractFiles }}"
+					},
+					{
+						"source":"{{ n_9WtpG.outputs.fileExtractionScope }}",
+						"value":"{{ n_NzYMo.outputs.properties.indexingSettings.websiteIndexingSettings.fileExtractionScope }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":383,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -2703,7 +3079,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"4xHWc",
-			"index":44,
+			"index":52,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -2747,7 +3123,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"n_hRNzg",
-			"index":45,
+			"index":53,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2810,7 +3186,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"n_4fUIF",
-			"index":46,
+			"index":54,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2880,7 +3256,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"n_dWl48",
-			"index":47,
+			"index":55,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2988,7 +3364,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"n_KEfmv",
-			"index":48,
+			"index":56,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3045,7 +3421,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"n_WPwzB",
-			"index":49,
+			"index":57,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3121,7 +3497,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"_2cxYN",
-			"index":50,
+			"index":58,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3380,7 +3756,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def strategy = [:]\ndef documentParsingConfig = binding.hasVariable(\"documentParsing\") ? binding.getVariable(\"documentParsing\") : [:]\n\n// Check if 'defaultStrategy' exists, is not null, and contains 'contentTypeConfig'\nif (binding.hasVariable('defaultStrategy') && defaultStrategy != null && defaultStrategy.containsKey('contentTypeConfig') && hasValidContent(defaultStrategy.contentTypeConfig)){\n  strategy = defaultStrategy.contentTypeConfig\n  if(defaultStrategy.containsKey(\"documentParsingConfig\")){\n    strategy[\"documentParsing\"] = defaultStrategy.documentParsingConfig\n  }\n} else if(binding.hasVariable('globalDefaultStrategy') && globalDefaultStrategy != null && globalDefaultStrategy.containsKey('contentTypeConfig') && hasValidContent(globalDefaultStrategy.contentTypeConfig)){\n  strategy = globalDefaultStrategy.contentTypeConfig\n  if(globalDefaultStrategy.containsKey(\"documentParsingConfig\")){\n    strategy[\"documentParsing\"] = globalDefaultStrategy.documentParsingConfig\n  }\n} else {\n  strategy = getDefault()\n}\nif(!strategy.containsKey(\"documentParsing\")){\n  strategy[\"documentParsing\"] = documentParsingConfig\n}\n\nif (binding.hasVariable('knowledgeLevelStrategies') && knowledgeLevelStrategies != null && binding.hasVariable('mimeType')) {\n  for (def mimeTypeStrat: knowledgeLevelStrategies) {\n    if (mimeTypeStrat.get(\"mimeType\")?.contains(mimeType)) {\n      strategy = mimeTypeStrat.contentTypeConfig\n      if(mimeTypeStrat.containsKey(\"documentParsingConfig\")){\n        strategy[\"documentParsing\"] = mimeTypeStrat.documentParsingConfig\n      }else{\n        strategy[\"documentParsing\"] = documentParsingConfig\n      }\n      return strategy\n    }\n  }\n}\n\nif (binding.hasVariable('mimeTypeStrategies') && mimeTypeStrategies != null && binding.hasVariable('mimeType')) {\n  for (def mimeTypeStrat: mimeTypeStrategies) {\n    if (mimeTypeStrat.get(\"mimeType\")?.contains(mimeType)) {\n      strategy = mimeTypeStrat.contentTypeConfig\n      if(mimeTypeStrat.containsKey(\"documentParsingConfig\")){\n        strategy[\"documentParsing\"] = mimeTypeStrat.documentParsingConfig\n      }else{\n        strategy[\"documentParsing\"] = documentParsingConfig\n      }\n      return strategy\n    }\n  }\n}\n\nif (binding.hasVariable('globalMimeTypeStrategies') && globalMimeTypeStrategies != null && binding.hasVariable('mimeType')) {\n  for (def mimeTypeStrat: globalMimeTypeStrategies) {\n    if (mimeTypeStrat.get(\"mimeType\")?.contains(mimeType)) {\n      strategy = mimeTypeStrat.contentTypeConfig\n      if(mimeTypeStrat.containsKey(\"documentParsingConfig\")){\n        strategy[\"documentParsing\"] = mimeTypeStrat.documentParsingConfig\n      }else{\n        strategy[\"documentParsing\"] = documentParsingConfig\n      }\n      return strategy\n    }\n  }\n}\n\nstrategy[\"documentParsing\"] = (strategy.documentParsing instanceof Map) ? strategy.documentParsing : [:]\n\ndef documentParsing = strategy.documentParsing\n\ndef isValidApplication =\n    documentParsing.type == \"APPLICATION\" &&\n    documentParsing.appName\n\ndef isValidAgentic =\n    documentParsing.type == \"AGENTIC\" &&\n    documentParsing.agenticParsingModel\n\nif (!isValidApplication && !isValidAgentic) {\n    strategy[\"documentParsing\"] = [\n        type: \"APPLICATION\",\n        appName: \"docling\"\n    ]\n}\n\nreturn strategy\n\ndef hasValidContent(config) {\n    for (def entry in config.entrySet()) {  // Iterate over contentTypeConfig keys\n        def innerMap = entry.value\n        for (def innerEntry in innerMap.entrySet()) { // Iterate inside each map\n            def value = innerEntry.value\n            if ((value instanceof String && !value.isEmpty()) || // Non-empty String\n                (value instanceof Integer) || // Integer is valid\n                (value instanceof Boolean) || // Boolean is valid\n                (value instanceof List && !value.isEmpty())) { // Non-empty List\n                return true // Found a valid value\n            }\n        }\n    }\n    return false // No valid values found\n}\n\ndef getDefault(documentParsingConfig) {\n  return  [\n      \"image\": [\n        \"processingMethod\": \"ImageToText\"\n      ],\n      \"tabularData\": [\n        \"indexingType\": \"metadataIndexing\"\n      ],\n      \"text\": [\n        \"chunkingAlgorithm\": \"TOKEN_TEXT_SPLITTER\",\n        \"delimiters\": [],\n        \"enableSummarize\": false,\n        \"language\": \"JAVA\",\n        \"embeddingModel\": \"e_66b2822745f17a17c0e7c28d\",\n        \"summarizingModel\": \"e_66b07801aaadbf3b5de6307b\",\n        \"maxChunkSize\": 512,\n        \"thresholdType\": \"standard_deviation\"\n      ],\n      \"audio\": [\n        \"chunkingAlgorithm\": \"TOKEN_TEXT_SPLITTER\",\n        \"delimiters\": [],\n        \"processingMethod\": \"AudioToText\",\n        \"enableSummarize\": false,\n        \"language\": \"JAVA\",\n        \"embeddingModel\": \"e_66b2822745f17a17c0e7c28d\",\n        \"summarizingModel\": \"e_66b07801aaadbf3b5de6307b\",\n        \"maxChunkSize\": 512,\n        \"thresholdType\": \"standard_deviation\"\n      ]\n    ]\n}",
+				"code":"def strategy = [:]\ndef documentParsingConfig = binding.hasVariable(\"documentParsing\") ? binding.getVariable(\"documentParsing\") : [:]\n\n// Check if 'defaultStrategy' exists, is not null, and contains 'contentTypeConfig'\nif (binding.hasVariable('defaultStrategy') && defaultStrategy != null && defaultStrategy.containsKey('contentTypeConfig') && hasValidContent(defaultStrategy.contentTypeConfig)){\n  strategy = defaultStrategy.contentTypeConfig\n  if(defaultStrategy.containsKey(\"documentParsingConfig\")){\n    strategy[\"documentParsing\"] = defaultStrategy.documentParsingConfig\n  }\n} else if(binding.hasVariable('globalDefaultStrategy') && globalDefaultStrategy != null && globalDefaultStrategy.containsKey('contentTypeConfig') && hasValidContent(globalDefaultStrategy.contentTypeConfig)){\n  strategy = globalDefaultStrategy.contentTypeConfig\n  if(globalDefaultStrategy.containsKey(\"documentParsingConfig\")){\n    strategy[\"documentParsing\"] = globalDefaultStrategy.documentParsingConfig\n  }\n} else {\n  strategy = getDefault()\n}\nif(!strategy.containsKey(\"documentParsing\")){\n  strategy[\"documentParsing\"] = documentParsingConfig\n}\n\n// Normalize known key aliases, then backfill anything still missing from getDefault().\n// This resolves the \"default-level\" strategy fully before any mimeType-specific layer applies.\nstrategy = mergeDefaults(normalizeConfig(strategy))\n\nif (binding.hasVariable('knowledgeLevelStrategies') && knowledgeLevelStrategies != null && binding.hasVariable('mimeType')) {\n  for (def mimeTypeStrat: knowledgeLevelStrategies) {\n    if (mimeTypeStrat.get(\"mimeType\")?.contains(mimeType)) {\n      strategy = mergeConfig(strategy, normalizeConfig(mimeTypeStrat.contentTypeConfig))\n      if(mimeTypeStrat.containsKey(\"documentParsingConfig\")){\n        strategy[\"documentParsing\"] = mimeTypeStrat.documentParsingConfig\n      }else{\n        strategy[\"documentParsing\"] = documentParsingConfig\n      }\n      return strategy\n    }\n  }\n}\n\nif (binding.hasVariable('mimeTypeStrategies') && mimeTypeStrategies != null && binding.hasVariable('mimeType')) {\n  for (def mimeTypeStrat: mimeTypeStrategies) {\n    if (mimeTypeStrat.get(\"mimeType\")?.contains(mimeType)) {\n      strategy = mergeConfig(strategy, normalizeConfig(mimeTypeStrat.contentTypeConfig))\n      if(mimeTypeStrat.containsKey(\"documentParsingConfig\")){\n        strategy[\"documentParsing\"] = mimeTypeStrat.documentParsingConfig\n      }else{\n        strategy[\"documentParsing\"] = documentParsingConfig\n      }\n      return strategy\n    }\n  }\n}\n\nif (binding.hasVariable('globalMimeTypeStrategies') && globalMimeTypeStrategies != null && binding.hasVariable('mimeType')) {\n  for (def mimeTypeStrat: globalMimeTypeStrategies) {\n    if (mimeTypeStrat.get(\"mimeType\")?.contains(mimeType)) {\n      strategy = mergeConfig(strategy, normalizeConfig(mimeTypeStrat.contentTypeConfig))\n      if(mimeTypeStrat.containsKey(\"documentParsingConfig\")){\n        strategy[\"documentParsing\"] = mimeTypeStrat.documentParsingConfig\n      }else{\n        strategy[\"documentParsing\"] = documentParsingConfig\n      }\n      return strategy\n    }\n  }\n}\n\nstrategy[\"documentParsing\"] = (strategy.documentParsing instanceof Map) ? strategy.documentParsing : [:]\n\ndef documentParsing = strategy.documentParsing\n\ndef isValidApplication =\n    documentParsing.type == \"APPLICATION\" &&\n    documentParsing.appName\n\ndef isValidAgentic =\n    documentParsing.type == \"AGENTIC\" &&\n    documentParsing.agenticParsingModel\n\nif (!isValidApplication && !isValidAgentic) {\n    strategy[\"documentParsing\"] = [\n        type: \"APPLICATION\",\n        appName: \"unifyapps\"\n    ]\n}\n\nreturn strategy\n\n// Merges `override` on top of `base`, per content type, per field.\n// For content types listed in `baseWinsFor`, base's explicit fields win over override's\n// (so defaultStrategy takes precedence for those types) — fields the override sets that\n// base doesn't (e.g. chunkOverlap) still pass through. All other content types keep the\n// original behavior: override wins per field.\ndef mergeConfig(base, override, baseWinsFor = ['text']) {\n    def merged = [:]\n    def keys = base.keySet() + override.keySet()\n    keys.each { key ->\n        def baseVal = (base[key] instanceof Map) ? base[key] : [:]\n        def overrideVal = (override[key] instanceof Map) ? override[key] : [:]\n        merged[key] = baseWinsFor.contains(key) ? (overrideVal + baseVal) : (baseVal + overrideVal)\n    }\n    return merged\n}\n\n// Backfills any content-type field missing from `strategy` using getDefault()'s values.\n// Explicit values in `strategy` always win.\ndef mergeDefaults(strategy) {\n    def defaults = getDefault()\n    defaults.each { contentType, defaultConfig ->\n        def override = (strategy[contentType] instanceof Map) ? strategy[contentType] : [:]\n        strategy[contentType] = defaultConfig + override\n    }\n    return strategy\n}\n\n// Known key aliases seen in upstream config payloads, mapped to the canonical field name the\n// rest of the pipeline expects. Add new aliases here as they're discovered.\ndef normalizeConfig(config) {\n    def KEY_ALIASES = [\n        \"text\" : [ \"algorithm\": \"chunkingAlgorithm\" ],\n        \"audio\": [ \"algorithm\": \"chunkingAlgorithm\" ]\n    ]\n    if (!(config instanceof Map)) {\n        return config\n    }\n    def normalized = [:]\n    config.each { contentType, fields ->\n        if (fields instanceof Map && KEY_ALIASES.containsKey(contentType)) {\n            def aliasMap = KEY_ALIASES[contentType]\n            def normalizedFields = [:]\n            fields.each { k, v ->\n                normalizedFields[aliasMap.containsKey(k) ? aliasMap[k] : k] = v\n            }\n            normalized[contentType] = normalizedFields\n        } else {\n            normalized[contentType] = fields\n        }\n    }\n    return normalized\n}\n\ndef hasValidContent(config) {\n    for (def entry in config.entrySet()) {  // Iterate over contentTypeConfig keys\n        def innerMap = entry.value\n        for (def innerEntry in innerMap.entrySet()) { // Iterate inside each map\n            def value = innerEntry.value\n            if ((value instanceof String && !value.isEmpty()) || // Non-empty String\n                (value instanceof Integer) || // Integer is valid\n                (value instanceof Boolean) || // Boolean is valid\n                (value instanceof List && !value.isEmpty())) { // Non-empty List\n                return true // Found a valid value\n            }\n        }\n    }\n    return false // No valid values found\n}\n\ndef getDefault(documentParsingConfig = null) {\n  return  [\n      \"image\": [\n        \"processingMethod\": \"ImageToText\"\n      ],\n      \"tabularData\": [\n        \"indexingType\": \"metadataIndexing\"\n      ],\n      \"text\": [\n        \"chunkingAlgorithm\": \"TOKEN_TEXT_SPLITTER\",\n        \"delimiters\": [],\n        \"enableSummarize\": false,\n        \"language\": \"JAVA\",\n        \"embeddingModel\": \"e_66b2822745f17a17c0e7c28d\",\n        \"summarizingModel\": \"e_66b07801aaadbf3b5de6307b\",\n        \"maxChunkSize\": 512,\n        \"thresholdType\": \"standard_deviation\"\n      ],\n      \"audio\": [\n        \"chunkingAlgorithm\": \"TOKEN_TEXT_SPLITTER\",\n        \"delimiters\": [],\n        \"processingMethod\": \"AudioToText\",\n        \"enableSummarize\": false,\n        \"language\": \"JAVA\",\n        \"embeddingModel\": \"e_66b2822745f17a17c0e7c28d\",\n        \"summarizingModel\": \"e_66b07801aaadbf3b5de6307b\",\n        \"maxChunkSize\": 512,\n        \"thresholdType\": \"standard_deviation\"\n      ]\n    ]\n}",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -3430,7 +3806,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_xzMKo-1",
 			"id":"_wGfaH",
-			"index":51,
+			"index":59,
 			"inputs":{
 				"result":{
 					"audio":{
@@ -3534,5 +3910,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":330
+	"version":332
 }
