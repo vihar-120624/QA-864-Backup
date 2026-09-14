@@ -1,0 +1,532 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789394972748,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789394972878,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa8001c72fd792214e8bd02",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":84
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_z5N35",
+			"id":"next@n_z5N35@n_EHr2B",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EHr2B",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EHr2B",
+			"id":"next@n_EHr2B@n_R8QgP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_R8QgP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_R8QgP",
+			"id":"next@n_R8QgP@n_uafot",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uafot",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uafot",
+			"id":"next@n_uafot@n_GmOjB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GmOjB",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"694ebbd73b6623417b381ea6",
+	"lastModifiedBy":-1,
+	"lcName":"best practice | automation | run group checks | node",
+	"modifiedTime":1789394974474,
+	"name":"Best Practice | Automation | Run Group Checks | Node",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":84,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_z5N35",
+			"index":1,
+			"inputs":{
+				"result":{
+					"properties":{
+						"checks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"check_id":{
+										"title":"Check Id",
+										"type":"string"
+									},
+									"status":{
+										"title":"Status",
+										"type":"string"
+									},
+									"targets":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"path":{
+													"items":{
+														"type":"string"
+													},
+													"title":"Path",
+													"type":"array"
+												},
+												"target_id":{
+													"title":"Target Id",
+													"type":"string"
+												},
+												"target_type":{
+													"title":"Target Type",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"type":"object"
+										},
+										"title":"Targets",
+										"type":"array"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Checks",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"694d430f730d4541854abd6d",
+				"setup":{
+					"properties":{
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"maskingKeys":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Masking Keys",
+							"type":"array"
+						},
+						"workflow_details":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":26,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_EHr2B",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"maskingKeys":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Masking Keys",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"workflowDetails":"{{ n_z5N35.outputs.workflow_details }}",
+				"maskingKeys":{
+					"items":"{{ n_z5N35.outputs.maskingKeys[0] }}",
+					"source":"{{ n_z5N35.outputs.maskingKeys }}",
+					"ua:type":"mappedArray"
+				},
+				"groupChecks":{
+					"items":"{{ n_z5N35.outputs.groupChecks[0] }}",
+					"source":"{{ n_z5N35.outputs.groupChecks }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"maskingKeys":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Masking Keys",
+							"type":"array"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Global Variables",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":96,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_R8QgP",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"precomputedContext":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Precomputed Context",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// ---------------- HELPERS ----------------//\n\nstatic def findMatchingSubStrings(Object data, String regex, List matches) {\n    if (data instanceof Map) {\n        data.each { key, value ->\n            findMatchingSubStrings(value, regex, matches)\n        }\n    } else if (data instanceof List) {\n        data.each { item ->\n            findMatchingSubStrings(item, regex, matches)\n        }\n    } else if (data instanceof String) {\n        def matcher = (data as String) =~ regex\n        while (matcher.find()) {\n            matches.add(matcher.group())\n        }\n    }\n}\n\n// ---------------- CONTEXT EXTRACTION ----------------//\n\ndef workflowDetails = binding.hasVariable(\"workflowDetails\") ? binding.getVariable(\"workflowDetails\") : null\n\n// ----- in-vertex count and out-vertex count for each node -----\ndef toEdges = [:]\ndef fromEdges = [:]\n((List) workflowDetails.edges).forEach(edge -> {\n    toEdges[edge.toNodeId] = toEdges.getOrDefault(edge.toNodeId, 0) + 1;\n    fromEdges[edge.fromNodeId] = toEdges.getOrDefault(edge.fromNodeId, 0) + 1;\n})\n\n// ----- unused intermediate nodes and standard variables -----\n\ndef lastNodes = toEdges.keySet().findAll({ fromEdges[it] == null || fromEdges[it] == 0 }).collect({ it })\ndef allNodes = ((List) workflowDetails.nodes).findAll({ it.type != \"START\" && it.type != \"STOP\" }).collect({ (String) it.id })\ndef allValidNodes = allNodes - lastNodes; // output of end nodes never going to be used\ndef unusedNodes = new ArrayList(allValidNodes);\n\ndef userVariablesReferred = new HashSet()\ndef runVariablesReferred = new HashSet()\ndef envVariablesReferred = new HashSet()\n\ndef dataPillsRegex = /\\{\\{\\s*([^.]+)\\.([^.]+)\\.(.+?)\\s*\\}\\}/\ndef matches = []\nworkflowDetails.nodes?.forEach(node -> {\n    findMatchingSubStrings(node.inputs, dataPillsRegex, matches)\n})\n// Remove nodes which are referenced in data pills from unusedNodes\nmatches.forEach(match -> {\n    def matcher = (match =~ dataPillsRegex)\n    if (matcher.matches()) {\n        def nodeId = matcher.group(1)\n        switch(nodeId) {\n            case \"__USER__\" -> userVariablesReferred.add(matcher.group(3));\n            case \"__RUN__\" -> runVariablesReferred.add(matcher.group(3));\n            case \"__ENV__\" -> envVariablesReferred.add(matcher.group(3));\n            default -> unusedNodes.remove(nodeId)\n        }\n    }\n})\n\n// ----- Node Map -----\n\ndef nodeMap = ((List) workflowDetails.nodes).collectEntries({ [(it.id): it] })\n\n// ---------------- MAIN ----------------//\n\ndef precomputedContext = [\n        \"toEdges\" : toEdges,\n        \"fromEdges\": fromEdges,\n        \"unusedNodes\": unusedNodes,\n        \"nodeMap\": nodeMap,\n        \"userVariablesReferred\": userVariablesReferred.asList(),\n        \"runVariablesReferred\": runVariablesReferred.asList(),\n        \"envVariablesReferred\": envVariablesReferred.asList()\n]\n\nreturn [\n        precomputedContext: precomputedContext\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"workflowDetails":"{{ n_EHr2B.outputs.workflowDetails }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Precompute Context",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.groupChecks.items",
+					"root.parameters.maskingKeys.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":92,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_uafot",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"checks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"check_id":{
+										"title":"check_id",
+										"type":"string"
+									},
+									"status":{
+										"title":"status",
+										"type":"string"
+									},
+									"targets":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"path":{
+													"items":{
+														"type":"string"
+													},
+													"title":"path",
+													"type":"array"
+												},
+												"target_id":{
+													"title":"target_id",
+													"type":"string"
+												},
+												"target_type":{
+													"title":"target_type",
+													"type":"string"
+												}
+											},
+											"type":"object"
+										},
+										"title":"targets",
+										"type":"array"
+									}
+								},
+								"type":"object"
+							},
+							"title":"checks",
+							"type":"array"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"groupChecks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Group Checks",
+							"type":"array"
+						},
+						"maskingKeys":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Masking Keys",
+							"type":"array"
+						},
+						"precomputedContext":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Precomputed Context",
+							"type":"object"
+						},
+						"workflowDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Workflow Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"//---------------- HELPER ----------------//\n\nstatic def toCheckListEntry(String checkId, String status, List targets) {\n    return [\n            \"check_id\": checkId,\n            \"status\": status,\n            \"targets\": targets ?: []\n    ];\n}\n\nstatic def buildMaskingKeySet(maskingKeys) {\n    def set = new HashSet()\n\n    if (maskingKeys == null) {\n        return set\n    }\n\n    for (item in maskingKeys) {\n        if (item instanceof String) {\n            set.add(item.toLowerCase())\n        } else if (item instanceof Map) {\n            def name = item.key ?: item.name ?: item.path ?: item.field\n\n            if (name != null) {\n                set.add(name.toString().toLowerCase())\n            }\n        }\n    }\n\n    return set\n}\n\nstatic def findMatchingSubStrings(Object data, String regex, List matches) {\n    if (data instanceof Map) {\n        data.each { key, value ->\n            findMatchingSubStrings(value, regex, matches)\n        }\n    } else if (data instanceof List) {\n        data.each { item ->\n            findMatchingSubStrings(item, regex, matches)\n        }\n    } else if (data instanceof String) {\n        def matcher = (data as String) =~ regex\n        while (matcher.find()) {\n            matches.add(matcher.group())\n        }\n    }\n}\n\nstatic def findKeyRecursively(data, List safePatterns, List regexPatterns) {\n    if (data instanceof Map) {\n        for (entry in data) {\n            def keyString = entry.key.toString()\n            def lowerKey = keyString.toLowerCase()\n\n            boolean isMatch = false\n\n            // 1. Check Safe Patterns (Simple substring match)\n            if (safePatterns.any { pattern -> lowerKey.contains(pattern) }) {\n                isMatch = true\n            }\n            // 2. Check Regex Patterns (Strict boundary match)\n            else if (regexPatterns.any { pattern -> keyString =~ pattern }) { \n                isMatch = true\n            }\n\n            if (isMatch) return true\n\n            // 3. Recurse into children\n            if (findKeyRecursively(entry.value, safePatterns, regexPatterns)) {\n                return true\n            }\n        }\n    } else if (data instanceof List) {\n        for (item in data) {\n            if (findKeyRecursively(item, safePatterns, regexPatterns)) {\n                return true\n            }\n        }\n    }\n    return false\n}\n\nstatic def findHardcodedValueRecursively(data, List safePatterns, List regexPatterns) {\n    if (data instanceof Map) {\n        for (entry in data) {\n            def keyString = entry.key.toString()\n            def lowerKey = keyString.toLowerCase()\n            def value = entry.value\n\n            boolean isCriticalKey = false\n\n            // 1. Check Safe Patterns (e.g. \"password\") - simple substring\n            if (safePatterns.any { pattern -> lowerKey.contains(pattern) }) {\n                isCriticalKey = true\n            }\n            // 2. Check Regex Patterns (e.g. \"id\", \"url\") - strict boundaries\n            else if (regexPatterns.any { pattern -> keyString =~ pattern }) { \n                isCriticalKey = true\n            }\n\n            // If critical key, ensure value is NOT hardcoded\n            if (isCriticalKey) {\n                if (value instanceof String && !value.isEmpty()) {\n                    // It must be dynamic (contain {{). If not, it's hardcoded -> FAIL\n                    if (!value.contains(\"{{\")) {\n                        return true \n                    }\n                }\n            }\n\n            // 3. Recurse\n            if (findHardcodedValueRecursively(value, safePatterns, regexPatterns)) {\n                return true\n            }\n        }\n    } else if (data instanceof List) {\n        for (item in data) {\n            if (findHardcodedValueRecursively(item, safePatterns, regexPatterns)) {\n                return true\n            }\n        }\n    }\n    return false\n}\n\nstatic def isEmpty(List list) {\n    return list == null || list.isEmpty();\n}\n\nstatic def isCheckIgnorable(checkMeta, node) {\n    def appName = node.context?.appName;\n    def resourceName = node.context?.resourceName;\n\n    if (checkMeta == null) {\n        return true;\n    }\n    def includeNodes = checkMeta?.include?.nodes ?: []\n    def includeResources = checkMeta?.include?.resources ?: []\n    def excludeNodes = checkMeta?.exclude?.nodes ?: []\n    def excludeResources = checkMeta?.exclude?.resources ?: []\n\n    if (appName == null || resourceName == null) {\n        return false;\n    }\n    if (isEmpty(includeNodes) && isEmpty(includeResources)) {\n        return !(excludeNodes.contains(appName) || excludeResources.contains(resourceName));\n    }\n    else {\n        return includeNodes.contains(appName) || includeResources.contains(resourceName);\n    }\n}\n\n//---------------- CHECKS ----------------//\n\ndef NODE_CHECKS = [\n        \"CHECK_2\": this.&areSensitiveFieldsHidden,\n        // \"CHECK_3\": this.&isIterationReportingDisabled,\n        \"CHECK_4\": this.&isRetryConfigOptimised,\n        \"CHECK_38\": this.&checkDirectNodePillMapping,\n        \"CHECK_39\": this.&checkHardcodedCriticalFields,\n        \"CHECK_45\": this.&checkSkipNodes,\n        \"CHECK_51\": this.&checkExcessiveInMemoryDelay,\n        \"CHECK_52\": this.&checkCriticalInMemoryDelay,\n        \"CHECK_54\": this.&checkConditionNodeHasConditions,\n        \"CHECK_55\": this.&checkSchedulerFrequency,\n        \"CHECK_79\": this.&checkDirectSqlExecution\n]\n\n// Potentially Sensitive Field Visible\nstatic def areSensitiveFieldsHidden(node, precomputedContext) {\n    def inputs = node.inputs ?: [:]\n    def maskedKeys = precomputedContext?.maskedKeySet ?: new HashSet()\n\n    def strip\n    strip = { data ->\n        if (data instanceof Map) {\n            def filtered = [:]\n\n            data.each { k, v ->\n                if (!maskedKeys.contains(k.toString().toLowerCase())) {\n                    filtered[k] = strip(v)\n                }\n            }\n\n            return filtered\n        } else if (data instanceof List) {\n            return data.collect { strip(it) }\n        }\n\n        return data\n    }\n\n    def cleaned = maskedKeys.isEmpty() ? inputs : strip(inputs)\n\n    def safePatterns = [\n        \"password\", \"secret\", \"token\", \"apikey\", \"accesskey\",\n        \"privatekey\", \"credential\", \"authorization\"\n    ]\n\n    def regexPatterns = [\n        /(?i).*(^|[_-])(user_id|client_id|account_id|endpoint|auth)($|[_-]).*/,\n        /.*(userId|clientId|accountId).*/\n    ]\n\n    def found = findKeyRecursively(cleaned, safePatterns, regexPatterns)\n    return !(found && node.options?.disableLogging != true)\n}\n\n// Loop Iterations Reporting Enabled\nstatic def isIterationReportingDisabled(node, precomputedContext) {\n    return !(node.type == \"LOOP\" && node.inputs?.captureIterations == true);\n}\n\n// Unoptimised Retry Configuration\nstatic def isRetryConfigOptimised(node, precomputedContext) {\n    def retryConfig = node.options?.retryConfig;\n\n    if (retryConfig == null || !retryConfig.enabled) {\n        return true\n    }\n    // retryConfig: [ count, initialDelay, maxDelay, backoffFactor ]\n    // allow max initial-delay 1 sec, max max-delay of 30 sec, max retry count of 5, backoff factor between 1.0 and 5.0\n    return 0 <= retryConfig.initialDelay && retryConfig.initialDelay <= 1_000\n            && 0 <= retryConfig.maxDelay && retryConfig.maxDelay <= 30_000\n            && 0 <= retryConfig.count && retryConfig.count <= 5\n            && 1.0 <= retryConfig.backOffFactor && retryConfig.backOffFactor <= 5.0;\n}\n\n// CHECK_38: Direct Node Pill should not be mapped \nstatic def checkDirectNodePillMapping(node, precomputedContext) {\n    def inputs = node.inputs\n    if (inputs == null) return true // Pass\n    def regex = /\\{\\{\\s*[^.]+\\.outputs\\s*\\}\\}/\n    \n    def matches = []\n    findMatchingSubStrings(inputs, regex, matches)\n    return matches.isEmpty()\n}\n\n// CHECK_39: Adding hardcoded critical input/outputs instead of storing as variables\ndef checkHardcodedCriticalFields(node, precomputedContext) {\n    def inputs = node.inputs\n    if (inputs == null) return true\n\n    // Highly sensitive words (loose match is fine)\n    def safePatterns = [\n        \"password\", \"secret\", \"token\", \"apikey\", \"accesskey\",\n         \"credential\", \"privatekey\", \"client_id\"\n    ]\n\n    // Only security-relevant structured keys\n    def strictRegexPatterns = [\n        // snake_case\n        /(?i).*(^|[_-])(user_id|client_id|account_id|endpoint|auth)($|[_-]).*/,\n\n        // camelCase\n        /.*(userId|clientId|accountId).*/\n    ]\n\n    boolean hasHardcoding = findHardcodedValueRecursively(inputs, safePatterns, strictRegexPatterns)\n    \n    return !hasHardcoding\n}\n\n// CHECK_45: For Skip Nodes Present in Automation\ndef checkSkipNodes(node, precomputedContext){\n    if(node?.skip == true){\n        return false;\n    }\n    return true;\n}\n\n// CHECK_51: Excessive In-Memory Delay (>2 and <=5 minutes)\nstatic def checkExcessiveInMemoryDelay(node, precomputedContext) {\n    def resourceName = node.context?.resourceName\n\n    // Only applicable to delay_for nodes\n    if (resourceName != \"delay_for\") return true\n\n    def inputs = node.inputs ?: [:]\n    def duration = inputs.duration\n    def unit = inputs.unit ?: \"MINUTES\"\n\n    if (duration == null) return true\n\n    // Static numeric values only\n    double value\n    if (duration instanceof Integer || duration instanceof Double) {\n        value = duration\n    } else if (duration instanceof String && duration.isNumber()) {\n        value = duration.toDouble()\n    } else {\n        // Dynamic pill → skip\n        return true\n    }\n\n    // Convert to seconds\n    double totalSeconds\n    switch (unit) {\n        case \"MILLISECONDS\": totalSeconds = value / 1000; break\n        case \"SECONDS\":      totalSeconds = value; break\n        case \"MINUTES\":      totalSeconds = value * 60; break\n        case \"HOURS\":        totalSeconds = value * 3600; break\n        case \"DAYS\":         totalSeconds = value * 86400; break\n        case \"WEEKS\":        totalSeconds = value * 604800; break\n        default:             totalSeconds = value * 60; break\n    }\n\n    // Fail only for >2 min AND <=5 min\n    if (totalSeconds > 120 && totalSeconds <=300) {\n        return false\n    }\n\n    return true\n}\n\n// CHECK_52: Critical In-Memory Delay (>5 minutes)\nstatic def checkCriticalInMemoryDelay(node, precomputedContext) {\n    def resourceName = node.context?.resourceName\n\n    // Only applicable to delay_for nodes\n    if (resourceName != \"delay_for\") return true\n\n    def inputs = node.inputs ?: [:]\n    def duration = inputs.duration\n    def unit = inputs.unit ?: \"MINUTES\"\n\n    if (duration == null) return true\n\n    // Static numeric values only\n    double value\n    if (duration instanceof Integer || duration instanceof Double) {\n        value = duration\n    } else if (duration instanceof String && duration.isNumber()) {\n        value = duration.toDouble()\n    } else {\n        // Dynamic pill → skip\n        return true\n    }\n\n    // Convert to seconds\n    double totalSeconds\n    switch (unit) {\n        case \"MILLISECONDS\": totalSeconds = value / 1000; break\n        case \"SECONDS\":      totalSeconds = value; break\n        case \"MINUTES\":      totalSeconds = value * 60; break\n        case \"HOURS\":        totalSeconds = value * 3600; break\n        case \"DAYS\":         totalSeconds = value * 86400; break\n        case \"WEEKS\":        totalSeconds = value * 604800; break\n        default:             totalSeconds = value * 60; break\n    }\n\n    // Fail only for >5 minutes\n    if (totalSeconds > 300) {\n        return false\n    }\n\n    return true\n}\n\n// CHECK_54: IF_ELSE node must have at least one condition filter\nstatic def checkConditionNodeHasConditions(node, precomputedContext) {\n    if (node.type != \"IF_ELSE\") {\n        return true\n    }\n\n    def filters = node.inputs?.filters\n\n    if (!(filters instanceof List) || filters.isEmpty()) {\n        return false\n    }\n\n    def operatorsRequiringValue = [\n        \"EQUAL\", \"NOT_EQUAL\",\n        \"GREATER_THAN\", \"LESS_THAN\",\n        \"GREATER_OR_EQUAL\", \"LESS_OR_EQUAL\",\n        \"CONTAINS\", \"NOT_CONTAINS\"\n    ]\n\n    for (f in filters) {\n        def property = f?.property\n        def operator = f?.filter?.operator\n        def value = f?.filter?.value\n\n        if (!property || !operator) {\n            continue\n        }\n        \n        if (operatorsRequiringValue.contains(operator)) {\n            if (value == null || value.toString().trim().isEmpty()) {\n                continue\n            }\n        }\n        return true\n    }\n    return false\n}\n\n\n// CHECK_55: Scheduler Frequency should not be < 1 minute\nstatic def checkSchedulerFrequency(node, precomputedContext) {\n    // Ensure we are checking the right node type\n    if (node.context?.resourceName != \"schedule_default\") {\n        return true\n    }\n\n    def inputs = node.inputs ?: [:]\n    \n    // If it's not an INTERVAL cron type, we pass (e.g., custom CRON expressions are harder to parse safely here, or specific times of day are inherently > 1min)\n    if (inputs.cron != \"INTERVAL\") {\n        return true\n    }\n\n    def intervalVal = inputs.interval\n    def frequencyUnit = inputs.frequency ?: \"MINUTES\" // default to minutes if missing\n\n    if (intervalVal == null) return true // Missing data, can't fail safely\n\n    // Ensure it's a number\n    double value\n    if (intervalVal instanceof Number) {\n        value = intervalVal.toDouble()\n    } else if (intervalVal instanceof String && intervalVal.isNumber()) {\n        value = intervalVal.toDouble()\n    } else {\n        return true // It might be a pill, ignore\n    }\n\n    // Convert to seconds for comparison\n    double totalSeconds = 0\n    switch (frequencyUnit.toString().toUpperCase()) {\n        case \"SECONDS\": totalSeconds = value; break\n        case \"MINUTES\": totalSeconds = value * 60; break\n        case \"HOURS\":   totalSeconds = value * 3600; break\n        case \"DAYS\":    totalSeconds = value * 86400; break\n        case \"WEEKS\":   totalSeconds = value * 604800; break\n        default:        totalSeconds = value * 60; break // Default assumption\n    }\n\n    // FAIL if less than 60 seconds (1 minute)\n    if (totalSeconds < 60) {\n        return false\n    }\n\n    return true\n}\n\n// CHECK_79: Avoid Direct SQL Statements\nstatic def checkDirectSqlExecution(node, precomputedContext) {\n\n    def restrictedResources = [\n        \"mysql_execute_sql\",\n        \"mysql_run_long_query_using_custom_sql\",\n        \"oracledb_execute_sql\",\n        \"oracledb_run_long_query_using_custom_sql\",\n        \"oracledb_select_rows_using_custom_sql\",\n        \"postgres_execute_sql\",\n        \"postgres_run_long_query_using_custom_sql\",\n        \"microsoft_azure_database_execute_sql\",\n        \"sqlserver_execute_sql\",\n        \"sqlserver_run_long_query_using_custom_sql\",\n        \"sqlserver_execute_multiple_sql_queries\",\n        \"analytics_by_unifyapps_execute_update\",\n        \"analytics_by_unifyapps_execute_query\",\n        \"analytics_by_unifyapps_export_sql\",\n        \"analytics_by_unifyapps_filter_to_sql_condition\",\n        \"utility_by_unifyapps_run_sql_query_on_file\",\n        \"utility_by_unifyapps_run_sql_query_on_list\",\n        \"snowflake_execute_sql\",\n        \"snowflake_execute_multiple_sql\",\n        \"snowflake_execute_sql_loop\",\n        \"snowflake_run_long_query_using_custom_sql\",\n        \"redshift_execute_sql\",\n        \"redshift_run_long_query_using_custom_sql\",\n        \"redshift_select_rows_custom_sql\",\n        \"apache_druid_execute_sql\",\n        \"azure_synapse_execute_sql\",\n        \"clickhouse_execute_sql\",\n        \"databricks_execute_sql\",\n        \"custom_db_execute_sql\",\n        \"couchbase_execute_sql\",\n        \"google_big_query_execute_sql\",\n        \"mariadb_execute_sql\",\n        \"microsoft_fabric_execute_sql\",\n        \"microsoft_fabric_data_lakehouse_execute_sql_statement\",\n        \"starrocks_execute_sql\",\n        \"watsonxdata_execute_sql\",\n        \"trino_execute_sql\",\n        \"greenplum_execute_sql\",\n        \"ibm_db2_execute_sql\",\n        \"snowflake_select_rows_using_custom_sql\"\n    ] as Set\n\n    def resourceName = node.context?.resourceName\n\n    // FAIL if resource is present\n    if (restrictedResources.contains(resourceName)) {\n        return false\n    }\n\n    return true\n}\n\n\n\n//---------------- MAIN ----------------//\ndef workflowDetails = (Map) (binding.hasVariable(\"workflowDetails\") ? binding.getVariable(\"workflowDetails\") : null)\ndef groupChecks = (List<Map>) (binding.hasVariable(\"groupChecks\") ? binding.getVariable(\"groupChecks\") : [])\ndef precomputedContext = (Map) (binding.hasVariable(\"precomputedContext\") ? binding.getVariable(\"precomputedContext\") : [:])\ndef maskingKeys = (binding.hasVariable(\"maskingKeys\") ? binding.getVariable(\"maskingKeys\") : [])\n\nprecomputedContext = (precomputedContext ?: [:]) + [maskedKeySet: buildMaskingKeySet(maskingKeys)]\n\ndef groupChecksLookup = groupChecks.collectEntries({ [(it.check_id) : it] } )\n\nif (workflowDetails == null) {\n    return [:]\n}\n\n// map of checkId vs result vs List<nodeId>\ndef checksResult = [:];\nworkflowDetails.nodes?.forEach(node -> {\n    NODE_CHECKS.forEach((check_id, check) -> {\n        def checkMeta = groupChecksLookup[check_id]\n\n        if (!isCheckIgnorable(checkMeta, node) || check(node, precomputedContext) ) {\n            checksResult.computeIfAbsent(check_id, _ -> [:]).computeIfAbsent(\"passed\", _ -> []).add(node.id);\n        }\n        else {\n            checksResult.computeIfAbsent(check_id, _ -> [:]).computeIfAbsent(\"failed\", _ -> []).add(node.id);\n        }\n    })\n})\n\ndef checkList = []\nchecksResult.forEach((check_id, result) -> {\n    def failed = result.failed ?: []\n    if (failed.isEmpty()) {\n        checkList.add(toCheckListEntry(check_id, \"passed\",  []))\n    }\n    else {\n        def targets = failed.collect{ it -> [target_id: it, target_type: \"node\"] }\n        checkList.add(toCheckListEntry(check_id, \"failed\",  targets))\n    }\n})\n\nreturn [\n        \"checks\": checkList\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"groupChecks":{
+						"items":"{{ n_EHr2B.outputs.groupChecks[0] }}",
+						"source":"{{ n_EHr2B.outputs.groupChecks }}",
+						"ua:type":"mappedArray"
+					},
+					"maskingKeys":{
+						"items":"{{ n_EHr2B.outputs.maskingKeys[0] }}",
+						"source":"{{ n_EHr2B.outputs.maskingKeys }}",
+						"ua:type":"mappedArray"
+					},
+					"precomputedContext":"{{ n_R8QgP.outputs.result.precomputedContext }}",
+					"workflowDetails":"{{ n_EHr2B.outputs.workflowDetails }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Run Checks",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.checks.source",
+					"root.result.checks.ua:type",
+					"root.result.checks.items.check_id",
+					"root.result.checks.items.status",
+					"root.result.checks.items.targets.source",
+					"root.result.checks.items.targets.ua:type",
+					"root.result.checks.items.targets.items.target_id",
+					"root.result.checks.items.targets.items.target_type",
+					"root.result.checks.items.targets.items.path.source",
+					"root.result.checks.items.targets.items.path.ua:type",
+					"root.result.checks.items.targets.items.path.items"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":89,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wwCYF-1",
+			"id":"n_GmOjB",
+			"index":5,
+			"inputs":{
+				"result":{
+					"checks":{
+						"items":{
+							"check_id":"{{ n_uafot.outputs.result.checks[0].check_id }}",
+							"status":"{{ n_uafot.outputs.result.checks[0].status }}",
+							"targets":{
+								"items":{
+									"path":{
+										"items":"{{ n_uafot.outputs.result.checks[0].targets[0].path[0] }}",
+										"source":"{{ n_uafot.outputs.result.checks[0].targets[0].path }}",
+										"ua:type":"mappedArray"
+									},
+									"target_id":"{{ n_uafot.outputs.result.checks[0].targets[0].target_id }}",
+									"target_type":"{{ n_uafot.outputs.result.checks[0].targets[0].target_type }}"
+								},
+								"source":"{{ n_uafot.outputs.result.checks[0].targets }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_uafot.outputs.result.checks }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"BPC",
+		"Automation"
+	],
+	"version":85
+}
