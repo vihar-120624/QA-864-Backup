@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743445348,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743445712,
+		"deployedAt":1789395037870,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccd53f7ad93bb167113d",
+		"deployedDefinitionId":"6aa8005d72fd792214e8be83",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":8
+		"version":2,
+		"workflowVersion":11
 	},
 	"edges":[
 		{
@@ -64,20 +64,12 @@
 		},
 		{
 			"fromNodeId":"n_FqQbb",
-			"id":"if@n_FqQbb@n_fYWWJ",
+			"id":"if@n_FqQbb@n_sNJoM",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_fYWWJ",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_fYWWJ",
-			"id":"next@n_fYWWJ@n_sNJoM",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_sNJoM",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_FqQbb",
@@ -144,8 +136,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"CE",
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -155,7 +145,7 @@
 	"id":"6a6316a5ccf7af0a3554317e",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discoveramazon bedrock agent",
-	"modifiedTime":1788252972872,
+	"modifiedTime":1789395037870,
 	"name":"Governance | DiscoverAmazon Bedrock Agent",
 	"nodes":[
 		{
@@ -399,13 +389,6 @@
 								"value":"{{ n_wYhcc.outputs.item.agentId }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_65Use.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -458,57 +441,6 @@
 			"type":"IF_ELSE"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_FqQbb@n_wYhcc@n_wh@_pTu3P-1@l@l@y",
-			"id":"n_fYWWJ",
-			"index":8,
-			"inputs":{
-				"recordId":"{{ n_ooiKK.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_ooiKK.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_ooiKK.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_65Use.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"agent",
-					"awaitingTraces":"{{ n_ooiKK.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_65Use.outputs.agentProfileGroupProperties.connection }}",
-					"connectionType":"observe",
-					"description":"{{ n_wYhcc.outputs.item.description }}",
-					"enabled":"{{ n_ooiKK.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_wYhcc.outputs.item.agentId }}",
-					"name":"{{ n_wYhcc.outputs.item.agentName }}",
-					"registered":false,
-					"registered_first_time":"{{ n_ooiKK.outputs.properties.registered_first_time }}",
-					"remainingRetryCount":"{{ n_65Use.outputs.retryCount }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
@@ -520,7 +452,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_FqQbb@n_wYhcc@n_wh@_pTu3P-1@l@l@y",
 			"id":"n_sNJoM",
-			"index":9,
+			"index":8,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile",
@@ -530,6 +462,11 @@
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.agentProfileGroupIds",
 						"setValue":"{{ n_65Use.outputs.agentProfileGroupId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.metadata",
+						"setValue":"{{ n_wYhcc.outputs.item }}"
 					}
 				],
 				"id":"{{ n_ooiKK.outputs.id }}",
@@ -558,10 +495,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_FqQbb@n_wYhcc@n_wh@_pTu3P-1@l@l@n",
 			"id":"n_nIj4X",
-			"index":10,
+			"index":9,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"agent_profile",
 				"skipIfBlank":false,
 				"record":{
@@ -576,6 +514,8 @@
 					"description":"{{ n_wYhcc.outputs.item.description }}",
 					"enabled":"{{ n_65Use.outputs.agentProfileGroupProperties.autoRegister }}",
 					"external_agent_id":"{{ n_wYhcc.outputs.item.agentId }}",
+					"lc_name":"=LOWER({{ n_wYhcc.outputs.item.agentName }})",
+					"metadata":"{{ n_wYhcc.outputs.item }}",
 					"name":"{{ n_wYhcc.outputs.item.agentName }}",
 					"registered":"{{ n_65Use.outputs.agentProfileGroupProperties.autoRegister }}",
 					"registered_first_time":false,
@@ -601,7 +541,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_pTu3P-1@l",
 			"id":"n_brk",
-			"index":11,
+			"index":10,
 			"inputs":{
 				"loop":"n_wh",
 				"conditions":{
@@ -634,7 +574,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_pTu3P-1@l",
 			"id":"n_updv",
-			"index":12,
+			"index":11,
 			"inputs":{
 				"variables":[
 					{
@@ -660,7 +600,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_pTu3P-1",
 			"id":"n_5Uizy",
-			"index":13,
+			"index":12,
 			"inputs":{
 				"result":{
 					"success":true
@@ -690,5 +630,5 @@
 		}
 	},
 	"standard":true,
-	"version":10
+	"version":11
 }
