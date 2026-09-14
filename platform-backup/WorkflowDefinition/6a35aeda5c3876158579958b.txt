@@ -1,0 +1,471 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395287754,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395287794,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80157c6a14707f1503c13",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":30
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_UbJJV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6BKgP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6BKgP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MpoHk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MpoHk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MpoHk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FWXq1",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a35aeda5c3876158579958b",
+	"lastModifiedBy":-1,
+	"lcName":"[microsoft sharepoint] search files wrapper",
+	"modifiedTime":1789395400487,
+	"name":"[Microsoft SharePoint] Search Files Wrapper",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3618,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_UbJJV",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"returnedCount":{
+							"title":"Returned Count",
+							"type":"integer"
+						},
+						"searchedFiles":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Searched Files",
+							"type":"array"
+						},
+						"totalCount":{
+							"title":"Total Count",
+							"type":"integer"
+						},
+						"totalFetched":{
+							"title":"Total Fetched",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"author":{
+							"title":"author",
+							"type":"string"
+						},
+						"createdAfter":{
+							"title":"createdAfter",
+							"type":"string"
+						},
+						"createdBefore":{
+							"title":"createdBefore",
+							"type":"string"
+						},
+						"drivePath":{
+							"title":"drivePath",
+							"type":"string"
+						},
+						"entityTypes":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Entity Types",
+							"type":"array"
+						},
+						"fileName":{
+							"title":"fileName",
+							"type":"string"
+						},
+						"fileType":{
+							"title":"fileType",
+							"type":"string"
+						},
+						"itemType":{
+							"title":"Item Type",
+							"type":"string"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"maxSize":{
+							"title":"maxSize",
+							"type":"integer"
+						},
+						"minSize":{
+							"title":"minSize",
+							"type":"integer"
+						},
+						"modifiedAfter":{
+							"title":"modifiedAfter",
+							"type":"string"
+						},
+						"modifiedBefore":{
+							"title":"modifiedBefore",
+							"type":"string"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"recency":{
+							"title":"Recency",
+							"type":"boolean"
+						},
+						"siteName":{
+							"title":"siteName",
+							"type":"string"
+						},
+						"text":{
+							"title":"text",
+							"type":"string"
+						},
+						"title":{
+							"title":"title",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_6BKgP",
+			"index":2,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_sharepoint_graph"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Check User Connection",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_Ify5k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_6BKgP.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_IZ4pR-1@y",
+			"id":"n_9U9zr",
+			"index":4,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_6BKgP.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4097,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_MpoHk",
+			"index":5,
+			"inputs":{
+				"automationId":"6a2ff0411c90527d76f25031",
+				"runtimeConnections":{
+					"microsoft_sharepoint_graph":"{{ n_6BKgP.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"parameters":{
+					"author":"{{ n_UbJJV.outputs.author }}",
+					"createdAfter":"{{ n_UbJJV.outputs.createdAfter }}",
+					"createdBefore":"{{ n_UbJJV.outputs.createdBefore }}",
+					"domain":"{{ __ENV__.outputs.DOMAIN_MICROSOFT_SHAREPOINT_GRAPH }}",
+					"drivePath":"{{ n_UbJJV.outputs.drivePath }}",
+					"entityTypes":{
+						"items":"{{ n_UbJJV.outputs.entityTypes[0] }}",
+						"source":"{{ n_UbJJV.outputs.entityTypes }}",
+						"ua:type":"mappedArray"
+					},
+					"fileName":"{{ n_UbJJV.outputs.fileName }}",
+					"fileType":"{{ n_UbJJV.outputs.fileType }}",
+					"itemType":"{{ n_UbJJV.outputs.itemType }}",
+					"limit":"{{ n_UbJJV.outputs.limit }}",
+					"maxSize":"{{ n_UbJJV.outputs.maxSize }}",
+					"minSize":"{{ n_UbJJV.outputs.minSize }}",
+					"modifiedAfter":"{{ n_UbJJV.outputs.modifiedAfter }}",
+					"modifiedBefore":"{{ n_UbJJV.outputs.modifiedBefore }}",
+					"offset":"{{ n_UbJJV.outputs.offset }}",
+					"recency":"{{ n_UbJJV.outputs.recency }}",
+					"siteName":"{{ n_UbJJV.outputs.siteName }}",
+					"text":"{{ n_UbJJV.outputs.text }}",
+					"title":"{{ n_UbJJV.outputs.title }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"[Microsoft SharePoint] Search Files",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.totalFetched",
+					"root.result.totalCount",
+					"root.result.returned",
+					"root.result.nextCursor",
+					"root.result.items.source",
+					"root.result.items.ua:type",
+					"root.result.items.items.chunkNumber",
+					"root.result.items.items.id",
+					"root.result.items.items.name",
+					"root.result.items.items.type",
+					"root.result.items.items.size",
+					"root.result.items.items.sizeReadable",
+					"root.result.items.items.mimeType",
+					"root.result.items.items.childCount",
+					"root.result.items.items.parentPath",
+					"root.result.items.items.fullPath",
+					"root.result.items.items.webUrl",
+					"root.result.items.items.downloadUrl",
+					"root.result.items.items.createdAt",
+					"root.result.items.items.modifiedAt",
+					"root.result.items.items.createdBy.name",
+					"root.result.items.items.createdBy.email",
+					"root.result.items.items.modifiedBy.name",
+					"root.result.items.items.modifiedBy.email",
+					"root.result.items.items.driveId",
+					"root.result.items.items.driveType",
+					"root.result.searchTerms.source",
+					"root.result.searchTerms.ua:type",
+					"root.result.searchTerms.items",
+					"root.result.total",
+					"root.result.totalFetched",
+					"root.result.returned",
+					"root.result.moreResultsAvailable",
+					"root.result.nextOffset",
+					"root.result.aggregations.source",
+					"root.result.aggregations.ua:type",
+					"root.result.aggregations.items.field",
+					"root.result.aggregations.items.buckets.source",
+					"root.result.aggregations.items.buckets.ua:type",
+					"root.result.aggregations.items.buckets.items.key",
+					"root.result.aggregations.items.buckets.items.count",
+					"root.result.aggregations.items.buckets.items.aggregationFilterToken",
+					"root.result.items.source",
+					"root.result.items.ua:type",
+					"root.result.items.items.chunkNumber",
+					"root.result.items.items.hitId",
+					"root.result.items.items.id",
+					"root.result.items.items.rank",
+					"root.result.items.items.name",
+					"root.result.items.items.type",
+					"root.result.items.items.extension",
+					"root.result.items.items.mimeType",
+					"root.result.items.items.size",
+					"root.result.items.items.sizeReadable",
+					"root.result.items.items.parentPath",
+					"root.result.items.items.fullPath",
+					"root.result.items.items.webUrl",
+					"root.result.items.items.summary",
+					"root.result.items.items.matchedTerms.source",
+					"root.result.items.items.matchedTerms.ua:type",
+					"root.result.items.items.matchedTerms.items",
+					"root.result.items.items.createdAt",
+					"root.result.items.items.modifiedAt",
+					"root.result.items.items.createdBy",
+					"root.result.items.items.modifiedBy",
+					"root.result.items.items.driveId",
+					"root.result.items.items.siteId"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_FWXq1",
+			"index":6,
+			"inputs":{
+				"result":{
+					"returnedCount":"{{ n_MpoHk.outputs.returnedCount }}",
+					"searchedFiles":{
+						"items":"{{ n_MpoHk.outputs.searchedFiles[0] }}",
+						"source":"{{ n_MpoHk.outputs.searchedFiles }}",
+						"ua:type":"mappedArray"
+					},
+					"totalCount":"{{ n_MpoHk.outputs.totalCount }}",
+					"totalFetched":"{{ n_MpoHk.outputs.totalFetched }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable ",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":31
+}
