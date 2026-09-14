@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744599901,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744600249,
+		"deployedAt":1789395347281,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1582889f9507f121974",
+		"deployedDefinitionId":"6aa80193c6a14707f1503fb1",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":35
+		"version":2,
+		"workflowVersion":38
 	},
 	"edges":[
 		{
@@ -24,11 +24,27 @@
 		},
 		{
 			"fromNodeId":"n_MFoJ2",
-			"id":"next@n_MFoJ2@n_regFp",
+			"id":"next@n_MFoJ2@n_8A9Q3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8A9Q3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8A9Q3",
+			"id":"next@n_8A9Q3@n_Yoit2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Yoit2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Yoit2",
+			"id":"loop@n_Yoit2@n_regFp",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_regFp",
-			"type":"next"
+			"type":"loop"
 		},
 		{
 			"fromNodeId":"n_regFp",
@@ -99,7 +115,24 @@
 		},
 		{
 			"fromNodeId":"n_regLp",
-			"id":"next@n_regLp@n_onaJm",
+			"id":"next@n_regLp@n_5hTv2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5hTv2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5hTv2",
+			"id":"next@n_5hTv2@n_Yoit2",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Yoit2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Yoit2",
+			"id":"next@n_Yoit2@n_onaJm",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_onaJm",
@@ -189,7 +222,7 @@
 	"id":"6a57d54bd7fae043e6d8f54c",
 	"lastModifiedBy":-1,
 	"lcName":"governance register handler",
-	"modifiedTime":1788252973233,
+	"modifiedTime":1789395398097,
 	"name":"Governance Register Handler",
 	"nodes":[
 		{
@@ -270,6 +303,99 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OAZmF-1",
+			"id":"n_8A9Q3",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"cursor":{
+							"title":"Cursor",
+							"type":"string"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"hasMore":true
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"cursor":{
+							"title":"Cursor",
+							"type":"string"
+						},
+						"hasMore":{
+							"title":"Has More",
+							"type":"boolean"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":0,
+				"resourceName":"loop_while",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_OAZmF-1",
+			"id":"n_Yoit2",
+			"index":4,
+			"inputs":{
+				"condition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"{{ n_8A9Q3.outputs.hasMore }}"
+						}
+					],
+					"operator":"AND"
+				},
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"While loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":14295,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -278,9 +404,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_OAZmF-1",
+			"groupId":"n_Yoit2@_OAZmF-1@l",
 			"id":"n_regFp",
-			"index":3,
+			"index":5,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -299,8 +425,9 @@
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
 				"page":{
+					"cursor":"{{ n_8A9Q3.outputs.cursor }}",
 					"limit":200,
-					"paginateBy":"OFFSET"
+					"paginateBy":"CURSOR"
 				},
 				"includeTotalCount":false,
 				"numberOfRecordsToFetch":"MULTIPLE",
@@ -321,9 +448,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_OAZmF-1",
+			"groupId":"n_Yoit2@_OAZmF-1@l",
 			"id":"n_regLp",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_regFp.outputs.objects }}",
@@ -344,9 +471,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_regLp@_OAZmF-1@l",
+			"groupId":"n_regLp@n_Yoit2@_OAZmF-1@l@l",
 			"id":"n_BJWOh",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -394,9 +521,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_regLp@_OAZmF-1@l",
+			"groupId":"n_regLp@n_Yoit2@_OAZmF-1@l@l",
 			"id":"n_KYeP6",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"loop":"n_regLp",
 				"conditions":{
@@ -427,9 +554,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_regLp@_OAZmF-1@l",
+			"groupId":"n_regLp@n_Yoit2@_OAZmF-1@l@l",
 			"id":"n_regFa",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -476,9 +603,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_regLp@_OAZmF-1@l",
+			"groupId":"n_regLp@n_Yoit2@_OAZmF-1@l@l",
 			"id":"n_regIf",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"filters":[
 					{
@@ -505,9 +632,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_regIf@n_regLp@_OAZmF-1@l@y",
+			"groupId":"n_regIf@n_regLp@n_Yoit2@_OAZmF-1@l@l@y",
 			"id":"n_regUp",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"recordId":"{{ n_regLp.outputs.item.id }}",
 				"writeThroughSessionVariables":false,
@@ -531,6 +658,36 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Yoit2@_OAZmF-1@l",
+			"id":"n_5hTv2",
+			"index":12,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_8A9Q3.outputs.cursor }}",
+						"value":"{{ n_regFp.outputs.cursor.next }}"
+					},
+					{
+						"source":"{{ n_8A9Q3.outputs.hasMore }}",
+						"value":"{{ n_regFp.outputs.hasMore }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":14295,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -541,7 +698,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OAZmF-1",
 			"id":"n_onaJm",
-			"index":10,
+			"index":13,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -592,7 +749,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OAZmF-1",
 			"id":"n_i4r5I",
-			"index":11,
+			"index":14,
 			"inputs":{
 				"filters":[
 					{
@@ -618,7 +775,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_i4r5I@_OAZmF-1@y",
 			"id":"n_CKTNs",
-			"index":12,
+			"index":15,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -636,7 +793,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OAZmF-1",
 			"id":"n_2siUV",
-			"index":13,
+			"index":16,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -691,7 +848,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OAZmF-1",
 			"id":"n_rgyzp",
-			"index":14,
+			"index":17,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -821,7 +978,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_OAZmF-1",
 			"id":"n_S218z",
-			"index":15,
+			"index":18,
 			"inputs":{
 				"filters":[
 					{
@@ -858,7 +1015,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_S218z@_OAZmF-1@y",
 			"id":"n_LtNwV",
-			"index":16,
+			"index":19,
 			"inputs":{
 				"automationId":"6a5f5829134799525be7c34b",
 				"distributeLoad":false,
@@ -890,7 +1047,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_S218z@_OAZmF-1@n",
 			"id":"n_2nKh6",
-			"index":17,
+			"index":20,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -911,5 +1068,5 @@
 		}
 	},
 	"standard":true,
-	"version":37
+	"version":39
 }

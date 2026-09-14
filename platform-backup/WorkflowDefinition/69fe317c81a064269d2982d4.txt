@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743589658,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743589805,
+		"deployedAt":1789395087982,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd653f7ad93bb1675112",
+		"deployedDefinitionId":"6aa8008fc6a14707f150307d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":61
+		"version":2,
+		"workflowVersion":64
 	},
 	"edges":[
 		{
@@ -70,7 +70,7 @@
 	"id":"69fe317c81a064269d2982d4",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | jira | issue comment",
-	"modifiedTime":1788252971845,
+	"modifiedTime":1789395398087,
 	"name":"Knowledge Downloader | Jira | Issue Comment",
 	"nodes":[
 		{
@@ -124,12 +124,20 @@
 							"title":"Comment",
 							"type":"object"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"editCount":{
 							"title":"Edit Count",
 							"type":"integer"
 						},
 						"grabberType":{
 							"title":"Grabber Type",
+							"type":"string"
+						},
+						"hostname":{
+							"title":"Hostname",
 							"type":"string"
 						},
 						"indexingVersion":{
@@ -225,9 +233,17 @@
 							"title":"Comment",
 							"type":"object"
 						},
+						"connectionType":{
+							"title":"Connection Type",
+							"type":"string"
+						},
 						"editCount":{
 							"title":"Edit Count",
 							"type":"integer"
+						},
+						"hostname":{
+							"title":"Hostname",
+							"type":"string"
 						},
 						"issueApiResponse":{
 							"additionalProperties":false,
@@ -249,12 +265,14 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response')){\n  sourceResponse << [\"response\": response]\n}\n\nif(binding.hasVariable('editCount')){\n  sourceResponse << [\"editCount\": editCount]\n}\nif(binding.hasVariable('issueApiResponse')){\n  sourceResponse << [\"issueApiResponse\": issueApiResponse]\n}\n\nif(binding.hasVariable('comment')){\n  sourceResponse << [\"comment\": comment]\n}\n\nif(binding.hasVariable('uniqueEntityId')){\n  sourceResponse << [\"uniqueEntityId\": uniqueEntityId]\n}\n\nreturn [ \"sourceResponse\": sourceResponse ]",
+				"code":"def sourceResponse = [:]\n\nif(binding.hasVariable('response')){\n  sourceResponse << [\"response\": response]\n}\n\nif(binding.hasVariable('connectionType')){\n  sourceResponse << [\"connectionType\": connectionType]\n}\n\nif(binding.hasVariable('hostname')){\n  sourceResponse << [\"hostname\": hostname]\n}\n\nif(binding.hasVariable('editCount')){\n  sourceResponse << [\"editCount\": editCount]\n}\nif(binding.hasVariable('issueApiResponse')){\n  sourceResponse << [\"issueApiResponse\": issueApiResponse]\n}\n\nif(binding.hasVariable('comment')){\n  sourceResponse << [\"comment\": comment]\n}\n\nif(binding.hasVariable('uniqueEntityId')){\n  sourceResponse << [\"uniqueEntityId\": uniqueEntityId]\n}\n\nreturn [ \"sourceResponse\": sourceResponse ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"comment":"{{ n_5kYjg.outputs.comment }}",
+					"connectionType":"{{ n_5kYjg.outputs.connectionType }}",
 					"editCount":"{{ n_5kYjg.outputs.editCount }}",
+					"hostname":"{{ n_5kYjg.outputs.hostname }}",
 					"issueApiResponse":"{{ n_5kYjg.outputs.issueApiResponse }}",
 					"response":"{{ n_5kYjg.outputs.response }}",
 					"uniqueEntityId":"{{ n_5kYjg.outputs.uniqueEntityId }}"
@@ -429,5 +447,5 @@
 		}
 	},
 	"standard":true,
-	"version":63
+	"version":65
 }
