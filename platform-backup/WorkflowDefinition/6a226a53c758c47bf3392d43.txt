@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743644684,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743645178,
+		"deployedAt":1789395107820,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd9d45d2142160e6d32c",
+		"deployedDefinitionId":"6aa800a372fd792214e8c1a8",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":105
+		"version":2,
+		"workflowVersion":108
 	},
 	"edges":[
 		{
@@ -130,7 +130,33 @@
 		},
 		{
 			"fromNodeId":"n_wwuob",
-			"id":"next@n_wwuob@n_frEuh",
+			"id":"next@n_wwuob@n_B1X5C",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_B1X5C",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B1X5C",
+			"id":"if@n_B1X5C@n_KKt9g",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KKt9g",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_KKt9g",
+			"id":"next@n_KKt9g@n_frEuh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_frEuh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B1X5C",
+			"id":"next@n_B1X5C@n_frEuh",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_frEuh",
@@ -171,7 +197,33 @@
 		},
 		{
 			"fromNodeId":"n_cVdf6",
-			"id":"next@n_cVdf6@n_Pa3yO",
+			"id":"next@n_cVdf6@n_ytoxj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ytoxj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ytoxj",
+			"id":"if@n_ytoxj@n_BGmct",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BGmct",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_BGmct",
+			"id":"next@n_BGmct@n_Pa3yO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Pa3yO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ytoxj",
+			"id":"next@n_ytoxj@n_Pa3yO",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Pa3yO",
@@ -188,23 +240,7 @@
 		},
 		{
 			"fromNodeId":"n_AnFvj@3",
-			"id":"next@n_AnFvj@3@n_40KxZ",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_40KxZ",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_40KxZ",
-			"id":"next@n_40KxZ@n_ZuPJm",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_ZuPJm",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_ZuPJm",
-			"id":"next@n_ZuPJm@n_Ppye7",
+			"id":"next@n_AnFvj@3@n_Ppye7",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Ppye7",
@@ -285,7 +321,33 @@
 		},
 		{
 			"fromNodeId":"n_0Nmm9",
-			"id":"next@n_0Nmm9@n_8P6f8",
+			"id":"next@n_0Nmm9@n_z5Ztq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_z5Ztq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_z5Ztq",
+			"id":"if@n_z5Ztq@n_p3env",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_p3env",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_p3env",
+			"id":"next@n_p3env@n_8P6f8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8P6f8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_z5Ztq",
+			"id":"next@n_z5Ztq@n_8P6f8",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_8P6f8",
@@ -324,7 +386,7 @@
 	"id":"6a226a53c758c47bf3392d43",
 	"lastModifiedBy":-1,
 	"lcName":"skill | import zip",
-	"modifiedTime":1788252972013,
+	"modifiedTime":1789395395681,
 	"name":"Skill | Import Zip",
 	"nodes":[
 		{
@@ -342,6 +404,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"id":{
 							"title":"id",
@@ -360,6 +423,10 @@
 							},
 							"title":"accessibilityKeys",
 							"type":"array"
+						},
+						"autoDeploy":{
+							"title":"Auto Deploy",
+							"type":"boolean"
 						},
 						"filePath":{
 							"title":"filePath",
@@ -843,6 +910,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1119,7 +1207,7 @@
 					},
 					"type":"object"
 				},
-				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\ndef skill = binding.hasVariable(\"skill\") ? binding.getVariable(\"skill\") : \"\"\n\nif (skill == null || skill.trim().isEmpty()) {\n    throw new IllegalStateException(\"SKILL.md content is empty\")\n}\n\n// The YAML frontmatter block: ---\\n ... \\n---\nMatcher fm = Pattern.compile(/(?s)\\A\\s*---\\s*\\r?\\n(.*?)\\r?\\n---\\s*(\\r?\\n|\\z)/).matcher(skill)\nif (!fm.find()) {\n    throw new IllegalStateException(\"SKILL.md is missing YAML frontmatter (--- ... ---)\")\n}\ndef frontmatter = fm.group(1)\n\n// Normalize line endings, then split into lines (keep trailing empties).\ndef lines = frontmatter.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\", -1) as List\n\n// Count leading spaces (YAML forbids tabs for indentation).\ndef indentOf = { String line ->\n    int i = 0\n    while (i < line.length() && line.charAt(i) == ' ') i++\n    return i\n}\n\n// YAML-style folding: consecutive non-blank lines join with a space; a blank line -> newline.\ndef fold = { List body ->\n    StringBuilder sb = new StringBuilder()\n    boolean prevBlank = true\n    body.each { String b ->\n        if (b.trim().isEmpty()) {\n            sb.append(\"\\n\"); prevBlank = true\n        } else {\n            if (!prevBlank) sb.append(\" \")\n            sb.append(b.trim()); prevBlank = false\n        }\n    }\n    return sb.toString().trim()\n}\n\n// Extract a top-level scalar field. Supports:\n//   key: value            inline plain / quoted\n//   key:                  followed by indented lines  -> folded plain scalar\n//   key: >                folded block scalar (newlines -> spaces)\n//   key: |                literal block scalar (newlines preserved)\n// (chomping/indent indicators after > or | are tolerated; clipping is the default)\n// Returns null if not found, \"\" if found but empty.\ndef extractField = { String field ->\n    Pattern keyPat = Pattern.compile(\"^(\\\\s*)\" + Pattern.quote(field) + \"\\\\s*:\\\\s*(.*)\\$\")\n    for (int idx = 0; idx < lines.size(); idx++) {\n        Matcher m = keyPat.matcher(lines[idx] as String)\n        if (!m.matches()) continue\n\n        int keyIndent = m.group(1).length()\n        String rest = m.group(2)\n\n        Matcher blockM = Pattern.compile(/^([>|])([+-]?)(\\d*)\\s*$/).matcher(rest.trim())\n        boolean isBlock = blockM.matches()\n        boolean literal = isBlock && blockM.group(1) == \"|\"\n\n        // Gather continuation: blank lines, or lines indented deeper than the key.\n        List cont = []\n        int j = idx + 1\n        while (j < lines.size()) {\n            String ln = lines[j] as String\n            if (ln.trim().isEmpty()) { cont << \"\"; j++; continue }\n            if (indentOf(ln) > keyIndent) { cont << ln; j++; continue }\n            break // next key at same/lower indentation\n        }\n\n        if (isBlock) {\n            int minIndent = Integer.MAX_VALUE\n            cont.each { if (!it.trim().isEmpty()) minIndent = Math.min(minIndent, indentOf(it)) }\n            if (minIndent == Integer.MAX_VALUE) minIndent = 0\n            List body = cont.collect { it.length() >= minIndent ? it.substring(minIndent) : it.trim() }\n            while (!body.isEmpty() && body[-1].trim().isEmpty()) body.remove(body.size() - 1)\n            return literal ? body.join(\"\\n\") : fold(body)\n        }\n\n        String inline = rest.trim()\n        boolean hasCont = cont.any { !it.trim().isEmpty() }\n        if (!inline.isEmpty() && !hasCont) return inline\n        if (inline.isEmpty() && hasCont)   return fold(cont)\n        if (!inline.isEmpty() && hasCont)  return fold([inline] + cont)\n        return \"\"\n    }\n    return null\n}\n\n// Strip surrounding quotes only when BOTH ends match (safer than the old independent strip).\ndef unquote = { s ->\n    if (s == null) return null\n    s = s.trim()\n    if (s.length() >= 2) {\n        def a = s.charAt(0); def b = s.charAt(s.length() - 1)\n        if ((a == '\"' && b == '\"') || (a == \"'\" && b == \"'\")) {\n            s = s.substring(1, s.length() - 1)\n        }\n    }\n    return s.trim()\n}\n\ndef rawName = extractField(\"name\")\ndef rawDescription = extractField(\"description\")\n\nif (rawName == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: name\")\n}\nif (rawDescription == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: description\")\n}\n\ndef name = unquote(rawName)\ndef description = unquote(rawDescription)\n\nif (!name || !description) {\n    throw new IllegalStateException(\"SKILL.md frontmatter 'name' and 'description' must not be empty\")\n}\n\nreturn [\n    \"name\": name,\n    \"description\": description\n]",
+				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\ndef skill = binding.hasVariable(\"skill\") ? binding.getVariable(\"skill\") : \"\"\n\nif (skill == null || skill.trim().isEmpty()) {\n    throw new IllegalStateException(\"SKILL.md content is empty\")\n}\n\n// The YAML frontmatter block: ---\\n ... \\n---\nMatcher fm = Pattern.compile(/(?s)\\A\\s*---\\s*\\r?\\n(.*?)\\r?\\n---\\s*(\\r?\\n|\\z)/).matcher(skill)\nif (!fm.find()) {\n    throw new IllegalStateException(\"SKILL.md is missing YAML frontmatter (--- ... ---)\")\n}\ndef frontmatter = fm.group(1)\n\n// Normalize line endings, then split into lines (keep trailing empties).\ndef lines = frontmatter.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\", -1) as List\n\n// Count leading spaces (YAML forbids tabs for indentation).\ndef indentOf = { String line ->\n    int i = 0\n    while (i < line.length() && line.charAt(i) == ' ') i++\n    return i\n}\n\n// YAML-style folding: consecutive non-blank lines join with a space; a blank line -> newline.\ndef fold = { List body ->\n    StringBuilder sb = new StringBuilder()\n    boolean prevBlank = true\n    body.each { String b ->\n        if (b.trim().isEmpty()) {\n            sb.append(\"\\n\"); prevBlank = true\n        } else {\n            if (!prevBlank) sb.append(\" \")\n            sb.append(b.trim()); prevBlank = false\n        }\n    }\n    return sb.toString().trim()\n}\n\n// Extract a top-level scalar field. Supports:\n//   key: value            inline plain / quoted\n//   key:                  followed by indented lines  -> folded plain scalar\n//   key: >                folded block scalar (newlines -> spaces)\n//   key: |                literal block scalar (newlines preserved)\n// (chomping/indent indicators after > or | are tolerated; clipping is the default)\n// Returns null if not found, \"\" if found but empty.\ndef extractField = { String field ->\n    Pattern keyPat = Pattern.compile(\"^(\\\\s*)\" + Pattern.quote(field) + \"\\\\s*:\\\\s*(.*)\\$\")\n    for (int idx = 0; idx < lines.size(); idx++) {\n        Matcher m = keyPat.matcher(lines[idx] as String)\n        if (!m.matches()) continue\n\n        int keyIndent = m.group(1).length()\n        String rest = m.group(2)\n\n        Matcher blockM = Pattern.compile(/^([>|])([+-]?)(\\d*)\\s*$/).matcher(rest.trim())\n        boolean isBlock = blockM.matches()\n        boolean literal = isBlock && blockM.group(1) == \"|\"\n\n        // Gather continuation: blank lines, or lines indented deeper than the key.\n        List cont = []\n        int j = idx + 1\n        while (j < lines.size()) {\n            String ln = lines[j] as String\n            if (ln.trim().isEmpty()) { cont << \"\"; j++; continue }\n            if (indentOf(ln) > keyIndent) { cont << ln; j++; continue }\n            break // next key at same/lower indentation\n        }\n\n        if (isBlock) {\n            int minIndent = Integer.MAX_VALUE\n            cont.each { if (!it.trim().isEmpty()) minIndent = Math.min(minIndent, indentOf(it)) }\n            if (minIndent == Integer.MAX_VALUE) minIndent = 0\n            List body = cont.collect { it.length() >= minIndent ? it.substring(minIndent) : it.trim() }\n            while (!body.isEmpty() && body[-1].trim().isEmpty()) body.remove(body.size() - 1)\n            return literal ? body.join(\"\\n\") : fold(body)\n        }\n\n        String inline = rest.trim()\n        boolean hasCont = cont.any { !it.trim().isEmpty() }\n        if (!inline.isEmpty() && !hasCont) return inline\n        if (inline.isEmpty() && hasCont)   return fold(cont)\n        if (!inline.isEmpty() && hasCont)  return fold([inline] + cont)\n        return \"\"\n    }\n    return null\n}\n\n// Strip surrounding quotes only when BOTH ends match (safer than the old independent strip).\ndef unquote = { s ->\n    if (s == null) return null\n    s = s.trim()\n    if (s.length() >= 2) {\n        def a = s.charAt(0); def b = s.charAt(s.length() - 1)\n        if ((a == '\"' && b == '\"') || (a == \"'\" && b == \"'\")) {\n            s = s.substring(1, s.length() - 1)\n        }\n    }\n    return s.trim()\n}\n\ndef removeIcons = { String s ->\n    if (s == null) return null\n    StringBuilder out = new StringBuilder()\n    s.codePoints().forEach { int cp ->\n        boolean isIcon =\n            (cp >= 0x1F300 && cp <= 0x1FAFF) || // misc symbols, emoticons, transport, supplemental symbols\n            (cp >= 0x2600  && cp <= 0x27BF)  || // misc symbols & dingbats\n            (cp >= 0x2190  && cp <= 0x21FF)  || // arrows\n            (cp >= 0x2B00  && cp <= 0x2BFF)  || // misc symbols and arrows\n            (cp >= 0x1F1E6 && cp <= 0x1F1FF) || // regional indicators (flags)\n            (cp == 0x200D)                   || // zero-width joiner\n            (cp == 0xFE0F || cp == 0xFE0E)   || // variation selectors\n            (cp >= 0x2100  && cp <= 0x214F)     // letterlike symbols (™ ℠ etc.)\n        if (!isIcon) out.appendCodePoint(cp)\n    }\n    return out.toString().replaceAll(/[ \\t]+/, ' ').trim()\n}\n\ndef slugifyName = { String s ->\n    if (s == null) return null\n    String cleaned = removeIcons(s)\n    cleaned = cleaned.replaceAll(/\\s+/, '-')\n    cleaned = cleaned.replaceAll(/[^A-Za-z0-9_.-]/, '')\n    cleaned = cleaned.replaceAll(/-{2,}/, '-')\n    cleaned = cleaned.replaceAll(/^[-._]+|[-._]+$/, '')\n    if (cleaned.length() > 128) cleaned = cleaned.substring(0, 128)\n    return cleaned\n}\n\ndef rawName = extractField(\"name\")\ndef rawDescription = extractField(\"description\")\n\nif (rawName == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: name\")\n}\nif (rawDescription == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: description\")\n}\n\ndef name = slugifyName(unquote(rawName))\ndef description = removeIcons(unquote(rawDescription))\n\nif (!name || !description) {\n    throw new IllegalStateException(\"SKILL.md frontmatter 'name' and 'description' must not be empty\")\n}\n\nreturn [\n    \"name\": name,\n    \"description\": description\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1136,20 +1224,12 @@
 				"visibleOptionalFields":[
 					"root.record.accessibleTo.items",
 					"root.record.category.items",
-					"root.record.tags.items",
-					"root.record.modelSelectionConfig.quality",
-					"root.record.modelSelectionConfig.latency",
-					"root.record.modelSelectionConfig.cost",
-					"root.record.modelSelectionConfig.skillExecutionModel",
-					"root.record.governanceConfig.filter",
 					"root.record.files.items.relativePath",
 					"root.record.files.items.fileObject.name",
 					"root.record.files.items.fileObject.source",
 					"root.record.files.items.fileObject.sourceType",
 					"root.record.files.items.fileObject.fileType",
-					"root.record.files.items.fileObject.size",
-					"root.record.files.items.fileObject.link",
-					"root.record.files.items.fileObject.path"
+					"root.record.files.items.fileObject.size"
 				]
 			},
 			"context":{
@@ -1180,13 +1260,7 @@
 					"enabled":true,
 					"files":{
 						"items":{
-							"fileObject":{
-								"fileType":"{{ n_QgvyF.outputs.result.files[0].file.fileType }}",
-								"name":"{{ n_QgvyF.outputs.result.files[0].file.name }}",
-								"path":"{{ n_QgvyF.outputs.result.files[0].file.path }}",
-								"source":"{{ n_QgvyF.outputs.result.files[0].file.source }}",
-								"sourceType":"{{ n_QgvyF.outputs.result.files[0].file.sourceType }}"
-							},
+							"fileObject":"{{ n_QgvyF.outputs.result.files[0].file }}",
 							"relativePath":"{{ n_QgvyF.outputs.result.files[0].relativePath }}"
 						},
 						"source":"{{ n_QgvyF.outputs.result.files }}",
@@ -1206,6 +1280,64 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":194,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_AnFvj@_2WEF6-1@1",
+			"id":"n_B1X5C",
+			"index":15,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_QyoUN.outputs.autoDeploy }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_QyoUN.outputs.autoDeploy }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":12225,
+				"resourceName":"standard_entities_deploy_entity",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_B1X5C@n_AnFvj@_2WEF6-1@1@y",
+			"id":"n_KKt9g",
+			"index":16,
+			"inputs":{
+				"entityType":"e_skill_ai_agent",
+				"id":"{{ n_wwuob.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Deploy entity",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":895,
 				"resourceName":"callables_return_to_automation",
@@ -1216,7 +1348,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@1",
 			"id":"n_frEuh",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"result":{
 					"id":"{{ n_wwuob.outputs.id }}"
@@ -1239,7 +1371,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@2",
 			"id":"n_AnFvj@2",
-			"index":16,
+			"index":18,
 			"inputs":{
 				"name":".md",
 				"conditions":{
@@ -1272,7 +1404,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@2",
 			"id":"n_PhonI",
-			"index":17,
+			"index":19,
 			"inputs":{
 				"file":"{{ n_mSGxU.outputs.filesDetails[0] }}",
 				"encoding":"utf8"
@@ -1294,7 +1426,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@2",
 			"id":"n_8vJUc",
-			"index":18,
+			"index":20,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1320,7 +1452,7 @@
 					},
 					"type":"object"
 				},
-				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\ndef skill = binding.hasVariable(\"skill\") ? binding.getVariable(\"skill\") : \"\"\n\nif (skill == null || skill.trim().isEmpty()) {\n    throw new IllegalStateException(\"SKILL.md content is empty\")\n}\n\n// The YAML frontmatter block: ---\\n ... \\n---\nMatcher fm = Pattern.compile(/(?s)\\A\\s*---\\s*\\r?\\n(.*?)\\r?\\n---\\s*(\\r?\\n|\\z)/).matcher(skill)\nif (!fm.find()) {\n    throw new IllegalStateException(\"SKILL.md is missing YAML frontmatter (--- ... ---)\")\n}\ndef frontmatter = fm.group(1)\n\n// Normalize line endings, then split into lines (keep trailing empties).\ndef lines = frontmatter.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\", -1) as List\n\n// Count leading spaces (YAML forbids tabs for indentation).\ndef indentOf = { String line ->\n    int i = 0\n    while (i < line.length() && line.charAt(i) == ' ') i++\n    return i\n}\n\n// YAML-style folding: consecutive non-blank lines join with a space; a blank line -> newline.\ndef fold = { List body ->\n    StringBuilder sb = new StringBuilder()\n    boolean prevBlank = true\n    body.each { String b ->\n        if (b.trim().isEmpty()) {\n            sb.append(\"\\n\"); prevBlank = true\n        } else {\n            if (!prevBlank) sb.append(\" \")\n            sb.append(b.trim()); prevBlank = false\n        }\n    }\n    return sb.toString().trim()\n}\n\n// Extract a top-level scalar field. Supports:\n//   key: value            inline plain / quoted\n//   key:                  followed by indented lines  -> folded plain scalar\n//   key: >                folded block scalar (newlines -> spaces)\n//   key: |                literal block scalar (newlines preserved)\n// (chomping/indent indicators after > or | are tolerated; clipping is the default)\n// Returns null if not found, \"\" if found but empty.\ndef extractField = { String field ->\n    Pattern keyPat = Pattern.compile(\"^(\\\\s*)\" + Pattern.quote(field) + \"\\\\s*:\\\\s*(.*)\\$\")\n    for (int idx = 0; idx < lines.size(); idx++) {\n        Matcher m = keyPat.matcher(lines[idx] as String)\n        if (!m.matches()) continue\n\n        int keyIndent = m.group(1).length()\n        String rest = m.group(2)\n\n        Matcher blockM = Pattern.compile(/^([>|])([+-]?)(\\d*)\\s*$/).matcher(rest.trim())\n        boolean isBlock = blockM.matches()\n        boolean literal = isBlock && blockM.group(1) == \"|\"\n\n        // Gather continuation: blank lines, or lines indented deeper than the key.\n        List cont = []\n        int j = idx + 1\n        while (j < lines.size()) {\n            String ln = lines[j] as String\n            if (ln.trim().isEmpty()) { cont << \"\"; j++; continue }\n            if (indentOf(ln) > keyIndent) { cont << ln; j++; continue }\n            break // next key at same/lower indentation\n        }\n\n        if (isBlock) {\n            int minIndent = Integer.MAX_VALUE\n            cont.each { if (!it.trim().isEmpty()) minIndent = Math.min(minIndent, indentOf(it)) }\n            if (minIndent == Integer.MAX_VALUE) minIndent = 0\n            List body = cont.collect { it.length() >= minIndent ? it.substring(minIndent) : it.trim() }\n            while (!body.isEmpty() && body[-1].trim().isEmpty()) body.remove(body.size() - 1)\n            return literal ? body.join(\"\\n\") : fold(body)\n        }\n\n        String inline = rest.trim()\n        boolean hasCont = cont.any { !it.trim().isEmpty() }\n        if (!inline.isEmpty() && !hasCont) return inline\n        if (inline.isEmpty() && hasCont)   return fold(cont)\n        if (!inline.isEmpty() && hasCont)  return fold([inline] + cont)\n        return \"\"\n    }\n    return null\n}\n\n// Strip surrounding quotes only when BOTH ends match (safer than the old independent strip).\ndef unquote = { s ->\n    if (s == null) return null\n    s = s.trim()\n    if (s.length() >= 2) {\n        def a = s.charAt(0); def b = s.charAt(s.length() - 1)\n        if ((a == '\"' && b == '\"') || (a == \"'\" && b == \"'\")) {\n            s = s.substring(1, s.length() - 1)\n        }\n    }\n    return s.trim()\n}\n\ndef rawName = extractField(\"name\")\ndef rawDescription = extractField(\"description\")\n\nif (rawName == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: name\")\n}\nif (rawDescription == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: description\")\n}\n\ndef name = unquote(rawName)\ndef description = unquote(rawDescription)\n\nif (!name || !description) {\n    throw new IllegalStateException(\"SKILL.md frontmatter 'name' and 'description' must not be empty\")\n}\n\nreturn [\n    \"name\": name,\n    \"description\": description\n]",
+				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\ndef skill = binding.hasVariable(\"skill\") ? binding.getVariable(\"skill\") : \"\"\n\nif (skill == null || skill.trim().isEmpty()) {\n    throw new IllegalStateException(\"SKILL.md content is empty\")\n}\n\n// The YAML frontmatter block: ---\\n ... \\n---\nMatcher fm = Pattern.compile(/(?s)\\A\\s*---\\s*\\r?\\n(.*?)\\r?\\n---\\s*(\\r?\\n|\\z)/).matcher(skill)\nif (!fm.find()) {\n    throw new IllegalStateException(\"SKILL.md is missing YAML frontmatter (--- ... ---)\")\n}\ndef frontmatter = fm.group(1)\n\n// Normalize line endings, then split into lines (keep trailing empties).\ndef lines = frontmatter.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\", -1) as List\n\n// Count leading spaces (YAML forbids tabs for indentation).\ndef indentOf = { String line ->\n    int i = 0\n    while (i < line.length() && line.charAt(i) == ' ') i++\n    return i\n}\n\n// YAML-style folding: consecutive non-blank lines join with a space; a blank line -> newline.\ndef fold = { List body ->\n    StringBuilder sb = new StringBuilder()\n    boolean prevBlank = true\n    body.each { String b ->\n        if (b.trim().isEmpty()) {\n            sb.append(\"\\n\"); prevBlank = true\n        } else {\n            if (!prevBlank) sb.append(\" \")\n            sb.append(b.trim()); prevBlank = false\n        }\n    }\n    return sb.toString().trim()\n}\n\n// Extract a top-level scalar field. Supports:\n//   key: value            inline plain / quoted\n//   key:                  followed by indented lines  -> folded plain scalar\n//   key: >                folded block scalar (newlines -> spaces)\n//   key: |                literal block scalar (newlines preserved)\n// (chomping/indent indicators after > or | are tolerated; clipping is the default)\n// Returns null if not found, \"\" if found but empty.\ndef extractField = { String field ->\n    Pattern keyPat = Pattern.compile(\"^(\\\\s*)\" + Pattern.quote(field) + \"\\\\s*:\\\\s*(.*)\\$\")\n    for (int idx = 0; idx < lines.size(); idx++) {\n        Matcher m = keyPat.matcher(lines[idx] as String)\n        if (!m.matches()) continue\n\n        int keyIndent = m.group(1).length()\n        String rest = m.group(2)\n\n        Matcher blockM = Pattern.compile(/^([>|])([+-]?)(\\d*)\\s*$/).matcher(rest.trim())\n        boolean isBlock = blockM.matches()\n        boolean literal = isBlock && blockM.group(1) == \"|\"\n\n        // Gather continuation: blank lines, or lines indented deeper than the key.\n        List cont = []\n        int j = idx + 1\n        while (j < lines.size()) {\n            String ln = lines[j] as String\n            if (ln.trim().isEmpty()) { cont << \"\"; j++; continue }\n            if (indentOf(ln) > keyIndent) { cont << ln; j++; continue }\n            break // next key at same/lower indentation\n        }\n\n        if (isBlock) {\n            int minIndent = Integer.MAX_VALUE\n            cont.each { if (!it.trim().isEmpty()) minIndent = Math.min(minIndent, indentOf(it)) }\n            if (minIndent == Integer.MAX_VALUE) minIndent = 0\n            List body = cont.collect { it.length() >= minIndent ? it.substring(minIndent) : it.trim() }\n            while (!body.isEmpty() && body[-1].trim().isEmpty()) body.remove(body.size() - 1)\n            return literal ? body.join(\"\\n\") : fold(body)\n        }\n\n        String inline = rest.trim()\n        boolean hasCont = cont.any { !it.trim().isEmpty() }\n        if (!inline.isEmpty() && !hasCont) return inline\n        if (inline.isEmpty() && hasCont)   return fold(cont)\n        if (!inline.isEmpty() && hasCont)  return fold([inline] + cont)\n        return \"\"\n    }\n    return null\n}\n\n// Strip surrounding quotes only when BOTH ends match (safer than the old independent strip).\ndef unquote = { s ->\n    if (s == null) return null\n    s = s.trim()\n    if (s.length() >= 2) {\n        def a = s.charAt(0); def b = s.charAt(s.length() - 1)\n        if ((a == '\"' && b == '\"') || (a == \"'\" && b == \"'\")) {\n            s = s.substring(1, s.length() - 1)\n        }\n    }\n    return s.trim()\n}\n\ndef removeIcons = { String s ->\n    if (s == null) return null\n    StringBuilder out = new StringBuilder()\n    s.codePoints().forEach { int cp ->\n        boolean isIcon =\n            (cp >= 0x1F300 && cp <= 0x1FAFF) || // misc symbols, emoticons, transport, supplemental symbols\n            (cp >= 0x2600  && cp <= 0x27BF)  || // misc symbols & dingbats\n            (cp >= 0x2190  && cp <= 0x21FF)  || // arrows\n            (cp >= 0x2B00  && cp <= 0x2BFF)  || // misc symbols and arrows\n            (cp >= 0x1F1E6 && cp <= 0x1F1FF) || // regional indicators (flags)\n            (cp == 0x200D)                   || // zero-width joiner\n            (cp == 0xFE0F || cp == 0xFE0E)   || // variation selectors\n            (cp >= 0x2100  && cp <= 0x214F)     // letterlike symbols (™ ℠ etc.)\n        if (!isIcon) out.appendCodePoint(cp)\n    }\n    return out.toString().replaceAll(/[ \\t]+/, ' ').trim()\n}\n\ndef slugifyName = { String s ->\n    if (s == null) return null\n    String cleaned = removeIcons(s)\n    cleaned = cleaned.replaceAll(/\\s+/, '-')\n    cleaned = cleaned.replaceAll(/[^A-Za-z0-9_.-]/, '')\n    cleaned = cleaned.replaceAll(/-{2,}/, '-')\n    cleaned = cleaned.replaceAll(/^[-._]+|[-._]+$/, '')\n    if (cleaned.length() > 128) cleaned = cleaned.substring(0, 128)\n    return cleaned\n}\n\ndef rawName = extractField(\"name\")\ndef rawDescription = extractField(\"description\")\n\nif (rawName == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: name\")\n}\nif (rawDescription == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: description\")\n}\n\ndef name = slugifyName(unquote(rawName))\ndef description = removeIcons(unquote(rawDescription))\n\nif (!name || !description) {\n    throw new IllegalStateException(\"SKILL.md frontmatter 'name' and 'description' must not be empty\")\n}\n\nreturn [\n    \"name\": name,\n    \"description\": description\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1364,7 +1496,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@2",
 			"id":"n_cVdf6",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -1393,6 +1525,64 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":194,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_AnFvj@_2WEF6-1@2",
+			"id":"n_ytoxj",
+			"index":22,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_QyoUN.outputs.autoDeploy }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_QyoUN.outputs.autoDeploy }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":12225,
+				"resourceName":"standard_entities_deploy_entity",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_ytoxj@n_AnFvj@_2WEF6-1@2@y",
+			"id":"n_BGmct",
+			"index":23,
+			"inputs":{
+				"entityType":"e_skill_ai_agent",
+				"id":"{{ n_cVdf6.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Deploy entity",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":895,
 				"resourceName":"callables_return_to_automation",
@@ -1403,7 +1593,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@2",
 			"id":"n_Pa3yO",
-			"index":20,
+			"index":24,
 			"inputs":{
 				"result":{
 					"id":"{{ n_cVdf6.outputs.id }}"
@@ -1426,7 +1616,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_AnFvj@3",
-			"index":21,
+			"index":25,
 			"inputs":{
 				"name":".skill",
 				"conditions":{
@@ -1450,51 +1640,6 @@
 		{
 			"context":{
 				"appName":"utility_by_unifyapps",
-				"resourceVersion":1034,
-				"resourceName":"utility_by_unifyapps_download_file_as_string",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_AnFvj@_2WEF6-1@3",
-			"id":"n_40KxZ",
-			"index":22,
-			"inputs":{
-				"file":"{{ n_mSGxU.outputs.filesDetails[0] }}",
-				"encoding":"base64"
-			},
-			"skip":false,
-			"subTitle":"Utility by UnifyApps",
-			"title":"Download file as string",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"utility_by_unifyapps",
-				"resourceVersion":910,
-				"resourceName":"utility_by_unifyapps_upload_base_64_content",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_AnFvj@_2WEF6-1@3",
-			"id":"n_ZuPJm",
-			"index":23,
-			"inputs":{
-				"fileName":"test.zip",
-				"base64ContentFormat":"STANDARD",
-				"content":"{{ n_40KxZ.outputs.fileContent }}"
-			},
-			"skip":false,
-			"subTitle":"Utility by UnifyApps",
-			"title":"Upload Base64 Content",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"utility_by_unifyapps",
 				"resourceVersion":1020,
 				"resourceName":"utility_by_unifyapps_unzip_file",
 				"type":"APPLICATION"
@@ -1504,9 +1649,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_Ppye7",
-			"index":24,
+			"index":26,
 			"inputs":{
-				"fileDetails":"{{ n_ZuPJm.outputs.fileDetails }}"
+				"fileDetails":"{{ n_mSGxU.outputs.filesDetails[0] }}"
 			},
 			"skip":false,
 			"subTitle":"skill zip",
@@ -1525,7 +1670,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_kTYiV",
-			"index":25,
+			"index":27,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1776,6 +1921,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1827,7 +1993,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_c7Rof",
-			"index":26,
+			"index":28,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_Ppye7.outputs.filesDetails }}",
@@ -1850,7 +2016,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_c7Rof@n_AnFvj@_2WEF6-1@3@l",
 			"id":"n_K5btm",
-			"index":27,
+			"index":29,
 			"inputs":{
 				"file":"{{ n_c7Rof.outputs.item }}"
 			},
@@ -1871,7 +2037,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_c7Rof@n_AnFvj@_2WEF6-1@3@l",
 			"id":"n_FwySX",
-			"index":28,
+			"index":30,
 			"inputs":{
 				"itemToAdd":{
 					"fileType":"{{ n_c7Rof.outputs.item.fileType }}",
@@ -1906,7 +2072,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_gX5RG",
-			"index":29,
+			"index":31,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2004,7 +2170,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_7Bgpj",
-			"index":30,
+			"index":32,
 			"inputs":{
 				"file":"{{ n_gX5RG.outputs.result.skillFile }}",
 				"encoding":"utf8"
@@ -2026,7 +2192,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_lhcDP",
-			"index":31,
+			"index":33,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2052,7 +2218,7 @@
 					},
 					"type":"object"
 				},
-				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\ndef skill = binding.hasVariable(\"skill\") ? binding.getVariable(\"skill\") : \"\"\n\nif (skill == null || skill.trim().isEmpty()) {\n    throw new IllegalStateException(\"SKILL.md content is empty\")\n}\n\n// The YAML frontmatter block: ---\\n ... \\n---\nMatcher fm = Pattern.compile(/(?s)\\A\\s*---\\s*\\r?\\n(.*?)\\r?\\n---\\s*(\\r?\\n|\\z)/).matcher(skill)\nif (!fm.find()) {\n    throw new IllegalStateException(\"SKILL.md is missing YAML frontmatter (--- ... ---)\")\n}\ndef frontmatter = fm.group(1)\n\n// Normalize line endings, then split into lines (keep trailing empties).\ndef lines = frontmatter.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\", -1) as List\n\n// Count leading spaces (YAML forbids tabs for indentation).\ndef indentOf = { String line ->\n    int i = 0\n    while (i < line.length() && line.charAt(i) == ' ') i++\n    return i\n}\n\n// YAML-style folding: consecutive non-blank lines join with a space; a blank line -> newline.\ndef fold = { List body ->\n    StringBuilder sb = new StringBuilder()\n    boolean prevBlank = true\n    body.each { String b ->\n        if (b.trim().isEmpty()) {\n            sb.append(\"\\n\"); prevBlank = true\n        } else {\n            if (!prevBlank) sb.append(\" \")\n            sb.append(b.trim()); prevBlank = false\n        }\n    }\n    return sb.toString().trim()\n}\n\n// Extract a top-level scalar field. Supports:\n//   key: value            inline plain / quoted\n//   key:                  followed by indented lines  -> folded plain scalar\n//   key: >                folded block scalar (newlines -> spaces)\n//   key: |                literal block scalar (newlines preserved)\n// (chomping/indent indicators after > or | are tolerated; clipping is the default)\n// Returns null if not found, \"\" if found but empty.\ndef extractField = { String field ->\n    Pattern keyPat = Pattern.compile(\"^(\\\\s*)\" + Pattern.quote(field) + \"\\\\s*:\\\\s*(.*)\\$\")\n    for (int idx = 0; idx < lines.size(); idx++) {\n        Matcher m = keyPat.matcher(lines[idx] as String)\n        if (!m.matches()) continue\n\n        int keyIndent = m.group(1).length()\n        String rest = m.group(2)\n\n        Matcher blockM = Pattern.compile(/^([>|])([+-]?)(\\d*)\\s*$/).matcher(rest.trim())\n        boolean isBlock = blockM.matches()\n        boolean literal = isBlock && blockM.group(1) == \"|\"\n\n        // Gather continuation: blank lines, or lines indented deeper than the key.\n        List cont = []\n        int j = idx + 1\n        while (j < lines.size()) {\n            String ln = lines[j] as String\n            if (ln.trim().isEmpty()) { cont << \"\"; j++; continue }\n            if (indentOf(ln) > keyIndent) { cont << ln; j++; continue }\n            break // next key at same/lower indentation\n        }\n\n        if (isBlock) {\n            int minIndent = Integer.MAX_VALUE\n            cont.each { if (!it.trim().isEmpty()) minIndent = Math.min(minIndent, indentOf(it)) }\n            if (minIndent == Integer.MAX_VALUE) minIndent = 0\n            List body = cont.collect { it.length() >= minIndent ? it.substring(minIndent) : it.trim() }\n            while (!body.isEmpty() && body[-1].trim().isEmpty()) body.remove(body.size() - 1)\n            return literal ? body.join(\"\\n\") : fold(body)\n        }\n\n        String inline = rest.trim()\n        boolean hasCont = cont.any { !it.trim().isEmpty() }\n        if (!inline.isEmpty() && !hasCont) return inline\n        if (inline.isEmpty() && hasCont)   return fold(cont)\n        if (!inline.isEmpty() && hasCont)  return fold([inline] + cont)\n        return \"\"\n    }\n    return null\n}\n\n// Strip surrounding quotes only when BOTH ends match (safer than the old independent strip).\ndef unquote = { s ->\n    if (s == null) return null\n    s = s.trim()\n    if (s.length() >= 2) {\n        def a = s.charAt(0); def b = s.charAt(s.length() - 1)\n        if ((a == '\"' && b == '\"') || (a == \"'\" && b == \"'\")) {\n            s = s.substring(1, s.length() - 1)\n        }\n    }\n    return s.trim()\n}\n\ndef rawName = extractField(\"name\")\ndef rawDescription = extractField(\"description\")\n\nif (rawName == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: name\")\n}\nif (rawDescription == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: description\")\n}\n\ndef name = unquote(rawName)\ndef description = unquote(rawDescription)\n\nif (!name || !description) {\n    throw new IllegalStateException(\"SKILL.md frontmatter 'name' and 'description' must not be empty\")\n}\n\nreturn [\n    \"name\": name,\n    \"description\": description\n]",
+				"code":"import java.util.regex.Pattern\nimport java.util.regex.Matcher\n\ndef skill = binding.hasVariable(\"skill\") ? binding.getVariable(\"skill\") : \"\"\n\nif (skill == null || skill.trim().isEmpty()) {\n    throw new IllegalStateException(\"SKILL.md content is empty\")\n}\n\n// The YAML frontmatter block: ---\\n ... \\n---\nMatcher fm = Pattern.compile(/(?s)\\A\\s*---\\s*\\r?\\n(.*?)\\r?\\n---\\s*(\\r?\\n|\\z)/).matcher(skill)\nif (!fm.find()) {\n    throw new IllegalStateException(\"SKILL.md is missing YAML frontmatter (--- ... ---)\")\n}\ndef frontmatter = fm.group(1)\n\n// Normalize line endings, then split into lines (keep trailing empties).\ndef lines = frontmatter.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\", -1) as List\n\n// Count leading spaces (YAML forbids tabs for indentation).\ndef indentOf = { String line ->\n    int i = 0\n    while (i < line.length() && line.charAt(i) == ' ') i++\n    return i\n}\n\n// YAML-style folding: consecutive non-blank lines join with a space; a blank line -> newline.\ndef fold = { List body ->\n    StringBuilder sb = new StringBuilder()\n    boolean prevBlank = true\n    body.each { String b ->\n        if (b.trim().isEmpty()) {\n            sb.append(\"\\n\"); prevBlank = true\n        } else {\n            if (!prevBlank) sb.append(\" \")\n            sb.append(b.trim()); prevBlank = false\n        }\n    }\n    return sb.toString().trim()\n}\n\n// Extract a top-level scalar field. Supports:\n//   key: value            inline plain / quoted\n//   key:                  followed by indented lines  -> folded plain scalar\n//   key: >                folded block scalar (newlines -> spaces)\n//   key: |                literal block scalar (newlines preserved)\n// (chomping/indent indicators after > or | are tolerated; clipping is the default)\n// Returns null if not found, \"\" if found but empty.\ndef extractField = { String field ->\n    Pattern keyPat = Pattern.compile(\"^(\\\\s*)\" + Pattern.quote(field) + \"\\\\s*:\\\\s*(.*)\\$\")\n    for (int idx = 0; idx < lines.size(); idx++) {\n        Matcher m = keyPat.matcher(lines[idx] as String)\n        if (!m.matches()) continue\n\n        int keyIndent = m.group(1).length()\n        String rest = m.group(2)\n\n        Matcher blockM = Pattern.compile(/^([>|])([+-]?)(\\d*)\\s*$/).matcher(rest.trim())\n        boolean isBlock = blockM.matches()\n        boolean literal = isBlock && blockM.group(1) == \"|\"\n\n        // Gather continuation: blank lines, or lines indented deeper than the key.\n        List cont = []\n        int j = idx + 1\n        while (j < lines.size()) {\n            String ln = lines[j] as String\n            if (ln.trim().isEmpty()) { cont << \"\"; j++; continue }\n            if (indentOf(ln) > keyIndent) { cont << ln; j++; continue }\n            break // next key at same/lower indentation\n        }\n\n        if (isBlock) {\n            int minIndent = Integer.MAX_VALUE\n            cont.each { if (!it.trim().isEmpty()) minIndent = Math.min(minIndent, indentOf(it)) }\n            if (minIndent == Integer.MAX_VALUE) minIndent = 0\n            List body = cont.collect { it.length() >= minIndent ? it.substring(minIndent) : it.trim() }\n            while (!body.isEmpty() && body[-1].trim().isEmpty()) body.remove(body.size() - 1)\n            return literal ? body.join(\"\\n\") : fold(body)\n        }\n\n        String inline = rest.trim()\n        boolean hasCont = cont.any { !it.trim().isEmpty() }\n        if (!inline.isEmpty() && !hasCont) return inline\n        if (inline.isEmpty() && hasCont)   return fold(cont)\n        if (!inline.isEmpty() && hasCont)  return fold([inline] + cont)\n        return \"\"\n    }\n    return null\n}\n\n// Strip surrounding quotes only when BOTH ends match (safer than the old independent strip).\ndef unquote = { s ->\n    if (s == null) return null\n    s = s.trim()\n    if (s.length() >= 2) {\n        def a = s.charAt(0); def b = s.charAt(s.length() - 1)\n        if ((a == '\"' && b == '\"') || (a == \"'\" && b == \"'\")) {\n            s = s.substring(1, s.length() - 1)\n        }\n    }\n    return s.trim()\n}\n\ndef removeIcons = { String s ->\n    if (s == null) return null\n    StringBuilder out = new StringBuilder()\n    s.codePoints().forEach { int cp ->\n        boolean isIcon =\n            (cp >= 0x1F300 && cp <= 0x1FAFF) || // misc symbols, emoticons, transport, supplemental symbols\n            (cp >= 0x2600  && cp <= 0x27BF)  || // misc symbols & dingbats\n            (cp >= 0x2190  && cp <= 0x21FF)  || // arrows\n            (cp >= 0x2B00  && cp <= 0x2BFF)  || // misc symbols and arrows\n            (cp >= 0x1F1E6 && cp <= 0x1F1FF) || // regional indicators (flags)\n            (cp == 0x200D)                   || // zero-width joiner\n            (cp == 0xFE0F || cp == 0xFE0E)   || // variation selectors\n            (cp >= 0x2100  && cp <= 0x214F)     // letterlike symbols (™ ℠ etc.)\n        if (!isIcon) out.appendCodePoint(cp)\n    }\n    return out.toString().replaceAll(/[ \\t]+/, ' ').trim()\n}\n\ndef slugifyName = { String s ->\n    if (s == null) return null\n    String cleaned = removeIcons(s)\n    cleaned = cleaned.replaceAll(/\\s+/, '-')\n    cleaned = cleaned.replaceAll(/[^A-Za-z0-9_.-]/, '')\n    cleaned = cleaned.replaceAll(/-{2,}/, '-')\n    cleaned = cleaned.replaceAll(/^[-._]+|[-._]+$/, '')\n    if (cleaned.length() > 128) cleaned = cleaned.substring(0, 128)\n    return cleaned\n}\n\ndef rawName = extractField(\"name\")\ndef rawDescription = extractField(\"description\")\n\nif (rawName == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: name\")\n}\nif (rawDescription == null) {\n    throw new IllegalStateException(\"SKILL.md frontmatter missing required field: description\")\n}\n\ndef name = slugifyName(unquote(rawName))\ndef description = removeIcons(unquote(rawDescription))\n\nif (!name || !description) {\n    throw new IllegalStateException(\"SKILL.md frontmatter 'name' and 'description' must not be empty\")\n}\n\nreturn [\n    \"name\": name,\n    \"description\": description\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -2096,10 +2262,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_0Nmm9",
-			"index":32,
+			"index":34,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"e_skill_ai_agent",
 				"skipIfBlank":false,
 				"record":{
@@ -2112,13 +2279,7 @@
 					"enabled":true,
 					"files":{
 						"items":{
-							"fileObject":{
-								"fileType":"{{ n_gX5RG.outputs.result.files[0].file.fileType }}",
-								"name":"{{ n_gX5RG.outputs.result.files[0].file.name }}",
-								"path":"{{ n_gX5RG.outputs.result.files[0].file.path }}",
-								"source":"{{ n_gX5RG.outputs.result.files[0].file.source }}",
-								"sourceType":"{{ n_gX5RG.outputs.result.files[0].file.sourceType }}"
-							},
+							"fileObject":"{{ n_gX5RG.outputs.result.files[0].file }}",
 							"relativePath":"{{ n_gX5RG.outputs.result.files[0].relativePath }}"
 						},
 						"source":"{{ n_gX5RG.outputs.result.files }}",
@@ -2138,6 +2299,64 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":194,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_AnFvj@_2WEF6-1@3",
+			"id":"n_z5Ztq",
+			"index":35,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_QyoUN.outputs.autoDeploy }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_QyoUN.outputs.autoDeploy }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":12225,
+				"resourceName":"standard_entities_deploy_entity",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_z5Ztq@n_AnFvj@_2WEF6-1@3@y",
+			"id":"n_p3env",
+			"index":36,
+			"inputs":{
+				"entityType":"e_skill_ai_agent",
+				"id":"{{ n_0Nmm9.outputs.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Deploy entity",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":895,
 				"resourceName":"callables_return_to_automation",
@@ -2148,7 +2367,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@3",
 			"id":"n_8P6f8",
-			"index":33,
+			"index":37,
 			"inputs":{
 				"result":{
 					"id":"{{ n_0Nmm9.outputs.id }}"
@@ -2171,7 +2390,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@default",
 			"id":"n_eYvb1",
-			"index":34,
+			"index":38,
 			"inputs":{
 				"code":"throw new IllegalStateException(\"Inavalid File format\")",
 				"compile_static":false,
@@ -2194,7 +2413,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_AnFvj@_2WEF6-1@default",
 			"id":"n_EapPJ",
-			"index":35,
+			"index":39,
 			"inputs":{
 				"result":{
 					"id":"1"
@@ -2220,5 +2439,5 @@
 		}
 	},
 	"standard":true,
-	"version":107
+	"version":109
 }

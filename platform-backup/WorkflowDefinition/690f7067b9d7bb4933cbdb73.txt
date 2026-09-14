@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787744005232,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744005415,
+		"deployedAt":1789395297586,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf05cee862008d74cc72",
-		"deploymentTag":"removed_some_fileTypes",
+		"deployedDefinitionId":"6aa8016172fd792214e8cba3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":14
+		"version":2,
+		"workflowVersion":17
 	},
 	"edges":[
 		{
@@ -273,9 +272,9 @@
 	},
 	"id":"690f7067b9d7bb4933cbdb73",
 	"lastModifiedBy":-1,
-	"lcName":"bulk index knowledges | agent",
-	"modifiedTime":1788252972006,
-	"name":"Bulk Index Knowledges | Agent",
+	"lcName":"[dt] bulk index knowledges | agent",
+	"modifiedTime":1789395395651,
+	"name":"[DT] Bulk Index Knowledges | Agent",
 	"nodes":[
 		{
 			"additional":{
@@ -893,7 +892,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def finalFiles = []\n\nif (!binding.hasVariable('files') || files == null || files.isEmpty()) {\n  return [\n    finalFiles : []\n  ]\n}\n\ndef extensionToMimeType = [\n  \"pdf\"  : \"application/pdf\",\n  \"doc\"  : \"application/msword\",\n  \"docx\" : \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"xls\"  : \"application/vnd.ms-excel\",\n  \"xlsx\" : \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\n  \"csv\"  : \"text/csv\",\n  \"png\"  : \"image/png\",\n  \"jpg\"  : \"image/jpeg\",\n  \"jpeg\" : \"image/jpeg\",\n  \"webp\" : \"image/webp\",\n  \"txt\"  : \"text/plain\",\n  \"md\"   : \"text/markdown\",  \n  \"ppt\"  : \"application/vnd.ms-powerpoint\",  \n  \"pptx\" : \"application/vnd.openxmlformats-officedocument.presentationml.presentation\", \n  \"wav\"  : \"audio/wav\",\n  \"html\" : \"text/html\",\n  \"htm\"  : \"text/html\",\n  \"json\" : \"application/json\",\n  \"xml\"  : \"application/xml\",\n  \"rtf\"  : \"application/rtf\",\n]\n\nfiles.each { file ->\n  def originalName = file.name ?: \"\"\n  def nameHasDot = originalName?.contains('.')\n  def nameExt = nameHasDot ? originalName.tokenize('.')?.last()?.toLowerCase() : null\n  def sourceExt = file.source?.tokenize('.')?.last()?.toLowerCase()\n  // Prefer extension from name when present; otherwise fall back to source extension\n  def extension = nameExt ?: sourceExt\n\n  // Determine mime type: prefer our mapping, then file.fileType if provided, else octet-stream\n  def mimeType = extension ? (extensionToMimeType[extension] ?: file.fileType) : file.fileType\n  mimeType = mimeType ?: \"application/octet-stream\"\n\n  // Only append extension when the provided name had no extension\n  def nameWithExt = originalName\n  if (!nameHasDot && extension) {\n    nameWithExt = originalName + \".\" + extension\n  }\n\n  def processedFile = [\n    fileExtension : extension,\n    fileType      : mimeType,\n    name          : nameWithExt,\n    size          : file.size,\n    source        : file.source,\n    sourceType    : file.sourceType\n  ]\n  finalFiles << processedFile\n}\n\nreturn [\n  finalFiles : finalFiles\n]\n",
+				"code":"def finalFiles = []\n\nif (!binding.hasVariable('files') || files == null || files.isEmpty()) {\n  return [\n    finalFiles : []\n  ]\n}\n\ndef extensionToMimeType = [\n  \"pdf\"  : \"application/pdf\",\n  \"doc\"  : \"application/msword\",\n  \"docx\" : \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"xls\"  : \"application/vnd.ms-excel\",\n  \"xlsx\" : \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\n  \"csv\"  : \"text/csv\",\n  \"png\"  : \"image/png\",\n  \"jpg\"  : \"image/jpeg\",\n  \"jpeg\" : \"image/jpeg\",\n  \"webp\" : \"image/webp\",\n  \"txt\"  : \"text/plain\",\n  \"md\"   : \"text/markdown\",  \n  \"ppt\"  : \"application/vnd.ms-powerpoint\",  \n  \"pptx\" : \"application/vnd.openxmlformats-officedocument.presentationml.presentation\", \n  \"mp3\"  : \"audio/mpeg\",\n  \"mpeg\" : \"video/mpeg\",\n  \"mp4\"  : \"video/mp4\",\n  \"wav\"  : \"audio/wav\",\n  \"html\" : \"text/html\",\n  \"htm\"  : \"text/html\",\n  \"json\" : \"application/json\",\n  \"xml\"  : \"application/xml\",\n  \"rtf\"  : \"application/rtf\",\n  \"py\"   : \"text/x-python\",\n  \"js\"   : \"text/javascript\"\n]\n\nfiles.each { file ->\n  def originalName = file.name ?: \"\"\n  def nameHasDot = originalName?.contains('.')\n  def nameExt = nameHasDot ? originalName.tokenize('.')?.last()?.toLowerCase() : null\n  def sourceExt = file.source?.tokenize('.')?.last()?.toLowerCase()\n  // Prefer extension from name when present; otherwise fall back to source extension\n  def extension = nameExt ?: sourceExt\n\n  // Determine mime type: prefer our mapping, then file.fileType if provided, else octet-stream\n  def mimeType = extension ? (extensionToMimeType[extension] ?: file.fileType) : file.fileType\n  mimeType = mimeType ?: \"application/octet-stream\"\n\n  // Only append extension when the provided name had no extension\n  def nameWithExt = originalName\n  if (!nameHasDot && extension) {\n    nameWithExt = originalName + \".\" + extension\n  }\n\n  def processedFile = [\n    fileExtension : extension,\n    fileType      : mimeType,\n    name          : nameWithExt,\n    size          : file.size,\n    source        : file.source,\n    sourceType    : file.sourceType\n  ]\n  finalFiles << processedFile\n}\n\nreturn [\n  finalFiles : finalFiles\n]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -2082,5 +2081,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":16
+	"version":18
 }

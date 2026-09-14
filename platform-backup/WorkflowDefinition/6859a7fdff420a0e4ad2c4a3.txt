@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743885748,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743886002,
+		"deployedAt":1789395249609,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece8d177b4b4aca57bc3e",
+		"deployedDefinitionId":"6aa8013172fd792214e8c91f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":153
+		"version":2,
+		"workflowVersion":156
 	},
 	"edges":[
 		{
@@ -410,7 +410,7 @@
 	"id":"6859a7fdff420a0e4ad2c4a3",
 	"lastModifiedBy":-1,
 	"lcName":"schedule knowledge downloader",
-	"modifiedTime":1788252972638,
+	"modifiedTime":1789395395652,
 	"name":"Schedule Knowledge Downloader",
 	"nodes":[
 		{
@@ -574,6 +574,10 @@
 						"downloaderBulkheadLimit":{
 							"title":"Downloader Bulkhead Limit",
 							"type":"integer"
+						},
+						"downloaderCursorErrorLimit":{
+							"title":"Downloader Cursor Error Limit",
+							"type":"integer"
 						}
 					},
 					"required":[],
@@ -589,17 +593,22 @@
 						"downloaderBulkheadLimit":{
 							"title":"Downloader Bulkhead Limit",
 							"type":"integer"
+						},
+						"downloaderCursorErrorLimit":{
+							"title":"Downloader Cursor Error Limit",
+							"type":"integer"
 						}
 					},
 					"required":[],
 					"type":"object"
 				},
-				"code":"return [\n  \"downloaderBulkheadGlobalLimit\" : (binding.hasVariable(\"downloaderBulkheadGlobalLimit\") ? downloaderBulkheadGlobalLimit as int : 200),\n  \"downloaderBulkheadLimit\" : (binding.hasVariable(\"downloaderBulkheadLimit\") ? downloaderBulkheadLimit as int : 4)\n]",
+				"code":"return [\n  \"downloaderBulkheadGlobalLimit\" : (binding.hasVariable(\"downloaderBulkheadGlobalLimit\") ? downloaderBulkheadGlobalLimit as int : 200),\n  \"downloaderBulkheadLimit\" : (binding.hasVariable(\"downloaderBulkheadLimit\") ? downloaderBulkheadLimit as int : 4),\n  \"downloaderCursorErrorLimit\" : (binding.hasVariable(\"downloaderCursorErrorLimit\") ? downloaderCursorErrorLimit as int : 10)\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"downloaderBulkheadGlobalLimit":"{{ __ENV__.outputs.KNOWLEDGE_DOWNLOADER_GLOBAL_BULKHEAD }}",
-					"downloaderBulkheadLimit":"{{ __ENV__.outputs.KNOWLEDGE_DOWNLOADER_BULKHEAD }}"
+					"downloaderBulkheadLimit":"{{ __ENV__.outputs.KNOWLEDGE_DOWNLOADER_BULKHEAD }}",
+					"downloaderCursorErrorLimit":"{{ __ENV__.outputs.DOWNLOADER_CURSOR_ERROR_LIMIT }}"
 				}
 			},
 			"skip":false,
@@ -779,6 +788,7 @@
 					}
 				],
 				"id":"{{ _FqNTN.outputs.id }}",
+				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
@@ -976,6 +986,10 @@
 							"title":"Bulkhead Limit",
 							"type":"integer"
 						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
 						"permitId":{
 							"title":"Permit Id",
 							"type":"string"
@@ -986,12 +1000,13 @@
 					],
 					"type":"object"
 				},
-				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\" + appName, permitId)];\n",
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\ndef grabberType = binding.hasVariable(\"grabberType\") && grabberType == \"backward\" ? \"backward\" : \"forward\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\"+ grabberType + \"_\" + appName, permitId)];",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"appName":"{{ n_Vw44g.outputs.importerParams.knowledge.applicationInfo.context.appName }}",
 					"bulkheadLimit":"{{ n_zJwv9.outputs.result.downloaderBulkheadGlobalLimit }}",
+					"grabberType":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.grabberType }}",
 					"permitId":"{{ n_6ZZnr.outputs.appPermitId }}"
 				}
 			},
@@ -1429,7 +1444,8 @@
 					"knowledgeId":"{{ n_Vw44g.outputs.knowledgeId }}",
 					"parentEntityId":"{{ n_Vw44g.outputs.parentEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"businessHoursConfig":{
@@ -1543,6 +1559,13 @@
 						"filter":{
 							"operator":"EQUAL",
 							"value":"CURSOR_DELETED"
+						},
+						"property":"{{ n_D0rtJ.outputs.terminationReason }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"PAUSED"
 						},
 						"property":"{{ n_D0rtJ.outputs.terminationReason }}"
 					}
@@ -1683,6 +1706,10 @@
 							"title":"Bulkhead Limit",
 							"type":"integer"
 						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
 						"permitId":{
 							"title":"Permit Id",
 							"type":"string"
@@ -1693,12 +1720,13 @@
 					],
 					"type":"object"
 				},
-				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\" + appName, permitId)];\n",
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\ndef grabberType = binding.hasVariable(\"grabberType\") && grabberType == \"backward\" ? \"backward\" : \"forward\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\"+ grabberType + \"_\" + appName, permitId)];",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"appName":"{{ n_Vw44g.outputs.importerParams.knowledge.applicationInfo.context.appName }}",
 					"bulkheadLimit":"{{ n_zJwv9.outputs.result.downloaderBulkheadGlobalLimit }}",
+					"grabberType":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.grabberType }}",
 					"permitId":"{{ n_6ZZnr.outputs.appPermitId }}"
 				}
 			},
@@ -2044,8 +2072,8 @@
 					},
 					{
 						"filter":{
-							"operator":"EQUAL",
-							"value":"20"
+							"operator":"GTE",
+							"value":"{{ n_zJwv9.outputs.result.downloaderCursorErrorLimit }}"
 						},
 						"property":"{{ n_FxjsP.outputs.errorCount }}"
 					}
@@ -2329,6 +2357,10 @@
 							"title":"Bulkhead Limit",
 							"type":"integer"
 						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
 						"permitId":{
 							"title":"Permit Id",
 							"type":"string"
@@ -2339,12 +2371,13 @@
 					],
 					"type":"object"
 				},
-				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\" + appName, permitId)];\n",
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\ndef grabberType = binding.hasVariable(\"grabberType\") && grabberType == \"backward\" ? \"backward\" : \"forward\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\"+ grabberType + \"_\" + appName, permitId)];",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"appName":"{{ n_Vw44g.outputs.importerParams.knowledge.applicationInfo.context.appName }}",
 					"bulkheadLimit":"{{ n_zJwv9.outputs.result.downloaderBulkheadGlobalLimit }}",
+					"grabberType":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.grabberType }}",
 					"permitId":"{{ n_6ZZnr.outputs.appPermitId }}"
 				}
 			},
@@ -2781,6 +2814,10 @@
 							"title":"Bulkhead Limit",
 							"type":"integer"
 						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
+						},
 						"permitId":{
 							"title":"Permit Id",
 							"type":"string"
@@ -2791,12 +2828,13 @@
 					],
 					"type":"object"
 				},
-				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\" + appName, permitId)];\n",
+				"code":"import com.unifyapps.infra.redis.RedisTemplateFactory;\nimport com.unifyapps.infra.redis.bulkhead.Bulkhead;\nimport com.unifyapps.infra.utils.resilience.BulkheadHolder;\nimport com.unifyapps.workflow.client.models.nodes.BulkheadConfig;\nimport com.unifyapps.workflow.rt.ExecutionInstance;\nimport com.unifyapps.workflow.rt.helpers.InputValueResolver;\nimport com.unifyapps.workflow.rt.nodes.DefaultNodeRuntime;\nimport com.unifyapps.workflow.rt.redis.WorkflowRedisResourceTypes;\nimport io.quarkus.arc.Arc;\nimport io.quarkus.arc.InstanceHandle;\n\nif(permitId == null) {\n  return [:]\n}\n\ndef appName = binding.hasVariable(\"appName\") ? appName : \"\"\ndef grabberType = binding.hasVariable(\"grabberType\") && grabberType == \"backward\" ? \"backward\" : \"forward\"\n\nInstanceHandle<RedisTemplateFactory> redisFactory = Arc.container().instance(RedisTemplateFactory.class);\ncom.unifyapps.infra.utils.resilience.BulkheadConfig resolvedConfig = new com.unifyapps.infra.utils.resilience.BulkheadConfig();\nresolvedConfig.setEnabled(true);\nresolvedConfig.setMaxConcurrentCalls(bulkheadLimit);\nresolvedConfig.setMaxLeaseTime(21600);  // 6 * 3600 = 6 hours\nresolvedConfig.setMaxWaitDuration(1);\nBulkhead bulkhead = Bulkhead.distributed(\"workflow\", resolvedConfig, redisFactory.get(), WorkflowRedisResourceTypes.WORKFLOW_EXECUTION_CACHE);\nreturn ['done' : bulkhead.releaseSafe(\"knowledge_downloader_\"+ grabberType + \"_\" + appName, permitId)];",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"appName":"{{ n_Vw44g.outputs.importerParams.knowledge.applicationInfo.context.appName }}",
 					"bulkheadLimit":"{{ n_zJwv9.outputs.result.downloaderBulkheadGlobalLimit }}",
+					"grabberType":"{{ n_Vw44g.outputs.importerParams.downloaderConfig.grabberType }}",
 					"permitId":"{{ n_6ZZnr.outputs.appPermitId }}"
 				}
 			},
@@ -3008,6 +3046,9 @@
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -3019,5 +3060,5 @@
 		"knowledge_v2",
 		"release_27jan"
 	],
-	"version":155
+	"version":157
 }

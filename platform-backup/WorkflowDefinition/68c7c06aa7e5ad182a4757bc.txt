@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743500626,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743500876,
+		"deployedAt":1789395059741,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd0c53a823318abfbfd3",
+		"deployedDefinitionId":"6aa8007339ee5f5ef70b5a59",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":54
+		"version":2,
+		"workflowVersion":57
 	},
 	"edges":[
 		{
@@ -154,6 +154,13 @@
 			"fromNodeId":"BE4zl",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_sWyqe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sWyqe",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"_63ZMo",
 			"type":"next"
 		},
@@ -168,7 +175,59 @@
 			"fromNodeId":"_IQp41",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_GshYP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GshYP",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lZhkz",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_lZhkz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Y8QK5",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Y8QK5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rtk1u",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rtk1u",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lZhkz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lZhkz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cTpQd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GshYP",
+			"name":"no",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"_YLEXQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cTpQd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_m1nkl",
 			"type":"next"
 		},
 		{
@@ -274,6 +333,78 @@
 		},
 		{
 			"fromNodeId":"n_yYLGs",
+			"name":"6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yYLGs@6",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_yYLGs@6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_395nT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_395nT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hzM3n",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_hzM3n",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZKWtF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yYLGs",
+			"name":"7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yYLGs@7",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"n_yYLGs@7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_B4rR0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B4rR0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_l0d0V",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_l0d0V",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_INfWN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_INfWN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZBpjv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZBpjv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_RGpbD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yYLGs",
 			"name":"default",
 			"priority":0,
 			"skip":false,
@@ -309,6 +440,20 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_ZKWtF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GNAOK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_RGpbD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GNAOK",
+			"type":"next"
+		},
+		{
 			"fromNodeId":"n_kE5rj",
 			"priority":0,
 			"skip":false,
@@ -338,7 +483,7 @@
 	"id":"68c7c06aa7e5ad182a4757bc",
 	"lastModifiedBy":-1,
 	"lcName":"convert files to images (less than 500kb)",
-	"modifiedTime":1788252971626,
+	"modifiedTime":1789395395718,
 	"name":"Convert Files To Images (Less than 500kb)",
 	"nodes":[
 		{
@@ -1253,6 +1398,56 @@
 						}
 					},
 					{
+						"id":"6",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"CONTAINS",
+											"value":"text/eml"
+										},
+										"property":"{{ n_i18wj.outputs.properties.mimeTypes }}"
+									},
+									{
+										"filter":{
+											"operator":"CONTAINS",
+											"value":"message/rfc822"
+										},
+										"property":"{{ n_i18wj.outputs.properties.mimeTypes }}"
+									},
+									{
+										"filter":{
+											"operator":"CONTAINS",
+											"value":"application/vnd.ms-outlook"
+										},
+										"property":"{{ n_i18wj.outputs.properties.mimeTypes }}"
+									}
+								],
+								"operator":"OR"
+							},
+							"name":"EML file"
+						}
+					},
+					{
+						"id":"7",
+						"inputs":{
+							"conditions":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"image/heic"
+										},
+										"property":"{{ n_IeaUS.outputs.mimeType }}"
+									}
+								],
+								"operator":"AND"
+							},
+							"name":"Branch 6"
+						}
+					},
+					{
 						"id":"default"
 					}
 				]
@@ -1695,7 +1890,7 @@
 				}
 			},
 			"skip":false,
-			"subTitle":"Code by UnifyApps",
+			"subTitle":"mimeType",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
@@ -1717,8 +1912,58 @@
 				"fileType":"{{ n_UEEJd.outputs.result.type }}"
 			},
 			"skip":false,
-			"subTitle":"Utility by UnifyApps",
+			"subTitle":"docx,pptx,xlsx",
 			"title":"Convert to PDF",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1696,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@2",
+			"id":"n_sWyqe",
+			"index":20,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"file":{
+							"title":"file",
+							"type":"object"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"file":"{{ BE4zl.outputs.file }}"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"file":{
+							"title":"file",
+							"type":"object"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"file",
+			"title":"Create variables",
 			"type":"ACTION"
 		},
 		{
@@ -1733,7 +1978,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@2",
 			"id":"_63ZMo",
-			"index":20,
+			"index":21,
 			"inputs":{
 				"file":"{{ BE4zl.outputs.file }}"
 			},
@@ -1754,7 +1999,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@2",
 			"id":"_IQp41",
-			"index":21,
+			"index":22,
 			"inputs":{
 				"automationId":"68e15f7e3aa5aa0d3e2bd0c7",
 				"runtimeConnections":{},
@@ -1762,12 +2007,139 @@
 				"parameters":{
 					"fileDetails":"{{ BE4zl.outputs.file }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
-			"subTitle":"Callable",
+			"subTitle":"pageCount",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":34,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@2",
+			"id":"n_GshYP",
+			"index":23,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"GT",
+							"value":"20"
+						},
+						"property":"{{ _IQp41.outputs.totalPage }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"totalPage>20",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"pdf_by_unifyapps",
+				"resourceVersion":1460,
+				"resourceName":"pdf_by_unifyapps_for_each_split_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_GshYP@n_yYLGs@_dGQ76-1@2@y",
+			"id":"n_lZhkz",
+			"index":24,
+			"inputs":{
+				"pageCount":20,
+				"fileDetails":"{{ BE4zl.outputs.file }}",
+				"splitType":"splitByPage"
+			},
+			"skip":false,
+			"subTitle":"PDF by UnifyApps",
+			"title":"Split PDF file",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1696,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lZhkz@n_GshYP@n_yYLGs@_dGQ76-1@2@y@l",
+			"id":"n_Y8QK5",
+			"index":25,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_sWyqe.outputs.file }}",
+						"value":"{{ n_lZhkz.outputs.item }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"file",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"break",
+				"resourceVersion":39,
+				"resourceName":"break",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lZhkz@n_GshYP@n_yYLGs@_dGQ76-1@2@y@l",
+			"id":"n_Rtk1u",
+			"index":26,
+			"inputs":{
+				"loop":"n_lZhkz"
+			},
+			"skip":false,
+			"subTitle":"Break",
+			"title":"Break",
+			"type":"BREAK"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1696,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_GshYP@n_yYLGs@_dGQ76-1@2@y",
+			"id":"n_cTpQd",
+			"index":27,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_gxUi3.outputs.pageCounter }}",
+						"value":20
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"pageCounter",
+			"title":"Update variables",
+			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -1779,9 +2151,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_yYLGs@_dGQ76-1@2",
+			"groupId":"n_GshYP@n_yYLGs@_dGQ76-1@2@n",
 			"id":"_YLEXQ",
-			"index":22,
+			"index":28,
 			"inputs":{
 				"variables":[
 					{
@@ -1791,7 +2163,7 @@
 				]
 			},
 			"skip":false,
-			"subTitle":"Variable by UnifyApps",
+			"subTitle":"pageCounter",
 			"title":"Update variables",
 			"type":"ACTION"
 		},
@@ -1807,21 +2179,23 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@2",
 			"id":"_m1nkl",
-			"index":23,
+			"index":29,
 			"inputs":{
 				"automationId":"67a4a244bcb7ea266fc400e6",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
 					"fileObject":{
-						"fileType":"{{ BE4zl.outputs.file.fileType }}",
-						"name":"{{ BE4zl.outputs.file.name }}",
-						"source":"{{ BE4zl.outputs.file.source }}",
-						"sourceType":"{{ BE4zl.outputs.file.sourceType }}"
+						"fileType":"{{ n_sWyqe.outputs.file.fileType }}",
+						"name":"{{ n_sWyqe.outputs.file.name }}",
+						"source":"{{ n_sWyqe.outputs.file.source }}",
+						"sourceType":"{{ n_sWyqe.outputs.file.sourceType }}"
 					},
+					"includePageText":"true",
 					"mimeType":"application/pdf"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"PDF to images",
@@ -1840,7 +2214,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@2",
 			"id":"_4wXot",
-			"index":24,
+			"index":30,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ _m1nkl.outputs.images }}",
@@ -1863,7 +2237,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_4wXot@n_yYLGs@_dGQ76-1@2@l",
 			"id":"_kcEiZ",
-			"index":25,
+			"index":31,
 			"inputs":{
 				"file":"{{ _4wXot.outputs.item.file }}",
 				"encoding":"base64"
@@ -1885,7 +2259,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_4wXot@n_yYLGs@_dGQ76-1@2@l",
 			"id":"_mEfcP",
-			"index":26,
+			"index":32,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1944,7 +2318,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_4wXot@n_yYLGs@_dGQ76-1@2@l",
 			"id":"_Zavzl",
-			"index":27,
+			"index":33,
 			"inputs":{
 				"itemToAdd":{
 					"file":{
@@ -1984,7 +2358,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@2",
 			"id":"_omZjR",
-			"index":28,
+			"index":34,
 			"inputs":{
 				"recordId":"{{ n_d8bhp.outputs.signalId }}",
 				"writeThroughSessionVariables":false,
@@ -2017,7 +2391,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@4",
 			"id":"n_yYLGs@4",
-			"index":29,
+			"index":35,
 			"inputs":{
 				"name":"JS and Py file",
 				"conditions":{
@@ -2089,7 +2463,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@4",
 			"id":"n_lPURs",
-			"index":30,
+			"index":36,
 			"inputs":{
 				"file":"{{ n_d8bhp.outputs.fileObject }}"
 			},
@@ -2115,7 +2489,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@4",
 			"id":"n_ymPur",
-			"index":31,
+			"index":37,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2180,7 +2554,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@4",
 			"id":"_CpAZd",
-			"index":32,
+			"index":38,
 			"inputs":{
 				"recordId":"{{ n_d8bhp.outputs.signalId }}",
 				"writeThroughSessionVariables":false,
@@ -2213,7 +2587,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@5",
 			"id":"n_yYLGs@5",
-			"index":33,
+			"index":39,
 			"inputs":{
 				"name":"xml / json",
 				"conditions":{
@@ -2252,7 +2626,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@5",
 			"id":"5JODZ",
-			"index":34,
+			"index":40,
 			"inputs":{
 				"file":"{{ n_d8bhp.outputs.fileObject }}",
 				"encoding":"utf8"
@@ -2280,7 +2654,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@5",
 			"id":"_hZGSZ",
-			"index":35,
+			"index":41,
 			"inputs":{
 				"recordId":"{{ n_d8bhp.outputs.signalId }}",
 				"writeThroughSessionVariables":false,
@@ -2303,6 +2677,472 @@
 		},
 		{
 			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@6",
+			"id":"n_yYLGs@6",
+			"index":42,
+			"inputs":{
+				"name":"EML file",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"text/eml"
+							},
+							"property":"{{ n_i18wj.outputs.properties.mimeTypes }}"
+						},
+						{
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"message/rfc822"
+							},
+							"property":"{{ n_i18wj.outputs.properties.mimeTypes }}"
+						},
+						{
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"application/vnd.ms-outlook"
+							},
+							"property":"{{ n_i18wj.outputs.properties.mimeTypes }}"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":7076,
+				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@6",
+			"id":"n_395nT",
+			"index":43,
+			"inputs":{
+				"file":"{{ n_d8bhp.outputs.fileObject }}",
+				"expiryTime":1
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate public file URL",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":683,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@6",
+			"id":"n_hzM3n",
+			"index":44,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"text":{
+							"title":"text",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"configurationMode":"TEMPLATE",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"url":{
+							"title":"url",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				},
+				"code":"import urllib.request\nimport tempfile\nimport email\nfrom email import policy\nimport extract_msg\n\ntext = \"\"\n\ntry:\n    x = url\nexcept NameError:\n    url = \"\"\n\nif url != \"\":\n    try:\n        with urllib.request.urlopen(url) as response:\n            content = response.read()\n\n        is_msg = content.startswith(b'\\xD0\\xCF\\x11\\xE0\\xA1\\xB1\\x1A\\xE1')\n\n        if is_msg:\n\n            with tempfile.NamedTemporaryFile(suffix=\".msg\", delete=False) as tmp:\n                tmp.write(content)\n                tmp_path = tmp.name\n\n            msg = extract_msg.Message(tmp_path)\n\n            text = msg.body or \"\"\n\n        else:\n            msg = email.message_from_bytes(content, policy=policy.default)\n\n            body = msg.get_body(preferencelist=('plain', 'html'))\n\n            if body:\n                text = body.get_content()\n            else:\n                text = \"\"\n\n    except Exception as e:\n        text = str(e)\n\nresult = {\n    \"text\": text\n}",
+				"isAsync":false,
+				"python_version":"3.12",
+				"outputFilesGlob":"*",
+				"entityId":"e_6a0508a79c7e9d7f7ecd67a1",
+				"captureStdOutput":false,
+				"parameters":{
+					"url":"{{ n_395nT.outputs.url }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.updateFields.items.fieldName",
+					"root.updateFields.items.actionType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6013,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@6",
+			"id":"n_ZKWtF",
+			"index":45,
+			"inputs":{
+				"recordId":"{{ n_d8bhp.outputs.signalId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"service_hub_attachment",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.documentExtractedText",
+						"setValue":"{{ n_hzM3n.outputs.result.text }}"
+					}
+				],
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@7",
+			"id":"n_yYLGs@7",
+			"index":46,
+			"inputs":{
+				"name":"Branch 6",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"image/heic"
+							},
+							"property":"{{ n_IeaUS.outputs.mimeType }}"
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@7",
+			"id":"n_B4rR0",
+			"index":47,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileObject":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Object",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def fileObject = binding.hasVariable('fileObject') ? binding.getVariable('fileObject') : [:]\n\nif (fileObject == null || fileObject.isEmpty()) {\n    return [\"file\":fileObject]\n} else {\n    if (fileObject.get('ua:type') != 'FILE') {\n        fileObject.put('ua:type', 'FILE')\n    }\n    return [\"file\":fileObject]\n}",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileObject":"{{ n_d8bhp.outputs.fileObject }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@7",
+			"id":"n_l0d0V",
+			"index":48,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"output_file":{
+							"title":"Output File",
+							"type":"string"
+						},
+						"status":{
+							"title":"Status",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"configurationMode":"TEMPLATE",
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"execution_id":{
+							"title":"Execution Id",
+							"type":"string"
+						},
+						"file_info":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"file_info",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"import time\nfrom PIL import Image\nimport pillow_heif\n\n# Register the HEIF/HEIC decoder so PIL can open .heic files\npillow_heif.register_heif_opener()\n\n# --- Output naming ---------------------------------------------------------\n# file_info    = the input file object (carries the original \"name\")\n# execution_id = passed in as an input parameter\noriginal_name = None\nif file_info and isinstance(file_info, dict):\n    original_name = file_info.get(\"name\")\n\nif original_name:\n    base_name = original_name.rsplit(\".\", 1)[0]   # \"IMG_0655.heic\" -> \"IMG_0655\"\nelse:\n    base_name = str(int(time.time()))\n\noutput_filename = base_name + \"_\" + str(execution_id) + \".png\"\n\n# --- Convert ---------------------------------------------------------------\n# input_heic is injected by the \"Input Files\" config — the relative path to\n# the downloaded HEIC in the script's working directory.\nimg = Image.open(input_heic)\n\nif img.mode not in (\"RGB\", \"RGBA\", \"L\", \"LA\", \"P\"):\n    img = img.convert(\"RGBA\")\n\n# Writing to the working dir → auto-uploaded because it matches *.png\nimg.save(output_filename, format=\"PNG\")\n\nresult = {\n    \"status\": \"success\",\n    \"output_file\": output_filename,\n}",
+				"imports":[],
+				"filesList":[
+					{
+						"fileDetails":"{{ n_B4rR0.outputs.result.file }}",
+						"fileName":"input_heic"
+					}
+				],
+				"isAsync":false,
+				"python_version":"3.12",
+				"outputFilesGlob":"*",
+				"entityId":"e_6a82d1d4332273324f37352c",
+				"captureStdOutput":false,
+				"parameters":{
+					"execution_id":"{{ __RUN__.outputs.executionId }}",
+					"file_info":"{{ n_B4rR0.outputs.result.file }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@7",
+			"id":"n_INfWN",
+			"index":49,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"additionalProperties":false,
+							"properties":{
+								"fileType":{
+									"title":"File Type",
+									"type":"string"
+								},
+								"name":{
+									"title":"Name",
+									"type":"string"
+								},
+								"size":{
+									"title":"Size",
+									"type":"string"
+								},
+								"source":{
+									"title":"Source",
+									"type":"string"
+								},
+								"sourceType":{
+									"title":"Source Type",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"File",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"outputFiles":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Output Files",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def outputFiles = binding.hasVariable('outputFiles') ? binding.getVariable('outputFiles') : [:]\n\n// outputFiles is keyed by a dynamically generated filename, so find the\n// entry by its ua:type marker rather than assuming a fixed key\ndef fileEntry = outputFiles?.find { key, value -> value?.get('ua:type') == 'FILE' }\ndef fileObject = fileEntry?.value\n\nif (fileObject == null) {\n   return [\"file\":[:]]\n} else {\n    return [\"file\":[\n        name   : fileObject.name,\n        source     : fileObject.source,\n        sourceType : fileObject.sourceType,\n        fileType   : fileObject.fileType,\n        size       : fileObject.size\n    ]]\n}",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"outputFiles":"{{ n_l0d0V.outputs.outputFiles }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemToAdd.file.name",
+					"root.itemToAdd.file.size",
+					"root.itemToAdd.file.source",
+					"root.itemToAdd.file.sourceType",
+					"root.itemToAdd.file.type"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":3658,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@7",
+			"id":"n_ZBpjv",
+			"index":50,
+			"inputs":{
+				"itemToAdd":{
+					"file":{
+						"name":"{{ n_INfWN.outputs.result.file.name }}",
+						"size":"{{ n_INfWN.outputs.result.file.size }}",
+						"source":"{{ n_INfWN.outputs.result.file.source }}",
+						"sourceType":"{{ n_INfWN.outputs.result.file.sourceType }}",
+						"type":"{{ n_INfWN.outputs.result.file.fileType }}"
+					},
+					"mimeType":"image/png",
+					"pageNumber":0
+				},
+				"insertLocation":"END",
+				"listName":"{{ n_mh1Ao.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.updateFields.items.fieldName",
+					"root.updateFields.items.actionType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":712,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_yYLGs@_dGQ76-1@7",
+			"id":"_RGpbD",
+			"index":51,
+			"inputs":{
+				"recordId":"{{ n_d8bhp.outputs.signalId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"service_hub_attachment",
+				"skipIfBlank":false,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.images",
+						"setValue":"{{ n_mh1Ao.outputs.items }}"
+					}
+				],
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"code_by_unifyapps",
 				"resourceVersion":452,
 				"resourceName":"code_by_unifyapps_groovy",
@@ -2313,7 +3153,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_yYLGs@_dGQ76-1@default",
 			"id":"n_kE5rj",
-			"index":36,
+			"index":52,
 			"inputs":{
 				"code":"return [:]",
 				"compile_static":false,
@@ -2342,7 +3182,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_dGQ76-1",
 			"id":"n_GNAOK",
-			"index":37,
+			"index":53,
 			"inputs":{
 				"automation_id":"6916fc515a5b0f5025aa2313",
 				"with_signal_id":true,
@@ -2377,7 +3217,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_dGQ76-1",
 			"id":"n_Jyeo3",
-			"index":38,
+			"index":54,
 			"inputs":{
 				"result":{
 					"documentExtractedText":"{{ n_gxUi3.outputs.documentExtractedText }}",
@@ -2415,9 +3255,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -2425,5 +3265,8 @@
 		}
 	},
 	"standard":true,
-	"version":56
+	"tags":[
+		"release_27jan"
+	],
+	"version":58
 }
