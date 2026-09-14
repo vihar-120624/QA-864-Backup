@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743817901,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743817973,
+		"deployedAt":1789395212112,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece4945d2142160e6e59a",
+		"deployedDefinitionId":"6aa8010cc6a14707f15037ce",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":9
+		"version":2,
+		"workflowVersion":12
 	},
 	"edges":[
 		{
@@ -89,7 +89,7 @@
 	"id":"6891e8fa2021321872af7b6e",
 	"lastModifiedBy":-1,
 	"lcName":"clustering | create record deduplication with prefix cluster",
-	"modifiedTime":1788252971666,
+	"modifiedTime":1789395389034,
 	"name":"Clustering | Create Record Deduplication with Prefix Cluster",
 	"nodes":[
 		{
@@ -321,6 +321,7 @@
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"temporary_batch_cluster_vector_3072_dimension",
+				"skipIfBlank":false,
 				"record":{
 					"clustering_job_id":"{{ _7U4hC.outputs.clustering_id }}",
 					"embeddings":{
@@ -329,6 +330,63 @@
 						"ua:type":"mappedArray"
 					},
 					"partition_id":"{{ _7U4hC.outputs.partition_id }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false,
+					"slidingWindowType":"COUNT_BASED"
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":1000,
+					"maxDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
 				}
 			},
 			"skip":false,
@@ -364,11 +422,12 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":true,
-		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
@@ -376,5 +435,5 @@
 	"tags":[
 		"Clustering"
 	],
-	"version":11
+	"version":13
 }
