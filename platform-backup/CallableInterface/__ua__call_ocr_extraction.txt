@@ -18,38 +18,6 @@
 		"dynamic":false,
 		"schema":{
 			"layout":{
-				"azureApiVersion":{
-					"ui:help":"Azure API version, e.g. 2024-11-30."
-				},
-				"azureModelId":{
-					"ui:help":"Azure model id, e.g. prebuilt-layout. Defaults to prebuilt-layout."
-				},
-				"connectionId":{
-					"ui:help":"Select the Azure Document Intelligence connection to authenticate the extraction with.",
-					"ui:options":{
-						"ua:applicationName":"azure_document_intelligence",
-						"ua:payload":{
-							"filter":{
-								"field":"appName",
-								"op":"EQUAL",
-								"values":[
-									"azure_document_intelligence"
-								]
-							},
-							"lookupType":"CONNECTION",
-							"type":"ByQuery"
-						}
-					},
-					"ui:placeholder":"Select Connection",
-					"ui:title":"Connection",
-					"ui:widget":"LookupWidget"
-				},
-				"features":{
-					"ui:help":"Azure analyse features, e.g. queryFields. Sent only when set."
-				},
-				"hybrid":{
-					"ui:help":"Feed the extracted text to the LLM as extra context. Only applies when Azure Document Intelligence is on."
-				},
 				"modelId":{
 					"ui:options":{
 						"ua:payload":{
@@ -77,9 +45,6 @@
 						}
 					},
 					"ui:widget":"LookupWidget"
-				},
-				"queryFields":{
-					"ui:help":"Comma-separated fields to extract. Requires Features to include queryFields."
 				}
 			},
 			"additionalProperties":false,
@@ -89,29 +54,9 @@
 				"is_optional":true
 			},
 			"properties":{
-				"azureApiVersion":{
-					"title":"Azure API Version",
-					"type":"string"
-				},
-				"azureDI":{
-					"title":"Use Azure Document Intelligence",
-					"type":"boolean"
-				},
-				"azureModelId":{
-					"title":"Azure Model",
-					"type":"string"
-				},
-				"connectionId":{
-					"title":"Azure Document Intelligence Connection",
-					"type":"string"
-				},
 				"enhanceImage":{
 					"title":"Enhance Image",
 					"type":"boolean"
-				},
-				"features":{
-					"title":"Features",
-					"type":"string"
 				},
 				"files":{
 					"items":{
@@ -152,10 +97,6 @@
 					"title":"Files",
 					"type":"array"
 				},
-				"hybrid":{
-					"title":"Azure DI + LLM Hybrid",
-					"type":"boolean"
-				},
 				"includePageText":{
 					"title":"Include Page Text",
 					"type":"boolean"
@@ -177,10 +118,6 @@
 					"title":"prompt",
 					"type":"string"
 				},
-				"queryFields":{
-					"title":"Query Fields",
-					"type":"string"
-				},
 				"response_format":{
 					"title":"response_format",
 					"type":"string"
@@ -199,7 +136,7 @@
 	},
 	"lastModifiedBy":-1,
 	"lcName":"ocr document details extraction",
-	"modifiedTime":1788252971958,
+	"modifiedTime":1789394965568,
 	"name":"OCR Document Details Extraction",
 	"output":{
 		"type":"SCHEMA",
@@ -276,5 +213,5 @@
 	},
 	"ownerUserId":-1,
 	"standard":true,
-	"version":15
+	"version":16
 }
