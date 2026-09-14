@@ -4,19 +4,27 @@
 	],
 	"createdTime":1787743515476,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743515634,
+		"deployedAt":1789395068554,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd1b4cdb0358b9df2470",
+		"deployedDefinitionId":"6aa8007c72fd792214e8bfbd",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":239
+		"version":2,
+		"workflowVersion":242
 	},
 	"edges":[
 		{
 			"fromNodeId":"CfdAH",
-			"id":"next@CfdAH@U3IHx",
+			"id":"next@CfdAH@n_GmZnb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GmZnb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GmZnb",
+			"id":"next@n_GmZnb@U3IHx",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"U3IHx",
@@ -56,15 +64,7 @@
 		},
 		{
 			"fromNodeId":"smN7C",
-			"id":"next@smN7C@n_iCv12",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_iCv12",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_iCv12",
-			"id":"next@n_iCv12@n_meupp",
+			"id":"next@smN7C@n_meupp",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_meupp",
@@ -90,15 +90,99 @@
 		},
 		{
 			"fromNodeId":"n_MtZhU",
-			"id":"next@n_MtZhU@BmjZ2",
+			"id":"next@n_MtZhU@n_xAbGa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xAbGa",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_i9Czi",
+			"id":"next@_i9Czi@n_xAbGa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xAbGa",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xAbGa",
+			"id":"next@n_xAbGa@n_0EeYr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0EeYr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0EeYr",
+			"id":"next@n_0EeYr@n_Z5boo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Z5boo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Z5boo",
+			"id":"if@n_Z5boo@n_XHYZx",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XHYZx",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Z5boo",
+			"id":"next@n_Z5boo@n_jJt3U",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jJt3U",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jJt3U",
+			"id":"next@n_jJt3U@n_gBWQ5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gBWQ5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gBWQ5",
+			"id":"if@n_gBWQ5@n_qrLpr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qrLpr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_qrLpr",
+			"id":"next@n_qrLpr@n_IFkxG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IFkxG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_XHYZx",
+			"id":"next@n_XHYZx@BmjZ2",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"BmjZ2",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"_i9Czi",
-			"id":"next@_i9Czi@BmjZ2",
+			"fromNodeId":"n_IFkxG",
+			"id":"next@n_IFkxG@BmjZ2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"BmjZ2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gBWQ5",
+			"id":"next@n_gBWQ5@BmjZ2",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"BmjZ2",
@@ -120,7 +204,7 @@
 	"id":"67e4346d4718117333c7ee9a",
 	"lastModifiedBy":-1,
 	"lcName":"execute tool wrapper",
-	"modifiedTime":1788252973504,
+	"modifiedTime":1789395392300,
 	"name":"Execute Tool Wrapper",
 	"nodes":[
 		{
@@ -187,6 +271,48 @@
 							"title":"executeUsingModel",
 							"type":"string"
 						},
+						"parallelToolCallEnabled":{
+							"title":"Parallel Tool Call Enabled",
+							"type":"boolean"
+						},
+						"retryDone":{
+							"title":"Retry Done",
+							"type":"integer"
+						},
+						"retryOnErrorConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"backoffFactor":{
+									"title":"Backoff Factor",
+									"type":"number"
+								},
+								"enabled":{
+									"title":"Enabled",
+									"type":"boolean"
+								},
+								"filter":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Filter",
+									"type":"object"
+								},
+								"initialDelay":{
+									"title":"Initial Delay",
+									"type":"integer"
+								},
+								"maximumDelay":{
+									"title":"Maximum Delay",
+									"type":"integer"
+								},
+								"retryCount":{
+									"title":"Retry Count",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Retry On Error Config",
+							"type":"object"
+						},
 						"toolAdditional":{
 							"additionalProperties":false,
 							"properties":{},
@@ -212,10 +338,6 @@
 						"triggeredByAgentId":{
 							"title":"triggeredByAgentId",
 							"type":"string"
-						},
-						"parallelToolCallEnabled":{
-							"title":"Parallel Tool Call Enabled",
-							"type":"boolean"
 						}
 					},
 					"required":[],
@@ -233,6 +355,103 @@
 		{
 			"context":{
 				"appName":"variable_by_unifyapps",
+				"resourceVersion":717,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"n_GmZnb",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"output":{
+							"title":"Output",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						},
+						"toolOutput":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Output",
+							"type":"object"
+						}
+					},
+					"required":[
+						"output"
+					]
+				}
+			},
+			"inputs":{
+				"startTime":"=INT((NOW() - DATE(1970,1,1)) * 86400000)"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
+						"output":{
+							"title":"Output",
+							"type":"string"
+						},
+						"startTime":{
+							"title":"Start Time",
+							"type":"integer"
+						},
+						"toolOutput":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Output",
+							"type":"object"
+						}
+					},
+					"required":[
+						"output"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
 				"resourceVersion":299,
 				"resourceName":"variable_by_unifyapps_get_session_variables",
 				"type":"APPLICATION"
@@ -242,7 +461,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"JgxVN-1",
 			"id":"U3IHx",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"variableSchema":{
 					"additionalProperties":false,
@@ -251,34 +470,34 @@
 							"title":"Ai Agent Id",
 							"type":"string"
 						},
+						"clientTools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"description":{
+										"title":"Description",
+										"type":"string"
+									},
+									"input_schema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Input Schema",
+										"type":"object"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Client Tools",
+							"type":"array"
+						},
 						"messageId":{
 							"title":"Message Id",
 							"type":"string"
-						},
-						"clientTools":{
-							"type":"array",
-							"items":{
-								"type":"object",
-								"properties":{
-									"name":{
-										"type":"string",
-										"title":"Name"
-									},
-									"description":{
-										"type":"string",
-										"title":"Description"
-									},
-									"input_schema":{
-										"type":"object",
-										"properties":{},
-										"additionalProperties":false,
-										"title":"Input Schema"
-									}
-								},
-								"additionalProperties":false,
-								"required":[]
-							},
-							"title":"Client Tools"
 						}
 					},
 					"required":[],
@@ -302,7 +521,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"JgxVN-1",
 			"id":"n_NRlug",
-			"index":3,
+			"index":4,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -320,8 +539,7 @@
 				}
 			},
 			"inputs":{
-				"toolIndex":"{{ CfdAH.outputs.toolIndex }}",
-				"parallelToolCallEnabled":"{{ CfdAH.outputs.parallelToolCallEnabled }}"
+				"toolIndex":"{{ CfdAH.outputs.toolIndex }}"
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -362,7 +580,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"JgxVN-1",
 			"id":"n_RLVvG",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -397,6 +615,31 @@
 							"title":"additional",
 							"type":"object"
 						},
+						"clientTools":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"description":{
+										"title":"Description",
+										"type":"string"
+									},
+									"input_schema":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Input Schema",
+										"type":"object"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Client Tools",
+							"type":"array"
+						},
 						"toolInputs":{
 							"title":"toolInputs",
 							"type":"object"
@@ -404,31 +647,6 @@
 						"toolName":{
 							"title":"toolName",
 							"type":"string"
-						},
-						"clientTools":{
-							"type":"array",
-							"items":{
-								"type":"object",
-								"properties":{
-									"name":{
-										"type":"string",
-										"title":"Name"
-									},
-									"description":{
-										"type":"string",
-										"title":"Description"
-									},
-									"input_schema":{
-										"type":"object",
-										"properties":{},
-										"additionalProperties":false,
-										"title":"Input Schema"
-									}
-								},
-								"additionalProperties":false,
-								"required":[]
-							},
-							"title":"Client Tools"
 						}
 					},
 					"type":"object"
@@ -439,17 +657,17 @@
 				"parameters":{
 					"actionId":"{{ CfdAH.outputs.actionId }}",
 					"additional":"{{ CfdAH.outputs.toolAdditional }}",
-					"toolInputs":"{{ CfdAH.outputs.toolInputs }}",
-					"toolName":"{{ CfdAH.outputs.toolName }}",
 					"clientTools":{
-						"source":"{{ U3IHx.outputs.clientTools }}",
-						"ua:type":"mappedArray",
 						"items":{
-							"name":"{{ U3IHx.outputs.clientTools[0].name }}",
 							"description":"{{ U3IHx.outputs.clientTools[0].description }}",
-							"input_schema":"{{ U3IHx.outputs.clientTools[0].input_schema }}"
-						}
-					}
+							"input_schema":"{{ U3IHx.outputs.clientTools[0].input_schema }}",
+							"name":"{{ U3IHx.outputs.clientTools[0].name }}"
+						},
+						"source":"{{ U3IHx.outputs.clientTools }}",
+						"ua:type":"mappedArray"
+					},
+					"toolInputs":"{{ CfdAH.outputs.toolInputs }}",
+					"toolName":"{{ CfdAH.outputs.toolName }}"
 				}
 			},
 			"skip":false,
@@ -469,7 +687,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"JgxVN-1",
 			"id":"n_FpmZB",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"automationId":"6878d5575821f42782a179d3",
 				"runtimeConnections":{},
@@ -506,7 +724,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"JgxVN-1",
 			"id":"smN7C",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"callableInterfaceId":"679484ef9c8ab5620dca9609",
 				"runtimeConnections":{},
@@ -1068,9 +1286,16 @@
 										"value":"TodoWriteTool"
 									},
 									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"update_plan"
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
 								}
 							],
-							"operator":"AND"
+							"operator":"OR"
 						},
 						"workflowId":"69e5fd4805bef3065b3b5405"
 					},
@@ -1301,19 +1526,86 @@
 						"workflowId":"6a75dbb63c3ff363e4c58cc1"
 					},
 					{
-						"workflowId":"6a85ff40b47a25784243ce6c",
 						"filter":{
 							"filters":[
 								{
-									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}",
 									"filter":{
 										"operator":"EQUAL",
 										"value":"sse_client_tool"
-									}
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
 								}
 							],
 							"operator":"AND"
-						}
+						},
+						"workflowId":"6a85ff40b47a25784243ce6c"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"RenderArtifact"
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6a9493d31f65910310b540d0"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"InteractiveArtifact"
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"Build_App"
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
+								}
+							],
+							"operator":"OR"
+						},
+						"workflowId":"6a9493d31f65910310b540d8"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"QA"
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6a9493d361e2ab0c3006d8b2"
+					},
+					{
+						"filter":{
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"FetchPastArtifact"
+									},
+									"property":"{{ n_RLVvG.outputs.result.updatedToolName }}"
+								}
+							],
+							"operator":"AND"
+						},
+						"workflowId":"6a9ec36322a581264a4ab0f8"
 					}
 				],
 				"fallbackWorkflowId":"6794855b9c8ab5620dca972e",
@@ -1334,81 +1626,6 @@
 			"subTitle":"Execute Tool",
 			"title":"Call interface",
 			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":453,
-				"resourceName":"variable_by_unifyapps_create_variables",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"JgxVN-1",
-			"id":"n_iCv12",
-			"index":7,
-			"inputSchema":{
-				"type":"SCHEMA_AND_LAYOUT",
-				"dynamic":false,
-				"layout":{},
-				"schema":{
-					"additionalProperties":false,
-					"type":"object",
-					"properties":{
-						"output":{
-							"title":"Output",
-							"type":"string"
-						}
-					},
-					"required":[
-						"output"
-					]
-				}
-			},
-			"inputs":{},
-			"outputSchema":{
-				"type":"SCHEMA",
-				"dynamic":false,
-				"schema":{
-					"additionalProperties":false,
-					"type":"object",
-					"properties":{
-						"_ua_variableDetails":{
-							"items":{
-								"properties":{
-									"dataType":{
-										"description":"Data type of the variable",
-										"type":"string"
-									},
-									"description":{
-										"description":"Description of the variable",
-										"type":"string"
-									},
-									"name":{
-										"description":"Name of the variable",
-										"type":"string"
-									}
-								},
-								"type":"object"
-							},
-							"title":"Variable Details",
-							"type":"array"
-						},
-						"output":{
-							"title":"Output",
-							"type":"string"
-						}
-					},
-					"required":[
-						"output"
-					]
-				}
-			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Create variables",
-			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -1456,7 +1673,7 @@
 			"inputs":{
 				"variables":[
 					{
-						"source":"{{ n_iCv12.outputs.output }}",
+						"source":"{{ n_GmZnb.outputs.toolOutput }}",
 						"value":"{{ smN7C.outputs.toolOutput }}"
 					}
 				]
@@ -1482,13 +1699,486 @@
 			"inputs":{
 				"variables":[
 					{
-						"source":"{{ n_iCv12.outputs.output }}",
-						"value":"{{ smN7C.outputs.error }}"
+						"source":"{{ n_GmZnb.outputs.toolOutput }}",
+						"value":"{{ smN7C.outputs }}"
 					}
 				]
 			},
 			"skip":false,
 			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":469,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"JgxVN-1",
+			"id":"n_xAbGa",
+			"index":11,
+			"inputs":{
+				"automationId":"68c51597269ad81cc750a3ca",
+				"distributeLoad":false,
+				"runtimeConnections":{},
+				"synchronous":false,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"actionId":"{{ CfdAH.outputs.actionId }}",
+					"aiAgentId":"{{ U3IHx.outputs.aiAgentId }}",
+					"caseId":"{{ CfdAH.outputs.caseId }}",
+					"currentType":"Tool",
+					"executionInstanceId":"{{ __RUN__.outputs.executionId }}",
+					"fromAutomationId":"{{ __RUN__.outputs.workflowId }}",
+					"input":"{{ CfdAH.outputs.toolInputs }}",
+					"llmTimeTaken":"=INT((NOW() - DATE(1970,1,1)) * 86400000)-{{ n_GmZnb.outputs.startTime }}",
+					"messageId":"{{ U3IHx.outputs.messageId }}",
+					"outputObject":"{{ n_GmZnb.outputs.toolOutput }}",
+					"parent":"Agent Execution",
+					"parentExecutionId":"{{ __RUN__.outputs.parentExecutionId }}",
+					"parentWorkflowId":"{{ __RUN__.outputs.parentWorkflowId }}",
+					"rootExecutionId":"{{ __RUN__.outputs.rootExecutionId }}",
+					"startTime":"{{ n_GmZnb.outputs.startTime }}",
+					"success":"{{ smN7C.outputs.success }}",
+					"toolInvocationCost":"{{ smN7C.outputs.toolInvocationCost }}",
+					"toolName":"{{ CfdAH.outputs.toolName }}",
+					"userId":"=IF(ISNUMBER({{ __RUN__.outputs.userId }}), {{ __RUN__.outputs.userId }}, 0)"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Capture Trace",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":717,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"n_0EeYr",
+			"index":12,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"retrigger":{
+							"title":"Retrigger",
+							"type":"boolean"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"toolInvocationCost":{
+							"title":"Tool Invocation Cost",
+							"type":"number"
+						},
+						"toolOutput":{
+							"title":"Tool Output",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"retrigger":{
+							"title":"Retrigger",
+							"type":"boolean"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"toolInvocationCost":{
+							"title":"Tool Invocation Cost",
+							"type":"number"
+						},
+						"toolOutput":{
+							"title":"Tool Output",
+							"type":"string"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"respond variables",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":438,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"n_Z5boo",
+			"index":13,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ smN7C.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":446,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Z5boo@JgxVN-1@y",
+			"id":"n_XHYZx",
+			"index":14,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_GmZnb.outputs.output }}",
+						"value":"{{ smN7C.outputs.toolOutput }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.toolOutput }}",
+						"value":"{{ smN7C.outputs.toolOutput }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.toolInvocationCost }}",
+						"value":"{{ smN7C.outputs.toolInvocationCost }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.error }}",
+						"value":"{{ smN7C.outputs.error }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.success }}",
+						"value":"{{ smN7C.outputs.success }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.retrigger }}",
+						"value":"{{ smN7C.outputs.retrigger }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":446,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Z5boo@JgxVN-1@n",
+			"id":"n_jJt3U",
+			"index":15,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_0EeYr.outputs.toolOutput }}",
+						"value":"{{ smN7C.outputs.toolOutput }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.toolInvocationCost }}",
+						"value":"{{ smN7C.outputs.toolInvocationCost }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.error }}",
+						"value":"{{ smN7C.outputs.error }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.success }}",
+						"value":"{{ smN7C.outputs.success }}"
+					},
+					{
+						"source":"{{ n_GmZnb.outputs.output }}",
+						"value":"{{ smN7C.outputs.error }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.retrigger }}",
+						"value":"{{ smN7C.outputs.retrigger }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"respond variables",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":483,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Z5boo@JgxVN-1@n",
+			"id":"n_gBWQ5",
+			"index":16,
+			"inputs":{
+				"filters":[
+					{
+						"filters":[
+							{
+								"filter":{
+									"operator":"EXISTS"
+								},
+								"property":"{{ CfdAH.outputs.retryOnErrorConfig.enabled }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"true"
+								},
+								"property":"{{ CfdAH.outputs.retryOnErrorConfig.enabled }}"
+							}
+						],
+						"operator":"AND"
+					},
+					{
+						"filter":{
+							"operator":"LT",
+							"value":"{{ CfdAH.outputs.retryOnErrorConfig.retryCount }}"
+						},
+						"property":"{{ CfdAH.outputs.retryDone }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"retry = 0?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1217,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_gBWQ5@n_Z5boo@JgxVN-1@n@y",
+			"id":"n_qrLpr",
+			"index":17,
+			"inputs":{
+				"automationId":"6a8ea2a071bdc818a72a8ec8",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"actionId":"{{ CfdAH.outputs.actionId }}",
+					"agentResponseMessageId":"{{ CfdAH.outputs.agentResponseMessageId }}",
+					"caseId":"{{ CfdAH.outputs.caseId }}",
+					"currentTaskId":"{{ CfdAH.outputs.currentTaskId }}",
+					"executeUsingModel":"{{ CfdAH.outputs.executeUsingModel }}",
+					"parallelToolCallEnabled":"{{ CfdAH.outputs.parallelToolCallEnabled }}",
+					"respondParams":{
+						"error":"{{ n_0EeYr.outputs.error }}",
+						"retrigger":"{{ n_0EeYr.outputs.retrigger }}",
+						"success":"{{ n_0EeYr.outputs.success }}",
+						"toolInvocationCost":"{{ n_0EeYr.outputs.toolInvocationCost }}",
+						"toolOutput":"{{ n_0EeYr.outputs.toolOutput }}"
+					},
+					"retryDone":"{{ CfdAH.outputs.retryDone }}",
+					"retryOnErrorConfig":{
+						"backoffFactor":"{{ CfdAH.outputs.retryOnErrorConfig.backoffFactor }}",
+						"enabled":"{{ CfdAH.outputs.retryOnErrorConfig.enabled }}",
+						"filter":"{{ CfdAH.outputs.retryOnErrorConfig.filter }}",
+						"initialDelay":"{{ CfdAH.outputs.retryOnErrorConfig.initialDelay }}",
+						"maximumDelay":"{{ CfdAH.outputs.retryOnErrorConfig.maximumDelay }}",
+						"retryCount":"{{ CfdAH.outputs.retryOnErrorConfig.retryCount }}"
+					},
+					"toolAdditional":"{{ CfdAH.outputs.toolAdditional }}",
+					"toolId":"{{ CfdAH.outputs.toolId }}",
+					"toolIndex":"{{ CfdAH.outputs.toolIndex }}",
+					"toolInputs":"{{ CfdAH.outputs.toolInputs }}",
+					"toolName":"{{ CfdAH.outputs.toolName }}",
+					"triggeredByAgentId":"{{ CfdAH.outputs.triggeredByAgentId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":446,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_gBWQ5@n_Z5boo@JgxVN-1@n@y",
+			"id":"n_IFkxG",
+			"index":18,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_0EeYr.outputs.toolOutput }}",
+						"value":"{{ n_qrLpr.outputs.toolOutput }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.toolInvocationCost }}",
+						"value":"{{ n_qrLpr.outputs.toolInvocationCost }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.error }}",
+						"value":"{{ n_qrLpr.outputs.error }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.success }}",
+						"value":"{{ n_qrLpr.outputs.success }}"
+					},
+					{
+						"source":"{{ n_0EeYr.outputs.retrigger }}",
+						"value":"{{ n_qrLpr.outputs.retrigger }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"respond variables",
 			"title":"Update variables",
 			"type":"ACTION"
 		},
@@ -1504,14 +2194,14 @@
 			"fallbackMode":"STOP",
 			"groupId":"JgxVN-1",
 			"id":"BmjZ2",
-			"index":11,
+			"index":19,
 			"inputs":{
 				"result":{
-					"error":"{{ smN7C.outputs.error }}",
-					"retrigger":"{{ smN7C.outputs.retrigger }}",
-					"success":"{{ smN7C.outputs.success }}",
-					"toolInvocationCost":"{{ smN7C.outputs.toolInvocationCost }}",
-					"toolOutput":"{{ smN7C.outputs.toolOutput }}"
+					"error":"{{ n_0EeYr.outputs.error }}",
+					"retrigger":"{{ n_0EeYr.outputs.retrigger }}",
+					"success":"{{ n_0EeYr.outputs.success }}",
+					"toolInvocationCost":"{{ n_0EeYr.outputs.toolInvocationCost }}",
+					"toolOutput":"{{ n_0EeYr.outputs.toolOutput }}"
 				}
 			},
 			"skip":false,
@@ -1538,5 +2228,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":241
+	"version":243
 }

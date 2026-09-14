@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743670578,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743670729,
+		"deployedAt":1789395121502,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdb69d7c534668ef6105",
+		"deployedDefinitionId":"6aa800b139ee5f5ef70b5d64",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":105
+		"version":2,
+		"workflowVersion":108
 	},
 	"edges":[
 		{
@@ -24,7 +24,67 @@
 		},
 		{
 			"fromNodeId":"n_QJq3p",
-			"id":"next@n_QJq3p@n_FeUgW",
+			"id":"next@n_QJq3p@n_NlDNV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NlDNV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NlDNV",
+			"id":"next@n_NlDNV@n_Rj6c0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rj6c0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rj6c0",
+			"id":"if@n_Rj6c0@n_YI1Kr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YI1Kr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_YI1Kr",
+			"id":"next@n_YI1Kr@n_DbkPL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DbkPL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DbkPL",
+			"id":"next@n_DbkPL@n_74dlL",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_74dlL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DbkPL",
+			"id":"if@n_DbkPL@n_FeUgW",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FeUgW",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_74dlL",
+			"id":"next@n_74dlL@n_FeUgW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FeUgW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rj6c0",
+			"id":"next@n_Rj6c0@n_FeUgW",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_FeUgW",
@@ -62,7 +122,7 @@
 	"id":"6857dea0c42da15675ef3827",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | slack | message",
-	"modifiedTime":1788252971337,
+	"modifiedTime":1789395392343,
 	"name":"Knowledge Indexer | Slack | Message",
 	"nodes":[
 		{
@@ -178,6 +238,163 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":16,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_NlDNV",
+			"index":3,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"copyFromRawDataId":{
+							"title":"Copy From Raw Data Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":11,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_Rj6c0",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_NlDNV.outputs.copyFromRawDataId }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.KNOWLEDGE_COPY_CHUNKS_FROM_SOURCEID }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":246,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Rj6c0@_hNHYl-1@y",
+			"id":"n_YI1Kr",
+			"index":5,
+			"inputs":{
+				"automationId":"6a031648d37472343d038f7e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"copyFromRawDataId":"{{ n_NlDNV.outputs.copyFromRawDataId }}",
+					"indexingVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
+					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_YFuhI.outputs.knowledgeSetId }}",
+					"metadata":"{{ n_YFuhI.outputs.metadata }}",
+					"sharedWithIds":{
+						"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}",
+						"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
+						"ua:type":"mappedArray"
+					},
+					"uniqueEntityId":"{{ n_YFuhI.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":11,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Rj6c0@_hNHYl-1@y",
+			"id":"n_DbkPL",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"0"
+						},
+						"property":"{{ n_YI1Kr.outputs.lastChunkId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":752,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_DbkPL@n_Rj6c0@_hNHYl-1@y@n",
+			"id":"n_74dlL",
+			"index":7,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"code_by_unifyapps",
 				"resourceVersion":448,
 				"resourceName":"code_by_unifyapps_groovy",
@@ -188,7 +405,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_FeUgW",
-			"index":3,
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -651,7 +868,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"fuLyt",
-			"index":4,
+			"index":9,
 			"inputs":{
 				"automationId":"66af3ff4cd79b321cb478a37",
 				"runtimeConnections":{},
@@ -692,7 +909,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_POMRK",
-			"index":5,
+			"index":10,
 			"inputs":{
 				"result":{
 					"success":true
@@ -721,5 +938,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":107
+	"version":109
 }
