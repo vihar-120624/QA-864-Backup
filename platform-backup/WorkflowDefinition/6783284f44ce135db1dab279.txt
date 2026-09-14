@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743953139,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743953848,
+		"deployedAt":1789395284300,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eced145d2142160e6f6b1",
+		"deployedDefinitionId":"6aa8015439ee5f5ef70b6594",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":334
+		"version":2,
+		"workflowVersion":337
 	},
 	"edges":[
 		{
@@ -474,7 +474,7 @@
 	"id":"6783284f44ce135db1dab279",
 	"lastModifiedBy":-1,
 	"lcName":"prompt builder",
-	"modifiedTime":1788252972085,
+	"modifiedTime":1789395396694,
 	"name":"Prompt Builder",
 	"nodes":[
 		{
@@ -558,6 +558,10 @@
 							"title":"Enable Route Agent Cached",
 							"type":"boolean"
 						},
+						"internalWebSearch":{
+							"title":"Internal Web Search",
+							"type":"boolean"
+						},
 						"isOnlyTextToSQLAgent":{
 							"title":"Is Only Text To SQL Agent",
 							"type":"boolean"
@@ -580,11 +584,16 @@
 										"title":"content",
 										"type":"array"
 									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
+									},
 									"role":{
 										"title":"role",
 										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"title":"messages",
@@ -593,6 +602,121 @@
 						"modelId":{
 							"title":"Model Id",
 							"type":"string"
+						},
+						"previousSystemPromptContext":{
+							"additionalProperties":false,
+							"properties":{
+								"availableTools":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"additional":{
+												"title":"additional",
+												"type":"object"
+											},
+											"deferToolLoading":{
+												"title":"deferToolLoading",
+												"type":"boolean"
+											},
+											"description":{
+												"title":"description",
+												"type":"string"
+											},
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"toolInputSchema":{
+												"title":"toolInputSchema",
+												"type":"object"
+											}
+										},
+										"type":"object"
+									},
+									"title":"availableTools",
+									"type":"array"
+								},
+								"currentTopic":{
+									"title":"currentTopic",
+									"type":"string"
+								},
+								"deepResearch":{
+									"title":"deepResearch",
+									"type":"boolean"
+								},
+								"disableInlineCitations":{
+									"title":"disableInlineCitations",
+									"type":"boolean"
+								},
+								"enableFollowups":{
+									"title":"enableFollowups",
+									"type":"boolean"
+								},
+								"internalWebSearch":{
+									"title":"internalWebSearch",
+									"type":"boolean"
+								},
+								"memoryEnabled":{
+									"title":"memoryEnabled",
+									"type":"boolean"
+								},
+								"modelId":{
+									"title":"modelId",
+									"type":"string"
+								},
+								"responseSchema":{
+									"title":"responseSchema",
+									"type":"object"
+								},
+								"response_format":{
+									"title":"response_format",
+									"type":"string"
+								},
+								"sandboxToolAdded":{
+									"title":"sandboxToolAdded",
+									"type":"boolean"
+								},
+								"stream":{
+									"title":"stream",
+									"type":"boolean"
+								},
+								"systemPrompt":{
+									"title":"systemPrompt",
+									"type":"string"
+								},
+								"textToSQLSettings":{
+									"additionalProperties":false,
+									"properties":{
+										"isOnlyTextToSQLAgent":{
+											"title":"isOnlyTextToSQLAgent",
+											"type":"boolean"
+										},
+										"sqlAndChart1LLMCall_Variant":{
+											"title":"sqlAndChart1LLMCall_Variant",
+											"type":"boolean"
+										},
+										"topicIdForOnlyText2SQL":{
+											"title":"topicIdForOnlyText2SQL",
+											"type":"string"
+										}
+									},
+									"title":"textToSQLSettings",
+									"type":"object"
+								},
+								"useProviderWebSearch":{
+									"title":"useProviderWebSearch",
+									"type":"boolean"
+								},
+								"websearchModelID":{
+									"title":"websearchModelID",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"promptCachingSettings":{
 							"additionalProperties":false,
@@ -654,6 +778,125 @@
 						"instructionsToAppend":{
 							"title":"Instructions To Append",
 							"type":"string"
+						},
+						"isPreviousContextChanged":{
+							"title":"Is Previous Context Changed",
+							"type":"boolean"
+						},
+						"previousSystemPromptContext":{
+							"additionalProperties":false,
+							"properties":{
+								"availableTools":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"additional":{
+												"title":"additional",
+												"type":"object"
+											},
+											"deferToolLoading":{
+												"title":"deferToolLoading",
+												"type":"boolean"
+											},
+											"description":{
+												"title":"description",
+												"type":"string"
+											},
+											"id":{
+												"title":"id",
+												"type":"string"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"toolInputSchema":{
+												"title":"toolInputSchema",
+												"type":"object"
+											}
+										},
+										"type":"object"
+									},
+									"title":"availableTools",
+									"type":"array"
+								},
+								"currentTopic":{
+									"title":"currentTopic",
+									"type":"string"
+								},
+								"deepResearch":{
+									"title":"deepResearch",
+									"type":"boolean"
+								},
+								"disableInlineCitations":{
+									"title":"disableInlineCitations",
+									"type":"boolean"
+								},
+								"enableFollowups":{
+									"title":"enableFollowups",
+									"type":"boolean"
+								},
+								"internalWebSearch":{
+									"title":"internalWebSearch",
+									"type":"boolean"
+								},
+								"memoryEnabled":{
+									"title":"memoryEnabled",
+									"type":"boolean"
+								},
+								"modelId":{
+									"title":"modelId",
+									"type":"string"
+								},
+								"responseSchema":{
+									"title":"responseSchema",
+									"type":"object"
+								},
+								"response_format":{
+									"title":"response_format",
+									"type":"string"
+								},
+								"sandboxToolAdded":{
+									"title":"sandboxToolAdded",
+									"type":"boolean"
+								},
+								"stream":{
+									"title":"stream",
+									"type":"boolean"
+								},
+								"systemPrompt":{
+									"title":"systemPrompt",
+									"type":"string"
+								},
+								"textToSQLSettings":{
+									"additionalProperties":false,
+									"properties":{
+										"isOnlyTextToSQLAgent":{
+											"title":"isOnlyTextToSQLAgent",
+											"type":"boolean"
+										},
+										"sqlAndChart1LLMCall_Variant":{
+											"title":"sqlAndChart1LLMCall_Variant",
+											"type":"boolean"
+										},
+										"topicIdForOnlyText2SQL":{
+											"title":"topicIdForOnlyText2SQL",
+											"type":"string"
+										}
+									},
+									"title":"textToSQLSettings",
+									"type":"object"
+								},
+								"useProviderWebSearch":{
+									"title":"useProviderWebSearch",
+									"type":"boolean"
+								},
+								"websearchModelID":{
+									"title":"websearchModelID",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"task":{
 							"title":"Task",
@@ -927,10 +1170,6 @@
 													"title":"additional",
 													"type":"object"
 												},
-												"deferToolLoading":{
-													"title":"deferToolLoading",
-													"type":"boolean"
-												},
 												"description":{
 													"title":"description",
 													"type":"string"
@@ -968,6 +1207,34 @@
 			"type":"ACTION"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.agentId",
+					"root.parameters.caseId",
+					"root.parameters.previousSystemPromptContext.availableTools.source",
+					"root.parameters.previousSystemPromptContext.availableTools.ua:type",
+					"root.parameters.previousSystemPromptContext.availableTools.items.deferToolLoading",
+					"root.parameters.previousSystemPromptContext.availableTools.items.description",
+					"root.parameters.previousSystemPromptContext.availableTools.items.id",
+					"root.parameters.previousSystemPromptContext.availableTools.items.name",
+					"root.parameters.previousSystemPromptContext.currentTopic",
+					"root.parameters.previousSystemPromptContext.deepResearch",
+					"root.parameters.previousSystemPromptContext.disableInlineCitations",
+					"root.parameters.previousSystemPromptContext.enableFollowups",
+					"root.parameters.previousSystemPromptContext.internalWebSearch",
+					"root.parameters.previousSystemPromptContext.memoryEnabled",
+					"root.parameters.previousSystemPromptContext.modelId",
+					"root.parameters.previousSystemPromptContext.response_format",
+					"root.parameters.previousSystemPromptContext.sandboxToolAdded",
+					"root.parameters.previousSystemPromptContext.stream",
+					"root.parameters.previousSystemPromptContext.systemPrompt",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant",
+					"root.parameters.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL",
+					"root.parameters.previousSystemPromptContext.useProviderWebSearch",
+					"root.parameters.previousSystemPromptContext.websearchModelID"
+				]
+			},
 			"context":{
 				"appName":"callables",
 				"resourceVersion":11,
@@ -987,7 +1254,41 @@
 				"parameters":{
 					"agentId":"{{ xInCD.outputs.agentId }}",
 					"caseId":"{{ xInCD.outputs.caseId }}",
-					"currentTaskId":"{{ xInCD.outputs.taskId }}"
+					"currentTaskId":"{{ xInCD.outputs.taskId }}",
+					"isPreviousContextChanged":"{{ xInCD.outputs.isPreviousContextChanged }}",
+					"previousSystemPromptContext":{
+						"availableTools":{
+							"items":{
+								"additional":"{{ xInCD.outputs.previousSystemPromptContext.availableTools[0].additional }}",
+								"deferToolLoading":"{{ xInCD.outputs.previousSystemPromptContext.availableTools[0].deferToolLoading }}",
+								"description":"{{ xInCD.outputs.previousSystemPromptContext.availableTools[0].description }}",
+								"id":"{{ xInCD.outputs.previousSystemPromptContext.availableTools[0].id }}",
+								"name":"{{ xInCD.outputs.previousSystemPromptContext.availableTools[0].name }}",
+								"toolInputSchema":"{{ xInCD.outputs.previousSystemPromptContext.availableTools[0].toolInputSchema }}"
+							},
+							"source":"{{ xInCD.outputs.previousSystemPromptContext.availableTools }}",
+							"ua:type":"mappedArray"
+						},
+						"currentTopic":"{{ xInCD.outputs.previousSystemPromptContext.currentTopic }}",
+						"deepResearch":"{{ xInCD.outputs.previousSystemPromptContext.deepResearch }}",
+						"disableInlineCitations":"{{ xInCD.outputs.previousSystemPromptContext.disableInlineCitations }}",
+						"enableFollowups":"{{ xInCD.outputs.previousSystemPromptContext.enableFollowups }}",
+						"internalWebSearch":"{{ xInCD.outputs.previousSystemPromptContext.internalWebSearch }}",
+						"memoryEnabled":"{{ xInCD.outputs.previousSystemPromptContext.memoryEnabled }}",
+						"modelId":"{{ xInCD.outputs.previousSystemPromptContext.modelId }}",
+						"responseSchema":"{{ xInCD.outputs.previousSystemPromptContext.responseSchema }}",
+						"response_format":"{{ xInCD.outputs.previousSystemPromptContext.response_format }}",
+						"sandboxToolAdded":"{{ xInCD.outputs.previousSystemPromptContext.sandboxToolAdded }}",
+						"stream":"{{ xInCD.outputs.previousSystemPromptContext.stream }}",
+						"systemPrompt":"{{ xInCD.outputs.previousSystemPromptContext.systemPrompt }}",
+						"textToSQLSettings":{
+							"isOnlyTextToSQLAgent":"{{ xInCD.outputs.previousSystemPromptContext.textToSQLSettings.isOnlyTextToSQLAgent }}",
+							"sqlAndChart1LLMCall_Variant":"{{ xInCD.outputs.previousSystemPromptContext.textToSQLSettings.sqlAndChart1LLMCall_Variant }}",
+							"topicIdForOnlyText2SQL":"{{ xInCD.outputs.previousSystemPromptContext.textToSQLSettings.topicIdForOnlyText2SQL }}"
+						},
+						"useProviderWebSearch":"{{ xInCD.outputs.previousSystemPromptContext.useProviderWebSearch }}",
+						"websearchModelID":"{{ xInCD.outputs.previousSystemPromptContext.websearchModelID }}"
+					}
 				},
 				"version":"-1"
 			},
@@ -1263,6 +1564,10 @@
 											"title":"content",
 											"type":"array"
 										},
+										"modelId":{
+											"title":"Model Id",
+											"type":"string"
+										},
 										"role":{
 											"title":"role",
 											"type":"string"
@@ -1348,6 +1653,10 @@
 										},
 										"title":"content",
 										"type":"array"
+									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
 									},
 									"role":{
 										"title":"role",
@@ -1566,7 +1875,8 @@
 			"additional":{
 				"visibleOptionalFields":[
 					"root.itemsToAdd.items.role",
-					"root.itemsToAdd.items.timestamp"
+					"root.itemsToAdd.items.timestamp",
+					"root.itemsToAdd.items.modelId"
 				]
 			},
 			"context":{
@@ -1591,6 +1901,7 @@
 							"source":"{{ Tf7vw.outputs.messages[0].content }}",
 							"ua:type":"mappedArray"
 						},
+						"modelId":"{{ Tf7vw.outputs.messages[0].modelId }}",
 						"role":"{{ Tf7vw.outputs.messages[0].role }}",
 						"timestamp":"{{ Tf7vw.outputs.messages[0].timestamp }}"
 					},
@@ -3009,6 +3320,7 @@
 					"disableInlineCitations":"{{ JYICZ.outputs.disableInlineCitations }}",
 					"enableFollowups":"{{ JYICZ.outputs.enableFollowups }}",
 					"enableRouteAgentCached":"{{ n_f1RvF.outputs.properties.multiAgentConfig.enableRouteAgentCached }}",
+					"internalWebSearch":"{{ JYICZ.outputs.internalWebSearch }}",
 					"isOnlyTextToSQLAgent":"{{ JYICZ.outputs.isOnlyTextToSQLAgent }}",
 					"memoryEnabled":"{{ JYICZ.outputs.memoryEnabled }}",
 					"messages":{
@@ -3018,12 +3330,46 @@
 								"source":"{{ pe1Mu.outputs.items[0].content }}",
 								"ua:type":"mappedArray"
 							},
+							"modelId":"{{ pe1Mu.outputs.items[0].modelId }}",
 							"role":"{{ pe1Mu.outputs.items[0].role }}"
 						},
 						"source":"{{ pe1Mu.outputs.items }}",
 						"ua:type":"mappedArray"
 					},
 					"modelId":"{{ n_LGWc1.outputs.modelId }}",
+					"previousSystemPromptContext":{
+						"availableTools":{
+							"items":{
+								"additional":"{{ n_OSuxU.outputs.items[0].additional }}",
+								"deferToolLoading":"{{ n_OSuxU.outputs.items[0].deferToolLoading }}",
+								"description":"{{ n_OSuxU.outputs.items[0].description }}",
+								"id":"{{ n_OSuxU.outputs.items[0].id }}",
+								"name":"{{ n_OSuxU.outputs.items[0].name }}",
+								"toolInputSchema":"{{ n_OSuxU.outputs.items[0].toolInputSchema }}"
+							},
+							"source":"{{ n_OSuxU.outputs.items }}",
+							"ua:type":"mappedArray"
+						},
+						"currentTopic":"{{ JYICZ.outputs.currentTopic }}",
+						"deepResearch":"{{ JYICZ.outputs.deepResearch }}",
+						"disableInlineCitations":"{{ JYICZ.outputs.disableInlineCitations }}",
+						"enableFollowups":"{{ JYICZ.outputs.enableFollowups }}",
+						"internalWebSearch":"{{ JYICZ.outputs.internalWebSearch }}",
+						"memoryEnabled":"{{ JYICZ.outputs.memoryEnabled }}",
+						"modelId":"{{ n_LGWc1.outputs.modelId }}",
+						"responseSchema":"{{ JYICZ.outputs.responseSchema }}",
+						"response_format":"{{ JYICZ.outputs.response_format }}",
+						"sandboxToolAdded":"{{ JYICZ.outputs.sandboxToolAdded }}",
+						"stream":"{{ JYICZ.outputs.stream }}",
+						"systemPrompt":"{{ JYICZ.outputs.systemPrompt }}",
+						"textToSQLSettings":{
+							"isOnlyTextToSQLAgent":"{{ JYICZ.outputs.textToSQLSettings.isOnlyTextToSQLAgent }}",
+							"sqlAndChart1LLMCall_Variant":"{{ JYICZ.outputs.textToSQLSettings.sqlAndChart1LLMCall_Variant }}",
+							"topicIdForOnlyText2SQL":"{{ JYICZ.outputs.textToSQLSettings.topicIdForOnlyText2SQL }}"
+						},
+						"useProviderWebSearch":"{{ JYICZ.outputs.useProviderWebSearch }}",
+						"websearchModelID":"{{ JYICZ.outputs.websearchModelID }}"
+					},
 					"promptCachingSettings":{
 						"enablePromptCaching":"{{ n_f1RvF.outputs.promptCachingSettings.enablePromptCaching }}",
 						"minCharactersBeforeNewCheckPoint":"{{ n_f1RvF.outputs.promptCachingSettings.minCharactersBeforeNewCheckPoint }}"
@@ -3066,5 +3412,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":336
+	"version":338
 }
