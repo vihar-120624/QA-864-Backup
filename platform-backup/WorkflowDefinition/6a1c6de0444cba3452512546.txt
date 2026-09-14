@@ -4,27 +4,19 @@
 	],
 	"createdTime":1787743634457,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743634702,
+		"deployedAt":1789395102905,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd9245d2142160e6d2b3",
+		"deployedDefinitionId":"6aa8009ec6a14707f150316d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":51
+		"version":2,
+		"workflowVersion":54
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_2XFw6",
-			"id":"next@n_2XFw6@n_AMBRA",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_AMBRA",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_AMBRA",
-			"id":"next@n_AMBRA@n_LVwDN",
+			"id":"next@n_2XFw6@n_LVwDN",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_LVwDN",
@@ -64,7 +56,15 @@
 		},
 		{
 			"fromNodeId":"n_SCmMx",
-			"id":"next@n_SCmMx@n_OLfsd",
+			"id":"next@n_SCmMx@n_AMBRA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AMBRA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AMBRA",
+			"id":"next@n_AMBRA@n_OLfsd",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_OLfsd",
@@ -128,7 +128,7 @@
 	"id":"6a1c6de0444cba3452512546",
 	"lastModifiedBy":-1,
 	"lcName":"slack message downloader | realtime",
-	"modifiedTime":1788252973072,
+	"modifiedTime":1789395396251,
 	"name":"Slack Message Downloader | Realtime",
 	"nodes":[
 		{
@@ -233,29 +233,6 @@
 		},
 		{
 			"context":{
-				"appName":"slack",
-				"resourceVersion":479,
-				"connectionId":"6a1c87b3ed4fd9754a462f3c",
-				"resourceName":"slack_get_conversation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_qwpDj-1",
-			"id":"n_AMBRA",
-			"index":2,
-			"inputs":{
-				"token_type":"bot_token",
-				"channelId":"{{ n_2XFw6.outputs.accountId }}"
-			},
-			"skip":false,
-			"subTitle":"Slack",
-			"title":"Get conversation",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"code_by_unifyapps",
 				"resourceVersion":144,
 				"resourceName":"code_by_unifyapps_groovy",
@@ -266,7 +243,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qwpDj-1",
 			"id":"n_LVwDN",
-			"index":3,
+			"index":2,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -302,7 +279,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qwpDj-1",
 			"id":"n_2Dh1Q",
-			"index":4,
+			"index":3,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -362,336 +339,361 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qwpDj-1",
 			"id":"n_tnpSn",
-			"index":5,
+			"index":4,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
 					"properties":{
-						"message":{
+						"sourceData":{
 							"additionalProperties":false,
 							"properties":{
-								"blocks":{
-									"items":{
-										"additionalProperties":false,
-										"properties":{
-											"block_id":{
-												"title":"block_id",
-												"type":"string"
-											},
-											"elements":{
-												"items":{
-													"additionalProperties":false,
-													"properties":{
-														"elements":{
-															"items":{
-																"additionalProperties":false,
-																"properties":{
-																	"text":{
-																		"title":"text",
-																		"type":"string"
-																	},
-																	"type":{
-																		"title":"type",
-																		"type":"string"
-																	}
-																},
-																"type":"object"
-															},
-															"title":"elements",
-															"type":"array"
-														},
-														"type":{
-															"title":"type",
-															"type":"string"
-														}
+								"message":{
+									"additionalProperties":false,
+									"properties":{
+										"blocks":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"block_id":{
+														"title":"block_id",
+														"type":"string"
 													},
-													"type":"object"
+													"elements":{
+														"items":{
+															"additionalProperties":false,
+															"properties":{
+																"elements":{
+																	"items":{
+																		"additionalProperties":false,
+																		"properties":{
+																			"text":{
+																				"title":"text",
+																				"type":"string"
+																			},
+																			"type":{
+																				"title":"type",
+																				"type":"string"
+																			}
+																		},
+																		"type":"object"
+																	},
+																	"title":"elements",
+																	"type":"array"
+																},
+																"type":{
+																	"title":"type",
+																	"type":"string"
+																}
+															},
+															"type":"object"
+														},
+														"title":"elements",
+														"type":"array"
+													},
+													"type":{
+														"title":"type",
+														"type":"string"
+													}
 												},
-												"title":"elements",
-												"type":"array"
+												"type":"object"
 											},
-											"type":{
-												"title":"type",
-												"type":"string"
-											}
+											"title":"blocks",
+											"type":"array"
 										},
-										"type":"object"
-									},
-									"title":"blocks",
-									"type":"array"
-								},
-								"channel":{
-									"title":"channel",
-									"type":"string"
-								},
-								"channel_type":{
-									"title":"channel_type",
-									"type":"string"
-								},
-								"client_msg_id":{
-									"title":"client_msg_id",
-									"type":"string"
-								},
-								"display_as_bot":{
-									"title":"display_as_bot",
-									"type":"boolean"
-								},
-								"event_ts":{
-									"title":"event_ts",
-									"type":"string"
-								},
-								"files":{
-									"items":{
-										"additionalProperties":false,
-										"properties":{
-											"created":{
-												"title":"created",
-												"type":"integer"
-											},
-											"display_as_bot":{
-												"title":"display_as_bot",
-												"type":"boolean"
-											},
-											"editable":{
-												"title":"editable",
-												"type":"boolean"
-											},
-											"external_type":{
-												"title":"external_type",
-												"type":"string"
-											},
-											"file_access":{
-												"title":"file_access",
-												"type":"string"
-											},
-											"filetype":{
-												"title":"filetype",
-												"type":"string"
-											},
-											"has_rich_preview":{
-												"title":"has_rich_preview",
-												"type":"boolean"
-											},
-											"id":{
-												"title":"id",
-												"type":"string"
-											},
-											"is_external":{
-												"title":"is_external",
-												"type":"boolean"
-											},
-											"is_modified_by_ai":{
-												"title":"is_modified_by_ai",
-												"type":"boolean"
-											},
-											"is_public":{
-												"title":"is_public",
-												"type":"boolean"
-											},
-											"media_display_type":{
-												"title":"media_display_type",
-												"type":"string"
-											},
-											"mimetype":{
-												"title":"mimetype",
-												"type":"string"
-											},
-											"mode":{
-												"title":"mode",
-												"type":"string"
-											},
-											"name":{
-												"title":"name",
-												"type":"string"
-											},
-											"original_h":{
-												"title":"original_h",
-												"type":"integer"
-											},
-											"original_w":{
-												"title":"original_w",
-												"type":"integer"
-											},
-											"permalink":{
-												"title":"permalink",
-												"type":"string"
-											},
-											"permalink_public":{
-												"title":"permalink_public",
-												"type":"string"
-											},
-											"pretty_type":{
-												"title":"pretty_type",
-												"type":"string"
-											},
-											"public_url_shared":{
-												"title":"public_url_shared",
-												"type":"boolean"
-											},
-											"size":{
-												"title":"size",
-												"type":"integer"
-											},
-											"skipped_shares":{
-												"title":"skipped_shares",
-												"type":"boolean"
-											},
-											"thumb_1024":{
-												"title":"thumb_1024",
-												"type":"string"
-											},
-											"thumb_1024_h":{
-												"title":"thumb_1024_h",
-												"type":"integer"
-											},
-											"thumb_1024_w":{
-												"title":"thumb_1024_w",
-												"type":"integer"
-											},
-											"thumb_160":{
-												"title":"thumb_160",
-												"type":"string"
-											},
-											"thumb_360":{
-												"title":"thumb_360",
-												"type":"string"
-											},
-											"thumb_360_h":{
-												"title":"thumb_360_h",
-												"type":"integer"
-											},
-											"thumb_360_w":{
-												"title":"thumb_360_w",
-												"type":"integer"
-											},
-											"thumb_480":{
-												"title":"thumb_480",
-												"type":"string"
-											},
-											"thumb_480_h":{
-												"title":"thumb_480_h",
-												"type":"integer"
-											},
-											"thumb_480_w":{
-												"title":"thumb_480_w",
-												"type":"integer"
-											},
-											"thumb_64":{
-												"title":"thumb_64",
-												"type":"string"
-											},
-											"thumb_720":{
-												"title":"thumb_720",
-												"type":"string"
-											},
-											"thumb_720_h":{
-												"title":"thumb_720_h",
-												"type":"integer"
-											},
-											"thumb_720_w":{
-												"title":"thumb_720_w",
-												"type":"integer"
-											},
-											"thumb_80":{
-												"title":"thumb_80",
-												"type":"string"
-											},
-											"thumb_800":{
-												"title":"thumb_800",
-												"type":"string"
-											},
-											"thumb_800_h":{
-												"title":"thumb_800_h",
-												"type":"integer"
-											},
-											"thumb_800_w":{
-												"title":"thumb_800_w",
-												"type":"integer"
-											},
-											"thumb_960":{
-												"title":"thumb_960",
-												"type":"string"
-											},
-											"thumb_960_h":{
-												"title":"thumb_960_h",
-												"type":"integer"
-											},
-											"thumb_960_w":{
-												"title":"thumb_960_w",
-												"type":"integer"
-											},
-											"thumb_tiny":{
-												"title":"thumb_tiny",
-												"type":"string"
-											},
-											"timestamp":{
-												"title":"timestamp",
-												"type":"integer"
-											},
-											"title":{
-												"title":"title",
-												"type":"string"
-											},
-											"url_private":{
-												"title":"url_private",
-												"type":"string"
-											},
-											"url_private_download":{
-												"title":"url_private_download",
-												"type":"string"
-											},
-											"user":{
-												"title":"user",
-												"type":"string"
-											},
-											"user_team":{
-												"title":"user_team",
-												"type":"string"
-											},
-											"username":{
-												"title":"username",
-												"type":"string"
-											}
+										"channel":{
+											"title":"channel",
+											"type":"string"
 										},
-										"type":"object"
+										"channel_type":{
+											"title":"channel_type",
+											"type":"string"
+										},
+										"client_msg_id":{
+											"title":"client_msg_id",
+											"type":"string"
+										},
+										"display_as_bot":{
+											"title":"display_as_bot",
+											"type":"boolean"
+										},
+										"edited":{
+											"additionalProperties":false,
+											"properties":{
+												"ts":{
+													"title":"Ts",
+													"type":"string"
+												},
+												"user":{
+													"title":"User",
+													"type":"string"
+												}
+											},
+											"required":[],
+											"title":"Edited",
+											"type":"object"
+										},
+										"event_ts":{
+											"title":"event_ts",
+											"type":"string"
+										},
+										"files":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"created":{
+														"title":"created",
+														"type":"integer"
+													},
+													"display_as_bot":{
+														"title":"display_as_bot",
+														"type":"boolean"
+													},
+													"editable":{
+														"title":"editable",
+														"type":"boolean"
+													},
+													"external_type":{
+														"title":"external_type",
+														"type":"string"
+													},
+													"file_access":{
+														"title":"file_access",
+														"type":"string"
+													},
+													"filetype":{
+														"title":"filetype",
+														"type":"string"
+													},
+													"has_rich_preview":{
+														"title":"has_rich_preview",
+														"type":"boolean"
+													},
+													"id":{
+														"title":"id",
+														"type":"string"
+													},
+													"is_external":{
+														"title":"is_external",
+														"type":"boolean"
+													},
+													"is_modified_by_ai":{
+														"title":"is_modified_by_ai",
+														"type":"boolean"
+													},
+													"is_public":{
+														"title":"is_public",
+														"type":"boolean"
+													},
+													"media_display_type":{
+														"title":"media_display_type",
+														"type":"string"
+													},
+													"mimetype":{
+														"title":"mimetype",
+														"type":"string"
+													},
+													"mode":{
+														"title":"mode",
+														"type":"string"
+													},
+													"name":{
+														"title":"name",
+														"type":"string"
+													},
+													"original_h":{
+														"title":"original_h",
+														"type":"integer"
+													},
+													"original_w":{
+														"title":"original_w",
+														"type":"integer"
+													},
+													"permalink":{
+														"title":"permalink",
+														"type":"string"
+													},
+													"permalink_public":{
+														"title":"permalink_public",
+														"type":"string"
+													},
+													"pretty_type":{
+														"title":"pretty_type",
+														"type":"string"
+													},
+													"public_url_shared":{
+														"title":"public_url_shared",
+														"type":"boolean"
+													},
+													"size":{
+														"title":"size",
+														"type":"integer"
+													},
+													"skipped_shares":{
+														"title":"skipped_shares",
+														"type":"boolean"
+													},
+													"thumb_1024":{
+														"title":"thumb_1024",
+														"type":"string"
+													},
+													"thumb_1024_h":{
+														"title":"thumb_1024_h",
+														"type":"integer"
+													},
+													"thumb_1024_w":{
+														"title":"thumb_1024_w",
+														"type":"integer"
+													},
+													"thumb_160":{
+														"title":"thumb_160",
+														"type":"string"
+													},
+													"thumb_360":{
+														"title":"thumb_360",
+														"type":"string"
+													},
+													"thumb_360_h":{
+														"title":"thumb_360_h",
+														"type":"integer"
+													},
+													"thumb_360_w":{
+														"title":"thumb_360_w",
+														"type":"integer"
+													},
+													"thumb_480":{
+														"title":"thumb_480",
+														"type":"string"
+													},
+													"thumb_480_h":{
+														"title":"thumb_480_h",
+														"type":"integer"
+													},
+													"thumb_480_w":{
+														"title":"thumb_480_w",
+														"type":"integer"
+													},
+													"thumb_64":{
+														"title":"thumb_64",
+														"type":"string"
+													},
+													"thumb_720":{
+														"title":"thumb_720",
+														"type":"string"
+													},
+													"thumb_720_h":{
+														"title":"thumb_720_h",
+														"type":"integer"
+													},
+													"thumb_720_w":{
+														"title":"thumb_720_w",
+														"type":"integer"
+													},
+													"thumb_80":{
+														"title":"thumb_80",
+														"type":"string"
+													},
+													"thumb_800":{
+														"title":"thumb_800",
+														"type":"string"
+													},
+													"thumb_800_h":{
+														"title":"thumb_800_h",
+														"type":"integer"
+													},
+													"thumb_800_w":{
+														"title":"thumb_800_w",
+														"type":"integer"
+													},
+													"thumb_960":{
+														"title":"thumb_960",
+														"type":"string"
+													},
+													"thumb_960_h":{
+														"title":"thumb_960_h",
+														"type":"integer"
+													},
+													"thumb_960_w":{
+														"title":"thumb_960_w",
+														"type":"integer"
+													},
+													"thumb_tiny":{
+														"title":"thumb_tiny",
+														"type":"string"
+													},
+													"timestamp":{
+														"title":"timestamp",
+														"type":"integer"
+													},
+													"title":{
+														"title":"title",
+														"type":"string"
+													},
+													"url_private":{
+														"title":"url_private",
+														"type":"string"
+													},
+													"url_private_download":{
+														"title":"url_private_download",
+														"type":"string"
+													},
+													"user":{
+														"title":"user",
+														"type":"string"
+													},
+													"user_team":{
+														"title":"user_team",
+														"type":"string"
+													},
+													"username":{
+														"title":"username",
+														"type":"string"
+													}
+												},
+												"type":"object"
+											},
+											"title":"files",
+											"type":"array"
+										},
+										"subtype":{
+											"title":"subtype",
+											"type":"string"
+										},
+										"text":{
+											"title":"text",
+											"type":"string"
+										},
+										"thread_ts":{
+											"title":"Thread Ts",
+											"type":"string"
+										},
+										"ts":{
+											"title":"ts",
+											"type":"string"
+										},
+										"type":{
+											"title":"type",
+											"type":"string"
+										},
+										"upload":{
+											"title":"upload",
+											"type":"boolean"
+										},
+										"user":{
+											"title":"user",
+											"type":"string"
+										}
 									},
-									"title":"files",
-									"type":"array"
-								},
-								"subtype":{
-									"title":"subtype",
-									"type":"string"
-								},
-								"text":{
-									"title":"text",
-									"type":"string"
-								},
-								"thread_ts":{
-									"title":"Thread Ts",
-									"type":"string"
-								},
-								"ts":{
-									"title":"ts",
-									"type":"string"
-								},
-								"type":{
-									"title":"type",
-									"type":"string"
-								},
-								"upload":{
-									"title":"upload",
-									"type":"boolean"
-								},
-								"user":{
-									"title":"user",
-									"type":"string"
+									"required":[],
+									"title":"message",
+									"type":"object"
 								}
 							},
 							"required":[],
-							"title":"message",
+							"title":"Source Data",
 							"type":"object"
 						}
 					},
+					"required":[],
 					"type":"object"
 				},
 				"input":{
@@ -707,7 +709,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def webhookEvent=binding.hasVariable(\"webhookEvent\")?webhookEvent:[:]\n\n\nreturn [\"message\":webhookEvent]",
+				"code":"def webhookEvent=binding.hasVariable(\"webhookEvent\")?webhookEvent:[:]\n\n\nreturn [\"sourceData\":webhookEvent]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -731,7 +733,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qwpDj-1",
 			"id":"n_DKLSj",
-			"index":6,
+			"index":5,
 			"inputs":{
 				"object_type":"knowledge",
 				"includeRoleMappings":false,
@@ -757,7 +759,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_qwpDj-1",
 			"id":"n_SCmMx",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -793,6 +795,29 @@
 			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":479,
+				"connectionId":"6a1c87b3ed4fd9754a462f3c",
+				"resourceName":"slack_get_conversation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_qwpDj-1",
+			"id":"n_AMBRA",
+			"index":7,
+			"inputs":{
+				"token_type":"{{ n_SCmMx.outputs.result.token_type }}",
+				"channelId":"{{ n_2XFw6.outputs.accountId }}"
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Get conversation",
 			"type":"ACTION"
 		},
 		{
@@ -850,8 +875,8 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"channel":"{{ n_AMBRA.outputs.channel }}",
-					"threadTs":"{{ n_tnpSn.outputs.result.message.thread_ts }}",
-					"ts":"{{ n_tnpSn.outputs.result.message.ts }}"
+					"threadTs":"{{ n_tnpSn.outputs.result.sourceData.message.thread_ts }}",
+					"ts":"{{ n_tnpSn.outputs.result.sourceData.message.ts }}"
 				}
 			},
 			"skip":false,
@@ -878,14 +903,14 @@
 						"filter":{
 							"operator":"EXISTS"
 						},
-						"property":"{{ n_tnpSn.outputs.result.message.files }}"
+						"property":"{{ n_tnpSn.outputs.result.sourceData.message.files }}"
 					},
 					{
 						"filter":{
 							"operator":"GT",
 							"value":"0"
 						},
-						"property":"=LEN({{ n_tnpSn.outputs.result.message.files }})"
+						"property":"=LEN({{ n_tnpSn.outputs.result.sourceData.message.files }})"
 					}
 				],
 				"operator":"AND"
@@ -978,73 +1003,74 @@
 					"message":{
 						"blocks":{
 							"items":{
-								"block_id":"{{ n_tnpSn.outputs.result.message.blocks[0].block_id }}",
+								"block_id":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].block_id }}",
 								"elements":{
 									"items":{
 										"elements":{
 											"items":{
-												"text":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].elements[0].text }}",
-												"type":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].elements[0].type }}"
+												"text":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].elements[0].text }}",
+												"type":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].elements[0].type }}"
 											},
-											"source":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].elements }}",
+											"source":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].elements }}",
 											"ua:type":"mappedArray"
 										},
-										"type":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].type }}"
+										"type":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].type }}"
 									},
-									"source":"{{ n_tnpSn.outputs.result.message.blocks[0].elements }}",
+									"source":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements }}",
 									"ua:type":"mappedArray"
 								},
-								"type":"{{ n_tnpSn.outputs.result.message.blocks[0].type }}"
+								"type":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].type }}"
 							},
-							"source":"{{ n_tnpSn.outputs.result.message.blocks }}",
+							"source":"{{ n_tnpSn.outputs.result.sourceData.message.blocks }}",
 							"ua:type":"mappedArray"
 						},
-						"client_msg_id":"{{ n_tnpSn.outputs.result.message.client_msg_id }}",
+						"client_msg_id":"{{ n_tnpSn.outputs.result.sourceData.message.client_msg_id }}",
 						"files":{
 							"items":{
-								"created":"{{ n_tnpSn.outputs.result.message.files[0].created }}",
-								"display_as_bot":"{{ n_tnpSn.outputs.result.message.files[0].display_as_bot }}",
-								"editable":"{{ n_tnpSn.outputs.result.message.files[0].editable }}",
-								"external_type":"{{ n_tnpSn.outputs.result.message.files[0].external_type }}",
-								"file_access":"{{ n_tnpSn.outputs.result.message.files[0].file_access }}",
-								"filetype":"{{ n_tnpSn.outputs.result.message.files[0].filetype }}",
-								"has_rich_preview":"{{ n_tnpSn.outputs.result.message.files[0].has_rich_preview }}",
-								"id":"{{ n_tnpSn.outputs.result.message.files[0].id }}",
-								"is_external":"{{ n_tnpSn.outputs.result.message.files[0].is_external }}",
-								"is_public":"{{ n_tnpSn.outputs.result.message.files[0].is_public }}",
-								"media_display_type":"{{ n_tnpSn.outputs.result.message.files[0].media_display_type }}",
-								"mimetype":"{{ n_tnpSn.outputs.result.message.files[0].mimetype }}",
-								"mode":"{{ n_tnpSn.outputs.result.message.files[0].mode }}",
-								"name":"{{ n_tnpSn.outputs.result.message.files[0].name }}",
-								"permalink":"{{ n_tnpSn.outputs.result.message.files[0].permalink }}",
-								"permalink_public":"{{ n_tnpSn.outputs.result.message.files[0].permalink_public }}",
-								"pretty_type":"{{ n_tnpSn.outputs.result.message.files[0].pretty_type }}",
-								"public_url_shared":"{{ n_tnpSn.outputs.result.message.files[0].public_url_shared }}",
-								"size":"{{ n_tnpSn.outputs.result.message.files[0].size }}",
-								"timestamp":"{{ n_tnpSn.outputs.result.message.files[0].timestamp }}",
-								"title":"{{ n_tnpSn.outputs.result.message.files[0].title }}",
-								"url_private":"{{ n_tnpSn.outputs.result.message.files[0].url_private }}",
-								"url_private_download":"{{ n_tnpSn.outputs.result.message.files[0].url_private_download }}",
-								"user":"{{ n_tnpSn.outputs.result.message.files[0].user }}",
-								"user_team":"{{ n_tnpSn.outputs.result.message.files[0].user_team }}",
-								"username":"{{ n_tnpSn.outputs.result.message.files[0].username }}"
+								"created":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].created }}",
+								"display_as_bot":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].display_as_bot }}",
+								"editable":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].editable }}",
+								"external_type":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].external_type }}",
+								"file_access":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].file_access }}",
+								"filetype":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].filetype }}",
+								"has_rich_preview":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].has_rich_preview }}",
+								"id":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].id }}",
+								"is_external":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].is_external }}",
+								"is_public":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].is_public }}",
+								"media_display_type":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].media_display_type }}",
+								"mimetype":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].mimetype }}",
+								"mode":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].mode }}",
+								"name":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].name }}",
+								"permalink":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].permalink }}",
+								"permalink_public":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].permalink_public }}",
+								"pretty_type":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].pretty_type }}",
+								"public_url_shared":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].public_url_shared }}",
+								"size":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].size }}",
+								"timestamp":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].timestamp }}",
+								"title":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].title }}",
+								"url_private":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].url_private }}",
+								"url_private_download":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].url_private_download }}",
+								"user":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].user }}",
+								"user_team":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].user_team }}",
+								"username":"{{ n_tnpSn.outputs.result.sourceData.message.files[0].username }}"
 							},
-							"source":"{{ n_tnpSn.outputs.result.message.files }}",
+							"source":"{{ n_tnpSn.outputs.result.sourceData.message.files }}",
 							"ua:type":"mappedArray"
 						},
-						"parent_user_id":"{{ n_tnpSn.outputs.result.message.parent_user_id }}",
-						"text":"{{ n_tnpSn.outputs.result.message.text }}",
-						"thread_ts":"{{ n_tnpSn.outputs.result.message.thread_ts }}",
-						"ts":"{{ n_tnpSn.outputs.result.message.ts }}",
-						"type":"{{ n_tnpSn.outputs.result.message.type }}",
-						"user":"{{ n_tnpSn.outputs.result.message.user }}"
+						"parent_user_id":"{{ n_tnpSn.outputs.result.sourceData.parent_user_id }}",
+						"text":"{{ n_tnpSn.outputs.result.sourceData.message.text }}",
+						"thread_ts":"{{ n_tnpSn.outputs.result.sourceData.message.thread_ts }}",
+						"ts":"{{ n_tnpSn.outputs.result.sourceData.message.ts }}",
+						"type":"{{ n_tnpSn.outputs.result.sourceData.message.type }}",
+						"user":"{{ n_tnpSn.outputs.result.sourceData.message.user }}"
 					},
 					"ok":"{{ n_4RZGW.outputs.ok }}",
 					"parentEntityId":"{{ n_2XFw6.outputs.accountId }}",
-					"parentMessageId":"{{ n_tnpSn.outputs.result.message.thread_ts }}",
+					"parentMessageId":"{{ n_tnpSn.outputs.result.sourceData.message.thread_ts }}",
 					"token_type":"{{ n_SCmMx.outputs.result.token_type }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -1186,40 +1212,44 @@
 					"message":{
 						"blocks":{
 							"items":{
-								"block_id":"{{ n_tnpSn.outputs.result.message.blocks[0].block_id }}",
+								"block_id":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].block_id }}",
 								"elements":{
 									"items":{
 										"elements":{
 											"items":{
-												"text":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].elements[0].text }}",
-												"type":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].elements[0].type }}"
+												"text":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].elements[0].text }}",
+												"type":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].elements[0].type }}"
 											},
-											"source":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].elements }}",
+											"source":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].elements }}",
 											"ua:type":"mappedArray"
 										},
-										"type":"{{ n_tnpSn.outputs.result.message.blocks[0].elements[0].type }}"
+										"type":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements[0].type }}"
 									},
-									"source":"{{ n_tnpSn.outputs.result.message.blocks[0].elements }}",
+									"source":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].elements }}",
 									"ua:type":"mappedArray"
 								},
-								"type":"{{ n_tnpSn.outputs.result.message.blocks[0].type }}"
+								"type":"{{ n_tnpSn.outputs.result.sourceData.message.blocks[0].type }}"
 							},
-							"source":"{{ n_tnpSn.outputs.result.message.blocks }}",
+							"source":"{{ n_tnpSn.outputs.result.sourceData.message.blocks }}",
 							"ua:type":"mappedArray"
 						},
-						"client_msg_id":"{{ n_tnpSn.outputs.result.message.client_msg_id }}",
-						"text":"{{ n_tnpSn.outputs.result.message.text }}",
-						"thread_ts":"{{ n_tnpSn.outputs.result.message.thread_ts }}",
-						"ts":"{{ n_tnpSn.outputs.result.message.ts }}",
-						"type":"{{ n_tnpSn.outputs.result.message.type }}",
-						"user":"{{ n_tnpSn.outputs.result.message.user }}"
+						"client_msg_id":"{{ n_tnpSn.outputs.result.sourceData.message.client_msg_id }}",
+						"edited":{
+							"ts":"{{ n_tnpSn.outputs.result.sourceData.message.edited.ts }}",
+							"user":"{{ n_tnpSn.outputs.result.sourceData.message.edited.user }}"
+						},
+						"text":"{{ n_tnpSn.outputs.result.sourceData.message.text }}",
+						"thread_ts":"{{ n_tnpSn.outputs.result.sourceData.message.thread_ts }}",
+						"ts":"{{ n_tnpSn.outputs.result.sourceData.message.ts }}",
+						"type":"{{ n_tnpSn.outputs.result.sourceData.message.type }}",
+						"user":"{{ n_tnpSn.outputs.result.sourceData.message.user }}"
 					},
-					"ok":"{{ n_4RZGW.outputs.ok }}",
 					"parentEntityId":"{{ n_2XFw6.outputs.accountId }}",
-					"parentMessageId":"{{ n_tnpSn.outputs.result.message.thread_ts }}",
+					"parentMessageId":"{{ n_tnpSn.outputs.result.sourceData.message.thread_ts }}",
 					"token_type":"{{ n_SCmMx.outputs.result.token_type }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -1320,5 +1350,5 @@
 		}
 	},
 	"standard":true,
-	"version":53
+	"version":55
 }
