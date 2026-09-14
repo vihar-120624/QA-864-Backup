@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743647180,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743647303,
+		"deployedAt":1789395108484,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd9f45d2142160e6d33b",
+		"deployedDefinitionId":"6aa800a472fd792214e8c1b4",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":318
+		"version":2,
+		"workflowVersion":321
 	},
 	"edges":[
 		{
@@ -94,7 +94,7 @@
 	"id":"6880d780e4ce0e96ac4c481b",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | hubspot | index company",
-	"modifiedTime":1788252972136,
+	"modifiedTime":1789395389995,
 	"name":"Knowledge Indexer | Hubspot | Index company",
 	"nodes":[
 		{
@@ -378,9 +378,17 @@
 									"title":"num_associated_contacts",
 									"type":"string"
 								},
+								"num_associated_deals":{
+									"title":"Num Associated Deals",
+									"type":"string"
+								},
 								"num_notes":{
 									"title":"num_notes",
 									"type":"string"
+								},
+								"number_of_associated_tickets":{
+									"title":"Number Of Associated Tickets",
+									"type":"integer"
 								},
 								"owner":{
 									"title":"Owner",
@@ -512,7 +520,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def FIELD_LABELS = [\n  name : \"companyName\",\n  name : \"title\",\n  domain : \"domain\",\n  industry : \"industry\",\n  website : \"website\",\n  city : \"city\",\n  hs_lead_status : \"leadStatus\",\n  hs_domain_status : \"domainStatus\",\n  hs_num_open_deals : \"numberOfOpenDeals\",\n  total_money_raised : \"totalMoneyRaised\",\n  lifecyclestage : \"lifeCycleStage\",\n  hs_linkedin_handle : \"linkedInHandle\",\n  owner : \"owner\",\n  ownerEmail : \"ownerEmail\",\n  description : \"description\"\n]\n\ndef ORDER = [\"name\",\"domain\",\"industry\",\"website\",\"city\",\"hs_lead_status\",\"hs_domain_status\",\"hs_num_open_deals\",\"total_money_raised\",\"lifecyclestage\",\"hs_linkedin_handle\",\"owner\",\"ownerEmail\",\"description\"]\n\n// copy properties, then override with resolved labels where available\ndef merged = [:]\nmerged.putAll(properties ?: [:])\n\ndef buildText = { Map props, Map labels, List order ->\n    order.findAll { props[it] != null && props[it].toString().trim() }\n         .collect { \"${labels[it]}: ${props[it].toString().trim()}\" }\n         .join(\", \")\n}\n\nreturn [\"eventData\": buildText(merged, FIELD_LABELS, ORDER).toString()]",
+				"code":"def FIELD_LABELS = [\n  name : \"companyName\",\n  name : \"title\",\n  domain : \"domain\",\n  industry : \"industry\",\n  website : \"website\",\n  city : \"city\",\n  hs_lead_status : \"leadStatus\",\n  hs_domain_status : \"domainStatus\",\n  hs_num_open_deals : \"numberOfOpenDeals\",\n  total_money_raised : \"totalMoneyRaised\",\n  lifecyclestage : \"lifeCycleStage\",\n  hs_linkedin_handle : \"linkedInHandle\",\n  owner : \"owner\",\n  ownerEmail : \"ownerEmail\",\n  description : \"description\",\n  num_associated_deals : \"numOfAssociatedDeals\",\n  num_associated_contacts : \"numOfAssociatedContacts\",\n  number_of_associated_tickets : \"numberOfAssociatedTickets\"\n]\n\ndef ORDER = [\"name\",\"domain\",\"industry\",\"website\",\"city\",\"hs_lead_status\",\"hs_domain_status\",\"hs_num_open_deals\",\"total_money_raised\",\"lifecyclestage\",\"hs_linkedin_handle\",\"owner\",\"ownerEmail\",\"description\",\"num_associated_deals\",\"num_associated_contacts\",\"number_of_associated_tickets\"]\n\n// copy properties, then override with resolved labels where available\ndef merged = [:]\nmerged.putAll(properties ?: [:])\n\ndef buildText = { Map props, Map labels, List order ->\n    order.findAll { props[it] != null && props[it].toString().trim() }\n         .collect { \"${labels[it]}: ${props[it].toString().trim()}\" }\n         .join(\", \")\n}\n\nreturn [\"eventData\": buildText(merged, FIELD_LABELS, ORDER).toString()]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -646,7 +654,7 @@
 					"chunkMetadata":"{{ n_N3IsP.outputs.chunkMetadata }}",
 					"chunks":{
 						"items":{
-							"data":"{{ nebL9.outputs.chunks }} ; {{ n_T1Rnz.outputs.result.text }}",
+							"data":" {{ nebL9.outputs.chunks[0] }} ; {{ n_T1Rnz.outputs.result.text }}",
 							"sharedWithIds":{
 								"items":"{{ n_QcFG1.outputs.sharedWithIds }}",
 								"source":"{{ n_QcFG1.outputs.sharedWithIds }}",
@@ -710,5 +718,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":320
+	"version":322
 }
