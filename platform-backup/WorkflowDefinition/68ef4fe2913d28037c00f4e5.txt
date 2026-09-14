@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743733327,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743733670,
+		"deployedAt":1789395154653,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdf5177b4b4aca57afdd",
+		"deployedDefinitionId":"6aa800d2c6a14707f150347c",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":64
+		"version":2,
+		"workflowVersion":67
 	},
 	"edges":[
 		{
@@ -208,6 +208,7 @@
 		{
 			"fromNodeId":"_oShds",
 			"id":"next@_oShds@_euJUs",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_euJUs",
@@ -216,6 +217,7 @@
 		{
 			"fromNodeId":"_euJUs",
 			"id":"next@_euJUs@_sqVTf",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_sqVTf",
@@ -250,6 +252,7 @@
 		{
 			"fromNodeId":"_zwPGy",
 			"id":"next@_zwPGy@_PFPzx",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_PFPzx",
@@ -258,6 +261,7 @@
 		{
 			"fromNodeId":"_PFPzx",
 			"id":"next@_PFPzx@_goleO",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_goleO",
@@ -753,6 +757,58 @@
 			"skip":false,
 			"toNodeId":"OVF7r",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"_oShds",
+			"id":"error@_oShds@n_omit1",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit1",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_euJUs",
+			"id":"error@_euJUs@n_omit1",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit1",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_omit1",
+			"id":"next@n_omit1@bpSID",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"bpSID",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_zwPGy",
+			"id":"error@_zwPGy@n_omit2",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit2",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_PFPzx",
+			"id":"error@_PFPzx@n_omit2",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit2",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_omit2",
+			"id":"next@n_omit2@bpSID",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"bpSID",
+			"type":"next"
 		}
 	],
 	"grants":{
@@ -770,7 +826,7 @@
 	"id":"68ef4fe2913d28037c00f4e5",
 	"lastModifiedBy":-1,
 	"lcName":"call llm messages to responses api inputs",
-	"modifiedTime":1788252972612,
+	"modifiedTime":1789395399186,
 	"name":"Call LLM Messages to Responses API Inputs",
 	"nodes":[
 		{
@@ -2933,7 +2989,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_Fphh1@_9xoyM@n_43jzX@drpP0@bzW7D@ESoYm@NmnYY-1@l@l@1@2@success@y",
 			"id":"_oShds",
 			"index":23,
@@ -2944,6 +3000,58 @@
 				"scale":1,
 				"contentType":"image",
 				"maxSizeKB":1000
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -2959,13 +3067,65 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_Fphh1@_9xoyM@n_43jzX@drpP0@bzW7D@ESoYm@NmnYY-1@l@l@1@2@success@y",
 			"id":"_euJUs",
 			"index":24,
 			"inputs":{
 				"file":"{{ _oShds.outputs.fileDetails }}",
 				"encoding":"base64"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -3094,7 +3254,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_9xoyM@n_43jzX@drpP0@bzW7D@ESoYm@NmnYY-1@l@l@1@2@error",
 			"id":"_zwPGy",
 			"index":28,
@@ -3105,6 +3265,58 @@
 				"scale":1,
 				"contentType":"image",
 				"maxSizeKB":1000
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -3120,13 +3332,65 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_9xoyM@n_43jzX@drpP0@bzW7D@ESoYm@NmnYY-1@l@l@1@2@error",
 			"id":"_PFPzx",
 			"index":29,
 			"inputs":{
 				"file":"{{ _zwPGy.outputs.fileDetails }}",
 				"encoding":"base64"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -5103,6 +5367,70 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemToAdd.image_url.url",
+					"root.itemToAdd.image_url.detail"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_euJUs@_Fphh1@_9xoyM@n_43jzX@drpP0@bzW7D@ESoYm@NmnYY-1@l@l@1@2@success@y@error",
+			"id":"n_omit1",
+			"index":67,
+			"inputs":{
+				"itemToAdd":{
+					"text":"[attachment {{ bzW7D.outputs.item.source.image_data.name }} ({{ bzW7D.outputs.item.source.media_type }}) was not sent: it could not be downloaded or compressed within this environment's limits]",
+					"type":"input_text"
+				},
+				"insertLocation":"END",
+				"listName":"{{ DwEJc.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"input_text",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemToAdd.image_url.url",
+					"root.itemToAdd.image_url.detail"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PFPzx@_9xoyM@n_43jzX@drpP0@bzW7D@ESoYm@NmnYY-1@l@l@1@2@error@error",
+			"id":"n_omit2",
+			"index":68,
+			"inputs":{
+				"itemToAdd":{
+					"text":"[attachment {{ bzW7D.outputs.item.source.image_data.name }} ({{ bzW7D.outputs.item.source.media_type }}) was not sent: it could not be downloaded or compressed within this environment's limits]",
+					"type":"input_text"
+				},
+				"insertLocation":"END",
+				"listName":"{{ DwEJc.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"input_text",
+			"title":"Add item to list",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":-1,
@@ -5119,5 +5447,5 @@
 		}
 	},
 	"standard":true,
-	"version":66
+	"version":68
 }
