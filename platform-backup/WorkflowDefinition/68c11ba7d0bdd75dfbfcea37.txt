@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744076848,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744077298,
+		"deployedAt":1789395316222,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf4dba51514edfc7e847",
+		"deployedDefinitionId":"6aa8017439ee5f5ef70b6785",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":40
+		"version":2,
+		"workflowVersion":43
 	},
 	"edges":[
 		{
@@ -258,7 +258,7 @@
 	"id":"68c11ba7d0bdd75dfbfcea37",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | ms teams | file",
-	"modifiedTime":1788252972410,
+	"modifiedTime":1789395400360,
 	"name":"Knowledge Indexer | MS Teams | File",
 	"nodes":[
 		{
@@ -275,6 +275,7 @@
 			"index":1,
 			"inputs":{
 				"result":{
+					"dynamic":true,
 					"properties":{
 						"success":{
 							"title":"Success",
@@ -384,6 +385,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"metadata":{
 							"additionalProperties":false,
 							"properties":{},
@@ -487,9 +509,16 @@
 							"value":"true"
 						},
 						"property":"{{ n_o4fot.outputs.result.channel }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ __ENV__.outputs.READ_TEAMS_PARTICIPANT_ENABLED }}"
 					}
 				],
-				"operator":"AND"
+				"operator":"OR"
 			},
 			"skip":false,
 			"subTitle":"Condition",
@@ -1494,5 +1523,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":42
+	"version":44
 }
