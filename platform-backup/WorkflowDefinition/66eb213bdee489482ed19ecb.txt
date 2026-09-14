@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744254157,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744254969,
+		"deployedAt":1789395328922,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecffecee862008d7511c7",
+		"deployedDefinitionId":"6aa8018039ee5f5ef70b6835",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":424
+		"version":2,
+		"workflowVersion":427
 	},
 	"edges":[
 		{
@@ -353,7 +353,7 @@
 	"id":"66eb213bdee489482ed19ecb",
 	"lastModifiedBy":-1,
 	"lcName":"observability | analytics final",
-	"modifiedTime":1788252973394,
+	"modifiedTime":1789395387678,
 	"name":"Observability | Analytics Final",
 	"nodes":[
 		{
@@ -371,6 +371,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"avgCost":{
 							"title":"Avg Cost",
@@ -463,6 +464,10 @@
 							"required":[],
 							"title":"Sessions",
 							"type":"array"
+						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
 						},
 						"totalSessions":{
 							"default":"0",
@@ -682,7 +687,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.ZonedDateTime\nimport java.time.format.DateTimeFormatter\nimport java.time.Instant\nimport java.time.ZoneOffset\n\ndef formatter = DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ssXXX\")\n\nlong startEpoch\nif (binding.hasVariable('startDate') && startDate != null) {\n    startEpoch = ZonedDateTime.parse(startDate, formatter)\n            .toInstant()\n            .toEpochMilli()\n} else {\n    startEpoch = Instant.ofEpochMilli(0).toEpochMilli()\n}\n\nlong endEpoch\nif (binding.hasVariable('endDate') && endDate != null) {\n    endEpoch = ZonedDateTime.parse(endDate, formatter)\n            .toInstant()\n            .toEpochMilli()\n} else {\n    endEpoch = Instant.now().toEpochMilli()\n}\n\ndef defaultSort = [\n    [\n        field: \"startTime\",\n        order: \"DESC\"\n    ]\n]\nif (!binding.hasVariable('sort') || !sort) {\n    sort = defaultSort\n}\n\nif (!binding.hasVariable('AGENT_TRACE_VISIBILITY')) {\n    AGENT_TRACE_VISIBILITY = \"global\"\n}\n\nif (!binding.hasVariable('userId')) {\n    userId = \"0\"\n}\n\ndef limit = binding.hasVariable('limit') ? binding.getVariable('limit') : 50\nlimit = 3 * limit\n\ndef result = [\n    'startTime': startEpoch,\n    'endTime'  : endEpoch,\n    'sort'     : sort,\n    'limit'    : limit\n]\n\n// Private trace: restrict to the requesting user's own records\nif (AGENT_TRACE_VISIBILITY == \"private\") {\n    result['userFilter'] = [\n        op    : \"AND\",\n        values: [\n            [\n                field : \"ENTITY_service_hub_case=::=ownerUserId\",\n                op    : \"EQUAL\",\n                values: [userId]\n            ]\n        ]\n    ]\n}\n\nreturn result",
+				"code":"import java.time.ZonedDateTime\nimport java.time.format.DateTimeFormatter\nimport java.time.Instant\nimport java.time.ZoneOffset\n\ndef formatter = DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ssXXX\")\n\nlong startEpoch\nif (binding.hasVariable('startDate') && startDate != null) {\n    startEpoch = ZonedDateTime.parse(startDate, formatter)\n            .toInstant()\n            .toEpochMilli()\n} else {\n    startEpoch = Instant.ofEpochMilli(0).toEpochMilli()\n}\n\nlong endEpoch\nif (binding.hasVariable('endDate') && endDate != null) {\n    endEpoch = ZonedDateTime.parse(endDate, formatter)\n            .toInstant()\n            .toEpochMilli()\n} else {\n    endEpoch = Instant.now().toEpochMilli()\n}\n\ndef defaultSort = [\n    [\n        field: \"startTime\",\n        order: \"DESC\"\n    ]\n]\nif (!binding.hasVariable('sort') || !sort) {\n    sort = defaultSort\n}\n\nif (!binding.hasVariable('AGENT_TRACE_VISIBILITY')) {\n    AGENT_TRACE_VISIBILITY = \"global\"\n}\n\nif (!binding.hasVariable('userId')) {\n    userId = \"0\"\n}\n\ndef limit = binding.hasVariable('limit') ? binding.getVariable('limit') : 50\nlimit = 3 * limit\n\ndef result = [\n    'startTime': startEpoch,\n    'endTime'  : endEpoch,\n    'sort'     : sort,\n    'limit'    : limit\n]\n\n// Private trace: restrict to the requesting user's own records\nif (AGENT_TRACE_VISIBILITY == \"private\") {\n    result['userFilter'] = [\n        op    : \"AND\",\n        values: [\n            [\n                field : \"ENTITY_service_hub_case=::=OWNER_USER_ID\",\n                op    : \"EQUAL\",\n                values: [userId]\n            ]\n        ]\n    ]\n}\n\nreturn result",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -957,6 +962,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1229,6 +1255,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1601,6 +1648,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1720,6 +1788,27 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"totalSessions":{
 							"title":"Total Sessions",
 							"type":"integer"
@@ -2737,6 +2826,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -2965,7 +3075,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"// Default visibility\nif (!binding.hasVariable('AGENT_TRACE_VISIBILITY')) {\n    AGENT_TRACE_VISIBILITY = \"public\"\n}\n\nif (!binding.hasVariable('whereClause') || whereClause == null) {\n    whereClause = \"\"\n}\n\nif (!binding.hasVariable('havingClause') || havingClause == null) {\n    havingClause = \"\"\n}\n\ndef generateQuery(\n    agentId,\n    startTime,\n    endTime,\n    userId,\n    AGENT_TRACE_VISIBILITY,\n    whereClause,\n    havingClause\n) {\n    String visibilityFilter =\n        AGENT_TRACE_VISIBILITY == \"private\"\n            ? \" AND eTraces._pr_userId = '\" + userId + \"' \"\n            : \"\"\n\n    String innerWhereFilter =\n        (whereClause && whereClause.trim())\n            ? \" AND \" + whereClause\n            : \"\"\n\n    String havingFilter =\n        (havingClause && havingClause.trim())\n            ? \" HAVING \" + havingClause\n            : \"\"\n\n    return \"SELECT \" +\n        \" SUM(traceCount) AS traceCount, \" +\n        \" AVG(sessionDuration) AS avgSessionDuration, \" +\n        \" SUM(tokens) AS totalTokensUsed, \" +\n        \" AVG(cost) AS avgCost \" +\n        \"FROM ( \" +\n        \" SELECT \" +\n        \"   eTraces._pr_caseId AS sessionId, \" +\n        \"   COUNT(DISTINCT eTraces._pr_messageId) AS traceCount, \" +\n        \"   SUM(COALESCE(eTraces._pr_inputToken, 0) + COALESCE(eTraces._pr_outputToken, 0)) AS tokens, \" +\n        \"   SUM(eTraces._pr_cost) AS cost, \" +\n        \"   AVG(serviceHubCase._pr_additional__sessionDuration) AS sessionDuration, \" +\n        \"   AVG(serviceHubCase._pr_additional__sessionDuration) / 1000 AS durationInSeconds, \" +\n        \"   serviceHubCase.ownerUserId AS userId \" +\n        \" FROM ENTITY_e_traces eTraces \" +\n        \" JOIN ENTITY_service_hub_case serviceHubCase \" +\n        \"   ON eTraces._pr_caseId = serviceHubCase.id \" +\n        \" WHERE serviceHubCase._pr_additional__aiAgentId = '\" + agentId + \"' \" +\n        \"   AND eTraces._pr_caseId IS NOT NULL \" +\n        \"   AND eTraces._pr_messageId IS NOT NULL \" +\n        \"   AND eTraces.timestamp BETWEEN \" +\n        \"       FROM_UNIXTIME(\" + startTime + \" / 1000) AND FROM_UNIXTIME(\" + endTime + \" / 1000) \" +\n        \"   AND serviceHubCase.timestamp BETWEEN \" +\n        \"       FROM_UNIXTIME(\" + startTime + \" / 1000) AND FROM_UNIXTIME(\" + endTime + \" / 1000) \" +\n            visibilityFilter +\n            innerWhereFilter +\n        \" GROUP BY eTraces._pr_caseId, serviceHubCase.ownerUserId \" +\n            havingFilter +\n        \") t\"\n}\n\ndef sqlQuery = generateQuery(\n    agentId,\n    timestampStart,\n    timestampEnd,\n    currentUserId,\n    AGENT_TRACE_VISIBILITY,\n    whereClause,\n    havingClause\n)\n\nreturn [ \"sqlQuery\": sqlQuery ]",
+				"code":"// Default visibility\nif (!binding.hasVariable('AGENT_TRACE_VISIBILITY')) {\n    AGENT_TRACE_VISIBILITY = \"public\"\n}\n\nif (!binding.hasVariable('whereClause') || whereClause == null) {\n    whereClause = \"\"\n}\n\nif (!binding.hasVariable('havingClause') || havingClause == null) {\n    havingClause = \"\"\n}\n\ndef generateQuery(\n    agentId,\n    startTime,\n    endTime,\n    userId,\n    AGENT_TRACE_VISIBILITY,\n    whereClause,\n    havingClause\n) {\n    String visibilityFilter =\n        AGENT_TRACE_VISIBILITY == \"private\"\n            ? \" AND eTraces._pr_userId = '\" + userId + \"' \"\n            : \"\"\n\n    String innerWhereFilter =\n        (whereClause && whereClause.trim())\n            ? \" AND \" + whereClause\n            : \"\"\n\n    String havingFilter =\n        (havingClause && havingClause.trim())\n            ? \" HAVING \" + havingClause\n            : \"\"\n\n    return \"SELECT \" +\n        \" SUM(traceCount) AS traceCount, \" +\n        \" AVG(sessionDuration) AS avgSessionDuration, \" +\n        \" SUM(tokens) AS totalTokensUsed, \" +\n        \" SUM(cost) AS totalCost, \" +\n        \" AVG(cost) AS avgCost \" +\n        \"FROM ( \" +\n        \" SELECT \" +\n        \"   eTraces._pr_caseId AS sessionId, \" +\n        \"   COUNT(DISTINCT eTraces._pr_messageId) AS traceCount, \" +\n        \"   SUM(COALESCE(eTraces._pr_inputToken, 0) + COALESCE(eTraces._pr_outputToken, 0)) AS tokens, \" +\n        \"   SUM(eTraces._pr_cost) AS cost, \" +\n        \"   AVG(serviceHubCase._pr_additional__sessionDuration) AS sessionDuration, \" +\n        \"   AVG(serviceHubCase._pr_additional__sessionDuration) / 1000 AS durationInSeconds, \" +\n        \"   serviceHubCase.ownerUserId AS userId \" +\n        \" FROM ENTITY_e_traces eTraces \" +\n        \" JOIN ENTITY_service_hub_case serviceHubCase \" +\n        \"   ON eTraces._pr_caseId = serviceHubCase.id \" +\n        \" WHERE serviceHubCase._pr_additional__aiAgentId = '\" + agentId + \"' \" +\n        \"   AND eTraces._pr_caseId IS NOT NULL \" +\n        \"   AND eTraces._pr_messageId IS NOT NULL \" +\n        \"   AND eTraces.timestamp BETWEEN \" +\n        \"       FROM_UNIXTIME(\" + startTime + \" / 1000) AND FROM_UNIXTIME(\" + endTime + \" / 1000) \" +\n        \"   AND serviceHubCase.timestamp BETWEEN \" +\n        \"       FROM_UNIXTIME(\" + startTime + \" / 1000) AND FROM_UNIXTIME(\" + endTime + \" / 1000) \" +\n            visibilityFilter +\n            innerWhereFilter +\n        \" GROUP BY eTraces._pr_caseId, serviceHubCase.ownerUserId \" +\n            havingFilter +\n        \") t\"\n}\n\ndef sqlQuery = generateQuery(\n    agentId,\n    timestampStart,\n    timestampEnd,\n    currentUserId,\n    AGENT_TRACE_VISIBILITY,\n    whereClause,\n    havingClause\n)\n\nreturn [ \"sqlQuery\": sqlQuery ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3009,6 +3119,10 @@
 								},
 								"avgSessionDuration":{
 									"title":"avgSessionDuration",
+									"type":"number"
+								},
+								"totalCost":{
+									"title":"Total Cost",
 									"type":"number"
 								},
 								"totalTokensUsed":{
@@ -3227,6 +3341,10 @@
 							"title":"sessions",
 							"type":"array"
 						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						},
 						"totalSessions":{
 							"title":"totalSessions",
 							"type":"integer"
@@ -3370,6 +3488,10 @@
 							"title":"Testcase Runs",
 							"type":"array"
 						},
+						"totalCost":{
+							"title":"Total Cost",
+							"type":"number"
+						},
 						"totalSessions":{
 							"title":"Total Sessions",
 							"type":"integer"
@@ -3389,7 +3511,7 @@
 					],
 					"type":"object"
 				},
-				"code":"/* -----------------------------\n * Defaults & Guards\n * ----------------------------- */\n\nif (!binding.hasVariable('customerProfiles')) customerProfiles = []\nif (!binding.hasVariable('sessions')) sessions = []\nif (!binding.hasVariable('fanMessages')) fanMessages = []\nif (!binding.hasVariable('brandMessages')) brandMessages = []\n\nif (!binding.hasVariable('totalSessions')) totalSessions = 0\nif (!binding.hasVariable('totalTraces')) totalTraces = 0\nif (!binding.hasVariable('avgSessionDuration')) avgSessionDuration = 0\nif (!binding.hasVariable('totalTokenConsumed')) totalTokenConsumed = 0\nif (!binding.hasVariable('testcaseRuns')) testcaseRuns = []\nif (!binding.hasVariable('avgCost')) avgCost = 0 \n\n/* -----------------------------\n * Helper Maps\n * ----------------------------- */\ndef profileIdVsDisplayName = [:] as Map<String, String>\ndef caseIdVsFirstMessage = [:] as Map<String, String>\ndef caseIdVsLastMessage = [:] as Map<String, String>\n\n/* -----------------------------\n * ProfileId → Display Name\n * Priority: name → email → profileId\n * ----------------------------- */\ncustomerProfiles.each { profile ->\n    def displayName =\n            profile.name ?:\n                    profile.emailId ?:\n                            profile.profileId\n\n    profileIdVsDisplayName[profile.profileId] = displayName\n}\n\n/* -----------------------------\n * First message per case\n * ----------------------------- */\nfanMessages.each { msg ->\n    if (msg.caseId && msg.content && !caseIdVsFirstMessage.containsKey(msg.caseId)) {\n        caseIdVsFirstMessage[msg.caseId] = msg.content\n    }\n}\n\n\n/* -----------------------------\n * Last message per case\n * ----------------------------- */\nbrandMessages.each { msg ->\n    if (msg.caseId && msg.content) {\n        def existing = caseIdVsLastMessage[msg.caseId]\n        caseIdVsLastMessage[msg.caseId] =\n                existing ? existing + \"\\n\" + msg.content : msg.content\n    }\n}\n\n/* -----------------------------\n * Stat Card Calculations\n * ----------------------------- */\ndef avgTokenUsed =\n        (totalSessions > 0)\n                ? (totalTokenConsumed / totalSessions).round()\n                : 0\n\ndef avgTraceCount =\n        (totalSessions > 0)\n                ? (totalTraces / totalSessions).round()\n                : 0\n\n/* -----------------------------\n * Build Session Rows\n * ----------------------------- */\n                List<Map<String, Object>> sessionRows = []\n\nsessions.each { session ->\n    def profileId = session.fromCustomerUserId\n    def customerName =\n            profileIdVsDisplayName[profileId] ?: profileId ?: ''\n    def firstMsg = caseIdVsFirstMessage[session.sessionID]?:''\n\n    def testcaseRun = testcaseRuns.find { it -> session.testcaseRunId == it.id }    \n\n    def row = [\n            customerName       : customerName,\n            tokenUsed          : session.totalTokensUsed ?: 0,\n            sessionTime        : session.sessionDuration ?: 0,\n            startTime          : session.startTime ?: 0,\n            lastResponseTime   : session.endTime ?: 0,\n            sessionId          : session.sessionID ?: '',\n            customerProfileId  : profileId ?: '',\n            traceCount         : session.traceCount ?: 0,\n            firstMessage       : caseIdVsFirstMessage[session.sessionID] ?: '',\n            lastMessage        : caseIdVsLastMessage[session.sessionID] ?: '',\n            cost               : session.totalCost ?: 0,\n            testcaseRunId      : session.testcaseRunId,\n            result             : testcaseRun?.properties?.result,\n            metricScores       : testcaseRun?.properties?.metricScores\n    ]\n\n    sessionRows.add(row)\n}\n\n/* -----------------------------\n * Final Output\n * ----------------------------- */\nreturn [\n        totalSessions        : totalSessions,\n        avgTokenUsed         : avgTokenUsed,\n        avgSessionDuration   : avgSessionDuration,\n        avgTraceCount        : avgTraceCount,\n        avgCost              : avgCost,\n        sessions             : sessionRows\n]",
+				"code":"/* -----------------------------\n * Defaults & Guards\n * ----------------------------- */\n\nif (!binding.hasVariable('customerProfiles')) customerProfiles = []\nif (!binding.hasVariable('sessions')) sessions = []\nif (!binding.hasVariable('fanMessages')) fanMessages = []\nif (!binding.hasVariable('brandMessages')) brandMessages = []\n\nif (!binding.hasVariable('totalCost')) totalCost = 0\nif (!binding.hasVariable('totalSessions')) totalSessions = 0\nif (!binding.hasVariable('totalTraces')) totalTraces = 0\nif (!binding.hasVariable('avgSessionDuration')) avgSessionDuration = 0\nif (!binding.hasVariable('totalTokenConsumed')) totalTokenConsumed = 0\nif (!binding.hasVariable('testcaseRuns')) testcaseRuns = []\nif (!binding.hasVariable('avgCost')) avgCost = 0 \n\n/* -----------------------------\n * Helper Maps\n * ----------------------------- */\ndef profileIdVsDisplayName = [:] as Map<String, String>\ndef caseIdVsFirstMessage = [:] as Map<String, String>\ndef caseIdVsLastMessage = [:] as Map<String, String>\n\n/* -----------------------------\n * ProfileId → Display Name\n * Priority: name → email → profileId\n * ----------------------------- */\ncustomerProfiles.each { profile ->\n    def displayName =\n            profile.name ?:\n                    profile.emailId ?:\n                            profile.profileId\n\n    profileIdVsDisplayName[profile.profileId] = displayName\n}\n\n/* -----------------------------\n * First message per case\n * ----------------------------- */\nfanMessages.each { msg ->\n    if (msg.caseId && msg.content && !caseIdVsFirstMessage.containsKey(msg.caseId)) {\n        caseIdVsFirstMessage[msg.caseId] = msg.content\n    }\n}\n\n\n/* -----------------------------\n * Last message per case\n * ----------------------------- */\nbrandMessages.each { msg ->\n    if (msg.caseId && msg.content) {\n        def existing = caseIdVsLastMessage[msg.caseId]\n        caseIdVsLastMessage[msg.caseId] =\n                existing ? existing + \"\\n\" + msg.content : msg.content\n    }\n}\n\n/* -----------------------------\n * Stat Card Calculations\n * ----------------------------- */\ndef avgTokenUsed =\n        (totalSessions > 0)\n                ? (totalTokenConsumed / totalSessions).round()\n                : 0\n\ndef avgTraceCount =\n        (totalSessions > 0)\n                ? (totalTraces / totalSessions).round()\n                : 0\n\n/* -----------------------------\n * Build Session Rows\n * ----------------------------- */\n                List<Map<String, Object>> sessionRows = []\n\nsessions.each { session ->\n    def profileId = session.fromCustomerUserId\n    def customerName =\n            profileIdVsDisplayName[profileId] ?: profileId ?: ''\n    def firstMsg = caseIdVsFirstMessage[session.sessionID]?:''\n\n    def testcaseRun = testcaseRuns.find { it -> session.testcaseRunId == it.id }    \n\n    def row = [\n            customerName       : customerName,\n            tokenUsed          : session.totalTokensUsed ?: 0,\n            sessionTime        : session.sessionDuration ?: 0,\n            startTime          : session.startTime ?: 0,\n            lastResponseTime   : session.endTime ?: 0,\n            sessionId          : session.sessionID ?: '',\n            customerProfileId  : profileId ?: '',\n            traceCount         : session.traceCount ?: 0,\n            firstMessage       : caseIdVsFirstMessage[session.sessionID] ?: '',\n            lastMessage        : caseIdVsLastMessage[session.sessionID] ?: '',\n            cost               : session.totalCost ?: 0,\n            testcaseRunId      : session.testcaseRunId,\n            result             : testcaseRun?.properties?.result,\n            metricScores       : testcaseRun?.properties?.metricScores\n    ]\n\n    sessionRows.add(row)\n}\n\n/* -----------------------------\n * Final Output\n * ----------------------------- */\nreturn [\n        totalSessions        : totalSessions,\n        totalCost            : totalCost,\n        avgTokenUsed         : avgTokenUsed,\n        avgSessionDuration   : avgSessionDuration,\n        avgTraceCount        : avgTraceCount,\n        avgCost              : avgCost,\n        sessions             : sessionRows\n]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -3441,6 +3563,7 @@
 						"source":"{{ n_PFmpv.outputs.objects }}",
 						"ua:type":"mappedArray"
 					},
+					"totalCost":"{{ n_NPPGV.outputs.objects[0].columns.totalCost }}",
 					"totalSessions":"{{ n_quxcp.outputs.totalSessions }}",
 					"totalTokenConsumed":"{{ n_NPPGV.outputs.objects[0].columns.totalTokensUsed }}",
 					"totalTraces":"{{ n_NPPGV.outputs.objects[0].columns.traceCount }}"
@@ -3511,6 +3634,7 @@
 						"source":"{{ _fWCU0.outputs.result.sessions }}",
 						"ua:type":"mappedArray"
 					},
+					"totalCost":"{{ _fWCU0.outputs.result.totalCost }}",
 					"totalSessions":"{{ _fWCU0.outputs.result.totalSessions }}"
 				}
 			},
@@ -3538,5 +3662,5 @@
 		"AI Agent",
 		"Observability"
 	],
-	"version":426
+	"version":428
 }

@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743905252,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743905401,
+		"deployedAt":1789395258455,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecea145d2142160e6ecbf",
+		"deployedDefinitionId":"6aa8013a72fd792214e8c9c7",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":175
+		"version":2,
+		"workflowVersion":178
 	},
 	"edges":[
 		{
@@ -74,15 +74,83 @@
 		},
 		{
 			"fromNodeId":"n_pTKOO",
-			"id":"next@n_pTKOO@n_cSzdI",
+			"id":"next@n_pTKOO@n_0q1Yo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0q1Yo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_7yE44",
+			"id":"next@_7yE44@n_0q1Yo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0q1Yo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0q1Yo",
+			"id":"next@n_0q1Yo@n_rGxAc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rGxAc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rGxAc",
+			"id":"if@n_rGxAc@n_8CfoE",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8CfoE",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_8CfoE",
+			"id":"next@n_8CfoE@n_lHFjj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lHFjj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lHFjj",
+			"id":"if@n_lHFjj@n_F6OIN",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_F6OIN",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_lHFjj",
+			"id":"next@n_lHFjj@n_z0xJ7",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_z0xJ7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_F6OIN",
+			"id":"next@n_F6OIN@n_cSzdI",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_cSzdI",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"_7yE44",
-			"id":"next@_7yE44@n_cSzdI",
+			"fromNodeId":"n_z0xJ7",
+			"id":"next@n_z0xJ7@n_cSzdI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cSzdI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_rGxAc",
+			"id":"next@n_rGxAc@n_cSzdI",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_cSzdI",
@@ -484,7 +552,7 @@
 	"id":"683d3a21757fc14f2323bef9",
 	"lastModifiedBy":-1,
 	"lcName":"[external mcp server] tool call",
-	"modifiedTime":1788252971978,
+	"modifiedTime":1789395387706,
 	"name":"[External MCP Server] Tool Call",
 	"nodes":[
 		{
@@ -864,6 +932,228 @@
 		},
 		{
 			"context":{
+				"appName":"callables",
+				"resourceVersion":4977,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jK54J-1",
+			"id":"n_0q1Yo",
+			"index":9,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ izguX.outputs.triggeredByAgentId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ izguX.outputs.triggeredByAgentId }}",
+					"enabled":true,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":172,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jK54J-1",
+			"id":"n_rGxAc",
+			"index":10,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_0q1Yo.outputs.properties.userConnectionRuntimeCheck }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4977,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rGxAc@jK54J-1@y",
+			"id":"n_8CfoE",
+			"index":11,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"mcp_servers"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":172,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_rGxAc@jK54J-1@y",
+			"id":"n_lHFjj",
+			"index":12,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_8CfoE.outputs.connectionId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":3953,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lHFjj@n_rGxAc@jK54J-1@y@y",
+			"id":"n_F6OIN",
+			"index":13,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_KgEw2.outputs.connectionId }}",
+						"value":"{{ n_8CfoE.outputs.connectionId }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4995,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lHFjj@n_rGxAc@jK54J-1@y@n",
+			"id":"n_z0xJ7",
+			"index":14,
+			"inputs":{
+				"result":{
+					"error":"{{ n_8CfoE.outputs.errorMessage }}",
+					"success":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"standard_entities",
 				"resourceVersion":782,
 				"resourceName":"standard_entities_get_connection_details",
@@ -871,13 +1161,68 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"jK54J-1",
 			"id":"n_cSzdI",
-			"index":9,
+			"index":15,
 			"inputs":{
 				"connectionIds":"{{ n_KgEw2.outputs.connectionId }}",
 				"includeCredentials":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Standard entities by UnifyApps",
@@ -896,7 +1241,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"n_3kcit",
-			"index":10,
+			"index":16,
 			"inputs":{
 				"filters":[
 					{
@@ -926,7 +1271,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_3kcit@jK54J-1@y",
 			"id":"n_eu5xW",
-			"index":11,
+			"index":17,
 			"inputs":{
 				"sessionDuration":3600000
 			},
@@ -947,7 +1292,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_3kcit@jK54J-1@n",
 			"id":"n_hmWki",
-			"index":12,
+			"index":18,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -989,7 +1334,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import groovy.json.JsonOutput\n\n// Fetch connectionId safely from top-level binding\ndef connectionId = binding.hasVariable('connectionId') ? binding.getVariable('connectionId') : \"\"\n\n// Fetch toolName and toolInputs safely from top-level binding\ndef toolName = binding.hasVariable('toolName') ? binding.getVariable('toolName') : \"\"\ndef toolInputs = binding.hasVariable('toolInputs') ? binding.getVariable('toolInputs') : [:]\n\ndef context = [\n    appName     : \"mcp_servers\",\n    connectionId: connectionId,\n    resourceName: \"mcp_servers_invoke_tool\"\n]\n\ndef input = [\n    toolName: toolName,\n    record  : toolInputs\n]\n\nreturn [\n    context: context,\n    input  : input\n]",
+				"code":"\n// Fetch connectionId safely from top-level binding\ndef connectionId = binding.hasVariable('connectionId') ? binding.getVariable('connectionId') : \"\"\n\n// Fetch toolName and toolInputs safely from top-level binding\ndef toolName = binding.hasVariable('toolName') ? binding.getVariable('toolName') : \"\"\ndef toolInputs = binding.hasVariable('toolInputs') ? binding.getVariable('toolInputs') : [:]\n\ndef context = [\n    appName     : \"mcp_servers\",\n    connectionId: connectionId,\n    resourceName: \"mcp_servers_invoke_tool\"\n]\n\ndef input = [\n    toolName: toolName,\n    record  : toolInputs\n]\n\nreturn [\n    context: context,\n    input  : input\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1015,7 +1360,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_3kcit@jK54J-1@n",
 			"id":"n_Zp0Uo",
-			"index":13,
+			"index":19,
 			"inputs":{
 				"input":"{{ n_hmWki.outputs.result.input }}",
 				"context":"{{ n_hmWki.outputs.result.context }}"
@@ -1037,7 +1382,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_3kcit@jK54J-1@n",
 			"id":"n_0wkK6",
-			"index":14,
+			"index":20,
 			"inputs":{
 				"object":"{{ n_Zp0Uo.outputs.result }}"
 			},
@@ -1058,7 +1403,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_3kcit@jK54J-1@n",
 			"id":"n_Z46oJ",
-			"index":15,
+			"index":21,
 			"inputs":{
 				"result":{
 					"toolOutput":"{{ n_0wkK6.outputs.result }}"
@@ -1081,7 +1426,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"KResr",
-			"index":16,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1189,7 +1534,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"n_xivYM",
-			"index":17,
+			"index":23,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1439,7 +1784,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"n_0ihsD",
-			"index":18,
+			"index":24,
 			"inputs":{
 				"filters":[
 					{
@@ -1474,7 +1819,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"n_qHBh5",
-			"index":19,
+			"index":25,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1551,7 +1896,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"_g4W0o",
-			"index":20,
+			"index":26,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
@@ -1658,7 +2003,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"n_5Hw5u",
-			"index":21,
+			"index":27,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1730,7 +2075,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"n_h84oT",
-			"index":22,
+			"index":28,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
@@ -1830,7 +2175,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"n_xpCVk",
-			"index":23,
+			"index":29,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
@@ -1963,7 +2308,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"n_MsFyv",
-			"index":24,
+			"index":30,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2011,7 +2356,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@y",
 			"id":"n_MIdD6",
-			"index":25,
+			"index":31,
 			"inputs":{
 				"itemToAdd":"{{ n_MsFyv.outputs.result.jsonString }}",
 				"insertLocation":"END",
@@ -2034,7 +2379,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"n_eMYxa",
-			"index":26,
+			"index":32,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2094,7 +2439,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"n_SXiXq",
-			"index":27,
+			"index":33,
 			"inputs":{
 				"object_type":"mcp_case_session_mapping_redis",
 				"includeRoleMappings":false,
@@ -2125,7 +2470,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"n_5tLDs",
-			"index":28,
+			"index":34,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2197,7 +2542,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"n_1ixmu",
-			"index":29,
+			"index":35,
 			"inputs":{
 				"filters":[
 					{
@@ -2232,7 +2577,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@y",
 			"id":"n_QuOYH",
-			"index":30,
+			"index":36,
 			"inputs":{
 				"recordId":"{{ izguX.outputs.caseId }}",
 				"writeThroughSessionVariables":false,
@@ -2265,7 +2610,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@y",
 			"id":"n_6ZW5j",
-			"index":31,
+			"index":37,
 			"inputs":{
 				"variables":[
 					{
@@ -2291,7 +2636,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@y",
 			"id":"_uqebq",
-			"index":32,
+			"index":38,
 			"inputs":{
 				"filters":[
 					{
@@ -2327,7 +2672,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_uqebq@n_1ixmu@n_0ihsD@jK54J-1@n@y@y",
 			"id":"_DzoqI",
-			"index":33,
+			"index":39,
 			"inputs":{
 				"variables":[
 					{
@@ -2353,7 +2698,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@n",
 			"id":"n_H7jYi",
-			"index":34,
+			"index":40,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -2381,12 +2726,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@n",
 			"id":"0DVZ2",
-			"index":35,
+			"index":41,
 			"inputs":{
 				"automationId":"683d548f59c648704991562f",
 				"runtimeConnections":{},
 				"synchronous":false,
-				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
 					"caseId":"{{ izguX.outputs.caseId }}",
 					"header":{
@@ -2415,7 +2759,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@n",
 			"id":"n_7r8lW",
-			"index":36,
+			"index":42,
 			"inputs":{
 				"unit":"MINUTES",
 				"persist":false,
@@ -2506,7 +2850,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@n",
 			"id":"_Jto1a",
-			"index":37,
+			"index":43,
 			"inputs":{
 				"variables":[
 					{
@@ -2532,7 +2876,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@n",
 			"id":"n_glbzL",
-			"index":38,
+			"index":44,
 			"inputs":{
 				"filters":[
 					{
@@ -2568,7 +2912,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_glbzL@n_1ixmu@n_0ihsD@jK54J-1@n@n@y",
 			"id":"n_kG86c",
-			"index":39,
+			"index":45,
 			"inputs":{
 				"variables":[
 					{
@@ -2594,7 +2938,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_1ixmu@n_0ihsD@jK54J-1@n@n",
 			"id":"fZnpl",
-			"index":40,
+			"index":46,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
@@ -2664,7 +3008,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"Myx96",
-			"index":41,
+			"index":47,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
@@ -2777,7 +3121,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"n_ktbly",
-			"index":42,
+			"index":48,
 			"inputs":{
 				"duration":2,
 				"unit":"SECONDS"
@@ -2799,7 +3143,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"_Px02U",
-			"index":43,
+			"index":49,
 			"inputs":{
 				"isAsync":false,
 				"enableProxy":false,
@@ -2874,7 +3218,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"_nyIiA",
-			"index":44,
+			"index":50,
 			"inputs":{
 				"unit":"MINUTES",
 				"persist":false,
@@ -2966,7 +3310,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ihsD@jK54J-1@n",
 			"id":"n_xU4xC",
-			"index":45,
+			"index":51,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -2998,7 +3342,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"n_WDe1u",
-			"index":46,
+			"index":52,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3055,7 +3399,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"n_WgT4A",
-			"index":47,
+			"index":53,
 			"inputs":{
 				"filters":[
 					{
@@ -3084,7 +3428,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_WgT4A@jK54J-1@y",
 			"id":"n_Yzyw6",
-			"index":48,
+			"index":54,
 			"inputs":{
 				"sessionId":"{{ n_eu5xW.outputs.sessionId }}"
 			},
@@ -3105,7 +3449,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"jK54J-1",
 			"id":"MZTTx",
-			"index":49,
+			"index":55,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -3135,5 +3479,5 @@
 	"tags":[
 		"External MCP"
 	],
-	"version":177
+	"version":179
 }
