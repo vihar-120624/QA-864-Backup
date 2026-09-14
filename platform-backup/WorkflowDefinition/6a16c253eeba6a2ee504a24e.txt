@@ -4,18 +4,45 @@
 	],
 	"createdTime":1787744058948,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744059215,
+		"deployedAt":1789395311468,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf3bba51514edfc7e677",
+		"deployedDefinitionId":"6aa8016f39ee5f5ef70b672b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":3
+		"version":2,
+		"workflowVersion":6
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_pX8Ri",
+			"id":"next@n_pX8Ri@n_Vx9ai",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Vx9ai",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Vx9ai",
+			"id":"next@n_Vx9ai@n_a7vTf",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_a7vTf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Vx9ai",
+			"id":"if@n_Vx9ai@n_LULUM",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LULUM",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_a7vTf",
+			"id":"next@n_a7vTf@n_LULUM",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_LULUM",
@@ -23,6 +50,7 @@
 		},
 		{
 			"fromNodeId":"n_LULUM",
+			"id":"next@n_LULUM@n_F5Qaq",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_F5Qaq",
@@ -30,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"n_F5Qaq",
+			"id":"next@n_F5Qaq@n_ryjGQ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_ryjGQ",
@@ -37,6 +66,7 @@
 		},
 		{
 			"fromNodeId":"n_ryjGQ",
+			"id":"next@n_ryjGQ@n_bCsJz",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_bCsJz",
@@ -44,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"n_bCsJz",
+			"id":"loop@n_bCsJz@n_wleub",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wleub",
@@ -51,6 +82,7 @@
 		},
 		{
 			"fromNodeId":"n_wleub",
+			"id":"next@n_wleub@n_siyeV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_siyeV",
@@ -58,6 +90,7 @@
 		},
 		{
 			"fromNodeId":"n_siyeV",
+			"id":"next@n_siyeV@n_4XboV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_4XboV",
@@ -65,6 +98,7 @@
 		},
 		{
 			"fromNodeId":"n_4XboV",
+			"id":"next@n_4XboV@n_04PGi",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_04PGi",
@@ -72,6 +106,7 @@
 		},
 		{
 			"fromNodeId":"n_04PGi",
+			"id":"next@n_04PGi@n_bCsJz",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -80,6 +115,7 @@
 		},
 		{
 			"fromNodeId":"n_bCsJz",
+			"id":"next@n_bCsJz@n_3IJJo",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_3IJJo",
@@ -101,7 +137,7 @@
 	"id":"6a16c253eeba6a2ee504a24e",
 	"lastModifiedBy":-1,
 	"lcName":"handle stuck realtime rawdata job",
-	"modifiedTime":1788252972636,
+	"modifiedTime":1789395399486,
 	"name":"Handle Stuck Realtime RawData Job",
 	"nodes":[
 		{
@@ -132,6 +168,51 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":918,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_3Wkif-1",
+			"id":"n_Vx9ai",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.process_realtime_raw_data }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Vx9ai@_3Wkif-1@n",
+			"id":"n_a7vTf",
+			"index":3,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":1818,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -142,7 +223,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_3Wkif-1",
 			"id":"n_LULUM",
-			"index":2,
+			"index":4,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -160,7 +241,7 @@
 				}
 			},
 			"inputs":{
-				"numOfHours":12
+				"numOfHours":1
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -215,7 +296,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_3Wkif-1",
 			"id":"n_F5Qaq",
-			"index":3,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -249,7 +330,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_3Wkif-1",
 			"id":"n_ryjGQ",
-			"index":4,
+			"index":6,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -331,7 +412,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_3Wkif-1",
 			"id":"n_bCsJz",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"condition":{
 					"filters":[
@@ -364,7 +445,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_bCsJz@_3Wkif-1@l",
 			"id":"n_wleub",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -439,7 +520,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_bCsJz@_3Wkif-1@l",
 			"id":"n_siyeV",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -513,7 +594,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_bCsJz@_3Wkif-1@l",
 			"id":"n_4XboV",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"numberOfRecordsToUpdate":"MULTIPLE",
 				"triggerInputCondition":{
@@ -561,7 +642,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_bCsJz@_3Wkif-1@l",
 			"id":"n_04PGi",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"variables":[
 					{
@@ -588,7 +669,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_3Wkif-1",
 			"id":"n_3IJJo",
-			"index":10,
+			"index":12,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -609,8 +690,5 @@
 		}
 	},
 	"standard":true,
-	"tags":[
-		
-	],
-	"version":5
+	"version":7
 }
