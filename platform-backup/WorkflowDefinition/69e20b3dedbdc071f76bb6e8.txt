@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743762318,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743763318,
+		"deployedAt":1789395173919,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece1345d2142160e6decd",
+		"deployedDefinitionId":"6aa800e5c6a14707f15035f5",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":107
+		"version":2,
+		"workflowVersion":110
 	},
 	"edges":[
 		{
@@ -552,7 +552,7 @@
 	"id":"69e20b3dedbdc071f76bb6e8",
 	"lastModifiedBy":-1,
 	"lcName":"edit interface",
-	"modifiedTime":1788252971976,
+	"modifiedTime":1789395395349,
 	"name":"Edit Interface",
 	"nodes":[
 		{
@@ -2424,7 +2424,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Object",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -2666,7 +2667,8 @@
 				}
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Automations",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -3472,6 +3474,10 @@
 						"selectedBlockId":{
 							"title":"Selected Block Id",
 							"type":"string"
+						},
+						"triggeredByAgentid":{
+							"title":"Triggered By Agent Id",
+							"type":"string"
 						}
 					},
 					"required":[
@@ -3480,11 +3486,12 @@
 						"host",
 						"selectedBlockId",
 						"activePageId",
-						"device"
+						"device",
+						"triggeredByAgentid"
 					],
 					"type":"object"
 				},
-				"code":"import groovy.json.JsonOutput // 1. Import the JSON serializer\n\ndef selectedBlockId = binding.hasVariable('selectedBlockId') ? binding.getVariable('selectedBlockId') : null\ndef activePageId    = binding.hasVariable('activePageId')    ? binding.getVariable('activePageId')    : null\n\ndef renderFile = { fileObj ->\n    if (fileObj == null) return ''\n    if (fileObj instanceof Map) {\n        def lines = []\n        fileObj.each { entry -> lines << (entry.key + \": \" + entry.value) }\n        return lines.join(\"\\n\")\n    }\n    try {\n        def lines = []\n        fileObj.properties.each { entry ->\n            if (entry.key != 'class') lines << (entry.key + \": \" + entry.value)\n        }\n        return lines.join(\"\\n\")\n    } catch (ignored) {\n        return fileObj.toString()\n    }\n}\n\ndef buildAttachmentsSection = { attachments ->\n    if (!attachments) return \"\"\n    def parts = []\n    for (int i = 0; i < attachments.size(); i++) {\n        def a = attachments[i]\n        def fileText    = renderFile(a?.file)\n        def detailsText = a?.details ?: ''\n        parts << (\"Attachment \" + (i + 1) + \":\\n\" + fileText + \"\\nDetails:\\n\" + detailsText)\n    }\n    return \"\\n\\nAttachments:\\n\" + parts.join(\"\\n\\n---\\n\\n\")\n}\n\ndef updatedPrompts = []\nif (queries) {\n    for (int index = 0; index < queries.size(); index++) {\n        def page = queries[index]\n        def attachmentsSection = buildAttachmentsSection(page.attachments)\n        \n        def query = page.instruction + attachmentsSection +\n            \"\\n\" + page.pageName +\n            \"\\nPage Id: \" + page.pageId +\n            \"\\nInterface Id: \" + interfaceId +\n            \"\\nhost: \" + host\n\n        // for (int j = 0; j < page.dataSourceOps.size(); j++){\n        //     query+= \"\\ndataSource: \"+page.dataSourceOps[j].dataSource\n        // }\n\n        // if (page.dataSourceOps) {\n        //     for (int j = 0; j < page.dataSourceOps.size(); j++){\n        //         query += \"\\ndataSource: \" + page.dataSourceOps[j].dataSource\n        //     }\n        // }\n\n        def dataSourcesList = []\n        if (page.dataSourceOps) {\n            for (int j = 0; j < page.dataSourceOps.size(); j++){\n                def op = page.dataSourceOps[j]\n                if (op.dataSource instanceof Map) {\n                    def dsCopy = [:] + op.dataSource\n                    if (!dsCopy.id) {\n                        dsCopy.id = op.sourceDataSourceId\n                    }\n                    dataSourcesList << dsCopy\n                } else if (op.dataSource != null) {\n                    dataSourcesList << op.dataSource\n                }\n            }\n        }\n        \n        if(dataSourcesList){\n            // 2. Convert the list to a valid JSON string instead of using Groovy's default .toString()\n            query += \"\\ndataSources: \" + JsonOutput.toJson(dataSourcesList)\n        }\n        \n        if (page.pageId == activePageId && selectedBlockId) {\n            query += \"\\nSelected Block Id: \" + selectedBlockId\n        }\n\n        if (device) {\n        query += \"\\nDevice: \" + device\n        }\n\n        def entry = [:]\n        entry.query       = query\n        entry.interfaceId = interfaceId\n        entry.pageName    = page.pageName\n        entry.agentId     = \"e_69c6a72f36087f520e1f4868\"\n        entry.attachments = page.attachments\n        // entry.dataSources = dataSourcesList\n        updatedPrompts << entry\n    }\n}\n\nreturn [updatedPrompts: updatedPrompts]",
+				"code":"import groovy.json.JsonOutput // 1. Import the JSON serializer\n\ndef selectedBlockId = binding.hasVariable('selectedBlockId') ? binding.getVariable('selectedBlockId') : null\ndef activePageId    = binding.hasVariable('activePageId')    ? binding.getVariable('activePageId')    : null\ndef triggeredByAgentid = binding.hasVariable('triggeredByAgentid') ? binding.getVariable('triggeredByAgentid') : null\n\ndef renderFile = { fileObj ->\n    if (fileObj == null) return ''\n    if (fileObj instanceof Map) {\n        def lines = []\n        fileObj.each { entry -> lines << (entry.key + \": \" + entry.value) }\n        return lines.join(\"\\n\")\n    }\n    try {\n        def lines = []\n        fileObj.properties.each { entry ->\n            if (entry.key != 'class') lines << (entry.key + \": \" + entry.value)\n        }\n        return lines.join(\"\\n\")\n    } catch (ignored) {\n        return fileObj.toString()\n    }\n}\n\ndef buildAttachmentsSection = { attachments ->\n    if (!attachments) return \"\"\n    def parts = []\n    for (int i = 0; i < attachments.size(); i++) {\n        def a = attachments[i]\n        def fileText    = renderFile(a?.file)\n        def detailsText = a?.details ?: ''\n        parts << (\"Attachment \" + (i + 1) + \":\\n\" + fileText + \"\\nDetails:\\n\" + detailsText)\n    }\n    return \"\\n\\nAttachments:\\n\" + parts.join(\"\\n\\n---\\n\\n\")\n}\n\ndef updatedPrompts = []\nif (queries) {\n    for (int index = 0; index < queries.size(); index++) {\n        def page = queries[index]\n        def attachmentsSection = buildAttachmentsSection(page.attachments)\n        \n        def query = page.instruction + attachmentsSection +\n            \"\\n\" + page.pageName +\n            \"\\nPage Id: \" + page.pageId +\n            \"\\nInterface Id: \" + interfaceId +\n            \"\\nhost: \" + host\n\n        // for (int j = 0; j < page.dataSourceOps.size(); j++){\n        //     query+= \"\\ndataSource: \"+page.dataSourceOps[j].dataSource\n        // }\n\n        // if (page.dataSourceOps) {\n        //     for (int j = 0; j < page.dataSourceOps.size(); j++){\n        //         query += \"\\ndataSource: \" + page.dataSourceOps[j].dataSource\n        //     }\n        // }\n\n        def dataSourcesList = []\n        if (page.dataSourceOps) {\n            for (int j = 0; j < page.dataSourceOps.size(); j++){\n                def op = page.dataSourceOps[j]\n                if (op.dataSource instanceof Map) {\n                    def dsCopy = [:] + op.dataSource\n                    if (!dsCopy.id) {\n                        dsCopy.id = op.sourceDataSourceId\n                    }\n                    dataSourcesList << dsCopy\n                } else if (op.dataSource != null) {\n                    dataSourcesList << op.dataSource\n                }\n            }\n        }\n        \n        if(dataSourcesList){\n            // 2. Convert the list to a valid JSON string instead of using Groovy's default .toString()\n            query += \"\\ndataSources: \" + JsonOutput.toJson(dataSourcesList)\n        }\n        \n        if (page.pageId == activePageId && selectedBlockId) {\n            query += \"\\nSelected Block Id: \" + selectedBlockId\n        }\n\n        if (device) {\n        query += \"\\nDevice: \" + device\n        }\n\n        def entry = [:]\n        entry.query       = query\n        entry.interfaceId = interfaceId\n        entry.pageName    = page.pageName\n        entry.agentId     = \"e_69c6a72f36087f520e1f4868\"\n        entry.attachments = page.attachments\n        // entry.dataSources = dataSourcesList\n        entry.triggeredByAgentid = triggeredByAgentid\n        updatedPrompts << entry\n    }\n}\n\nreturn [updatedPrompts: updatedPrompts]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3497,7 +3504,8 @@
 						"source":"{{ n_K31Cm.outputs.processedQueries }}",
 						"ua:type":"mappedArray"
 					},
-					"selectedBlockId":"{{ n_0xc9Q.outputs.result.blockId }}"
+					"selectedBlockId":"{{ n_0xc9Q.outputs.result.blockId }}",
+					"triggeredByAgentid":"{{ n_Mrqso.outputs.agentId }}"
 				}
 			},
 			"skip":false,
@@ -3632,5 +3640,5 @@
 	"tags":[
 		"text-to-lowcode"
 	],
-	"version":109
+	"version":111
 }
