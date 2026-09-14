@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743944069,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743944501,
+		"deployedAt":1789395280840,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecec845d2142160e6f5e1",
+		"deployedDefinitionId":"6aa8015072fd792214e8caa3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":202
+		"version":2,
+		"workflowVersion":205
 	},
 	"edges":[
 		{
@@ -64,7 +64,33 @@
 		},
 		{
 			"fromNodeId":"n_eZIqW",
-			"id":"next@n_eZIqW@n_0ipVb",
+			"id":"next@n_eZIqW@n_s2a8S",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_s2a8S",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_s2a8S",
+			"id":"if@n_s2a8S@n_ry012",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ry012",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_ry012",
+			"id":"next@n_ry012@n_0ipVb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0ipVb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_s2a8S",
+			"id":"next@n_s2a8S@n_0ipVb",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_0ipVb",
@@ -231,49 +257,7 @@
 		},
 		{
 			"fromNodeId":"n_hrrrp",
-			"id":"next@n_hrrrp@n_ymz28",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_ymz28",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_ymz28",
-			"id":"next@n_ymz28@n_3Jnau",
-			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_3Jnau",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_3Jnau",
-			"id":"next@n_3Jnau@n_4ZPKY",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_4ZPKY",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_ymz28",
-			"id":"if@n_ymz28@_LTeh6",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_LTeh6",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_4ZPKY",
-			"id":"next@n_4ZPKY@_LTeh6",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_LTeh6",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_LTeh6",
-			"id":"next@_LTeh6@_Z5tPV",
+			"id":"next@n_hrrrp@_Z5tPV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_Z5tPV",
@@ -324,41 +308,7 @@
 		},
 		{
 			"fromNodeId":"_Z5tPV",
-			"id":"next@_Z5tPV@n_Z7kct",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Z7kct",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Z7kct",
-			"id":"if@n_Z7kct@n_EWDMi",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_EWDMi",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_EWDMi",
-			"id":"next@n_EWDMi@n_Xsfak",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Xsfak",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Z7kct",
-			"id":"next@n_Z7kct@n_Xsfak",
-			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Xsfak",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Xsfak",
-			"id":"next@n_Xsfak@n_tfNzq",
+			"id":"next@_Z5tPV@n_tfNzq",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tfNzq",
@@ -610,7 +560,7 @@
 	"id":"69a039c156fe045d5d382e79",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | confluence | space pages (server)",
-	"modifiedTime":1788252971962,
+	"modifiedTime":1789395387944,
 	"name":"Knowledge Downloader | Confluence | Space Pages (Server)",
 	"nodes":[
 		{
@@ -1850,6 +1800,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"batchSize":{
+							"title":"Batch Size",
+							"type":"integer"
+						},
 						"downloaderSuccess":{
 							"title":"Downloader Success",
 							"type":"boolean"
@@ -1874,6 +1828,7 @@
 				"downloaderSuccess":true,
 				"offset":0,
 				"limit":40,
+				"batchSize":"{{ __ENV__.outputs.CONFLUENCE_PAGE_PROCESSING_BATCH_SIZE }}",
 				"status":"UNPROCESSED"
 			},
 			"outputSchema":{
@@ -1883,6 +1838,10 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
+						"batchSize":{
+							"title":"Batch Size",
+							"type":"integer"
+						},
 						"downloaderSuccess":{
 							"title":"Downloader Success",
 							"type":"boolean"
@@ -1911,6 +1870,61 @@
 		{
 			"context":{
 				"appName":"if_else",
+				"resourceVersion":922,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_SQjXE-1",
+			"id":"n_s2a8S",
+			"index":8,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_eZIqW.outputs.batchSize }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1589,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_s2a8S@_SQjXE-1@y",
+			"id":"n_ry012",
+			"index":9,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_eZIqW.outputs.batchSize }}",
+						"value":10
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
 				"resourceVersion":71,
 				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
@@ -1920,7 +1934,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_0ipVb",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"filters":[
 					{
@@ -1955,7 +1969,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ipVb@_SQjXE-1@y",
 			"id":"n_JFLJI",
-			"index":9,
+			"index":11,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2029,7 +2043,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ipVb@_SQjXE-1@y",
 			"id":"n_sey5E",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2093,7 +2107,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_0ipVb@_SQjXE-1@y",
 			"id":"n_7rrr1",
-			"index":11,
+			"index":13,
 			"inputs":{
 				"limit":"{{ n_eZIqW.outputs.limit }}",
 				"start":"{{ n_JFLJI.outputs.result.offset }}",
@@ -2188,7 +2202,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7rrr1@n_0ipVb@_SQjXE-1@y@error",
 			"id":"n_IJ3OW",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -2240,7 +2254,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ipVb@_SQjXE-1@y",
 			"id":"n_CEH31",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2426,7 +2440,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ipVb@_SQjXE-1@y",
 			"id":"n_zarlU",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2460,7 +2474,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ipVb@_SQjXE-1@n",
 			"id":"n_TynD7",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -2512,7 +2526,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0ipVb@_SQjXE-1@n",
 			"id":"n_C599k",
-			"index":16,
+			"index":18,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2582,7 +2596,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"n_0ipVb@_SQjXE-1@n",
 			"id":"n_UC4fY",
-			"index":17,
+			"index":19,
 			"inputs":{
 				"spaceKey":"{{ 1WPP3.outputs.result.mappedInputs.spaceKey }}",
 				"expand":"version",
@@ -2682,7 +2696,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_UC4fY@n_0ipVb@_SQjXE-1@n@success",
 			"id":"n_Eb6Ko",
-			"index":18,
+			"index":20,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2721,7 +2735,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_UC4fY@n_0ipVb@_SQjXE-1@n@error",
 			"id":"n_8FUfD",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -2765,11 +2779,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_CPRYj",
-			"index":20,
+			"index":22,
 			"inputs":{
-				"repeatMode":"SINGLE",
+				"repeatMode":"BATCH",
 				"listSource":"{{ n_qLRGk.outputs.items }}",
-				"captureIterations":false
+				"captureIterations":false,
+				"batchSize":"{{ n_eZIqW.outputs.batchSize }}"
 			},
 			"skip":false,
 			"subTitle":"Loop",
@@ -2818,7 +2833,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_Sn6PV",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2990,14 +3005,10 @@
 				"parameters":{
 					"inputs":{
 						"items":{
-							"_links":{
-								"self":"{{ n_CPRYj.outputs.item[0].content._links.self }}",
-								"webui":"{{ n_CPRYj.outputs.item[0].content._links.webui }}"
-							},
-							"base":"{{ n_7rrr1.outputs._links.base }}",
+							"base":"{{ n_CPRYj.outputs.item[0].base }}",
 							"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}",
 							"grabberType":"{{ n_YxLaL.outputs.downloaderConfig.grabberType }}",
-							"id":"{{ n_CPRYj.outputs.item[0].content.id }}",
+							"id":"{{ n_CPRYj.outputs.item[0].id }}",
 							"includeAttachments":"{{ 1WPP3.outputs.result.mappedInputs.includeAttachments }}",
 							"includeComments":"{{ 1WPP3.outputs.result.mappedInputs.includeComments }}",
 							"indexingVersion":"{{ n_YxLaL.outputs.knowledge.indexingVersion }}",
@@ -3006,18 +3017,15 @@
 							"space":{
 								"spaceKey":"{{ 1WPP3.outputs.result.mappedInputs.spaceKey }}"
 							},
-							"status":"{{ n_CPRYj.outputs.item[0].content.status }}",
-							"title":"{{ n_CPRYj.outputs.item[0].content.title }}",
-							"version":{
-								"when":"{{ n_CPRYj.outputs.item[0].lastModified }}"
-							}
+							"status":"{{ n_CPRYj.outputs.item[0].status }}",
+							"title":"{{ n_CPRYj.outputs.item[0].title }}"
 						},
 						"source":"{{ n_CPRYj.outputs.item }}",
 						"ua:type":"mappedArray"
 					}
 				}
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -3034,7 +3042,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_48jT0",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3067,7 +3075,7 @@
 					"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}"
 				}
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -3084,7 +3092,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_hrrrp",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"automationId":"68c82cf26d4de43586f67a81",
 				"runtimeConnections":{},
@@ -3101,138 +3109,8 @@
 				"version":"-1",
 				"executeOnSameVM":false
 			},
-			"skip":true,
-			"subTitle":"Callable",
-			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
-				"appName":"if_else",
-				"resourceVersion":71,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"n_ymz28",
-			"index":24,
-			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"CONTAINS",
-							"value":"forward"
-						},
-						"property":"{{ n_YxLaL.outputs.downloaderConfig.grabberType }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":true,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":3543,
-				"resourceName":"storage_by_unifyapps_get_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_ymz28@n_CPRYj@_SQjXE-1@l@n",
-			"id":"n_3Jnau",
-			"index":25,
-			"inputs":{
-				"object_type":"knowledge_raw_data_store",
-				"includeRoleMappings":false,
-				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
-				"id":"e_6a318b99a81b96692ec72bac_{{ n_CPRYj.outputs.item.id }}_1",
-				"readThroughSessionVariables":false
-			},
-			"skip":true,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Fetch record by ID",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"continue",
-				"resourceVersion":72,
-				"resourceName":"continue",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_ymz28@n_CPRYj@_SQjXE-1@l@n",
-			"id":"n_4ZPKY",
-			"index":26,
-			"inputs":{
-				"loop":"n_CPRYj",
-				"conditions":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EXISTS"
-							},
-							"property":"{{ n_3Jnau.outputs.id }}"
-						}
-					],
-					"operator":"AND"
-				}
-			},
-			"skip":true,
-			"subTitle":"Continue",
-			"title":"Continue",
-			"type":"CONTINUE"
-		},
-		{
-			"context":{
-				"appName":"callables",
-				"resourceVersion":523,
-				"resourceName":"callables_call_automation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"_LTeh6",
-			"index":27,
-			"inputs":{
-				"automationId":"69a039f021cf924c16f60cb5",
-				"runtimeConnections":{
-					"confluence":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}"
-				},
-				"synchronous":true,
-				"parameters":{
-					"base":"{{ n_CPRYj.outputs.item.base }}",
-					"connectionId":"{{ n_YxLaL.outputs.knowledge.applicationInfo.context.connectionId }}",
-					"grabberType":"{{ n_YxLaL.outputs.downloaderConfig.grabberType }}",
-					"id":"{{ n_CPRYj.outputs.item.id }}",
-					"includeAttachments":"{{ 1WPP3.outputs.result.mappedInputs.includeAttachments }}",
-					"includeComments":"{{ 1WPP3.outputs.result.mappedInputs.includeComments }}",
-					"indexingVersion":"{{ n_YxLaL.outputs.knowledge.indexingVersion }}",
-					"knowledgeId":"{{ n_YxLaL.outputs.knowledgeId }}",
-					"knowledgeSetId":"{{ n_YxLaL.outputs.knowledge.knowledgeSetId }}",
-					"space":{
-						"spaceKey":"{{ 1WPP3.outputs.result.mappedInputs.spaceKey }}"
-					},
-					"status":"{{ n_CPRYj.outputs.item.status }}",
-					"title":"{{ n_CPRYj.outputs.item.title }}"
-				},
-				"version":"-1"
-			},
 			"skip":false,
-			"subTitle":"Page Downloader",
+			"subTitle":"Callable",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
 		},
@@ -3248,13 +3126,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"_Z5tPV",
-			"index":28,
+			"index":26,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_hrrrp.outputs.response }}",
 				"captureIterations":false
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Loop",
 			"title":"For each loop",
 			"type":"LOOP"
@@ -3271,7 +3149,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Z5tPV@n_CPRYj@_SQjXE-1@l@l",
 			"id":"_RJVUi",
-			"index":29,
+			"index":27,
 			"inputs":{
 				"filters":[
 					{
@@ -3284,7 +3162,7 @@
 				],
 				"operator":"AND"
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -3301,7 +3179,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_RJVUi@_Z5tPV@n_CPRYj@_SQjXE-1@l@l@y",
 			"id":"_OH4yR",
-			"index":30,
+			"index":28,
 			"inputs":{
 				"variables":[
 					{
@@ -3310,7 +3188,7 @@
 					}
 				]
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Update variables",
 			"type":"ACTION"
@@ -3357,7 +3235,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Z5tPV@n_CPRYj@_SQjXE-1@l@l",
 			"id":"_MUChW",
-			"index":31,
+			"index":29,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -3405,157 +3283,6 @@
 				},
 				"listName":"{{ n_gFnII.outputs.items[0] }}"
 			},
-			"skip":true,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Add items to list",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"if_else",
-				"resourceVersion":108,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"n_Z7kct",
-			"index":32,
-			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EQUAL",
-							"value":"false"
-						},
-						"property":"{{ _LTeh6.outputs.success }}"
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":2208,
-				"resourceName":"variable_by_unifyapps_update_variables",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_Z7kct@n_CPRYj@_SQjXE-1@l@y",
-			"id":"n_EWDMi",
-			"index":33,
-			"inputs":{
-				"variables":[
-					{
-						"source":"{{ n_eZIqW.outputs.downloaderSuccess }}",
-						"value":false
-					}
-				]
-			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Update variables",
-			"type":"ACTION"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.itemsToAdd.items.isArchived",
-					"root.itemsToAdd.items.onlyMetadataModified",
-					"root.itemsToAdd.items.knowledgeId",
-					"root.itemsToAdd.items.knowledgeSetId",
-					"root.itemsToAdd.items.resourceType",
-					"root.itemsToAdd.items.sourceResponse",
-					"root.itemsToAdd.items.id",
-					"root.itemsToAdd.items.status",
-					"root.itemsToAdd.items.retryCount",
-					"root.itemsToAdd.items.metadata",
-					"root.itemsToAdd.items.additional.mimeType",
-					"root.itemsToAdd.items.additional.fileDetails.name",
-					"root.itemsToAdd.items.additional.fileDetails.source",
-					"root.itemsToAdd.items.additional.fileDetails.sourceType",
-					"root.itemsToAdd.items.additional.fileDetails.fileType",
-					"root.itemsToAdd.items.additional.fileDetails.size",
-					"root.itemsToAdd.items.additional.fileDetails.fileExtension",
-					"root.itemsToAdd.items.additional.fileDetails.url",
-					"root.itemsToAdd.items.isDeleted",
-					"root.itemsToAdd.items.sourceDetails.modifiedTime",
-					"root.itemsToAdd.items.sharedWithIds.items",
-					"root.itemsToAdd.items.knowledgeVersion",
-					"root.itemsToAdd.items.parentEntityId",
-					"root.itemsToAdd.items.sourceDetails.rootEntityId",
-					"root.itemsToAdd.items.additional.grabberType",
-					"root.itemsToAdd.items.scheduledSync"
-				]
-			},
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":0,
-				"resourceName":"variable_by_unifyapps_add_items_to_list",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CPRYj@_SQjXE-1@l",
-			"id":"n_Xsfak",
-			"index":34,
-			"inputs":{
-				"captureAddedItems":false,
-				"insertLocation":"END",
-				"itemsToAdd":{
-					"items":{
-						"additional":{
-							"fileDetails":{
-								"fileExtension":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.fileExtension }}",
-								"fileType":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.fileType }}",
-								"name":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.name }}",
-								"size":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.size }}",
-								"source":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.source }}",
-								"sourceType":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.sourceType }}",
-								"url":"{{ _LTeh6.outputs.rawDataList[0].additional.fileDetails.url }}"
-							},
-							"grabberType":"{{ _LTeh6.outputs.rawDataList[0].additional.grabberType }}",
-							"mimeType":"{{ _LTeh6.outputs.rawDataList[0].additional.mimeType }}"
-						},
-						"id":"{{ _LTeh6.outputs.rawDataList[0].id }}",
-						"isArchived":"{{ _LTeh6.outputs.rawDataList[0].isArchived }}",
-						"isDeleted":"{{ _LTeh6.outputs.rawDataList[0].isDeleted }}",
-						"knowledgeId":"{{ _LTeh6.outputs.rawDataList[0].knowledgeId }}",
-						"knowledgeSetId":"{{ _LTeh6.outputs.rawDataList[0].knowledgeSetId }}",
-						"knowledgeVersion":"{{ _LTeh6.outputs.rawDataList[0].knowledgeVersion }}",
-						"metadata":"{{ _LTeh6.outputs.rawDataList[0].metadata }}",
-						"onlyMetadataModified":"{{ _LTeh6.outputs.rawDataList[0].onlyMetadataModified }}",
-						"parentEntityId":"{{ _LTeh6.outputs.rawDataList[0].parentEntityId }}",
-						"resourceType":"{{ _LTeh6.outputs.rawDataList[0].resourceType }}",
-						"retryCount":"{{ _LTeh6.outputs.rawDataList[0].retryCount }}",
-						"scheduledSync":"{{ _LTeh6.outputs.rawDataList[0].scheduledSync }}",
-						"sharedWithIds":{
-							"items":"{{ _LTeh6.outputs.rawDataList[0].sharedWithIds[0] }}",
-							"source":"{{ _LTeh6.outputs.rawDataList[0].sharedWithIds }}",
-							"ua:type":"mappedArray"
-						},
-						"sourceDetails":{
-							"modifiedTime":"{{ _LTeh6.outputs.rawDataList[0].sourceDetails.modifiedTime }}",
-							"rootEntityId":"{{ _LTeh6.outputs.rawDataList[0].sourceDetails.rootEntityId }}"
-						},
-						"sourceResponse":"{{ _LTeh6.outputs.rawDataList[0].sourceResponse }}",
-						"status":"{{ _LTeh6.outputs.rawDataList[0].status }}"
-					},
-					"source":"{{ _LTeh6.outputs.rawDataList }}",
-					"ua:type":"mappedArray"
-				},
-				"listName":"{{ n_gFnII.outputs.items[0] }}"
-			},
 			"skip":false,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Add items to list",
@@ -3573,7 +3300,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_tfNzq",
-			"index":35,
+			"index":30,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3898,7 +3625,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_OW6Ti",
-			"index":36,
+			"index":31,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3956,7 +3683,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_rueTV",
-			"index":37,
+			"index":32,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_OW6Ti.outputs.result.rawDataIds }}",
@@ -3980,7 +3707,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_rueTV@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_DA5px",
-			"index":38,
+			"index":33,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -4036,7 +3763,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_rueTV@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_Adqlp",
-			"index":39,
+			"index":34,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"START",
@@ -4081,7 +3808,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_Mevgx",
-			"index":40,
+			"index":35,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4372,7 +4099,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"_65Cey",
-			"index":41,
+			"index":36,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_Mevgx.outputs.result.fullUpdateRawDatas }}",
@@ -4447,7 +4174,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_65Cey@n_CPRYj@_SQjXE-1@l@l",
 			"id":"_kBM7H",
-			"index":42,
+			"index":37,
 			"inputs":{
 				"useRawPayload":false,
 				"object_type":"knowledge_raw_data_store",
@@ -4463,6 +4190,7 @@
 								"sourceType":"{{ _65Cey.outputs.item[0].additional.fileDetails.sourceType }}",
 								"url":"{{ _65Cey.outputs.item[0].additional.fileDetails.url }}"
 							},
+							"grabberType":"{{ _65Cey.outputs.item[0].additional.grabberType }}",
 							"mimeType":"{{ _65Cey.outputs.item[0].additional.mimeType }}"
 						},
 						"id":"{{ _65Cey.outputs.item[0].id }}",
@@ -4514,7 +4242,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_XGPxd",
-			"index":43,
+			"index":38,
 			"inputs":{
 				"repeatMode":"BATCH",
 				"listSource":"{{ n_Mevgx.outputs.result.noUpdatesRawDataIds }}",
@@ -4538,7 +4266,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_XGPxd@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_CdVVu",
-			"index":44,
+			"index":39,
 			"inputs":{
 				"automationId":"6998219daead1d0a392a2454",
 				"runtimeConnections":{},
@@ -4572,7 +4300,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_vaAOt",
-			"index":45,
+			"index":40,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_Mevgx.outputs.result.partialUpdateRawDataList }}",
@@ -4596,7 +4324,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_vaAOt@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_yFVUx",
-			"index":46,
+			"index":41,
 			"inputs":{
 				"automationId":"6998219daead1d0a392a2454",
 				"runtimeConnections":{},
@@ -4605,7 +4333,8 @@
 					"fileDetails":"{{ n_vaAOt.outputs.item.additional.fileDetails }}",
 					"rawDataId":"{{ n_vaAOt.outputs.item.id }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"delete files",
@@ -4624,7 +4353,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_vaAOt@n_CPRYj@_SQjXE-1@l@l",
 			"id":"n_rIA5B",
-			"index":47,
+			"index":42,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -4692,7 +4421,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CPRYj@_SQjXE-1@l",
 			"id":"n_1ursX",
-			"index":48,
+			"index":43,
 			"inputs":{
 				"listName":"{{ n_gFnII.outputs.items[0] }}"
 			},
@@ -4713,7 +4442,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_Q551b",
-			"index":49,
+			"index":44,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -4783,7 +4512,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"n_7YeJf",
-			"index":50,
+			"index":45,
 			"inputs":{
 				"filters":[
 					{
@@ -4818,7 +4547,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@y",
 			"id":"n_fzq61",
-			"index":51,
+			"index":46,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4913,7 +4642,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@y",
 			"id":"n_tIMyr",
-			"index":52,
+			"index":47,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4968,7 +4697,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@y",
 			"id":"n_3HtMt",
-			"index":53,
+			"index":48,
 			"inputs":{
 				"variables":[
 					{
@@ -5007,7 +4736,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@n",
 			"id":"_KefNv",
-			"index":54,
+			"index":49,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -5103,7 +4832,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@n",
 			"id":"n_Y2Rk0",
-			"index":55,
+			"index":50,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -5158,7 +4887,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@n",
 			"id":"n_hyfeb",
-			"index":56,
+			"index":51,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -5211,7 +4940,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7YeJf@_SQjXE-1@n",
 			"id":"n_1ZjQE",
-			"index":57,
+			"index":52,
 			"inputs":{
 				"variables":[
 					{
@@ -5245,7 +4974,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SQjXE-1",
 			"id":"_wVbLz",
-			"index":58,
+			"index":53,
 			"inputs":{
 				"result":{
 					"cursor":"{{ n_Q551b.outputs.cursor }}",
@@ -5282,5 +5011,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":204
+	"version":206
 }

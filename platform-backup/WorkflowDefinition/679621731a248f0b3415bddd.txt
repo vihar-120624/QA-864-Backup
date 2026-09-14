@@ -4,24 +4,16 @@
 	],
 	"createdTime":1787743557401,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743557671,
+		"deployedAt":1789395076992,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd454cdb0358b9df291e",
+		"deployedDefinitionId":"6aa8008472fd792214e8c039",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":55
+		"version":2,
+		"workflowVersion":58
 	},
 	"edges":[
-		{
-			"fromNodeId":"MXwXM",
-			"id":"next@MXwXM@_XyC9s",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_XyC9s",
-			"type":"next"
-		},
 		{
 			"fromNodeId":"_XyC9s",
 			"id":"next@_XyC9s@n_lG7FS",
@@ -163,6 +155,100 @@
 			"skip":false,
 			"toNodeId":"34cJB",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"MXwXM",
+			"id":"next@MXwXM@agcGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcGate",
+			"id":"if@agcGate@invoke",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"invoke",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"invoke",
+			"id":"next@invoke@agcIngestGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcIngestGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcIngestGate",
+			"id":"if@agcIngestGate@agcIngest",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcIngest",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcIngest",
+			"id":"next@agcIngest@agcStop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcStop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcIngestGate",
+			"id":"next@agcIngestGate@agcStop",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcStop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcStop",
+			"id":"next@agcStop@_XyC9s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_XyC9s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcGate",
+			"id":"next@agcGate@agcAgent",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcAgent",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcAgent",
+			"id":"next@agcAgent@agcFlagGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcFlagGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"if@agcFlagGate@invoke",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"invoke",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"next@agcFlagGate@_XyC9s",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_XyC9s",
+			"type":"next"
 		}
 	],
 	"grants":{
@@ -180,7 +266,7 @@
 	"id":"679621731a248f0b3415bddd",
 	"lastModifiedBy":-1,
 	"lcName":"trigger agent and wait for response",
-	"modifiedTime":1788252972597,
+	"modifiedTime":1789395387883,
 	"name":"Trigger Agent And Wait For Response",
 	"nodes":[
 		{
@@ -275,7 +361,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"_XyC9s",
-			"index":2,
+			"index":7,
 			"inputs":{
 				"recordId":"{{ MXwXM.outputs.caseId }}",
 				"writeThroughSessionVariables":false,
@@ -329,7 +415,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"n_lG7FS",
-			"index":3,
+			"index":8,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"session_task_tracker",
@@ -397,7 +483,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"n_KGLWH",
-			"index":4,
+			"index":9,
 			"inputs":{
 				"object_type":"e_session_task_state",
 				"includeRoleMappings":false,
@@ -423,7 +509,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"n_Owktt",
-			"index":5,
+			"index":10,
 			"inputs":{
 				"filters":[
 					{
@@ -452,7 +538,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Owktt@AkwWi-1@y",
 			"id":"n_v5MgM",
-			"index":6,
+			"index":11,
 			"inputs":{
 				"recordId":"{{ MXwXM.outputs.caseId }}_{{ MXwXM.outputs.taskId }}",
 				"writeThroughSessionVariables":false,
@@ -511,7 +597,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Owktt@AkwWi-1@n",
 			"id":"n_0FCPc",
-			"index":7,
+			"index":12,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -548,7 +634,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"_wAv6R",
-			"index":8,
+			"index":13,
 			"inputs":{
 				"automationId":"67933cc866e1f1098aa02c39",
 				"runtimeConnections":{},
@@ -579,7 +665,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"_BRrsJ",
-			"index":9,
+			"index":14,
 			"inputs":{
 				"duration":2,
 				"unit":"HOURS",
@@ -615,7 +701,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"tfz4h",
-			"index":10,
+			"index":15,
 			"inputs":{
 				"recordId":"{{ MXwXM.outputs.caseId }}",
 				"writeThroughSessionVariables":false,
@@ -659,7 +745,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"n_anx6o",
-			"index":11,
+			"index":16,
 			"inputs":{
 				"filters":[
 					{
@@ -695,7 +781,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_anx6o@AkwWi-1@y",
 			"id":"n_34fFj",
-			"index":12,
+			"index":17,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -812,7 +898,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"n_1JXiA",
-			"index":13,
+			"index":18,
 			"inputs":{
 				"recordId":"{{ MXwXM.outputs.caseId }}_{{ MXwXM.outputs.taskId }}",
 				"writeThroughSessionVariables":false,
@@ -846,7 +932,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"mwHAM",
-			"index":14,
+			"index":19,
 			"inputs":{
 				"filters":[
 					{
@@ -876,7 +962,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"mwHAM@AkwWi-1@y",
 			"id":"dYgiR",
-			"index":15,
+			"index":20,
 			"inputs":{
 				"automationId":"67a31b86addac8605df79166",
 				"runtimeConnections":{},
@@ -907,7 +993,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AkwWi-1",
 			"id":"34cJB",
-			"index":16,
+			"index":21,
 			"inputs":{
 				"result":{
 					"agentResponse":"{{ _BRrsJ.outputs.signal_payload.response }}",
@@ -918,6 +1004,207 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":463,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"AkwWi-1",
+			"id":"agcGate",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.USE_NEW_AGENT_CORE }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Use new agent core?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"ai_agents_by_unifyapps",
+				"resourceVersion":1,
+				"resourceName":"ai_agents_by_unifyapps_invoke_agent",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@AkwWi-1@y",
+			"id":"invoke",
+			"index":3,
+			"inputs":{
+				"agentId":"{{ MXwXM.outputs.aiAgentId }}",
+				"caseId":"{{ MXwXM.outputs.caseId }}",
+				"adoptExistingMessage":true,
+				"fromCustomerUserId":"{{ __RUN__.outputs.userId }}",
+				"copilotType":"WORKFLOW",
+				"message":"{{ MXwXM.outputs.task }}",
+				"teamType":"{{ MXwXM.outputs.teamType }}",
+				"userId":"{{ __RUN__.outputs.userId }}",
+				"taskId":"{{ MXwXM.outputs.taskId }}",
+				"triggeredByAgentId":"{{ MXwXM.outputs.triggeredByAgentId }}"
+			},
+			"skip":false,
+			"subTitle":"Invoke Agent",
+			"title":"Run the agent turn",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":463,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@AkwWi-1@y",
+			"id":"agcIngestGate",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ MXwXM.outputs.ingestAgentResponse }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"ingest Agent Response ?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":58,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcIngestGate@agcGate@AkwWi-1@y@y",
+			"id":"agcIngest",
+			"index":5,
+			"inputs":{
+				"automationId":"67a31b86addac8605df79166",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ MXwXM.outputs.aiAgentId }}",
+					"caseId":"{{ MXwXM.outputs.caseId }}",
+					"createMessageIfAbsent":true,
+					"executionOutput":"{{ invoke.outputs.response }}",
+					"taskId":"{{ MXwXM.outputs.taskId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Ingest",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":11,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@AkwWi-1@y",
+			"id":"agcStop",
+			"index":6,
+			"inputs":{
+				"result":{
+					"agentResponse":"{{ invoke.outputs.response }}",
+					"success":"true"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@AkwWi-1@n",
+			"id":"agcAgent",
+			"index":22,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ MXwXM.outputs.aiAgentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch the agent's rollout flag",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":463,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@AkwWi-1@n",
+			"id":"agcFlagGate",
+			"index":23,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ agcAgent.outputs.properties.useAgentCore }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Agent opted into agent core?",
+			"title":"Condition",
+			"type":"IF_ELSE"
 		}
 	],
 	"ownerUserId":-1,
@@ -938,5 +1225,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":57
+	"version":59
 }
