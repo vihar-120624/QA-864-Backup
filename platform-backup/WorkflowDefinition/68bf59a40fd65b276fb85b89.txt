@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744583284,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744583554,
+		"deployedAt":1789395345167,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed147cee862008d7568bf",
+		"deployedDefinitionId":"6aa80191c6a14707f1503f59",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":29
+		"version":2,
+		"workflowVersion":32
 	},
 	"edges":[
 		{
@@ -92,11 +92,63 @@
 		},
 		{
 			"fromNodeId":"_5iPjK",
-			"id":"next@_5iPjK@lJbSc",
+			"id":"next@_5iPjK@n_FMAie",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FMAie",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FMAie",
+			"id":"next@n_FMAie@n_WFOm7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WFOm7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WFOm7",
+			"id":"next@n_WFOm7@n_EDdiH",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EDdiH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EDdiH",
+			"id":"if@n_EDdiH@n_YGjpr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YGjpr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_YGjpr",
+			"id":"next@n_YGjpr@lJbSc",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"lJbSc",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EDdiH",
+			"id":"next@n_EDdiH@lJbSc",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lJbSc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WFOm7",
+			"id":"error@n_WFOm7@lJbSc",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"lJbSc",
+			"type":"error"
 		},
 		{
 			"fromNodeId":"lJbSc",
@@ -148,7 +200,7 @@
 	"id":"68bf59a40fd65b276fb85b89",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | onedrive | file",
-	"modifiedTime":1788252971609,
+	"modifiedTime":1789395388149,
 	"name":"Knowledge Indexer | OneDrive | File",
 	"nodes":[
 		{
@@ -660,6 +712,318 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_j0TDH-1",
+			"id":"n_FMAie",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"chunkMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"required":[],
+							"title":"Chunk Metadata",
+							"type":"object"
+						},
+						"metadataString":{
+							"title":"Metadata String",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"author":{
+							"title":"Author",
+							"type":"string"
+						},
+						"authorEmail":{
+							"title":"Author Email",
+							"type":"string"
+						},
+						"createdBy":{
+							"title":"Created By",
+							"type":"string"
+						},
+						"createdByEmail":{
+							"title":"Created By Email",
+							"type":"string"
+						},
+						"creationDateTime":{
+							"title":"Creation Date Time",
+							"type":"string"
+						},
+						"editCount":{
+							"title":"Edit Count",
+							"type":"integer"
+						},
+						"folder":{
+							"title":"Folder",
+							"type":"string"
+						},
+						"isExternallyShared":{
+							"title":"Is Externally Shared",
+							"type":"boolean"
+						},
+						"mimeType":{
+							"title":"Mime Type",
+							"type":"string"
+						},
+						"modifiedBy":{
+							"title":"Modified By",
+							"type":"string"
+						},
+						"modifiedByEmail":{
+							"title":"Modified By Email",
+							"type":"string"
+						},
+						"modifiedTime":{
+							"title":"Modified Time",
+							"type":"string"
+						},
+						"name":{
+							"title":"Name",
+							"type":"string"
+						},
+						"parentFolderId":{
+							"title":"Parent Folder Id",
+							"type":"string"
+						},
+						"parentName":{
+							"title":"Parent Name",
+							"type":"string"
+						},
+						"parentPath":{
+							"title":"Parent Path",
+							"type":"string"
+						},
+						"previewCount":{
+							"title":"Preview Count",
+							"type":"integer"
+						},
+						"resourceType":{
+							"title":"Resource Type",
+							"type":"string"
+						},
+						"size":{
+							"title":"Size",
+							"type":"string"
+						},
+						"viewCount":{
+							"title":"Access Count",
+							"type":"integer"
+						},
+						"webViewLink":{
+							"title":"Web View Link",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def chunkMetadata = [:]\nchunkMetadata << (binding.hasVariable('name') && name ? [\"title\": name] : [:])\nchunkMetadata << (binding.hasVariable('name') && name ? [\"name\": name] : [:])\nchunkMetadata << (binding.hasVariable('mimeType') && mimeType ? [\"mimeType\": mimeType] : [:])\nchunkMetadata << (binding.hasVariable('webViewLink') && webViewLink ? [\"referenceUrl\": webViewLink] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << [\"appName\": \"microsoft_onedrive\"]\nchunkMetadata << (binding.hasVariable('folder') && folder ? [\"folderName\": folder] : [:])\nchunkMetadata << (binding.hasVariable('author') && author ? [\"author\": author] : [:])\nchunkMetadata << (binding.hasVariable('creationDateTime') && creationDateTime ? [\"createdAt\": creationDateTime] : [:])\nchunkMetadata << (binding.hasVariable('modifiedTime') && modifiedTime ? [\"modifiedAt\": modifiedTime] : [:])\nchunkMetadata << (binding.hasVariable('createdByEmail') && createdByEmail ? [\"createdByEmail\": createdByEmail] : [:])\nchunkMetadata << (binding.hasVariable('createdBy') && createdBy ? [\"createdBy\": createdBy] : [:])\nchunkMetadata << (binding.hasVariable('modifiedByEmail') && modifiedByEmail ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunkMetadata << (binding.hasVariable('modifiedBy') && modifiedBy ? [\"modifiedBy\": modifiedBy] : [:])\nchunkMetadata << (binding.hasVariable('parentName') && parentName ? [\"parentName\": parentName] : [:])\nchunkMetadata << (binding.hasVariable('parentPath') && parentPath ? [\"parentPath\": parentPath] : [:])\nchunkMetadata << [\"resourceType\": \"file\"]\nchunkMetadata << [\"isExternallyShared\": (binding.hasVariable('isExternallyShared') && isExternallyShared) ? isExternallyShared : false]\nchunkMetadata << [\"viewCount\": (binding.hasVariable('viewCount') && viewCount != null) ? viewCount : 1]\nchunkMetadata << [\"previewCount\": (binding.hasVariable('previewCount') && previewCount != null) ? previewCount : 1]\nchunkMetadata << [\"editCount\": (binding.hasVariable('editCount') && editCount != null) ? editCount : 1]\nchunkMetadata << [\"shareCount\": (binding.hasVariable('shareCount') && shareCount != null) ? shareCount : 1]\n\n// ---- human/LLM readable rendering ----\n\ndef humanSize = { v ->\n    if (v == null) return null\n    def bytes = (v instanceof Number) ? v.toLong() : (v.toString().isLong() ? v.toString().toLong() : null)\n    if (bytes == null) return v.toString()\n    def units = ['B', 'KB', 'MB', 'GB', 'TB']\n    double s = bytes\n    int i = 0\n    while (s >= 1024 && i < units.size() - 1) { s /= 1024; i++ }\n    return (i == 0) ? \"${bytes} B\" : String.format(\"%.1f %s\", s, units[i])\n}\n\n// label overrides + display order; anything not listed is skipped from the string\ndef spec = [\n    name             : 'File',\n    mimeType         : 'Type',\n    size             : 'Size',\n    parentPath       : 'Path',\n    parentName       : 'Parent folder',\n    folderName       : 'Folder',\n    appName          : 'Source',\n    author           : 'Author',\n    createdBy        : 'Created by',\n    createdByEmail   : 'Created by email',\n    createdAt        : 'Created at',\n    modifiedBy       : 'Modified by',\n    modifiedByEmail  : 'Modified by email',\n    modifiedAt       : 'Modified at',\n    resourceType     : 'Resource type',\n    isExternallyShared: 'Externally shared',\n    referenceUrl     : 'Link',\n    viewCount        : 'Views',\n    previewCount     : 'Previews',\n    editCount        : 'Edits',\n    shareCount       : 'Shares'\n]\n\ndef parts = []\nspec.each { key, label ->\n    def val = chunkMetadata[key]\n    if (val == null || (val instanceof CharSequence && !val.toString().trim())) return\n    if (key == 'size') val = humanSize(val)\n    if (key == 'isExternallyShared') val = val ? 'yes' : 'no'\n    parts << \"${label}: ${val}\"\n}\n\ndef metadataString = parts.join(' | ')\n\nchunkMetadata << [\"metadataString\": metadataString]\n\nreturn [\"chunkMetadata\": chunkMetadata, \"metadataString\": metadataString]",
+				"compile_static":false,
+				"isAsync":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"author":"{{ n_FeUgW.outputs.result.author }}",
+					"authorEmail":"{{ n_FeUgW.outputs.result.authorEmail }}",
+					"createdBy":"{{ n_RZPc2.outputs.metadata.createdBy }}",
+					"createdByEmail":"{{ n_RZPc2.outputs.metadata.createdByEmail }}",
+					"creationDateTime":"{{ n_FeUgW.outputs.result.createdTime }}",
+					"editCount":"{{ n_RZPc2.outputs.metadata.editCount }}",
+					"folder":"{{ n_RZPc2.outputs.metadata.folderName }}",
+					"isExternallyShared":"{{ n_RZPc2.outputs.metadata.isExternallyShared }}",
+					"mimeType":"{{ n_FeUgW.outputs.result.mimeType }}",
+					"modifiedBy":"{{ n_RZPc2.outputs.metadata.modifiedBy }}",
+					"modifiedByEmail":"{{ n_RZPc2.outputs.metadata.modifiedByEmail }}",
+					"modifiedTime":"{{ n_FeUgW.outputs.result.modifiedTime }}",
+					"name":"{{ n_FeUgW.outputs.result.name }}",
+					"parentFolderId":"{{ n_RZPc2.outputs.metadata.parentFolderId }}",
+					"parentName":"{{ n_RZPc2.outputs.metadata.parentName }}",
+					"parentPath":"{{ n_RZPc2.outputs.metadata.parentPath }}",
+					"previewCount":"{{ n_RZPc2.outputs.metadata.previewCount }}",
+					"size":"{{ n_FeUgW.outputs.result.size }}",
+					"viewCount":"{{ n_RZPc2.outputs.metadata.viewCount }}",
+					"webViewLink":"{{ n_FeUgW.outputs.result.referenceUrl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Create metadata string",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1676,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"_j0TDH-1",
+			"id":"n_WFOm7",
+			"index":10,
+			"inputs":{
+				"automationId":"67091f09c6db330cf5b08ead",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"knowledgeId":"{{ n_RZPc2.outputs.knowledgeId }}",
+					"text":"{{ n_FMAie.outputs.result.metadataString }}"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"text chunker [metadata chunks]",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":71,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_WFOm7@_j0TDH-1@success",
+			"id":"n_EDdiH",
+			"index":11,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"GT",
+							"value":"0"
+						},
+						"property":"=LEN({{ n_WFOm7.outputs.chunks }})"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":48,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EDdiH@n_WFOm7@_j0TDH-1@success@y",
+			"id":"n_YGjpr",
+			"index":12,
+			"inputs":{
+				"automationId":"66af3ff4cd79b321cb478a37",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"authorEmail":"{{ n_FeUgW.outputs.result.author }}",
+					"chunkMetadata":"{{ _5iPjK.outputs.result.chunkMetadata }}",
+					"chunks":{
+						"items":{
+							"chunkMetadata":"{{ _5iPjK.outputs.result.chunkMetadata }}",
+							"data":"{{ n_WFOm7.outputs.chunks[0] }}",
+							"sharedWithIds":{
+								"items":"{{ n_RZPc2.outputs.sharedWithIds[0] }}",
+								"source":"{{ n_RZPc2.outputs.sharedWithIds }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_WFOm7.outputs.chunks }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_RZPc2.outputs.knowledgeId }}",
+					"knowledgeVersion":"{{ n_RZPc2.outputs.knowledgeVersion }}",
+					"uniqueEntityId":"{{ n_RZPc2.outputs.uniqueEntityId }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Indexer With RBAC",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":67,
 				"resourceName":"callables_call_automation",
@@ -670,7 +1034,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_j0TDH-1",
 			"id":"lJbSc",
-			"index":9,
+			"index":13,
 			"inputs":{
 				"automationId":"6708d0a1e5c64343ba9b24c8",
 				"runtimeConnections":{},
@@ -707,7 +1071,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_j0TDH-1",
 			"id":"n_pub4M",
-			"index":10,
+			"index":14,
 			"inputs":{
 				"filters":[
 					{
@@ -736,7 +1100,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_pub4M@_j0TDH-1@y",
 			"id":"fuLyt",
-			"index":11,
+			"index":15,
 			"inputs":{
 				"automationId":"66af3ff4cd79b321cb478a37",
 				"runtimeConnections":{},
@@ -780,7 +1144,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_j0TDH-1",
 			"id":"n_POMRK",
-			"index":12,
+			"index":16,
 			"inputs":{
 				"result":{
 					"success":true
@@ -811,5 +1175,5 @@
 		"release_27jan",
 		"msft_connectors"
 	],
-	"version":31
+	"version":33
 }

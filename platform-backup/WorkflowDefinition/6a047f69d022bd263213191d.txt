@@ -4,28 +4,40 @@
 	],
 	"createdTime":1787744635437,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744635610,
+		"deployedAt":1789395355047,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed17bcee862008d75b621",
+		"deployedDefinitionId":"6aa8019b39ee5f5ef70b6b0f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":14
+		"version":2,
+		"workflowVersion":17
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_VY1B4",
+			"id":"next@n_VY1B4@n_dxA7x",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_2uFCH",
+			"toNodeId":"n_dxA7x",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_2uFCH",
+			"fromNodeId":"n_dxA7x",
+			"id":"if@n_dxA7x@n_S3voi",
+			"name":"yes",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_S3voi",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_dxA7x",
+			"id":"next@n_dxA7x@n_JMhRw",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JMhRw",
 			"type":"next"
 		}
 	],
@@ -44,7 +56,7 @@
 	"id":"6a047f69d022bd263213191d",
 	"lastModifiedBy":-1,
 	"lcName":"servicenow | user rbac job | wrapper",
-	"modifiedTime":1788252972297,
+	"modifiedTime":1789395388149,
 	"name":"ServiceNow | User RBAC job | Wrapper",
 	"nodes":[
 		{
@@ -77,55 +89,39 @@
 		},
 		{
 			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":698,
-				"resourceName":"variable_by_unifyapps_create_variables",
+				"appName":"if_else",
+				"resourceVersion":918,
+				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_KGqZN-1",
-			"id":"n_2uFCH",
+			"id":"n_dxA7x",
 			"index":2,
-			"inputSchema":{
-				"type":"SCHEMA_AND_LAYOUT",
-				"dynamic":false,
-				"layout":{},
-				"schema":{
-					"additionalProperties":false,
-					"type":"object",
-					"properties":{
-						"connectionId":{
-							"title":"Connection Id",
-							"type":"string"
-						}
-					},
-					"required":[]
-				}
-			},
 			"inputs":{
-				"connectionId":"6980fbdb09bdeb25969d2e58"
-			},
-			"outputSchema":{
-				"type":"SCHEMA",
-				"dynamic":false,
-				"schema":{
-					"additionalProperties":false,
-					"type":"object",
-					"properties":{
-						"connectionId":{
-							"title":"Connection Id",
-							"type":"string"
-						}
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ __ENV__.outputs.service_now_user_job_connection }}"
 					},
-					"required":[]
-				}
+					{
+						"filter":{
+							"operator":"GT",
+							"value":"0"
+						},
+						"property":"=LEN({{ __ENV__.outputs.service_now_user_job_connection }})"
+					}
+				],
+				"operator":"AND"
 			},
 			"skip":false,
-			"subTitle":"connectionId",
-			"title":"Create variables",
-			"type":"ACTION"
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
 		},
 		{
 			"context":{
@@ -137,18 +133,19 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_KGqZN-1",
+			"groupId":"n_dxA7x@_KGqZN-1@y",
 			"id":"n_S3voi",
 			"index":3,
 			"inputs":{
 				"automationId":"6a047fd9a913260506115acb",
 				"runtimeConnections":{
-					"microsoft_teams":"{{ n_2uFCH.outputs.connectionId }}"
+					"microsoft_teams":"{{ n_2uFCH.outputs.connectionId }}",
+					"servicenow":"{{ __ENV__.outputs.service_now_user_job_connection }}"
 				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
-					"connectionId":"{{ n_2uFCH.outputs.connectionId }}"
+					"connectionId":"{{ __ENV__.outputs.service_now_user_job_connection }}"
 				},
 				"version":"-1"
 			},
@@ -156,6 +153,21 @@
 			"subTitle":"User rbac job",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dxA7x@_KGqZN-1@n",
+			"id":"n_JMhRw",
+			"index":4,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":-1,
@@ -176,5 +188,5 @@
 		"knowledge_v2",
 		"servicenow"
 	],
-	"version":16
+	"version":18
 }
