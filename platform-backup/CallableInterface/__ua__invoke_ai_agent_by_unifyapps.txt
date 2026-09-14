@@ -50,6 +50,10 @@
 					"ui:title":"AI Agent",
 					"ui:widget":"LookupWidget"
 				},
+				"messageId":{
+					"ui:help":"Optional. A caller-supplied id for this inbound message; a replay of the same id is answered from the original turn instead of billed again.",
+					"ui:title":"Message ID"
+				},
 				"sessionId":{
 					"ui:help":"Optional. A unique identifier for your session. If provided, previous messages from the same session will be used for context.",
 					"ui:title":"Session ID"
@@ -136,6 +140,20 @@
 					"title":"External Knowledges",
 					"type":"array"
 				},
+				"messageId":{
+					"title":"Message Id",
+					"type":"string"
+				},
+				"routineId":{
+					"description":"Set on a routine run: the ai_routine this turn executes. Drives runtime routine scoping (topics/skills/defaultTools) and span attribution.",
+					"title":"Routine Id",
+					"type":"string"
+				},
+				"routineRunId":{
+					"description":"Set on a routine run: the e_routine_run row this turn belongs to.",
+					"title":"Routine Run Id",
+					"type":"string"
+				},
 				"sessionId":{
 					"title":"sessionId",
 					"type":"string"
@@ -143,6 +161,16 @@
 				"skipApprovalBeforeToolExecution":{
 					"title":"Skip Approval Before Tool Execution",
 					"type":"boolean"
+				},
+				"spaceId":{
+					"description":"The space the turn's case is created in, when the caller scopes one.",
+					"title":"Space Id",
+					"type":"string"
+				},
+				"taskExecutionModel":{
+					"description":"Per-request execution-model override (ai_agent_llm_model id); unset runs the agent's own model.",
+					"title":"Task Execution Model",
+					"type":"string"
 				},
 				"userEmailAddress":{
 					"title":"User Email Address",
@@ -160,7 +188,7 @@
 	},
 	"lastModifiedBy":-1,
 	"lcName":"invoke ai agent by unifyapps",
-	"modifiedTime":1788252972943,
+	"modifiedTime":1789394965649,
 	"name":"Invoke AI Agent By UnifyApps",
 	"output":{
 		"type":"SCHEMA",
@@ -290,6 +318,29 @@
 				"sessionId":{
 					"title":"sessionId",
 					"type":"string"
+				},
+				"usage":{
+					"additionalProperties":false,
+					"properties":{
+						"cost":{
+							"title":"Cost",
+							"type":"number"
+						},
+						"inputTokens":{
+							"title":"Input Tokens",
+							"type":"integer"
+						},
+						"llmCalls":{
+							"title":"Llm Calls",
+							"type":"integer"
+						},
+						"outputTokens":{
+							"title":"Output Tokens",
+							"type":"integer"
+						}
+					},
+					"title":"Usage",
+					"type":"object"
 				}
 			},
 			"required":[]
@@ -297,5 +348,5 @@
 	},
 	"ownerUserId":-1,
 	"standard":true,
-	"version":45
+	"version":46
 }
