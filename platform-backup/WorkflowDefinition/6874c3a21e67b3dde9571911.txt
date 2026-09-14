@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743719610,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743720202,
+		"deployedAt":1789395151333,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecde8177b4b4aca57ad9e",
+		"deployedDefinitionId":"6aa800cf39ee5f5ef70b6011",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":195
+		"version":2,
+		"workflowVersion":198
 	},
 	"edges":[
 		{
@@ -386,7 +386,7 @@
 	"id":"6874c3a21e67b3dde9571911",
 	"lastModifiedBy":-1,
 	"lcName":"generatechart tool (with blocks)",
-	"modifiedTime":1788252972058,
+	"modifiedTime":1789395392538,
 	"name":"GenerateChart Tool (with Blocks)",
 	"nodes":[
 		{
@@ -1289,14 +1289,14 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"columnNames":{
-						"items":"{{ O9a4D.outputs.result.columnData[0] }}",
-						"source":"{{ O9a4D.outputs.result.columnData }}",
+						"items":"{{ O9a4D.outputs.result.result[0].columnData[0] }}",
+						"source":"{{ O9a4D.outputs.result.result[0].columnData }}",
 						"ua:type":"mappedArray"
 					},
 					"maxRowLimitForsql":"{{ n_6i0h1.outputs.properties.preProcessingSettings.maxRowLimitForSQL }}",
 					"sql_output":{
-						"items":"{{ O9a4D.outputs.result.rowData[0] }}",
-						"source":"{{ O9a4D.outputs.result.rowData }}",
+						"items":"{{ O9a4D.outputs.result.result[0].rowData[0] }}",
+						"source":"{{ O9a4D.outputs.result.result[0].rowData }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -1957,7 +1957,7 @@
 					"caseId":"{{ GpPp2.outputs.caseId }}",
 					"decimalPlaces":"{{ n_6i0h1.outputs.properties.responseGenerationSettings.chartGenerationSettings.decimalPlaces }}",
 					"globalTitle":"{{ _AwVnL.outputs.result.globalTitle }}",
-					"modelId":"{{ GpPp2.outputs.executeUsingModel }}",
+					"modelId":"=IF({{ GpPp2.outputs.toolAdditional.modelId }},{{ GpPp2.outputs.toolAdditional.modelId }},{{ GpPp2.outputs.executeUsingModel }})",
 					"notation":"{{ n_6i0h1.outputs.properties.responseGenerationSettings.chartGenerationSettings.notation }}",
 					"percentDecimals":"{{ n_6i0h1.outputs.properties.responseGenerationSettings.chartGenerationSettings.PercentDecimalPlaces }}",
 					"result":{
@@ -1994,7 +1994,8 @@
 									"items":{
 										"bubbleSize":"{{ _AwVnL.outputs.result.result[0].yAxis.series[0].bubbleSize }}",
 										"key":"{{ _AwVnL.outputs.result.result[0].yAxis.series[0].key }}",
-										"label":"{{ _AwVnL.outputs.result.result[0].yAxis.series[0].label }}"
+										"label":"{{ _AwVnL.outputs.result.result[0].yAxis.series[0].label }}",
+										"tickLabel":"{{ _AwVnL.outputs.result.result[0].yAxis.series[0].labelType }}"
 									},
 									"source":"{{ _AwVnL.outputs.result.result[0].yAxis.series }}",
 									"ua:type":"mappedArray"
@@ -3102,7 +3103,7 @@
 					"caseId":"{{ GpPp2.outputs.caseId }}",
 					"decimalPlaces":"{{ n_6i0h1.outputs.properties.responseGenerationSettings.chartGenerationSettings.decimalPlaces }}",
 					"globalTitle":"{{ O9a4D.outputs.result.globalTitle }}",
-					"modelId":"{{ GpPp2.outputs.executeUsingModel }}",
+					"modelId":"=IF({{ GpPp2.outputs.toolAdditional.modelId }},{{ GpPp2.outputs.toolAdditional.modelId }},{{ GpPp2.outputs.executeUsingModel }})",
 					"notation":"{{ n_6i0h1.outputs.properties.responseGenerationSettings.chartGenerationSettings.notation }}",
 					"percentDecimals":"{{ n_6i0h1.outputs.properties.responseGenerationSettings.chartGenerationSettings.PercentDecimalPlaces }}",
 					"platformName":"{{ n_dIPEm.outputs.objects[0].properties.sqlQueryPlatformName }}",
@@ -4361,7 +4362,7 @@
 	],
 	"ownerUserId":-1,
 	"schemaReferences":[
-		"entity|e_code_snippet|e_6874dfa7a739fcd9517e062a"
+		
 	],
 	"settings":{
 		"enableNodeLevelLogging":true,
@@ -4373,5 +4374,5 @@
 		}
 	},
 	"standard":true,
-	"version":197
+	"version":199
 }
