@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743770701,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743770804,
+		"deployedAt":1789395177922,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece1a177b4b4aca57b1ed",
+		"deployedDefinitionId":"6aa800e9c6a14707f1503638",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":37
+		"version":2,
+		"workflowVersion":40
 	},
 	"edges":[
 		{
@@ -72,20 +72,12 @@
 		},
 		{
 			"fromNodeId":"n_UUG1g",
-			"id":"if@n_UUG1g@n_cZN2A",
+			"id":"if@n_UUG1g@n_sNJoM",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_cZN2A",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_cZN2A",
-			"id":"next@n_cZN2A@n_sNJoM",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_sNJoM",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_UUG1g",
@@ -163,7 +155,7 @@
 	"id":"6a630dfda857155bc00af116",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover anthropic agent",
-	"modifiedTime":1788252972672,
+	"modifiedTime":1789395396020,
 	"name":"Governance | Discover Anthropic Agent",
 	"nodes":[
 		{
@@ -467,13 +459,6 @@
 								"value":"{{ n_4i3fc.outputs.item.id }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_aEyk8.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -526,58 +511,6 @@
 			"type":"IF_ELSE"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_UUG1g@n_4i3fc@n_wh@_LYlus-1@l@l@y",
-			"id":"n_cZN2A",
-			"index":9,
-			"inputs":{
-				"recordId":"{{ n_iixis.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_iixis.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_iixis.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_aEyk8.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"agent",
-					"awaitingTraces":"{{ n_iixis.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_aEyk8.outputs.agentProfileGroupProperties.connection }}",
-					"connectionType":"observe",
-					"description":"{{ n_4i3fc.outputs.item.description }}",
-					"enabled":"{{ n_iixis.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_4i3fc.outputs.item.id }}",
-					"name":"{{ n_4i3fc.outputs.item.name }}",
-					"ownerId":"=IF(ISBLANK({{ n_iixis.outputs.properties.ownerId }}),{{ n_aEyk8.outputs.agentProfileGroupProperties.ownerId }},{{ n_iixis.outputs.properties.ownerId }})",
-					"registered":false,
-					"registered_first_time":"{{ n_iixis.outputs.properties.registered_first_time }}",
-					"remainingRetryCount":"{{ n_aEyk8.outputs.retryCount }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
@@ -589,7 +522,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_UUG1g@n_4i3fc@n_wh@_LYlus-1@l@l@y",
 			"id":"n_sNJoM",
-			"index":10,
+			"index":9,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile",
@@ -599,6 +532,11 @@
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.agentProfileGroupIds",
 						"setValue":"{{ n_aEyk8.outputs.agentProfileGroupId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.metadata",
+						"setValue":"{{ n_4i3fc.outputs.item.metadata }}"
 					}
 				],
 				"id":"{{ n_iixis.outputs.id }}",
@@ -627,7 +565,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_UUG1g@n_4i3fc@n_wh@_LYlus-1@l@l@n",
 			"id":"n_BJm59",
-			"index":11,
+			"index":10,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -640,13 +578,15 @@
 					],
 					"applicationId":"{{ n_aEyk8.outputs.agentProfileGroupProperties.application }}",
 					"assetType":"agent",
-					"awaitingTraces":false,
+					"awaitingTraces":true,
 					"connectionId":"{{ n_aEyk8.outputs.agentProfileGroupProperties.connection }}",
 					"connectionType":"observe",
 					"cursor":"{{ n_initCur.outputs.result.cursor }}",
 					"description":"{{ n_4i3fc.outputs.item.description }}",
 					"enabled":"{{ n_aEyk8.outputs.agentProfileGroupProperties.autoRegister }}",
 					"external_agent_id":"{{ n_4i3fc.outputs.item.id }}",
+					"lc_name":"=LOWER({{ n_4i3fc.outputs.item.name }})",
+					"metadata":"{{ n_4i3fc.outputs.item.metadata }}",
 					"name":"{{ n_4i3fc.outputs.item.name }}",
 					"ownerId":"{{ n_aEyk8.outputs.agentProfileGroupProperties.ownerId }}",
 					"registered":"{{ n_aEyk8.outputs.agentProfileGroupProperties.autoRegister }}",
@@ -673,7 +613,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_LYlus-1@l",
 			"id":"n_brk",
-			"index":12,
+			"index":11,
 			"inputs":{
 				"loop":"n_wh",
 				"conditions":{
@@ -706,7 +646,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_LYlus-1@l",
 			"id":"n_updv",
-			"index":13,
+			"index":12,
 			"inputs":{
 				"variables":[
 					{
@@ -732,7 +672,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_LYlus-1",
 			"id":"n_KiE6d",
-			"index":14,
+			"index":13,
 			"inputs":{
 				"result":{
 					"success":true
@@ -762,5 +702,5 @@
 		}
 	},
 	"standard":true,
-	"version":39
+	"version":41
 }
