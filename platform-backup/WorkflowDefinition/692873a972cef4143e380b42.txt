@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743833195,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743833258,
+		"deployedAt":1789395226618,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece599d7c534668ef8db4",
+		"deployedDefinitionId":"6aa8011a39ee5f5ef70b631e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":68
+		"version":2,
+		"workflowVersion":71
 	},
 	"edges":[
 		{
@@ -44,13 +44,6 @@
 		},
 		{
 			"fromNodeId":"n_rSzYs",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_lSpCp",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_lSpCp",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_pgryq",
@@ -101,7 +94,7 @@
 	"id":"692873a972cef4143e380b42",
 	"lastModifiedBy":-1,
 	"lcName":"schedule knowledge sync",
-	"modifiedTime":1788252973182,
+	"modifiedTime":1789395401553,
 	"name":"Schedule Knowledge Sync",
 	"nodes":[
 		{
@@ -326,7 +319,7 @@
 				"sortBy":[
 					{
 						"field":"mTm",
-						"order":"DESC"
+						"order":"ASC"
 					}
 				],
 				"translationsOption":"DEFAULT",
@@ -350,39 +343,6 @@
 		},
 		{
 			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":1147,
-				"resourceName":"storage_by_unifyapps_count_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_T9iWX-1",
-			"id":"n_lSpCp",
-			"index":6,
-			"inputs":{
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"QUEUED"
-							},
-							"property":"properties_status"
-						}
-					],
-					"operator":"AND"
-				},
-				"object_type":"knowledge"
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Count records",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"loop",
 				"resourceVersion":463,
 				"resourceName":"loop_for_each",
@@ -393,7 +353,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_T9iWX-1",
 			"id":"n_pgryq",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_rSzYs.outputs.objects }}",
@@ -422,7 +382,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_pgryq@_T9iWX-1@l",
 			"id":"n_utUTi",
-			"index":8,
+			"index":7,
 			"inputs":{
 				"recordId":"{{ n_pgryq.outputs.item.id }}",
 				"writeThroughSessionVariables":false,
@@ -454,7 +414,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_pgryq@_T9iWX-1@l",
 			"id":"_E4LyX",
-			"index":9,
+			"index":8,
 			"inputs":{
 				"automationId":"69b3bbf1bc190266adbbdb65",
 				"runtimeConnections":{},
@@ -479,7 +439,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_T9iWX-1",
 			"id":"n_Ezxra",
-			"index":10,
+			"index":9,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -494,6 +454,9 @@
 		"enableNodeLevelLogging":false,
 		"enableRunLogging":false,
 		"enableVariableLogging":false,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -504,5 +467,5 @@
 	"tags":[
 		
 	],
-	"version":70
+	"version":72
 }
