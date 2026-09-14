@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744648635,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744649530,
+		"deployedAt":1789395360474,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed189cee862008d75c2be",
+		"deployedDefinitionId":"6aa801a072fd792214e8d097",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":124
+		"version":2,
+		"workflowVersion":127
 	},
 	"edges":[
 		{
@@ -40,6 +40,30 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_nmtVd",
+			"id":"next@n_nmtVd@n_E24OX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E24OX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_E24OX",
+			"id":"next@n_E24OX@n_pM5WP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pM5WP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pM5WP",
+			"id":"next@n_pM5WP@n_bu7yz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bu7yz",
+			"type":"next"
+		},
+		{
 			"fromNodeId":"n_hRmH3",
 			"id":"if@n_hRmH3@n_Lq6by",
 			"name":"yes",
@@ -49,8 +73,8 @@
 			"type":"if"
 		},
 		{
-			"fromNodeId":"n_nmtVd",
-			"id":"next@n_nmtVd@n_Lq6by",
+			"fromNodeId":"n_bu7yz",
+			"id":"next@n_bu7yz@n_Lq6by",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Lq6by",
@@ -66,12 +90,20 @@
 		},
 		{
 			"fromNodeId":"n_Vkf89",
-			"id":"if@n_Vkf89@n_odirR",
+			"id":"if@n_Vkf89@n_gdYV9",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_odirR",
+			"toNodeId":"n_gdYV9",
 			"type":"if"
+		},
+		{
+			"fromNodeId":"n_gdYV9",
+			"id":"next@n_gdYV9@n_odirR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_odirR",
+			"type":"next"
 		},
 		{
 			"fromNodeId":"n_Vkf89",
@@ -346,7 +378,7 @@
 	"id":"68be6d8ca57c5841acb1facb",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | sharepoint | file",
-	"modifiedTime":1788252972602,
+	"modifiedTime":1789395395294,
 	"name":"Knowledge Downloader | Sharepoint | File",
 	"nodes":[
 		{
@@ -575,6 +607,170 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1762,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_hRmH3@_liiWT-1@n",
+			"id":"n_E24OX",
+			"index":5,
+			"inputs":{
+				"object_type":"knowledge_raw_data_store",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_SQS3w.outputs.knowledgeId }}_{{ n_SQS3w.outputs.uniqueId }}_{{ n_SQS3w.outputs.indexingVersion }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"microsoft_sharepoint",
+				"resourceVersion":347,
+				"connectionId":"69e1611feb7173234da66ab7",
+				"resourceName":"microsoft_sharepoint_get_folder_file_details_by_path",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_hRmH3@_liiWT-1@n",
+			"id":"n_pM5WP",
+			"index":6,
+			"inputs":{
+				"site_name":"{{ n_SQS3w.outputs.siteName }}",
+				"parent_folder":"{{ n_SQS3w.outputs.folderPath }}",
+				"select":"file",
+				"file_name":"{{ n_SQS3w.outputs.fileName }}",
+				"siteType":"{{ n_SQS3w.outputs.siteType }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":3000,
+					"maxDelay":15000
+				},
+				"retryRetryableWorkConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":2147483647,
+					"enabled":false,
+					"initialDelay":5000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Microsoft SharePoint",
+			"title":"Get File / Folder details by path",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":206,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_hRmH3@_liiWT-1@n",
+			"id":"n_bu7yz",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def fileObj = fileDetails?.d ?: fileDetails\n\n// Get metadata id safely\ndef metadataId = fileObj?.__metadata?.id\n\n// Extract tenant root only\ndef tenantRoot = metadataId.split(\"/sites/\")[0]\n\n// Get server relative URL\ndef serverRelativeUrl = fileObj?.ServerRelativeUrl\n\n// Final reference URL\nString referenceUrl = \"${tenantRoot}${serverRelativeUrl}?web=1\"\n\nreturn [\"referenceUrl\":referenceUrl]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileDetails":"{{ n_pM5WP.outputs.d }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":18,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -585,7 +781,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_liiWT-1",
 			"id":"n_Lq6by",
-			"index":5,
+			"index":8,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -641,7 +837,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_liiWT-1",
 			"id":"n_Vkf89",
-			"index":6,
+			"index":9,
 			"inputs":{
 				"filters":[
 					{
@@ -661,6 +857,68 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":628,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Vkf89@_liiWT-1@y",
+			"id":"n_gdYV9",
+			"index":10,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"updatedMetadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Updated Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"folderName":{
+							"title":"Folder Name",
+							"type":"string"
+						},
+						"linkingUrl":{
+							"title":"Linking Url",
+							"type":"string"
+						},
+						"metadata":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Metadata",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def metadata = binding.hasVariable('metadata')? metadata : [:]\n\nif (binding.hasVariable('folderName')) {\n    def fullPath = folderName\n    \n    // Extract parentPath (everything except the filename)\n    def parentPath = fullPath.substring(0, fullPath.lastIndexOf('/') + 1)\n    metadata[\"parentPath\"] =  parentPath\n    \n    // Extract parentName (immediate folder name before the file)\n    def pathWithoutFile = fullPath.substring(0, fullPath.lastIndexOf('/'))\n    def parentName = pathWithoutFile.substring(pathWithoutFile.lastIndexOf('/') + 1)\n    metadata[\"parentName\"] = parentName\n    metadata[\"folderName\"] = parentName\n}\nif(binding.hasVariable('linkingUrl') && linkingUrl != null && !linkingUrl.isEmpty()){\n  metadata[\"referenceUrl\"] = linkingUrl\n}\n\nreturn [\"updatedMetadata\":metadata]\n\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"folderName":"{{ n_pM5WP.outputs.d.ServerRelativeUrl }}",
+					"linkingUrl":"{{ n_bu7yz.outputs.result.referenceUrl }}",
+					"metadata":"{{ n_E24OX.outputs.properties.metadata }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":465,
 				"resourceName":"callables_call_automation",
@@ -671,7 +929,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@y",
 			"id":"n_odirR",
-			"index":7,
+			"index":11,
 			"inputs":{
 				"automationId":"68bf492eb9564171346f808d",
 				"runtimeConnections":{},
@@ -707,7 +965,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_83flu",
-			"index":8,
+			"index":12,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -755,7 +1013,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_i1E8M",
-			"index":9,
+			"index":13,
 			"inputs":{
 				"filters":[
 					{
@@ -785,7 +1043,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_i1E8M@n_Vkf89@_liiWT-1@n@y",
 			"id":"_JRY8y",
-			"index":10,
+			"index":14,
 			"inputs":{
 				"result":{
 					"success":false
@@ -808,7 +1066,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_r1iRF",
-			"index":11,
+			"index":15,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -866,7 +1124,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_pDmAV",
-			"index":12,
+			"index":16,
 			"inputs":{
 				"site_name":"{{ n_SQS3w.outputs.siteName }}",
 				"itemId":"{{ n_SQS3w.outputs.uniqueId }}",
@@ -952,7 +1210,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_UZq29",
-			"index":13,
+			"index":17,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1000,7 +1258,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_TeXPl",
-			"index":14,
+			"index":18,
 			"inputs":{
 				"filters":[
 					{
@@ -1037,7 +1295,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_TeXPl@n_Vkf89@_liiWT-1@n@y",
 			"id":"n_vfQKI",
-			"index":15,
+			"index":19,
 			"inputs":{
 				"result":{
 					"success":false
@@ -1061,7 +1319,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_LoEnZ",
-			"index":16,
+			"index":20,
 			"inputs":{
 				"site_name":"{{ n_SQS3w.outputs.siteName }}",
 				"file_name":"{{ n_SQS3w.outputs.fileName }}",
@@ -1151,7 +1409,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_FztqH",
-			"index":17,
+			"index":21,
 			"inputs":{
 				"file":"{{ n_LoEnZ.outputs.file }}"
 			},
@@ -1172,7 +1430,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_AS7nO",
-			"index":18,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1220,7 +1478,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_pqz10",
-			"index":19,
+			"index":23,
 			"inputs":{
 				"file":"{{ n_LoEnZ.outputs.file }}",
 				"expiryTime":1
@@ -1242,7 +1500,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_zNeiH",
-			"index":20,
+			"index":24,
 			"inputs":{
 				"code":"import com.unifyapps.infra.utils.EnvUtils;\nreturn ['host': EnvUtils.getHostName()]",
 				"compile_static":false,
@@ -1265,7 +1523,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_E08zJ",
-			"index":21,
+			"index":25,
 			"inputs":{
 				"fileName":"{{ __RUN__.outputs.executionId }}_{{ n_pDmAV.outputs.d.Name }}",
 				"url":"{{ n_pqz10.outputs.url }}",
@@ -1288,7 +1546,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_8NDHV",
-			"index":22,
+			"index":26,
 			"inputs":{
 				"filters":[
 					{
@@ -1318,7 +1576,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8NDHV@n_Vkf89@_liiWT-1@n@y",
 			"id":"n_tDI7r",
-			"index":23,
+			"index":27,
 			"inputs":{
 				"site_name":"{{ n_SQS3w.outputs.siteName }}",
 				"fileId":"{{ n_SQS3w.outputs.uniqueId }}",
@@ -1403,7 +1661,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8NDHV@n_Vkf89@_liiWT-1@n@y",
 			"id":"n_8sGwS",
-			"index":24,
+			"index":28,
 			"inputs":{
 				"variables":[
 					{
@@ -1430,7 +1688,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_7sxms",
-			"index":25,
+			"index":29,
 			"inputs":{
 				"site_name":"{{ n_SQS3w.outputs.siteName }}",
 				"fileId":"{{ n_SQS3w.outputs.uniqueId }}",
@@ -1453,7 +1711,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_r6Uje",
-			"index":26,
+			"index":30,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1503,7 +1761,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_v6WnA",
-			"index":27,
+			"index":31,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1588,7 +1846,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_eHH6p",
-			"index":28,
+			"index":32,
 			"inputs":{
 				"automationId":"68c1aac1d4d9f629c192ff08",
 				"runtimeConnections":{},
@@ -1616,7 +1874,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_7G1Sl",
-			"index":29,
+			"index":33,
 			"inputs":{
 				"date":"{{ n_pDmAV.outputs.d.TimeLastModified }}",
 				"epochUnit":"milliseconds"
@@ -1638,7 +1896,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Vkf89@_liiWT-1@n",
 			"id":"n_rjkKR",
-			"index":30,
+			"index":34,
 			"inputs":{
 				"filters":[
 					{
@@ -1668,7 +1926,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_rjkKR@n_Vkf89@_liiWT-1@n@y",
 			"id":"n_kVVcM",
-			"index":31,
+			"index":35,
 			"inputs":{
 				"automationId":"6a147bed9a18e0734ddc7966",
 				"runtimeConnections":{},
@@ -1719,7 +1977,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_rjkKR@n_Vkf89@_liiWT-1@n@n",
 			"id":"n_J6fua",
-			"index":32,
+			"index":36,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
@@ -1762,7 +2020,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_liiWT-1",
 			"id":"n_9We9R",
-			"index":33,
+			"index":37,
 			"inputs":{
 				"result":{
 					"rawData":"{{ n_J6fua.outputs.rawData }}",
@@ -1796,5 +2054,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":126
+	"version":128
 }

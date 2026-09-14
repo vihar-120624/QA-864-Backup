@@ -1,0 +1,1160 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395301248,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395301322,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa8016539ee5f5ef70b664f",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":20
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_CkPId",
+			"id":"next@n_CkPId@n_norm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_norm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xVevI",
+			"id":"next@n_xVevI@n_LmMqG",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LmMqG",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LmMqG",
+			"id":"if@n_LmMqG@n_uAOgb",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uAOgb",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_uAOgb",
+			"id":"next@n_uAOgb@n_7bivY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7bivY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7bivY",
+			"id":"next@n_7bivY@n_F6wE5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_F6wE5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_F6wE5",
+			"id":"next@n_F6wE5@n_KCEqH",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KCEqH",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LmMqG",
+			"id":"next@n_LmMqG@n_Y6Osr",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Y6Osr",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Y6Osr",
+			"id":"next@n_Y6Osr@n_TCesl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TCesl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KCEqH",
+			"id":"next@n_KCEqH@n_sqS3V",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sqS3V",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TCesl",
+			"id":"next@n_TCesl@n_sqS3V",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sqS3V",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sqS3V",
+			"id":"next@n_sqS3V@n_IIDPq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IIDPq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IIDPq",
+			"id":"next@n_IIDPq@n_lpJJN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lpJJN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lpJJN",
+			"id":"next@n_lpJJN@n_BmE29",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BmE29",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_BmE29",
+			"id":"next@n_BmE29@n_WDhJs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WDhJs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_norm",
+			"id":"next@n_norm@n_xVevI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xVevI",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a82e1e1b3dba405687044a7",
+	"lastModifiedBy":-1,
+	"lcName":"agent optimiser | subworkflowforagentsessions",
+	"modifiedTime":1789395395304,
+	"name":"Agent Optimiser | subWorkflowForAgentSessions",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1415,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_CkPId",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"caseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Case Ids",
+							"type":"array"
+						},
+						"holdoutDatasetId":{
+							"title":"Holdout Dataset Id",
+							"type":"string"
+						},
+						"totalDatasetId":{
+							"title":"Total Dataset Id",
+							"type":"string"
+						},
+						"trainingDatasetId":{
+							"title":"Training Dataset Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"trainingDatasetId",
+						"holdoutDatasetId",
+						"totalDatasetId",
+						"caseIds"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"agentId",
+							"type":"string"
+						},
+						"caseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Case Ids",
+							"type":"array"
+						},
+						"filter":{
+							"help":"filter for agent sessions",
+							"title":"Filter",
+							"type":"string"
+						},
+						"goal":{
+							"title":"goal",
+							"type":"string"
+						},
+						"holdoutSize":{
+							"title":"Holdout Size",
+							"type":"number"
+						},
+						"limit":{
+							"title":"limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"offset",
+							"type":"integer"
+						},
+						"optimisationRunId":{
+							"title":"Optimisation Run Id",
+							"type":"string"
+						},
+						"source":{
+							"title":"source",
+							"type":"string"
+						},
+						"windowDays":{
+							"default":"30",
+							"title":"windowDays",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"goal",
+						"offset",
+						"limit",
+						"source",
+						"holdoutSize",
+						"windowDays",
+						"optimisationRunId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":343,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_xVevI",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"HoldoutCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Holdout Case Ids",
+							"type":"array"
+						},
+						"holdoutDatasetId":{
+							"title":"Holdout Dataset Id",
+							"type":"string"
+						},
+						"totalCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Total Case Ids",
+							"type":"array"
+						},
+						"totalDatasetId":{
+							"title":"Total Dataset Id",
+							"type":"string"
+						},
+						"totalLimit":{
+							"title":"Total Limit",
+							"type":"number"
+						},
+						"trainingCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Training Case Ids",
+							"type":"array"
+						},
+						"trainingDatasetId":{
+							"title":"Training Dataset Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"totalLimit",
+						"totalDatasetId"
+					]
+				}
+			},
+			"inputs":{
+				"totalCaseIds":{
+					"items":"{{ n_CkPId.outputs.caseIds[0] }}",
+					"source":"{{ n_CkPId.outputs.caseIds }}",
+					"ua:type":"mappedArray"
+				},
+				"totalLimit":"=SUM({{ n_CkPId.outputs.limit }},{{ n_CkPId.outputs.holdoutSize }})"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"HoldoutCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Holdout Case Ids",
+							"type":"array"
+						},
+						"holdoutDatasetId":{
+							"title":"Holdout Dataset Id",
+							"type":"string"
+						},
+						"totalCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Total Case Ids",
+							"type":"array"
+						},
+						"totalDatasetId":{
+							"title":"Total Dataset Id",
+							"type":"string"
+						},
+						"totalLimit":{
+							"title":"Total Limit",
+							"type":"number"
+						},
+						"trainingCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Training Case Ids",
+							"type":"array"
+						},
+						"trainingDatasetId":{
+							"title":"Training Dataset Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"totalLimit",
+						"totalDatasetId"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"totalLimit,caseIDs",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":68,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_LmMqG",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"AUTO"
+						},
+						"property":"{{ n_CkPId.outputs.filter }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":978,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LmMqG@_iHwxE-1@y",
+			"id":"n_uAOgb",
+			"index":5,
+			"inputs":{
+				"outputSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"string"
+						}
+					},
+					"required":[
+						"result"
+					],
+					"type":"object"
+				},
+				"query":"SELECT DISTINCT _pr_caseId\nFROM ENTITY_e_traces\nWHERE _pr_aiAgentId = '{{ n_CkPId.outputs.agentId }}'\nAND timestamp >= DATE_SUB(NOW(), INTERVAL {{ n_norm.outputs.result.windowDays }} DAY)\nLIMIT {{ n_norm.outputs.result.totalLimit }}\nOFFSET {{ n_norm.outputs.result.offset }};",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":true,
+			"subTitle":"Analytics",
+			"title":"getCases",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4631,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LmMqG@_iHwxE-1@y",
+			"id":"n_7bivY",
+			"index":6,
+			"inputs":{
+				"automationId":"6a797804ad075e71cf0c6cda",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"AgentID":"{{ n_CkPId.outputs.agentId }}",
+					"goal":"{{ n_CkPId.outputs.goal }}",
+					"holdoutSize":"{{ n_CkPId.outputs.holdoutSize }}",
+					"limit":"{{ n_CkPId.outputs.limit }}",
+					"offset":"{{ n_CkPId.outputs.offset }}",
+					"windowDays":"{{ n_CkPId.outputs.windowDays }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"fwc-foragent",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1035,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LmMqG@_iHwxE-1@y",
+			"id":"n_F6wE5",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"holdoutCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"holdoutCaseIds",
+							"type":"array"
+						},
+						"totalCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"totalCaseIds",
+							"type":"array"
+						},
+						"trainingCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"trainingCaseIds",
+							"type":"array"
+						}
+					},
+					"required":[
+						"trainingCaseIds",
+						"holdoutCaseIds",
+						"totalCaseIds"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"cases":{
+							"additionalProperties":false,
+							"properties":{
+								"holdout":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"case_id":{
+												"title":"case_id",
+												"type":"string"
+											},
+											"categories":{
+												"items":{
+													"type":"string"
+												},
+												"title":"categories",
+												"type":"array"
+											},
+											"parameters":{
+												"additionalProperties":{
+													"additionalProperties":true,
+													"type":"object"
+												},
+												"title":"parameters",
+												"type":"object"
+											}
+										},
+										"required":[
+											"case_id",
+											"categories",
+											"parameters"
+										],
+										"type":"object"
+									},
+									"title":"holdout",
+									"type":"array"
+								},
+								"total":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"case_id":{
+												"title":"case_id",
+												"type":"string"
+											},
+											"categories":{
+												"items":{
+													"type":"string"
+												},
+												"title":"categories",
+												"type":"array"
+											},
+											"parameters":{
+												"additionalProperties":{
+													"additionalProperties":true,
+													"type":"object"
+												},
+												"title":"parameters",
+												"type":"object"
+											}
+										},
+										"required":[
+											"case_id",
+											"categories",
+											"parameters"
+										],
+										"type":"object"
+									},
+									"title":"total",
+									"type":"array"
+								},
+								"training":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"case_id":{
+												"title":"case_id",
+												"type":"string"
+											},
+											"categories":{
+												"items":{
+													"type":"string"
+												},
+												"title":"categories",
+												"type":"array"
+											},
+											"parameters":{
+												"additionalProperties":{
+													"additionalProperties":true,
+													"type":"object"
+												},
+												"title":"parameters",
+												"type":"object"
+											}
+										},
+										"required":[
+											"case_id",
+											"categories",
+											"parameters"
+										],
+										"type":"object"
+									},
+									"title":"training",
+									"type":"array"
+								}
+							},
+							"required":[
+								"training",
+								"holdout",
+								"total"
+							],
+							"title":"cases",
+							"type":"object"
+						}
+					},
+					"required":[
+						"cases"
+					],
+					"type":"object"
+				},
+				"code":"def cases = binding.hasVariable('cases') ? cases : [:]\n\ndef extractIds = { list ->\n    (list ?: []).collect { it.case_id }\n}\n\ndef trainingCaseIds = extractIds(cases.training)\ndef holdoutCaseIds  = extractIds(cases.holdout)\ndef totalCaseIds    = extractIds(cases.total)\n\nreturn [\n    trainingCaseIds: trainingCaseIds,\n    holdoutCaseIds : holdoutCaseIds,\n    totalCaseIds   : totalCaseIds\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"cases":{
+						"holdout":{
+							"items":{
+								"case_id":"{{ n_7bivY.outputs.cases.holdout[0].case_id }}",
+								"categories":{
+									"items":"{{ n_7bivY.outputs.cases.holdout[0].categories[0] }}",
+									"source":"{{ n_7bivY.outputs.cases.holdout[0].categories }}",
+									"ua:type":"mappedArray"
+								},
+								"parameters":"{{ n_7bivY.outputs.cases.holdout[0].parameters }}"
+							},
+							"source":"{{ n_7bivY.outputs.cases.holdout }}",
+							"ua:type":"mappedArray"
+						},
+						"total":{
+							"items":{
+								"case_id":"{{ n_7bivY.outputs.cases.total[0].case_id }}",
+								"categories":{
+									"items":"{{ n_7bivY.outputs.cases.total[0].categories[0] }}",
+									"source":"{{ n_7bivY.outputs.cases.total[0].categories }}",
+									"ua:type":"mappedArray"
+								},
+								"parameters":"{{ n_7bivY.outputs.cases.total[0].parameters }}"
+							},
+							"source":"{{ n_7bivY.outputs.cases.total }}",
+							"ua:type":"mappedArray"
+						},
+						"training":{
+							"items":{
+								"case_id":"{{ n_7bivY.outputs.cases.training[0].case_id }}",
+								"categories":{
+									"items":"{{ n_7bivY.outputs.cases.training[0].categories[0] }}",
+									"source":"{{ n_7bivY.outputs.cases.training[0].categories }}",
+									"ua:type":"mappedArray"
+								},
+								"parameters":"{{ n_7bivY.outputs.cases.training[0].parameters }}"
+							},
+							"source":"{{ n_7bivY.outputs.cases.training }}",
+							"ua:type":"mappedArray"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code",
+			"title":"makeListOfCaseIds",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":344,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LmMqG@_iHwxE-1@y",
+			"id":"n_KCEqH",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_xVevI.outputs.trainingCaseIds }}",
+						"value":{
+							"items":"{{ n_F6wE5.outputs.result.trainingCaseIds[0] }}",
+							"source":"{{ n_F6wE5.outputs.result.trainingCaseIds }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ n_xVevI.outputs.HoldoutCaseIds }}",
+						"value":{
+							"items":"{{ n_F6wE5.outputs.result.holdoutCaseIds[0] }}",
+							"source":"{{ n_F6wE5.outputs.result.holdoutCaseIds }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ n_xVevI.outputs.totalCaseIds }}",
+						"value":{
+							"items":"{{ n_F6wE5.outputs.result.totalCaseIds[0] }}",
+							"source":"{{ n_F6wE5.outputs.result.totalCaseIds }}",
+							"ua:type":"mappedArray"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1071,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LmMqG@_iHwxE-1@n",
+			"id":"n_Y6Osr",
+			"index":9,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"holdoutCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Holdout Case Ids",
+							"type":"array"
+						},
+						"trainingCaseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Training Case Ids",
+							"type":"array"
+						}
+					},
+					"required":[
+						"trainingCaseIds",
+						"holdoutCaseIds"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"caseIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Case Ids",
+							"type":"array"
+						},
+						"holdoutSize":{
+							"title":"Holdout Size",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"caseIds",
+						"holdoutSize"
+					],
+					"type":"object"
+				},
+				"code":"def caseIds    = binding.hasVariable('caseIds')    ? caseIds    : []\nint holdoutVal = (binding.hasVariable('holdoutSize') ? holdoutSize : 0) as int\n\ndef rng = new Random()\ndef shuffled = new ArrayList(caseIds)\nCollections.shuffle(shuffled, rng)\n\ndef holdoutCaseIds  = shuffled.take(holdoutVal)\ndef trainingCaseIds = shuffled.drop(holdoutVal)\n\nreturn [\n    trainingCaseIds: trainingCaseIds,\n    holdoutCaseIds : holdoutCaseIds\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"caseIds":{
+						"items":"{{ n_CkPId.outputs.caseIds[0] }}",
+						"source":"{{ n_CkPId.outputs.caseIds }}",
+						"ua:type":"mappedArray"
+					},
+					"holdoutSize":"{{ n_CkPId.outputs.holdoutSize }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":344,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LmMqG@_iHwxE-1@n",
+			"id":"n_TCesl",
+			"index":10,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_xVevI.outputs.trainingCaseIds }}",
+						"value":{
+							"items":"{{ n_Y6Osr.outputs.result.trainingCaseIds[0] }}",
+							"source":"{{ n_Y6Osr.outputs.result.trainingCaseIds }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					{
+						"source":"{{ n_xVevI.outputs.HoldoutCaseIds }}",
+						"value":{
+							"items":"{{ n_Y6Osr.outputs.result.holdoutCaseIds[0] }}",
+							"source":"{{ n_Y6Osr.outputs.result.holdoutCaseIds }}",
+							"ua:type":"mappedArray"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1370,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_sqS3V",
+			"index":11,
+			"inputs":{
+				"automationId":"6a79afeb3c670466e9c95a43",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":[
+					{
+						"agentId":"{{ n_CkPId.outputs.agentId }}",
+						"caseIds":{
+							"items":"{{ n_xVevI.outputs.trainingCaseIds[0] }}",
+							"source":"{{ n_xVevI.outputs.trainingCaseIds }}",
+							"ua:type":"mappedArray"
+						},
+						"datasetName":"training-dataset-for-optimisationRunId-{{ n_CkPId.outputs.optimisationRunId }}"
+					}
+				],
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"generate conversational dataset",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1370,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_IIDPq",
+			"index":12,
+			"inputs":{
+				"automationId":"6a79afeb3c670466e9c95a43",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":[
+					{
+						"agentId":"{{ n_CkPId.outputs.agentId }}",
+						"caseIds":{
+							"items":"{{ n_xVevI.outputs.HoldoutCaseIds[0] }}",
+							"source":"{{ n_xVevI.outputs.HoldoutCaseIds }}",
+							"ua:type":"mappedArray"
+						},
+						"datasetName":"holdout-dataset-for-optimisationRunId-{{ n_CkPId.outputs.optimisationRunId }}"
+					}
+				],
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"generate conversational dataset",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1370,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_lpJJN",
+			"index":13,
+			"inputs":{
+				"automationId":"6a79afeb3c670466e9c95a43",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"distributeWorkflowLoad":false,
+				"parametersList":[
+					{
+						"agentId":"{{ n_CkPId.outputs.agentId }}",
+						"caseIds":{
+							"items":"{{ n_xVevI.outputs.totalCaseIds[0] }}",
+							"source":"{{ n_xVevI.outputs.totalCaseIds }}",
+							"ua:type":"mappedArray"
+						},
+						"datasetName":"total-dataset-for-optimisationRunId-{{ n_CkPId.outputs.optimisationRunId }}"
+					}
+				],
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"generate conversational dataset",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":344,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_BmE29",
+			"index":14,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_xVevI.outputs.trainingDatasetId }}",
+						"value":"{{ n_sqS3V.outputs.result[0].datasetId }}"
+					},
+					{
+						"source":"{{ n_xVevI.outputs.holdoutDatasetId }}",
+						"value":"{{ n_IIDPq.outputs.result[0].datasetId }}"
+					},
+					{
+						"source":"{{ n_xVevI.outputs.totalDatasetId }}",
+						"value":"{{ n_lpJJN.outputs.result[0].datasetId }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1415,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_WDhJs",
+			"index":15,
+			"inputs":{
+				"result":{
+					"caseIds":{
+						"items":"{{ n_xVevI.outputs.trainingCaseIds[0] }}",
+						"source":"{{ n_xVevI.outputs.trainingCaseIds }}",
+						"ua:type":"mappedArray"
+					},
+					"holdoutDatasetId":"{{ n_xVevI.outputs.holdoutDatasetId }}",
+					"totalDatasetId":"{{ n_xVevI.outputs.totalDatasetId }}",
+					"trainingDatasetId":"{{ n_xVevI.outputs.trainingDatasetId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1035,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iHwxE-1",
+			"id":"n_norm",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"totalLimit":{
+							"title":"Total Limit",
+							"type":"integer"
+						},
+						"windowDays":{
+							"title":"Window Days",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"windowDays",
+						"totalLimit",
+						"limit",
+						"offset"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"holdoutSize":{
+							"title":"Holdout Size",
+							"type":"number"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"windowDays":{
+							"title":"Window Days",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"// These three values are interpolated into SQL text, so a blank one is not an empty result --\n// it is a malformed statement (INTERVAL  DAY / LIMIT \\nOFFSET). A schema default only fills an\n// absent key, so it does not protect against a null or a blank expression.\n//\n// Coerce once, here, and let every query read these instead of the raw parameters.\ndef g = { String k -> binding.hasVariable(k) ? binding.getVariable(k) : null }\n\ndef whole = { Object value, int fallback ->\n    if (value instanceof Number) {\n        int n = ((Number) value).intValue()\n        return (n >= 0) ? n : fallback\n    }\n    if (value instanceof CharSequence) {\n        String s = value.toString().trim()\n        if (!s) return fallback\n        try {\n            int n = (int) Math.round(Double.parseDouble(s))\n            return (n >= 0) ? n : fallback\n        } catch (ignored) {\n            return fallback\n        }\n    }\n    return fallback\n}\n\nint windowDays = whole(g('windowDays'), 30)\nint offset = whole(g('offset'), 0)\nint limit = whole(g('limit'), 20)\nif (limit < 1) { limit = 20 }\nint totalLimit = whole(g('holdoutSize'), 0) + limit\n\n// a zero page would return nothing and read as \"no worst cases\" rather than as a bad request\nif (totalLimit < 1) { totalLimit = 20 }\nif (windowDays < 1) { windowDays = 30 }\n\nreturn [ windowDays: windowDays, totalLimit: totalLimit, limit: limit, offset: offset ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"holdoutSize":"{{ n_CkPId.outputs.holdoutSize }}",
+					"limit":"{{ n_CkPId.outputs.limit }}",
+					"offset":"{{ n_CkPId.outputs.offset }}",
+					"windowDays":"{{ n_CkPId.outputs.windowDays }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Normalise SQL-interpolated numbers",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":21
+}

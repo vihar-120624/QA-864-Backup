@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743902671,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743902848,
+		"deployedAt":1789395256833,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece9e177b4b4aca57bd58",
+		"deployedDefinitionId":"6aa80138c6a14707f1503ade",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":43
+		"version":2,
+		"workflowVersion":46
 	},
 	"edges":[
 		{
@@ -129,7 +129,7 @@
 	"id":"6a3e0819fef6297376aa97ed",
 	"lastModifiedBy":-1,
 	"lcName":"enterprise search | feedback | feedback trend",
-	"modifiedTime":1788252971585,
+	"modifiedTime":1789395395242,
 	"name":"Enterprise Search | Feedback | Feedback Trend",
 	"nodes":[
 		{
@@ -400,7 +400,8 @@
 				"name":"Up Votes and Downvotes"
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Up Votes and Downvotes",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -451,7 +452,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\n\ndef traceDynamicFilter = traceCond ? \" WHERE t.deleted = false AND \" + traceCond\n                                   : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\n\ndef sql =\n\"SELECT \" +\n\"UNIX_TIMESTAMP(\" +\n\"  CONVERT_TZ(\" +\n\"    DATE(CONVERT_TZ(f.timestamp, '\" + fromTimeZone + \"', '\" + sqlToTimeZone + \"')),\" +\n\"    '\" + sqlToTimeZone + \"', '\" + fromTimeZone + \"'\" +\n\"  )\" +\n\") * 1000 AS dayMillis, \" +\n\"COUNT(*) AS totalVotes, \" +\n\"SUM(CASE WHEN f._pr_reaction IN ('like','upvote', 'UPVOTE', 'Upvote', 'Like', 'LIKE') THEN 1 ELSE 0 END) AS upVotes, \" +\n\"SUM(CASE WHEN f._pr_reaction IN ('dislike','downvote', 'DOWNVOTE', 'Downvote', 'Dislike', 'DISLIKE') THEN 1 ELSE 0 END) AS downVotes \" +\n\"FROM ENTITY_service_hub_user_feedback f \" +\n\"JOIN ( \" +\n\"  SELECT DISTINCT filtered_t._pr_messageId AS messageId \" +\n\"  FROM (SELECT * FROM ENTITY_e_traces t \" + traceDynamicFilter + \") filtered_t \" +\n\"  JOIN (SELECT * FROM USER u \" + userDynamicFilter + \") filtered_u \" +\n\"    ON filtered_t._pr_userId = filtered_u.userId \" +\n\"  WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n\"    AND filtered_t._pr_messageId IS NOT NULL \" +\n\"    AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN :startTime AND :endTime \" +\n\") AS filtered_messages \" +\n\"  ON f._pr_fanMessageId = filtered_messages.messageId \" +\n\"JOIN ENTITY_service_hub_message shm_fan ON shm_fan.id = f._pr_fanMessageId \" +\n\"JOIN USER fb_u ON fb_u.userId = f.ownerUserId \" +\n\"WHERE f.deleted = FALSE \" +\n\"  AND shm_fan.deleted = false \" +\n\"  AND shm_fan._pr_type = 'fan' \" +\n\"  AND fb_u.deleted = false \" +\n\"  AND f.createdTime BETWEEN :startTime AND :endTime \" +\n\"GROUP BY dayMillis \" +\n\"ORDER BY dayMillis\"\n\n\nreturn [\"sql\": sql]\n\n",
+				"code":"def traceCond = (binding.hasVariable(\"traceCondition\") && traceCondition) ? traceCondition.trim() : \"\"\ndef userCond  = (binding.hasVariable(\"userCondition\")  && userCondition)  ? userCondition.trim()  : \"\"\n\ndef traceDynamicFilter = traceCond ? \" WHERE t.deleted = false AND \" + traceCond\n                                   : \" WHERE t.deleted = false \"\n\ndef userDynamicFilter  = userCond  ? \" WHERE u.deleted = false AND \" + userCond\n                                   : \" WHERE u.deleted = false \"\n\n\ndef sql =\n\"SELECT \" +\n\"UNIX_TIMESTAMP(\" +\n\"  CONVERT_TZ(\" +\n\"    DATE(CONVERT_TZ(f.timestamp, '\" + fromTimeZone + \"', '\" + sqlToTimeZone + \"')),\" +\n\"    '\" + sqlToTimeZone + \"', '\" + fromTimeZone + \"'\" +\n\"  )\" +\n\") * 1000 AS dayMillis, \" +\n\"COUNT(*) AS totalVotes, \" +\n\"SUM(CASE WHEN f._pr_reaction IN ('like','upvote', 'UPVOTE', 'Upvote', 'Like', 'LIKE') THEN 1 ELSE 0 END) AS upVotes, \" +\n\"SUM(CASE WHEN f._pr_reaction IN ('dislike','downvote', 'DOWNVOTE', 'Downvote', 'Dislike', 'DISLIKE') THEN 1 ELSE 0 END) AS downVotes \" +\n\"FROM ENTITY_service_hub_user_feedback f \" +\n\"JOIN ( \" +\n\"  SELECT DISTINCT filtered_t._pr_messageId AS messageId \" +\n\"  FROM (SELECT * FROM ENTITY_e_traces t \" + traceDynamicFilter + \") filtered_t \" +\n\"  JOIN (SELECT * FROM USER u \" + userDynamicFilter + \") filtered_u \" +\n\"    ON filtered_t._pr_userId = filtered_u.userId \" +\n\"  WHERE filtered_t._pr_fromAutomationId IN ('66966960e8797a59f4a46292','66ac70650f725f5b425d12d8','6851442f9e30586f552a6d73') \" +\n\"    AND filtered_t._pr_messageId IS NOT NULL \" +\n\"    AND filtered_t._pr_currentType = 'LLM' \" +\n\"    AND UNIX_TIMESTAMP(filtered_t.timestamp) * 1000 BETWEEN :startTime AND :endTime \" +\n\") AS filtered_messages \" +\n\"  ON f._pr_fanMessageId = filtered_messages.messageId \" +\n\"JOIN ENTITY_service_hub_message shm_fan ON shm_fan.id = f._pr_fanMessageId \" +\n\"JOIN USER fb_u ON fb_u.userId = f.ownerUserId \" +\n\"WHERE f.deleted = FALSE \" +\n\"  AND shm_fan.deleted = false \" +\n\"  AND shm_fan._pr_type = 'fan' \" +\n\"  AND fb_u.deleted = false \" +\n\"  AND f.createdTime BETWEEN :startTime AND :endTime \" +\n\"GROUP BY dayMillis \" +\n\"ORDER BY dayMillis\"\n\n\nreturn [\"sql\": sql]\n\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -558,7 +559,8 @@
 				"name":"Total Searches and Percentage Change from Prev Window"
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Total Searches and Percentage Change from Prev Window",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -620,6 +622,13 @@
 								"operator":"EXISTS"
 							},
 							"property":"ENTITY_e_traces=::=messageId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"LLM"
+							},
+							"property":"ENTITY_e_traces=::=currentType"
 						}
 					],
 					"operator":"AND"
@@ -853,5 +862,5 @@
 		}
 	},
 	"standard":true,
-	"version":45
+	"version":47
 }

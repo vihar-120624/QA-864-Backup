@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743821311,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743821361,
+		"deployedAt":1789395217682,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece4d45d2142160e6e5c0",
+		"deployedDefinitionId":"6aa80111c6a14707f15037f8",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":7
+		"version":2,
+		"workflowVersion":10
 	},
 	"edges":[
 		{
@@ -121,15 +121,90 @@
 		},
 		{
 			"fromNodeId":"_9bvmr",
-			"id":"next@_9bvmr@n_DIoRh",
+			"id":"next@_9bvmr@n_UJ6uh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UJ6uh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"9xoeC",
+			"id":"next@9xoeC@n_UJ6uh",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UJ6uh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UJ6uh",
+			"id":"next@n_UJ6uh@n_R6XvU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_R6XvU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_R6XvU",
+			"id":"if@n_R6XvU@n_O7f5p",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O7f5p",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_O7f5p",
+			"id":"loop@n_O7f5p@n_S08Ne",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S08Ne",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_S08Ne",
+			"id":"next@n_S08Ne@n_UwhcM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UwhcM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UwhcM",
+			"id":"next@n_UwhcM@n_O7f5p",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O7f5p",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_O7f5p",
+			"id":"next@n_O7f5p@n_IiQT7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IiQT7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IiQT7",
+			"id":"next@n_IiQT7@n_E9IMS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E9IMS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_E9IMS",
+			"id":"next@n_E9IMS@n_DIoRh",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_DIoRh",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"9xoeC",
-			"id":"next@9xoeC@n_DIoRh",
+			"fromNodeId":"n_R6XvU",
+			"id":"next@n_R6XvU@n_DIoRh",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -152,7 +227,7 @@
 	"id":"6a85ff40b47a25784243ce6c",
 	"lastModifiedBy":-1,
 	"lcName":"execute client tools",
-	"modifiedTime":1788252971973,
+	"modifiedTime":1789395395313,
 	"name":"Execute Client Tools",
 	"nodes":[
 		{
@@ -279,6 +354,10 @@
 				"variableSchema":{
 					"additionalProperties":false,
 					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
 						"caseId":{
 							"title":"Case Id",
 							"type":"string"
@@ -329,7 +408,8 @@
 					"temporaryMessage":false,
 					"thoughtType":"CLIENT_TOOL_REQUESTED"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Send Client Tools",
@@ -861,6 +941,347 @@
 			"type":"CALL_WORKFLOW"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.received.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":6284,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_PWwto-1",
+			"id":"n_UJ6uh",
+			"index":15,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"b64":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"data":{
+										"title":"Data",
+										"type":"string"
+									},
+									"mimeType":{
+										"title":"Mime Types",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"B 64",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"received":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Received",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def b64 = []\n\nif (binding.hasVariable('received') && received && received.size() > 0) {\n    // handle both a single object and a list of tool results\n    def items = (received instanceof List) ? received : [received]\n\n    items.each { item ->\n        (item?.content ?: []).each { c ->\n            if (c?.type == 'image' && c?.source?.type == 'base64' && c?.source?.data) {\n                b64 << [\n                    data     : c.source.data.toString(),\n                    mimeType : (c.source.media_type ?: 'image/jpeg').toString()\n                ]\n            }\n        }\n    }\n}\n\nreturn [ \"b64\" : b64 ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"received":{
+						"source":"{{ Mj4Yd.outputs.signal_payload.received }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":921,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_PWwto-1",
+			"id":"n_R6XvU",
+			"index":16,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_UJ6uh.outputs.result.b64[0] }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":1020,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_R6XvU@_PWwto-1@y",
+			"id":"n_O7f5p",
+			"index":17,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_UJ6uh.outputs.result.b64 }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":6178,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_O7f5p@n_R6XvU@_PWwto-1@y@l",
+			"id":"n_S08Ne",
+			"index":18,
+			"inputs":{
+				"base64Content":"{{ n_O7f5p.outputs.item.data }}",
+				"fileName":"{{ __RUN__.outputs.executionId }}_{{ n_O7f5p.outputs.index }}",
+				"mimeType":"{{ n_O7f5p.outputs.item.mimeType }}",
+				"validateFile":false,
+				"option":"base64Content"
+			},
+			"skip":false,
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8401,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_O7f5p@n_R6XvU@_PWwto-1@y@l",
+			"id":"n_UwhcM",
+			"index":19,
+			"inputs":{
+				"automationId":"67a31b86addac8605df79166",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_zaSbG.outputs.aiAgentId }}",
+					"attachments":{
+						"items":{
+							"fileType":"{{ n_S08Ne.outputs.fileDetails.fileType }}",
+							"mimeType":"{{ n_S08Ne.outputs.fileDetails.mimeType }}",
+							"name":"{{ n_S08Ne.outputs.fileDetails.name }}",
+							"size":"{{ n_S08Ne.outputs.fileDetails.size }}",
+							"source":"{{ n_S08Ne.outputs.fileDetails.source }}",
+							"sourceType":"{{ n_S08Ne.outputs.fileDetails.sourceType }}"
+						},
+						"ua:type":"mappedArray"
+					},
+					"caseId":"{{ n_zaSbG.outputs.caseId }}",
+					"createMessageIfAbsent":true,
+					"internalMessageType":"AGENT_INTERNAL_RESPONSE",
+					"messageContent":"This is the attachments response for this toolId : {{ n_GG020.outputs.toolId }} and toolName : {{ n_GG020.outputs.toolAdditional.originalToolName }}",
+					"messageType":"fan"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.received.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":6284,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_R6XvU@_PWwto-1@y",
+			"id":"n_IiQT7",
+			"index":20,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"received":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Received",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"received":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Received",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def result = []\n\nif (binding.hasVariable('received') && received && received.size() > 0) {\n    def items = (received instanceof List) ? received : [received]\n\n    result = items.collect { item ->\n        def copy = new LinkedHashMap(item ?: [:])\n        copy.content = (item?.content ?: []).findAll { c ->\n            !(c?.type == 'image' && c?.source?.type == 'base64')\n        }\n        copy\n    }\n}\n\nreturn [ \"received\" : result ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"received":{
+						"source":"{{ Mj4Yd.outputs.signal_payload.received }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8356,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_R6XvU@_PWwto-1@y",
+			"id":"n_E9IMS",
+			"index":21,
+			"inputs":{
+				"result":{
+					"toolOutput":"{{ n_IiQT7.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
 			"context":{
 				"appName":"callables",
 				"resourceVersion":1155,
@@ -872,7 +1293,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_PWwto-1",
 			"id":"n_DIoRh",
-			"index":15,
+			"index":22,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -899,5 +1320,5 @@
 		}
 	},
 	"standard":true,
-	"version":9
+	"version":11
 }

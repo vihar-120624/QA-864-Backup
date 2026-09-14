@@ -1,0 +1,411 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395088048,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395088094,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80090c6a14707f1503083",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":53
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Hb9fw",
+			"id":"next@n_Hb9fw@n_CrpN7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CrpN7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CrpN7",
+			"id":"next@n_CrpN7@n_Ify5k",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"id":"if@n_Ify5k@n_9U9zr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"id":"next@n_9U9zr@n_LC15A",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"id":"next@n_Ify5k@n_LC15A",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LC15A",
+			"id":"next@n_LC15A@n_FWXq1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FWXq1",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a12c622afcac26cfb200e3d",
+	"lastModifiedBy":-1,
+	"lcName":"[onedrive] fetch files details wrapper ",
+	"modifiedTime":1789395395227,
+	"name":"[Onedrive] Fetch Files Details Wrapper ",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1926,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_Hb9fw",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"FileDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"File Details",
+							"type":"array"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"totalFiles":{
+							"title":"Total Files",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"filePathList":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"ItemId":{
+										"title":"Item Id",
+										"type":"string"
+									},
+									"driveId":{
+										"title":"Drive Id",
+										"type":"string"
+									},
+									"filePath":{
+										"title":"File Path",
+										"type":"string"
+									},
+									"webUrl":{
+										"title":"Web Url",
+										"type":"string"
+									}
+								},
+								"required":[
+									"webUrl",
+									"ItemId"
+								],
+								"type":"object"
+							},
+							"title":"File Path List",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_CrpN7",
+			"index":2,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_onedrive"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_Ify5k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_CrpN7.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_AUDMw-1@y",
+			"id":"n_9U9zr",
+			"index":4,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_CrpN7.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.startEpoch",
+					"root.parameters.endEpoch",
+					"root.parameters.limit",
+					"root.parameters.offset",
+					"root.parameters.isRead",
+					"root.parameters.from",
+					"root.parameters.orderBy",
+					"root.parameters.orderDir"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1928,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_LC15A",
+			"index":5,
+			"inputs":{
+				"automationId":"6a12a1cbafcac26cfb138f96",
+				"runtimeConnections":{
+					"microsoft_onedrive":"{{ n_CrpN7.outputs.connectionId }}",
+					"microsoft_outlook":"{{ n_INExi.outputs.connections[0].id }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"connectionId":"{{ n_CrpN7.outputs.connectionId }}",
+					"filePathList":{
+						"items":{
+							"ItemId":"{{ n_Hb9fw.outputs.filePathList[0].ItemId }}",
+							"driveId":"{{ n_Hb9fw.outputs.filePathList[0].driveId }}",
+							"filePath":"{{ n_Hb9fw.outputs.filePathList[0].filePath }}",
+							"webUrl":"{{ n_Hb9fw.outputs.filePathList[0].webUrl }}"
+						},
+						"source":"{{ n_Hb9fw.outputs.filePathList }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Get file Details",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_AUDMw-1",
+			"id":"n_FWXq1",
+			"index":6,
+			"inputs":{
+				"result":{
+					"FileDetails":{
+						"items":"{{ n_LC15A.outputs.Files[0] }}",
+						"source":"{{ n_LC15A.outputs.Files }}",
+						"ua:type":"mappedArray"
+					},
+					"totalFiles":"{{ n_LC15A.outputs.totalFiles }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Attachments Data",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"release_27jan"
+	],
+	"version":54
+}
