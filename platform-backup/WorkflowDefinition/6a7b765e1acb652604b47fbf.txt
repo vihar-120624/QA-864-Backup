@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743573977,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743574202,
+		"deployedAt":1789395081172,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd563f7ad93bb1674ae5",
+		"deployedDefinitionId":"6aa8008972fd792214e8c08a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":11
+		"version":2,
+		"workflowVersion":14
 	},
 	"edges":[
 		{
@@ -72,14 +72,14 @@
 	"id":"6a7b765e1acb652604b47fbf",
 	"lastModifiedBy":-1,
 	"lcName":"admin reports raw data downloader | gdrive",
-	"modifiedTime":1788252972959,
+	"modifiedTime":1789395394806,
 	"name":"Admin Reports Raw Data Downloader | Gdrive",
 	"nodes":[
 		{
 			"context":{
 				"appName":"google_admin_reports",
 				"resourceVersion":3,
-				"connectionId":"6a77057f8440205655acf201",
+				"connectionId":"6a8ef700587642240aad988e",
 				"resourceName":"google_admin_reports_on_drive_activity_polling"
 			},
 			"debug":false,
@@ -183,7 +183,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.Instant\n\ndef APP_NAME          = 'gdrive'\ndef KEEP_UNCLASSIFIED = true   // unmapped eventNames -> 'other' rather than silently dropped\n\n// eventName -> category. Anything with eventType 'acl_change' is 'rbac' regardless.\ndef CATEGORY = [\n    'create'            : 'created',\n    'upload'            : 'created',\n    'copy'              : 'created',\n    'untrash'           : 'created',\n\n    'edit'              : 'modified',\n    'rename'            : 'modified',\n    'move'              : 'modified',\n    'add_to_folder'     : 'modified',\n    'remove_from_folder': 'modified',\n\n    'trash'             : 'deleted',\n    'delete'            : 'deleted',\n\n    'view'              : 'viewed',\n    'preview'           : 'viewed',\n\n    'download'          : 'downloaded'\n]\n\ndef toEpochMs = { t ->\n    if (!t) return null\n    try { return Instant.parse(t.toString()).toEpochMilli() } catch (Exception e) { return null }\n}\n\ndef categorise = { event ->\n    if (event?.eventType == 'acl_change') return 'rbac'\n    def name = event?.eventName?.toString()\n    if (!name) return null\n    return CATEGORY[name]\n}\n\n// Exclude only genuine non-human actors.\ndef isRealUser = { event ->\n    if (event?.eventName == 'prefetch_item_content') return false  // background prefetch, no user intent\n    if (event?.callerType == 'KEY')                  return false  // API-key / service-account actor\n    if (!event?.actorEmail)                          return false  // nothing human to attribute\n    return true\n}\n\ndef out = []\nfor (e in ((batch ?: []) as List)) {\n    if (!isRealUser(e)) continue\n\n    def category = categorise(e)\n    if (category == null) {\n        if (!KEEP_UNCLASSIFIED) continue\n        category = 'other'\n    }\n\n    def p  = (e?.params ?: [:])\n    def pv = p['primary_event']\n    def primary = (pv == null) ? false : !(pv == false || pv.toString().equalsIgnoreCase('false'))\n\n    if (!primary) continue   // keep only the headline event per action\n\n    out << [\n        appName    : APP_NAME,\n        recordId   : (e?.docId ?: p['doc_id']),\n        status     : 'UNPROCESSED',\n        type       : category,\n        primary    : primary,\n        webhookData: e,\n        eventTime  : toEpochMs(e?.time)\n    ]\n}\nreturn [\"output\": out]",
+				"code":"import java.time.Instant\n\ndef SOURCE_APP = 'gdrive'\n\ndef PERMISSION_CHANGE_EVENT_TYPE = 'acl_change'\n\ndef STORE_UNRECOGNISED_EVENTS = true\n\ndef SKIPPED_EVENT_NAMES = ['download'] as Set\n\ndef CATEGORY_PERMISSION_CHANGE = 'rbac'\ndef CATEGORY_UNRECOGNISED      = 'other'\ndef STATUS_AWAITING_PROCESSING = 'UNPROCESSED'\n\n// eventName -> category, for events that are not permission changes.\ndef CATEGORY_BY_EVENT_NAME = [\n    'create'            : 'created',\n    'upload'            : 'created',\n    'copy'              : 'created',\n    'untrash'           : 'created',\n\n    'edit'              : 'modified',\n    'rename'            : 'modified',\n    'move'              : 'modified',\n    'add_to_folder'     : 'modified',\n    'remove_from_folder': 'modified',\n\n    'trash'             : 'deleted',\n    'delete'            : 'deleted',\n\n    'view'              : 'viewed',\n    'preview'           : 'viewed',\n\n    'download'          : 'downloaded'\n]\n\ndef isPermissionChange = { event -> event?.eventType == PERMISSION_CHANGE_EVENT_TYPE }\n\n\ndef shouldIngest = { event ->\n    if (isPermissionChange(event))                   return true\n    if (SKIPPED_EVENT_NAMES.contains(event?.eventName)) return false  // deliberately excluded, see above\n    if (event?.eventName == 'prefetch_item_content') return false  // background prefetch, no user intent\n    if (event?.callerType == 'KEY')                  return false  // API key / service account, not a person\n    if (!event?.actorEmail)                          return false  // nothing human to attribute it to\n    return true\n}\n\ndef categoryFor = { event ->\n    if (isPermissionChange(event)) return CATEGORY_PERMISSION_CHANGE\n    def eventName = event?.eventName?.toString()\n    if (!eventName) return null\n    return CATEGORY_BY_EVENT_NAME[eventName]\n}\n\n\ndef isPrimaryEvent = { eventParams ->\n    def flag = eventParams['primary_event']\n    if (flag == null) return false\n    return !(flag == false || flag.toString().equalsIgnoreCase('false'))\n}\n\ndef toEpochMillis = { timestamp ->\n    if (!timestamp) return null\n    try {\n        return Instant.parse(timestamp.toString()).toEpochMilli()\n    } catch (Exception ignored) {\n        return null\n    }\n}\n\ndef records = []\n\nfor (event in ((batch ?: []) as List)) {\n    if (!shouldIngest(event)) continue\n\n    def category = categoryFor(event)\n    if (category == null) {\n        if (!STORE_UNRECOGNISED_EVENTS) continue\n        category = CATEGORY_UNRECOGNISED\n    }\n\n    def eventParams = (event?.params ?: [:])\n    def primary     = isPrimaryEvent(eventParams)\n\n    if (!primary && !isPermissionChange(event)) continue\n\n    records << [\n        appName    : SOURCE_APP,\n        recordId   : (event?.docId ?: eventParams['doc_id']),\n        status     : STATUS_AWAITING_PROCESSING,\n        type       : category,\n        primary    : primary,\n        webhookData: event,\n        eventTime  : toEpochMillis(event?.time)\n    ]\n}\n\nreturn [\"output\": records]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -305,5 +305,5 @@
 		}
 	},
 	"standard":true,
-	"version":13
+	"version":15
 }
