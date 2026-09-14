@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743808252,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743808444,
+		"deployedAt":1789395200682,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece409d7c534668ef8671",
+		"deployedDefinitionId":"6aa80100c6a14707f1503761",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":66
+		"version":2,
+		"workflowVersion":69
 	},
 	"edges":[
 		{
@@ -223,7 +223,7 @@
 	"id":"6a4794b3d2e0097df226e56c",
 	"lastModifiedBy":-1,
 	"lcName":"for one policy",
-	"modifiedTime":1788252972585,
+	"modifiedTime":1789395391255,
 	"name":"For One Policy",
 	"nodes":[
 		{
@@ -524,7 +524,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def cList = binding.hasVariable('controlList') && controlList != null ? controlList : []\ndef ctList = binding.hasVariable('checkTypeList') && checkTypeList != null ? checkTypeList : []\n\n// build id -> name lookup\ndef checkTypeNameById = [:]\nctList.each { ct ->\n    if (ct?.checkTypeId != null) {\n        checkTypeNameById[ct.checkTypeId.toString()] = ct.checkTypeName\n    }\n}\n\n// permitted checkType NAMES for each bucket — edit these lists as needed\ndef sequentialPermittedList = [\"Blocked Tools\", \"PII detection\", \"Regex pattern\"]\ndef parallelPermittedList   = [\"Prompt Injection\", \"Custom terms\",\"Content Filter\",\"Denied Topics\",\"Credentials & Secrets\", \"Custom LLM\"]\n\ndef sequential = []\ndef parallel   = []\n\ncList.each { item ->\n    if (!item) return\n    def props = item.properties ?: [:]\n    def checkTypeId = props.checkType\n    if (checkTypeId == null) return\n\n    // resolve id -> name\n    def checkTypeName = checkTypeNameById[checkTypeId.toString()]\n    if (!checkTypeName) return\n\n    def row = [controlId: item.id, controlObj: props]\n\n    if (sequentialPermittedList.contains(checkTypeName)) {\n        sequential << row\n    } else if (parallelPermittedList.contains(checkTypeName)) {\n        parallel << row\n    }\n}\n\nreturn [\n    sequentialControlList: sequential,\n    parallelControlList  : parallel\n]",
+				"code":"def cList = binding.hasVariable('controlList') && controlList != null ? controlList : []\ndef ctList = binding.hasVariable('checkTypeList') && checkTypeList != null ? checkTypeList : []\n\n// build id -> name lookup\ndef checkTypeNameById = [:]\nctList.each { ct ->\n    if (ct?.checkTypeId != null) {\n        checkTypeNameById[ct.checkTypeId.toString()] = ct.checkTypeName\n    }\n}\n\n// permitted checkType NAMES for each bucket — edit these lists as needed\ndef sequentialPermittedList = [\"Blocked Tools\", \"PII detection\", \"Regex pattern\"]\ndef parallelPermittedList   = [\"Prompt Injection\", \"Custom terms\",\"Content Filter\",\"Denied Topics\",\"Credentials & Secrets\", \"Custom (LLM check)\"]\n\ndef sequential = []\ndef parallel   = []\n\ncList.each { item ->\n    if (!item) return\n    def props = item.properties ?: [:]\n    def checkTypeId = props.checkType\n    if (checkTypeId == null) return\n\n    // resolve id -> name\n    def checkTypeName = checkTypeNameById[checkTypeId.toString()]\n    if (!checkTypeName) return\n\n    def row = [controlId: item.id, controlObj: props]\n\n    if (sequentialPermittedList.contains(checkTypeName)) {\n        sequential << row\n    } else if (parallelPermittedList.contains(checkTypeName)) {\n        parallel << row\n    }\n}\n\nreturn [\n    sequentialControlList: sequential,\n    parallelControlList  : parallel\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -896,7 +896,8 @@
 					"traceId":"{{ n_EiHUY.outputs.traceId }}",
 					"userQuery":"{{ n_zXHgh.outputs.userQuery }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -980,15 +981,15 @@
 				"variables":[
 					{
 						"source":"{{ n_zXHgh.outputs.userQuery }}",
-						"value":"{{ n_17HrZ.outputs.blockMessage }}"
+						"value":"=IF(ISBLANK({{ n_17HrZ.outputs.blockMessage }}),{{ n_zXHgh.outputs.userQuery }},{{ n_17HrZ.outputs.blockMessage }})"
 					},
 					{
 						"source":"{{ n_zXHgh.outputs.toolInput }}",
-						"value":"{{ n_17HrZ.outputs.toolInputs }}"
+						"value":"=IF(ISBLANK({{ n_17HrZ.outputs.toolInputs }}),{{ n_zXHgh.outputs.toolInput }},{{ n_17HrZ.outputs.toolInputs }})"
 					},
 					{
 						"source":"{{ n_zXHgh.outputs.toolOutput }}",
-						"value":"{{ n_17HrZ.outputs.toolOutput }}"
+						"value":"=IF(ISBLANK({{ n_17HrZ.outputs.toolOutput }}),{{ n_zXHgh.outputs.toolOutput }},{{ n_17HrZ.outputs.toolOutput }})"
 					}
 				]
 			},
@@ -1109,5 +1110,5 @@
 		}
 	},
 	"standard":true,
-	"version":68
+	"version":70
 }
