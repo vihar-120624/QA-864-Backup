@@ -1,0 +1,353 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395173238,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395173279,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800e572fd792214e8c5e1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":22
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_WTlgJ",
+			"id":"next@n_WTlgJ@n_RmCtd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RmCtd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RmCtd",
+			"id":"next@n_RmCtd@n_u3P1k",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_u3P1k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_u3P1k",
+			"id":"if@n_u3P1k@n_4Q1HB",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4Q1HB",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_4Q1HB",
+			"id":"next@n_4Q1HB@n_Pw7Jk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Pw7Jk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Pw7Jk",
+			"id":"next@n_Pw7Jk@n_Sn4eF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sn4eF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_u3P1k",
+			"id":"next@n_u3P1k@n_Sn4eF",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sn4eF",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a7dc7a11ef9be6d722bef8a",
+	"lastModifiedBy":-1,
+	"lcName":"create dataset",
+	"modifiedTime":1789395394040,
+	"name":"Create Dataset",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2593,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_tJQce-1",
+			"id":"n_WTlgJ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"interfaceId":{
+							"title":"Interface Id",
+							"type":"string"
+						},
+						"name":{
+							"title":"Name",
+							"type":"string"
+						},
+						"records":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"data":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Data",
+										"type":"object"
+									},
+									"expectedToFail":{
+										"title":"Expected To Fail",
+										"type":"boolean"
+									},
+									"name":{
+										"title":"Name",
+										"type":"string"
+									}
+								},
+								"required":[
+									"name",
+									"data"
+								],
+								"type":"object"
+							},
+							"title":"Records",
+							"type":"array"
+						},
+						"schema":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Schema",
+							"type":"object"
+						},
+						"testCaseId":{
+							"title":"Test Case Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"testCaseId",
+						"interfaceId",
+						"name"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.rows.items.name",
+					"root.rows.items.expectedToFail",
+					"root.rows.items.data"
+				]
+			},
+			"context":{
+				"appName":"unit_testing_by_unifyapps",
+				"resourceVersion":796,
+				"resourceName":"unit_testing_by_unifyapps_save_dataset",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_tJQce-1",
+			"id":"n_RmCtd",
+			"index":2,
+			"inputs":{
+				"assetId":"{{ n_WTlgJ.outputs.interfaceId }}",
+				"schemaPayload":"{{ n_WTlgJ.outputs.schema }}",
+				"name":"{{ n_WTlgJ.outputs.name }}",
+				"assetClass":"e_interface",
+				"rows":{
+					"items":{
+						"data":"{{ n_WTlgJ.outputs.records[0].data }}",
+						"expectedToFail":"{{ n_WTlgJ.outputs.records[0].expectedToFail }}",
+						"name":"{{ n_WTlgJ.outputs.records[0].name }}"
+					},
+					"source":"{{ n_WTlgJ.outputs.records }}",
+					"ua:type":"mappedArray"
+				},
+				"layoutPayload":"{{ n_WTlgJ.outputs.schema }}"
+			},
+			"skip":false,
+			"subTitle":"Unit Testing by UnifyApps",
+			"title":"Save Dataset",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":191,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_tJQce-1",
+			"id":"n_u3P1k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MIN_LENGTH",
+							"value":"1"
+						},
+						"property":"{{ n_WTlgJ.outputs.records }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.rows.items.id",
+					"root.rows.items.name",
+					"root.rows.items.expectedToFail",
+					"root.rows.items.data"
+				]
+			},
+			"context":{
+				"appName":"unit_testing_by_unifyapps",
+				"resourceVersion":4,
+				"resourceName":"unit_testing_by_unifyapps_bulk_save_dataset_row",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_u3P1k@_tJQce-1@y",
+			"id":"n_4Q1HB",
+			"index":4,
+			"inputs":{
+				"rows":{
+					"items":{
+						"data":"{{ n_WTlgJ.outputs.records[0].data }}",
+						"datasetId":"{{ n_RmCtd.outputs.id }}",
+						"expectedToFail":"{{ n_WTlgJ.outputs.records[0].expectedToFail }}",
+						"name":"{{ n_WTlgJ.outputs.records[0].name }}"
+					},
+					"source":"{{ n_WTlgJ.outputs.records }}",
+					"ua:type":"mappedArray"
+				}
+			},
+			"skip":false,
+			"subTitle":"Unit Testing by UnifyApps",
+			"title":"Bulk Save Dataset Rows",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"unit_testing_by_unifyapps",
+				"resourceVersion":601,
+				"resourceName":"unit_testing_by_unifyapps_save_dataset_row",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_u3P1k@_tJQce-1@y",
+			"id":"n_Pw7Jk",
+			"index":5,
+			"inputs":{
+				"expectedToFail":"{{ n_WTlgJ.outputs.records[0].expectedToFail }}",
+				"data":"{{ n_WTlgJ.outputs.records[0].data }}",
+				"name":"{{ n_WTlgJ.outputs.records[0].name }}",
+				"datasetId":"{{ n_RmCtd.outputs.id }}"
+			},
+			"skip":true,
+			"subTitle":"Unit Testing by UnifyApps",
+			"title":"Save Dataset Row",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2594,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_tJQce-1",
+			"id":"n_Sn4eF",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"application-test-studio"
+	],
+	"version":23
+}

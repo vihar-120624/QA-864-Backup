@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743878721,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743878870,
+		"deployedAt":1789395247803,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece8645d2142160e6e986",
+		"deployedDefinitionId":"6aa8012f39ee5f5ef70b63ee",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":13
+		"version":2,
+		"workflowVersion":16
 	},
 	"edges":[
 		{
@@ -72,20 +72,12 @@
 		},
 		{
 			"fromNodeId":"n_Quet8",
-			"id":"if@n_Quet8@n_Fzdy8",
+			"id":"if@n_Quet8@n_sNJoM",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_Fzdy8",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_Fzdy8",
-			"id":"next@n_Fzdy8@n_sNJoM",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_sNJoM",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_Quet8",
@@ -163,7 +155,7 @@
 	"id":"6a61fc3efe0faf23178be918",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover n8n agent",
-	"modifiedTime":1788252973209,
+	"modifiedTime":1789395394049,
 	"name":"Governance | Discover N8n Agent",
 	"nodes":[
 		{
@@ -391,6 +383,12 @@
 										"title":"Label",
 										"type":"string"
 									},
+									"metadata":{
+										"additionalProperties":true,
+										"properties":{},
+										"title":"Metadata",
+										"type":"object"
+									},
 									"value":{
 										"title":"Value",
 										"type":"string"
@@ -422,7 +420,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def wfList = binding.hasVariable('workflows') ? workflows : null\ndef list = (wfList instanceof List) ? wfList : []\ndef out = []\nlist.each { wf ->\n    def wfId  = wf?.id?.toString()\n    def nodes = wf?.nodes\n    if (nodes instanceof List) {\n        nodes.each { n ->\n            def t = n?.type?.toString()\n            if (t != null && t.endsWith('n8n-nodes-langchain.agent')) {\n                out << [ label: n?.name?.toString(), value: wfId + '_-_' + (n?.id?.toString()) ]\n            }\n        }\n    }\n}\nreturn [ agentLookup: out ]",
+				"code":"def wfList = binding.hasVariable('workflows') ? workflows : null\ndef list = (wfList instanceof List) ? wfList : []\ndef out = []\nlist.each { wf ->\n    def wfId  = wf?.id?.toString()\n    def nodes = wf?.nodes\n    if (nodes instanceof List) {\n        nodes.each { n ->\n            def t = n?.type?.toString()\n            if (t != null && t.endsWith('n8n-nodes-langchain.agent')) {\n                out << [ label: n?.name?.toString(), value: wfId + '_-_' + (n?.id?.toString()), metadata: [ workflowId: wfId, workflowName: wf?.name?.toString(), nodeId: n?.id?.toString(), nodeName: n?.name?.toString(), nodeType: t, parameters: n?.parameters ] ]\n            }\n        }\n    }\n}\nreturn [ agentLookup: out ]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -483,13 +481,6 @@
 								"value":"{{ n_GvLes.outputs.item.value }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_lUfki.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -545,59 +536,6 @@
 			"type":"IF_ELSE"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.modelMetadata.inputModality.items",
-					"root.record.modelMetadata.outputModality.items",
-					"root.record.modelMetadata.appName",
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_Quet8@n_GvLes@n_wh@_J2bSo-1@l@l@y",
-			"id":"n_Fzdy8",
-			"index":9,
-			"inputs":{
-				"recordId":"{{ n_S3r3m.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_S3r3m.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_S3r3m.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_lUfki.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"agent",
-					"awaitingTraces":"{{ n_S3r3m.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_lUfki.outputs.agentProfileGroupProperties.connection }}",
-					"connectionType":"observe",
-					"enabled":"{{ n_S3r3m.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_GvLes.outputs.item.value }}",
-					"name":"{{ n_GvLes.outputs.item.label }}",
-					"registered":false,
-					"registered_first_time":"{{ n_S3r3m.outputs.properties.registered_first_time }}",
-					"remainingRetryCount":"{{ n_lUfki.outputs.retryCount }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
@@ -609,7 +547,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Quet8@n_GvLes@n_wh@_J2bSo-1@l@l@y",
 			"id":"n_sNJoM",
-			"index":10,
+			"index":9,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile",
@@ -619,6 +557,11 @@
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.agentProfileGroupIds",
 						"setValue":"{{ n_lUfki.outputs.agentProfileGroupId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.metadata",
+						"setValue":"{{ n_GvLes.outputs.item.metadata }}"
 					}
 				],
 				"id":"{{ n_S3r3m.outputs.id }}",
@@ -650,7 +593,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Quet8@n_GvLes@n_wh@_J2bSo-1@l@l@n",
 			"id":"n_hmQtt",
-			"index":11,
+			"index":10,
 			"inputs":{
 				"recordId":"{{ n_GvLes.outputs.item.value }}",
 				"useRawPayload":false,
@@ -669,6 +612,8 @@
 					"connectionType":"observe",
 					"enabled":"{{ n_lUfki.outputs.agentProfileGroupProperties.autoRegister }}",
 					"external_agent_id":"{{ n_GvLes.outputs.item.value }}",
+					"lc_name":"=LOWER({{ n_GvLes.outputs.item.label }})",
+					"metadata":"{{ n_GvLes.outputs.item.metadata }}",
 					"name":"{{ n_GvLes.outputs.item.label }}",
 					"registered":false,
 					"registered_first_time":false,
@@ -693,7 +638,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_J2bSo-1@l",
 			"id":"n_brk",
-			"index":12,
+			"index":11,
 			"inputs":{
 				"loop":"n_wh",
 				"conditions":{
@@ -726,7 +671,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_J2bSo-1@l",
 			"id":"n_updv",
-			"index":13,
+			"index":12,
 			"inputs":{
 				"variables":[
 					{
@@ -752,7 +697,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_J2bSo-1",
 			"id":"n_pWWDZ",
-			"index":14,
+			"index":13,
 			"inputs":{
 				"result":{
 					"success":true
@@ -782,5 +727,5 @@
 		}
 	},
 	"standard":true,
-	"version":15
+	"version":17
 }
