@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743478928,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743479397,
+		"deployedAt":1789395051478,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccf73f7ad93bb1672793",
+		"deployedDefinitionId":"6aa8006b72fd792214e8bf17",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":33
+		"version":2,
+		"workflowVersion":36
 	},
 	"edges":[
 		{
@@ -54,7 +54,7 @@
 	"id":"69d3a33d9e271c0269a813ee",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | github | repo",
-	"modifiedTime":1788252971672,
+	"modifiedTime":1789395392678,
 	"name":"Knowledge Downloader | Github | Repo",
 	"nodes":[
 		{
@@ -230,7 +230,7 @@
 			"context":{
 				"appName":"github",
 				"resourceVersion":990,
-				"connectionId":"6a8443c09b0eba549369ba1b",
+				"connectionId":"6a899b31b704f338cc075f9e",
 				"resourceName":"github_get_repository",
 				"type":"APPLICATION"
 			},
@@ -323,7 +323,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def repoOwner = \"\"\ndef repo = \"\"\ndef repoId = binding.hasVariable('repoId') ? repoId.toString() : \"\"\n\n// Normalize owner: the \"Your Repository\" (personal-account) option is encoded as\ndef normOwner = { o -> (o != null && o.startsWith('username:')) ? o.split(':', 2)[1].trim() : o }\n\nif (binding.hasVariable('inputs') && inputs != null) {\n    repoOwner = normOwner(inputs?.owner ?: '')\n    repo  = inputs?.repo  ?: ''\n} else {\n    throw new Exception(\"'inputs' variable is not bound or is null.\")\n}\n\nreturn [\n    \"downloaderDetails\": [\n        [\n            \"downloaderAutomation\": \"699dd91d8b81b90adf681dcd\",\n            \"downloaderParams\": [\n                [\n                    \"inputs\": [\n                        \"owner\"         : repoOwner,\n                        \"repo\"          : repo,\n                        \"sharedWithIds\" : [\"github/repo/\" + repoId]\n                    ],\n                    \"parentEntityId\": repoId\n                ]\n            ]\n        ]\n    ]\n]",
+				"code":"def repoOwner = \"\"\ndef repo = \"\"\ndef repoId = binding.hasVariable('repoId') ? repoId.toString() : \"\"\n\n// Normalize owner: the \"Your Repository\" (personal-account) option is encoded as\ndef normOwner = { o -> (o != null && o.startsWith('username:')) ? o.split(':', 2)[1].trim() : o }\n\nif (binding.hasVariable('inputs') && inputs != null) {\n    repoOwner = normOwner(inputs?.owner ?: '')\n    repo  = inputs?.repo  ?: ''\n} else {\n    throw new Exception(\"'inputs' variable is not bound or is null.\")\n}\n\nreturn [\n    \"downloaderDetails\": [\n        [\n            \"downloaderAutomation\": \"699dd91d8b81b90adf681dcd\",\n            \"downloaderParams\": [\n                [\n                    \"inputs\": [\n                        \"owner\"         : repoOwner,\n                        \"repo\"          : repo,\n                        \"repoId\"        : repoId,\n                        \"sharedWithIds\" : [\"github/repo/\" + repoId]\n                    ],\n                    \"parentEntityId\": repoId\n                ]\n            ]\n        ]\n    ]\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -365,6 +365,9 @@
 		}
 	],
 	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		"github"
+	],
 	"schemaReferences":[
 		
 	],
@@ -382,5 +385,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":35
+	"version":37
 }
