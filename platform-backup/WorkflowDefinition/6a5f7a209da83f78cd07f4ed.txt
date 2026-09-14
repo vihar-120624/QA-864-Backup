@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743871933,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743872248,
+		"deployedAt":1789395242602,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece809d7c534668ef9a63",
+		"deployedDefinitionId":"6aa8012a72fd792214e8c8be",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":52
+		"version":2,
+		"workflowVersion":55
 	},
 	"edges":[
 		{
@@ -75,31 +75,7 @@
 		},
 		{
 			"fromNodeId":"n_hFhiA",
-			"id":"next@n_hFhiA@n_90l4y",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_90l4y",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_90l4y",
-			"id":"next@n_90l4y@n_tLnEX",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_tLnEX",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_tLnEX",
-			"id":"next@n_tLnEX@n_2X7Dx",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_2X7Dx",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_2X7Dx",
-			"id":"next@n_2X7Dx@n_rPaJb",
+			"id":"next@n_hFhiA@n_rPaJb",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_rPaJb",
@@ -116,15 +92,7 @@
 		},
 		{
 			"fromNodeId":"n_kKVa4",
-			"id":"next@n_kKVa4@n_YWdXl",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_YWdXl",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_YWdXl",
-			"id":"next@n_YWdXl@n_9Tf19",
+			"id":"next@n_kKVa4@n_9Tf19",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_9Tf19",
@@ -154,7 +122,7 @@
 	"id":"6a5f7a209da83f78cd07f4ed",
 	"lastModifiedBy":-1,
 	"lcName":"agent governance | agent & model registry | overview",
-	"modifiedTime":1788252971702,
+	"modifiedTime":1789395389369,
 	"name":"Agent Governance | Agent & Model Registry | Overview",
 	"nodes":[
 		{
@@ -503,6 +471,11 @@
 			"type":"ACTION"
 		},
 		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
 			"context":{
 				"appName":"analytics_by_unifyapps",
 				"resourceVersion":1724,
@@ -522,9 +495,13 @@
 						"columns":{
 							"additionalProperties":false,
 							"properties":{
+								"overall_cost":{
+									"title":"overall_cost",
+									"type":"number"
+								},
 								"overall_error_rate_pct":{
 									"title":"overall_error_rate_pct",
-									"type":"number"
+									"type":"integer"
 								},
 								"overall_p90_latency_ms":{
 									"title":"overall_p90_latency_ms",
@@ -541,429 +518,12 @@
 					},
 					"type":"object"
 				},
-				"query":"SELECT\n    COUNT(*) AS overall_traces,\n\n    ROUND(\n        100.0 * SUM(CASE WHEN _pr_success = false THEN 1 ELSE 0 END)\n        / COUNT(*),\n        2\n    ) AS overall_error_rate_pct,\n\n    percentile_approx(_pr_totalTimeTaken, 0.90) AS overall_p90_latency_ms\n\nFROM ENTITY_e_trace\nWHERE _pr_startTime >= {{ n_FIBtk.outputs.result.startTime }}\n  AND _pr_aiAgentId = '{{ n_nVeUV.outputs.assetId }}'\n  AND deleted = false;",
+				"query":"SELECT\n    COUNT(*) AS overall_traces,\n\n    ROUND(\n        100.0 * SUM(CASE WHEN _pr_success = false THEN 1 ELSE 0 END)\n        / COUNT(*),\n        2\n    ) AS overall_error_rate_pct,\n\n    percentile_approx(_pr_totalTimeTaken, 0.90) AS overall_p90_latency_ms,\n\n    ROUND(\n        SUM(COALESCE(_pr_cost, 0)),\n        8\n    ) AS overall_cost\n\nFROM ENTITY_e_trace\nWHERE _pr_startTime >= {{ n_FIBtk.outputs.result.startTime }}\n  AND _pr_aiAgentId = '{{ n_nVeUV.outputs.assetId }}'\n  AND deleted = false;",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":false,
 			"subTitle":"Analytics by UnifyApps",
 			"title":"Execute Analytics SQL Query",
-			"type":"ACTION"
-		},
-		{
-			"additional":{
-				"xsdSchemaConfig":{
-					"root":{}
-				}
-			},
-			"context":{
-				"appName":"analytics_by_unifyapps",
-				"resourceVersion":1660,
-				"resourceName":"analytics_by_unifyapps_execute_query",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CVmET@_vWk4v-1@y",
-			"id":"n_90l4y",
-			"index":8,
-			"inputs":{
-				"outputSchema":{
-					"additionalProperties":false,
-					"properties":{
-						"columns":{
-							"additionalProperties":false,
-							"properties":{
-								"_pr_currentType":{
-									"title":"_pr_currentType",
-									"type":"string"
-								},
-								"_pr_inputToken":{
-									"title":"_pr_inputToken",
-									"type":"integer"
-								},
-								"_pr_outputToken":{
-									"title":"_pr_outputToken",
-									"type":"integer"
-								},
-								"_pr_provider":{
-									"title":"_pr_provider",
-									"type":"string"
-								},
-								"_pr_traceId":{
-									"title":"_pr_traceId",
-									"type":"string"
-								},
-								"model_name":{
-									"title":"model_name",
-									"type":"string"
-								},
-								"span_end_time":{
-									"title":"span_end_time",
-									"type":"number"
-								},
-								"span_latency_ms":{
-									"title":"span_latency_ms",
-									"type":"integer"
-								},
-								"span_start_time":{
-									"title":"span_start_time",
-									"type":"number"
-								},
-								"span_success":{
-									"title":"span_success",
-									"type":"string"
-								},
-								"total_tokens":{
-									"title":"total_tokens",
-									"type":"integer"
-								}
-							},
-							"title":"columns",
-							"type":"object"
-						}
-					},
-					"type":"object"
-				},
-				"query":"SELECT\n    s._pr_traceId,\n    s._pr_currentType,\n    s._pr_toolName AS model_name,\n    s._pr_provider,\n    s._pr_success AS span_success,\n    s._pr_inputToken,\n    s._pr_outputToken,\n    (COALESCE(s._pr_inputToken, 0) + COALESCE(s._pr_outputToken, 0)) AS total_tokens,\n    s._pr_startTime AS span_start_time,\n    s._pr_endTime AS span_end_time,\n    (s._pr_endTime - s._pr_startTime) AS span_latency_ms\n\nFROM ENTITY_e_trace t\nJOIN ENTITY_e_spans s\n    ON t.id = s._pr_traceId\n\nWHERE t._pr_startTime >= {{ n_FIBtk.outputs.result.startTime }}\n  AND t._pr_aiAgentId = '{{ n_nVeUV.outputs.assetId }}'\n  AND t.deleted = false\n  AND s._pr_currentType = 'LLM'\n\nORDER BY t._pr_startTime DESC;",
-				"group":"ENTITY_REPORTING"
-			},
-			"skip":false,
-			"subTitle":"Analytics by UnifyApps",
-			"title":"Execute Analytics SQL Query",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14236,
-				"resourceName":"storage_by_unifyapps_fetch_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CVmET@_vWk4v-1@y",
-			"id":"n_tLnEX",
-			"index":9,
-			"inputs":{
-				"shouldSearchInAnalyticsStore":false,
-				"object_type":"model",
-				"includeRoleMappings":false,
-				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
-				"page":{
-					"limit":1000,
-					"paginateBy":"OFFSET"
-				},
-				"fields":[
-					"properties.provider",
-					"properties.Pricing",
-					"properties.model"
-				],
-				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"MULTIPLE",
-				"readThroughSessionVariables":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Fetch records",
-			"type":"ACTION"
-		},
-		{
-			"additional":{
-				"xsdSchemaConfig":{
-					"root":{}
-				},
-				"visibleOptionalFields":[
-					"root.parameters.objects.items.columns.trace_id",
-					"root.parameters.objects.items.columns._pr_outputToken",
-					"root.parameters.objects.items.columns._pr_currentType",
-					"root.parameters.objects.items.columns.span_latency_ms",
-					"root.parameters.objects.items.columns._pr_inputToken",
-					"root.parameters.objects.items.columns._pr_traceId",
-					"root.parameters.objects.items.columns._pr_aiAgentId",
-					"root.parameters.objects.items.columns.span_end_time",
-					"root.parameters.objects.items.columns.span_start_time",
-					"root.parameters.objects.items.columns.model_name",
-					"root.parameters.objects.items.columns.span_success",
-					"root.parameters.objects.items.columns.trace_start_time",
-					"root.parameters.objects.items.columns._pr_provider",
-					"root.parameters.objects.items.columns.total_tokens",
-					"root.parameters.objects.items.columns.trace_latency_ms",
-					"root.parameters.objects.items.columns.trace_success",
-					"root.parameters.models.items.id",
-					"root.parameters.models.items.properties.provider",
-					"root.parameters.models.items.properties.Pricing.cachewrite.text",
-					"root.parameters.models.items.properties.Pricing.output.text",
-					"root.parameters.models.items.properties.Pricing.output.image",
-					"root.parameters.models.items.properties.Pricing.output.audio",
-					"root.parameters.models.items.properties.Pricing.input.text",
-					"root.parameters.models.items.properties.Pricing.input.image",
-					"root.parameters.models.items.properties.Pricing.input.audio",
-					"root.parameters.models.items.properties.Pricing.cacheread.text",
-					"root.parameters.models.items.properties.Pricing.cacheread.image",
-					"root.parameters.models.items.properties.Pricing.cacheread.audio",
-					"root.parameters.models.items.properties.model",
-					"root.parameters.objects.items.columns.start_date"
-				]
-			},
-			"context":{
-				"appName":"code_by_unifyapps",
-				"resourceVersion":0,
-				"resourceName":"code_by_unifyapps_groovy",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CVmET@_vWk4v-1@y",
-			"id":"n_2X7Dx",
-			"index":10,
-			"inputs":{
-				"output":{
-					"additionalProperties":false,
-					"properties":{
-						"total_cost_usd":{
-							"title":"Total Cost Usd",
-							"type":"number"
-						}
-					},
-					"required":[],
-					"type":"object"
-				},
-				"input":{
-					"additionalProperties":false,
-					"properties":{
-						"models":{
-							"items":{
-								"additionalProperties":false,
-								"properties":{
-									"id":{
-										"title":"id",
-										"type":"string"
-									},
-									"properties":{
-										"additionalProperties":false,
-										"properties":{
-											"Pricing":{
-												"additionalProperties":false,
-												"properties":{
-													"cacheread":{
-														"additionalProperties":false,
-														"properties":{
-															"audio":{
-																"title":"audio",
-																"type":"number"
-															},
-															"image":{
-																"title":"image",
-																"type":"number"
-															},
-															"text":{
-																"title":"text",
-																"type":"number"
-															}
-														},
-														"title":"cacheread",
-														"type":"object"
-													},
-													"cachewrite":{
-														"additionalProperties":false,
-														"properties":{
-															"text":{
-																"title":"text",
-																"type":"number"
-															}
-														},
-														"title":"cachewrite",
-														"type":"object"
-													},
-													"input":{
-														"additionalProperties":false,
-														"properties":{
-															"audio":{
-																"title":"audio",
-																"type":"integer"
-															},
-															"image":{
-																"title":"image",
-																"type":"number"
-															},
-															"text":{
-																"title":"text",
-																"type":"integer"
-															}
-														},
-														"title":"input",
-														"type":"object"
-													},
-													"output":{
-														"additionalProperties":false,
-														"properties":{
-															"audio":{
-																"title":"audio",
-																"type":"integer"
-															},
-															"image":{
-																"title":"image",
-																"type":"number"
-															},
-															"text":{
-																"title":"text",
-																"type":"integer"
-															}
-														},
-														"title":"output",
-														"type":"object"
-													}
-												},
-												"title":"Pricing",
-												"type":"object"
-											},
-											"model":{
-												"title":"model",
-												"type":"string"
-											},
-											"provider":{
-												"title":"provider",
-												"type":"string"
-											}
-										},
-										"title":"properties",
-										"type":"object"
-									}
-								},
-								"required":[],
-								"type":"object"
-							},
-							"title":"models",
-							"type":"array"
-						},
-						"objects":{
-							"items":{
-								"additionalProperties":false,
-								"properties":{
-									"columns":{
-										"additionalProperties":false,
-										"properties":{
-											"_pr_currentType":{
-												"title":"_pr_currentType",
-												"type":"string"
-											},
-											"_pr_inputToken":{
-												"title":"_pr_inputToken",
-												"type":"integer"
-											},
-											"_pr_outputToken":{
-												"title":"_pr_outputToken",
-												"type":"integer"
-											},
-											"_pr_provider":{
-												"title":"_pr_provider",
-												"type":"string"
-											},
-											"_pr_traceId":{
-												"title":"_pr_traceId",
-												"type":"string"
-											},
-											"model_name":{
-												"title":"model_name",
-												"type":"string"
-											},
-											"span_end_time":{
-												"title":"span_end_time",
-												"type":"integer"
-											},
-											"span_latency_ms":{
-												"title":"span_latency_ms",
-												"type":"integer"
-											},
-											"span_start_time":{
-												"title":"span_start_time",
-												"type":"integer"
-											},
-											"span_success":{
-												"title":"span_success",
-												"type":"string"
-											},
-											"total_tokens":{
-												"title":"total_tokens",
-												"type":"integer"
-											}
-										},
-										"required":[],
-										"title":"columns",
-										"type":"object"
-									}
-								},
-								"type":"object"
-							},
-							"title":"objects",
-							"type":"array"
-						}
-					},
-					"type":"object"
-				},
-				"code":"def spans = binding.hasVariable(\"objects\") ? objects : []\ndef models = binding.hasVariable(\"models\") ? models : []\n\nString normalizeProvider(String provider) {\n    if (!provider) return null\n\n    provider = provider.toLowerCase()\n\n    if (provider in [\"aws\", \"amazon_bedrock\"]) {\n        return \"amazon_bedrock\"\n    }\n\n    return provider\n}\n\nString normalizeModel(String model) {\n    if (!model) return null\n\n    return model\n        .replaceFirst(/-\\d{8}-v\\d+:\\d+$/, '')\n        .replaceFirst(/-\\d{8}$/, '')\n        .replaceFirst(/-\\d{4}-\\d{2}-\\d{2}$/, '')\n        .toLowerCase()\n}\n\nString removeRegion(String model) {\n    if (!model) return null\n\n    return model\n        .toLowerCase()\n        .replaceFirst(/^(us|eu|apac)\\./, '')\n}\n\ndef pricingMap = [:]\n\nmodels.each { model ->\n    def props = model.properties ?: [:]\n\n    def provider = normalizeProvider(props.provider?.toString())\n    def modelName = props.model?.toString()\n\n    if (!provider || !modelName) return\n\n    pricingMap[\"${provider}:${normalizeModel(modelName)}\"] = [\n        inputPrice : ((props.Pricing?.input?.text ?: 0) as BigDecimal),\n        outputPrice: ((props.Pricing?.output?.text ?: 0) as BigDecimal)\n    ]\n}\n\nBigDecimal totalCost = 0G\n\nspans.each { row ->\n    def c = row.columns ?: [:]\n\n    def provider = normalizeProvider(c._pr_provider?.toString())\n    def modelName = c.model_name?.toString()\n\n    if (!provider || !modelName) return\n\n    def pricing =\n        pricingMap[\"${provider}:${modelName.toLowerCase()}\"] ?:\n        pricingMap[\"${provider}:${normalizeModel(modelName)}\"] ?:\n        pricingMap[\"${provider}:${removeRegion(normalizeModel(modelName))}\"]\n\n    if (!pricing) return\n\n    BigDecimal inputTokens = (c._pr_inputToken ?: 0) as BigDecimal\n    BigDecimal outputTokens = (c._pr_outputToken ?: 0) as BigDecimal\n\n    totalCost += (inputTokens * pricing.inputPrice) / 1000000G\n    totalCost += (outputTokens * pricing.outputPrice) / 1000000G\n}\n\nreturn [\n    total_cost_usd: totalCost.setScale(8, BigDecimal.ROUND_HALF_UP)\n]",
-				"compile_static":false,
-				"captureStdOutput":false,
-				"parameters":{
-					"models":{
-						"items":{
-							"id":"{{ n_tLnEX.outputs.objects[0].id }}",
-							"properties":{
-								"Pricing":{
-									"cacheread":{
-										"audio":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.cachewrite.audio }}",
-										"image":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.cachewrite.image }}",
-										"text":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.cachewrite.text }}"
-									},
-									"cachewrite":{
-										"text":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.cachewrite.text }}"
-									},
-									"input":{
-										"audio":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.input.audio }}",
-										"image":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.input.image }}",
-										"text":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.input.text }}"
-									},
-									"output":{
-										"audio":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.output.audio }}",
-										"image":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.output.image }}",
-										"text":"{{ n_tLnEX.outputs.objects[0].properties.Pricing.output.text }}"
-									}
-								},
-								"model":"{{ n_tLnEX.outputs.objects[0].properties.model }}",
-								"provider":"{{ n_tLnEX.outputs.objects[0].properties.provider }}"
-							}
-						},
-						"source":"{{ n_tLnEX.outputs.objects }}",
-						"ua:type":"mappedArray"
-					},
-					"objects":{
-						"items":{
-							"columns":{
-								"_pr_currentType":"{{ n_90l4y.outputs.objects[0].columns._pr_currentType }}",
-								"_pr_inputToken":"{{ n_90l4y.outputs.objects[0].columns._pr_inputToken }}",
-								"_pr_outputToken":"{{ n_90l4y.outputs.objects[0].columns._pr_outputToken }}",
-								"_pr_provider":"{{ n_90l4y.outputs.objects[0].columns._pr_provider }}",
-								"_pr_traceId":"{{ n_90l4y.outputs.objects[0].columns._pr_traceId }}",
-								"model_name":"{{ n_90l4y.outputs.objects[0].columns.model_name }}",
-								"span_end_time":"{{ n_90l4y.outputs.objects[0].columns.span_end_time }}",
-								"span_latency_ms":"{{ n_90l4y.outputs.objects[0].columns.span_latency_ms }}",
-								"span_start_time":"{{ n_90l4y.outputs.objects[0].columns.span_start_time }}",
-								"span_success":"{{ n_90l4y.outputs.objects[0].columns.span_success }}",
-								"total_tokens":"{{ n_90l4y.outputs.objects[0].columns.total_tokens }}"
-							}
-						},
-						"source":"{{ n_90l4y.outputs.objects }}",
-						"ua:type":"mappedArray"
-					}
-				}
-			},
-			"skip":false,
-			"subTitle":"Code by UnifyApps",
-			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
 		{
@@ -978,7 +538,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CVmET@_vWk4v-1@y",
 			"id":"n_rPaJb",
-			"index":11,
+			"index":8,
 			"inputs":{
 				"result":{
 					"result":{
@@ -992,7 +552,7 @@
 						},
 						"p90_latency_ms":"{{ n_hFhiA.outputs.objects[0].columns.overall_p90_latency_ms }}",
 						"total":"{{ n_hFhiA.outputs.objects[0].columns.overall_traces }}",
-						"total_cost_usd":"{{ n_2X7Dx.outputs.result.total_cost_usd }}",
+						"total_cost_usd":"{{ n_hFhiA.outputs.objects[0].columns.overall_cost }}",
 						"total_error_rate_pct":"{{ n_hFhiA.outputs.objects[0].columns.overall_error_rate_pct }}"
 					},
 					"success":true
@@ -1020,7 +580,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CVmET@_vWk4v-1@n",
 			"id":"n_kKVa4",
-			"index":12,
+			"index":9,
 			"inputs":{
 				"outputSchema":{
 					"additionalProperties":false,
@@ -1047,6 +607,10 @@
 								"_pr_traceId":{
 									"title":"_pr_traceId",
 									"type":"string"
+								},
+								"cost":{
+									"title":"cost",
+									"type":"number"
 								},
 								"model_name":{
 									"title":"model_name",
@@ -1086,7 +650,7 @@
 					},
 					"type":"object"
 				},
-				"query":"SELECT\n    DATE(CONVERT_TZ(\n          CAST(FROM_UNIXTIME(_pr_startTime / 1000) AS DATETIME),\n          'UTC',\n          '{{ n_FIBtk.outputs.result.timeZone }}'\n      )) AS start_date,\n\n    _pr_traceId,\n    _pr_currentType,\n    _pr_toolName AS model_name,\n    _pr_provider,\n    _pr_success AS span_success,\n    _pr_inputToken,\n    _pr_outputToken,\n    (COALESCE(_pr_inputToken, 0) + COALESCE(_pr_outputToken, 0)) AS total_tokens,\n    _pr_startTime AS span_start_time,\n    _pr_endTime AS span_end_time,\n    (_pr_endTime - _pr_startTime) AS span_latency_ms\n\nFROM ENTITY_e_spans\n\nWHERE _pr_startTime >= {{ n_FIBtk.outputs.result.startTime }}\n  AND _pr_aiAgentId = '{{ n_nVeUV.outputs.assetId }}'\n  AND deleted = false\n\nORDER BY _pr_startTime DESC;",
+				"query":"SELECT\n    DATE(CONVERT_TZ(\n          CAST(FROM_UNIXTIME(_pr_startTime / 1000) AS DATETIME),\n          'UTC',\n          '{{ n_FIBtk.outputs.result.timeZone }}'\n      )) AS start_date,\n\n    _pr_traceId,\n    _pr_currentType,\n    _pr_toolName AS model_name,\n    _pr_provider,\n    _pr_success AS span_success,\n    _pr_inputToken,\n    _pr_outputToken,\n    (COALESCE(_pr_inputToken, 0) + COALESCE(_pr_outputToken, 0)) AS total_tokens,\n\n    ROUND(COALESCE(_pr_cost, 0), 8) AS cost,\n    \n    _pr_startTime AS span_start_time,\n    _pr_endTime AS span_end_time,\n    (_pr_endTime - _pr_startTime) AS span_latency_ms\n\nFROM ENTITY_e_spans\n\nWHERE _pr_startTime >= {{ n_FIBtk.outputs.result.startTime }}\n  AND _pr_aiAgentId = '{{ n_nVeUV.outputs.assetId }}'\n  AND deleted = false\n\nORDER BY _pr_startTime DESC;",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":false,
@@ -1095,78 +659,24 @@
 			"type":"ACTION"
 		},
 		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14236,
-				"resourceName":"storage_by_unifyapps_fetch_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_CVmET@_vWk4v-1@n",
-			"id":"n_YWdXl",
-			"index":13,
-			"inputs":{
-				"shouldSearchInAnalyticsStore":false,
-				"object_type":"model",
-				"includeRoleMappings":false,
-				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
-				"page":{
-					"limit":1000,
-					"paginateBy":"OFFSET"
-				},
-				"fields":[
-					"properties.provider",
-					"properties.Pricing",
-					"properties.model"
-				],
-				"includeTotalCount":false,
-				"numberOfRecordsToFetch":"MULTIPLE",
-				"readThroughSessionVariables":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Fetch records",
-			"type":"ACTION"
-		},
-		{
 			"additional":{
 				"xsdSchemaConfig":{
 					"root":{}
 				},
 				"visibleOptionalFields":[
-					"root.parameters.objects.items.columns.trace_id",
-					"root.parameters.objects.items.columns._pr_outputToken",
 					"root.parameters.objects.items.columns._pr_currentType",
-					"root.parameters.objects.items.columns.span_latency_ms",
 					"root.parameters.objects.items.columns._pr_inputToken",
-					"root.parameters.objects.items.columns._pr_traceId",
-					"root.parameters.objects.items.columns._pr_aiAgentId",
-					"root.parameters.objects.items.columns.span_end_time",
-					"root.parameters.objects.items.columns.span_start_time",
-					"root.parameters.objects.items.columns.model_name",
-					"root.parameters.objects.items.columns.span_success",
-					"root.parameters.objects.items.columns.trace_start_time",
+					"root.parameters.objects.items.columns._pr_outputToken",
 					"root.parameters.objects.items.columns._pr_provider",
+					"root.parameters.objects.items.columns._pr_traceId",
+					"root.parameters.objects.items.columns.model_name",
+					"root.parameters.objects.items.columns.span_end_time",
+					"root.parameters.objects.items.columns.span_latency_ms",
+					"root.parameters.objects.items.columns.span_start_time",
+					"root.parameters.objects.items.columns.span_success",
+					"root.parameters.objects.items.columns.start_date",
 					"root.parameters.objects.items.columns.total_tokens",
-					"root.parameters.objects.items.columns.trace_latency_ms",
-					"root.parameters.objects.items.columns.trace_success",
-					"root.parameters.models.items.id",
-					"root.parameters.models.items.properties.provider",
-					"root.parameters.models.items.properties.Pricing.cachewrite.text",
-					"root.parameters.models.items.properties.Pricing.output.text",
-					"root.parameters.models.items.properties.Pricing.output.image",
-					"root.parameters.models.items.properties.Pricing.output.audio",
-					"root.parameters.models.items.properties.Pricing.input.text",
-					"root.parameters.models.items.properties.Pricing.input.image",
-					"root.parameters.models.items.properties.Pricing.input.audio",
-					"root.parameters.models.items.properties.Pricing.cacheread.text",
-					"root.parameters.models.items.properties.Pricing.cacheread.image",
-					"root.parameters.models.items.properties.Pricing.cacheread.audio",
-					"root.parameters.models.items.properties.model",
-					"root.parameters.objects.items.columns.start_date"
+					"root.parameters.objects.items.columns.cost"
 				]
 			},
 			"context":{
@@ -1180,7 +690,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CVmET@_vWk4v-1@n",
 			"id":"n_9Tf19",
-			"index":14,
+			"index":10,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1225,111 +735,6 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
-						"models":{
-							"items":{
-								"additionalProperties":false,
-								"properties":{
-									"id":{
-										"title":"id",
-										"type":"string"
-									},
-									"properties":{
-										"additionalProperties":false,
-										"properties":{
-											"Pricing":{
-												"additionalProperties":false,
-												"properties":{
-													"cacheread":{
-														"additionalProperties":false,
-														"properties":{
-															"audio":{
-																"title":"audio",
-																"type":"number"
-															},
-															"image":{
-																"title":"image",
-																"type":"number"
-															},
-															"text":{
-																"title":"text",
-																"type":"number"
-															}
-														},
-														"title":"cacheread",
-														"type":"object"
-													},
-													"cachewrite":{
-														"additionalProperties":false,
-														"properties":{
-															"text":{
-																"title":"text",
-																"type":"number"
-															}
-														},
-														"title":"cachewrite",
-														"type":"object"
-													},
-													"input":{
-														"additionalProperties":false,
-														"properties":{
-															"audio":{
-																"title":"audio",
-																"type":"integer"
-															},
-															"image":{
-																"title":"image",
-																"type":"number"
-															},
-															"text":{
-																"title":"text",
-																"type":"integer"
-															}
-														},
-														"title":"input",
-														"type":"object"
-													},
-													"output":{
-														"additionalProperties":false,
-														"properties":{
-															"audio":{
-																"title":"audio",
-																"type":"integer"
-															},
-															"image":{
-																"title":"image",
-																"type":"number"
-															},
-															"text":{
-																"title":"text",
-																"type":"integer"
-															}
-														},
-														"title":"output",
-														"type":"object"
-													}
-												},
-												"title":"Pricing",
-												"type":"object"
-											},
-											"model":{
-												"title":"model",
-												"type":"string"
-											},
-											"provider":{
-												"title":"provider",
-												"type":"string"
-											}
-										},
-										"title":"properties",
-										"type":"object"
-									}
-								},
-								"required":[],
-								"type":"object"
-							},
-							"title":"models",
-							"type":"array"
-						},
 						"objects":{
 							"items":{
 								"additionalProperties":false,
@@ -1356,6 +761,10 @@
 											"_pr_traceId":{
 												"title":"_pr_traceId",
 												"type":"string"
+											},
+											"cost":{
+												"title":"cost",
+												"type":"number"
 											},
 											"model_name":{
 												"title":"model_name",
@@ -1397,43 +806,13 @@
 							"type":"array"
 						}
 					},
+					"required":[],
 					"type":"object"
 				},
-				"code":"def spans = binding.hasVariable(\"objects\") ? objects : []\ndef models = binding.hasVariable(\"models\") ? models : []\n\nString normalizeProvider(String provider) {\n    if (!provider) return null\n    provider = provider.toLowerCase()\n    return provider in [\"aws\", \"amazon_bedrock\"] ? \"amazon_bedrock\" : provider\n}\n\nString normalizeModel(String model) {\n    if (!model) return null\n\n    model\n        .replaceFirst(/-\\d{8}-v\\d+:\\d+$/, '')\n        .replaceFirst(/-\\d{8}$/, '')\n        .replaceFirst(/-\\d{4}-\\d{2}-\\d{2}$/, '')\n        .toLowerCase()\n}\n\nString removeRegion(String model) {\n    if (!model) return null\n\n    model.toLowerCase()\n         .replaceFirst(/^(us|eu|apac)\\./, '')\n}\n\ndef pricingMap = [:]\n\nmodels.each { model ->\n    def props = model.properties ?: [:]\n\n    def provider = normalizeProvider(props.provider?.toString())\n    def modelName = props.model?.toString()\n\n    if (!provider || !modelName) return\n\n    pricingMap[\"${provider}:${normalizeModel(modelName)}\"] = [\n        inputPrice : ((props.Pricing?.input?.text ?: 0) as BigDecimal),\n        outputPrice: ((props.Pricing?.output?.text ?: 0) as BigDecimal)\n    ]\n}\n\nBigDecimal totalCost = 0G\nint totalRequests = 0\nint errorRequests = 0\ndef latencies = []\ndef daily = [:]\n\nspans.each { row ->\n    def c = row.columns ?: [:]\n\n    totalRequests++\n\n    if (!(c.span_success?.toString()?.toBoolean())) {\n        errorRequests++\n    }\n\n    if (c.span_latency_ms != null) {\n        latencies << ((c.span_latency_ms ?: 0) as BigDecimal)\n    }\n\n    def day = c.start_date?.toString()\n    if (day) {\n        daily[day] = (daily[day] ?: 0) + 1\n    }\n\n    def provider = normalizeProvider(c._pr_provider?.toString())\n    def modelName = c.model_name?.toString()\n\n    if (!provider || !modelName) return\n\n    def pricing =\n        pricingMap[\"${provider}:${modelName.toLowerCase()}\"] ?:\n        pricingMap[\"${provider}:${normalizeModel(modelName)}\"] ?:\n        pricingMap[\"${provider}:${removeRegion(normalizeModel(modelName))}\"]\n\n    if (!pricing) return\n\n    BigDecimal inputTokens = (c._pr_inputToken ?: 0) as BigDecimal\n    BigDecimal outputTokens = (c._pr_outputToken ?: 0) as BigDecimal\n\n    totalCost += (inputTokens * pricing.inputPrice) / 1000000G\n    totalCost += (outputTokens * pricing.outputPrice) / 1000000G\n}\n\nlatencies.sort()\n\nBigDecimal p90Latency = 0G\nif (!latencies.isEmpty()) {\n    int index = Math.ceil(latencies.size() * 0.90).intValue() - 1\n    index = Math.max(0, Math.min(index, latencies.size() - 1))\n    p90Latency = latencies[index]\n}\n\ndef datewise = daily.collect { date, count ->\n    [\n        start_date: date,\n        total_requests: count\n    ]\n}.sort { it.start_date }\n\nreturn [\n    total_requests: totalRequests,\n    total_cost_usd: totalCost.setScale(8, BigDecimal.ROUND_HALF_UP),\n    total_error_rate_pct: totalRequests > 0\n        ? ((errorRequests * 100G) / totalRequests).setScale(2, BigDecimal.ROUND_HALF_UP)\n        : 0G,\n    p90_latency_ms: p90Latency,\n    datewise: datewise\n]",
+				"code":"def spans = binding.hasVariable(\"objects\") ? objects : []\n\nBigDecimal totalCost = 0G\nint totalRequests = 0\nint errorRequests = 0\ndef latencies = []\ndef daily = [:]\n\nspans.each { row ->\n    def c = row.columns ?: [:]\n\n    totalRequests++\n\n    if (!(c.span_success?.toString()?.toBoolean())) {\n        errorRequests++\n    }\n\n    if (c.span_latency_ms != null) {\n        latencies << ((c.span_latency_ms ?: 0) as BigDecimal)\n    }\n\n    def day = c.start_date?.toString()\n    if (day) {\n        daily[day] = (daily[day] ?: 0) + 1\n    }\n\n    // Cost is already calculated and provided for each span\n    totalCost += (c.cost ?: 0) as BigDecimal\n}\n\nlatencies.sort()\n\nBigDecimal p90Latency = 0G\nif (!latencies.isEmpty()) {\n    int index = Math.ceil(latencies.size() * 0.90).intValue() - 1\n    index = Math.max(0, Math.min(index, latencies.size() - 1))\n    p90Latency = latencies[index]\n}\n\ndef datewise = daily.collect { date, count ->\n    [\n        start_date: date,\n        total_requests: count\n    ]\n}.sort { it.start_date }\n\nreturn [\n    total_requests: totalRequests,\n    total_cost_usd: totalCost.setScale(8, BigDecimal.ROUND_HALF_UP),\n    total_error_rate_pct: totalRequests > 0\n        ? ((errorRequests * 100G) / totalRequests).setScale(2, BigDecimal.ROUND_HALF_UP)\n        : 0G,\n    p90_latency_ms: p90Latency,\n    datewise: datewise\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"models":{
-						"items":{
-							"id":"{{ n_YWdXl.outputs.objects[0].id }}",
-							"properties":{
-								"Pricing":{
-									"cacheread":{
-										"audio":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.cachewrite.audio }}",
-										"image":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.cachewrite.image }}",
-										"text":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.cachewrite.text }}"
-									},
-									"cachewrite":{
-										"text":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.cachewrite.text }}"
-									},
-									"input":{
-										"audio":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.input.audio }}",
-										"image":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.input.image }}",
-										"text":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.input.text }}"
-									},
-									"output":{
-										"audio":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.output.audio }}",
-										"image":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.output.image }}",
-										"text":"{{ n_YWdXl.outputs.objects[0].properties.Pricing.output.text }}"
-									}
-								},
-								"model":"{{ n_YWdXl.outputs.objects[0].properties.model }}",
-								"provider":"{{ n_YWdXl.outputs.objects[0].properties.provider }}"
-							}
-						},
-						"source":"{{ n_YWdXl.outputs.objects }}",
-						"ua:type":"mappedArray"
-					},
 					"objects":{
 						"items":{
 							"columns":{
@@ -1442,6 +821,7 @@
 								"_pr_outputToken":"{{ n_kKVa4.outputs.objects[0].columns._pr_outputToken }}",
 								"_pr_provider":"{{ n_kKVa4.outputs.objects[0].columns._pr_provider }}",
 								"_pr_traceId":"{{ n_kKVa4.outputs.objects[0].columns._pr_traceId }}",
+								"cost":"{{ n_kKVa4.outputs.objects[0].columns.cost }}",
 								"model_name":"{{ n_kKVa4.outputs.objects[0].columns.model_name }}",
 								"span_end_time":"{{ n_kKVa4.outputs.objects[0].columns.span_end_time }}",
 								"span_latency_ms":"{{ n_kKVa4.outputs.objects[0].columns.span_latency_ms }}",
@@ -1483,7 +863,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CVmET@_vWk4v-1@n",
 			"id":"n_EiKCs",
-			"index":15,
+			"index":11,
 			"inputs":{
 				"result":{
 					"result":{
@@ -1523,5 +903,5 @@
 		}
 	},
 	"standard":true,
-	"version":54
+	"version":56
 }

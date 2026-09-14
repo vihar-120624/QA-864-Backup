@@ -4,27 +4,27 @@
 	],
 	"createdTime":1787743678071,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743678130,
+		"deployedAt":1789395125923,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdbe177b4b4aca57a805",
+		"deployedDefinitionId":"6aa800b5c6a14707f150331a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":27
+		"version":2,
+		"workflowVersion":30
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_cnLLE",
-			"id":"next@n_cnLLE@n_11Z97",
+			"id":"next@n_cnLLE@n_Wb3I9",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_11Z97",
+			"toNodeId":"n_Wb3I9",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_11Z97",
-			"id":"error@n_11Z97@n_XpbDy",
+			"fromNodeId":"n_Wb3I9",
+			"id":"error@n_Wb3I9@n_XpbDy",
 			"name":"error",
 			"priority":0,
 			"skip":false,
@@ -51,25 +51,25 @@
 		},
 		{
 			"fromNodeId":"n_XpbDy",
-			"id":"next@n_XpbDy@n_ZbfF6",
+			"id":"next@n_XpbDy@n_oijqX",
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_ZbfF6",
+			"toNodeId":"n_oijqX",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_ZbfF6",
-			"id":"error@n_ZbfF6@n_SImSB",
+			"fromNodeId":"n_oijqX",
+			"id":"error@n_oijqX@n_i3wR9",
 			"name":"error",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_SImSB",
+			"toNodeId":"n_i3wR9",
 			"type":"error"
 		},
 		{
-			"fromNodeId":"n_11Z97",
-			"id":"next@n_11Z97@n_gXSwm",
+			"fromNodeId":"n_Wb3I9",
+			"id":"next@n_Wb3I9@n_gXSwm",
 			"name":"success",
 			"priority":0,
 			"skip":false,
@@ -94,8 +94,8 @@
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_ZbfF6",
-			"id":"next@n_ZbfF6@n_gXSwm",
+			"fromNodeId":"n_oijqX",
+			"id":"next@n_oijqX@n_gXSwm",
 			"name":"success",
 			"priority":0,
 			"skip":false,
@@ -103,8 +103,8 @@
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_SImSB",
-			"id":"next@n_SImSB@n_gXSwm",
+			"fromNodeId":"n_i3wR9",
+			"id":"next@n_i3wR9@n_gXSwm",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_gXSwm",
@@ -126,7 +126,7 @@
 	"id":"6a3d666c8204402d0fb1284e",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge raw data store | create or update bulk",
-	"modifiedTime":1788252971405,
+	"modifiedTime":1789395389471,
 	"name":"Knowledge Raw Data Store | Create or Update Bulk",
 	"nodes":[
 		{
@@ -159,15 +159,6 @@
 						"additional":{
 							"additionalProperties":false,
 							"properties":{
-								"attachments":{
-									"items":{
-										"additionalProperties":false,
-										"properties":{},
-										"type":"object"
-									},
-									"title":"Attachments",
-									"type":"array"
-								},
 								"executionId":{
 									"title":"executionId",
 									"type":"string"
@@ -212,9 +203,16 @@
 									"type":"string"
 								}
 							},
-							"required":[],
 							"title":"additional",
 							"type":"object"
+						},
+						"failedJob":{
+							"title":"Failed Job",
+							"type":"boolean"
+						},
+						"grabberType":{
+							"title":"Grabber Type",
+							"type":"string"
 						},
 						"id":{
 							"title":"id",
@@ -260,6 +258,20 @@
 							"title":"parentEntityId",
 							"type":"string"
 						},
+						"participantEmails":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Participant Emails",
+							"type":"array"
+						},
+						"participants":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Participants",
+							"type":"array"
+						},
 						"resourceType":{
 							"title":"resourceType",
 							"type":"string"
@@ -267,6 +279,10 @@
 						"retryCount":{
 							"title":"retryCount",
 							"type":"integer"
+						},
+						"scheduledSync":{
+							"title":"Scheduled Sync",
+							"type":"boolean"
 						},
 						"sharedWithIds":{
 							"items":{
@@ -347,8 +363,10 @@
 					"root.record.errorDetails.error",
 					"root.record.errorDetails.workflowId",
 					"root.record.sharedWithIds.items",
-					"root.record.additional.attachments.items",
-					"root.record.sourceDetails.uniqueId"
+					"root.record.additional.indexingSkipped",
+					"root.record.additional.participants.items",
+					"root.record.additional.participantEmails.items",
+					"root.record.additional.grabberType"
 				]
 			},
 			"context":{
@@ -361,7 +379,7 @@
 			"dirty":false,
 			"fallbackMode":"MANUAL",
 			"groupId":"_tjuRK-1",
-			"id":"n_11Z97",
+			"id":"n_Wb3I9",
 			"index":2,
 			"inputs":{
 				"useRawPayload":false,
@@ -370,11 +388,6 @@
 				"skipIfBlank":false,
 				"record":{
 					"additional":{
-						"attachments":{
-							"items":"{{ n_cnLLE.outputs.additional.attachments[0] }}",
-							"source":"{{ n_cnLLE.outputs.additional.attachments }}",
-							"ua:type":"mappedArray"
-						},
 						"executionId":"{{ n_cnLLE.outputs.additional.executionId }}",
 						"fileDetails":{
 							"fileExtension":"{{ n_cnLLE.outputs.additional.fileDetails.fileExtension }}",
@@ -385,8 +398,10 @@
 							"sourceType":"{{ n_cnLLE.outputs.additional.fileDetails.sourceType }}",
 							"url":"{{ n_cnLLE.outputs.additional.fileDetails.url }}"
 						},
+						"grabberType":"{{ n_cnLLE.outputs.grabberType }}",
+						"indexingSkipped":false,
 						"mimeType":"{{ n_cnLLE.outputs.additional.mimeType }}",
-						"name":"{{ n_cnLLE.outputs.metadata.name }}"
+						"name":"{{ n_cnLLE.outputs.additional.fileDetails.name }}"
 					},
 					"errorDetails":{
 						"executionId":"{{ n_cnLLE.outputs.additional.executionId }}"
@@ -394,6 +409,7 @@
 					"id":"{{ n_cnLLE.outputs.id }}",
 					"isArchived":"{{ n_cnLLE.outputs.isArchived }}",
 					"isDeleted":"{{ n_cnLLE.outputs.isDeleted }}",
+					"isTabular":false,
 					"knowledgeId":"{{ n_cnLLE.outputs.knowledgeId }}",
 					"knowledgeSetId":"{{ n_cnLLE.outputs.knowledgeSetId }}",
 					"knowledgeVersion":"{{ n_cnLLE.outputs.knowledgeVersion }}",
@@ -404,6 +420,7 @@
 					"parentEntityId":"{{ n_cnLLE.outputs.parentEntityId }}",
 					"resourceType":"{{ n_cnLLE.outputs.resourceType }}",
 					"retryCount":"{{ n_cnLLE.outputs.retryCount }}",
+					"scheduledSync":"{{ n_cnLLE.outputs.scheduledSync }}",
 					"sharedWithIds":{
 						"items":"{{ n_cnLLE.outputs.sharedWithIds[0] }}",
 						"source":"{{ n_cnLLE.outputs.sharedWithIds }}",
@@ -490,7 +507,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_11Z97@_tjuRK-1@error",
+			"groupId":"n_Wb3I9@_tjuRK-1@error",
 			"id":"n_XpbDy",
 			"index":3,
 			"inputs":{
@@ -526,7 +543,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"MANUAL",
-			"groupId":"n_XpbDy@n_11Z97@_tjuRK-1@error@y",
+			"groupId":"n_XpbDy@n_Wb3I9@_tjuRK-1@error@y",
 			"id":"n_NcU1P",
 			"index":4,
 			"inputs":{
@@ -558,8 +575,13 @@
 					},
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.attachments",
-						"setValue":"{{ n_cnLLE.outputs.additional.attachments }}"
+						"fieldName":"properties.additional.grabberType",
+						"setValue":"{{ n_cnLLE.outputs.grabberType }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.scheduledSync",
+						"setValue":"{{ n_cnLLE.outputs.scheduledSync }}"
 					}
 				],
 				"page":{
@@ -672,7 +694,7 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"CONTINUE",
-			"groupId":"n_NcU1P@n_XpbDy@n_11Z97@_tjuRK-1@error@y@error",
+			"groupId":"n_NcU1P@n_XpbDy@n_Wb3I9@_tjuRK-1@error@y@error",
 			"id":"n_UH7kP",
 			"index":5,
 			"inputs":{
@@ -793,8 +815,8 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"MANUAL",
-			"groupId":"n_XpbDy@n_11Z97@_tjuRK-1@error@n",
-			"id":"n_ZbfF6",
+			"groupId":"n_XpbDy@n_Wb3I9@_tjuRK-1@error@n",
+			"id":"n_oijqX",
 			"index":6,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
@@ -825,8 +847,13 @@
 					},
 					{
 						"actionType":"SET",
-						"fieldName":"properties.additional.attachments",
-						"setValue":"{{ n_cnLLE.outputs.additional.attachments }}"
+						"fieldName":"properties.additional.grabberType",
+						"setValue":"{{ n_cnLLE.outputs.grabberType }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.scheduledSync",
+						"setValue":"{{ n_cnLLE.outputs.scheduledSync }}"
 					}
 				],
 				"page":{
@@ -939,8 +966,8 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"CONTINUE",
-			"groupId":"n_ZbfF6@n_XpbDy@n_11Z97@_tjuRK-1@error@n@error",
-			"id":"n_SImSB",
+			"groupId":"n_oijqX@n_XpbDy@n_Wb3I9@_tjuRK-1@error@n@error",
+			"id":"n_i3wR9",
 			"index":7,
 			"inputs":{
 				"useRawPayload":false,
@@ -1088,5 +1115,5 @@
 		}
 	},
 	"standard":true,
-	"version":29
+	"version":31
 }

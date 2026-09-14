@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744644120,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744644459,
+		"deployedAt":1789395359870,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed184cee862008d75c00d",
+		"deployedDefinitionId":"6aa8019fc6a14707f1504071",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":66
+		"version":2,
+		"workflowVersion":69
 	},
 	"edges":[
 		{
@@ -241,6 +241,7 @@
 		{
 			"fromNodeId":"KetON",
 			"id":"next@KetON@FaTng",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"FaTng",
@@ -249,6 +250,7 @@
 		{
 			"fromNodeId":"FaTng",
 			"id":"next@FaTng@HH6gR",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"HH6gR",
@@ -283,6 +285,7 @@
 		{
 			"fromNodeId":"_8zpY9",
 			"id":"next@_8zpY9@_CI4Hw",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_CI4Hw",
@@ -291,6 +294,7 @@
 		{
 			"fromNodeId":"_CI4Hw",
 			"id":"next@_CI4Hw@n_tHTAz",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tHTAz",
@@ -536,6 +540,7 @@
 		{
 			"fromNodeId":"n_Gs9Ne",
 			"id":"next@n_Gs9Ne@_0EXcY",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_0EXcY",
@@ -544,6 +549,7 @@
 		{
 			"fromNodeId":"_0EXcY",
 			"id":"next@_0EXcY@_cdsno",
+			"name":"success",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_cdsno",
@@ -810,6 +816,87 @@
 			"skip":false,
 			"toNodeId":"1pc2t",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"KetON",
+			"id":"error@KetON@n_omit1",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit1",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"FaTng",
+			"id":"error@FaTng@n_omit1",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit1",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_omit1",
+			"id":"next@n_omit1@dl7fw",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dl7fw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_8zpY9",
+			"id":"error@_8zpY9@n_omit2",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit2",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_CI4Hw",
+			"id":"error@_CI4Hw@n_omit2",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit2",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_omit2",
+			"id":"next@n_omit2@dl7fw",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dl7fw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Gs9Ne",
+			"id":"error@n_Gs9Ne@n_omit3",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit3",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"_0EXcY",
+			"id":"error@_0EXcY@n_omit3",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_omit3",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_omit3",
+			"id":"next@n_omit3@dl7fw",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dl7fw",
+			"type":"next"
 		}
 	],
 	"grants":{
@@ -827,7 +914,7 @@
 	"id":"67de9c3298a8ef2a22f439fd",
 	"lastModifiedBy":-1,
 	"lcName":"call llm messages to claude payload messages",
-	"modifiedTime":1788252971715,
+	"modifiedTime":1789395389471,
 	"name":"Call LLM Messages to Claude payload Messages",
 	"nodes":[
 		{
@@ -3215,7 +3302,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"mxQyk@_zGStN@_KJ3hX@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@1@y@success@y",
 			"id":"KetON",
 			"index":26,
@@ -3226,6 +3313,58 @@
 				"scale":1,
 				"contentType":"image",
 				"maxSizeKB":1000
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -3241,13 +3380,65 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"mxQyk@_zGStN@_KJ3hX@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@1@y@success@y",
 			"id":"FaTng",
 			"index":27,
 			"inputs":{
 				"file":"{{ KetON.outputs.fileDetails }}",
 				"encoding":"base64"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -3392,7 +3583,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_zGStN@_KJ3hX@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@1@y@error",
 			"id":"_8zpY9",
 			"index":31,
@@ -3403,6 +3594,58 @@
 				"scale":1,
 				"contentType":"image",
 				"maxSizeKB":1000
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -3418,13 +3661,65 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_zGStN@_KJ3hX@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@1@y@error",
 			"id":"_CI4Hw",
 			"index":32,
 			"inputs":{
 				"file":"{{ _8zpY9.outputs.fileDetails }}",
 				"encoding":"base64"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -4592,7 +4887,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_UAjRb@_OwyRa@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@6@y@error",
 			"id":"n_Gs9Ne",
 			"index":60,
@@ -4608,6 +4903,58 @@
 				"contentType":"pdf",
 				"imageQuality":0.7
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
 			"title":"Compress media content",
@@ -4622,13 +4969,65 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_UAjRb@_OwyRa@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@6@y@error",
 			"id":"_0EXcY",
 			"index":61,
 			"inputs":{
 				"file":"{{ n_Gs9Ne.outputs.fileDetails }}",
 				"encoding":"base64"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
@@ -5335,6 +5734,105 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemToAdd.source.media_type",
+					"root.itemToAdd.source.type",
+					"root.itemToAdd.source.data"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"FaTng@mxQyk@_zGStN@_KJ3hX@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@1@y@success@y@error",
+			"id":"n_omit1",
+			"index":76,
+			"inputs":{
+				"itemToAdd":{
+					"text":"[attachment {{ dl7fw.outputs.item.source.image_data.name }} ({{ dl7fw.outputs.item.source.media_type }}) was not sent: it could not be downloaded or compressed within this environment's limits]",
+					"type":"text"
+				},
+				"insertLocation":"END",
+				"listName":"{{ GCyzL.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemToAdd.source.media_type",
+					"root.itemToAdd.source.type",
+					"root.itemToAdd.source.data"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_CI4Hw@_zGStN@_KJ3hX@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@1@y@error@error",
+			"id":"n_omit2",
+			"index":77,
+			"inputs":{
+				"itemToAdd":{
+					"text":"[attachment {{ dl7fw.outputs.item.source.image_data.name }} ({{ dl7fw.outputs.item.source.media_type }}) was not sent: it could not be downloaded or compressed within this environment's limits]",
+					"type":"text"
+				},
+				"insertLocation":"END",
+				"listName":"{{ GCyzL.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.itemToAdd.source.media_type",
+					"root.itemToAdd.source.type",
+					"root.itemToAdd.source.data"
+				]
+			},
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":68,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0EXcY@_UAjRb@_OwyRa@drpP0@dl7fw@ifBUo@NmnYY-1@l@l@6@y@error@error",
+			"id":"n_omit3",
+			"index":78,
+			"inputs":{
+				"itemToAdd":{
+					"text":"[attachment {{ dl7fw.outputs.item.source.image_data.name }} ({{ dl7fw.outputs.item.source.media_type }}) was not sent: it could not be downloaded or compressed within this environment's limits]",
+					"type":"text"
+				},
+				"insertLocation":"END",
+				"listName":"{{ GCyzL.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":-1,
@@ -5352,5 +5850,5 @@
 		}
 	},
 	"standard":true,
-	"version":68
+	"version":70
 }
