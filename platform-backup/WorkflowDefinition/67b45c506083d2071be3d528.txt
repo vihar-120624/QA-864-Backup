@@ -4,25 +4,27 @@
 	],
 	"createdTime":1787743884909,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743885033,
+		"deployedAt":1789395249220,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece8d9d7c534668ef9d77",
+		"deployedDefinitionId":"6aa80131c6a14707f1503a77",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":112
+		"version":2,
+		"workflowVersion":115
 	},
 	"edges":[
 		{
 			"fromNodeId":"o4fed",
+			"id":"next@o4fed@agcGate",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_xaIPv",
+			"toNodeId":"agcGate",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_xaIPv",
+			"id":"next@n_xaIPv@n_O6Uzu",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_O6Uzu",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_O6Uzu",
+			"id":"if@n_O6Uzu@Qpzgb",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -38,6 +41,7 @@
 		},
 		{
 			"fromNodeId":"n_O6Uzu",
+			"id":"next@n_O6Uzu@n_CKMC3",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -46,6 +50,7 @@
 		},
 		{
 			"fromNodeId":"Qpzgb",
+			"id":"next@Qpzgb@n_uIFJH",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_uIFJH",
@@ -53,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"n_CKMC3",
+			"id":"next@n_CKMC3@n_uIFJH",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_uIFJH",
@@ -60,6 +66,7 @@
 		},
 		{
 			"fromNodeId":"n_uIFJH",
+			"id":"next@n_uIFJH@n_qieaY",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_qieaY",
@@ -67,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"n_qieaY",
+			"id":"next@n_qieaY@SHlhb",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"SHlhb",
@@ -74,6 +82,7 @@
 		},
 		{
 			"fromNodeId":"SHlhb",
+			"id":"loop@SHlhb@MbaR4",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"MbaR4",
@@ -81,6 +90,7 @@
 		},
 		{
 			"fromNodeId":"MbaR4",
+			"id":"if@MbaR4@_DeOaH",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -89,6 +99,7 @@
 		},
 		{
 			"fromNodeId":"_DeOaH",
+			"id":"next@_DeOaH@qmcv4",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"qmcv4",
@@ -96,6 +107,7 @@
 		},
 		{
 			"fromNodeId":"qmcv4",
+			"id":"next@qmcv4@pEYHc",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"pEYHc",
@@ -103,6 +115,7 @@
 		},
 		{
 			"fromNodeId":"pEYHc",
+			"id":"next@pEYHc@bmRsZ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"bmRsZ",
@@ -110,6 +123,7 @@
 		},
 		{
 			"fromNodeId":"MbaR4",
+			"id":"next@MbaR4@bmRsZ",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -118,6 +132,7 @@
 		},
 		{
 			"fromNodeId":"bmRsZ",
+			"id":"next@bmRsZ@SHlhb",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -126,9 +141,70 @@
 		},
 		{
 			"fromNodeId":"SHlhb",
+			"id":"next@SHlhb@m5FeP",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"m5FeP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcGate",
+			"id":"if@agcGate@agcResume",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcResume",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcGate",
+			"id":"next@agcGate@agcCase",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcCase",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcResume",
+			"id":"next@agcResume@agcStop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcStop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcCase",
+			"id":"next@agcCase@agcAgent",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcAgent",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcAgent",
+			"id":"next@agcAgent@agcFlagGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcFlagGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"if@agcFlagGate@agcResume",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcResume",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"next@agcFlagGate@n_xaIPv",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xaIPv",
 			"type":"next"
 		}
 	],
@@ -147,7 +223,7 @@
 	"id":"67b45c506083d2071be3d528",
 	"lastModifiedBy":-1,
 	"lcName":"resume stream",
-	"modifiedTime":1788252971569,
+	"modifiedTime":1789395398840,
 	"name":"Resume Stream",
 	"nodes":[
 		{
@@ -695,6 +771,154 @@
 			"subTitle":"Callable",
 			"title":"Add response to automation stream",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":20,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jwOnm-1",
+			"id":"agcGate",
+			"index":15,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.USE_NEW_AGENT_CORE }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Use new agent core?",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"ai_agents_by_unifyapps",
+				"resourceVersion":1,
+				"resourceName":"ai_agents_by_unifyapps_resume_agent_stream",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jwOnm-1",
+			"id":"agcResume",
+			"index":16,
+			"inputs":{
+				"caseId":"{{ o4fed.outputs.caseId }}"
+			},
+			"skip":false,
+			"subTitle":"Resume Agent Stream",
+			"title":"Resume the agent stream",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jwOnm-1",
+			"id":"agcStop",
+			"index":17,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jwOnm-1",
+			"id":"agcCase",
+			"index":18,
+			"inputs":{
+				"object_type":"service_hub_case",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ o4fed.outputs.caseId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch the case's agent",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jwOnm-1",
+			"id":"agcAgent",
+			"index":19,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ agcCase.outputs.properties.additional.aiAgentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch the agent's rollout flag",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":20,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jwOnm-1",
+			"id":"agcFlagGate",
+			"index":20,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ agcAgent.outputs.properties.useAgentCore }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Agent opted into agent core?",
+			"type":"IF_ELSE"
 		}
 	],
 	"ownerUserId":-1,
@@ -714,5 +938,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":114
+	"version":116
 }
