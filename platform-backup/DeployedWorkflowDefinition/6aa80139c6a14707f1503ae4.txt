@@ -1,0 +1,235 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395257222,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_MxTnZ",
+			"id":"next@n_MxTnZ@n_hFuNb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hFuNb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_hFuNb",
+			"id":"next@n_hFuNb@n_25lcb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_25lcb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_25lcb",
+			"id":"next@n_25lcb@n_QFnhl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QFnhl",
+			"type":"next"
+		}
+	],
+	"id":"6aa80139c6a14707f1503ae4",
+	"lastModifiedBy":-1,
+	"lcName":"[microsoft sharepoint] download file details",
+	"modifiedTime":1789395257224,
+	"name":"[Microsoft SharePoint] Download File Details",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4055,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_g7Qck-1",
+			"id":"n_MxTnZ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"file":{
+							"title":"File",
+							"type":"string"
+						},
+						"filePath":{
+							"title":"File Path",
+							"type":"string"
+						},
+						"webUrl":{
+							"title":"Web Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"driveId":{
+							"title":"Drive Id",
+							"type":"string"
+						},
+						"fileId":{
+							"title":"File Id",
+							"type":"string"
+						},
+						"fileName":{
+							"title":"File Name",
+							"type":"string"
+						},
+						"webUrl":{
+							"title":"Web Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"microsoft_sharepoint_graph",
+				"resourceVersion":625,
+				"connectionId":"6a44b955b7af627fcca41ed0",
+				"resourceName":"microsoft_sharepoint_graph_download_file_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_g7Qck-1",
+			"id":"n_hFuNb",
+			"index":2,
+			"inputs":{
+				"itemId":"{{ n_MxTnZ.outputs.fileId }}",
+				"fileName":"{{ n_MxTnZ.outputs.fileName }}",
+				"driveId":"{{ n_MxTnZ.outputs.driveId }}"
+			},
+			"skip":false,
+			"subTitle":"Microsoft SharePoint (Graph APIs)",
+			"title":"Download file by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_g7Qck-1",
+			"id":"n_25lcb",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"updatedFileObj":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Updated File Obj",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fileDetails":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"File Details",
+							"type":"object"
+						},
+						"referenceUrl":{
+							"title":"Reference Url",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def withWeb1 = { String url ->\n    if (!url) return url\n    if (url =~ /(?i)[?&]web=1(?=[&#]|$)/) return url        // already present, don't double-append\n    def hash = url.indexOf('#')\n    def base = hash < 0 ? url : url.substring(0, hash)\n    def frag = hash < 0 ? ''  : url.substring(hash)\n    return base + (base.contains('?') ? '&' : '?') + 'web=1' + frag\n}\n\ndef output = fileDetails\noutput[\"referenceUrl\"] = withWeb1(binding.hasVariable('referenceUrl') ? referenceUrl : null)\noutput[\"appName\"] = 'microsoft_sharepoint_graph'\nreturn [\"updatedFileObj\": output]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fileDetails":"{{ n_hFuNb.outputs.file }}",
+					"referenceUrl":"{{ n_MxTnZ.outputs.webUrl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":4073,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_g7Qck-1",
+			"id":"n_QFnhl",
+			"index":4,
+			"inputs":{
+				"result":{
+					"file":"{{ n_25lcb.outputs.result.updatedFileObj }}",
+					"filePath":"drives/{{ n_MxTnZ.outputs.driveId }}/items/{{ n_MxTnZ.outputs.fileId }}",
+					"webUrl":"{{ n_MxTnZ.outputs.webUrl }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"runtimeConnectionAppNames":[
+		"microsoft_sharepoint_graph"
+	],
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a3598895c3876158578cda5",
+	"workflowVersion":47
+}
