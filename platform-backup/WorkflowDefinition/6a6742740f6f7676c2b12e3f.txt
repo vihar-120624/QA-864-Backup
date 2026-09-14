@@ -4,19 +4,170 @@
 	],
 	"createdTime":1787744686226,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744686372,
+		"deployedAt":1789395370400,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1aecee862008d75e846",
+		"deployedDefinitionId":"6aa801aac6a14707f15040d4",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":16
+		"version":2,
+		"workflowVersion":19
 	},
+	"description":"Call this after the .xlsx has been built, recalculated with recalc.py, and copied to the output directory — passing the spreadsheet's skill_object in a single call. This is required for any spreadsheet deliverable: the file is not considered delivered until this tool has been called on it.\n\nCall this tool once the workbook is in its final, error-free state — all formulas recalculated and every cell scanned clean of errors (#REF!, #DIV/0!, #VALUE!, #N/A, #NAME?). Pass the complete skill_object for the finished file rather than calling it partially or per-sheet. After the call, inspect the returned result: if it reports formula errors or issues, fix them in the working copy, re-run recalculation, and call this tool again with the updated skill_object before finalizing.\n\nDo not call this tool before recalculation has run, and do not substitute a prose summary of the spreadsheet for calling it — this tool is the delivery mechanism, not the text description. Never assume a workbook verifies correctly without having passed it through this tool. Do not call it once per sheet; pass the whole workbook in a single call.",
 	"edges":[
 		{
 			"fromNodeId":"n_s8oR8",
-			"id":"next@n_s8oR8@n_gaabY",
+			"id":"next@n_s8oR8@n_lkBG5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lkBG5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lkBG5",
+			"id":"if@n_lkBG5@n_pZW0I",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pZW0I",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_pZW0I",
+			"id":"if@n_pZW0I@n_TcdkA",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TcdkA",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_TcdkA",
+			"id":"next@n_TcdkA@n_TFrAv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TFrAv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TFrAv",
+			"id":"next@n_TFrAv@n_RR8l4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RR8l4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RR8l4",
+			"id":"next@n_RR8l4@n_qUcPS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qUcPS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qUcPS",
+			"id":"loop@n_qUcPS@n_Xk2jg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Xk2jg",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Xk2jg",
+			"id":"next@n_Xk2jg@n_qUcPS",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_qUcPS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qUcPS",
+			"id":"next@n_qUcPS@n_luUup",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_luUup",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_luUup",
+			"id":"next@n_luUup@n_Mh1Dx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Mh1Dx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pZW0I",
+			"id":"next@n_pZW0I@n_kAmtk",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kAmtk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kAmtk",
+			"id":"next@n_kAmtk@n_AaxmJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AaxmJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AaxmJ",
+			"id":"next@n_AaxmJ@n_4m8aC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4m8aC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4m8aC",
+			"id":"next@n_4m8aC@n_A2mRJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_A2mRJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_A2mRJ",
+			"id":"loop@n_A2mRJ@n_oVSbe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_oVSbe",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_oVSbe",
+			"id":"next@n_oVSbe@n_A2mRJ",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_A2mRJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_A2mRJ",
+			"id":"next@n_A2mRJ@n_zI9ma",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zI9ma",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zI9ma",
+			"id":"next@n_zI9ma@n_1kHAy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1kHAy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lkBG5",
+			"id":"next@n_lkBG5@n_gaabY",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_gaabY",
@@ -95,7 +246,7 @@
 	"id":"6a6742740f6f7676c2b12e3f",
 	"lastModifiedBy":-1,
 	"lcName":"excel | formula verification",
-	"modifiedTime":1788252971800,
+	"modifiedTime":1789395397787,
 	"name":"Excel | Formula Verification",
 	"nodes":[
 		{
@@ -164,27 +315,92 @@
 		},
 		{
 			"context":{
-				"appName":"excel_by_unifyapps",
-				"resourceVersion":2,
-				"resourceName":"excel_by_unifyapps_recalculate_formulas",
+				"appName":"if_else",
+				"resourceVersion":483,
+				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_p3J5A-1",
-			"id":"n_gaabY",
+			"id":"n_lkBG5",
 			"index":2,
 			"inputs":{
-				"fileName":"{{ n_s8oR8.outputs.fileObject.name }}",
+				"filters":[
+					{
+						"filter":{
+							"operator":"CONTAINS",
+							"value":"csv"
+						},
+						"property":"{{ n_s8oR8.outputs.fileObject.fileType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":1,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lkBG5@_p3J5A-1@y",
+			"id":"n_pZW0I",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"CONTAINS",
+							"value":"csv"
+						},
+						"property":"{{ n_s8oR8.outputs.fileObject.fileType }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"csv_by_unifyapps",
+				"resourceVersion":61,
+				"resourceName":"csv_by_unifyapps_convert_to_excel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@y",
+			"id":"n_TcdkA",
+			"index":4,
+			"inputs":{
 				"fileDetails":"{{ n_s8oR8.outputs.fileObject }}",
-				"outputMode":"formulas",
+				"sheetName":"Sheet1",
+				"reader":{
+					"delimiter":",",
+					"encoding":"UTF-8"
+				},
+				"sourceHasHeader":false,
+				"skipHeaderRow":false,
 				"keepExactFileName":true,
 				"fileType":"xlsx"
 			},
 			"skip":false,
-			"subTitle":"Excel by UnifyApps",
-			"title":"Recalculate formulas in Excel file",
+			"subTitle":"CSV by UnifyApps",
+			"title":"Convert CSV to Excel",
 			"type":"ACTION"
 		},
 		{
@@ -197,9 +413,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_p3J5A-1",
-			"id":"n_anxRP",
-			"index":3,
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@y",
+			"id":"n_TFrAv",
+			"index":5,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -247,9 +463,432 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_p3J5A-1",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@y",
+			"id":"n_RR8l4",
+			"index":6,
+			"inputs":{
+				"fileDetails":"{{ n_TcdkA.outputs.fileDetails }}",
+				"fileType":"XLSX"
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"List sheet names in an Excel file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":29,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@y",
+			"id":"n_qUcPS",
+			"index":7,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_RR8l4.outputs.sheetNames }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":29,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_qUcPS@n_pZW0I@n_lkBG5@_p3J5A-1@y@y@l",
+			"id":"n_Xk2jg",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_TFrAv.outputs.sum }}",
+						"value":"=SUM({{ n_TFrAv.outputs.sum }}+1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@y",
+			"id":"n_luUup",
+			"index":9,
+			"inputs":{
+				"automationId":"6a3e91e971f11a063857b72f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"canvasFile":{
+						"fileType":"{{ n_s8oR8.outputs.fileObject.fileType }}",
+						"name":"{{ n_s8oR8.outputs.fileObject.name }}",
+						"source":"{{ n_s8oR8.outputs.fileObject.source }}",
+						"sourceType":"{{ n_s8oR8.outputs.fileObject.sourceType }}"
+					},
+					"count":"{{ n_TFrAv.outputs.sum }}",
+					"sourceFile":{
+						"fileType":"{{ n_s8oR8.outputs.fileObject.fileType }}",
+						"name":"{{ n_s8oR8.outputs.fileObject.name }}",
+						"source":"{{ n_s8oR8.outputs.fileObject.source }}",
+						"sourceType":"{{ n_s8oR8.outputs.fileObject.sourceType }}"
+					},
+					"title":"CSV File"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@y",
+			"id":"n_Mh1Dx",
+			"index":10,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"csv_by_unifyapps",
+				"resourceVersion":61,
+				"resourceName":"csv_by_unifyapps_convert_to_excel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@n",
+			"id":"n_kAmtk",
+			"index":11,
+			"inputs":{
+				"fileDetails":"{{ n_s8oR8.outputs.fileObject }}",
+				"sheetName":"Sheet1",
+				"reader":{
+					"delimiter":"\\t",
+					"encoding":"UTF-8"
+				},
+				"sourceHasHeader":false,
+				"skipHeaderRow":false,
+				"keepExactFileName":true,
+				"fileType":"xlsx"
+			},
+			"skip":false,
+			"subTitle":"CSV by UnifyApps",
+			"title":"Convert CSV to Excel",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":29,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@n",
+			"id":"n_AaxmJ",
+			"index":12,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sum":{
+							"title":"Sum",
+							"type":"number"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sum":{
+							"title":"Sum",
+							"type":"number"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":761,
+				"resourceName":"excel_by_unifyapps_list_sheet_names",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@n",
+			"id":"n_4m8aC",
+			"index":13,
+			"inputs":{
+				"fileDetails":"{{ n_kAmtk.outputs.fileDetails }}",
+				"fileType":"XLSX"
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"List sheet names in an Excel file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":29,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@n",
+			"id":"n_A2mRJ",
+			"index":14,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_4m8aC.outputs.sheetNames }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":29,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_A2mRJ@n_pZW0I@n_lkBG5@_p3J5A-1@y@n@l",
+			"id":"n_oVSbe",
+			"index":15,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_AaxmJ.outputs.sum }}",
+						"value":"=SUM({{ n_AaxmJ.outputs.sum }}+1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@n",
+			"id":"n_zI9ma",
+			"index":16,
+			"inputs":{
+				"automationId":"6a3e91e971f11a063857b72f",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"canvasFile":{
+						"fileType":"{{ n_s8oR8.outputs.fileObject.fileType }}",
+						"name":"{{ n_s8oR8.outputs.fileObject.name }}",
+						"source":"{{ n_s8oR8.outputs.fileObject.source }}",
+						"sourceType":"{{ n_s8oR8.outputs.fileObject.sourceType }}"
+					},
+					"count":"{{ n_AaxmJ.outputs.sum }}",
+					"sourceFile":{
+						"fileType":"{{ n_s8oR8.outputs.fileObject.fileType }}",
+						"name":"{{ n_s8oR8.outputs.fileObject.name }}",
+						"source":"{{ n_s8oR8.outputs.fileObject.source }}",
+						"sourceType":"{{ n_s8oR8.outputs.fileObject.sourceType }}"
+					},
+					"title":"TSV File"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":688,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_pZW0I@n_lkBG5@_p3J5A-1@y@n",
+			"id":"n_1kHAy",
+			"index":17,
+			"inputs":{
+				"result":{
+					"success":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"excel_by_unifyapps_recalculate_formulas",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lkBG5@_p3J5A-1@n",
+			"id":"n_gaabY",
+			"index":18,
+			"inputs":{
+				"fileName":"{{ n_s8oR8.outputs.fileObject.name }}",
+				"fileDetails":"{{ n_s8oR8.outputs.fileObject }}",
+				"outputMode":"formulas",
+				"keepExactFileName":true,
+				"fileType":"xlsx"
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"Recalculate formulas in Excel file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":29,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lkBG5@_p3J5A-1@n",
+			"id":"n_anxRP",
+			"index":19,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sum":{
+							"title":"Sum",
+							"type":"number"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sum":{
+							"title":"Sum",
+							"type":"number"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":761,
+				"resourceName":"excel_by_unifyapps_list_sheet_names",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_lkBG5@_p3J5A-1@n",
 			"id":"n_ePVTN",
-			"index":4,
+			"index":20,
 			"inputs":{
 				"fileDetails":"{{ n_gaabY.outputs.fileDetails }}",
 				"fileType":"XLSX"
@@ -269,9 +908,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_p3J5A-1",
+			"groupId":"n_lkBG5@_p3J5A-1@n",
 			"id":"n_EEECI",
-			"index":5,
+			"index":21,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_ePVTN.outputs.sheetNames }}",
@@ -292,9 +931,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_EEECI@_p3J5A-1@l",
+			"groupId":"n_EEECI@n_lkBG5@_p3J5A-1@n@l",
 			"id":"n_pG1ZV",
-			"index":6,
+			"index":22,
 			"inputs":{
 				"variables":[
 					{
@@ -318,9 +957,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_p3J5A-1",
+			"groupId":"n_lkBG5@_p3J5A-1@n",
 			"id":"n_E4myR",
-			"index":7,
+			"index":23,
 			"inputs":{
 				"automationId":"6a3e91e971f11a063857b72f",
 				"runtimeConnections":{},
@@ -332,7 +971,6 @@
 						"source":"{{ n_gaabY.outputs.fileDetails.source }}",
 						"sourceType":"{{ n_gaabY.outputs.fileDetails.sourceType }}"
 					},
-					"caseId":"{{ n_s8oR8.outputs.caseId }}",
 					"count":"{{ n_anxRP.outputs.sum }}",
 					"sourceFile":{
 						"fileType":"{{ n_gaabY.outputs.fileDetails.fileType }}",
@@ -359,9 +997,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_p3J5A-1",
+			"groupId":"n_lkBG5@_p3J5A-1@n",
 			"id":"n_8RGBk",
-			"index":8,
+			"index":24,
 			"inputs":{
 				"result":{
 					"success":true
@@ -387,5 +1025,5 @@
 		}
 	},
 	"standard":true,
-	"version":18
+	"version":20
 }

@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743809348,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743809667,
+		"deployedAt":1789395202662,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece4145d2142160e6e428",
+		"deployedDefinitionId":"6aa80102c6a14707f1503777",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":254
+		"version":2,
+		"workflowVersion":257
 	},
 	"edges":[
 		{
@@ -223,7 +223,23 @@
 		},
 		{
 			"fromNodeId":"n_TO0bc",
-			"id":"next@n_TO0bc@PZOJQ",
+			"id":"next@n_TO0bc@n_HFL0S",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HFL0S",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HFL0S",
+			"id":"next@n_HFL0S@n_0HLSp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0HLSp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0HLSp",
+			"id":"next@n_0HLSp@PZOJQ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"PZOJQ",
@@ -245,7 +261,7 @@
 	"id":"67f3fb6287fcc53cf63d4938",
 	"lastModifiedBy":-1,
 	"lcName":"fetch few shot examples and instructions",
-	"modifiedTime":1788252971793,
+	"modifiedTime":1789395397755,
 	"name":"Fetch Few Shot Examples and Instructions",
 	"nodes":[
 		{
@@ -275,6 +291,15 @@
 							"title":"Instructions",
 							"type":"string"
 						},
+						"joins":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Joins",
+							"type":"array"
+						},
 						"keyMeasuresExamples":{
 							"items":{
 								"additionalProperties":false,
@@ -301,7 +326,21 @@
 						},
 						"knowledgeSetIds":{
 							"items":{
-								"type":"string"
+								"additionalProperties":false,
+								"properties":{
+									"id":{
+										"title":"Id",
+										"type":"string"
+									},
+									"properties":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Properties",
+										"type":"object"
+									}
+								},
+								"required":[],
+								"type":"object"
 							},
 							"title":"Knowledge Set Ids",
 							"type":"array"
@@ -364,20 +403,49 @@
 			"inputs":{
 				"filters":[
 					{
-						"filter":{
-							"operator":"EQUAL",
-							"value":"0"
-						},
-						"property":"=LEN({{ DK3BP.outputs.knowledges }})"
+						"filters":[
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ DK3BP.outputs.knowledges }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"0"
+								},
+								"property":"=LEN({{ DK3BP.outputs.knowledges }})"
+							},
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ DK3BP.outputs.knowledges[0].id }}"
+							}
+						],
+						"operator":"OR"
 					},
 					{
-						"filter":{
-							"operator":"MISSING"
-						},
-						"property":"{{ DK3BP.outputs.knowledges[0].id }}"
+						"filters":[
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ DK3BP.outputs.knowledgeSetIds }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"0"
+								},
+								"property":"=LEN({{ DK3BP.outputs.knowledgeSetIds }})"
+							}
+						],
+						"operator":"OR"
 					}
 				],
-				"operator":"OR"
+				"operator":"AND"
 			},
 			"skip":false,
 			"subTitle":"Condition",
@@ -463,7 +531,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def filters = []\n\n// ------------------------------------------\n// Knowledge filter\nif (binding.hasVariable('knowledgeIds')) {\n    knowledgeIds << \"global\"\n\n    def knowledgeFilter = [\n        op: \"AND\",\n        values: [\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.knowledgeId\",\n                        op    : \"IN\",\n                        values: knowledgeIds\n                    ],\n                    [\n                        field : \"properties.knowledgeId.__raw__\",\n                        op    : \"IN\",\n                        values: knowledgeIds\n                    ]\n                ]\n            ],\n            [\n                field : \"properties.type\",\n                op    : \"EQUAL\",\n                values: [\"SQL\"]\n            ]\n        ]\n    ]\n\n    filters << knowledgeFilter\n}\n\n// ------------------------------------------\n// Agent filter\nif (binding.hasVariable('agentId')) {\n\n    def andBlock = [\n        op: \"AND\",\n        values: [\n\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.agentID\",\n                        op    : \"EQUAL\",\n                        values: [agentId]\n                    ],\n                    [\n                        field : \"properties.agentID.__raw__\",\n                        op    : \"EQUAL\",\n                        values: [agentId]\n                    ]\n                ]\n            ],\n\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.knowledgeId\",\n                        op    : \"EQUAL\",\n                        values: [\"global\"]\n                    ],\n                    [\n                        field : \"properties.knowledgeId.__raw__\",\n                        op    : \"EQUAL\",\n                        values: [\"global\"]\n                    ]\n                ]\n            ],\n\n            [\n                field : \"properties.type\",\n                op    : \"EQUAL\",\n                values: [\"SQL\"]\n            ]\n        ]\n    ]\n\n    filters << andBlock\n}\n\n// ------------------------------------------\n// Knowledge Set filter\nif (binding.hasVariable('knowledgeSetIds')) {\n\n    def knowledgeSetFilter = [\n        op: \"AND\",\n        values: [\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.knowledgeSetId\",\n                        op    : \"IN\",\n                        values: knowledgeSetIds\n                    ],\n                    [\n                        field : \"properties.knowledgeSetId.__raw__\",\n                        op    : \"IN\",\n                        values: knowledgeSetIds\n                    ]\n                ]\n            ],\n            [\n                field : \"properties.type\",\n                op    : \"EQUAL\",\n                values: [\"SQL\"]\n            ]\n        ]\n    ]\n\n    filters << knowledgeSetFilter\n}\n\n\n// ------------------------------------------\n// Final combined filter\ndef combinedFilter = filters ? [\n    op    : \"OR\",\n    values: filters\n] : null\n\nreturn [filter: combinedFilter]",
+				"code":"def filters = []\n\n// ------------------------------------------\n// Knowledge filter\nif (binding.hasVariable('knowledgeIds') && knowledgeIds) {\n    if (!knowledgeIds.contains(\"global\")) {\n        knowledgeIds << \"global\"\n    }\n\n    def knowledgeFilter = [\n        op: \"AND\",\n        values: [\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.knowledgeId\",\n                        op    : \"IN\",\n                        values: knowledgeIds\n                    ],\n                    [\n                        field : \"properties.knowledgeId.__raw__\",\n                        op    : \"IN\",\n                        values: knowledgeIds\n                    ]\n                ]\n            ],\n            [\n                field : \"properties.type\",\n                op    : \"EQUAL\",\n                values: [\"SQL\"]\n            ]\n        ]\n    ]\n\n    filters << knowledgeFilter\n}\n\n// ------------------------------------------\n// Agent filter\nif (binding.hasVariable('agentId') && agentId) {\n\n    def andBlock = [\n        op: \"AND\",\n        values: [\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.agentID\",\n                        op    : \"EQUAL\",\n                        values: [agentId]\n                    ],\n                    [\n                        field : \"properties.agentID.__raw__\",\n                        op    : \"EQUAL\",\n                        values: [agentId]\n                    ]\n                ]\n            ],\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.knowledgeId\",\n                        op    : \"EQUAL\",\n                        values: [\"global\"]\n                    ],\n                    [\n                        field : \"properties.knowledgeId.__raw__\",\n                        op    : \"EQUAL\",\n                        values: [\"global\"]\n                    ]\n                ]\n            ],\n            [\n                field : \"properties.type\",\n                op    : \"EQUAL\",\n                values: [\"SQL\"]\n            ]\n        ]\n    ]\n\n    filters << andBlock\n}\n\n// ------------------------------------------\n// Knowledge Set filter\nif (binding.hasVariable('knowledgeSetIds') && knowledgeSetIds) {\n\n    // knowledgeSetIds arrives as a list of full knowledge-set objects\n    // (each with id/properties/tags) — extract just the id strings,\n    // same shape as knowledgeIds, deduped.\n    def knowledgeSetIdValues = knowledgeSetIds.collect { item ->\n        (item instanceof Map) ? item.id : item\n    }.unique()\n\n    def knowledgeSetFilter = [\n        op: \"AND\",\n        values: [\n            [\n                op: \"OR\",\n                values: [\n                    [\n                        field : \"properties.knowledgeSetIds\",\n                        op    : \"IN\",\n                        values: knowledgeSetIdValues\n                    ],\n                    [\n                        field : \"properties.knowledgeSetIds.__raw__\",\n                        op    : \"IN\",\n                        values: knowledgeSetIdValues\n                    ]\n                ]\n            ],\n            [\n                field : \"properties.type\",\n                op    : \"EQUAL\",\n                values: [\"SQL\"]\n            ]\n        ]\n    ]\n\n    filters << knowledgeSetFilter\n}\n\n// ------------------------------------------\n// Final combined filter\ndef combinedFilter = filters ? [\n    op    : \"OR\",\n    values: filters\n] : null\n\nreturn [filter: combinedFilter]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -475,7 +543,7 @@
 						"ua:type":"mappedArray"
 					},
 					"knowledgeSetIds":{
-						"items":"{{ DK3BP.outputs.knowledgeSetIds[0] }}",
+						"items":"{{ DK3BP.outputs.knowledgeSetIds[0].id }}",
 						"source":"{{ DK3BP.outputs.knowledgeSetIds }}",
 						"ua:type":"mappedArray"
 					}
@@ -1013,7 +1081,8 @@
 					"modelId":"{{ CNdYb.outputs.modelId }}",
 					"userQuery":"{{ DK3BP.outputs.userQuery }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"fetchEmbeddings",
@@ -1120,7 +1189,7 @@
 						"ua:type":"mappedArray"
 					},
 					"knowledgeSetIds":{
-						"items":"{{ DK3BP.outputs.knowledgeSetIds[0] }}",
+						"items":"{{ DK3BP.outputs.knowledgeSetIds[0].id }}",
 						"source":"{{ DK3BP.outputs.knowledgeSetIds }}",
 						"ua:type":"mappedArray"
 					}
@@ -1191,7 +1260,8 @@
 					"fewshotlimiter":"{{ DK3BP.outputs.fewshotlimiter }}",
 					"filter":"{{ n_iNQG4.outputs.result.filter }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"businessHoursConfig":{
@@ -1745,6 +1815,122 @@
 			"type":"ACTION"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.knowledges.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"WamJg-1",
+			"id":"n_HFL0S",
+			"index":23,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledges":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledges",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"knowledges":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Knowledges",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"if (!binding.hasVariable('knowledges')) {\n    return ['knowledges': []]\n}\n\nreturn ['knowledges': knowledges*.id]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"knowledges":{
+						"items":"{{ DK3BP.outputs.knowledges[0] }}",
+						"source":"{{ DK3BP.outputs.knowledges }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1732,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"WamJg-1",
+			"id":"n_0HLSp",
+			"index":24,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"IN",
+								"value":"{{ n_HFL0S.outputs.result.knowledges }}"
+							},
+							"property":"properties_knowledgeId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ DK3BP.outputs.aiAgentId }}"
+							},
+							"property":"properties_agentId"
+						}
+					],
+					"operator":"OR"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"text_2_sql_join_information",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":1000,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
 			"context":{
 				"appName":"callables",
 				"resourceVersion":185,
@@ -1756,7 +1942,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"WamJg-1",
 			"id":"PZOJQ",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"result":{
 					"fewShotExamples":{
@@ -1765,6 +1951,11 @@
 						"ua:type":"mappedArray"
 					},
 					"instructions":"{{ n_u6W7o.outputs.result.combinedKnowledgeInstructionsForPrompt }}",
+					"joins":{
+						"items":"{{ n_0HLSp.outputs.objects[0] }}",
+						"source":"{{ n_0HLSp.outputs.objects }}",
+						"ua:type":"mappedArray"
+					},
 					"keyMeasuresExamples":{
 						"items":"{{ n_Gafp8.outputs.result.keyMeasures[0] }}",
 						"source":"{{ n_Gafp8.outputs.result.keyMeasures }}",
@@ -1792,8 +1983,5 @@
 		}
 	},
 	"standard":true,
-	"tags":[
-		"AI Agent"
-	],
-	"version":256
+	"version":258
 }
