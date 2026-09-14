@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743776241,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743776403,
+		"deployedAt":1789395180372,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece2045d2142160e6e04e",
+		"deployedDefinitionId":"6aa800ecc6a14707f150365e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":8
+		"version":2,
+		"workflowVersion":11
 	},
 	"edges":[
 		{
@@ -94,9 +94,9 @@
 	},
 	"id":"690c454ac780b2538b7b439f",
 	"lastModifiedBy":-1,
-	"lcName":"create agent ",
-	"modifiedTime":1788252971643,
-	"name":"Create Agent ",
+	"lcName":"[dt] create agent ",
+	"modifiedTime":1789395388616,
+	"name":"[DT] Create Agent ",
 	"nodes":[
 		{
 			"context":{
@@ -270,6 +270,7 @@
 					],
 					"operator":"AND"
 				},
+				"shouldSearchInAnalyticsStore":false,
 				"object_type":"e_ai_agent_settings",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
@@ -496,7 +497,6 @@
 					"root.record.longTermMemorySettings.limitMemoriesForDedup",
 					"root.record.longTermMemorySettings.limitRetrievalMemories",
 					"root.record.longTermMemorySettings.ProceduralMemoryRetrievalEnabled",
-					"root.record.evalMetricIds.items",
 					"root.record.textToSQLSettings.isOnlyTextToSQLAgent",
 					"root.record.textToSQLSettings.topicIdForOnlyText2SQL",
 					"root.record.textToSQLSettings.sqlAndChart1LLMCall_Variant",
@@ -521,7 +521,6 @@
 					"root.record.dictationSettings.enabled",
 					"root.record.dictationSettings.sttProvider",
 					"root.record.dictationSettings.language",
-					"root.record.dictationSettings.providerDetails",
 					"root.record.customProperties.iconPath",
 					"root.record.customProperties.bgColor",
 					"root.record.contextManagement.compactionSettings.enabled",
@@ -532,10 +531,11 @@
 					"root.record.contextManagement.compactionSettings.absoluteTokensThreshold",
 					"root.record.contextManagement.compactionSettings.absoluteRecencyThreshold",
 					"root.record.contextManagement.compactionSettings.recencyThresholdPercentage",
-					"root.record.contextManagement.toonEnabled",
 					"root.record.loggingSettings.enableNodeLevelLogging",
 					"root.record.loggingSettings.enableRunLogging",
-					"root.record.loggingSettings.enableVariableLogging"
+					"root.record.loggingSettings.enableVariableLogging",
+					"root.record.customProperties.sharepointKnowledgePath",
+					"root.record.customProperties.allowAnonymousAccess"
 				]
 			},
 			"context":{
@@ -565,6 +565,9 @@
 						},
 						"toonEnabled":false
 					},
+					"customProperties":{
+						"allowAnonymousAccess":"{{ n_RP39Z.outputs.allowAnonymousAccess }}"
+					},
 					"deepResearchSettings":{
 						"useProviderDeepResearch":false
 					},
@@ -585,6 +588,7 @@
 						"language":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.language }}",
 						"sttProvider":"BROWSER_API"
 					},
+					"disableDefaultTools":false,
 					"enableDocumentVisionByDefault":false,
 					"indexingSettings":{
 						"chunkingSettings":{
@@ -671,6 +675,14 @@
 										"maxChunkSize":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.maxChunkSize }}",
 										"thresholdType":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.contentTypeConfig.text.thresholdType }}"
 									}
+								},
+								"documentParsingConfig":{
+									"agenticParsingModel":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.agenticParsingModel }}",
+									"appName":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.appName }}",
+									"automationId":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.automationId }}",
+									"connectionId":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.connectionId }}",
+									"type":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.type }}",
+									"version":"{{ n_qE8xQ.outputs.properties.indexingSettings.strategySettings.defaultStrategy.documentParsingConfig.version }}"
 								}
 							},
 							"graphRagSettings":{
@@ -818,7 +830,7 @@
 							"userQueryLanguageDetectionModel":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.languageSettings.userQueryLanguageDetectionModel }}"
 						},
 						"readingBlockWithDetailedSources":true,
-						"sendSuggestedQueries":false,
+						"sendSuggestedQueries":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.sendSuggestedQueries }}",
 						"skipSourceRBAC":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.skipSourceRBAC }}",
 						"sqlSettings":{
 							"sqlModel":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.sqlSettings.sqlModel }}"
@@ -833,6 +845,7 @@
 							"watermarkingText":"{{ n_qE8xQ.outputs.properties.responseGenerationSettings.watermarkingConfig.watermarkingText }}"
 						}
 					},
+					"secureRuns":false,
 					"summarise":false,
 					"teamManagerSettings":{
 						"agentsAsTools":false
@@ -1078,5 +1091,5 @@
 	"tags":[
 		
 	],
-	"version":10
+	"version":12
 }

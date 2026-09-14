@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744655257,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744655375,
+		"deployedAt":1789395362111,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed18fba51514edfc81a6b",
+		"deployedDefinitionId":"6aa801a2c6a14707f1504098",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":26
+		"version":2,
+		"workflowVersion":29
 	},
 	"edges":[
 		{
@@ -120,7 +120,7 @@
 	"id":"6a7c42a1eddf8930c2ffe6af",
 	"lastModifiedBy":-1,
 	"lcName":"get sessions data | code builder",
-	"modifiedTime":1788252972338,
+	"modifiedTime":1789395388610,
 	"name":"Get Sessions Data | Code Builder",
 	"nodes":[
 		{
@@ -273,9 +273,11 @@
 						"limit":"{{ n_JV9n1.outputs.page.limit }}",
 						"offset":"{{ n_JV9n1.outputs.page.offset }}"
 					},
+					"requireDisableAgentChats":true,
 					"spaceShared":"{{ n_JV9n1.outputs.spaceShared }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -462,7 +464,7 @@
 					},
 					"type":"object"
 				},
-				"code":"// WRAPPER: the copilot's own case projection returns NO customProperties at all, so\n// branch and status have to be joined back on here from the raw case.\n// They go on the case as `runtimeContext` - the path www reads (appSessionFromCase).\n// The SOURCE stays customProperties.enginePayload: that is where the engine's mirror\n// writes them on the case itself. Only the output shape differs.\ndef byId = [:]\n(rows ?: []).each { row -> def payload = row?.properties?.customProperties?.enginePayload; if (payload == null) return; def restored = [:]; if (payload.branch != null) restored.branch = payload.branch; if (payload.status != null) restored.status = payload.status; if (!restored.isEmpty()) byId[row.id] = restored }\ndef merged = (cases ?: []).collect { caseRow -> def restored = byId[caseRow.caseId]; if (restored == null) return caseRow; def context = caseRow.runtimeContext ?: [:]; caseRow + [runtimeContext: context + restored] }\nreturn [cases: merged, hasMore: hasMore]",
+				"code":" // WRAPPER: the copilot's own case projection returns NO customProperties at all, so\n  // branch and status have to be joined back on here from the raw case.\n  // They go on the case as `runtimeContext` - the path www reads (appSessionFromCase).\n  // The SOURCE stays customProperties.enginePayload: that is where the engine's mirror\n  // writes them on the case itself. Only the output shape differs.\n  \n  // EMPTY-RESULT GUARD: a mappedArray parameter whose source resolves to nothing is\n  // omitted from the binding entirely, not passed as []. Bare `rows ?: []` still throws\n  // MissingPropertyException, because elvis guards a null VALUE, not an unbound name.\n  def bound = { String name, fallback -> binding.hasVariable(name) ? (binding.getVariable(name) ?: fallback) : fallback }\n  def rowList = bound('rows', [])\n  def caseList = bound('cases', [])\n  def more = bound('hasMore', false)\n\n  def byId = [:]\n  rowList.each { row -> def payload = row?.properties?.customProperties?.enginePayload; if (payload == null) return; def restored = [:]; if (payload.branch != null) restored.branch\n  = payload.branch; if (payload.status != null) restored.status = payload.status; if (!restored.isEmpty()) byId[row.id] = restored }\n  def merged = caseList.collect { caseRow -> def restored = byId[caseRow.caseId]; if (restored == null) return caseRow; def context = caseRow.runtimeContext ?: [:]; caseRow +\n  [runtimeContext: context + restored] }\n  return [cases: merged, hasMore: more]",
 				"compile_static":false,
 				"captureStdOutput":true,
 				"parameters":{
@@ -705,5 +707,5 @@
 		}
 	},
 	"standard":true,
-	"version":28
+	"version":30
 }
