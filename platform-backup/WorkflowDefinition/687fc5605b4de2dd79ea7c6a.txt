@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743807362,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743807449,
+		"deployedAt":1789395199822,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece3f177b4b4aca57b54b",
+		"deployedDefinitionId":"6aa800ff3e2bb610bc889338",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":32
+		"version":2,
+		"workflowVersion":35
 	},
 	"edges":[
 		{
@@ -222,7 +222,7 @@
 	"id":"687fc5605b4de2dd79ea7c6a",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge grabbing scheduler job",
-	"modifiedTime":1788252972358,
+	"modifiedTime":1789395392224,
 	"name":"Knowledge Grabbing Scheduler Job",
 	"nodes":[
 		{
@@ -847,16 +847,18 @@
 			"id":"n_r6wyk",
 			"index":12,
 			"inputs":{
-				"automationId":"68e149365355115ceb0d77cc",
+				"automationId":"698f5791ad29d80be4d1dfc3",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
 					"fromGrabberType":"backward",
 					"knowledgeId":"{{ n_ja9Jx.outputs.item.id }}",
 					"removeExisting":false,
-					"toGrabberType":"{{ n_R1Emz.outputs.result.grabberType }}"
+					"toGrabberType":"{{ n_R1Emz.outputs.result.grabberType }}",
+					"userId":"{{ n_ja9Jx.outputs.item.ownerUserId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Transfer Downloader Cursors ",
@@ -940,7 +942,7 @@
 			"id":"n_a7FWq",
 			"index":15,
 			"inputs":{
-				"automationId":"68e04e12568e7817abce873b",
+				"automationId":"698f61822c7e935c9f193497",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
@@ -983,9 +985,11 @@
 					},
 					"knowledgeId":"{{ n_ja9Jx.outputs.item.id }}",
 					"skipBackwardSchedule":false,
-					"skipForwardSchedule":"{{ n_KwDGN.outputs.knowledgeSource.timeBasedIndexingSupported }}"
+					"skipForwardSchedule":"{{ n_KwDGN.outputs.knowledgeSource.timeBasedIndexingSupported }}",
+					"userId":"{{ n_ja9Jx.outputs.item.ownerUserId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Schedule Knowledge Downloader Wrapper",
@@ -1126,5 +1130,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":34
+	"version":36
 }

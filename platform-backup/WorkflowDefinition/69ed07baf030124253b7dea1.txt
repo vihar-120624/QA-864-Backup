@@ -4,19 +4,19 @@
 	],
 	"createdTime":1787744691149,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744691311,
+		"deployedAt":1789395373484,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1b3ba51514edfc81c08",
-		"deploymentTag":"auth-changes",
+		"deployedDefinitionId":"6aa801ad72fd792214e8d1af",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":11
+		"version":2,
+		"workflowVersion":14
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_s6w1i",
+			"id":"next@n_s6w1i@n_aEWUf",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_aEWUf",
@@ -24,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_aEWUf",
+			"id":"next@n_aEWUf@n_n75Ke",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_n75Ke",
@@ -31,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_n75Ke",
+			"id":"next@n_n75Ke@n_0xc9Q",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_0xc9Q",
@@ -38,13 +40,7 @@
 		},
 		{
 			"fromNodeId":"n_0xc9Q",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_xo8Kx",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_xo8Kx",
+			"id":"next@n_0xc9Q@n_tds6C",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_tds6C",
@@ -52,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"n_tds6C",
+			"id":"next@n_tds6C@n_PoMIK",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_PoMIK",
@@ -59,6 +56,7 @@
 		},
 		{
 			"fromNodeId":"n_PoMIK",
+			"id":"next@n_PoMIK@n_wGkWB",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wGkWB",
@@ -80,7 +78,7 @@
 	"id":"69ed07baf030124253b7dea1",
 	"lastModifiedBy":-1,
 	"lcName":"invoke workflow editor agent",
-	"modifiedTime":1788252971327,
+	"modifiedTime":1789395392223,
 	"name":"Invoke Workflow editor Agent",
 	"nodes":[
 		{
@@ -117,7 +115,7 @@
 					"additionalProperties":false,
 					"properties":{
 						"requirements":{
-							"title":"Requirements",
+							"title":"requirements",
 							"type":"string"
 						}
 					},
@@ -161,7 +159,7 @@
 				}
 			},
 			"skip":false,
-			"subTitle":"Variable",
+			"subTitle":"get session.caseId",
 			"title":"Get Session Variables",
 			"type":"ACTION"
 		},
@@ -187,7 +185,7 @@
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
-			"subTitle":"Storage",
+			"subTitle":"fetch case",
 			"title":"Fetch record by ID",
 			"type":"ACTION"
 		},
@@ -246,36 +244,9 @@
 				}
 			},
 			"skip":false,
-			"subTitle":"Code",
+			"subTitle":"get workflowId, host ",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"ai_agents_by_unifyapps",
-				"resourceVersion":195,
-				"resourceName":"ai_agents_by_unifyapps_invoke_agent",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_y3bGv-1",
-			"id":"n_xo8Kx",
-			"index":5,
-			"inputs":{
-				"callableInterfaceId":"__ua__invoke_ai_agent_by_unifyapps",
-				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
-				"defaultFallbackWorkflowId":"68050ca67df58855654804a0",
-				"parameters":{
-					"aiAgentId":"e_69e8f417a2d13979bb58c0e6",
-					"userQuery":"Here are the inputs from Workflow Planner. Workflow name should be: . Requirements flow is: {{ n_s6w1i.outputs.requirements }}"
-				}
-			},
-			"skip":true,
-			"subTitle":"AI Agents",
-			"title":"Invoke Workflow builder",
-			"type":"CALL_INTERFACE_WORKFLOW"
 		},
 		{
 			"context":{
@@ -289,7 +260,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_y3bGv-1",
 			"id":"n_tds6C",
-			"index":6,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -323,17 +294,17 @@
 					],
 					"type":"object"
 				},
-				"code":"def workflowId = binding.hasVariable(\"workflowId\")?binding.getVariable(\"workflowId\"):\"WORKFLOW\"\ndef taskId = workflowId.replaceAll(\" \",\"_\").replaceAll(\"/\",\"_\").toString()\ndef query = binding.hasVariable(\"query\")?binding.getVariable(\"query\"):null\n\nif (query) {\n  query += \"\\nWorkflow Id: $workflowId\\nhost: $host\"\n}\n\nreturn [\n  toolInputs:[\n    agentId: \"e_69e8f44ea2d13979bb58c0fc\",\n    query: query,\n    taskId: taskId\n  ]\n]",
+				"code":"def workflowId = binding.hasVariable(\"workflowId\") ? binding.getVariable(\"workflowId\") : \"WORKFLOW\";\ndef taskId = workflowId.replaceAll(\" \",\"_\").replaceAll(\"/\",\"_\").toString();\ndef query = binding.hasVariable(\"query\") ? binding.getVariable(\"query\") : null;\ndef host = binding.hasVariable(\"host\") ? binding.getVariable(\"host\") : \"host\";\n\nif (query) {\n  query += \"\\nWorkflow Id: $workflowId\\nhost: $host\"\n}\n\nreturn [\n  toolInputs:[\n    agentId: \"e_69e8f44ea2d13979bb58c0fc\",\n    query: query,\n    taskId: taskId\n  ]\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"host":"{{ n_0xc9Q.outputs.result.host }}",
+					"host":"{{ __RUN__.outputs.origin }}",
 					"query":"{{ n_s6w1i.outputs.requirements }}",
 					"workflowId":"{{ n_0xc9Q.outputs.result.workflowId }}"
 				}
 			},
 			"skip":false,
-			"subTitle":"Code",
+			"subTitle":"agentId, taskId, query",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
@@ -349,7 +320,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_y3bGv-1",
 			"id":"n_PoMIK",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"callableInterfaceId":"679484ef9c8ab5620dca9609",
 				"runtimeConnections":{},
@@ -363,7 +334,7 @@
 				}
 			},
 			"skip":false,
-			"subTitle":"InvokeAgent Tool",
+			"subTitle":"invoke workflow editor",
 			"title":"Call interface",
 			"type":"CALL_WORKFLOW"
 		},
@@ -379,7 +350,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_y3bGv-1",
 			"id":"n_wGkWB",
-			"index":8,
+			"index":7,
 			"inputs":{
 				"result":{
 					"agentResponse":"{{ n_PoMIK.outputs.toolOutput }}",
@@ -409,5 +380,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":13
+	"version":15
 }
