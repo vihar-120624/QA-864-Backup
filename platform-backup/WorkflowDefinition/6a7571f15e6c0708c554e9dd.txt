@@ -4,15 +4,15 @@
 	],
 	"createdTime":1787744227368,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744228635,
+		"deployedAt":1789395328040,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecfe4cee862008d750a59",
+		"deployedDefinitionId":"6aa80180c6a14707f1503e33",
 		"deploymentTag":"handle-ENTITY_-prefix",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":9
+		"version":2,
+		"workflowVersion":12
 	},
 	"edges":[
 		{
@@ -122,7 +122,7 @@
 	"id":"6a7571f15e6c0708c554e9dd",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) fetch entity table projections",
-	"modifiedTime":1788252972743,
+	"modifiedTime":1789395400689,
 	"name":"(tool) Fetch Entity Table Projections",
 	"nodes":[
 		{
@@ -139,46 +139,46 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"errorMessage":{
+							"title":"errorMessage",
+							"type":"string"
+						},
+						"projectionsByEntityId":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"projectionsByEntityId",
+							"type":"object"
+						}
+					},
 					"required":[
 						"projectionsByEntityId"
 					],
-					"properties":{
-						"errorMessage":{
-							"type":"string",
-							"title":"errorMessage"
-						},
-						"projectionsByEntityId":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"projectionsByEntityId"
-						}
-					}
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"entityGroup",
-						"entityIds"
-					],
 					"properties":{
 						"entityGroup":{
-							"type":"string",
+							"help":"Where is the table from? PLATFORM (system/platform level tables) or ENTITY_REPORTING (user defined tables)",
 							"title":"entityGroup",
-							"help":"Where is the table from? PLATFORM (system/platform level tables) or ENTITY_REPORTING (user defined tables)"
+							"type":"string"
 						},
 						"entityIds":{
-							"type":"array",
+							"help":"The ID(s) for the table(s).",
 							"items":{
 								"type":"string"
 							},
 							"title":"entityIds",
-							"help":"The ID(s) for the table(s)."
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"entityGroup",
+						"entityIds"
+					],
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -205,23 +205,23 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_t858m.outputs.entityGroup }}",
 						"filter":{
 							"operator":"MISSING"
-						}
+						},
+						"property":"{{ n_t858m.outputs.entityGroup }}"
 					},
 					{
-						"property":"{{ n_t858m.outputs.entityIds }}",
 						"filter":{
 							"operator":"MISSING"
-						}
+						},
+						"property":"{{ n_t858m.outputs.entityIds }}"
 					},
 					{
-						"property":"=LEN({{ n_t858m.outputs.entityIds }})",
 						"filter":{
 							"operator":"EQUAL",
 							"value":"0"
-						}
+						},
+						"property":"=LEN({{ n_t858m.outputs.entityIds }})"
 					}
 				],
 				"operator":"OR"
@@ -276,10 +276,10 @@
 					"type":"object",
 					"properties":{
 						"projectionsByEntityId":{
-							"type":"object",
-							"properties":{},
 							"additionalProperties":false,
-							"title":"projectionsByEntityId"
+							"properties":{},
+							"title":"projectionsByEntityId",
+							"type":"object"
 						}
 					},
 					"required":[
@@ -296,10 +296,10 @@
 					"type":"object",
 					"properties":{
 						"projectionsByEntityId":{
-							"type":"object",
-							"properties":{},
 							"additionalProperties":false,
-							"title":"projectionsByEntityId"
+							"properties":{},
+							"title":"projectionsByEntityId",
+							"type":"object"
 						}
 					},
 					"required":[
@@ -357,20 +357,20 @@
 					"type":"object",
 					"properties":{
 						"entityType":{
-							"type":"string",
-							"title":"entityType"
-						},
-						"group":{
-							"type":"string",
-							"title":"group"
-						},
-						"sortable":{
-							"type":"boolean",
-							"title":"sortable"
+							"title":"entityType",
+							"type":"string"
 						},
 						"filterable":{
-							"type":"boolean",
-							"title":"filterable"
+							"title":"filterable",
+							"type":"boolean"
+						},
+						"group":{
+							"title":"group",
+							"type":"string"
+						},
+						"sortable":{
+							"title":"sortable",
+							"type":"boolean"
 						}
 					},
 					"required":[
@@ -395,20 +395,20 @@
 					"type":"object",
 					"properties":{
 						"entityType":{
-							"type":"string",
-							"title":"entityType"
-						},
-						"group":{
-							"type":"string",
-							"title":"group"
-						},
-						"sortable":{
-							"type":"boolean",
-							"title":"sortable"
+							"title":"entityType",
+							"type":"string"
 						},
 						"filterable":{
-							"type":"boolean",
-							"title":"filterable"
+							"title":"filterable",
+							"type":"boolean"
+						},
+						"group":{
+							"title":"group",
+							"type":"string"
+						},
+						"sortable":{
+							"title":"sortable",
+							"type":"boolean"
 						}
 					},
 					"required":[
@@ -444,12 +444,12 @@
 					"limit":100,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"name",
 					"displayName",
 					"fieldType"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -476,54 +476,54 @@
 			"index":8,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"projectionsByEntityId":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"projectionsByEntityId",
+							"type":"object"
+						}
+					},
 					"required":[
 						"projectionsByEntityId"
 					],
-					"properties":{
-						"projectionsByEntityId":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"projectionsByEntityId"
-						}
-					}
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"entityId":{
+							"title":"entityId",
+							"type":"string"
+						},
+						"lookupResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"lookupResponse",
+							"type":"object"
+						},
+						"projectionsByEntityId":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"projectionsByEntityId",
+							"type":"object"
+						}
+					},
 					"required":[
 						"lookupResponse",
 						"projectionsByEntityId",
 						"entityId"
 					],
-					"properties":{
-						"lookupResponse":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"lookupResponse"
-						},
-						"projectionsByEntityId":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"projectionsByEntityId"
-						},
-						"entityId":{
-							"type":"string",
-							"title":"entityId"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils\n\ndef projectionsByEntityId =\n    binding.variables['projectionsByEntityId'] ?: [:]\n\ndef entityId = binding.variables['entityId']\n\ndef response =\n    binding.variables['lookupResponse'] ?: [objects: []]\n\ndef serializedResponse = JsonUtils.toJSON(response)\ndef rawObjects = serializedResponse['objects'] ?: []\n\ndef projections = rawObjects.collect { obj ->\n    [\n        id          : obj.name,\n        entityType : obj.entityType,\n        displayName: obj.displayName,\n        // fieldType  : obj.fieldType,\n        // filterable : obj.filterable,\n        // sortable   : obj.sortable\n    ]\n}\n\nreturn [\n    projectionsByEntityId: [\n        *         : projectionsByEntityId,\n        (entityId): projections\n    ]\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"entityId":"{{ n_rE3kw.outputs.item }}",
 					"lookupResponse":"{{ n_vl0bW.outputs.response }}",
-					"projectionsByEntityId":"{{ n_EcIvA.outputs.projectionsByEntityId }}",
-					"entityId":"{{ n_rE3kw.outputs.item }}"
+					"projectionsByEntityId":"{{ n_EcIvA.outputs.projectionsByEntityId }}"
 				}
 			},
 			"skip":false,
@@ -598,5 +598,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":11
+	"version":13
 }
