@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743833407,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743833501,
+		"deployedAt":1789395226828,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece599d7c534668ef8dbb",
+		"deployedDefinitionId":"6aa8011a72fd792214e8c7fc",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":71
+		"version":2,
+		"workflowVersion":74
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_c2Qk5",
+			"id":"next@n_c2Qk5@n_hcg6V",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_hcg6V",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_hcg6V",
+			"id":"next@n_hcg6V@n_NFJzA",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_NFJzA",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_NFJzA",
+			"id":"next@n_NFJzA@n_L4Xs6",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_L4Xs6",
@@ -37,6 +40,7 @@
 		},
 		{
 			"fromNodeId":"n_L4Xs6",
+			"id":"next@n_L4Xs6@n_uMGL9",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_uMGL9",
@@ -44,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"n_uMGL9",
+			"id":"loop@n_uMGL9@n_if4ZQ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_if4ZQ",
@@ -51,6 +56,7 @@
 		},
 		{
 			"fromNodeId":"n_if4ZQ",
+			"id":"next@n_if4ZQ@n_UjESD",
 			"name":"success",
 			"priority":0,
 			"skip":false,
@@ -59,6 +65,7 @@
 		},
 		{
 			"fromNodeId":"n_if4ZQ",
+			"id":"error@n_if4ZQ@n_ZmkM4",
 			"name":"error",
 			"priority":0,
 			"skip":false,
@@ -67,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"n_ZmkM4",
+			"id":"next@n_ZmkM4@n_MaQzm",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_MaQzm",
@@ -74,6 +82,7 @@
 		},
 		{
 			"fromNodeId":"n_MaQzm",
+			"id":"if@n_MaQzm@n_AfdqQ",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -82,6 +91,7 @@
 		},
 		{
 			"fromNodeId":"n_UjESD",
+			"id":"next@n_UjESD@n_sznS3",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_sznS3",
@@ -89,6 +99,7 @@
 		},
 		{
 			"fromNodeId":"n_AfdqQ",
+			"id":"next@n_AfdqQ@n_sznS3",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_sznS3",
@@ -96,6 +107,7 @@
 		},
 		{
 			"fromNodeId":"n_MaQzm",
+			"id":"next@n_MaQzm@n_sznS3",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -104,6 +116,15 @@
 		},
 		{
 			"fromNodeId":"n_sznS3",
+			"id":"next@n_sznS3@n_vPhX9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vPhX9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vPhX9",
+			"id":"next@n_vPhX9@n_uMGL9",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -112,6 +133,7 @@
 		},
 		{
 			"fromNodeId":"n_uMGL9",
+			"id":"next@n_uMGL9@n_5T9VM",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_5T9VM",
@@ -119,6 +141,7 @@
 		},
 		{
 			"fromNodeId":"n_5T9VM",
+			"id":"next@n_5T9VM@n_B19v5",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_B19v5",
@@ -140,7 +163,7 @@
 	"id":"695ffa89825ac73e92b39fb0",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | outlook | all folders",
-	"modifiedTime":1788252971551,
+	"modifiedTime":1789395398494,
 	"name":"Knowledge Downloader | Outlook | All Folders",
 	"nodes":[
 		{
@@ -815,6 +838,7 @@
 			"inputs":{
 				"itemToAdd":"{{ n_uMGL9.outputs.item }}",
 				"insertLocation":"END",
+				"captureAddedItem":false,
 				"listName":"{{ n_L4Xs6.outputs.items[0] }}"
 			},
 			"skip":false,
@@ -950,6 +974,7 @@
 			"id":"n_sznS3",
 			"index":11,
 			"inputs":{
+				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
 					"items":"{{ n_if4ZQ.outputs.folders[0].id }}",
@@ -961,6 +986,50 @@
 			"skip":false,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Add items to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.entityIds.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":13989,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_uMGL9@_jLJqy-1@l",
+			"id":"n_vPhX9",
+			"index":12,
+			"inputs":{
+				"recordId":"{{ n_c2Qk5.outputs.knowledgeId }}_{{ n_uMGL9.outputs.item }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"knowledge_indexed_entities",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"appName":"microsoft_outlook",
+					"entityIds":{
+						"items":"{{ n_if4ZQ.outputs.folders[0].id }}",
+						"source":"{{ n_if4ZQ.outputs.folders }}",
+						"ua:type":"mappedArray"
+					},
+					"knowledgeId":"{{ n_c2Qk5.outputs.knowledgeId }}",
+					"knowledgeSetId":"{{ n_c2Qk5.outputs.knowledge.knowledgeSetId }}",
+					"parentId":"{{ n_uMGL9.outputs.item }}",
+					"userId":"{{ __RUN__.outputs.userId }}"
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
 			"type":"ACTION"
 		},
 		{
@@ -980,7 +1049,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_jLJqy-1",
 			"id":"n_5T9VM",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1053,7 +1122,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_jLJqy-1",
 			"id":"n_B19v5",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"result":{
 					"downloaderDetails":{
@@ -1100,5 +1169,5 @@
 		"msft_connectors",
 		"release_27jan"
 	],
-	"version":73
+	"version":75
 }
