@@ -1,0 +1,552 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395208968,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395209023,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80109c6a14707f15037bc",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":13
+	},
+	"edges":[
+		{
+			"fromNodeId":"CfdAH",
+			"id":"next@CfdAH@n_nQSss",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nQSss",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nQSss",
+			"id":"next@n_nQSss@n_tdrl4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tdrl4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tdrl4",
+			"id":"if@n_tdrl4@n_CF8Xx",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CF8Xx",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_CF8Xx",
+			"id":"next@n_CF8Xx@n_F2COF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_F2COF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_F2COF",
+			"id":"next@n_F2COF@n_zN3hj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zN3hj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zN3hj",
+			"id":"next@n_zN3hj@BmjZ2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"BmjZ2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tdrl4",
+			"id":"next@n_tdrl4@BmjZ2",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"BmjZ2",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a8ea2a071bdc818a72a8ec8",
+	"lastModifiedBy":-1,
+	"lcName":"retrigger execute tool wrapper ",
+	"modifiedTime":1789395397359,
+	"name":"Retrigger Execute Tool Wrapper ",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":161,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"CfdAH",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"dynamic":true,
+					"properties":{
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"retrigger":{
+							"title":"Retrigger",
+							"type":"boolean"
+						},
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						},
+						"toolInvocationCost":{
+							"title":"Tool Invocation Cost",
+							"type":"number"
+						},
+						"toolOutput":{
+							"title":"Tool Output",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"actionId":{
+							"title":"Action Id",
+							"type":"string"
+						},
+						"agentResponseMessageId":{
+							"title":"agentResponseMessageId",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"currentTaskId":{
+							"title":"currentTaskId",
+							"type":"string"
+						},
+						"executeUsingModel":{
+							"title":"executeUsingModel",
+							"type":"string"
+						},
+						"parallelToolCallEnabled":{
+							"title":"Parallel Tool Call Enabled",
+							"type":"boolean"
+						},
+						"respondParams":{
+							"additionalProperties":false,
+							"help":"only returned when NO branch is executed (never actually runs but a safety net)",
+							"properties":{
+								"error":{
+									"title":"Error",
+									"type":"string"
+								},
+								"retrigger":{
+									"title":"Retrigger",
+									"type":"boolean"
+								},
+								"success":{
+									"title":"Success",
+									"type":"boolean"
+								},
+								"toolInvocationCost":{
+									"title":"Tool Invocation Cost",
+									"type":"number"
+								},
+								"toolOutput":{
+									"title":"Tool Output",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Respond Params",
+							"type":"object"
+						},
+						"retryDone":{
+							"title":"Retry Done",
+							"type":"integer"
+						},
+						"retryOnErrorConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"backoffFactor":{
+									"title":"Backoff Factor",
+									"type":"number"
+								},
+								"enabled":{
+									"title":"Enabled",
+									"type":"boolean"
+								},
+								"filter":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Filter",
+									"type":"object"
+								},
+								"initialDelay":{
+									"title":"Initial Delay",
+									"type":"integer"
+								},
+								"maximumDelay":{
+									"title":"Maximum Delay",
+									"type":"integer"
+								},
+								"retryCount":{
+									"title":"Retry Count",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Retry On Error Config",
+							"type":"object"
+						},
+						"toolAdditional":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Additional",
+							"type":"object"
+						},
+						"toolId":{
+							"title":"toolId",
+							"type":"string"
+						},
+						"toolIndex":{
+							"title":"Tool Index",
+							"type":"integer"
+						},
+						"toolInputs":{
+							"title":"toolInputs",
+							"type":"object"
+						},
+						"toolName":{
+							"title":"Tool Name",
+							"type":"string"
+						},
+						"triggeredByAgentId":{
+							"title":"triggeredByAgentId",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.retryOnErrorConfig.retryCount",
+					"root.parameters.retryOnErrorConfig.initialDelay",
+					"root.parameters.retryOnErrorConfig.backoffFactor",
+					"root.parameters.retryOnErrorConfig.maximumDelay",
+					"root.parameters.retryOnErrorConfig.filter",
+					"root.parameters.retryOnErrorConfig.enabled"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1076,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"n_nQSss",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"canRetry":{
+							"title":"Can Retry",
+							"type":"boolean"
+						},
+						"delayMs":{
+							"title":"Delay Ms",
+							"type":"integer"
+						},
+						"updatedRetryDone":{
+							"title":"Updated Retry Done",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"retryDone":{
+							"title":"Retry Done",
+							"type":"integer"
+						},
+						"retryOnErrorConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"backoffFactor":{
+									"title":"Backoff Factor",
+									"type":"number"
+								},
+								"enabled":{
+									"title":"Enabled",
+									"type":"boolean"
+								},
+								"filter":{
+									"additionalProperties":false,
+									"properties":{},
+									"title":"Filter",
+									"type":"object"
+								},
+								"initialDelay":{
+									"title":"Initial Delay",
+									"type":"integer"
+								},
+								"maximumDelay":{
+									"title":"Maximum Delay",
+									"type":"integer"
+								},
+								"retryCount":{
+									"title":"Retry Count",
+									"type":"integer"
+								}
+							},
+							"required":[],
+							"title":"Retry On Error Config",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def retryDone = binding.hasVariable('retryDone') ? (retryDone ?: 0) : 0\ndef retryConfig = binding.hasVariable('retryOnErrorConfig') ? (retryOnErrorConfig ?: [:]) : [:]\n\ndef enabled       = retryConfig?.enabled ?: false\ndef retryCount    = (retryConfig?.retryCount ?: 0) as int\ndef initialDelay  = (retryConfig?.initialDelay ?: 0) as long\ndef maximumDelay  = (retryConfig?.maximumDelay ?: 0) as long\ndef backoffFactor = (retryConfig?.backoffFactor ?: 1) as double\n\ndef canRetry = enabled && (retryDone < retryCount)\n\ndef delayMs = (long)(initialDelay * Math.pow(backoffFactor, retryDone))\nif (maximumDelay > 0 && delayMs > maximumDelay) delayMs = maximumDelay\n\nreturn [\n  \"canRetry\"        : canRetry,\n  \"updatedRetryDone\": retryDone + 1,\n  \"delayMs\"         : delayMs\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"retryDone":"{{ CfdAH.outputs.retryDone }}",
+					"retryOnErrorConfig":{
+						"backoffFactor":"{{ CfdAH.outputs.retryOnErrorConfig.backoffFactor }}",
+						"enabled":"{{ CfdAH.outputs.retryOnErrorConfig.enabled }}",
+						"filter":"{{ CfdAH.outputs.retryOnErrorConfig.filter }}",
+						"initialDelay":"{{ CfdAH.outputs.retryOnErrorConfig.initialDelay }}",
+						"maximumDelay":"{{ CfdAH.outputs.retryOnErrorConfig.maximumDelay }}",
+						"retryCount":"{{ CfdAH.outputs.retryOnErrorConfig.retryCount }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"delay and retrigger logic",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":483,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"n_tdrl4",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_nQSss.outputs.result.canRetry }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":494,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_tdrl4@JgxVN-1@y",
+			"id":"n_CF8Xx",
+			"index":4,
+			"inputs":{
+				"duration":"{{ n_nQSss.outputs.result.delayMs }}",
+				"unit":"MILLISECONDS"
+			},
+			"skip":false,
+			"subTitle":"Delay",
+			"title":"Set delay duration",
+			"type":"DELAY"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1217,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_tdrl4@JgxVN-1@y",
+			"id":"n_F2COF",
+			"index":5,
+			"inputs":{
+				"automationId":"67e4346d4718117333c7ee9a",
+				"distributeLoad":false,
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"parameters":{
+					"actionId":"{{ CfdAH.outputs.actionId }}",
+					"agentResponseMessageId":"{{ CfdAH.outputs.agentResponseMessageId }}",
+					"caseId":"{{ CfdAH.outputs.caseId }}",
+					"currentTaskId":"{{ CfdAH.outputs.currentTaskId }}",
+					"executeUsingModel":"{{ CfdAH.outputs.executeUsingModel }}",
+					"parallelToolCallEnabled":"{{ CfdAH.outputs.parallelToolCallEnabled }}",
+					"retryDone":"{{ n_nQSss.outputs.result.updatedRetryDone }}",
+					"retryOnErrorConfig":{
+						"backoffFactor":"{{ CfdAH.outputs.retryOnErrorConfig.backoffFactor }}",
+						"enabled":"{{ CfdAH.outputs.retryOnErrorConfig.enabled }}",
+						"filter":"{{ CfdAH.outputs.retryOnErrorConfig.filter }}",
+						"initialDelay":"{{ CfdAH.outputs.retryOnErrorConfig.initialDelay }}",
+						"maximumDelay":"{{ CfdAH.outputs.retryOnErrorConfig.maximumDelay }}",
+						"retryCount":"{{ CfdAH.outputs.retryOnErrorConfig.retryCount }}"
+					},
+					"toolAdditional":"{{ CfdAH.outputs.toolAdditional }}",
+					"toolId":"{{ CfdAH.outputs.toolId }}",
+					"toolIndex":"{{ CfdAH.outputs.toolIndex }}",
+					"toolInputs":"{{ CfdAH.outputs.toolInputs }}",
+					"toolName":"{{ CfdAH.outputs.toolName }}",
+					"triggeredByAgentId":"{{ CfdAH.outputs.triggeredByAgentId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":164,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_tdrl4@JgxVN-1@y",
+			"id":"n_zN3hj",
+			"index":6,
+			"inputs":{
+				"result":{
+					"error":"{{ n_F2COF.outputs.error }}",
+					"retrigger":"{{ n_F2COF.outputs.retrigger }}",
+					"success":"{{ n_F2COF.outputs.success }}",
+					"toolInvocationCost":"{{ n_F2COF.outputs.toolInvocationCost }}",
+					"toolOutput":"{{ n_F2COF.outputs.toolOutput }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":164,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"JgxVN-1",
+			"id":"BmjZ2",
+			"index":7,
+			"inputs":{
+				"result":{
+					"error":"{{ CfdAH.outputs.respondParams.error }}",
+					"retrigger":"{{ CfdAH.outputs.respondParams.retrigger }}",
+					"success":"{{ CfdAH.outputs.respondParams.success }}",
+					"toolInvocationCost":"{{ CfdAH.outputs.respondParams.toolInvocationCost }}",
+					"toolOutput":"{{ CfdAH.outputs.respondParams.toolOutput }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent"
+	],
+	"version":14
+}
