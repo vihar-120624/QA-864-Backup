@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744360401,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744361861,
+		"deployedAt":1789395334950,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed069ba51514edfc80a7d",
+		"deployedDefinitionId":"6aa8018672fd792214e8ce2d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":162
+		"version":2,
+		"workflowVersion":165
 	},
 	"edges":[
 		{
@@ -987,7 +987,7 @@
 	"id":"69eb33cdf57cf3660444675a",
 	"lastModifiedBy":-1,
 	"lcName":"ai spending | usage | breakdown",
-	"modifiedTime":1788252971439,
+	"modifiedTime":1789395393358,
 	"name":"AI Spending | Usage | Breakdown",
 	"nodes":[
 		{
@@ -1323,7 +1323,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.text.SimpleDateFormat\nimport java.util.TimeZone\n\ndef getPriorPeriod(long startTime, long endTime) {\n    // Duration of the input period (inclusive)\n    long duration = endTime - startTime\n\n    // Prior period ends exactly 1 ms before startTime, so there's no overlap\n    long priorEndTime   = startTime - 1\n    long priorStartTime = priorEndTime - duration\n\n    def sdf = new SimpleDateFormat('yyyy-MM-dd HH:mm:ss')\n    sdf.setTimeZone(TimeZone.getTimeZone(timeZoneId ?: 'Asia/Kolkata'))\n\n    return [\n        'priorStartTime'          : priorStartTime,\n        'priorEndTime'            : priorEndTime,\n        'priorStartTimeFormatted' : sdf.format(new Date(priorStartTime)),\n        'priorEndTimeFormatted'   : sdf.format(new Date(priorEndTime)),\n        'startTimeFormatted':sdf.format(new Date(startTime)),\n        'endTimeFormatted':sdf.format(new Date(endTime))\n    ]\n}\n\n// ---- main ----\nlong startTime = binding.hasVariable('startTime') ? (binding.getVariable('startTime') as long) : 0L\nlong endTime   = binding.hasVariable('endTime')   ? (binding.getVariable('endTime')   as long) : 0L\n\nreturn getPriorPeriod(startTime, endTime)",
+				"code":"import java.text.SimpleDateFormat\nimport java.util.Date\n\ndef getPriorPeriod(long startTime, long endTime) {\n    long length = endTime - startTime + 1\n    long priorStart = startTime - length\n    long priorEnd   = startTime - 1\n\n    def fmt = new SimpleDateFormat('yyyy-MM-dd HH:mm:ss')   // JVM default tz\n    def f = { long ms -> fmt.format(new Date(ms)) }\n\n    return [\n        'priorStartTime'         : priorStart,\n        'priorEndTime'           : priorEnd,\n        'priorStartTimeFormatted': f(priorStart),\n        'priorEndTimeFormatted'  : f(priorEnd),\n        'startTimeFormatted'     : f(startTime),\n        'endTimeFormatted'       : f(endTime)\n    ]\n}\n\n// ---- main ----\nlong startTime = binding.hasVariable('startTime') ? (binding.getVariable('startTime') as long) : 0L\nlong endTime   = binding.hasVariable('endTime')   ? (binding.getVariable('endTime')   as long) : 0L\n\nreturn getPriorPeriod(startTime, endTime)",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -9787,5 +9787,5 @@
 		}
 	},
 	"standard":true,
-	"version":164
+	"version":166
 }

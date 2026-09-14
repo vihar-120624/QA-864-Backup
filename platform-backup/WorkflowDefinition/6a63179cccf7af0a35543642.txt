@@ -4,14 +4,15 @@
 	],
 	"createdTime":1787743846734,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743846834,
+		"deployedAt":1789395234678,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece669d7c534668ef9207",
+		"deployedDefinitionId":"6aa8012272fd792214e8c857",
+		"deploymentTag":"V19",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":6
+		"version":2,
+		"workflowVersion":9
 	},
 	"edges":[
 		{
@@ -48,20 +49,12 @@
 		},
 		{
 			"fromNodeId":"n_IiEDQ",
-			"id":"if@n_IiEDQ@n_Gsvy2",
+			"id":"if@n_IiEDQ@n_Lm3Qt",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_Gsvy2",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_Gsvy2",
-			"id":"next@n_Gsvy2@n_Lm3Qt",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_Lm3Qt",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_IiEDQ",
@@ -92,15 +85,7 @@
 		},
 		{
 			"fromNodeId":"n_xNeqF",
-			"id":"next@n_xNeqF@n_B6Doh",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_B6Doh",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_B6Doh",
-			"id":"next@n_B6Doh@n_zegPJ",
+			"id":"next@n_xNeqF@n_zegPJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_zegPJ",
@@ -122,7 +107,7 @@
 	"id":"6a63179cccf7af0a35543642",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover openai llm",
-	"modifiedTime":1788252972780,
+	"modifiedTime":1789395393313,
 	"name":"Governance | Discover OpenAI LLM",
 	"nodes":[
 		{
@@ -180,6 +165,10 @@
 									"title":"isInitialSyncInProgress",
 									"type":"boolean"
 								},
+								"ownerId":{
+									"title":"Owner Id",
+									"type":"string"
+								},
 								"status":{
 									"title":"status",
 									"type":"string"
@@ -189,6 +178,7 @@
 									"type":"string"
 								}
 							},
+							"required":[],
 							"type":"object"
 						},
 						"appName":{
@@ -276,13 +266,6 @@
 								"value":"{{ n_xNeqF.outputs.item.id }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_iR6h4.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -335,55 +318,6 @@
 			"type":"IF_ELSE"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_IiEDQ@n_xNeqF@_LkJxq-1@l@y",
-			"id":"n_Gsvy2",
-			"index":6,
-			"inputs":{
-				"recordId":"{{ n_UjLcy.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_8G6Ey.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_8G6Ey.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_iR6h4.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"llm",
-					"awaitingTraces":"{{ n_UjLcy.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_UjLcy.outputs.properties.connectionId }}",
-					"connectionType":"observe",
-					"enabled":"{{ n_UjLcy.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_xNeqF.outputs.item.id }}",
-					"name":"{{ n_xNeqF.outputs.item.id }}",
-					"registered":false,
-					"registered_first_time":"{{ n_UjLcy.outputs.properties.registered_first_time }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
-		},
-		{
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":0,
@@ -395,7 +329,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IiEDQ@n_xNeqF@_LkJxq-1@l@y",
 			"id":"n_Lm3Qt",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"agent_profile",
@@ -433,7 +367,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_IiEDQ@n_xNeqF@_LkJxq-1@l@n",
 			"id":"n_8G6Ey",
-			"index":8,
+			"index":7,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -473,31 +407,8 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_LkJxq-1",
-			"id":"n_B6Doh",
-			"index":9,
-			"inputs":{
-				"result":{
-					"success":true
-				}
-			},
-			"skip":false,
-			"subTitle":"Callable",
-			"title":"Respond to automation",
-			"type":"STOP"
-		},
-		{
-			"context":{
-				"appName":"callables",
-				"resourceVersion":2139,
-				"resourceName":"callables_return_to_automation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_LkJxq-1",
 			"id":"n_zegPJ",
-			"index":10,
+			"index":8,
 			"inputs":{
 				"result":{
 					"success":true
@@ -527,5 +438,5 @@
 		}
 	},
 	"standard":true,
-	"version":8
+	"version":10
 }
