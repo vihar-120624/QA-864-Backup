@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744669374,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744669465,
+		"deployedAt":1789395364858,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed19d2889f9507f121fd5",
+		"deployedDefinitionId":"6aa801a472fd792214e8d0fa",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":6
+		"version":2,
+		"workflowVersion":9
 	},
 	"edges":[
 		{
@@ -24,19 +24,11 @@
 		},
 		{
 			"fromNodeId":"n_S6Q2y",
-			"id":"loop@n_S6Q2y@n_ZO0TM",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_ZO0TM",
-			"type":"loop"
-		},
-		{
-			"fromNodeId":"n_ZO0TM",
-			"id":"next@n_ZO0TM@n_qipqu",
+			"id":"loop@n_S6Q2y@n_qipqu",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_qipqu",
-			"type":"next"
+			"type":"loop"
 		},
 		{
 			"fromNodeId":"n_qipqu",
@@ -57,7 +49,51 @@
 		},
 		{
 			"fromNodeId":"n_hlFOc",
-			"id":"next@n_hlFOc@n_S6Q2y",
+			"id":"next@n_hlFOc@n_EWnFq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EWnFq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MBxAJ",
+			"id":"next@n_MBxAJ@n_FailC",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FailC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FailC",
+			"id":"if@n_FailC@n_FailR",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FailR",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_FailC",
+			"id":"next@n_FailC@n_EWnFq",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EWnFq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EWnFq",
+			"id":"if@n_EWnFq@n_ZO0TM",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZO0TM",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_ZO0TM",
+			"id":"next@n_ZO0TM@n_S6Q2y",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -65,8 +101,8 @@
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_MBxAJ",
-			"id":"next@n_MBxAJ@n_S6Q2y",
+			"fromNodeId":"n_EWnFq",
+			"id":"next@n_EWnFq@n_S6Q2y",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -97,7 +133,7 @@
 	"id":"6a3cd14e39a4d12f71c9f9fd",
 	"lastModifiedBy":-1,
 	"lcName":"check sandbox completion",
-	"modifiedTime":1788252972332,
+	"modifiedTime":1789395388545,
 	"name":"Check Sandbox Completion",
 	"nodes":[
 		{
@@ -169,28 +205,6 @@
 		},
 		{
 			"context":{
-				"appName":"delay",
-				"resourceVersion":0,
-				"resourceName":"delay_for",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_S6Q2y@_gyijo-1@l",
-			"id":"n_ZO0TM",
-			"index":3,
-			"inputs":{
-				"duration":600,
-				"unit":"MILLISECONDS"
-			},
-			"skip":false,
-			"subTitle":"Delay",
-			"title":"Set delay duration",
-			"type":"DELAY"
-		},
-		{
-			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":276,
 				"resourceName":"storage_by_unifyapps_get_record_by_id",
@@ -201,7 +215,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_S6Q2y@_gyijo-1@l",
 			"id":"n_qipqu",
-			"index":4,
+			"index":3,
 			"inputs":{
 				"object_type":"e_ai_agent_conversation_state",
 				"includeRoleMappings":false,
@@ -227,7 +241,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_S6Q2y@_gyijo-1@l",
 			"id":"n_MBxAJ",
-			"index":5,
+			"index":4,
 			"inputs":{
 				"filters":[
 					{
@@ -241,7 +255,7 @@
 				"operator":"AND"
 			},
 			"skip":false,
-			"subTitle":"Condition",
+			"subTitle":"executionState==DONE?",
 			"title":"Condition",
 			"type":"IF_ELSE"
 		},
@@ -257,7 +271,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_MBxAJ@n_S6Q2y@_gyijo-1@l@y",
 			"id":"n_hlFOc",
-			"index":6,
+			"index":5,
 			"inputs":{
 				"result":{
 					"status":"Done"
@@ -267,6 +281,58 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":483,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_S6Q2y@_gyijo-1@l",
+			"id":"n_EWnFq",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_S6Q2y.outputs.isLast }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"isNotLastIteration",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":0,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_EWnFq@n_S6Q2y@_gyijo-1@l@y",
+			"id":"n_ZO0TM",
+			"index":7,
+			"inputs":{
+				"duration":600,
+				"unit":"MILLISECONDS"
+			},
+			"skip":false,
+			"subTitle":"600ms",
+			"title":"Set delay duration",
+			"type":"DELAY"
 		},
 		{
 			"context":{
@@ -280,10 +346,63 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gyijo-1",
 			"id":"n_OmPx3",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"result":{
 					"status":"Timeout"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":483,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_S6Q2y@_gyijo-1@l",
+			"id":"n_FailC",
+			"index":9,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"FAILED"
+						},
+						"property":"{{ n_qipqu.outputs.properties.sandboxExecution.executionState }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"executionState==FAILED?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":514,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_FailC@n_S6Q2y@_gyijo-1@l@y",
+			"id":"n_FailR",
+			"index":10,
+			"inputs":{
+				"result":{
+					"status":"Failed"
 				}
 			},
 			"skip":false,
@@ -309,5 +428,5 @@
 	"tags":[
 		
 	],
-	"version":8
+	"version":10
 }

@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743799166,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743799225,
+		"deployedAt":1789395193149,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece3745d2142160e6e315",
+		"deployedDefinitionId":"6aa800f972fd792214e8c738",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":16
+		"version":2,
+		"workflowVersion":19
 	},
 	"edges":[
 		{
@@ -146,7 +146,7 @@
 	"id":"6a65fa7056f4cc482f579e00",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) fetch objects",
-	"modifiedTime":1788252972327,
+	"modifiedTime":1789395388501,
 	"name":"(tool) Fetch Objects",
 	"nodes":[
 		{
@@ -163,64 +163,64 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"objects"
-					],
 					"properties":{
 						"objects":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									},
 									"schema":{
-										"type":"object",
-										"properties":{},
 										"additionalProperties":false,
-										"title":"schema"
+										"properties":{},
+										"title":"schema",
+										"type":"object"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name",
 									"schema"
-								]
+								],
+								"type":"object"
 							},
-							"title":"objects"
+							"title":"objects",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"objects"
+					],
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"objectIds":{
-							"type":"array",
+							"help":"If you have a list of object ids, pass them as an array of strings",
 							"items":{
 								"type":"string"
 							},
 							"title":"objectIds",
-							"help":"If you have a list of object ids, pass them as an array of strings"
+							"type":"array"
 						},
 						"searchQueries":{
-							"type":"array",
 							"items":{
 								"type":"string"
 							},
-							"title":"searchQueries"
+							"title":"searchQueries",
+							"type":"array"
 						}
-					}
+					},
+					"required":[],
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -249,18 +249,18 @@
 				"dynamic":false,
 				"layout":{
 					"createList":{
-						"ui:title":"",
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
 						"ua:type":{
 							"ui:widget":"hidden"
-						},
-						"items":{
-							"ui:title":"Initial list items",
-							"ui:description":"Set the initial values of the list (defaults to empty)"
 						},
 						"ui:order":[
 							"*",
 							"items"
-						]
+						],
+						"ui:title":""
 					},
 					"ua:title":{
 						"ui:widget":"hidden"
@@ -282,13 +282,13 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
 											"items":{
-												"type":"object",
-												"properties":{}
+												"properties":{},
+												"type":"object"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -304,17 +304,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of String"
-											},
 											"items":{
 												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -330,17 +330,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Integers"
-											},
 											"items":{
 												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -356,17 +356,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Numbers"
-											},
 											"items":{
 												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -382,17 +382,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Booleans"
-											},
 											"items":{
 												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -401,12 +401,40 @@
 					"format":"ua:list",
 					"type":"object",
 					"properties":{
-						"ua:title":{
-							"type":"string"
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"id":{
+											"title":"id",
+											"type":"string"
+										},
+										"name":{
+											"title":"name",
+											"type":"string"
+										},
+										"schema":{
+											"title":"schema",
+											"type":"object"
+										}
+									},
+									"type":"object"
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"ua:list_type":{
-							"type":"string",
-							"title":"List Type",
+							"default":"OBJECT",
 							"oneOf":[
 								{
 									"const":"OBJECT",
@@ -429,39 +457,11 @@
 									"title":"Boolean"
 								}
 							],
-							"default":"OBJECT"
+							"title":"List Type",
+							"type":"string"
 						},
-						"createList":{
-							"type":"object",
-							"properties":{
-								"ua:type":{
-									"type":"string",
-									"default":"mappedArray"
-								},
-								"source":{
-									"type":"string",
-									"format":"ua:source",
-									"title":"List Item Source"
-								},
-								"items":{
-									"type":"object",
-									"properties":{
-										"id":{
-											"type":"string",
-											"title":"id"
-										},
-										"name":{
-											"type":"string",
-											"title":"name"
-										},
-										"schema":{
-											"type":"object",
-											"title":"schema"
-										}
-									},
-									"additionalProperties":false
-								}
-							}
+						"ua:title":{
+							"type":"string"
 						}
 					}
 				}
@@ -480,26 +480,26 @@
 					"type":"object",
 					"properties":{
 						"items":{
-							"type":"array",
-							"title":"Objects",
 							"disableActions":true,
 							"items":{
-								"type":"object",
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									},
 									"schema":{
-										"type":"object",
-										"title":"schema"
+										"title":"schema",
+										"type":"object"
 									}
-								}
-							}
+								},
+								"type":"object"
+							},
+							"title":"Objects",
+							"type":"array"
 						}
 					}
 				}
@@ -525,17 +525,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_sCXWl.outputs.objectIds }}",
 						"filter":{
 							"operator":"EXISTS"
-						}
+						},
+						"property":"{{ n_sCXWl.outputs.objectIds }}"
 					},
 					{
-						"property":"=LEN({{ n_sCXWl.outputs.objectIds }})",
 						"filter":{
 							"operator":"GT",
 							"value":"0"
-						}
+						},
+						"property":"=LEN({{ n_sCXWl.outputs.objectIds }})"
 					}
 				],
 				"operator":"AND"
@@ -609,22 +609,22 @@
 			"index":6,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
 					"properties":{
 						"id":{
-							"type":"string",
-							"title":"id"
+							"title":"id",
+							"type":"string"
 						},
 						"name":{
-							"type":"string",
-							"title":"name"
+							"title":"name",
+							"type":"string"
 						},
 						"schema":{
-							"type":"object",
-							"title":"schema"
+							"title":"schema",
+							"type":"object"
 						}
-					}
+					},
+					"type":"object"
 				},
 				"code":"def currentObjectDetails = {{ n_T2E8M.outputs }}\n\nresult = [\n    id    : currentObjectDetails.id,\n    name  : currentObjectDetails.name,\n    schema: currentObjectDetails.input.schema\n]",
 				"compile_static":false,
@@ -728,17 +728,17 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"MISSING"
-							}
+							},
+							"property":"deleted"
 						},
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"EQUAL",
 								"value":"=FALSE()"
-							}
+							},
+							"property":"deleted"
 						}
 					],
 					"operator":"OR"
@@ -749,12 +749,12 @@
 					"limit":40,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name",
 					"input"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -781,32 +781,32 @@
 			"index":11,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
 					"properties":{
 						"objects":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									},
 									"schema":{
-										"type":"object",
-										"title":"schema"
+										"title":"schema",
+										"type":"object"
 									}
 								},
-								"additionalProperties":false
+								"type":"object"
 							},
-							"title":"objects"
+							"title":"objects",
+							"type":"array"
 						}
-					}
+					},
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = {{ n_fRFdJ.outputs.response }}\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef rawObjects = serializedResponse['objects']\ndef objects = rawObjects.collect { obj ->\n    [\n        id    : obj.id,\n        name  : obj.name,\n        schema: obj.input.schema\n    ]\n}\n\nreturn [\"objects\": objects]",
 				"compile_static":false,
@@ -841,13 +841,13 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"ua:type":"mappedArray",
-					"source":"{{ n_TQdg7.outputs.result.objects }}",
 					"items":{
 						"id":"{{ n_TQdg7.outputs.result.objects[0].id }}",
 						"name":"{{ n_TQdg7.outputs.result.objects[0].name }}",
 						"schema":"{{ n_TQdg7.outputs.result.objects[0].schema }}"
-					}
+					},
+					"source":"{{ n_TQdg7.outputs.result.objects }}",
+					"ua:type":"mappedArray"
 				},
 				"listName":"{{ n_bEv5P.outputs.items[0] }}"
 			},
@@ -900,5 +900,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":18
+	"version":20
 }

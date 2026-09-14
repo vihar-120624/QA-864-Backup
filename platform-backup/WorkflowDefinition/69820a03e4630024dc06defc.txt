@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743628342,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743628607,
+		"deployedAt":1789395101192,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd8c177b4b4aca57a22e",
+		"deployedDefinitionId":"6aa8009d72fd792214e8c146",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":17
+		"version":2,
+		"workflowVersion":20
 	},
 	"edges":[
 		{
@@ -32,33 +32,32 @@
 		},
 		{
 			"fromNodeId":"n_im795",
-			"id":"next@n_im795@n_bQYGK",
+			"id":"next@n_im795@n_36Um5",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_bQYGK",
+			"toNodeId":"n_36Um5",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_bQYGK",
-			"id":"if@n_bQYGK@n_wlC0V",
-			"name":"yes",
+			"fromNodeId":"n_36Um5",
+			"id":"loop@n_36Um5@n_wlC0V",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wlC0V",
-			"type":"if"
+			"type":"loop"
 		},
 		{
 			"fromNodeId":"n_wlC0V",
-			"id":"next@n_wlC0V@_FM3qS",
+			"id":"next@n_wlC0V@n_36Um5",
+			"name":"loopback",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_FM3qS",
+			"toNodeId":"n_36Um5",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_bQYGK",
-			"id":"next@n_bQYGK@_FM3qS",
-			"name":"no",
+			"fromNodeId":"n_36Um5",
+			"id":"next@n_36Um5@_FM3qS",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_FM3qS",
@@ -104,7 +103,7 @@
 	"id":"69820a03e4630024dc06defc",
 	"lastModifiedBy":-1,
 	"lcName":"image generation | gemini ",
-	"modifiedTime":1788252972330,
+	"modifiedTime":1789395388510,
 	"name":"Image Generation | Gemini ",
 	"nodes":[
 		{
@@ -220,6 +219,10 @@
 							},
 							"title":"Images",
 							"type":"array"
+						},
+						"internalModelId":{
+							"title":"Internal Model Id",
+							"type":"string"
 						},
 						"model":{
 							"title":"Model",
@@ -902,32 +905,26 @@
 		},
 		{
 			"context":{
-				"appName":"if_else",
-				"resourceVersion":455,
-				"resourceName":"if_else_condition",
+				"appName":"loop",
+				"resourceVersion":1013,
+				"resourceName":"loop_for_each",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_AYSmp-1",
-			"id":"n_bQYGK",
+			"id":"n_36Um5",
 			"index":4,
 			"inputs":{
-				"filters":[
-					{
-						"filter":{
-							"operator":"EXISTS"
-						},
-						"property":"{{ n_yTFNx.outputs.imageFile.source }}"
-					}
-				],
-				"operator":"AND"
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_yTFNx.outputs.images }}",
+				"captureIterations":false
 			},
 			"skip":false,
-			"subTitle":"image_data?",
-			"title":"Condition",
-			"type":"IF_ELSE"
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
 		},
 		{
 			"additional":{
@@ -950,18 +947,18 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_bQYGK@_AYSmp-1@y",
+			"groupId":"n_36Um5@_AYSmp-1@l",
 			"id":"n_wlC0V",
 			"index":5,
 			"inputs":{
 				"itemToAdd":{
 					"source":{
 						"image_data":{
-							"fileType":"{{ n_yTFNx.outputs.imageFile.fileType }}",
-							"name":"{{ n_yTFNx.outputs.imageFile.name }}",
-							"size":"{{ n_yTFNx.outputs.imageFile.size }}",
-							"source":"{{ n_yTFNx.outputs.imageFile.source }}",
-							"sourceType":"{{ n_yTFNx.outputs.imageFile.sourceType }}"
+							"fileType":"{{ n_36Um5.outputs.item.imageFile.fileType }}",
+							"name":"{{ n_36Um5.outputs.item.imageFile.name }}",
+							"size":"{{ n_36Um5.outputs.item.imageFile.size }}",
+							"source":"{{ n_36Um5.outputs.item.imageFile.source }}",
+							"sourceType":"{{ n_36Um5.outputs.item.imageFile.sourceType }}"
 						},
 						"image_type":"file_object",
 						"media_type":"image/jpeg"
@@ -1082,7 +1079,7 @@
 						"source":"{{ n_xa8Vt.outputs.items }}",
 						"ua:type":"mappedArray"
 					},
-					"modelId":"{{ n_yTFNx.outputs.model }}",
+					"modelId":"{{ n_yTFNx.outputs.internalModelId }}",
 					"parentWorkflowId":"{{ __RUN__.outputs.parentWorkflowId }}",
 					"responseFormat":{
 						"type":"text"
@@ -1153,5 +1150,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":19
+	"version":21
 }
