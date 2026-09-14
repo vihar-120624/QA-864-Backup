@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743793590,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743793827,
+		"deployedAt":1789395187160,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece319d7c534668ef8252",
+		"deployedDefinitionId":"6aa800f3c6a14707f15036e1",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":317
+		"version":2,
+		"workflowVersion":320
 	},
 	"description":"This is a wrapper for Call LLM which processes category specific prompt and messages for Call LLM (AI Agent) automation.",
 	"edges":[
@@ -595,7 +595,7 @@
 	"id":"6851442f9e30586f552a6d73",
 	"lastModifiedBy":-1,
 	"lcName":"call llm (ai agent) wrapper",
-	"modifiedTime":1788252971710,
+	"modifiedTime":1789395396750,
 	"name":"Call LLM (AI Agent) Wrapper",
 	"nodes":[
 		{
@@ -759,6 +759,10 @@
 							"title":"Enable Followups",
 							"type":"boolean"
 						},
+						"internalWebSearch":{
+							"title":"Internal Web Search",
+							"type":"boolean"
+						},
 						"invokeByWorkflowId":{
 							"title":"Invoke By Workflow Id",
 							"type":"string"
@@ -783,6 +787,10 @@
 										},
 										"title":"content",
 										"type":"array"
+									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
 									},
 									"role":{
 										"title":"role",
@@ -1578,6 +1586,10 @@
 											"title":"Content",
 											"type":"array"
 										},
+										"modelId":{
+											"title":"Model Id",
+											"type":"string"
+										},
 										"role":{
 											"title":"Role",
 											"type":"string"
@@ -1662,6 +1674,10 @@
 										},
 										"title":"Content",
 										"type":"array"
+									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
 									},
 									"role":{
 										"title":"Role",
@@ -2021,11 +2037,16 @@
 										"title":"content",
 										"type":"array"
 									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
+									},
 									"role":{
 										"title":"role",
 										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"title":"messages",
@@ -2042,6 +2063,7 @@
 							"source":"{{ n_EYCFG.outputs.message[0].content }}",
 							"ua:type":"mappedArray"
 						},
+						"modelId":"{{ n_EYCFG.outputs.message[0].modelId }}",
 						"role":"{{ n_EYCFG.outputs.message[0].role }}"
 					},
 					"source":"{{ n_EYCFG.outputs.message }}",
@@ -2066,11 +2088,16 @@
 										"title":"content",
 										"type":"array"
 									},
+									"modelId":{
+										"title":"Model Id",
+										"type":"string"
+									},
 									"role":{
 										"title":"role",
 										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"title":"messages",
@@ -3094,7 +3121,8 @@
 			"additional":{
 				"visibleOptionalFields":[
 					"root.itemsToAdd.items.role",
-					"root.itemsToAdd.items.content.items"
+					"root.itemsToAdd.items.content.items",
+					"root.itemsToAdd.items.modelId"
 				]
 			},
 			"context":{
@@ -3119,6 +3147,7 @@
 							"source":"{{ n_44BOI.outputs.messages[0].content }}",
 							"ua:type":"mappedArray"
 						},
+						"modelId":"{{ n_44BOI.outputs.messages[0].modelId }}",
 						"role":"{{ n_44BOI.outputs.messages[0].role }}"
 					},
 					"source":"{{ n_44BOI.outputs.messages }}",
@@ -3973,6 +4002,7 @@
 					"currentTaskId":"{{ n_EYCFG.outputs.currentTaskId }}",
 					"deferToolLoading":"{{ n_EYCFG.outputs.deferToolLoading }}",
 					"frequencyPenalty":"{{ n_bVwbO.outputs.externalSettings.frequencyPenalty }}",
+					"internalWebSearch":"{{ n_EYCFG.outputs.internalWebSearch }}",
 					"invokeByWorkflowId":"{{ n_EYCFG.outputs.invokeByWorkflowId }}",
 					"isMultipleToolCallEnabled":"{{ n_JkEWq.outputs.isMultipleToolCallEnabled }}",
 					"isToolCallEnabled":"{{ n_JkEWq.outputs.isToolCallEnabled }}",
@@ -3985,6 +4015,7 @@
 								"source":"{{ n_5jpdT.outputs.items[0].content }}",
 								"ua:type":"mappedArray"
 							},
+							"modelId":"{{ n_5jpdT.outputs.items[0].modelId }}",
 							"role":"{{ n_5jpdT.outputs.items[0].role }}"
 						},
 						"source":"{{ n_5jpdT.outputs.items }}",
@@ -4861,5 +4892,5 @@
 	"tags":[
 		"move"
 	],
-	"version":319
+	"version":321
 }

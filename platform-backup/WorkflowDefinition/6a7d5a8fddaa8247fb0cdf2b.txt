@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743840155,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743840205,
+		"deployedAt":1789395231230,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece6045d2142160e6e66a",
+		"deployedDefinitionId":"6aa8011fc6a14707f150392a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":7
+		"version":2,
+		"workflowVersion":10
 	},
 	"edges":[
 		{
@@ -24,7 +24,15 @@
 		},
 		{
 			"fromNodeId":"n_var",
-			"id":"next@n_var@n_wh",
+			"id":"next@n_var@n_initCur",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_initCur",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_initCur",
+			"id":"next@n_initCur@n_wh",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wh",
@@ -64,20 +72,12 @@
 		},
 		{
 			"fromNodeId":"n_cond",
-			"id":"if@n_cond@n_updr",
+			"id":"if@n_cond@n_addg",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_updr",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_updr",
-			"id":"next@n_updr@n_addg",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_addg",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_cond",
@@ -155,7 +155,7 @@
 	"id":"6a7d5a8fddaa8247fb0cdf2b",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover databricks rest agent",
-	"modifiedTime":1788252971713,
+	"modifiedTime":1789395396797,
 	"name":"Governance | Discover Databricks Rest Agent",
 	"nodes":[
 		{
@@ -213,6 +213,10 @@
 									"title":"isInitialSyncInProgress",
 									"type":"boolean"
 								},
+								"ownerId":{
+									"title":"Owner Id",
+									"type":"string"
+								},
 								"status":{
 									"title":"status",
 									"type":"string"
@@ -222,6 +226,7 @@
 									"type":"string"
 								}
 							},
+							"required":[],
 							"type":"object"
 						},
 						"appName":{
@@ -300,6 +305,55 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Qtl0z-1",
+			"id":"n_initCur",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":true,
+							"properties":{
+								"lastSyncedAt":{
+									"title":"Last Synced At",
+									"type":"string"
+								}
+							},
+							"title":"Cursor",
+							"type":"object"
+						}
+					},
+					"required":[
+						"cursor"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [ cursor: [ lastSyncedAt: '0' ] ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Init cursor",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"loop",
 				"resourceName":"loop_while",
 				"type":"APPLICATION"
@@ -309,7 +363,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Qtl0z-1",
 			"id":"n_wh",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"condition":{
 					"filters":[
@@ -343,7 +397,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_Qtl0z-1@l",
 			"id":"n_lst",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"page_token":"{{ n_var.outputs.cursor }}",
 				"page_size":100
@@ -364,7 +418,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_Qtl0z-1@l",
 			"id":"n_fe",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_lst.outputs.spaces }}",
@@ -387,7 +441,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_fe@n_wh@_Qtl0z-1@l@l",
 			"id":"n_ftch",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -397,13 +451,6 @@
 								"value":"{{ n_fe.outputs.item.space_id }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_o06hx.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -440,7 +487,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_fe@n_wh@_Qtl0z-1@l@l",
 			"id":"n_cond",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -456,57 +503,6 @@
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_cond@n_fe@n_wh@_Qtl0z-1@l@l@y",
-			"id":"n_updr",
-			"index":8,
-			"inputs":{
-				"recordId":"{{ n_ftch.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_ftch.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_ftch.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_o06hx.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"agent",
-					"awaitingTraces":"{{ n_ftch.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_o06hx.outputs.agentProfileGroupProperties.connection }}",
-					"connectionType":"observe",
-					"description":"{{ n_fe.outputs.item.description }}",
-					"enabled":"{{ n_ftch.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_fe.outputs.item.space_id }}",
-					"name":"{{ n_fe.outputs.item.title }}",
-					"registered":false,
-					"registered_first_time":"{{ n_ftch.outputs.properties.registered_first_time }}",
-					"remainingRetryCount":"{{ n_o06hx.outputs.retryCount }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -530,6 +526,11 @@
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.agentProfileGroupIds",
 						"setValue":"{{ n_o06hx.outputs.agentProfileGroupId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.metadata",
+						"setValue":"{{ n_fe.outputs.item }}"
 					}
 				],
 				"id":"{{ n_ftch.outputs.id }}",
@@ -549,8 +550,8 @@
 			},
 			"context":{
 				"appName":"storage_by_unifyapps",
-				"resourceVersion":14436,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"resourceVersion":40504,
+				"resourceName":"storage_by_unifyapps_create_record",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -560,11 +561,10 @@
 			"id":"n_crtr",
 			"index":10,
 			"inputs":{
-				"recordId":"{{ n_fe.outputs.item.space_id }}",
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"agent_profile",
-				"retryOnFailure":true,
 				"skipIfBlank":false,
 				"record":{
 					"agentProfileGroupIds":[
@@ -575,19 +575,23 @@
 					"awaitingTraces":true,
 					"connectionId":"{{ n_o06hx.outputs.agentProfileGroupProperties.connection }}",
 					"connectionType":"observe",
+					"cursor":"{{ n_initCur.outputs.result.cursor }}",
 					"description":"{{ n_fe.outputs.item.description }}",
 					"enabled":"{{ n_o06hx.outputs.agentProfileGroupProperties.autoRegister }}",
 					"external_agent_id":"{{ n_fe.outputs.item.space_id }}",
+					"lc_name":"=LOWER({{ n_fe.outputs.item.title }})",
+					"metadata":"{{ n_fe.outputs.item }}",
 					"name":"{{ n_fe.outputs.item.title }}",
 					"registered":false,
 					"registered_first_time":false,
 					"remainingRetryCount":"{{ n_o06hx.outputs.retryCount }}"
 				},
-				"upsert":true
+				"useUuid":false,
+				"batching":false
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
+			"title":"Create record",
 			"type":"ACTION"
 		},
 		{
@@ -694,5 +698,5 @@
 		}
 	},
 	"standard":true,
-	"version":9
+	"version":11
 }
