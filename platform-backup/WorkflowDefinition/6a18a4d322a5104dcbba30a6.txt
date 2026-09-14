@@ -1,17 +1,17 @@
 {
 	"appsUsed":[
-		"confluence"
+		
 	],
 	"createdTime":1787744051079,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744051321,
+		"deployedAt":1789395309872,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf33cee862008d74d0f0",
+		"deployedDefinitionId":"6aa8016d72fd792214e8cc73",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":52
+		"version":2,
+		"workflowVersion":55
 	},
 	"edges":[
 		{
@@ -24,7 +24,33 @@
 		},
 		{
 			"fromNodeId":"n_yT4G3",
-			"id":"next@n_yT4G3@n_rTIvg",
+			"id":"next@n_yT4G3@n_TcGZJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TcGZJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TcGZJ",
+			"id":"if@n_TcGZJ@n_RGFhD",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RGFhD",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_RGFhD",
+			"id":"next@n_RGFhD@n_f1acs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_f1acs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TcGZJ",
+			"id":"next@n_TcGZJ@n_rTIvg",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_rTIvg",
@@ -57,32 +83,40 @@
 		},
 		{
 			"fromNodeId":"n_dl4zQ",
-			"id":"next@n_dl4zQ@n_5ZEYP",
+			"id":"next@n_dl4zQ@n_Ha7a5",
 			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_5ZEYP",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_5ZEYP",
-			"id":"next@n_5ZEYP@n_Ha7a5",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Ha7a5",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_ia7qe",
-			"id":"next@n_ia7qe@n_0YISn",
+			"fromNodeId":"n_f1acs",
+			"id":"next@n_f1acs@n_II0Hv",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_0YISn",
+			"toNodeId":"n_II0Hv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ia7qe",
+			"id":"next@n_ia7qe@n_II0Hv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_II0Hv",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_Ha7a5",
-			"id":"next@n_Ha7a5@n_0YISn",
+			"id":"next@n_Ha7a5@n_II0Hv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_II0Hv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_II0Hv",
+			"id":"next@n_II0Hv@n_0YISn",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_0YISn",
@@ -112,7 +146,7 @@
 	"id":"6a18a4d322a5104dcbba30a6",
 	"lastModifiedBy":-1,
 	"lcName":"update user fields",
-	"modifiedTime":1788252971852,
+	"modifiedTime":1789395398169,
 	"name":"Update User Fields",
 	"nodes":[
 		{
@@ -159,6 +193,10 @@
 							},
 							"title":"Space Keys",
 							"type":"array"
+						},
+						"syncNum":{
+							"title":"Sync Num",
+							"type":"integer"
 						},
 						"userGroup":{
 							"title":"User Group",
@@ -209,12 +247,18 @@
 						"userEmail":{
 							"title":"User Email",
 							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
 						}
 					},
 					"required":[]
 				}
 			},
-			"inputs":{},
+			"inputs":{
+				"userId":"{{ _7mPHe.outputs.userKey }}"
+			},
 			"outputSchema":{
 				"type":"SCHEMA",
 				"dynamic":false,
@@ -224,6 +268,10 @@
 					"properties":{
 						"userEmail":{
 							"title":"User Email",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
 							"type":"string"
 						}
 					},
@@ -237,6 +285,36 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":918,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l",
+			"id":"n_TcGZJ",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ __ENV__.outputs.CONFLUENCE_USERNAME_AS_EMAIL }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1019,
 				"resourceName":"storage_by_unifyapps_fetch_records",
@@ -245,9 +323,141 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l",
+			"groupId":"n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@y",
+			"id":"n_RGFhD",
+			"index":4,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _7mPHe.outputs.userName }}"
+							},
+							"property":"properties_userName"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"user_name_vs_user_key",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"sortBy":[
+					{
+						"field":"cTm",
+						"order":"ASC"
+					}
+				],
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1585,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@y",
+			"id":"n_f1acs",
+			"index":5,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_yT4G3.outputs.userEmail }}",
+						"value":"{{ _7mPHe.outputs.userName }}"
+					},
+					{
+						"source":"{{ n_yT4G3.outputs.userId }}",
+						"value":"{{ n_RGFhD.outputs.properties.userId }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1019,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n",
 			"id":"n_rTIvg",
-			"index":3,
+			"index":6,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -347,9 +557,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l",
+			"groupId":"n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n",
 			"id":"n_dl4zQ",
-			"index":4,
+			"index":7,
 			"inputs":{
 				"filters":[
 					{
@@ -382,9 +592,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_dl4zQ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@y",
+			"groupId":"n_dl4zQ@n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n@y",
 			"id":"n_C43k3",
-			"index":5,
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -430,9 +640,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_dl4zQ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@y",
+			"groupId":"n_dl4zQ@n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n@y",
 			"id":"n_ia7qe",
-			"index":6,
+			"index":9,
 			"inputs":{
 				"variables":[
 					{
@@ -448,93 +658,6 @@
 		},
 		{
 			"context":{
-				"appName":"confluence",
-				"resourceVersion":381,
-				"connectionId":"6a1ee1a06e31737f43776e48",
-				"resourceName":"confluence_get_user_by_name",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_dl4zQ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n",
-			"id":"n_5ZEYP",
-			"index":7,
-			"inputs":{
-				"username":"{{ _7mPHe.outputs.userName }}"
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"maxLeaseTimeUnit":"SECONDS",
-					"maxWaitDurationUnit":"SECONDS"
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS",
-					"useInMemoryCache":false
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":3.0,
-					"captureRetries":false,
-					"count":3,
-					"enabled":true,
-					"initialDelay":2000,
-					"maxDelay":20000
-				},
-				"retryRetryableWorkConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"count":2147483647,
-					"enabled":false,
-					"initialDelay":5000
-				},
-				"stepError":"STOP",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
-			},
-			"skip":false,
-			"subTitle":"Confluence",
-			"title":"Get user by name (lowes)",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":122,
 				"resourceName":"variable_by_unifyapps_update_variables",
@@ -543,20 +666,86 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_dl4zQ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n",
+			"groupId":"n_dl4zQ@n_TcGZJ@n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l@n@n",
 			"id":"n_Ha7a5",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"variables":[
 					{
 						"source":"{{ n_yT4G3.outputs.userEmail }}",
-						"value":"{{ n_5ZEYP.outputs.email }}"
+						"value":"{{ _7mPHe.outputs.userName }}"
 					}
 				]
 			},
 			"skip":false,
 			"subTitle":"Variable by UnifyApps",
 			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":3864,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l",
+			"id":"n_II0Hv",
+			"index":11,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"emailAddress":{
+							"title":"Email Address",
+							"type":"string"
+						},
+						"lowerUserGroup":{
+							"title":"Lower User Group",
+							"type":"string"
+						},
+						"lowerUserName":{
+							"title":"Lower User Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"email":{
+							"title":"Email",
+							"type":"string"
+						},
+						"userGroup":{
+							"title":"User Group",
+							"type":"string"
+						},
+						"userName":{
+							"title":"User Name",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def email = binding.hasVariable(\"email\")?email : null\ndef userName = binding.hasVariable(\"userName\")?userName : null\ndef userGroup = binding.hasVariable(\"userGroup\")?userGroup : null\n\ndef lowerCaseEmail = (email != null) ? email.toLowerCase() : null\ndef lowerUserName = (userName != null) ? userName.toLowerCase() : null\ndef lowerUserGroup = (userGroup != null) ? userGroup.toLowerCase() : null\n\nreturn [\n  \"emailAddress\"  : lowerCaseEmail,\n  \"lowerUserName\" : lowerUserName,\n  \"lowerUserGroup\": lowerUserGroup\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"email":"{{ n_yT4G3.outputs.userEmail }}",
+					"userGroup":"{{ _7mPHe.outputs.userGroup }}",
+					"userName":"{{ _7mPHe.outputs.userName }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"EmailAddress toLower",
+			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
 		{
@@ -571,7 +760,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l",
 			"id":"n_0YISn",
-			"index":9,
+			"index":12,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"confluence_users",
@@ -580,17 +769,17 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.userKey",
-						"setValue":"{{ _7mPHe.outputs.userKey }}"
+						"setValue":"{{ n_yT4G3.outputs.userId }}"
 					},
 					{
 						"actionType":"SET",
 						"fieldName":"properties.userName",
-						"setValue":"{{ _7mPHe.outputs.userName }}"
+						"setValue":"{{ n_II0Hv.outputs.result.lowerUserName }}"
 					},
 					{
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.userGroups",
-						"setValue":"{{ _7mPHe.outputs.userGroup }}"
+						"setValue":"{{ n_II0Hv.outputs.result.lowerUserGroup }}"
 					},
 					{
 						"actionType":"ADD_TO_SET",
@@ -600,7 +789,7 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.emailAddress",
-						"setValue":"{{ n_yT4G3.outputs.userEmail }}"
+						"setValue":"{{ n_II0Hv.outputs.result.emailAddress }}"
 					},
 					{
 						"actionType":"SET",
@@ -611,9 +800,14 @@
 						"actionType":"SET",
 						"fieldName":"properties.connectionType",
 						"setValue":"{{ _7mPHe.outputs.connectionType }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.lastSuccessSyncNum",
+						"setValue":"{{ _7mPHe.outputs.syncNum }}"
 					}
 				],
-				"id":"{{ _7mPHe.outputs.connectionId }}_{{ _7mPHe.outputs.userKey }}_{{ _7mPHe.outputs.executionId }}",
+				"id":"{{ n_II0Hv.outputs.result.lowerUserName }}_{{ _7mPHe.outputs.executionId }}_{{ _7mPHe.outputs.connectionId }}",
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
@@ -691,7 +885,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_uSAKT@n_S1SNc@n_RavrR@_lhTKx-1@l@l@l",
 			"id":"_grWa1",
-			"index":10,
+			"index":13,
 			"inputs":{
 				"result":{
 					"success":true
@@ -705,7 +899,7 @@
 	],
 	"ownerUserId":-1,
 	"runtimeConnectionAppNames":[
-		"confluence"
+		
 	],
 	"schemaReferences":[
 		
@@ -721,5 +915,5 @@
 		}
 	},
 	"standard":true,
-	"version":54
+	"version":56
 }
