@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743947301,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743947361,
+		"deployedAt":1789395281573,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ececb45d2142160e6f669",
+		"deployedDefinitionId":"6aa8015172fd792214e8caab",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":1
+		"version":2,
+		"workflowVersion":4
 	},
 	"edges":[
 		{
 			"fromNodeId":"_zxjvx",
+			"id":"next@_zxjvx@n_QqL36",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_QqL36",
@@ -23,6 +24,49 @@
 		},
 		{
 			"fromNodeId":"n_QqL36",
+			"id":"next@n_QqL36@n_r0uUV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_r0uUV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_r0uUV",
+			"id":"next@n_r0uUV@n_knVKP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_knVKP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_knVKP",
+			"id":"if@n_knVKP@n_DIb99",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DIb99",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_DIb99",
+			"id":"next@n_DIb99@n_0zt0S",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0zt0S",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0zt0S",
+			"id":"next@n_0zt0S@n_Dwgl8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Dwgl8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_knVKP",
+			"id":"next@n_knVKP@n_Dwgl8",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Dwgl8",
@@ -30,6 +74,7 @@
 		},
 		{
 			"fromNodeId":"n_Dwgl8",
+			"id":"if@n_Dwgl8@n_aBW68",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -38,6 +83,7 @@
 		},
 		{
 			"fromNodeId":"n_Dwgl8",
+			"id":"next@n_Dwgl8@n_B4wsE",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -46,6 +92,7 @@
 		},
 		{
 			"fromNodeId":"n_aBW68",
+			"id":"next@n_aBW68@_OdMCJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_OdMCJ",
@@ -53,6 +100,7 @@
 		},
 		{
 			"fromNodeId":"n_B4wsE",
+			"id":"next@n_B4wsE@_OdMCJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_OdMCJ",
@@ -74,7 +122,7 @@
 	"id":"6944287935cabe6cb9959372",
 	"lastModifiedBy":-1,
 	"lcName":"attachment processor",
-	"modifiedTime":1788252971949,
+	"modifiedTime":1789395395212,
 	"name":"Attachment Processor",
 	"nodes":[
 		{
@@ -115,6 +163,10 @@
 						},
 						"disableConvertToImages":{
 							"title":"Disable Convert To Images",
+							"type":"boolean"
+						},
+						"indexAttachmentDisabled":{
+							"title":"indexAttachmentDisabled",
 							"type":"boolean"
 						},
 						"messageId":{
@@ -173,6 +225,117 @@
 		},
 		{
 			"context":{
+				"appName":"callables",
+				"resourceVersion":8426,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"ClP5t-1",
+			"id":"n_r0uUV",
+			"index":3,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ _zxjvx.outputs.aiAgentId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":922,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"ClP5t-1",
+			"id":"n_knVKP",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_r0uUV.outputs.copilotAttachmentGuardrails }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8426,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_knVKP@ClP5t-1@y",
+			"id":"n_DIb99",
+			"index":5,
+			"inputs":{
+				"automationId":"6aa27f4f286b9b767394fa1c",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ _zxjvx.outputs.aiAgentId }}",
+					"caseId":"{{ _zxjvx.outputs.caseId }}",
+					"messageId":"{{ _zxjvx.outputs.messageId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8381,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_knVKP@ClP5t-1@y",
+			"id":"n_0zt0S",
+			"index":6,
+			"inputs":{
+				"result":{
+					"success":"{{ n_DIb99.outputs.isValid }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":450,
 				"resourceName":"if_else_condition",
@@ -183,7 +346,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ClP5t-1",
 			"id":"n_Dwgl8",
-			"index":3,
+			"index":7,
 			"inputs":{
 				"filters":[
 					{
@@ -213,7 +376,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Dwgl8@ClP5t-1@y",
 			"id":"n_aBW68",
-			"index":4,
+			"index":8,
 			"inputs":{
 				"automationId":"693c6ec96e9c636a9c1595f6",
 				"runtimeConnections":{},
@@ -222,6 +385,7 @@
 					"agentId":"{{ _zxjvx.outputs.aiAgentId  }}",
 					"caseId":"{{ _zxjvx.outputs.caseId  }}",
 					"count":"{{ n_QqL36.outputs.properties.attachmentConfig.pdfConfig.count }}",
+					"indexAttachmentDisabled":"{{ _zxjvx.outputs.indexAttachmentDisabled }}",
 					"messageId":"{{ _zxjvx.outputs.messageId  }}",
 					"singleMessageLimit":"{{ n_QqL36.outputs.properties.attachmentConfig.pdfConfig.singleMessageLimit }}"
 				},
@@ -244,7 +408,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Dwgl8@ClP5t-1@n",
 			"id":"n_B4wsE",
-			"index":5,
+			"index":9,
 			"inputs":{
 				"automationId":"6916fc515a5b0f5025aa2313",
 				"runtimeConnections":{},
@@ -328,7 +492,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ClP5t-1",
 			"id":"_OdMCJ",
-			"index":6,
+			"index":10,
 			"inputs":{
 				"result":{
 					"success":"true"
@@ -357,5 +521,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":3
+	"version":5
 }

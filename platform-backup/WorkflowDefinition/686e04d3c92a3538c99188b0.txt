@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743779313,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743779650,
+		"deployedAt":1789395181624,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece2345d2142160e6e0a6",
+		"deployedDefinitionId":"6aa800ed72fd792214e8c69b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":204
+		"version":2,
+		"workflowVersion":207
 	},
 	"edges":[
 		{
@@ -775,7 +775,7 @@
 	"id":"686e04d3c92a3538c99188b0",
 	"lastModifiedBy":-1,
 	"lcName":"text2sql | tables metadata indexer",
-	"modifiedTime":1788252972591,
+	"modifiedTime":1789395395153,
 	"name":"Text2sql | Tables Metadata Indexer",
 	"nodes":[
 		{
@@ -2132,7 +2132,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"n_Iz2mb@n_LVgpK@_kDiFs-1@y@n",
 			"id":"n_2VUIy",
 			"index":27,
@@ -2145,7 +2145,63 @@
 					"platformName":"{{ n_CXGX6.outputs.metadata_source }}",
 					"sqlQuery":"{{ n_S1zCY.outputs.result.query }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"RunSQL2",
@@ -2167,7 +2223,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"n_LVgpK@_kDiFs-1@y",
 			"id":"n_c4YlB",
 			"index":28,
@@ -2231,7 +2287,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def shaperRows = binding.hasVariable('shaperRows') ? binding.getVariable('shaperRows') : []\ndef sqlRows    = binding.hasVariable('sqlRows')    ? binding.getVariable('sqlRows')    : []\ndef platformName = binding.hasVariable('platformName') ? binding.getVariable('platformName') : ''\n\nshaperRows = (shaperRows instanceof List) ? shaperRows.findAll { it != null } : []\nsqlRows    = (sqlRows    instanceof List) ? sqlRows.findAll    { it != null } : []\n\ndef dbRows = !shaperRows.isEmpty() ? shaperRows : sqlRows\ndef isSalesforce = platformName?.toString()?.toLowerCase()?.contains('salesforce')\ndef isDistinctCountGreaterThan20 = (dbRows.size() > 20)\n\ndef columnValues = []\ndef croppedList  = []\n\nif (isSalesforce) {\n    if (dbRows && !dbRows.isEmpty()) {\n        def columnKey = dbRows[0].keySet().find { it != 'attributes' }\n        columnValues = columnKey ? dbRows.collect { it[columnKey]?.toString() } : []\n    }\n    croppedList = columnValues.findAll { it != null && it != \"\" && it != \"null\" }.unique().take(20)\n} else {\n    if (dbRows && !dbRows.isEmpty()) {\n        def columnKey = dbRows[0].keySet().first()\n        columnValues = dbRows.collect { it[columnKey]?.toString() }\n    }\n    croppedList = columnValues.findAll { it != null && it != \"\" && it != \"null\" }.unique().take(5)\n}\n\ndef uuidPattern = ~/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/\nif (croppedList && croppedList.every { it ==~ uuidPattern }) croppedList = []\n\nreturn [isDistinctCountGreaterThan20: isDistinctCountGreaterThan20,\n        columnValues: columnValues, croppedList: croppedList]",
+				"code":"def getVar = { name, defVal -> binding.hasVariable(name) ? (binding.getVariable(name) ?: defVal) : defVal }\n\ndef shaperRows    = getVar('shaperRows', [])\ndef sqlRows       = getVar('sqlRows', [])\ndef platformName  = getVar('platformName', '')\n\nshaperRows = (shaperRows instanceof List) ? shaperRows.findAll { it != null } : []\nsqlRows    = (sqlRows    instanceof List) ? sqlRows.findAll    { it != null } : []\n\ndef dbRows = !shaperRows.isEmpty() ? shaperRows : sqlRows\ndef isSalesforce = platformName?.toString()?.toLowerCase()?.contains('salesforce') ?: false\ndef isDistinctCountGreaterThan20 = (dbRows.size() > 20)\n\ndef columnValues = []\ndef croppedList  = []\n\nif (isSalesforce) {\n    if (dbRows && dbRows[0] instanceof Map) {\n        def columnKey = dbRows[0].keySet().find { it != 'attributes' }\n        columnValues = columnKey ? dbRows.collect { it instanceof Map ? it[columnKey]?.toString() : null } : []\n    }\n    croppedList = columnValues.findAll { it != null && it != \"\" && it != \"null\" }.unique().take(20)\n} else {\n    if (dbRows && dbRows[0] instanceof Map && !dbRows[0].keySet().isEmpty()) {\n        def columnKey = dbRows[0].keySet().first()\n        columnValues = dbRows.collect { it instanceof Map ? it[columnKey]?.toString() : null }\n    }\n    croppedList = columnValues.findAll { it != null && it != \"\" && it != \"null\" }.unique().take(5)\n}\n\ndef uuidPattern = ~/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/\nif (croppedList && croppedList.every { it ==~ uuidPattern }) croppedList = []\n\nreturn [isDistinctCountGreaterThan20: isDistinctCountGreaterThan20,\n        columnValues: columnValues, croppedList: croppedList]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -2246,6 +2302,61 @@
 						"source":"{{ n_2VUIy.outputs.rows }}",
 						"ua:type":"mappedArray"
 					}
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
 				}
 			},
 			"skip":false,
@@ -2411,7 +2522,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"n_LVgpK@_kDiFs-1@n",
 			"id":"n_PlEDg",
 			"index":33,
@@ -2424,7 +2535,63 @@
 					"platformName":"{{ n_CXGX6.outputs.metadata_source }}",
 					"sqlQuery":"{{ n_MuLwC.outputs.result.query }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"RunSQL2",
@@ -2511,6 +2678,61 @@
 						"ua:type":"mappedArray"
 					},
 					"platformName":"{{ n_CXGX6.outputs.metadata_source }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
 				}
 			},
 			"skip":false,
@@ -3030,7 +3252,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"4ermN@n_DYkIC@_kDiFs-1@y@y",
 			"id":"n_Mooix",
 			"index":42,
@@ -3056,7 +3278,8 @@
 						"type":"json_object"
 					}
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -3104,7 +3327,7 @@
 					"enabled":true,
 					"initialDelay":4000
 				},
-				"stepError":"STOP",
+				"stepError":"CONTINUE",
 				"telemetryConfig":{
 					"enableTelemetry":false,
 					"metricConfigs":[
@@ -3261,7 +3484,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"\n// if (!(columnValues instanceof List)) {\n//     columnValues = [columnValues.toString()]\n// }\n\n// // columnValues = columnValues.findAll { it != null && it.toString().trim() }\n// columnValues = columnValues.findAll { \n//     it != null && it.toString().trim() && it.toString().split(/\\s+/).size() <= 40\n// }\n// def colsString = columnValues.size() ? columnValues.join(\", \") : \"\"\n\nif (!(columnValues instanceof List)) {\n    columnValues = [columnValues.toString()]\n}\n\nimport java.util.StringTokenizer\n\ncolumnValues = columnValues.findAll { \n    it != null && it.toString().trim() &&\n    new StringTokenizer(it.toString()).countTokens() <= 40\n}\n\ndef colsString = com.unifyapps.infra.utils.JsonUtils.toJson(columnValues)\n\nreturn [cols: colsString]\n\n",
+				"code":"\n// if (!(columnValues instanceof List)) {\n//     columnValues = [columnValues.toString()]\n// }\n\n// // columnValues = columnValues.findAll { it != null && it.toString().trim() }\n// columnValues = columnValues.findAll { \n//     it != null && it.toString().trim() && it.toString().split(/\\s+/).size() <= 40\n// }\n// def colsString = columnValues.size() ? columnValues.join(\", \") : \"\"\n\nif (!(columnValues instanceof List)) {\n    columnValues = [columnValues.toString()]\n}\n\nimport java.util.StringTokenizer\n\ncolumnValues = columnValues.findAll { \n    it != null && it.toString().trim() &&\n    new StringTokenizer(it.toString()).countTokens() <= 40 &&\n    it.toString().length() <= 500\n}\n\ndef colsString = com.unifyapps.infra.utils.JsonUtils.toJson(columnValues)\n\nreturn [cols: colsString]\n\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3707,7 +3930,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"y4d9G@4ermN@n_DYkIC@_kDiFs-1@y@n@y",
 			"id":"_WeaD4",
 			"index":50,
@@ -3735,7 +3958,8 @@
 						"type":"json_object"
 					}
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -3783,7 +4007,7 @@
 					"enabled":true,
 					"initialDelay":4000
 				},
-				"stepError":"STOP",
+				"stepError":"CONTINUE",
 				"telemetryConfig":{
 					"enableTelemetry":false,
 					"metricConfigs":[
@@ -3940,7 +4164,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"if (!(columnValues instanceof List)) {\n    columnValues = [columnValues.toString()]\n}\n\nimport java.util.StringTokenizer\n\ncolumnValues = columnValues.findAll { \n    it != null && it.toString().trim() &&\n    new StringTokenizer(it.toString()).countTokens() <= 40\n}\n\ndef colsString = com.unifyapps.infra.utils.JsonUtils.toJson(columnValues)\n\nreturn [cols: colsString]",
+				"code":"if (!(columnValues instanceof List)) {\n    columnValues = [columnValues.toString()]\n}\n\nimport java.util.StringTokenizer\n\ncolumnValues = columnValues.findAll { \n    it != null && it.toString().trim() &&\n    new StringTokenizer(it.toString()).countTokens() <= 40 &&\n    it.toString().length() <= 500\n}\n\ndef colsString = com.unifyapps.infra.utils.JsonUtils.toJson(columnValues)\n\nreturn [cols: colsString]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -4351,7 +4575,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"y4d9G@4ermN@n_DYkIC@_kDiFs-1@y@n@n",
 			"id":"_cwDKJ",
 			"index":57,
@@ -4378,7 +4602,8 @@
 						"type":"json_object"
 					}
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -4426,7 +4651,7 @@
 					"enabled":true,
 					"initialDelay":4000
 				},
-				"stepError":"STOP",
+				"stepError":"CONTINUE",
 				"telemetryConfig":{
 					"enableTelemetry":false,
 					"metricConfigs":[
@@ -4690,7 +4915,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def description = binding.hasVariable(\"description\")?binding.getVariable(\"description\"):\"\"\n\nif(!binding.hasVariable(\"columnValues\")) return [desc : description ]\nif(columnValues.size()==0) return [desc : description ]\n\nif (!(columnValues instanceof List)) {\n    columnValues = [columnValues.toString()]\n}\n\nimport java.util.StringTokenizer\n\ncolumnValues = columnValues.findAll { \n    it != null && it.toString().trim() &&\n    new StringTokenizer(it.toString()).countTokens() <= 40\n}\n\ndef colsString = columnValues.size() ? columnValues.join(\", \") : \"\"\n\nif (!binding.hasVariable('description')) {\n    return [desc: \"Example : (\" + colsString + \")\"]\n}\n\ndef pattern = /(?i)example/\nif (description == null || !(description =~ pattern)) {\n    if(colsString) description = description + \" example : (\" + colsString + \")\"\n}\nreturn [desc: description]",
+				"code":"def description = binding.hasVariable(\"description\")?binding.getVariable(\"description\"):\"\"\n\nif(!binding.hasVariable(\"columnValues\")) return [desc : description ]\nif(columnValues.size()==0) return [desc : description ]\n\nif (!(columnValues instanceof List)) {\n    columnValues = [columnValues.toString()]\n}\n\nimport java.util.StringTokenizer\n\ncolumnValues = columnValues.findAll { \n    it != null && it.toString().trim() &&\n    new StringTokenizer(it.toString()).countTokens() <= 40 &&\n    it.toString().length() <= 500\n}\n\ndef colsString = columnValues.size() ? columnValues.join(\", \") : \"\"\n\nif (!binding.hasVariable('description')) {\n    return [desc: \"Example : (\" + colsString + \")\"]\n}\n\ndef pattern = /(?i)example/\nif (description == null || !(description =~ pattern)) {\n    if(colsString) description = description + \" example : (\" + colsString + \")\"\n}\nreturn [desc: description]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -4865,7 +5090,8 @@
 					"modelId":"{{ n_CXGX6.outputs.embModel }}",
 					"userQuery":"{{ n_CXGX6.outputs.name }} | {{ n_mmxWp.outputs.synonyms }} | {{ n_mmxWp.outputs.description }} "
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Fetch embeddings",
@@ -4917,7 +5143,8 @@
 					"tablePrimaryKey":"{{ n_CXGX6.outputs.tablePK }}",
 					"uniqueEntityId":"{{ n_CXGX6.outputs.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"updateMetadata",
@@ -4945,7 +5172,8 @@
 					"modelId":"{{ n_CXGX6.outputs.embModel }}",
 					"userQuery":"{{ n_CXGX6.outputs.name }} | {{ n_CXGX6.outputs.displayName }}| {{ n_mmxWp.outputs.synonyms }} | {{ n_mmxWp.outputs.description }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Fetch embeddings",
@@ -4997,7 +5225,8 @@
 					"tablePrimaryKey":"{{ n_CXGX6.outputs.tablePK }}",
 					"uniqueEntityId":"{{ n_CXGX6.outputs.uniqueEntityId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"updateMetadata",
@@ -5029,6 +5258,9 @@
 		}
 	],
 	"ownerUserId":-1,
+	"runtimeConnectionAppNames":[
+		
+	],
 	"schemaReferences":[
 		
 	],
@@ -5038,12 +5270,10 @@
 		"enableVariableLogging":true,
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
 	"standard":true,
-	"tags":[
-		
-	],
-	"version":206
+	"version":208
 }
