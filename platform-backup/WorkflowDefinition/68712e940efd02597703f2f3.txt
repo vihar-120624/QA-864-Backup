@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744636166,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744636349,
+		"deployedAt":1789395355419,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed17ccee862008d75b642",
+		"deployedDefinitionId":"6aa8019bc6a14707f1504060",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":78
+		"version":2,
+		"workflowVersion":81
 	},
 	"edges":[
 		{
@@ -395,7 +395,7 @@
 	"id":"68712e940efd02597703f2f3",
 	"lastModifiedBy":-1,
 	"lcName":"data rag - fetch metadata for user query",
-	"modifiedTime":1788252971214,
+	"modifiedTime":1789395387252,
 	"name":"DATA RAG - Fetch Metadata for User Query",
 	"nodes":[
 		{
@@ -420,6 +420,15 @@
 								"type":"object"
 							},
 							"title":"Few Shot Examples",
+							"type":"array"
+						},
+						"joins":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Joins",
 							"type":"array"
 						},
 						"keyMeasuresExamples":{
@@ -1058,7 +1067,8 @@
 				"name":"DATA RAG - Search Records "
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"DATA RAG - Search Records ",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1445,7 +1455,8 @@
 				"name":"Fetch Few Shot Examples and Instructions"
 			},
 			"skip":false,
-			"title":"",
+			"subTitle":"Branch Condition",
+			"title":"Fetch Few Shot Examples and Instructions",
 			"type":"BRANCH_CONDITION"
 		},
 		{
@@ -1468,6 +1479,11 @@
 				"parameters":{
 					"aiAgentId":"{{ _tLVO6.outputs.aiAgentId  }}",
 					"fewshotlimiter":"{{ n_SJeZG.outputs.properties.textToSQLSettings.fewshotlimiter }}",
+					"knowledgeSetIds":{
+						"items":"{{ RaNgI.outputs.knowledgeSets[0] }}",
+						"source":"{{ RaNgI.outputs.knowledgeSets }}",
+						"ua:type":"mappedArray"
+					},
 					"knowledges":{
 						"items":{
 							"id":"{{ RaNgI.outputs.knowledges[0].id }}",
@@ -2567,6 +2583,7 @@
 			"index":37,
 			"inputs":{
 				"automationId":"68c51597269ad81cc750a3ca",
+				"distributeLoad":false,
 				"runtimeConnections":{},
 				"synchronous":false,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
@@ -2611,6 +2628,11 @@
 					"fewShotExamples":{
 						"items":"{{ spEqn.outputs.fewShotExamples[0] }}",
 						"source":"{{ spEqn.outputs.fewShotExamples }}",
+						"ua:type":"mappedArray"
+					},
+					"joins":{
+						"items":"{{ spEqn.outputs.joins[0] }}",
+						"source":"{{ spEqn.outputs.joins }}",
 						"ua:type":"mappedArray"
 					},
 					"keyMeasuresExamples":{
@@ -2671,5 +2693,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":80
+	"version":82
 }
