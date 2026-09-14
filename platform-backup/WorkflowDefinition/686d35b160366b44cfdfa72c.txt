@@ -4,19 +4,53 @@
 	],
 	"createdTime":1787744420648,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744421641,
+		"deployedAt":1789395337356,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed0a5ba51514edfc80f64",
+		"deployedDefinitionId":"6aa8018939ee5f5ef70b68ea",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":403
+		"version":2,
+		"workflowVersion":406
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_YFuhI",
-			"id":"next@n_YFuhI@n_l0Td3",
+			"id":"next@n_YFuhI@n_9kGr9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9kGr9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9kGr9",
+			"id":"if@n_9kGr9@n_EUy1F",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EUy1F",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_EUy1F",
+			"id":"next@n_EUy1F@n_zqHuA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zqHuA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9kGr9",
+			"id":"next@n_9kGr9@n_zqHuA",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zqHuA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zqHuA",
+			"id":"next@n_zqHuA@n_l0Td3",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_l0Td3",
@@ -909,7 +943,7 @@
 	"id":"686d35b160366b44cfdfa72c",
 	"lastModifiedBy":-1,
 	"lcName":"channel knowledge indexer wrapper",
-	"modifiedTime":1788252973427,
+	"modifiedTime":1789395391646,
 	"name":"Channel Knowledge Indexer Wrapper",
 	"nodes":[
 		{
@@ -963,6 +997,10 @@
 							"title":"Copy From Raw Data Id",
 							"type":"string"
 						},
+						"fetchFullPayload":{
+							"title":"Fetch Full Payload",
+							"type":"boolean"
+						},
 						"hasPendingSourceMatch":{
 							"title":"Has Pending Source Match",
 							"type":"boolean"
@@ -970,6 +1008,10 @@
 						"indexerAutomation":{
 							"title":"Indexer Automation",
 							"type":"string"
+						},
+						"indexingStartTime":{
+							"title":"Indexing Start Time",
+							"type":"integer"
 						},
 						"knowledgeId":{
 							"title":"Knowledge Id",
@@ -1055,6 +1097,527 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":8,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_9kGr9",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_YFuhI.outputs.fetchFullPayload }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_YFuhI.outputs.fetchFullPayload }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":459,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_9kGr9@_hNHYl-1@y",
+			"id":"n_EUy1F",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_YFuhI.outputs.rawDataId }}"
+							},
+							"property":"id"
+						}
+					],
+					"operator":"AND"
+				},
+				"shouldSearchInAnalyticsStore":false,
+				"object_type":"knowledge_raw_data_store",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"sortBy":[],
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"paginateBy":"OFFSET"
+				},
+				"fields":[],
+				"includeTotalCount":false,
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Fetch Raw Data",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.input.additional",
+					"root.parameters.input.attachments.items",
+					"root.parameters.input.channelModifiedTime",
+					"root.parameters.input.copyFromRawDataId",
+					"root.parameters.input.hasPendingSourceMatch",
+					"root.parameters.input.indexerAutomation",
+					"root.parameters.input.indexingStartTime",
+					"root.parameters.input.knowledgeId",
+					"root.parameters.input.knowledgeSetId",
+					"root.parameters.input.knowledgeType",
+					"root.parameters.input.knowledgeVersion",
+					"root.parameters.input.lastDownloadedTime",
+					"root.parameters.input.lastProcessedTime",
+					"root.parameters.input.metadata",
+					"root.parameters.input.onlyMetadataModified",
+					"root.parameters.input.permitId",
+					"root.parameters.input.rawDataId",
+					"root.parameters.input.resourceType",
+					"root.parameters.input.retryCount",
+					"root.parameters.input.sharedWithIds.items",
+					"root.parameters.input.sourceId",
+					"root.parameters.input.sourceResponse",
+					"root.parameters.fetchedData.additional",
+					"root.parameters.fetchedData.attachments.items",
+					"root.parameters.fetchedData.channelModifiedTime",
+					"root.parameters.fetchedData.copyFromRawDataId",
+					"root.parameters.fetchedData.hasPendingSourceMatch",
+					"root.parameters.fetchedData.indexerAutomation",
+					"root.parameters.fetchedData.indexingStartTime",
+					"root.parameters.fetchedData.knowledgeId",
+					"root.parameters.fetchedData.knowledgeSetId",
+					"root.parameters.fetchedData.knowledgeType",
+					"root.parameters.fetchedData.knowledgeVersion",
+					"root.parameters.fetchedData.lastDownloadedTime",
+					"root.parameters.fetchedData.lastProcessedTime",
+					"root.parameters.fetchedData.metadata",
+					"root.parameters.fetchedData.onlyMetadataModified",
+					"root.parameters.fetchedData.permitId",
+					"root.parameters.fetchedData.rawDataId",
+					"root.parameters.fetchedData.resourceType",
+					"root.parameters.fetchedData.retryCount",
+					"root.parameters.fetchedData.sharedWithIds.items",
+					"root.parameters.fetchedData.sourceId",
+					"root.parameters.fetchedData.sourceResponse"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":141,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_hNHYl-1",
+			"id":"n_zqHuA",
+			"index":4,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"additional":{
+							"title":"additional",
+							"type":"object"
+						},
+						"attachments":{
+							"items":{
+								"type":"object"
+							},
+							"title":"attachments",
+							"type":"array"
+						},
+						"channelModifiedTime":{
+							"title":"channelModifiedTime",
+							"type":"integer"
+						},
+						"copyFromRawDataId":{
+							"title":"copyFromRawDataId",
+							"type":"string"
+						},
+						"hasPendingSourceMatch":{
+							"title":"hasPendingSourceMatch",
+							"type":"boolean"
+						},
+						"indexerAutomation":{
+							"title":"indexerAutomation",
+							"type":"string"
+						},
+						"indexingStartTime":{
+							"title":"indexingStartTime",
+							"type":"integer"
+						},
+						"knowledgeId":{
+							"title":"knowledgeId",
+							"type":"string"
+						},
+						"knowledgeSetId":{
+							"title":"knowledgeSetId",
+							"type":"string"
+						},
+						"knowledgeType":{
+							"title":"knowledgeType",
+							"type":"string"
+						},
+						"knowledgeVersion":{
+							"title":"knowledgeVersion",
+							"type":"integer"
+						},
+						"lastDownloadedTime":{
+							"title":"lastDownloadedTime",
+							"type":"integer"
+						},
+						"lastProcessedTime":{
+							"title":"lastProcessedTime",
+							"type":"integer"
+						},
+						"metadata":{
+							"title":"metadata",
+							"type":"object"
+						},
+						"onlyMetadataModified":{
+							"title":"onlyMetadataModified",
+							"type":"boolean"
+						},
+						"permitId":{
+							"title":"permitId",
+							"type":"string"
+						},
+						"rawDataId":{
+							"title":"rawDataId",
+							"type":"string"
+						},
+						"resourceType":{
+							"title":"resourceType",
+							"type":"string"
+						},
+						"retryCount":{
+							"title":"retryCount",
+							"type":"integer"
+						},
+						"sharedWithIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"sharedWithIds",
+							"type":"array"
+						},
+						"sourceId":{
+							"title":"sourceId",
+							"type":"string"
+						},
+						"sourceResponse":{
+							"title":"sourceResponse",
+							"type":"object"
+						}
+					},
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"fetchedData":{
+							"additionalProperties":false,
+							"properties":{
+								"additional":{
+									"title":"additional",
+									"type":"object"
+								},
+								"attachments":{
+									"items":{
+										"type":"object"
+									},
+									"title":"attachments",
+									"type":"array"
+								},
+								"channelModifiedTime":{
+									"title":"channelModifiedTime",
+									"type":"integer"
+								},
+								"copyFromRawDataId":{
+									"title":"copyFromRawDataId",
+									"type":"string"
+								},
+								"hasPendingSourceMatch":{
+									"title":"hasPendingSourceMatch",
+									"type":"boolean"
+								},
+								"indexerAutomation":{
+									"title":"indexerAutomation",
+									"type":"string"
+								},
+								"indexingStartTime":{
+									"title":"indexingStartTime",
+									"type":"integer"
+								},
+								"knowledgeId":{
+									"title":"knowledgeId",
+									"type":"string"
+								},
+								"knowledgeSetId":{
+									"title":"knowledgeSetId",
+									"type":"string"
+								},
+								"knowledgeType":{
+									"title":"knowledgeType",
+									"type":"string"
+								},
+								"knowledgeVersion":{
+									"title":"knowledgeVersion",
+									"type":"integer"
+								},
+								"lastDownloadedTime":{
+									"title":"lastDownloadedTime",
+									"type":"integer"
+								},
+								"lastProcessedTime":{
+									"title":"lastProcessedTime",
+									"type":"integer"
+								},
+								"metadata":{
+									"title":"metadata",
+									"type":"object"
+								},
+								"onlyMetadataModified":{
+									"title":"onlyMetadataModified",
+									"type":"boolean"
+								},
+								"permitId":{
+									"title":"permitId",
+									"type":"string"
+								},
+								"rawDataId":{
+									"title":"rawDataId",
+									"type":"string"
+								},
+								"resourceType":{
+									"title":"resourceType",
+									"type":"string"
+								},
+								"retryCount":{
+									"title":"retryCount",
+									"type":"integer"
+								},
+								"sharedWithIds":{
+									"items":{
+										"type":"string"
+									},
+									"title":"sharedWithIds",
+									"type":"array"
+								},
+								"sourceId":{
+									"title":"sourceId",
+									"type":"string"
+								},
+								"sourceResponse":{
+									"title":"sourceResponse",
+									"type":"object"
+								}
+							},
+							"type":"object"
+						},
+						"input":{
+							"additionalProperties":false,
+							"properties":{
+								"additional":{
+									"title":"additional",
+									"type":"object"
+								},
+								"attachments":{
+									"items":{
+										"type":"object"
+									},
+									"title":"attachments",
+									"type":"array"
+								},
+								"channelModifiedTime":{
+									"title":"channelModifiedTime",
+									"type":"integer"
+								},
+								"copyFromRawDataId":{
+									"title":"copyFromRawDataId",
+									"type":"string"
+								},
+								"hasPendingSourceMatch":{
+									"title":"hasPendingSourceMatch",
+									"type":"boolean"
+								},
+								"indexerAutomation":{
+									"title":"indexerAutomation",
+									"type":"string"
+								},
+								"indexingStartTime":{
+									"title":"indexingStartTime",
+									"type":"integer"
+								},
+								"knowledgeId":{
+									"title":"knowledgeId",
+									"type":"string"
+								},
+								"knowledgeSetId":{
+									"title":"knowledgeSetId",
+									"type":"string"
+								},
+								"knowledgeType":{
+									"title":"knowledgeType",
+									"type":"string"
+								},
+								"knowledgeVersion":{
+									"title":"knowledgeVersion",
+									"type":"integer"
+								},
+								"lastDownloadedTime":{
+									"title":"lastDownloadedTime",
+									"type":"integer"
+								},
+								"lastProcessedTime":{
+									"title":"lastProcessedTime",
+									"type":"integer"
+								},
+								"metadata":{
+									"title":"metadata",
+									"type":"object"
+								},
+								"onlyMetadataModified":{
+									"title":"onlyMetadataModified",
+									"type":"boolean"
+								},
+								"permitId":{
+									"title":"permitId",
+									"type":"string"
+								},
+								"rawDataId":{
+									"title":"rawDataId",
+									"type":"string"
+								},
+								"resourceType":{
+									"title":"resourceType",
+									"type":"string"
+								},
+								"retryCount":{
+									"title":"retryCount",
+									"type":"integer"
+								},
+								"sharedWithIds":{
+									"items":{
+										"type":"string"
+									},
+									"title":"sharedWithIds",
+									"type":"array"
+								},
+								"sourceId":{
+									"title":"sourceId",
+									"type":"string"
+								},
+								"sourceResponse":{
+									"title":"sourceResponse",
+									"type":"object"
+								}
+							},
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def inputMap = binding.hasVariable(\"input\") ? (input ?: [:]) : [:]\nif (!binding.hasVariable(\"fetchedData\") || fetchedData == null) {\n    return inputMap\n}\ndef fetched = fetchedData\n\n// Every field this node emits. Listed explicitly so a key missing from BOTH\n// sources still comes out as null rather than being absent from the map.\n\ndef FIELDS = [\n    \"additional\", \"attachments\", \"channelModifiedTime\", \"copyFromRawDataId\",\n    \"hasPendingSourceMatch\", \"indexerAutomation\", \"indexingStartTime\",\n    \"knowledgeId\", \"knowledgeSetId\", \"knowledgeType\", \"knowledgeVersion\",\n    \"lastDownloadedTime\", \"lastProcessedTime\", \"metadata\", \"onlyMetadataModified\",\n    \"permitId\", \"rawDataId\", \"resourceType\", \"retryCount\", \"sharedWithIds\",\n    \"sourceId\", \"sourceResponse\"\n]\n\n// \"present\" = not null. An explicit \"\", [] or [:] counts as a real value.\ndef present = { v -> v != null }\n\nreturn FIELDS.collectEntries { f ->\n    [(f): present(inputMap[f]) ? inputMap[f] : fetched[f]]\n}",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"fetchedData":{
+						"additional":"{{ n_EUy1F.outputs.properties.additional }}",
+						"attachments":{
+							"items":"{{ n_EUy1F.outputs.properties.additional.attachments[0] }}",
+							"source":"{{ n_EUy1F.outputs.properties.additional.attachments }}",
+							"ua:type":"mappedArray"
+						},
+						"channelModifiedTime":"{{ n_EUy1F.outputs.properties.sourceDetails.modifiedTime }}",
+						"indexerAutomation":"{{ n_EUy1F.outputs.properties.additional.indexerAutomationId }}",
+						"knowledgeId":"{{ n_EUy1F.outputs.properties.knowledgeId }}",
+						"knowledgeSetId":"{{ n_EUy1F.outputs.properties.knowledgeSetId }}",
+						"knowledgeVersion":"{{ n_EUy1F.outputs.properties.knowledgeVersion }}",
+						"lastDownloadedTime":"{{ n_EUy1F.outputs.properties.lastDownloadedTime }}",
+						"lastProcessedTime":"{{ n_EUy1F.outputs.properties.lastProcessedTime }}",
+						"metadata":"{{ n_EUy1F.outputs.properties.metadata }}",
+						"onlyMetadataModified":"{{ n_EUy1F.outputs.properties.onlyMetadataModified }}",
+						"rawDataId":"{{ n_EUy1F.outputs.properties.id }}",
+						"resourceType":"{{ n_EUy1F.outputs.properties.resourceType }}",
+						"retryCount":"{{ n_EUy1F.outputs.properties.retryCount }}",
+						"sharedWithIds":{
+							"items":"{{ n_EUy1F.outputs.properties.sharedWithIds[0] }}",
+							"source":"{{ n_EUy1F.outputs.properties.sharedWithIds }}",
+							"ua:type":"mappedArray"
+						},
+						"sourceId":"{{ n_EUy1F.outputs.properties.sourceDetails.sourceId }}",
+						"sourceResponse":"{{ n_EUy1F.outputs.properties.sourceResponse }}"
+					},
+					"input":{
+						"additional":"{{ n_YFuhI.outputs.additional }}",
+						"attachments":{
+							"items":"{{ n_YFuhI.outputs.attachments[0] }}",
+							"source":"{{ n_YFuhI.outputs.attachments }}",
+							"ua:type":"mappedArray"
+						},
+						"channelModifiedTime":"{{ n_YFuhI.outputs.channelModifiedTime }}",
+						"copyFromRawDataId":"{{ n_YFuhI.outputs.copyFromRawDataId }}",
+						"hasPendingSourceMatch":"{{ n_YFuhI.outputs.hasPendingSourceMatch }}",
+						"indexerAutomation":"{{ n_YFuhI.outputs.indexerAutomation }}",
+						"indexingStartTime":"{{ n_YFuhI.outputs.indexingStartTime }}",
+						"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
+						"knowledgeSetId":"{{ n_YFuhI.outputs.knowledgeSetId }}",
+						"knowledgeType":"{{ n_YFuhI.outputs.knowledgeType }}",
+						"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
+						"lastDownloadedTime":"{{ n_YFuhI.outputs.lastDownloadedTime }}",
+						"lastProcessedTime":"{{ n_YFuhI.outputs.lastProcessedTime }}",
+						"metadata":"{{ n_YFuhI.outputs.metadata }}",
+						"onlyMetadataModified":"{{ n_YFuhI.outputs.onlyMetadataModified }}",
+						"permitId":"{{ n_YFuhI.outputs.permitId }}",
+						"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}",
+						"resourceType":"{{ n_YFuhI.outputs.resourceType }}",
+						"retryCount":"{{ n_YFuhI.outputs.retryCount }}",
+						"sharedWithIds":{
+							"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}",
+							"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
+							"ua:type":"mappedArray"
+						},
+						"sourceId":"{{ n_YFuhI.outputs.sourceId }}",
+						"sourceResponse":"{{ n_YFuhI.outputs.sourceResponse }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"create inputs",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":16,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -1065,7 +1628,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_l0Td3",
-			"index":2,
+			"index":5,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1094,7 +1657,7 @@
 				}
 			},
 			"inputs":{
-				"copyFromRawDataId":"{{ n_YFuhI.outputs.copyFromRawDataId }}"
+				"copyFromRawDataId":"{{ n_zqHuA.outputs.result.copyFromRawDataId }}"
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -1139,7 +1702,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_bK74v",
-			"index":3,
+			"index":6,
 			"inputs":{
 				"code":"import com.unifyapps.infra.utils.EnvUtils;\nreturn ['host': EnvUtils.getHostName()]",
 				"compile_static":false,
@@ -1162,7 +1725,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_3u6JT",
-			"index":4,
+			"index":7,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1198,9 +1761,9 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
-					"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
-					"uniqueEntityId":"{{ n_YFuhI.outputs.rawDataId }}"
+					"knowledgeId":"{{ n_zqHuA.outputs.result.knowledgeId }}",
+					"knowledgeVersion":"{{ n_zqHuA.outputs.result.knowledgeVersion }}",
+					"uniqueEntityId":"{{ n_zqHuA.outputs.result.rawDataId }}"
 				}
 			},
 			"skip":false,
@@ -1220,7 +1783,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_7PnWy",
-			"index":5,
+			"index":8,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1256,7 +1819,7 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"dataType":"{{ n_YFuhI.outputs.resourceType }}",
+					"dataType":"{{ n_zqHuA.outputs.result.resourceType }}",
 					"fileBulkhead":"{{ __ENV__.outputs.FILE_KNOWLEDGE_RAW_DATA_INDEXER_BULKHEAD }}",
 					"rawDataIndexerBulkheadLimit":"{{ __ENV__.outputs.KNOWLEDGE_RAW_DATA_INDEXER_BULKHEAD }}"
 				}
@@ -1278,7 +1841,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_AbsTo",
-			"index":6,
+			"index":9,
 			"inputs":{
 				"variableSchema":{
 					"additionalProperties":false,
@@ -1309,7 +1872,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_4v2UJ",
-			"index":7,
+			"index":10,
 			"inputs":{
 				"filters":[
 					{
@@ -1339,7 +1902,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_4v2UJ@_hNHYl-1@y",
 			"id":"n_F5Qaq",
-			"index":8,
+			"index":11,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1370,12 +1933,12 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"n_4v2UJ@_hNHYl-1@y",
 			"id":"n_dUOM6",
-			"index":9,
+			"index":12,
 			"inputs":{
-				"recordId":"{{ n_YFuhI.outputs.rawDataId }}_{{ n_YFuhI.outputs.lastDownloadedTime }}",
+				"recordId":"{{ n_zqHuA.outputs.result.rawDataId }}_{{ n_zqHuA.outputs.result.lastDownloadedTime }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"webhook_latency_metrics",
 				"skipIfBlank":false,
@@ -1389,6 +1952,61 @@
 				],
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -1407,35 +2025,35 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_hNHYl-1",
 			"id":"n_eUfLg",
-			"index":10,
+			"index":13,
 			"inputs":{
 				"automationId":"69bfe543403fbe16e1cf5c55",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
-					"additional":"{{ n_YFuhI.outputs.additional }}",
-					"channelModifiedTime":"{{ n_YFuhI.outputs.channelModifiedTime }}",
-					"indexerAutomation":"{{ n_YFuhI.outputs.indexerAutomation }}",
-					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
-					"knowledgeSetId":"{{ n_YFuhI.outputs.knowledgeSetId }}",
-					"knowledgeType":"{{ n_YFuhI.outputs.knowledgeType }}",
-					"knowledgeVersion":"{{ n_YFuhI.outputs.knowledgeVersion }}",
-					"lastDownloadedTime":"{{ n_YFuhI.outputs.lastDownloadedTime }}",
-					"lastProcessedTime":"{{ n_YFuhI.outputs.lastProcessedTime }}",
-					"metadata":"{{ n_YFuhI.outputs.metadata }}",
-					"onlyMetadataModified":"{{ n_YFuhI.outputs.onlyMetadataModified }}",
-					"permitId":"{{ n_YFuhI.outputs.permitId }}",
-					"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}",
-					"resourceType":"{{ n_YFuhI.outputs.resourceType }}",
-					"retryCount":"{{ n_YFuhI.outputs.retryCount }}",
+					"additional":"{{ n_zqHuA.outputs.result.additional }}",
+					"channelModifiedTime":"{{ n_zqHuA.outputs.result.channelModifiedTime }}",
+					"indexerAutomation":"{{ n_zqHuA.outputs.result.indexerAutomation }}",
+					"knowledgeId":"{{ n_zqHuA.outputs.result.knowledgeId }}",
+					"knowledgeSetId":"{{ n_zqHuA.outputs.result.knowledgeSetId }}",
+					"knowledgeType":"{{ n_zqHuA.outputs.result.knowledgeType }}",
+					"knowledgeVersion":"{{ n_zqHuA.outputs.result.knowledgeVersion }}",
+					"lastDownloadedTime":"{{ n_zqHuA.outputs.result.lastDownloadedTime }}",
+					"lastProcessedTime":"{{ n_zqHuA.outputs.result.lastProcessedTime }}",
+					"metadata":"{{ n_zqHuA.outputs.result.metadata }}",
+					"onlyMetadataModified":"{{ n_zqHuA.outputs.result.onlyMetadataModified }}",
+					"permitId":"{{ n_zqHuA.outputs.result.permitId }}",
+					"rawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}",
+					"resourceType":"{{ n_zqHuA.outputs.result.resourceType }}",
+					"retryCount":"{{ n_zqHuA.outputs.result.retryCount }}",
 					"sanitizedRawDataId":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}",
 					"sharedWithIds":{
-						"items":"{{ n_YFuhI.outputs.sharedWithIds[0] }}",
-						"source":"{{ n_YFuhI.outputs.sharedWithIds }}",
+						"items":"{{ n_zqHuA.outputs.result.sharedWithIds[0] }}",
+						"source":"{{ n_zqHuA.outputs.result.sharedWithIds }}",
 						"ua:type":"mappedArray"
 					},
-					"sourceResponse":"{{ n_YFuhI.outputs.sourceResponse }}"
+					"sourceResponse":"{{ n_zqHuA.outputs.result.sourceResponse }}"
 				},
 				"version":"-1",
 				"executeOnSameVM":false
@@ -1512,7 +2130,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_eUfLg@_hNHYl-1@error",
 			"id":"_uPQvz",
-			"index":11,
+			"index":14,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -1520,7 +2138,7 @@
 						{
 							"filter":{
 								"operator":"EQUAL",
-								"value":"{{ n_YFuhI.outputs.rawDataId }}"
+								"value":"{{ n_zqHuA.outputs.result.rawDataId }}"
 							},
 							"property":"id"
 						}
@@ -1560,7 +2178,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_eUfLg@_hNHYl-1@error",
 			"id":"_7UMZ0",
-			"index":12,
+			"index":15,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -1592,9 +2210,9 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"bulkheadLimit":"{{ n_7PnWy.outputs.result.rawDataIndexerBulkheadLimit }}",
-					"dataType":"{{ n_YFuhI.outputs.resourceType }}",
+					"dataType":"{{ n_zqHuA.outputs.result.resourceType }}",
 					"knowledgeFlowType":"{{ n_AbsTo.outputs.knowledgeFlowType }}",
-					"permitId":"{{ n_YFuhI.outputs.permitId }}"
+					"permitId":"{{ n_zqHuA.outputs.result.permitId }}"
 				}
 			},
 			"options":{
@@ -1669,7 +2287,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_eUfLg@_hNHYl-1@error",
 			"id":"_eDxKl",
-			"index":13,
+			"index":16,
 			"inputs":{
 				"result":{
 					"success":true
@@ -1692,7 +2310,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_8YRzq",
-			"index":14,
+			"index":17,
 			"inputs":{
 				"filters":[
 					{
@@ -1722,7 +2340,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_8YRzq@_hNHYl-1@y",
 			"id":"_yQlLy",
-			"index":15,
+			"index":18,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -1754,9 +2372,9 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"bulkheadLimit":"{{ n_7PnWy.outputs.result.rawDataIndexerBulkheadLimit }}",
-					"dataType":"{{ n_YFuhI.outputs.resourceType }}",
+					"dataType":"{{ n_zqHuA.outputs.result.resourceType }}",
 					"knowledgeFlowType":"{{ n_AbsTo.outputs.knowledgeFlowType }}",
-					"permitId":"{{ n_YFuhI.outputs.permitId }}"
+					"permitId":"{{ n_zqHuA.outputs.result.permitId }}"
 				}
 			},
 			"options":{
@@ -1831,7 +2449,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_8YRzq@_hNHYl-1@y",
 			"id":"_qNS3w",
-			"index":16,
+			"index":19,
 			"inputs":{
 				"result":{
 					"success":true
@@ -1854,7 +2472,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_ONCQy",
-			"index":17,
+			"index":20,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1872,7 +2490,7 @@
 				}
 			},
 			"inputs":{
-				"channelModifiedTime":"{{ n_YFuhI.outputs.channelModifiedTime }}"
+				"channelModifiedTime":"{{ n_zqHuA.outputs.result.channelModifiedTime }}"
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -1906,7 +2524,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_dzpzC",
-			"index":18,
+			"index":21,
 			"inputs":{
 				"filters":[
 					{
@@ -1921,7 +2539,7 @@
 							"operator":"EQUAL",
 							"value":"personal"
 						},
-						"property":"{{ n_YFuhI.outputs.knowledgeType }}"
+						"property":"{{ n_zqHuA.outputs.result.knowledgeType }}"
 					}
 				],
 				"operator":"AND"
@@ -1943,7 +2561,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_dzpzC@_hNHYl-1@y",
 			"id":"_X8Vag",
-			"index":19,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1990,9 +2608,9 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"key":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}_{{ n_YFuhI.outputs.channelModifiedTime }}",
-					"resourceType":"{{ n_YFuhI.outputs.resourceType }}",
-					"uniqueEntityId":"{{ n_YFuhI.outputs.rawDataId }}",
+					"key":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}_{{ n_zqHuA.outputs.result.channelModifiedTime }}",
+					"resourceType":"{{ n_zqHuA.outputs.result.resourceType }}",
+					"uniqueEntityId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 					"userId":"{{ __USER__.outputs.id }}"
 				}
 			},
@@ -2013,7 +2631,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_dzpzC@_hNHYl-1@y",
 			"id":"_Xzs1y",
-			"index":20,
+			"index":23,
 			"inputs":{
 				"filters":[
 					{
@@ -2043,7 +2661,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_Xzs1y@n_dzpzC@_hNHYl-1@y@y",
 			"id":"_G7WWJ",
-			"index":21,
+			"index":24,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -2075,9 +2693,9 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"bulkheadLimit":"{{ n_7PnWy.outputs.result.rawDataIndexerBulkheadLimit }}",
-					"dataType":"{{ n_YFuhI.outputs.resourceType }}",
+					"dataType":"{{ n_zqHuA.outputs.result.resourceType }}",
 					"knowledgeFlowType":"{{ n_AbsTo.outputs.knowledgeFlowType }}",
-					"permitId":"{{ n_YFuhI.outputs.permitId }}"
+					"permitId":"{{ n_zqHuA.outputs.result.permitId }}"
 				}
 			},
 			"options":{
@@ -2152,7 +2770,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Xzs1y@n_dzpzC@_hNHYl-1@y@y",
 			"id":"n_NK1wa",
-			"index":22,
+			"index":25,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -2160,7 +2778,7 @@
 						{
 							"filter":{
 								"operator":"EQUAL",
-								"value":"{{ n_YFuhI.outputs.rawDataId }}"
+								"value":"{{ n_zqHuA.outputs.result.rawDataId }}"
 							},
 							"property":"id"
 						}
@@ -2200,7 +2818,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Xzs1y@n_dzpzC@_hNHYl-1@y@y",
 			"id":"_v3nAI",
-			"index":23,
+			"index":26,
 			"inputs":{
 				"result":{
 					"success":true
@@ -2223,7 +2841,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_nydcG",
-			"index":24,
+			"index":27,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2271,8 +2889,8 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"params":"{{ n_YFuhI.outputs }}",
-					"resourceType":"{{ n_YFuhI.outputs.resourceType }}"
+					"params":"{{ n_zqHuA.outputs.result }}",
+					"resourceType":"{{ n_zqHuA.outputs.result.resourceType }}"
 				}
 			},
 			"skip":false,
@@ -2292,7 +2910,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_etp8V",
-			"index":25,
+			"index":28,
 			"inputs":{
 				"filters":[
 					{
@@ -2313,7 +2931,13 @@
 							"operator":"EQUAL",
 							"value":"true"
 						},
-						"property":"{{ n_YFuhI.outputs.hasPendingSourceMatch }}"
+						"property":"{{ n_zqHuA.outputs.result.hasPendingSourceMatch }}"
+					},
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_zqHuA.outputs.result.sourceId }}"
 					}
 				],
 				"operator":"AND"
@@ -2335,7 +2959,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_etp8V@_hNHYl-1@y",
 			"id":"n_x7cUd",
-			"index":26,
+			"index":29,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -2349,7 +2973,7 @@
 						{
 							"filter":{
 								"operator":"EQUAL",
-								"value":"{{ n_YFuhI.outputs.sourceId }}"
+								"value":"{{ n_zqHuA.outputs.result.sourceId }}"
 							},
 							"property":"properties_sourceDetails_sourceId"
 						}
@@ -2405,7 +3029,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_etp8V@_hNHYl-1@y",
 			"id":"n_pa8HH",
-			"index":27,
+			"index":30,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2450,8 +3074,8 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"attachments":{
-						"items":"{{ n_YFuhI.outputs.attachments[0] }}",
-						"source":"{{ n_YFuhI.outputs.attachments }}",
+						"items":"{{ n_zqHuA.outputs.result.attachments[0] }}",
+						"source":"{{ n_zqHuA.outputs.result.attachments }}",
 						"ua:type":"mappedArray"
 					},
 					"fileDetails":"{{ n_x7cUd.outputs.properties.additional.fileDetails }}"
@@ -2474,7 +3098,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_etp8V@_hNHYl-1@y",
 			"id":"n_3P8P3",
-			"index":28,
+			"index":31,
 			"inputs":{
 				"variables":[
 					{
@@ -2513,7 +3137,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_etp8V@_hNHYl-1@n",
 			"id":"n_kwDuH",
-			"index":29,
+			"index":32,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2557,10 +3181,10 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"additional":"{{ n_YFuhI.outputs.additional }}",
+					"additional":"{{ n_zqHuA.outputs.result.additional }}",
 					"attachments":{
-						"items":"{{ n_YFuhI.outputs.attachments[0] }}",
-						"source":"{{ n_YFuhI.outputs.attachments }}",
+						"items":"{{ n_zqHuA.outputs.result.attachments[0] }}",
+						"source":"{{ n_zqHuA.outputs.result.attachments }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -2582,7 +3206,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_etp8V@_hNHYl-1@n",
 			"id":"n_Yk9f7",
-			"index":30,
+			"index":33,
 			"inputs":{
 				"variables":[
 					{
@@ -2612,7 +3236,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_o4NlM",
-			"index":31,
+			"index":34,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2664,7 +3288,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_hNHYl-1",
 			"id":"n_9wnAp",
-			"index":32,
+			"index":35,
 			"inputs":{
 				"automationId":"{{ n_nydcG.outputs.result.automationToCall }}",
 				"runtimeConnections":"",
@@ -2745,7 +3369,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@success",
 			"id":"n_g3NI2",
-			"index":33,
+			"index":36,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2779,7 +3403,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@success",
 			"id":"n_fytdf",
-			"index":34,
+			"index":37,
 			"inputs":{
 				"filters":[
 					{
@@ -2815,9 +3439,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_fytdf@n_9wnAp@_hNHYl-1@success@y",
 			"id":"n_eeBmm",
-			"index":35,
+			"index":38,
 			"inputs":{
-				"recordId":"{{ n_YFuhI.outputs.rawDataId }}",
+				"recordId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_raw_data_store",
 				"skipIfBlank":false,
@@ -2842,8 +3466,14 @@
 						"actionType":"UNSET",
 						"fieldName":"properties.sourceResponse",
 						"setValue":"-"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.lastProcessingStartTime",
+						"setValue":"{{ n_zqHuA.outputs.result.indexingStartTime }}"
 					}
 				],
+				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
@@ -2869,9 +3499,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_fytdf@n_9wnAp@_hNHYl-1@success@n",
 			"id":"_oqu2q",
-			"index":36,
+			"index":39,
 			"inputs":{
-				"recordId":"{{ n_YFuhI.outputs.rawDataId }}",
+				"recordId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_raw_data_store",
 				"skipIfBlank":false,
@@ -2891,8 +3521,14 @@
 						"actionType":"SET",
 						"fieldName":"properties.onlyMetadataModified",
 						"setValue":"false"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.lastProcessingStartTime",
+						"setValue":"{{ n_zqHuA.outputs.result.indexingStartTime }}"
 					}
 				],
+				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
@@ -2912,14 +3548,32 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@success",
 			"id":"n_Buwes",
-			"index":37,
+			"index":40,
 			"inputs":{
 				"filters":[
 					{
 						"filter":{
 							"operator":"EXISTS"
 						},
-						"property":"{{ n_YFuhI.outputs.lastProcessedTime }}"
+						"property":"{{ n_zqHuA.outputs.result.lastProcessedTime }}"
+					},
+					{
+						"filters":[
+							{
+								"filter":{
+									"operator":"MISSING"
+								},
+								"property":"{{ n_zqHuA.outputs.result.onlyMetadataModified }}"
+							},
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"false"
+								},
+								"property":"{{ n_zqHuA.outputs.result.onlyMetadataModified }}"
+							}
+						],
+						"operator":"OR"
 					}
 				],
 				"operator":"AND"
@@ -2948,19 +3602,21 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Buwes@n_9wnAp@_hNHYl-1@success@y",
 			"id":"_tFgtn",
-			"index":38,
+			"index":41,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"raw_data_delete_store",
 				"skipIfBlank":false,
 				"record":{
 					"deleteBeforeTime":"{{ n_nydcG.outputs.result.currentTime }}",
-					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
-					"knowledgeType":"{{ n_YFuhI.outputs.knowledgeType }}",
+					"knowledgeId":"{{ n_zqHuA.outputs.result.knowledgeId }}",
+					"knowledgeType":"{{ n_zqHuA.outputs.result.knowledgeType }}",
 					"ownerUserId":"{{ __USER__.outputs.id }}",
-					"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}"
+					"rawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}"
 				},
+				"useUuid":false,
 				"batching":false
 			},
 			"skip":false,
@@ -2980,7 +3636,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@success",
 			"id":"n_sPWDM",
-			"index":39,
+			"index":42,
 			"inputs":{
 				"filters":[
 					{
@@ -2994,7 +3650,7 @@
 						"filter":{
 							"operator":"EXISTS"
 						},
-						"property":"{{ n_YFuhI.outputs.additional.fileDetails }}"
+						"property":"{{ n_zqHuA.outputs.result.additional.fileDetails }}"
 					}
 				],
 				"operator":"AND"
@@ -3016,17 +3672,18 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_sPWDM@n_9wnAp@_hNHYl-1@success@y",
 			"id":"n_CwTnk",
-			"index":40,
+			"index":43,
 			"inputs":{
 				"automationId":"6998219daead1d0a392a2454",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
-					"fileDetails":"{{ n_YFuhI.outputs.additional.fileDetails }}",
-					"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}"
+					"fileDetails":"{{ n_zqHuA.outputs.result.additional.fileDetails }}",
+					"rawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"delete file from s3",
@@ -3045,7 +3702,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@success",
 			"id":"n_JeLMx",
-			"index":41,
+			"index":44,
 			"inputs":{
 				"filters":[
 					{
@@ -3072,12 +3729,12 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"n_JeLMx@n_9wnAp@_hNHYl-1@success@y",
 			"id":"n_30YVX",
-			"index":42,
+			"index":45,
 			"inputs":{
-				"recordId":"{{ n_YFuhI.outputs.rawDataId }}_{{ n_YFuhI.outputs.lastDownloadedTime }}",
+				"recordId":"{{ n_zqHuA.outputs.result.rawDataId }}_{{ n_zqHuA.outputs.result.lastDownloadedTime }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"webhook_latency_metrics",
 				"skipIfBlank":false,
@@ -3091,6 +3748,61 @@
 				],
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -3109,7 +3821,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"n_aNWFQ",
-			"index":43,
+			"index":46,
 			"inputs":{
 				"filters":[
 					{
@@ -3117,7 +3829,7 @@
 							"operator":"LT",
 							"value":"3"
 						},
-						"property":"=({{ n_YFuhI.outputs.retryCount }}+1)"
+						"property":"=({{ n_zqHuA.outputs.result.retryCount }}+1)"
 					}
 				],
 				"operator":"AND"
@@ -3145,9 +3857,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@y",
 			"id":"_fR1Yi",
-			"index":44,
+			"index":47,
 			"inputs":{
-				"recordId":"{{ n_YFuhI.outputs.rawDataId }}",
+				"recordId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_raw_data_store",
 				"skipIfBlank":false,
@@ -3156,7 +3868,7 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.retryCount",
-						"setValue":"=({{ n_YFuhI.outputs.retryCount }}+1)"
+						"setValue":"=({{ n_zqHuA.outputs.result.retryCount }}+1)"
 					},
 					{
 						"actionType":"SET",
@@ -3164,6 +3876,7 @@
 						"setValue":"{{ n_9wnAp.outputs }}"
 					}
 				],
+				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
@@ -3188,7 +3901,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@n",
 			"id":"_zH2N7",
-			"index":45,
+			"index":48,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3222,7 +3935,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@n",
 			"id":"n_LxuU0",
-			"index":46,
+			"index":49,
 			"inputs":{
 				"outputSchema":{
 					"additionalProperties":false,
@@ -3235,7 +3948,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"query":"SELECT id FROM WORKFLOW_EXECUTION \nWHERE workflowId = '{{ n_YFuhI.outputs.indexerAutomation }}' \n  AND JSON_QUERY(startNodeOutput, '$.knowledgeId') = '{{ n_YFuhI.outputs.knowledgeId }}' \n  AND status = 'FAILED' \n  AND endTime >= UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 MINUTE)) * 1000\nORDER BY startTime DESC\nLIMIT 1;",
+				"query":"SELECT id FROM WORKFLOW_EXECUTION \nWHERE workflowId = '{{ n_zqHuA.outputs.result.indexerAutomation }}' \n  AND JSON_QUERY(startNodeOutput, '$.knowledgeId') = '{{ n_zqHuA.outputs.result.knowledgeId }}' \n  AND status = 'FAILED' \n  AND endTime >= UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 MINUTE)) * 1000\nORDER BY startTime DESC\nLIMIT 1;",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":true,
@@ -3261,9 +3974,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@n",
 			"id":"_7DkYu",
-			"index":47,
+			"index":50,
 			"inputs":{
-				"recordId":"{{ n_YFuhI.outputs.rawDataId }}",
+				"recordId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_raw_data_store",
 				"skipIfBlank":false,
@@ -3272,7 +3985,7 @@
 					{
 						"actionType":"SET",
 						"fieldName":"properties.retryCount",
-						"setValue":"=({{ n_YFuhI.outputs.retryCount }}+1)"
+						"setValue":"=({{ n_zqHuA.outputs.result.retryCount }}+1)"
 					},
 					{
 						"actionType":"SET",
@@ -3295,6 +4008,7 @@
 						"setValue":"{{ n_nydcG.outputs.result.automationToCall }}"
 					}
 				],
+				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
@@ -3314,7 +4028,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@n",
 			"id":"_npWCk",
-			"index":48,
+			"index":51,
 			"inputs":{
 				"filters":[
 					{
@@ -3328,12 +4042,12 @@
 						"filter":{
 							"operator":"EXISTS"
 						},
-						"property":"{{ n_YFuhI.outputs.additional.fileDetails }}"
+						"property":"{{ n_zqHuA.outputs.result.additional.fileDetails }}"
 					}
 				],
 				"operator":"AND"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
@@ -3350,19 +4064,20 @@
 			"fallbackMode":"STOP",
 			"groupId":"_npWCk@n_aNWFQ@n_9wnAp@_hNHYl-1@error@n@y",
 			"id":"_WwKnj",
-			"index":49,
+			"index":52,
 			"inputs":{
 				"automationId":"6998219daead1d0a392a2454",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
-					"fileDetails":"{{ n_YFuhI.outputs.additional.fileDetails }}",
-					"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}"
+					"fileDetails":"{{ n_zqHuA.outputs.result.additional.fileDetails }}",
+					"rawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"delete file from s3",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
@@ -3379,7 +4094,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"_1DoYO",
-			"index":50,
+			"index":53,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -3411,9 +4126,9 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"bulkheadLimit":"{{ n_7PnWy.outputs.result.rawDataIndexerBulkheadLimit }}",
-					"dataType":"{{ n_YFuhI.outputs.resourceType }}",
+					"dataType":"{{ n_zqHuA.outputs.result.resourceType }}",
 					"knowledgeFlowType":"{{ n_AbsTo.outputs.knowledgeFlowType }}",
-					"permitId":"{{ n_YFuhI.outputs.permitId }}"
+					"permitId":"{{ n_zqHuA.outputs.result.permitId }}"
 				}
 			},
 			"options":{
@@ -3493,7 +4208,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"_GGvUf",
-			"index":51,
+			"index":54,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3534,7 +4249,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"_IfAUw",
-			"index":52,
+			"index":55,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -3542,10 +4257,10 @@
 				"skipIfBlank":false,
 				"record":{
 					"deleteBeforeTime":"{{ _GGvUf.outputs.result.currentTime }}",
-					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
-					"knowledgeType":"{{ n_YFuhI.outputs.knowledgeType }}",
+					"knowledgeId":"{{ n_zqHuA.outputs.result.knowledgeId }}",
+					"knowledgeType":"{{ n_zqHuA.outputs.result.knowledgeType }}",
 					"ownerUserId":"{{ __USER__.outputs.id }}",
-					"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}"
+					"rawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}"
 				},
 				"batching":false
 			},
@@ -3566,7 +4281,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"_pA7xs",
-			"index":53,
+			"index":56,
 			"inputs":{
 				"filters":[
 					{
@@ -3581,7 +4296,7 @@
 							"operator":"EQUAL",
 							"value":"personal"
 						},
-						"property":"{{ n_YFuhI.outputs.knowledgeType }}"
+						"property":"{{ n_zqHuA.outputs.result.knowledgeType }}"
 					}
 				],
 				"operator":"AND"
@@ -3603,7 +4318,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_pA7xs@n_9wnAp@_hNHYl-1@error@y",
 			"id":"n_UO8Lc",
-			"index":54,
+			"index":57,
 			"inputs":{
 				"automationId":"69c0e89be90d1a5d9e88a0d6",
 				"runtimeConnections":{},
@@ -3611,7 +4326,7 @@
 				"parameters":{
 					"channelId":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}",
 					"channelModifiedTime":"{{ n_ONCQy.outputs.channelModifiedTime }}",
-					"uniqueEntityId":"{{ n_YFuhI.outputs.rawDataId }}",
+					"uniqueEntityId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 					"userId":"{{ __USER__.outputs.id }}"
 				},
 				"version":"-1"
@@ -3633,7 +4348,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_pA7xs@n_9wnAp@_hNHYl-1@error@y",
 			"id":"_5CvUz",
-			"index":55,
+			"index":58,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3665,7 +4380,7 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"key":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}_{{ n_YFuhI.outputs.channelModifiedTime }}"
+					"key":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}_{{ n_zqHuA.outputs.result.channelModifiedTime }}"
 				}
 			},
 			"skip":false,
@@ -3685,7 +4400,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"n_9htay",
-			"index":56,
+			"index":59,
 			"inputs":{
 				"result":{
 					"success":false
@@ -3708,7 +4423,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"_PHLJk",
-			"index":57,
+			"index":60,
 			"inputs":{
 				"filters":[
 					{
@@ -3723,7 +4438,7 @@
 							"operator":"EQUAL",
 							"value":"personal"
 						},
-						"property":"{{ n_YFuhI.outputs.knowledgeType }}"
+						"property":"{{ n_zqHuA.outputs.result.knowledgeType }}"
 					}
 				],
 				"operator":"AND"
@@ -3745,7 +4460,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_PHLJk@_hNHYl-1@y",
 			"id":"n_NNCJu",
-			"index":58,
+			"index":61,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3781,7 +4496,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_PHLJk@_hNHYl-1@y",
 			"id":"n_XXsJc",
-			"index":59,
+			"index":62,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -3789,9 +4504,9 @@
 				"skipIfBlank":false,
 				"record":{
 					"channelId":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}",
-					"channelModifiedTime":"{{ n_YFuhI.outputs.channelModifiedTime }}",
+					"channelModifiedTime":"{{ n_zqHuA.outputs.result.channelModifiedTime }}",
 					"chunkId":"{{ n_NNCJu.outputs.result.recordId }}",
-					"indexedRawDataId":"{{ n_YFuhI.outputs.rawDataId }}",
+					"indexedRawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}",
 					"indexingCompleted":true
 				},
 				"useUuid":false,
@@ -3814,7 +4529,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_PHLJk@_hNHYl-1@y",
 			"id":"_djXno",
-			"index":60,
+			"index":63,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -3846,7 +4561,7 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"key":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}_{{ n_YFuhI.outputs.channelModifiedTime }}"
+					"key":"{{ n_3u6JT.outputs.result.sanitizedUniqueEntityId }}_{{ n_zqHuA.outputs.result.channelModifiedTime }}"
 				}
 			},
 			"skip":false,
@@ -3866,7 +4581,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_hNHYl-1",
 			"id":"n_53vJL",
-			"index":61,
+			"index":64,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -3898,9 +4613,9 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"bulkheadLimit":"{{ n_7PnWy.outputs.result.rawDataIndexerBulkheadLimit }}",
-					"dataType":"{{ n_YFuhI.outputs.resourceType }}",
+					"dataType":"{{ n_zqHuA.outputs.result.resourceType }}",
 					"knowledgeFlowType":"{{ n_AbsTo.outputs.knowledgeFlowType }}",
-					"permitId":"{{ n_YFuhI.outputs.permitId }}"
+					"permitId":"{{ n_zqHuA.outputs.result.permitId }}"
 				}
 			},
 			"options":{
@@ -3975,13 +4690,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_JV6PM",
-			"index":62,
+			"index":65,
 			"inputs":{
 				"object_type":"knowledge",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
-				"id":"{{ n_YFuhI.outputs.knowledgeId }}",
+				"id":"{{ n_zqHuA.outputs.result.knowledgeId }}",
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
@@ -4001,7 +4716,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_J69Fc",
-			"index":63,
+			"index":66,
 			"inputs":{
 				"filters":[
 					{
@@ -4027,7 +4742,7 @@
 							"operator":"IN",
 							"value":"{{ n_JV6PM.outputs.properties.allowedResourceTypesForObject }}"
 						},
-						"property":"=LOWER({{ n_YFuhI.outputs.resourceType }})"
+						"property":"=LOWER({{ n_zqHuA.outputs.result.resourceType }})"
 					}
 				],
 				"operator":"AND"
@@ -4049,9 +4764,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_J69Fc@_hNHYl-1@y",
 			"id":"n_qZ3b2",
-			"index":64,
+			"index":67,
 			"inputs":{
-				"rawRecord":"{{ n_YFuhI.outputs.sourceResponse }}",
+				"rawRecord":"{{ n_zqHuA.outputs.result.sourceResponse }}",
 				"publishedObjectDiscoveryConfigId":"{{ n_JV6PM.outputs.properties.publishedObjectDiscoveryConfigId }}"
 			},
 			"skip":false,
@@ -4071,7 +4786,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_J69Fc@_hNHYl-1@y",
 			"id":"n_8a2Od",
-			"index":65,
+			"index":68,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4123,7 +4838,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_J69Fc@_hNHYl-1@y",
 			"id":"n_w9KWd",
-			"index":66,
+			"index":69,
 			"inputs":{
 				"filters":[
 					{
@@ -4153,7 +4868,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_w9KWd@n_J69Fc@_hNHYl-1@y@y",
 			"id":"n_v84ZE",
-			"index":67,
+			"index":70,
 			"inputs":{
 				"filter":{
 					"filters":[
@@ -4197,7 +4912,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_w9KWd@n_J69Fc@_hNHYl-1@y@y",
 			"id":"n_PORCR",
-			"index":68,
+			"index":71,
 			"inputs":{
 				"filters":[
 					{
@@ -4227,7 +4942,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y",
 			"id":"n_tx4wQ",
-			"index":69,
+			"index":72,
 			"inputs":{
 				"rawRecord":"{{ n_qZ3b2.outputs.record }}",
 				"files":{
@@ -4254,7 +4969,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y",
 			"id":"n_Ga9ZK",
-			"index":70,
+			"index":73,
 			"inputs":{
 				"filters":[
 					{
@@ -4284,7 +4999,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Ga9ZK@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@y",
 			"id":"n_C6zsI",
-			"index":71,
+			"index":74,
 			"inputs":{
 				"input":{
 					"additionalProperties":false,
@@ -4305,8 +5020,8 @@
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"knowledgeId":"{{ n_YFuhI.outputs.knowledgeId }}",
-					"rawDataId":"{{ n_YFuhI.outputs.rawDataId }}"
+					"knowledgeId":"{{ n_zqHuA.outputs.result.knowledgeId }}",
+					"rawDataId":"{{ n_zqHuA.outputs.result.rawDataId }}"
 				}
 			},
 			"options":{
@@ -4378,7 +5093,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y",
 			"id":"n_l4cit",
-			"index":72,
+			"index":75,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_tx4wQ.outputs.types }}",
@@ -4401,7 +5116,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_l4cit@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@l",
 			"id":"n_jD3pf",
-			"index":73,
+			"index":76,
 			"inputs":{
 				"rawRecord":"{{ n_qZ3b2.outputs.record }}",
 				"publishedSourceConfigId":"{{ n_JV6PM.outputs.properties.publishedSourceConfigId }}",
@@ -4486,7 +5201,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_l4cit@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@l",
 			"id":"n_rh271",
-			"index":74,
+			"index":77,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4543,7 +5258,7 @@
 						"ua:type":"mappedArray"
 					},
 					"objectId":"{{ n_l4cit.outputs.item.id }}",
-					"sourceResponse":"{{ n_YFuhI.outputs.sourceResponse }}"
+					"sourceResponse":"{{ n_zqHuA.outputs.result.sourceResponse }}"
 				}
 			},
 			"skip":false,
@@ -4563,7 +5278,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_l4cit@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@l",
 			"id":"n_AGHOT",
-			"index":75,
+			"index":78,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_raw_data_store",
@@ -4576,7 +5291,7 @@
 					},
 					"ua:type":"mappedArray"
 				},
-				"id":"{{ n_YFuhI.outputs.rawDataId }}",
+				"id":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
@@ -4597,13 +5312,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_l4cit@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@l",
 			"id":"n_E3MMp",
-			"index":76,
+			"index":79,
 			"inputs":{
 				"object_type":"knowledge_raw_data_store",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
-				"id":"{{ n_YFuhI.outputs.rawDataId }}",
+				"id":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
@@ -4623,7 +5338,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_l4cit@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@l",
 			"id":"n_iTPyq",
-			"index":77,
+			"index":80,
 			"inputs":{
 				"rawRecord":"{{ n_rh271.outputs.result.enrichedSourceResponse }}",
 				"publishedObjectDiscoveryConfigId":"{{ n_JV6PM.outputs.properties.publishedObjectDiscoveryConfigId }}"
@@ -4652,7 +5367,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_l4cit@n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@y@l",
 			"id":"n_3gRCT",
-			"index":78,
+			"index":81,
 			"inputs":{
 				"fileDetails":"{{ n_E3MMp.outputs.properties.additional.fileDetails }}",
 				"rawRecord":"{{ n_iTPyq.outputs.record }}",
@@ -4683,7 +5398,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@n",
 			"id":"n_RfJ9B",
-			"index":79,
+			"index":82,
 			"inputs":{
 				"rawRecord":"{{ n_qZ3b2.outputs.record }}",
 				"files":{
@@ -4711,7 +5426,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@n",
 			"id":"n_gmfxq",
-			"index":80,
+			"index":83,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -4768,7 +5483,7 @@
 						"ua:type":"mappedArray"
 					},
 					"objectId":"{{ n_JV6PM.outputs.properties.applicationObjectId }}",
-					"sourceResponse":"{{ n_YFuhI.outputs.sourceResponse }}"
+					"sourceResponse":"{{ n_zqHuA.outputs.result.sourceResponse }}"
 				}
 			},
 			"skip":false,
@@ -4788,7 +5503,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@n",
 			"id":"n_Lk4tz",
-			"index":81,
+			"index":84,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge_raw_data_store",
@@ -4801,7 +5516,7 @@
 					},
 					"ua:type":"mappedArray"
 				},
-				"id":"{{ n_YFuhI.outputs.rawDataId }}",
+				"id":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
@@ -4822,13 +5537,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@n",
 			"id":"n_m72Fp",
-			"index":82,
+			"index":85,
 			"inputs":{
 				"object_type":"knowledge_raw_data_store",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
 				"translationsOption":"DEFAULT",
-				"id":"{{ n_YFuhI.outputs.rawDataId }}",
+				"id":"{{ n_zqHuA.outputs.result.rawDataId }}",
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
@@ -4848,7 +5563,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@n",
 			"id":"n_3HJ92",
-			"index":83,
+			"index":86,
 			"inputs":{
 				"rawRecord":"{{ n_m72Fp.outputs.properties.sourceResponse }}",
 				"publishedObjectDiscoveryConfigId":"{{ n_JV6PM.outputs.properties.publishedObjectDiscoveryConfigId }}"
@@ -4877,7 +5592,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PORCR@n_w9KWd@n_J69Fc@_hNHYl-1@y@y@n",
 			"id":"n_fiQuG",
-			"index":84,
+			"index":87,
 			"inputs":{
 				"fileDetails":"{{ n_m72Fp.outputs.properties.additional.fileDetails }}",
 				"rawRecord":"{{ n_3HJ92.outputs.record }}",
@@ -4908,7 +5623,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_w9KWd@n_J69Fc@_hNHYl-1@y@n",
 			"id":"n_1lOMj",
-			"index":85,
+			"index":88,
 			"inputs":{
 				"result":{
 					"success":false
@@ -4931,7 +5646,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_POMRK",
-			"index":86,
+			"index":89,
 			"inputs":{
 				"result":{
 					"success":true
@@ -4951,6 +5666,9 @@
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -4963,5 +5681,5 @@
 		"release_27jan",
 		"release_27jan"
 	],
-	"version":405
+	"version":407
 }
