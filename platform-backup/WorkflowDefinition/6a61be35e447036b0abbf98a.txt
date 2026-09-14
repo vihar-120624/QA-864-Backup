@@ -1,52 +1,49 @@
 {
 	"appsUsed":[
-		"servicenow"
+		
 	],
-	"createdTime":1787744128171,
+	"createdTime":1789395198720,
 	"deleted":false,
-	"deployedVersion":2,
+	"deployedVersion":1,
 	"deploymentState":{
-		"deployedAt":1789395325201,
+		"deployedAt":1789395198768,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6aa8017d72fd792214e8cd72",
+		"deployedDefinitionId":"6aa800fec6a14707f150374f",
 		"status":"DEPLOYED",
-		"version":2,
-		"workflowVersion":34
+		"version":1,
+		"workflowVersion":19
 	},
 	"edges":[
 		{
-			"fromNodeId":"pPS4u",
+			"fromNodeId":"n_fP4J7",
+			"id":"next@n_fP4J7@n_8tGfW",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"NnWmX",
+			"toNodeId":"n_8tGfW",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"NnWmX",
+			"fromNodeId":"n_8tGfW",
+			"id":"next@n_8tGfW@n_sUZPy",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"OWpdX",
+			"toNodeId":"n_sUZPy",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"OWpdX",
+			"fromNodeId":"n_sUZPy",
+			"id":"next@n_sUZPy@n_kb7H4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"PbHBk",
+			"toNodeId":"n_kb7H4",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"PbHBk",
+			"fromNodeId":"n_kb7H4",
+			"id":"next@n_kb7H4@n_7vlPm",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"DrwRM",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"DrwRM",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"RNNw5",
+			"toNodeId":"n_7vlPm",
 			"type":"next"
 		}
 	],
@@ -62,37 +59,59 @@
 			}
 		]
 	},
-	"id":"67dcffd08445037d9b0667e9",
+	"id":"6a61be35e447036b0abbf98a",
 	"lastModifiedBy":-1,
-	"lcName":"knowledge indexer | servicenow | getsharedids (email) parallel_1",
-	"modifiedTime":1789395396226,
-	"name":"Knowledge indexer | ServiceNow | getSharedIds (email) Parallel_1",
+	"lcName":"qa tool | simple call llm (batch)",
+	"modifiedTime":1789395396220,
+	"name":"QA tool | Simple Call LLM (Batch)",
 	"nodes":[
 		{
-			"additional":{
-				"xsdSchemaConfig":{}
-			},
 			"context":{
 				"appName":"callables",
-				"resourceVersion":413,
+				"resourceVersion":1735,
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"vDQFK-1",
-			"id":"pPS4u",
-			"index":0,
+			"groupId":"_rWjci-1",
+			"id":"n_fP4J7",
+			"index":1,
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
 					"properties":{
-						"sharedWithIds":{
+						"fileName":{
+							"title":"fileName",
+							"type":"string"
+						},
+						"issues":{
 							"items":{
-								"type":"string"
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
 							},
-							"title":"Shared With Ids",
+							"title":"issues",
 							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"image":{
+							"title":"image",
+							"type":"object"
+						},
+						"modelID":{
+							"title":"modelID",
+							"type":"string"
+						},
+						"prompt":{
+							"title":"prompt",
+							"type":"string"
 						}
 					},
 					"required":[],
@@ -110,16 +129,16 @@
 		{
 			"context":{
 				"appName":"variable_by_unifyapps",
-				"resourceVersion":62,
+				"resourceVersion":1640,
 				"resourceName":"variable_by_unifyapps_create_list",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"vDQFK-1",
-			"id":"NnWmX",
-			"index":0,
+			"groupId":"_rWjci-1",
+			"id":"n_8tGfW",
+			"index":2,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -281,14 +300,53 @@
 							"properties":{
 								"items":{
 									"additionalProperties":false,
-									"properties":{},
-									"type":[
-										"object",
-										"string",
-										"number",
-										"boolean",
-										"integer"
-									]
+									"properties":{
+										"content":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"source":{
+														"additionalProperties":false,
+														"properties":{
+															"image_data":{
+																"additionalProperties":false,
+																"properties":{},
+																"required":[],
+																"title":"image_data",
+																"type":"object"
+															},
+															"image_type":{
+																"title":"image_type",
+																"type":"string"
+															},
+															"media_type":{
+																"title":"media_type",
+																"type":"string"
+															}
+														},
+														"title":"source",
+														"type":"object"
+													},
+													"text":{
+														"title":"text",
+														"type":"string"
+													},
+													"type":{
+														"title":"type",
+														"type":"string"
+													}
+												},
+												"type":"object"
+											},
+											"title":"content",
+											"type":"array"
+										},
+										"role":{
+											"title":"role",
+											"type":"string"
+										}
+									},
+									"type":"object"
 								},
 								"source":{
 									"format":"ua:source",
@@ -337,10 +395,23 @@
 			},
 			"inputs":{
 				"createList":{
+					"items":{
+						"content":[
+							{
+								"source":{
+									"image_data":"{{ n_fP4J7.outputs.image }}",
+									"image_type":"file_object",
+									"media_type":"{{ n_fP4J7.outputs.image.mimeType }}"
+								},
+								"type":"image"
+							}
+						],
+						"role":"user"
+					},
 					"ua:type":"mappedArray"
 				},
-				"ua:title":"sharedWithIds",
-				"ua:list_type":"STRING"
+				"ua:title":"messages ",
+				"ua:list_type":"OBJECT"
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -351,121 +422,161 @@
 						"items":{
 							"disableActions":true,
 							"items":{
-								"type":"string"
+								"properties":{
+									"content":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"source":{
+													"additionalProperties":false,
+													"properties":{
+														"image_data":{
+															"additionalProperties":false,
+															"properties":{},
+															"required":[],
+															"title":"image_data",
+															"type":"object"
+														},
+														"image_type":{
+															"title":"image_type",
+															"type":"string"
+														},
+														"media_type":{
+															"title":"media_type",
+															"type":"string"
+														}
+													},
+													"title":"source",
+													"type":"object"
+												},
+												"text":{
+													"title":"text",
+													"type":"string"
+												},
+												"type":{
+													"title":"type",
+													"type":"string"
+												}
+											},
+											"type":"object"
+										},
+										"title":"content",
+										"type":"array"
+									},
+									"role":{
+										"title":"role",
+										"type":"string"
+									}
+								},
+								"type":"object"
 							},
-							"title":"sharedWithIds",
+							"title":"messages ",
 							"type":"array"
 						}
 					}
 				}
 			},
 			"skip":false,
-			"subTitle":"create shared userIds array",
+			"subTitle":"Variable by UnifyApps",
 			"title":"Create list",
 			"type":"ACTION"
 		},
 		{
 			"context":{
-				"appName":"servicenow",
-				"resourceVersion":3,
-				"connectionId":"67d90c05c16d90524f544628",
-				"resourceName":"servicenow_get_table",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"vDQFK-1",
-			"id":"OWpdX",
-			"index":0,
-			"inputs":{
-				"sysparm_fields":"email",
-				"sysparm_limit":10000,
-				"tableName":"sys_user"
-			},
-			"skip":false,
-			"subTitle":"ServiceNow",
-			"title":"Get table",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"callables",
-				"resourceVersion":389,
-				"resourceName":"callables_call_automation_batch",
+				"resourceVersion":1737,
+				"resourceName":"callables_call_automation",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"vDQFK-1",
-			"id":"PbHBk",
-			"index":0,
+			"groupId":"_rWjci-1",
+			"id":"n_sUZPy",
+			"index":3,
 			"inputs":{
-				"automationId":"683d4a16a3bb8f2cfef081d5",
+				"automationId":"66ac70650f725f5b425d12d8",
 				"runtimeConnections":{},
 				"synchronous":true,
-				"parametersList":{
-					"items":{
-						"item":"{{ OWpdX.outputs.result[0] }}"
+				"parameters":{
+					"logProbs":false,
+					"maxTokens":512,
+					"message":{
+						"items":{
+							"content":{
+								"items":"{{ n_8tGfW.outputs.items[0].content[0] }}",
+								"source":"{{ n_8tGfW.outputs.items[0].content }}",
+								"ua:type":"mappedArray"
+							},
+							"role":"{{ n_8tGfW.outputs.items[0].role }}"
+						},
+						"source":"{{ n_8tGfW.outputs.items }}",
+						"ua:type":"mappedArray"
 					},
-					"source":"{{ OWpdX.outputs.result }}",
-					"ua:type":"mappedArray"
+					"modelId":"{{ n_fP4J7.outputs.modelID }}",
+					"responseFormat":{
+						"type":"json_object"
+					},
+					"stream":false,
+					"systemPrompt":"{{ n_fP4J7.outputs.prompt }}"
 				},
 				"version":"-1"
 			},
 			"skip":false,
 			"subTitle":"Callable",
-			"title":"Call automation (batch)",
+			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
 		},
 		{
 			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":384,
-				"resourceName":"variable_by_unifyapps_add_items_to_list",
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4374,
+				"resourceName":"utility_by_unifyapps_to_json_object",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"vDQFK-1",
-			"id":"DrwRM",
-			"index":0,
+			"groupId":"_rWjci-1",
+			"id":"n_kb7H4",
+			"index":4,
 			"inputs":{
-				"insertLocation":"END",
-				"itemsToAdd":{
-					"items":"{{ PbHBk.outputs.result[0].grant }}",
-					"source":"{{ PbHBk.outputs.result }}",
-					"ua:type":"mappedArray"
+				"jsonSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"issues":{
+							"title":"issues",
+							"type":"array"
+						}
+					},
+					"type":"object"
 				},
-				"listName":"{{ NnWmX.outputs.items[0] }}"
+				"jsonString":"{{ n_sUZPy.outputs.llmResponse }}"
 			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Add items to list",
+			"skip":true,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise string to JSON object",
 			"type":"ACTION"
 		},
 		{
 			"context":{
 				"appName":"callables",
-				"resourceVersion":70,
+				"resourceVersion":1736,
 				"resourceName":"callables_return_to_automation",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"vDQFK-1",
-			"id":"RNNw5",
-			"index":0,
+			"groupId":"_rWjci-1",
+			"id":"n_7vlPm",
+			"index":5,
 			"inputs":{
 				"result":{
-					"sharedWithIds":{
-						"items":"{{ NnWmX.outputs.items[0] }}",
-						"source":"{{ NnWmX.outputs.items }}",
-						"ua:type":"mappedArray"
-					}
+					"fileName":"{{ n_fP4J7.outputs.image.name }}",
+					"issues":[
+						"{{ n_sUZPy.outputs.llmResponse }}"
+					]
 				}
 			},
 			"skip":false,
@@ -475,9 +586,6 @@
 		}
 	],
 	"ownerUserId":-1,
-	"runtimeConnectionAppNames":[
-		"servicenow"
-	],
 	"schemaReferences":[
 		
 	],
@@ -487,13 +595,9 @@
 		"enableVariableLogging":true,
 		"route":{
 			"default":false,
-			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
 	"standard":true,
-	"tags":[
-		
-	],
-	"version":35
+	"version":20
 }

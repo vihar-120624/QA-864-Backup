@@ -4,18 +4,27 @@
 	],
 	"createdTime":1787743573467,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743573532,
+		"deployedAt":1789395080822,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd553f7ad93bb1674ace",
+		"deployedDefinitionId":"6aa8008839ee5f5ef70b5b87",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":16
+		"version":2,
+		"workflowVersion":19
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_lCxs5",
+			"id":"next@n_lCxs5@n_55TXa",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_55TXa",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_55TXa",
+			"id":"next@n_55TXa@n_0Xxly",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_0Xxly",
@@ -23,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_0Xxly",
+			"id":"if@n_0Xxly@n_fg8zD",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -31,6 +41,7 @@
 		},
 		{
 			"fromNodeId":"n_fg8zD",
+			"id":"next@n_fg8zD@n_itvaE",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_itvaE",
@@ -38,6 +49,7 @@
 		},
 		{
 			"fromNodeId":"n_0Xxly",
+			"id":"next@n_0Xxly@n_itvaE",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -46,6 +58,7 @@
 		},
 		{
 			"fromNodeId":"n_itvaE",
+			"id":"next@n_itvaE@n_7xLMJ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_7xLMJ",
@@ -53,6 +66,7 @@
 		},
 		{
 			"fromNodeId":"n_7xLMJ",
+			"id":"next@n_7xLMJ@n_YDC9g",
 			"name":"success",
 			"priority":0,
 			"skip":false,
@@ -61,6 +75,7 @@
 		},
 		{
 			"fromNodeId":"n_YDC9g",
+			"id":"next@n_YDC9g@n_nzPFI",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_nzPFI",
@@ -68,6 +83,7 @@
 		},
 		{
 			"fromNodeId":"n_nzPFI",
+			"id":"if@n_nzPFI@_SWt5x",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
@@ -76,6 +92,7 @@
 		},
 		{
 			"fromNodeId":"_SWt5x",
+			"id":"next@_SWt5x@n_5Yx6V",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_5Yx6V",
@@ -83,6 +100,7 @@
 		},
 		{
 			"fromNodeId":"n_nzPFI",
+			"id":"next@n_nzPFI@n_5Yx6V",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -91,6 +109,7 @@
 		},
 		{
 			"fromNodeId":"n_7xLMJ",
+			"id":"error@n_7xLMJ@_XYicE",
 			"name":"error",
 			"priority":0,
 			"skip":false,
@@ -99,6 +118,7 @@
 		},
 		{
 			"fromNodeId":"_XYicE",
+			"id":"next@_XYicE@n_Jvlfi",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Jvlfi",
@@ -106,6 +126,7 @@
 		},
 		{
 			"fromNodeId":"n_5Yx6V",
+			"id":"next@n_5Yx6V@n_RXl9p",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_RXl9p",
@@ -113,6 +134,7 @@
 		},
 		{
 			"fromNodeId":"n_Jvlfi",
+			"id":"next@n_Jvlfi@n_RXl9p",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_RXl9p",
@@ -133,9 +155,9 @@
 	},
 	"id":"68ea053670d6433c686c9def",
 	"lastModifiedBy":-1,
-	"lcName":"like/dislike api",
-	"modifiedTime":1788252973064,
-	"name":"Like/Dislike API",
+	"lcName":"[dt] like/dislike api",
+	"modifiedTime":1789395396158,
+	"name":"[DT] Like/Dislike API",
 	"nodes":[
 		{
 			"context":{
@@ -264,6 +286,58 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1659,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1kEkM-1",
+			"id":"n_55TXa",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"startTimeEpoch":{
+							"title":"Start Time Epoch",
+							"type":"integer"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"startTimeEpoch":"=INT((NOW() - DATE(1970,1,1)) * 86400000)"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"startTimeEpoch":{
+							"title":"Start Time Epoch",
+							"type":"integer"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"startTimeEpoch",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":447,
 				"resourceName":"if_else_condition",
@@ -274,7 +348,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_1kEkM-1",
 			"id":"n_0Xxly",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"filters":[
 					{
@@ -303,7 +377,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_0Xxly@_1kEkM-1@y",
 			"id":"n_fg8zD",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"400_undefined",
@@ -326,7 +400,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_1kEkM-1",
 			"id":"n_itvaE",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"automationId":"694adef43d71816dba78173e",
 				"runtimeConnections":{},
@@ -354,7 +428,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_1kEkM-1",
 			"id":"n_7xLMJ",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"automationId":"66ceb3cdbd8ae2117198c3af",
 				"runtimeConnections":{},
@@ -369,7 +443,8 @@
 					"reaction":"{{ n_lCxs5.outputs.body.reaction }}",
 					"userFeedback":"{{ n_lCxs5.outputs.body.userFeedback }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -432,6 +507,11 @@
 			"type":"CALL_WORKFLOW"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.feedbackCategories.items"
+				]
+			},
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1000,
@@ -443,23 +523,34 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7xLMJ@_1kEkM-1@success",
 			"id":"n_YDC9g",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"dt_api_log_store",
 				"skipIfBlank":false,
 				"record":{
 					"agentId":"{{ n_7xLMJ.outputs.additional.aiAgentId }}",
 					"apiEndpointPath":"ai_agent/feedback",
+					"fanMessageId":"{{ n_7xLMJ.outputs.additional.fanMessageId }}",
+					"feedbackCategories":{
+						"items":"{{ n_lCxs5.outputs.body.feedbackCategories[0] }}",
+						"source":"{{ n_lCxs5.outputs.body.feedbackCategories }}",
+						"ua:type":"mappedArray"
+					},
 					"feedbackComments":"{{ n_lCxs5.outputs.body.userFeedback }}",
 					"feedbackEvent":"{{ n_lCxs5.outputs.body.reaction }}",
 					"feedbackMessageId":"{{ n_7xLMJ.outputs.messageId }}",
+					"latency":"=INT((NOW() - DATE(1970,1,1)) * 86400000)-{{ n_55TXa.outputs.startTimeEpoch }}",
 					"nc":"{{ __USER__.outputs.customProperties.country }}",
 					"sesionTrackingToken":"{{ n_7xLMJ.outputs.caseId }}",
+					"status":"200",
 					"uaTraceId":"{{ __RUN__.outputs.uaTraceId }}",
 					"userId":"=CONCATENATE({{ __RUN__.outputs.userId }},\"\")"
-				}
+				},
+				"useUuid":false,
+				"batching":false
 			},
 			"skip":false,
 			"subTitle":"API REPORTING",
@@ -478,7 +569,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7xLMJ@_1kEkM-1@success",
 			"id":"n_nzPFI",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -508,7 +599,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_nzPFI@n_7xLMJ@_1kEkM-1@success@y",
 			"id":"_SWt5x",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"404_undefined",
@@ -531,7 +622,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7xLMJ@_1kEkM-1@success",
 			"id":"n_5Yx6V",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -557,6 +648,11 @@
 			"type":"STOP"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.feedbackCategories.items"
+				]
+			},
 			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1000,
@@ -568,23 +664,34 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7xLMJ@_1kEkM-1@error",
 			"id":"_XYicE",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"dt_api_log_store",
 				"skipIfBlank":false,
 				"record":{
 					"agentId":"{{ n_7xLMJ.outputs.additional.aiAgentId }}",
 					"apiEndpointPath":"ai_agent/feedback",
+					"fanMessageId":"{{ n_7xLMJ.outputs.additional.fanMessageId }}",
+					"feedbackCategories":{
+						"items":"{{ n_lCxs5.outputs.body.feedbackCategories[0] }}",
+						"source":"{{ n_lCxs5.outputs.body.feedbackCategories }}",
+						"ua:type":"mappedArray"
+					},
 					"feedbackComments":"{{ n_lCxs5.outputs.body.userFeedback }}",
 					"feedbackEvent":"{{ n_lCxs5.outputs.body.reaction }}",
 					"feedbackMessageId":"{{ n_7xLMJ.outputs.messageId }}",
+					"latency":"=INT((NOW() - DATE(1970,1,1)) * 86400000)-{{ n_55TXa.outputs.startTimeEpoch }}",
 					"nc":"{{ __USER__.outputs.customProperties.country }}",
 					"sesionTrackingToken":"{{ n_7xLMJ.outputs.caseId }}",
+					"status":"500",
 					"uaTraceId":"{{ __RUN__.outputs.uaTraceId }}",
 					"userId":"=CONCATENATE({{ __RUN__.outputs.userId }},\"\")"
-				}
+				},
+				"useUuid":false,
+				"batching":false
 			},
 			"skip":false,
 			"subTitle":"API REPORTING",
@@ -603,7 +710,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7xLMJ@_1kEkM-1@error",
 			"id":"n_Jvlfi",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"500_undefined",
@@ -623,7 +730,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_1kEkM-1",
 			"id":"n_RXl9p",
-			"index":12,
+			"index":13,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -647,5 +754,5 @@
 	"tags":[
 		
 	],
-	"version":18
+	"version":20
 }
