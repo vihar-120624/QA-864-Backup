@@ -1,0 +1,175 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395365063,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_5cLQ1",
+			"id":"next@n_5cLQ1@n_aZdDz",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aZdDz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aZdDz",
+			"id":"next@n_aZdDz@n_WzqRL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WzqRL",
+			"type":"next"
+		}
+	],
+	"id":"6aa801a539ee5f5ef70b6ba9",
+	"lastModifiedBy":-1,
+	"lcName":"agent optimiser | updatetooldetails",
+	"modifiedTime":1789395365065,
+	"name":"Agent Optimiser | updateToolDetails",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1365,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wl9xy-1",
+			"id":"n_5cLQ1",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"newToolDescription":{
+							"title":"New Tool Description",
+							"type":"string"
+						},
+						"newtoolName":{
+							"title":"New Tool Name",
+							"type":"string"
+						},
+						"toolActionId":{
+							"title":"Tool Action Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"toolActionId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2954,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wl9xy-1",
+			"id":"n_aZdDz",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ n_5cLQ1.outputs.toolActionId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"e_action_ai_agent",
+				"skipIfBlank":true,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.description",
+						"setValue":"{{ n_5cLQ1.outputs.newToolDescription }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.name",
+						"setValue":"{{ n_5cLQ1.outputs.newtoolName }}"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1365,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_wl9xy-1",
+			"id":"n_WzqRL",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":"{{ n_aZdDz.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Agent Optimiser"
+	],
+	"version":0,
+	"workflowDefinitionId":"6a75d88334ecb22c3691310c",
+	"workflowVersion":9
+}
