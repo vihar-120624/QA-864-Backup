@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743684214,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743684356,
+		"deployedAt":1789395129637,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdc4177b4b4aca57a874",
+		"deployedDefinitionId":"6aa800b939ee5f5ef70b5dbd",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":19
+		"version":2,
+		"workflowVersion":22
 	},
 	"edges":[
 		{
@@ -54,7 +54,7 @@
 	"id":"693342dd1a964e31faa04854",
 	"lastModifiedBy":-1,
 	"lcName":"google drive chunkmetadata",
-	"modifiedTime":1788252972652,
+	"modifiedTime":1789395399623,
 	"name":"Google Drive ChunkMetadata",
 	"nodes":[
 		{
@@ -898,12 +898,16 @@
 						"size":{
 							"title":"Size",
 							"type":"string"
+						},
+						"starred":{
+							"title":"Starred",
+							"type":"boolean"
 						}
 					},
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.time.*\nimport java.time.Instant\n\ndef chunk_metadata = [:]\n\nchunk_metadata << [\"appName\": \"gdrive\"]\nchunk_metadata << [\"resourceType\": \"file\"]\nchunk_metadata << (binding.hasVariable('name') ? [\"title\": name] : [:])\nchunk_metadata << (binding.hasVariable('name') ? [\"name\": name] : [:])\nchunk_metadata << (binding.hasVariable('createdAt') ? [\"createdAt\": Instant.parse(createdAt).toEpochMilli()] : [:])\nchunk_metadata << (binding.hasVariable('modifiedAt') ? [\"modifiedAt\": Instant.parse(modifiedAt).toEpochMilli()] : [:])\nchunk_metadata << (binding.hasVariable('author') ? [\"createdBy\": author] : [:])\nchunk_metadata << (binding.hasVariable('createdByEmail') ? [\"createdByEmail\": createdByEmail] : [:])\nchunk_metadata << (binding.hasVariable('modifiedBy') ? [\"modifiedBy\": modifiedBy] : [:])\nchunk_metadata << (binding.hasVariable('modifiedByEmail') ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunk_metadata << (binding.hasVariable('id') ? [\"uniqueId\": id] : [:])\n\ndef toIntSafe = { v ->\n    if (v == null) return 0\n    if (v instanceof Number) return (v as Number).intValue()\n    def s = v.toString().trim()\n    return s.isInteger() ? s.toInteger() : 0\n}\nchunk_metadata << [\"size\": toIntSafe(binding.hasVariable('size') ? size : null)]\n\nif (binding.hasVariable('linkingUrl') && linkingUrl != null && !linkingUrl.isEmpty()) {\n    chunk_metadata << [\"referenceUrl\": linkingUrl]\n}\n\nchunk_metadata << (binding.hasVariable('mimeType') ? [\"mimeType\": mimeType] : [:])\n\nif (binding.hasVariable('folderName') && folderName != null && !folderName.trim().isEmpty()) {\n    def fullPath = folderName.trim()\n\n    // drop trailing slash\n    def cleanPath = fullPath.endsWith('/') ? fullPath.substring(0, fullPath.length() - 1) : fullPath\n\n    // drop the file name if the path ends with it\n    def fileName = binding.hasVariable('name') && name ? name.toString().trim() : null\n    if (fileName) {\n        if (cleanPath == fileName) {\n            cleanPath = ''\n        } else if (cleanPath.endsWith('/' + fileName)) {\n            cleanPath = cleanPath.substring(0, cleanPath.length() - fileName.length() - 1)\n        }\n    } else {\n        // no 'name' bound: fall back to stripping the last segment if it looks like a file\n        def lastSeg = cleanPath.substring(cleanPath.lastIndexOf('/') + 1)\n        if (lastSeg ==~ /.+\\.[A-Za-z0-9]{1,8}$/) {\n            def idx = cleanPath.lastIndexOf('/')\n            cleanPath = idx > 0 ? cleanPath.substring(0, idx) : ''\n        }\n    }\n\n    // strip any trailing slash left behind\n    while (cleanPath.endsWith('/')) {\n        cleanPath = cleanPath.substring(0, cleanPath.length() - 1)\n    }\n\n    if (!cleanPath.isEmpty()) {\n        def leaf = cleanPath.substring(cleanPath.lastIndexOf('/') + 1)\n        chunk_metadata << [\"parentPath\": cleanPath]\n        chunk_metadata << [\"parentName\": leaf]\n        chunk_metadata << [\"folderName\": leaf]\n    }\n}\n\n// isVideo: 'link' isn't in the input schema, so check the URL/name that actually exists\ndef videoSource = (binding.hasVariable('linkingUrl') && linkingUrl) ? linkingUrl\n                : (binding.hasVariable('name') && name) ? name\n                : \"\"\ndef isVideo = (videoSource.toLowerCase() =~ /\\.(mp4|mov|avi|wmv|flv|mkv|webm|mpeg|mpg)$/).find()\nchunk_metadata << [\"isVideo\": isVideo]\n\nreturn [\"chunkMetadata\": chunk_metadata]",
+				"code":"import java.time.*\nimport java.time.Instant\n\ndef chunk_metadata = [:]\n\nchunk_metadata << [\"appName\": \"gdrive\"]\nchunk_metadata << [\"resourceType\": \"file\"]\nchunk_metadata << (binding.hasVariable('name') ? [\"title\": name] : [:])\nchunk_metadata << (binding.hasVariable('name') ? [\"name\": name] : [:])\nchunk_metadata << (binding.hasVariable('createdAt') ? [\"createdAt\": Instant.parse(createdAt).toEpochMilli()] : [:])\nchunk_metadata << (binding.hasVariable('modifiedAt') ? [\"modifiedAt\": Instant.parse(modifiedAt).toEpochMilli()] : [:])\nchunk_metadata << (binding.hasVariable('author') ? [\"createdBy\": author] : [:])\nchunk_metadata << (binding.hasVariable('createdByEmail') ? [\"createdByEmail\": createdByEmail] : [:])\nchunk_metadata << (binding.hasVariable('modifiedBy') ? [\"modifiedBy\": modifiedBy] : [:])\nchunk_metadata << (binding.hasVariable('modifiedByEmail') ? [\"modifiedByEmail\": modifiedByEmail] : [:])\nchunk_metadata << (binding.hasVariable('id') ? [\"uniqueId\": id] : [:])\nchunk_metadata << (binding.hasVariable('starred') ? [\"starred\": starred] : [:])\n\ndef toIntSafe = { v ->\n    if (v == null) return 0\n    if (v instanceof Number) return (v as Number).intValue()\n    def s = v.toString().trim()\n    return s.isInteger() ? s.toInteger() : 0\n}\nchunk_metadata << [\"size\": toIntSafe(binding.hasVariable('size') ? size : null)]\n\nif (binding.hasVariable('linkingUrl') && linkingUrl != null && !linkingUrl.isEmpty()) {\n    chunk_metadata << [\"referenceUrl\": linkingUrl]\n}\n\nchunk_metadata << (binding.hasVariable('mimeType') ? [\"mimeType\": mimeType] : [:])\n\nif (binding.hasVariable('folderName') && folderName != null && !folderName.trim().isEmpty()) {\n    def fullPath = folderName.trim()\n\n    // drop trailing slash\n    def cleanPath = fullPath.endsWith('/') ? fullPath.substring(0, fullPath.length() - 1) : fullPath\n\n    // drop the file name if the path ends with it\n    def fileName = binding.hasVariable('name') && name ? name.toString().trim() : null\n    if (fileName) {\n        if (cleanPath == fileName) {\n            cleanPath = ''\n        } else if (cleanPath.endsWith('/' + fileName)) {\n            cleanPath = cleanPath.substring(0, cleanPath.length() - fileName.length() - 1)\n        }\n    } else {\n        // no 'name' bound: fall back to stripping the last segment if it looks like a file\n        def lastSeg = cleanPath.substring(cleanPath.lastIndexOf('/') + 1)\n        if (lastSeg ==~ /.+\\.[A-Za-z0-9]{1,8}$/) {\n            def idx = cleanPath.lastIndexOf('/')\n            cleanPath = idx > 0 ? cleanPath.substring(0, idx) : ''\n        }\n    }\n\n    // strip any trailing slash left behind\n    while (cleanPath.endsWith('/')) {\n        cleanPath = cleanPath.substring(0, cleanPath.length() - 1)\n    }\n\n    if (!cleanPath.isEmpty()) {\n        def leaf = cleanPath.substring(cleanPath.lastIndexOf('/') + 1)\n        chunk_metadata << [\"parentPath\": cleanPath]\n        chunk_metadata << [\"parentName\": leaf]\n        chunk_metadata << [\"folderName\": leaf]\n    }\n}\n\n// isVideo: 'link' isn't in the input schema, so check the URL/name that actually exists\ndef videoSource = (binding.hasVariable('linkingUrl') && linkingUrl) ? linkingUrl\n                : (binding.hasVariable('name') && name) ? name\n                : \"\"\ndef isVideo = (videoSource.toLowerCase() =~ /\\.(mp4|mov|avi|wmv|flv|mkv|webm|mpeg|mpg)$/).find()\nchunk_metadata << [\"isVideo\": isVideo]\n\nreturn [\"chunkMetadata\": chunk_metadata]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -918,7 +922,8 @@
 					"modifiedBy":"{{ _iwypr.outputs.result.response.lastModifyingUser.displayName }}",
 					"modifiedByEmail":"{{ _iwypr.outputs.result.response.lastModifyingUser.emailAddress }}",
 					"name":"{{ _iwypr.outputs.result.response.name }}",
-					"size":"{{ _iwypr.outputs.result.response.size }}"
+					"size":"{{ _iwypr.outputs.result.response.size }}",
+					"starred":"{{ _iwypr.outputs.result.response.starred }}"
 				}
 			},
 			"skip":false,
@@ -967,5 +972,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":21
+	"version":23
 }
