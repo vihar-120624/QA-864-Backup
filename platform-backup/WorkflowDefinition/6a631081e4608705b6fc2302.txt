@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743829889,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743829967,
+		"deployedAt":1789395223886,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece559d7c534668ef8d52",
+		"deployedDefinitionId":"6aa8011772fd792214e8c7e6",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":10
+		"version":2,
+		"workflowVersion":13
 	},
 	"edges":[
 		{
@@ -24,7 +24,15 @@
 		},
 		{
 			"fromNodeId":"n_var",
-			"id":"next@n_var@n_wh",
+			"id":"next@n_var@n_initCur",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_initCur",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_initCur",
+			"id":"next@n_initCur@n_wh",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wh",
@@ -64,20 +72,12 @@
 		},
 		{
 			"fromNodeId":"n_RJqHD",
-			"id":"if@n_RJqHD@n_40Aqy",
+			"id":"if@n_RJqHD@n_sNJoM",
 			"name":"yes",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_40Aqy",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_40Aqy",
-			"id":"next@n_40Aqy@n_sNJoM",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_sNJoM",
-			"type":"next"
+			"type":"if"
 		},
 		{
 			"fromNodeId":"n_RJqHD",
@@ -163,7 +163,7 @@
 	"id":"6a631081e4608705b6fc2302",
 	"lastModifiedBy":-1,
 	"lcName":"governance | discover snowflake agent",
-	"modifiedTime":1788252972938,
+	"modifiedTime":1789395390850,
 	"name":"Governance | Discover Snowflake Agent",
 	"nodes":[
 		{
@@ -308,6 +308,55 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_r6Jyb-1",
+			"id":"n_initCur",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"additionalProperties":true,
+							"properties":{
+								"lastSyncedAt":{
+									"title":"Last Synced At",
+									"type":"string"
+								}
+							},
+							"title":"Cursor",
+							"type":"object"
+						}
+					},
+					"required":[
+						"cursor"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [ cursor: [ lastSyncedAt: '0' ] ]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Init cursor",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"loop",
 				"resourceVersion":161,
 				"resourceName":"loop_while",
@@ -318,7 +367,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_r6Jyb-1",
 			"id":"n_wh",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"condition":{
 					"filters":[
@@ -352,7 +401,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_r6Jyb-1@l",
 			"id":"n_YBgJ8",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"showLimit":100,
 				"fromName":"{{ n_var.outputs.cursor }}"
@@ -374,7 +423,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_wh@_r6Jyb-1@l",
 			"id":"n_CY00S",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_YBgJ8.outputs.agents }}",
@@ -397,7 +446,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CY00S@n_wh@_r6Jyb-1@l@l",
 			"id":"n_4zb58",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -407,13 +456,6 @@
 								"value":"{{ n_CY00S.outputs.item.name }}"
 							},
 							"property":"properties_external_agent_id"
-						},
-						{
-							"filter":{
-								"operator":"CONTAINS",
-								"value":"{{ n_lyyV2.outputs.agentProfileGroupId }}"
-							},
-							"property":"properties_agentProfileGroupIds"
 						}
 					],
 					"operator":"AND"
@@ -448,7 +490,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_CY00S@n_wh@_r6Jyb-1@l@l",
 			"id":"n_RJqHD",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -464,57 +506,6 @@
 			"subTitle":"Condition",
 			"title":"Condition",
 			"type":"IF_ELSE"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.record.agentProfileGroupIds.items"
-				]
-			},
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":14235,
-				"resourceName":"storage_by_unifyapps_update_record_by_id",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_RJqHD@n_CY00S@n_wh@_r6Jyb-1@l@l@y",
-			"id":"n_40Aqy",
-			"index":8,
-			"inputs":{
-				"recordId":"{{ n_4zb58.outputs.id }}",
-				"useRawPayload":false,
-				"writeThroughSessionVariables":false,
-				"object_type":"agent_profile",
-				"retryOnFailure":true,
-				"skipIfBlank":false,
-				"record":{
-					"agentProfileGroupIds":{
-						"items":"{{ n_4zb58.outputs.properties.agentProfileGroupIds[0] }}",
-						"source":"{{ n_4zb58.outputs.properties.agentProfileGroupIds }}",
-						"ua:type":"mappedArray"
-					},
-					"applicationId":"{{ n_lyyV2.outputs.agentProfileGroupProperties.application }}",
-					"assetType":"agent",
-					"awaitingTraces":"{{ n_4zb58.outputs.properties.awaitingTraces }}",
-					"connectionId":"{{ n_lyyV2.outputs.agentProfileGroupProperties.connection }}",
-					"connectionType":"observe",
-					"description":"{{ n_CY00S.outputs.item.comment }}",
-					"enabled":"{{ n_4zb58.outputs.properties.enabled }}",
-					"external_agent_id":"{{ n_CY00S.outputs.item.name }}",
-					"name":"{{ n_CY00S.outputs.item.name }}",
-					"registered":false,
-					"registered_first_time":"{{ n_4zb58.outputs.properties.registered_first_time }}",
-					"remainingRetryCount":"{{ n_lyyV2.outputs.retryCount }}"
-				},
-				"upsert":false
-			},
-			"skip":false,
-			"subTitle":"Storage by UnifyApps",
-			"title":"Update an existing record",
-			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -538,6 +529,11 @@
 						"actionType":"ADD_TO_SET",
 						"fieldName":"properties.agentProfileGroupIds",
 						"setValue":"{{ n_lyyV2.outputs.agentProfileGroupId }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.metadata",
+						"setValue":"{{ n_CY00S.outputs.item }}"
 					}
 				],
 				"id":"{{ n_4zb58.outputs.id }}",
@@ -577,6 +573,7 @@
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"agent_profile",
 				"skipIfBlank":false,
 				"record":{
@@ -588,9 +585,22 @@
 					"awaitingTraces":true,
 					"connectionId":"{{ n_lyyV2.outputs.agentProfileGroupProperties.connection }}",
 					"connectionType":"observe",
+					"cursor":"{{ n_initCur.outputs.result.cursor }}",
 					"description":"{{ n_CY00S.outputs.item.comment }}",
 					"enabled":"{{ n_lyyV2.outputs.agentProfileGroupProperties.autoRegister }}",
+					"evalSettings":{
+						"runFrequency":{
+							"unit":"MINUTES",
+							"value":5
+						},
+						"sessionCloseTime":{
+							"unit":"HOURS",
+							"value":24
+						}
+					},
 					"external_agent_id":"{{ n_CY00S.outputs.item.name }}",
+					"lc_name":"=LOWER({{ n_CY00S.outputs.item.name }})",
+					"metadata":"{{ n_CY00S.outputs.item }}",
 					"name":"{{ n_CY00S.outputs.item.name }}",
 					"registered":false,
 					"registered_first_time":false,
@@ -766,5 +776,5 @@
 		}
 	},
 	"standard":true,
-	"version":12
+	"version":14
 }

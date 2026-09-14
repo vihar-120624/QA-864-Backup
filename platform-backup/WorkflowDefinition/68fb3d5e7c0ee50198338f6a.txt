@@ -4,19 +4,25 @@
 	],
 	"createdTime":1787743662613,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743662787,
+		"deployedAt":1789395117817,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdae45d2142160e6d4d7",
-		"deploymentTag":"swap_userId_userEmail",
+		"deployedDefinitionId":"6aa800adc6a14707f150324d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":11
+		"version":2,
+		"workflowVersion":14
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_0G5Jm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XwX0J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_XwX0J",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_uv6zZ",
@@ -250,9 +256,9 @@
 	},
 	"id":"68fb3d5e7c0ee50198338f6a",
 	"lastModifiedBy":-1,
-	"lcName":"bulk index membership",
-	"modifiedTime":1788252972211,
-	"name":"Bulk Index Membership",
+	"lcName":"[dt] bulk index membership",
+	"modifiedTime":1789395390791,
+	"name":"[DT] Bulk Index Membership",
 	"nodes":[
 		{
 			"context":{
@@ -375,6 +381,56 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1032,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_VKTeT-1",
+			"id":"n_XwX0J",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"isValid":{
+							"title":"Is Valid",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"reqBody":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Req Body",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def result = [isValid: true]\n\nif (!binding.hasVariable('reqBody') || reqBody == null || reqBody.isEmpty()) {\n    result.isValid = false\n    return result\n}",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"reqBody":"{{ n_0G5Jm.outputs.body }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":447,
 				"resourceName":"if_else_condition",
@@ -385,7 +441,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_uv6zZ",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"filters":[
 					{
@@ -426,6 +482,13 @@
 							"value":"0"
 						},
 						"property":"=LEN({{ n_0G5Jm.outputs.body.uploadId }})"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_XwX0J.outputs.result.isValid }}"
 					}
 				],
 				"operator":"OR"
@@ -447,7 +510,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_uv6zZ@_VKTeT-1@y",
 			"id":"n_yYck3",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"400_Missing Required Input",
@@ -462,7 +525,8 @@
 			"additional":{
 				"visibleOptionalFields":[
 					"root.parameters.memberships.items.memberUserEmail",
-					"root.parameters.memberships.items.memberUserId"
+					"root.parameters.memberships.items.memberUserId",
+					"root.parameters.memberships.items.memberGroupName"
 				]
 			},
 			"context":{
@@ -476,7 +540,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_7Errf",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -485,6 +549,10 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"memberGroupName":{
+										"title":"Member Group Name",
+										"type":"string"
+									},
 									"memberUserEmail":{
 										"title":"Member User Email",
 										"type":"string"
@@ -511,6 +579,10 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"memberGroupName":{
+										"title":"Member Group Name",
+										"type":"string"
+									},
 									"memberUserEmail":{
 										"title":"Member User Email",
 										"type":"string"
@@ -536,6 +608,7 @@
 				"parameters":{
 					"memberships":{
 						"items":{
+							"memberGroupName":"{{ n_0G5Jm.outputs.body.memberships[0].memberGroupName }}",
 							"memberUserEmail":"{{ n_0G5Jm.outputs.body.memberships[0].memberUserEmail }}",
 							"memberUserId":"{{ n_0G5Jm.outputs.body.memberships[0].memberUserId }}"
 						},
@@ -561,7 +634,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_li3ZG",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"filter":{
 					"filters":[
@@ -600,7 +673,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_A3pCw",
-			"index":6,
+			"index":7,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -859,7 +932,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_rKKrD",
-			"index":7,
+			"index":8,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1118,7 +1191,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_QlqwF",
-			"index":8,
+			"index":9,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1377,7 +1450,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_N88Te",
-			"index":9,
+			"index":10,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1427,7 +1500,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"_Ud8UF",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"filter":{
 					"filters":[
@@ -1498,7 +1571,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_glduH",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"filters":[
 					{
@@ -1558,7 +1631,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_glduH@_VKTeT-1@y",
 			"id":"_eIAK0",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"404_undefined",
@@ -1586,7 +1659,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_sL8la",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1654,7 +1727,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_PwR3s",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"filters":[
 					{
@@ -1691,7 +1764,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PwR3s@_VKTeT-1@y",
 			"id":"n_qyYJ6",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1748,7 +1821,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PwR3s@_VKTeT-1@y",
 			"id":"n_EwgUA",
-			"index":16,
+			"index":17,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_qyYJ6.outputs.objects }}",
@@ -1772,7 +1845,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EwgUA@n_PwR3s@_VKTeT-1@y@l",
 			"id":"n_vDRg2",
-			"index":17,
+			"index":18,
 			"inputs":{
 				"fetchBy":"id",
 				"applicationId":"",
@@ -1795,7 +1868,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_EwgUA@n_PwR3s@_VKTeT-1@y@l",
 			"id":"_3i1bB",
-			"index":18,
+			"index":19,
 			"inputs":{
 				"automationId":"6912178bdad21840f4133e3b",
 				"runtimeConnections":{},
@@ -1893,7 +1966,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_PwR3s@_VKTeT-1@y",
 			"id":"n_mhYJN",
-			"index":19,
+			"index":20,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1946,10 +2019,10 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_qwNsm",
-			"index":20,
+			"index":21,
 			"inputs":{
 				"repeatMode":"BATCH",
-				"listSource":"{{ n_0G5Jm.outputs.body.memberships }}",
+				"listSource":"{{ n_7Errf.outputs.result.memberships }}",
 				"captureIterations":false,
 				"batchSize":20
 			},
@@ -1970,7 +2043,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qwNsm@_VKTeT-1@l",
 			"id":"_Jn2Xf",
-			"index":21,
+			"index":22,
 			"inputs":{
 				"automationId":"68fb3e4e7c0ee501983394ae",
 				"runtimeConnections":{},
@@ -2015,7 +2088,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qwNsm@_VKTeT-1@l",
 			"id":"n_At182",
-			"index":22,
+			"index":23,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2084,7 +2157,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qwNsm@_VKTeT-1@l",
 			"id":"n_lUtV7",
-			"index":23,
+			"index":24,
 			"inputs":{
 				"filters":[
 					{
@@ -2114,7 +2187,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_lUtV7@n_qwNsm@_VKTeT-1@l@y",
 			"id":"n_qadQx",
-			"index":24,
+			"index":25,
 			"inputs":{
 				"variables":[
 					{
@@ -2140,7 +2213,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VKTeT-1",
 			"id":"n_Agr3Q",
-			"index":25,
+			"index":26,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -2172,5 +2245,5 @@
 	"tags":[
 		
 	],
-	"version":13
+	"version":15
 }
