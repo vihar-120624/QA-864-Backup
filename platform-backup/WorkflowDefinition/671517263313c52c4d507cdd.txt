@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743747579,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743747633,
+		"deployedAt":1789395160645,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece03177b4b4aca57b0de",
+		"deployedDefinitionId":"6aa800d83e2bb610bc8805c3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":63
+		"version":2,
+		"workflowVersion":66
 	},
 	"edges":[
 		{
@@ -67,6 +67,29 @@
 		{
 			"fromNodeId":"GDYNY",
 			"id":"next@GDYNY@_ArB03",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_ArB03",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"GDYNY",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Iq9ab",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"Iq9ab",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"fy5V5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"fy5V5",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_ArB03",
@@ -88,7 +111,7 @@
 	"id":"671517263313c52c4d507cdd",
 	"lastModifiedBy":-1,
 	"lcName":"send mqtt",
-	"modifiedTime":1788252972489,
+	"modifiedTime":1789395393626,
 	"name":"send mqtt",
 	"nodes":[
 		{
@@ -271,7 +294,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_xd6lD-1",
 			"id":"GDYNY",
 			"index":6,
@@ -283,6 +306,61 @@
 				},
 				"topic":"case_{{ _Eqt98.outputs.caseId }}",
 				"userId":"{{ _Eqt98.outputs.userId }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Chat by UnifyApps",
@@ -311,6 +389,221 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":325,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"GDYNY@_xd6lD-1@error",
+			"id":"Iq9ab",
+			"index":7,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"failure":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Failure",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"errorMessage":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Error Message",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [\"failure\": [\"errorMessage\": binding.hasVariable('errorMessage') ? errorMessage?.toString() ?: \"\" : \"\"]]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"errorMessage":"{{ GDYNY.outputs }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"failure",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":11,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"GDYNY@_xd6lD-1@error",
+			"id":"fy5V5",
+			"index":8,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _Eqt98.outputs.caseId }}"
+							},
+							"property":"properties_caseId"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"debug_agent",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"actionType":"ADD",
+						"fieldName":"properties.events",
+						"setValue":" Failed in send mqtt -> Error is -> {{ Iq9ab.outputs.result.failure }}"
+					},
+					{
+						"actionType":"ADD_TO_SET",
+						"fieldName":"properties.triggerFailureReason",
+						"setValue":"{{ Iq9ab.outputs.result.failure }}"
+					}
+				],
+				"skipIfEmpty":false,
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"debugAgent",
+			"title":"Update records by query",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":-1,
@@ -318,9 +611,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":true,
-		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -328,7 +621,8 @@
 	},
 	"standard":true,
 	"tags":[
-		"AI Agent"
+		"AI Agent",
+		"release_27jan"
 	],
-	"version":65
+	"version":67
 }

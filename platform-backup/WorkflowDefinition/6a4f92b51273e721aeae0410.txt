@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743897414,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743897554,
+		"deployedAt":1789395254702,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece999d7c534668efa1b0",
+		"deployedDefinitionId":"6aa8013672fd792214e8c97c",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":14
+		"version":2,
+		"workflowVersion":17
 	},
 	"edges":[
 		{
@@ -97,7 +97,7 @@
 	"id":"6a4f92b51273e721aeae0410",
 	"lastModifiedBy":-1,
 	"lcName":"governance observability | fetch session traces",
-	"modifiedTime":1788252973150,
+	"modifiedTime":1789395393599,
 	"name":"Governance Observability | Fetch Session Traces",
 	"nodes":[
 		{
@@ -396,6 +396,12 @@
 						"alias":"cost",
 						"includePercentageChange":false,
 						"name":"ENTITY_e_trace=::=cost"
+					},
+					{
+						"aggregationFunction":"GROUP",
+						"alias":"cacheWriteTokens",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_trace=::=cacheWriteInputTokens"
 					}
 				],
 				"entityType":"ENTITY_e_trace",
@@ -504,6 +510,12 @@
 						"alias":"totalCost",
 						"includePercentageChange":false,
 						"name":"ENTITY_e_trace=::=cost"
+					},
+					{
+						"aggregationFunction":"SUM",
+						"alias":"totalCacheWriteTokens",
+						"includePercentageChange":false,
+						"name":"ENTITY_e_trace=::=cacheWriteInputTokens"
 					}
 				],
 				"entityType":"ENTITY_e_trace",
@@ -532,6 +544,7 @@
 					"result":{
 						"items":{
 							"cacheReadTokens":"{{ n_2SDCM.outputs.objects[0].columns.cacheReadTokens }}",
+							"cacheWriteTokens":"{{ n_2SDCM.outputs.objects[0].columns.cacheWriteTokens }}",
 							"inputTokens":"{{ n_2SDCM.outputs.objects[0].columns.inputTokens }}",
 							"latency":"{{ n_2SDCM.outputs.objects[0].columns.latency }}",
 							"message":"{{ n_2SDCM.outputs.objects[0].columns.message }}",
@@ -545,6 +558,7 @@
 						"ua:type":"mappedArray"
 					},
 					"totalCacheReadTokens":"{{ n_tWeu5.outputs.objects[0].columns.totalCacheReadTokens }}",
+					"totalCacheWriteTokens":"{{ n_tWeu5.outputs.objects[0].columns.totalCacheWriteTokens }}",
 					"totalInputToken":"{{ n_tWeu5.outputs.objects[0].columns.totalInputToken }}",
 					"totalLatency":"{{ n_tWeu5.outputs.objects[0].columns.totalLatency }}",
 					"totalOutputToken":"{{ n_tWeu5.outputs.objects[0].columns.totalOutputToken }}",
@@ -572,5 +586,5 @@
 		}
 	},
 	"standard":true,
-	"version":16
+	"version":18
 }

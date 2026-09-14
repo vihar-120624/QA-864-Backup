@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743705777,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743705986,
+		"deployedAt":1789395148003,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdd99d7c534668ef67b4",
+		"deployedDefinitionId":"6aa800cb72fd792214e8c40a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":61
+		"version":2,
+		"workflowVersion":64
 	},
 	"edges":[
 		{
@@ -32,15 +32,15 @@
 		},
 		{
 			"fromNodeId":"n_qDEV9",
-			"id":"next@n_qDEV9@n_G3xg9",
+			"id":"next@n_qDEV9@n_4Ngr6",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_G3xg9",
+			"toNodeId":"n_4Ngr6",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_G3xg9",
-			"id":"next@n_G3xg9@n_xIJGU",
+			"fromNodeId":"n_4Ngr6",
+			"id":"next@n_4Ngr6@n_xIJGU",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_xIJGU",
@@ -102,7 +102,7 @@
 	"id":"69626b4eed0b4a2f7d4fb771",
 	"lastModifiedBy":-1,
 	"lcName":"fetch user connections",
-	"modifiedTime":1788252972144,
+	"modifiedTime":1789395393691,
 	"name":"Fetch User Connections",
 	"nodes":[
 		{
@@ -120,6 +120,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"Connections":{
 							"items":{
@@ -303,7 +304,7 @@
 		{
 			"context":{
 				"appName":"storage_by_unifyapps",
-				"resourceVersion":1089,
+				"resourceVersion":0,
 				"resourceName":"storage_by_unifyapps_fetch_records",
 				"type":"APPLICATION"
 			},
@@ -311,36 +312,54 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_ibZ1U-1",
-			"id":"n_G3xg9",
+			"id":"n_4Ngr6",
 			"index":4,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
 						{
 							"filter":{
-								"operator":"REGEX",
-								"value":"(?i){{ n_TPfvs.outputs.result.search }}"
+								"operator":"EQUAL",
+								"value":"{{ n_mEhcC.outputs.aiAgentId }}"
 							},
-							"property":"properties_connectionName"
+							"property":"properties_aiAgentId"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"true"
+							},
+							"property":"properties_isAppConnector"
 						}
 					],
 					"operator":"AND"
 				},
 				"shouldSearchInAnalyticsStore":false,
-				"object_type":"agentic_ai_connections",
+				"object_type":"e_topic_ai_agent",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"sortBy":[
+					{
+						"field":"cTm",
+						"order":"DESC"
+					}
+				],
 				"translationsOption":"DEFAULT",
 				"page":{
-					"limit":2000,
+					"limit":100,
 					"paginateBy":"OFFSET"
 				},
-				"includeTotalCount":false,
+				"fields":[
+					"properties.name",
+					"properties.runTimeConnectionEnabled",
+					"id"
+				],
+				"includeTotalCount":true,
 				"numberOfRecordsToFetch":"MULTIPLE",
 				"readThroughSessionVariables":false
 			},
 			"skip":false,
-			"subTitle":"fetch appNames",
+			"subTitle":"Storage by UnifyApps",
 			"title":"Fetch records",
 			"type":"ACTION"
 		},
@@ -574,8 +593,8 @@
 			},
 			"inputs":{
 				"createList":{
-					"items":"{{ n_G3xg9.outputs.objects[0].id }}",
-					"source":"{{ n_G3xg9.outputs.objects }}",
+					"items":"{{ n_4Ngr6.outputs.objects[0].properties.name }}",
+					"source":"{{ n_4Ngr6.outputs.objects }}",
 					"ua:type":"mappedArray"
 				},
 				"ua:title":"appName",
@@ -587,6 +606,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -905,6 +945,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -1042,7 +1103,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def runtime = binding.hasVariable('runtimeConnections') && runtimeConnections ? runtimeConnections : []\ndef fetched = binding.hasVariable('fetchedConnections') && fetchedConnections ? fetchedConnections : []\n\ndef activeById = [:]\nfetched.each { conn ->\n    if (conn != null && conn['id'] != null) {\n        activeById[conn['id'] as String] = conn['active']\n    }\n}\n\ndef connections = runtime.collect { obj ->\n    def props = (obj != null && obj['properties'] != null) ? obj['properties'] : [:]\n    def connectionId = props['connectionId']\n    def key = connectionId != null ? connectionId as String : null\n    [\n        \"aiAgentId\"   : props['aiAgentId'],\n        \"appName\"     : props['appName'],\n        \"caseId\"      : props['caseId'],\n        \"connectionId\": connectionId,\n        \"userId\"      : props['userId'],\n        \"active\"      : (key != null && activeById.containsKey(key)) ? activeById[key] : false\n    ]\n}\n\nreturn [\"Connections\": connections]",
+				"code":"def runtime = binding.hasVariable('runtimeConnections') && runtimeConnections ? runtimeConnections : []\ndef fetched = binding.hasVariable('fetchedConnections') && fetchedConnections ? fetchedConnections : []\n\ndef activeById = [:]\nfetched.each { conn ->\n    if (conn != null && conn['id'] != null) {\n        activeById[conn['id'] as String] = conn['active']\n    }\n}\n\ndef connections = runtime.collect { obj ->\n    def props = (obj != null && obj['properties'] != null) ? obj['properties'] : [:]\n    def connectionId = props['connectionId']\n    def key = connectionId != null ? connectionId as String : null\n\n    // orphan row\n    if (key == null || !activeById.containsKey(key)) {\n        return null\n    }\n\n    [\n        \"aiAgentId\"   : props['aiAgentId'],\n        \"appName\"     : props['appName'],\n        \"caseId\"      : props['caseId'],\n        \"connectionId\": connectionId,\n        \"userId\"      : props['userId'],\n        \"active\"      : activeById[key]\n    ]\n}.findAll { it != null }\n\nreturn [\"Connections\": connections]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1115,5 +1176,5 @@
 	"tags":[
 		
 	],
-	"version":63
+	"version":65
 }
