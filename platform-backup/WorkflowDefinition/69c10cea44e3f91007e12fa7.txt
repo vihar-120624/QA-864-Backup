@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743674881,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743674953,
+		"deployedAt":1789395124776,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdba45d2142160e6d5b2",
+		"deployedDefinitionId":"6aa800b472fd792214e8c23b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":23
+		"version":2,
+		"workflowVersion":26
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_KZfty",
+			"id":"next@n_KZfty@n_LULUM",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_LULUM",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_LULUM",
+			"id":"next@n_LULUM@n_F5Qaq",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_F5Qaq",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_F5Qaq",
+			"id":"next@n_F5Qaq@n_ryjGQ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_ryjGQ",
@@ -37,6 +40,7 @@
 		},
 		{
 			"fromNodeId":"n_ryjGQ",
+			"id":"next@n_ryjGQ@n_bCsJz",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_bCsJz",
@@ -44,6 +48,7 @@
 		},
 		{
 			"fromNodeId":"n_bCsJz",
+			"id":"loop@n_bCsJz@n_wleub",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_wleub",
@@ -51,6 +56,7 @@
 		},
 		{
 			"fromNodeId":"n_wleub",
+			"id":"next@n_wleub@n_siyeV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_siyeV",
@@ -58,6 +64,7 @@
 		},
 		{
 			"fromNodeId":"n_siyeV",
+			"id":"next@n_siyeV@n_4XboV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_4XboV",
@@ -65,6 +72,7 @@
 		},
 		{
 			"fromNodeId":"n_4XboV",
+			"id":"next@n_4XboV@n_04PGi",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_04PGi",
@@ -72,6 +80,7 @@
 		},
 		{
 			"fromNodeId":"n_04PGi",
+			"id":"next@n_04PGi@n_bCsJz",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -80,6 +89,7 @@
 		},
 		{
 			"fromNodeId":"n_bCsJz",
+			"id":"next@n_bCsJz@n_3IJJo",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_3IJJo",
@@ -101,7 +111,7 @@
 	"id":"69c10cea44e3f91007e12fa7",
 	"lastModifiedBy":-1,
 	"lcName":"handle stuck indexer cursors job",
-	"modifiedTime":1788252972158,
+	"modifiedTime":1789395393913,
 	"name":"Handle Stuck Indexer Cursors Job",
 	"nodes":[
 		{
@@ -404,11 +414,23 @@
 							"operator":"OR"
 						},
 						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"indexer"
-							},
-							"property":"properties_type"
+							"filters":[
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"indexer"
+									},
+									"property":"properties_type"
+								},
+								{
+									"filter":{
+										"operator":"EQUAL",
+										"value":"indexer_forward"
+									},
+									"property":"properties_type"
+								}
+							],
+							"operator":"OR"
 						},
 						{
 							"filter":{
@@ -579,6 +601,7 @@
 					"limit":1000,
 					"offset":0
 				},
+				"skipSchemaValidation":true,
 				"unsetIfNull":false
 			},
 			"skip":false,
@@ -649,5 +672,5 @@
 	"tags":[
 		
 	],
-	"version":25
+	"version":27
 }

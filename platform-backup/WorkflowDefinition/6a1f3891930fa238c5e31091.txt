@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743731753,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743732007,
+		"deployedAt":1789395154088,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdf39d7c534668ef6f9e",
+		"deployedDefinitionId":"6aa800d272fd792214e8c467",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":5
+		"version":2,
+		"workflowVersion":8
 	},
 	"edges":[
 		{
@@ -261,7 +261,7 @@
 	"id":"6a1f3891930fa238c5e31091",
 	"lastModifiedBy":-1,
 	"lcName":"indexer cursor processor job (space)",
-	"modifiedTime":1788252971486,
+	"modifiedTime":1789395393914,
 	"name":"Indexer Cursor Processor Job (space)",
 	"nodes":[
 		{
@@ -279,11 +279,11 @@
 			"inputs":{
 				"cron":"INTERVAL",
 				"sequential":true,
-				"maxWaitTime":5,
-				"interval":15,
+				"maxWaitTime":30,
+				"interval":2,
 				"sequentialRunTimeUnit":"MINUTES",
 				"sequentialRunTimeDuration":30,
-				"frequency":"SECONDS"
+				"frequency":"MINUTES"
 			},
 			"skip":false,
 			"subTitle":"Schedule",
@@ -2144,10 +2144,12 @@
 			"index":23,
 			"inputs":{
 				"automationId":"69a55748eb83b276774d9cfc",
+				"distributeLoad":false,
 				"runtimeConnections":{},
 				"synchronous":false,
 				"parameters":{
 					"batchSize":"{{ n_gLvu0.outputs.result.batchSize }}",
+					"cursorType":"{{ n_ghkz6.outputs.item.properties.type }}",
 					"dataType":"{{ n_gLvu0.outputs.result.dataType }}",
 					"errorCount":"{{ n_gLvu0.outputs.result.errorCount }}",
 					"indexerAutomation":"{{ n_gLvu0.outputs.result.indexerAutomation }}",
@@ -2158,7 +2160,8 @@
 					"runtimeType":"{{ n_gLvu0.outputs.result.runtimeType }}",
 					"userId":"{{ n_ghkz6.outputs.item.ownerUserId }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"options":{
 				"bulkheadConfig":{
@@ -2244,6 +2247,9 @@
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -2254,5 +2260,5 @@
 	"tags":[
 		"release_27jan"
 	],
-	"version":7
+	"version":9
 }
