@@ -1,0 +1,267 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395335795,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_yWiX5",
+			"id":"next@n_yWiX5@n_FtchB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FtchB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FtchB",
+			"id":"next@n_FtchB@n_VBmKv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VBmKv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VBmKv",
+			"id":"next@n_VBmKv@n_StopC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_StopC",
+			"type":"next"
+		}
+	],
+	"id":"6aa80187c6a14707f1503ea0",
+	"lastModifiedBy":-1,
+	"lcName":"fetch plan",
+	"modifiedTime":1789395335796,
+	"name":"Fetch plan",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":344,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_5tHqg-1",
+			"id":"n_yWiX5",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"appBrief":{
+							"title":"App Brief",
+							"type":"string"
+						},
+						"id":{
+							"title":"Id",
+							"type":"string"
+						},
+						"objectSpecs":{
+							"items":{
+								"additionalProperties":true,
+								"type":"object"
+							},
+							"title":"Object Specs",
+							"type":"array"
+						},
+						"plan":{
+							"title":"Plan",
+							"type":"string"
+						},
+						"seedTargets":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Seed Targets",
+							"type":"array"
+						},
+						"workflowBriefs":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Workflow Briefs",
+							"type":"array"
+						}
+					},
+					"required":[
+						"id",
+						"seedTargets"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"planId":{
+							"title":"Plan Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"planId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_5tHqg-1",
+			"id":"n_FtchB",
+			"index":2,
+			"inputs":{
+				"object_type":"solution_builder_plan",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ n_yWiX5.outputs.planId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Fetch record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_javascript",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_5tHqg-1",
+			"id":"n_VBmKv",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"seedTargets":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Seed Targets",
+							"type":"array"
+						}
+					},
+					"required":[
+						"seedTargets"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"planText":{
+							"title":"Plan Text",
+							"type":"string"
+						}
+					},
+					"required":[
+						"planText"
+					],
+					"type":"object"
+				},
+				"code":"// Extract the plan's per-object Seed lines as structured targets.\n// Only bullets inside the \"## Objects\" section count; the object name is the\n// text of the enclosing \"### <name>\" heading, before any backtick-quoted meta.\nconst text = String(planText || '');\nconst targets = [];\nlet section = '';\nlet object = '';\n\nfor (const raw of text.split('\\n')) {\n  const line = raw.trim();\n\n  const h2 = line.match(/^##\\s+(.+)$/);\n  if (h2) { section = h2[1].split('`')[0].trim(); object = ''; continue; }\n\n  const h3 = line.match(/^###\\s+(.+)$/);\n  if (h3) { object = h3[1].split('`')[0].trim(); continue; }\n\n  const seed = line.match(/^[-*]\\s*\\*\\*Seed\\*\\*\\s*[\\u2014\\u2013-]\\s*(.+)$/);\n  if (seed && /^objects$/i.test(section) && object) {\n    const spec = seed[1].trim();\n    const n = spec.match(/(\\d+)\\s+record/i);\n    targets.push({\n      object: object,\n      count: n ? parseInt(n[1], 10) : null,\n      spec: spec\n    });\n  }\n}\n\nresult = {\n  seedTargets: targets\n};\n",
+				"isAsync":false,
+				"parameters":{
+					"planText":"{{ n_FtchB.outputs.properties.plan }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code ",
+			"title":"Execute Javascript",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_5tHqg-1",
+			"id":"n_StopC",
+			"index":4,
+			"inputs":{
+				"result":{
+					"appBrief":"{{ n_FtchB.outputs.properties.app_brief }}",
+					"id":"{{ n_FtchB.outputs.id }}",
+					"objectSpecs":{
+						"items":"{{ n_FtchB.outputs.properties.objectSpecs[0] }}",
+						"source":"{{ n_FtchB.outputs.properties.objectSpecs }}",
+						"ua:type":"mappedArray"
+					},
+					"plan":"{{ n_FtchB.outputs.properties.plan }}",
+					"seedTargets":{
+						"items":"{{ n_VBmKv.outputs.result.seedTargets[0] }}",
+						"source":"{{ n_VBmKv.outputs.result.seedTargets }}",
+						"ua:type":"mappedArray"
+					},
+					"workflowBriefs":{
+						"items":"{{ n_FtchB.outputs.properties.workflowBriefs[0] }}",
+						"source":"{{ n_FtchB.outputs.properties.workflowBriefs }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"solution-builder"
+	],
+	"version":0,
+	"workflowDefinitionId":"6a870c2edce779262f2dffc1",
+	"workflowVersion":10
+}
