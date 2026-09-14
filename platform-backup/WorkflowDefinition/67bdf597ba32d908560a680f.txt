@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744147528,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744149313,
+		"deployedAt":1789395325831,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf94cee862008d74ed1c",
+		"deployedDefinitionId":"6aa8017dc6a14707f1503e1f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":117
+		"version":2,
+		"workflowVersion":120
 	},
 	"edges":[
 		{
@@ -49,11 +49,11 @@
 		},
 		{
 			"fromNodeId":"agcGate",
-			"id":"next@agcGate@gprZK",
+			"id":"next@agcGate@agcAgent",
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"gprZK",
+			"toNodeId":"agcAgent",
 			"type":"next"
 		},
 		{
@@ -195,6 +195,32 @@
 			"skip":false,
 			"toNodeId":"n_au43r",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"agcAgent",
+			"id":"next@agcAgent@agcFlagGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcFlagGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"if@agcFlagGate@invoke",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"invoke",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"next@agcFlagGate@gprZK",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"gprZK",
+			"type":"next"
 		}
 	],
 	"grants":{
@@ -212,7 +238,7 @@
 	"id":"67bdf597ba32d908560a680f",
 	"lastModifiedBy":-1,
 	"lcName":"generic create case (streaming response)",
-	"modifiedTime":1788252972875,
+	"modifiedTime":1789395401899,
 	"name":"Generic Create Case (Streaming Response)",
 	"nodes":[
 		{
@@ -1476,6 +1502,62 @@
 			"subTitle":"Stop",
 			"title":"Stop",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@oZEgn-1@n",
+			"id":"agcAgent",
+			"index":20,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ GJmH0.outputs.aiAgentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch the agent's rollout flag",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":148,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"agcGate@oZEgn-1@n",
+			"id":"agcFlagGate",
+			"index":21,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ agcAgent.outputs.properties.useAgentCore }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Agent opted into agent core?",
+			"title":"Condition",
+			"type":"IF_ELSE"
 		}
 	],
 	"ownerUserId":-1,
@@ -1495,5 +1577,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":119
+	"version":121
 }

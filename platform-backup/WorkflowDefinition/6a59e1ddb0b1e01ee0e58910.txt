@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743729140,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743729353,
+		"deployedAt":1789395153207,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdf19d7c534668ef6f8a",
+		"deployedDefinitionId":"6aa800d1c6a14707f1503441",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":35
+		"version":2,
+		"workflowVersion":38
 	},
 	"edges":[
 		{
@@ -156,7 +156,7 @@
 	"id":"6a59e1ddb0b1e01ee0e58910",
 	"lastModifiedBy":-1,
 	"lcName":"sandbox | check execution environment",
-	"modifiedTime":1788252972876,
+	"modifiedTime":1789395401970,
 	"name":"Sandbox | Check Execution Environment",
 	"nodes":[
 		{
@@ -494,7 +494,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"return [\"sandboxExecutionToolInputSchema\": [\n    'type': 'object',\n    'properties': [\n        'language': [\n            'type': 'string',\n            'description': 'The programming language to use for executing the code in the sandbox environment. IT MUST BE bash because this is only supported language, if you have to write python wirte it in bash then execute ',\n            'enum': ['bash']\n        ],\n        'taskSummary': [\n                'type': 'string',\n                'description': 'A very short description of what the sandbox execution is doing. Keep it concise and high level, such as editing slides, generating slides, processing files, extracting text, creating reports, or transforming data. Do not describe implementation details or code logic.'\n                        ],\n        'code': [\n            'type': 'string',\n            'description': '''The source code to execute inside the sandbox.\n\nRecommended:\nIn the first two lines of code:\n# Explain why you are running this code in short words.\n# Explain what is the expectation from this code.\n\nThe final output must be assigned to a variable named result.\n\nExample:\n# Calculate the sum of two numbers\n# Assign the result to result variable\na = 5\nb = 10\nresult = {\"sum\": a + b}'''\n        ],\n        'inputFiles': [\n            'type': 'array',\n            'description': 'Optional array of file detail objects to make available inside the sandbox during execution. Each file must be accessed in code only through its fileVariableName.',\n            'items': [\n                'type': 'object',\n                'description': 'Metadata for a single input file to be made available to the code inside the sandbox.',\n                'properties': [\n                    'sourceType': [\n                        'type': 'string',\n                        'description': 'Source type of the file. Allowed values: URL or CLOUD_STORAGE.'\n                    ],\n                    'source': [\n                        'type': 'string',\n                        'description': 'If sourceType is URL, this is the public file URL. If sourceType is CLOUD_STORAGE, this is the storage key.'\n                    ],\n                    'name': [\n                        'type': 'string',\n                        'description': 'Original file name used for metadata and file preparation. Do not use this directly in code to access the file.'\n                    ],\n                    'fileType': [\n                        'type': 'string',\n                        'description': 'MIME type of the file being provided to the sandbox. Example: text/csv, application/json, application/pdf.'\n                    ],\n                    'fileVariableName': [\n                        'type': 'string',\n                        'description': 'Required variable name that will hold the local file path string inside the sandbox execution environment. This is the only supported way to access the file in code. Example: with open(input_csv_path, \"r\")'\n                    ]\n                ],\n                'required': [\n                    'sourceType',\n                    'source',\n                    'name',\n                    'fileVariableName'\n                ]\n            ]\n        ]\n    ],\n    'required': [\n        'language',\n        'code',\n        'taskSummary'\n    ]\n]]",
+				"code":"return [\"sandboxExecutionToolInputSchema\": [\n    'type': 'object',\n    'properties': [\n        'language': [\n            'type': 'string',\n            'description': 'The code passed to this tool must be a Bash script. The only supported language value is bash. To run Python, invoke python3.11 from Bash; use a quoted heredoc for multiline Python.',\n            'enum': ['bash']\n        ],\n        'taskSummary': [\n                'type': 'string',\n                'description': 'A very short description of what the sandbox execution is doing. Keep it concise and high level, such as editing slides, generating slides, processing files, extracting text, creating reports, or transforming data. Do not describe implementation details or code logic.'\n                        ],\n        'code': [\n            'type': 'string',\n            'description': '''Bash source code to execute inside the sandbox.\n\nRecommended:\nIn the first two lines of code:\n# Explain why you are running this code in short words.\n# Explain what is expected from this code.\n\nWrite textual results to stdout. To run multiline Python, invoke python3.11 from Bash with a quoted heredoc.\n\nExample:\n# Calculate the sum of two numbers\n# Print the result as JSON to stdout\npython3.11 << 'PY'\nimport json\nresult = {\"sum\": 5 + 10}\nprint(json.dumps(result))\nPY'''\n        ],\n        'inputFiles': [\n            'type': 'array',\n            'description': 'Optional array of file detail objects to make available inside the sandbox during execution. Each file is mounted read-only at /workspace/input/<name>. Access it in code by that absolute path.',\n            'items': [\n                'type': 'object',\n                'description': 'Metadata for a single input file to be made available to the code inside the sandbox.',\n                'properties': [\n                    'sourceType': [\n                        'type': 'string',\n                        'description': 'Source type of the file. Allowed values: URL or CLOUD_STORAGE.'\n                    ],\n                    'source': [\n                        'type': 'string',\n                        'description': 'If sourceType is URL, this is the public file URL. If sourceType is CLOUD_STORAGE, this is the storage key.'\n                    ],\n                    'name': [\n                        'type': 'string',\n                        'description': 'Original file name. The file is mounted read-only at /workspace/input/<name> - use that absolute path in code.'\n                    ],\n                    'fileType': [\n                        'type': 'string',\n                        'description': 'MIME type of the file being provided to the sandbox. Example: text/csv, application/json, application/pdf.'\n                    ],\n                    'fileVariableName': [\n                        'type': 'string',\n                        'description': 'Label for this file. It is NOT injected as a shell or Python variable in the sandbox - reading it as $fileVariableName or via os.environ returns an empty string. Access the file at its mounted absolute path /workspace/input/<name> instead.'\n                    ]\n                ],\n                'required': [\n                    'sourceType',\n                    'source',\n                    'name',\n                    'fileVariableName'\n                ]\n            ]\n        ]\n    ],\n    'required': [\n        'language',\n        'code',\n        'taskSummary'\n    ]\n]]",
 				"compile_static":false,
 				"captureStdOutput":false
 			},
@@ -724,5 +724,5 @@
 		}
 	},
 	"standard":true,
-	"version":37
+	"version":39
 }
