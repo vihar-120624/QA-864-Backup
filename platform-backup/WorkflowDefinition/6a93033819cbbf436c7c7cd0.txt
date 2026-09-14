@@ -1,0 +1,533 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395115762,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395115810,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800abc6a14707f1503228",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":29
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sO6fl",
+			"id":"next@n_sO6fl@n_bBivb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bBivb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bBivb",
+			"id":"next@n_bBivb@n_7Kkcs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7Kkcs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7Kkcs",
+			"id":"next@n_7Kkcs@n_7hxei",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7hxei",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7hxei",
+			"id":"next@n_7hxei@n_juipf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_juipf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_juipf",
+			"id":"next@n_juipf@n_5wwbM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5wwbM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5wwbM",
+			"id":"next@n_5wwbM@n_v68MW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_v68MW",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a93033819cbbf436c7c7cd0",
+	"lastModifiedBy":-1,
+	"lcName":"routine | create routine",
+	"modifiedTime":1789395402097,
+	"name":"ROUTINE | Create Routine",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7137,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jnWYe-1",
+			"id":"n_sO6fl",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"response":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Response",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"help":"Reuse an existing agent instead of building a managed one from agentConfig",
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"applications":{
+							"help":"Applications this routine may act through, by connector app name (gmail, slack…). This is how a routine gets tools: it carries no tool list of its own — the enterprise-search admin decides what each application may do, and the routine's agent is built with the intersection. Use Search Available Tools to discover which applications can do what the user asked; an empty list means no applications.",
+							"items":{
+								"type":"string"
+							},
+							"title":"Applications",
+							"type":"array"
+						},
+						"defaultTools":{
+							"additionalProperties":false,
+							"help":"Standard-tool switches for this routine's runs, as {flag: true}, e.g. {\"webSearch\": true}. Get exact flag names from List Standard Tools — never guess them. This REPLACES the agent's own switches for the run, so list every flag you want enabled; omit the field entirely to inherit the agent's defaults. Never enable flags marked interactive (requestClarification, clarifyFromUser, collectSlots) — a routine run has no live user to answer them.",
+							"properties":{},
+							"title":"Default Tools",
+							"type":"object"
+						},
+						"description":{
+							"help":"What this routine does",
+							"title":"Description",
+							"type":"string"
+						},
+						"kickOfMessage":{
+							"help":"The user-role message each run starts with; defaults to the platform kickoff",
+							"title":"Kick Of Message",
+							"type":"string"
+						},
+						"name":{
+							"help":"Routine name",
+							"title":"Name",
+							"type":"string"
+						},
+						"skills":{
+							"help":"Ids of existing agent skills to grant (from List Agent Skills)",
+							"items":{
+								"type":"string"
+							},
+							"title":"Skills",
+							"type":"array"
+						},
+						"triggerContext":{
+							"additionalProperties":false,
+							"help":"App/resource binding for EVENT triggers",
+							"properties":{},
+							"title":"Trigger Context",
+							"type":"object"
+						},
+						"triggerInputs":{
+							"additionalProperties":false,
+							"help":"Per-type trigger payload",
+							"properties":{
+								"cron":{
+									"help":"Cron expression for SCHEDULED triggers",
+									"title":"Cron",
+									"type":"string"
+								},
+								"timezone":{
+									"help":"IANA timezone the cron is evaluated in, e.g. Asia/Kolkata",
+									"title":"Timezone",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Trigger Inputs",
+							"type":"object"
+						},
+						"triggerType":{
+							"help":"Standing trigger; omit for a manual Run-Now-only routine value should be enum from [ SCHEDULED, EVENT ]",
+							"title":"Trigger Type",
+							"type":"string"
+						}
+					},
+					"required":[
+						"name"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1545,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jnWYe-1",
+			"id":"n_bBivb",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7221,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_jnWYe-1",
+			"id":"n_7Kkcs",
+			"index":3,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"enterprise_search_agent"
+				},
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.agentConfig.topicExecutionSettings.topicExecutionModel",
+					"root.tools.items.description",
+					"root.tools.items.inputs"
+				]
+			},
+			"context":{
+				"appName":"routines_by_unifyapps",
+				"resourceVersion":102,
+				"resourceName":"routines_by_unifyapps_create_routine",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jnWYe-1",
+			"id":"n_7hxei",
+			"index":4,
+			"inputs":{
+				"skills":{
+					"items":"{{ n_sO6fl.outputs.skills[0] }}",
+					"source":"{{ n_sO6fl.outputs.skills }}",
+					"ua:type":"mappedArray"
+				},
+				"agentId":"enterprise_search_agent",
+				"overlapPolicy":"SKIP",
+				"name":"{{ n_sO6fl.outputs.name }}",
+				"description":"{{ n_sO6fl.outputs.description }}",
+				"agentConfig":{
+					"defaultTools":"{{ n_sO6fl.outputs.defaultTools }}",
+					"instructions":"{{ n_sO6fl.outputs.kickOfMessage }}",
+					"topicExecutionSettings":{
+						"topicExecutionModel":"{{ n_7Kkcs.outputs.properties.topicExecutionSettings.topicExecutionModel }}"
+					}
+				},
+				"trigger":{
+					"type":"{{ n_sO6fl.outputs.triggerType }}"
+				},
+				"triggerContext":"{{ n_sO6fl.outputs.triggerContext }}",
+				"applications":{
+					"items":"{{ n_sO6fl.outputs.applications[0] }}",
+					"source":"{{ n_sO6fl.outputs.applications }}",
+					"ua:type":"mappedArray"
+				},
+				"status":"ACTIVE",
+				"triggerInputs":{
+					"cron":"{{ n_sO6fl.outputs.triggerInputs.cron }}",
+					"timezone":"{{ n_sO6fl.outputs.triggerInputs.timezone }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Routines by UnifyApps",
+			"title":"Create Routine",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1653,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jnWYe-1",
+			"id":"n_juipf",
+			"index":5,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"pageInputs":{
+							"additionalProperties":false,
+							"properties":{
+								"routineId":{
+									"title":"Routine Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Page Inputs",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"pageInputs":{
+					"routineId":"{{ n_7hxei.outputs.routine.id }}"
+				}
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"pageInputs":{
+							"additionalProperties":false,
+							"properties":{
+								"routineId":{
+									"title":"Routine Id",
+									"type":"string"
+								}
+							},
+							"required":[],
+							"title":"Page Inputs",
+							"type":"object"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7238,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jnWYe-1",
+			"id":"n_5wwbM",
+			"index":6,
+			"inputs":{
+				"automationId":"689aed17aebbc06353598193",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"caseId":"{{ n_bBivb.outputs.caseId }}",
+					"previewDetails":{
+						"canvas":{
+							"props":{
+								"interfaceId":"ua-enterprise-chat",
+								"interfacePageSlug":"t2r-canvas",
+								"pageInputs":"{{ n_juipf.outputs.pageInputs }}",
+								"width":"400px"
+							},
+							"type":"e_interface"
+						},
+						"thumbnail":{
+							"display":"inline",
+							"props":{
+								"interfaceId":"ua-enterprise-chat",
+								"interfacePageSlug":"t2r-canvas-thumbnail",
+								"pageInputs":"{{ n_juipf.outputs.pageInputs }}"
+							},
+							"type":"e_interface"
+						}
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7174,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_jnWYe-1",
+			"id":"n_v68MW",
+			"index":7,
+			"inputs":{
+				"result":{
+					"response":"{{ n_7hxei.outputs.routine.properties }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":30
+}
