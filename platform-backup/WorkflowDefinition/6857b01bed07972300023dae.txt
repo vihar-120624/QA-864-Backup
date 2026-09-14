@@ -1,0 +1,296 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789394968715,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789394968767,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa80018c6a14707f1502da8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":36
+	},
+	"description":"Called from the test rule button to evaluate the workflow",
+	"edges":[
+		{
+			"fromNodeId":"n_WBez9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yZyvS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yZyvS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KBSqu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KBSqu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_V50tc",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6857b01bed07972300023dae",
+	"lastModifiedBy":-1,
+	"lcName":"dqm evaluate data quality",
+	"modifiedTime":1789394972031,
+	"name":"DQM Evaluate Data Quality",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":779,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TCyy7-1",
+			"id":"n_WBez9",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"dataQualityResult":{
+							"additionalProperties":false,
+							"properties":{
+								"result":{
+									"title":"Result",
+									"type":"string"
+								},
+								"ruleSetId":{
+									"title":"Rule Set Id",
+									"type":"string"
+								}
+							},
+							"required":[
+								"ruleSetId",
+								"result"
+							],
+							"title":"Data Quality Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"dataQualityResult"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"attributes":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Attributes",
+							"type":"object"
+						},
+						"filter":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Filter",
+							"type":"object"
+						},
+						"parameters":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Parameters",
+							"type":"object"
+						},
+						"record":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Record",
+							"type":"object"
+						},
+						"recordId":{
+							"title":"Record Id",
+							"type":"string"
+						},
+						"ruleId":{
+							"title":"Rule Id",
+							"type":"string"
+						},
+						"rulesConfig":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Rules Config",
+							"type":"object"
+						},
+						"testRulesetName":{
+							"title":"Test Ruleset Name",
+							"type":"string"
+						}
+					},
+					"required":[
+						"attributes",
+						"parameters",
+						"record"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"data_quality_by_unifyapps",
+				"resourceVersion":14,
+				"resourceName":"data_quality_by_unifyapps_evaluate_rule",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TCyy7-1",
+			"id":"n_yZyvS",
+			"index":2,
+			"inputs":{
+				"filter":"{{ n_WBez9.outputs.filter }}",
+				"testRulesetName":"{{ n_WBez9.outputs.testRulesetName }}",
+				"inputs":{
+					"attributes":"{{ n_WBez9.outputs.attributes }}",
+					"filter":"{{ n_WBez9.outputs.filter }}",
+					"parameters":"{{ n_WBez9.outputs.parameters }}",
+					"record":"{{ n_WBez9.outputs.record }}"
+				},
+				"rulesConfig":"{{ n_WBez9.outputs.rulesConfig }}",
+				"ruleId":"{{ n_WBez9.outputs.ruleId }}"
+			},
+			"skip":false,
+			"subTitle":"Data Quality By UnifyApps",
+			"title":"Data Quality By UnifyApps Evaluate Rules",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":801,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TCyy7-1",
+			"id":"n_KBSqu",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"title":"Result",
+							"type":"string"
+						},
+						"ruleSetId":{
+							"title":"Rule Set Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"ruleSetId",
+						"result"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Result",
+							"type":"object"
+						}
+					},
+					"required":[
+						"result"
+					],
+					"type":"object"
+				},
+				"code":"List<String> keys=  result.keySet().toList()\nList<Object> values = result.values().toList();\nreturn [\"ruleSetId\": keys.getFirst(), \"result\": values.getFirst()];",
+				"compile_static":false,
+				"parameters":{
+					"result":"{{ n_yZyvS.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":794,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_TCyy7-1",
+			"id":"n_V50tc",
+			"index":4,
+			"inputs":{
+				"result":{
+					"dataQualityResult":{
+						"result":"{{ n_KBSqu.outputs.result.result }}",
+						"ruleSetId":"{{ n_KBSqu.outputs.result.ruleSetId }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":false,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"headerValueTierMap":{},
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"dqm",
+		"Internal"
+	],
+	"version":37
+}

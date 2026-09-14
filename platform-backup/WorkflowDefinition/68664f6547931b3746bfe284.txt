@@ -1,0 +1,839 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789394970880,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789394970929,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa8001ac6a14707f1502dce",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":15
+	},
+	"description":"Takes in multiple csv/xls/xlsx files and then detects data types from them",
+	"edges":[
+		{
+			"fromNodeId":"n_upWX6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4Q01n",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4Q01n",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dCRm6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dCRm6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1uU01",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_1uU01",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VIGYU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VIGYU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tCD5t",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tCD5t",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dCRm6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dCRm6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_BRu3b",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68664f6547931b3746bfe284",
+	"lastModifiedBy":-1,
+	"lcName":"dqm detect data types from files",
+	"modifiedTime":1789394972043,
+	"name":"DQM Detect Data Types from Files",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":784,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_O4hBF-1",
+			"id":"n_upWX6",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"fileSchemaMappings":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"fieldsCount":{
+										"title":"Fields Count",
+										"type":"integer"
+									},
+									"fileName":{
+										"title":"File Name",
+										"type":"string"
+									},
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"mimeType":{
+										"title":"Mime Type",
+										"type":"string"
+									},
+									"schemaMappings":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"columnName":{
+													"title":"Column Name",
+													"type":"string"
+												},
+												"dataType":{
+													"title":"Data Type",
+													"type":"string"
+												}
+											},
+											"required":[
+												"columnName",
+												"dataType"
+											],
+											"type":"object"
+										},
+										"title":"Schema Mappings",
+										"type":"array"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									},
+									"url":{
+										"title":"Url",
+										"type":"string"
+									}
+								},
+								"required":[
+									"fileName",
+									"schemaMappings",
+									"fileType",
+									"mimeType",
+									"fieldsCount",
+									"url",
+									"source",
+									"sourceType"
+								],
+								"type":"object"
+							},
+							"title":"File Schema Mappings",
+							"type":"array"
+						}
+					},
+					"required":[
+						"fileSchemaMappings"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"files":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"fileName":{
+										"title":"File Name",
+										"type":"string"
+									},
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"mimeType":{
+										"title":"Mime Type",
+										"type":"string"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									},
+									"url":{
+										"title":"Url",
+										"type":"string"
+									}
+								},
+								"required":[
+									"fileType",
+									"mimeType",
+									"fileName",
+									"source",
+									"sourceType",
+									"url"
+								],
+								"type":"object"
+							},
+							"title":"Files",
+							"type":"array"
+						}
+					},
+					"required":[
+						"files"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":849,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_O4hBF-1",
+			"id":"n_4Q01n",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						],
+						"ui:title":""
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"properties":{},
+												"type":"object"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"fieldsCount":{
+											"title":"Fields Count",
+											"type":"string"
+										},
+										"fileName":{
+											"title":"File Name",
+											"type":"string"
+										},
+										"fileType":{
+											"title":"File Type",
+											"type":"string"
+										},
+										"fileUrl":{
+											"title":"File Url",
+											"type":"string"
+										},
+										"mimeType":{
+											"title":"Mime Type",
+											"type":"string"
+										},
+										"schemaMappings":{
+											"items":{
+												"additionalProperties":false,
+												"properties":{
+													"columnName":{
+														"title":"Column Name",
+														"type":"string"
+													},
+													"dataType":{
+														"title":"Data Type",
+														"type":"string"
+													}
+												},
+												"required":[
+													"columnName",
+													"dataType"
+												],
+												"type":"object"
+											},
+											"title":"Schema Mappings",
+											"type":"array"
+										},
+										"source":{
+											"title":"Source",
+											"type":"string"
+										},
+										"sourceType":{
+											"title":"Source Type",
+											"type":"string"
+										}
+									},
+									"required":[
+										"fileName",
+										"schemaMappings",
+										"fileType",
+										"mimeType",
+										"fieldsCount",
+										"fileUrl",
+										"source",
+										"sourceType"
+									],
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									]
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
+						},
+						"ua:list_type":{
+							"default":"OBJECT",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"title":"List Type",
+							"type":"string"
+						},
+						"ua:title":{
+							"type":"string"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:title":"List",
+				"ua:list_type":"OBJECT"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"disableActions":true,
+							"items":{
+								"properties":{
+									"fieldsCount":{
+										"title":"Fields Count",
+										"type":"string"
+									},
+									"fileName":{
+										"title":"File Name",
+										"type":"string"
+									},
+									"fileType":{
+										"title":"File Type",
+										"type":"string"
+									},
+									"fileUrl":{
+										"title":"File Url",
+										"type":"string"
+									},
+									"mimeType":{
+										"title":"Mime Type",
+										"type":"string"
+									},
+									"schemaMappings":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"columnName":{
+													"title":"Column Name",
+													"type":"string"
+												},
+												"dataType":{
+													"title":"Data Type",
+													"type":"string"
+												}
+											},
+											"required":[
+												"columnName",
+												"dataType"
+											],
+											"type":"object"
+										},
+										"title":"Schema Mappings",
+										"type":"array"
+									},
+									"source":{
+										"title":"Source",
+										"type":"string"
+									},
+									"sourceType":{
+										"title":"Source Type",
+										"type":"string"
+									}
+								},
+								"required":[
+									"fileName",
+									"schemaMappings",
+									"fileType",
+									"mimeType",
+									"fieldsCount",
+									"fileUrl",
+									"source",
+									"sourceType"
+								],
+								"type":"object"
+							},
+							"title":"List",
+							"type":"array"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Files Schema List",
+			"title":"Create list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":828,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_O4hBF-1",
+			"id":"n_dCRm6",
+			"index":3,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_upWX6.outputs.files }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop over all the files",
+			"title":"For loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":810,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dCRm6@_O4hBF-1@l",
+			"id":"n_1uU01",
+			"index":4,
+			"inputs":{
+				"automationId":"6852c009431bcd53faa57bd9",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"parameters":{
+					"fileObject":{
+						"fileName":"{{ n_dCRm6.outputs.item.fileName }}",
+						"fileType":"{{ n_dCRm6.outputs.item.fileType }}",
+						"mimeType":"{{ n_dCRm6.outputs.item.mimeType }}",
+						"source":"{{ n_dCRm6.outputs.item.source }}",
+						"sourceType":"{{ n_dCRm6.outputs.item.sourceType }}",
+						"url":"{{ n_dCRm6.outputs.item.url }}"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Detect Data types from file",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":801,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dCRm6@_O4hBF-1@l",
+			"id":"n_VIGYU",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"count":{
+							"default":"0",
+							"title":"Count",
+							"type":"integer"
+						}
+					},
+					"required":[
+						"count"
+					],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"schemaMappings":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Schema Mappings",
+							"type":"array"
+						}
+					},
+					"required":[
+						"schemaMappings"
+					],
+					"type":"object"
+				},
+				"code":"if (binding.hasVariable(\"schemaMappings\")) {\n    return [\"count\": schemaMappings.size()]\n} \nreturn [\"count\": 0];",
+				"compile_static":false,
+				"parameters":{
+					"schemaMappings":{
+						"source":"{{ n_1uU01.outputs.result }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Get Count of Fields ",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":802,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_dCRm6@_O4hBF-1@l",
+			"id":"n_tCD5t",
+			"index":6,
+			"inputs":{
+				"itemToAdd":{
+					"fieldsCount":"{{ n_VIGYU.outputs.result.count }}",
+					"fileName":"{{ n_dCRm6.outputs.item.fileName }}",
+					"fileType":"{{ n_dCRm6.outputs.item.fileType }}",
+					"fileUrl":"{{ n_dCRm6.outputs.item.url }}",
+					"mimeType":"{{ n_dCRm6.outputs.item.mimeType }}",
+					"schemaMappings":{
+						"items":{
+							"columnName":"{{ n_1uU01.outputs.result[0].columnName }}",
+							"dataType":"{{ n_1uU01.outputs.result[0].dataType }}"
+						},
+						"source":"{{ n_1uU01.outputs.result }}",
+						"ua:type":"mappedArray"
+					},
+					"source":"{{ n_dCRm6.outputs.item.source }}",
+					"sourceType":"{{ n_dCRm6.outputs.item.sourceType }}"
+				},
+				"insertLocation":"END",
+				"listName":"{{ n_4Q01n.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":795,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_O4hBF-1",
+			"id":"n_BRu3b",
+			"index":7,
+			"inputs":{
+				"result":{
+					"fileSchemaMappings":{
+						"items":{
+							"fieldsCount":"{{ n_4Q01n.outputs.items[0].fieldsCount }}",
+							"fileName":"{{ n_4Q01n.outputs.items[0].fileName }}",
+							"fileType":"{{ n_4Q01n.outputs.items[0].fileType }}",
+							"mimeType":"{{ n_4Q01n.outputs.items[0].mimeType }}",
+							"schemaMappings":{
+								"items":{
+									"columnName":"{{ n_4Q01n.outputs.items[0].schemaMappings[0].columnName }}",
+									"dataType":"{{ n_4Q01n.outputs.items[0].schemaMappings[0].dataType }}"
+								},
+								"source":"{{ n_4Q01n.outputs.items[0].schemaMappings }}",
+								"ua:type":"mappedArray"
+							},
+							"source":"{{ n_4Q01n.outputs.items[0].source }}",
+							"sourceType":"{{ n_4Q01n.outputs.items[0].sourceType }}",
+							"url":"{{ n_4Q01n.outputs.items[0].fileUrl }}"
+						},
+						"source":"{{ n_4Q01n.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"dqm",
+		"Internal"
+	],
+	"version":16
+}
