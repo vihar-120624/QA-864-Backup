@@ -4,18 +4,19 @@
 	],
 	"createdTime":1787743588605,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743588822,
+		"deployedAt":1789395087730,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd643f7ad93bb16750dc",
+		"deployedDefinitionId":"6aa8008f39ee5f5ef70b5bde",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":21
+		"version":2,
+		"workflowVersion":24
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_SgZeg",
+			"id":"next@n_SgZeg@n_7TCNw",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_7TCNw",
@@ -23,6 +24,7 @@
 		},
 		{
 			"fromNodeId":"n_7TCNw",
+			"id":"next@n_7TCNw@n_UfM6N",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_UfM6N",
@@ -30,6 +32,7 @@
 		},
 		{
 			"fromNodeId":"n_UfM6N",
+			"id":"next@n_UfM6N@n_xHwpp",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_xHwpp",
@@ -51,7 +54,7 @@
 	"id":"69a55748eb83b276774d9cfc",
 	"lastModifiedBy":-1,
 	"lcName":"schedule knowledge indexer | user",
-	"modifiedTime":1788252972519,
+	"modifiedTime":1789395401774,
 	"name":"Schedule Knowledge Indexer | User",
 	"nodes":[
 		{
@@ -89,6 +92,10 @@
 							"title":"Batch Size",
 							"type":"integer"
 						},
+						"cursorType":{
+							"title":"Cursor Type",
+							"type":"string"
+						},
 						"dataType":{
 							"title":"Data Type",
 							"type":"string"
@@ -96,6 +103,10 @@
 						"errorCount":{
 							"title":"Error Count",
 							"type":"integer"
+						},
+						"fetchFullPayload":{
+							"title":"Fetch Full Payload",
+							"type":"boolean"
 						},
 						"indexerAutomation":{
 							"title":"Indexer Automation",
@@ -206,8 +217,10 @@
 				"runInUserContext":"{{ n_7TCNw.outputs.result.userId }}",
 				"parameters":{
 					"batchSize":"{{ n_SgZeg.outputs.batchSize }}",
+					"cursorType":"{{ n_SgZeg.outputs.cursorType }}",
 					"dataType":"{{ n_SgZeg.outputs.dataType }}",
 					"errorCount":"{{ n_SgZeg.outputs.errorCount }}",
+					"fetchFullPayload":"{{ n_SgZeg.outputs.fetchFullPayload }}",
 					"indexerAutomation":"{{ n_SgZeg.outputs.indexerAutomation }}",
 					"indexerPermitId":"{{ n_SgZeg.outputs.indexerPermitId }}",
 					"indexingVersion":"{{ n_SgZeg.outputs.indexingVersion }}",
@@ -215,7 +228,8 @@
 					"knowledgeType":"{{ n_SgZeg.outputs.knowledgeType }}",
 					"runtimeType":"{{ n_SgZeg.outputs.runtimeType }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -253,8 +267,11 @@
 	],
 	"settings":{
 		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
+		"enableRunLogging":true,
 		"enableVariableLogging":false,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -266,5 +283,5 @@
 		"knowledge_v2",
 		"release_27jan"
 	],
-	"version":23
+	"version":25
 }
