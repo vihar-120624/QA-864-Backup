@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743475101,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743475267,
+		"deployedAt":1789395050601,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccf34cdb0358b9df1f9e",
+		"deployedDefinitionId":"6aa8006ac6a14707f1502f5e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":49
+		"version":2,
+		"workflowVersion":52
 	},
 	"description":"Executes bash(always python3.11) code in an isolated sandbox with access to /workspace/input, /workspace/skills, /workspace/working, and /workspace/output directories. Use this tool to: discover skill files, download the template Always write intermediate files to /workspace/working and final output to /workspace/output. End each sandbox call at a natural checkpoint — do not render and publish in the same call.",
 	"edges":[
@@ -33,7 +33,25 @@
 		},
 		{
 			"fromNodeId":"n_WLLYx",
-			"id":"next@n_WLLYx@n_oN6DY",
+			"id":"next@n_WLLYx@n_RdyL1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RdyL1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RdyL1",
+			"id":"if@n_RdyL1@n_ErrL1",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ErrL1",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_RdyL1",
+			"id":"next@n_RdyL1@n_oN6DY",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_oN6DY",
@@ -247,7 +265,7 @@
 	"id":"6a3d31cb2f668c35dc870b49",
 	"lastModifiedBy":-1,
 	"lcName":"execute code | sandbox",
-	"modifiedTime":1788252972805,
+	"modifiedTime":1789395401101,
 	"name":"Execute Code | Sandbox",
 	"nodes":[
 		{
@@ -2008,6 +2026,65 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":465,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_fBhHM-1",
+			"id":"n_RdyL1",
+			"index":24,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"Done"
+						},
+						"property":"{{ n_WLLYx.outputs.status }}"
+					},
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_WLLYx.outputs.status }}"
+					}
+				],
+				"operator":"OR"
+			},
+			"skip":false,
+			"subTitle":"Sandbox preparation incomplete?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":958,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_RdyL1@_fBhHM-1@y",
+			"id":"n_ErrL1",
+			"index":25,
+			"inputs":{
+				"result":{
+					"toolOutput":"Sandbox preparation did not complete (status={{ n_WLLYx.outputs.status }}); code was not executed."
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":-1,
@@ -2027,5 +2104,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":51
+	"version":53
 }
