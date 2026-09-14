@@ -1,0 +1,769 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395066937,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_UbJJV",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6BKgP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6BKgP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LC15A",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FWXq1",
+			"type":"next"
+		}
+	],
+	"id":"6aa8007a39ee5f5ef70b5a98",
+	"lastModifiedBy":-1,
+	"lcName":"[onedrive] search files wrapper",
+	"modifiedTime":1789395066938,
+	"name":"[Onedrive] Search Files Wrapper",
+	"nodes":[
+		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3618,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_UbJJV",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"aggregations":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"buckets":{
+										"items":{
+											"additionalProperties":false,
+											"properties":{
+												"aggregationFilterToken":{
+													"title":"aggregationFilterToken",
+													"type":"string"
+												},
+												"count":{
+													"title":"count",
+													"type":"integer"
+												},
+												"key":{
+													"title":"key",
+													"type":"string"
+												}
+											},
+											"type":"object"
+										},
+										"title":"buckets",
+										"type":"array"
+									},
+									"field":{
+										"title":"field",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"aggregations",
+							"type":"array"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"items":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"chunkNumber":{
+										"title":"chunkNumber",
+										"type":"integer"
+									},
+									"createdAt":{
+										"title":"createdAt",
+										"type":"string"
+									},
+									"createdBy":{
+										"title":"createdBy",
+										"type":"string"
+									},
+									"driveId":{
+										"title":"driveId",
+										"type":"string"
+									},
+									"extension":{
+										"title":"extension",
+										"type":"string"
+									},
+									"fullPath":{
+										"title":"fullPath",
+										"type":"string"
+									},
+									"hitId":{
+										"title":"hitId",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"matchedTerms":{
+										"items":{
+											"type":"string"
+										},
+										"title":"matchedTerms",
+										"type":"array"
+									},
+									"mimeType":{
+										"title":"mimeType",
+										"type":"string"
+									},
+									"modifiedAt":{
+										"title":"modifiedAt",
+										"type":"string"
+									},
+									"modifiedBy":{
+										"title":"modifiedBy",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
+									},
+									"parentPath":{
+										"title":"parentPath",
+										"type":"string"
+									},
+									"rank":{
+										"title":"rank",
+										"type":"integer"
+									},
+									"siteId":{
+										"title":"siteId",
+										"type":"string"
+									},
+									"size":{
+										"title":"size",
+										"type":"integer"
+									},
+									"sizeReadable":{
+										"title":"sizeReadable",
+										"type":"string"
+									},
+									"summary":{
+										"title":"summary",
+										"type":"string"
+									},
+									"type":{
+										"title":"type",
+										"type":"string"
+									},
+									"webUrl":{
+										"title":"webUrl",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"items",
+							"type":"array"
+						},
+						"moreResultsAvailable":{
+							"title":"moreResultsAvailable",
+							"type":"boolean"
+						},
+						"nextOffset":{
+							"title":"nextOffset",
+							"type":"integer"
+						},
+						"returned":{
+							"title":"returned",
+							"type":"integer"
+						},
+						"searchTerms":{
+							"items":{
+								"type":"string"
+							},
+							"title":"searchTerms",
+							"type":"array"
+						},
+						"total":{
+							"title":"total",
+							"type":"integer"
+						},
+						"totalFetched":{
+							"title":"totalFetched",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aggregationFilters":{
+							"help":"Optional. Used in STEP 2 of the two-step faceted flow to refine results to selected aggregation buckets. Three formats: (1) Single bucket: '{field}:\"{token}\"' — e.g., 'fileType:\"++646f6378\"'. (2) Multiple buckets (OR): '{field}:or(\"t1\",\"t2\")' — e.g., 'lastModifiedBy:or(\"++a1b2\",\"++c3d4\")'. (3) Literal range: '{field}:range({from},{to})' — uses LITERAL values, NOT tokens, e.g., 'lastModifiedTime:range(2026-01-01T00:00:00Z, 2026-12-31T23:59:59Z)'. Tokens come from the prior response under aggregations[].buckets[].aggregationFilterToken — copy them VERBATIM. NEVER hand-build, decode, modify, or guess token values. Token filters and range filters can be combined in the same array. Omit entirely on the first (Step 1) call.",
+							"items":{
+								"help":"One refinement expression. Format must be exactly one of: '{field}:\"{token}\"', '{field}:or(\"t1\",\"t2\",\"...\")', or '{field}:range({from},{to})'. Always quote tokens with double quotes. Always escape inner quotes when serialized inside JSON.",
+								"title":"filterExpression",
+								"type":"string"
+							},
+							"title":"aggregationFilters",
+							"type":"array"
+						},
+						"aggregations":{
+							"help":"Optional. Refiner definitions that return bucket counts over the matching set. Use for faceted UX — showing the user 'X docx, Y xlsx, Z pdf' so they can refine ('what file types do I have about budget?'). Each entry aggregates on one refinable property of driveItem. Max 1000 total buckets per call for SharePoint/OneDrive. Buckets come back under hitsContainers[].aggregations in the response. Common patterns: by fileType (counts per extension), by lastModifiedBy (counts per author), by size (numeric ranges), by lastModifiedTime (date ranges). Omit entirely when the user wants results only and no facet breakdown.",
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"bucketDefinition":{
+										"help":"Optional. Controls how buckets are computed, ordered, and filtered. If omitted, the server uses defaults (sort by count desc, no minimum). Set explicit values when you need deterministic bucket ordering OR when using numeric/date range buckets.",
+										"properties":{
+											"isDescending":{
+												"help":"Optional. Bucket sort direction. Default: true (largest/most common first, or Z-A alphabetically). Set false for ascending (smallest first, or A-Z alphabetically when sortBy is keyAsString).",
+												"title":"isDescending",
+												"type":"boolean"
+											},
+											"minimumCount":{
+												"help":"Optional. Buckets with fewer matches than this threshold are dropped from the response. Default: 0 (include all). Set to 1 to hide empty buckets. Set higher (e.g., 5) to focus only on significant values and avoid noise from rare/one-off buckets.",
+												"title":"minimumCount",
+												"type":"integer"
+											},
+											"ranges":{
+												"help":"Optional. Defines numeric or date range buckets, REPLACING automatic key-based bucketing. Use for 'size' (byte ranges) or 'lastModifiedTime' / 'createdTime' (date ranges). 'from' is inclusive, 'to' is exclusive — either bound may be omitted to leave it open-ended. Provide ranges as ASCENDING, NON-OVERLAPPING intervals. Example for size buckets: [{to:'100000'}, {from:'100000', to:'1000000'}, {from:'1000000'}] = <100 KB, 100 KB–1 MB, >1 MB.",
+												"items":{
+													"properties":{
+														"from":{
+															"help":"Optional. INCLUSIVE lower bound of the range. Omit for an open lower bound (everything less than 'to'). Use numeric strings for size buckets ('100000' = 100 KB). Use ISO 8601 strings for date buckets ('2026-01-01T00:00:00Z').",
+															"title":"from",
+															"type":"string"
+														},
+														"to":{
+															"help":"Optional. EXCLUSIVE upper bound of the range. Omit for an open upper bound (everything from 'from' onward). Use numeric strings for size buckets, ISO 8601 strings for date buckets.",
+															"title":"to",
+															"type":"string"
+														}
+													},
+													"title":"range",
+													"type":"object"
+												},
+												"title":"ranges",
+												"type":"array"
+											},
+											"sortBy":{
+												"help":"Optional. How buckets are ordered. Default: 'count'. Allowed values: ['count', 'keyAsString', 'keyAsNumber']. 'count' = sort by bucket size (most common values first — typical for facets). 'keyAsString' = sort alphabetically by bucket key (use for author names A-Z). 'keyAsNumber' = sort numerically (REQUIRED when aggregating on size or numeric/date ranges).",
+												"title":"sortBy",
+												"type":"string"
+											}
+										},
+										"title":"bucketDefinition",
+										"type":"object"
+									},
+									"field":{
+										"help":"REQUIRED. The refinable property to aggregate on. Must be marked refinable in the search schema or the API returns 400. Common driveItem refinable values: ['fileType', 'fileExtension', 'lastModifiedBy', 'createdBy', 'author', 'contentType', 'size', 'lastModifiedTime', 'createdTime', 'title', 'name']. Choose based on user intent: 'what types' → fileType; 'who modified' → lastModifiedBy; 'how big' → size; 'when modified' → lastModifiedTime.",
+										"title":"field",
+										"type":"string"
+									},
+									"size":{
+										"help":"Optional. Maximum number of buckets to return for this aggregation. Range: 1–65535 (effective cap is 1000 for SharePoint/OneDrive). Default if omitted: server picks (typically 10). Not required when 'bucketDefinition.ranges' is provided — the range count is implied. Examples: size:10 returns top 10 distinct values; size:5 returns top 5.",
+										"title":"size",
+										"type":"integer"
+									}
+								},
+								"required":[
+									"field"
+								],
+								"title":"aggregation",
+								"type":"object"
+							},
+							"title":"aggregations",
+							"type":"array"
+						},
+						"from":{
+							"help":"Optional. Pagination offset — the zero-based index of the first result to return. Default: 0. Use for paging through large result sets: from=0 returns the first page, from=size returns the second page, from=2*size returns the third, etc. Always use this for pagination — search/query uses from/size offset-based paging, NOT cursor tokens.",
+							"title":"from",
+							"type":"integer"
+						},
+						"queryString":{
+							"help":"REQUIRED. KQL (Keyword Query Language) search string for OneDrive/SharePoint files. Supports: free-text keywords ('budget'), exact phrases in quotes ('\"quarterly review\"'), boolean operators AND/OR/NOT (MUST be UPPERCASE — lowercase is treated as a search word), property restrictions (filetype:docx, filename:report, author:alice, path:'...', size>=100000, lastmodifiedtime>=2026-01-01), grouping with parentheses, exclusion with leading minus ('budget -draft'), and prefix-only wildcards ('report*' works, '*report' does NOT). Always wrap user free-text in quotes to escape KQL-significant characters (: + - ( ) \" * < > =) — a stray colon (e.g., 'time: 3pm') is parsed as a property restriction. For OneDrive-only scoping, include path:'https://{tenant}-my.sharepoint.com/personal/{user_upn}/...' in the query. Exclusion-only queries (e.g., NOT draft) FAIL — always include at least one positive clause.",
+							"title":"queryString",
+							"type":"string"
+						},
+						"size":{
+							"help":"Optional. Number of results to return per page. Default: 25. Recommended max: 200 (Graph throttles larger pages). Use a smaller value when the user specifies a count ('show me 5 matching files' → 5, 'top 10 results' → 10). Use a larger value (50–200) for sweeps where you want most results in fewer calls. Combine with 'from' to navigate pages.",
+							"title":"size",
+							"type":"integer"
+						},
+						"sortBy":{
+							"help":"Optional. Field used to sort results. Must be a sortable refinable property in the search schema. Leave empty (omit) for relevance-ranked results (the default — usually what you want). Common values: ['lastModifiedDateTime', 'createdDateTime', 'name', 'size', 'title', 'author']. Use only when the user explicitly asks for a sort other than relevance (e.g., 'newest first', 'sort alphabetically', 'largest files first', 'most recent').",
+							"title":"sortBy",
+							"type":"string"
+						},
+						"sortOrder":{
+							"help":"Optional. Sort direction. Default: 'desc'. Allowed values: ['asc', 'desc']. Only applies when 'sortBy' is set — ignored otherwise. Use 'asc' for 'oldest first', 'smallest first', 'A to Z', 'ascending'. Use 'desc' for 'newest first', 'largest first', 'Z to A', 'descending'.",
+							"title":"sortOrder",
+							"type":"string"
+						}
+					},
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_6BKgP",
+			"index":2,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_onedrive"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_Ify5k",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_6BKgP.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_IZ4pR-1@y",
+			"id":"n_9U9zr",
+			"index":4,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_6BKgP.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.startEpoch",
+					"root.parameters.endEpoch",
+					"root.parameters.limit",
+					"root.parameters.offset",
+					"root.parameters.isRead",
+					"root.parameters.from",
+					"root.parameters.orderBy",
+					"root.parameters.orderDir",
+					"root.parameters.queryString",
+					"root.parameters.sortBy",
+					"root.parameters.sortOrder",
+					"root.parameters.aggregations.source",
+					"root.parameters.aggregations.ua:type",
+					"root.parameters.aggregations.items.field",
+					"root.parameters.aggregations.items.size",
+					"root.parameters.aggregations.items.bucketDefinition.sortBy",
+					"root.parameters.aggregations.items.bucketDefinition.isDescending",
+					"root.parameters.aggregations.items.bucketDefinition.minimumCount",
+					"root.parameters.aggregations.items.bucketDefinition.ranges.source",
+					"root.parameters.aggregations.items.bucketDefinition.ranges.ua:type",
+					"root.parameters.aggregations.items.bucketDefinition.ranges.items.to",
+					"root.parameters.aggregations.items.bucketDefinition.ranges.items.from",
+					"root.parameters.aggregationFilters.source",
+					"root.parameters.aggregationFilters.ua:type",
+					"root.parameters.aggregationFilters.items",
+					"root.parameters.from",
+					"root.parameters.size"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1928,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_LC15A",
+			"index":5,
+			"inputs":{
+				"automationId":"6a120e6945f4d649eb7c5c1d",
+				"runtimeConnections":{
+					"microsoft_onedrive":"{{ n_6BKgP.outputs.connectionId }}",
+					"microsoft_outlook":"{{ n_INExi.outputs.connections[0].id }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"aggregationFilters":{
+						"items":"{{ n_UbJJV.outputs.aggregationFilters[0] }}",
+						"source":"{{ n_UbJJV.outputs.aggregationFilters }}",
+						"ua:type":"mappedArray"
+					},
+					"aggregations":{
+						"items":{
+							"bucketDefinition":{
+								"isDescending":"{{ n_UbJJV.outputs.aggregations[0].bucketDefinition.isDescending }}",
+								"minimumCount":"{{ n_UbJJV.outputs.aggregations[0].bucketDefinition.minimumCount }}",
+								"ranges":{
+									"items":{
+										"from":"{{ n_UbJJV.outputs.aggregations[0].bucketDefinition.ranges[0].from }}",
+										"to":"{{ n_UbJJV.outputs.aggregations[0].bucketDefinition.ranges[0].to }}"
+									},
+									"source":"{{ n_UbJJV.outputs.aggregations[0].bucketDefinition.ranges }}",
+									"ua:type":"mappedArray"
+								},
+								"sortBy":"{{ n_UbJJV.outputs.aggregations[0].bucketDefinition.sortBy }}"
+							},
+							"field":"{{ n_UbJJV.outputs.aggregations[0].field }}",
+							"size":"{{ n_UbJJV.outputs.aggregations[0].size }}"
+						},
+						"source":"{{ n_UbJJV.outputs.aggregations }}",
+						"ua:type":"mappedArray"
+					},
+					"caseId":"{{ n_UbJJV.outputs.caseId }}",
+					"from":"{{ n_UbJJV.outputs.from }}",
+					"queryString":"{{ n_UbJJV.outputs.queryString }}",
+					"size":"{{ n_UbJJV.outputs.size }}",
+					"sortBy":"{{ n_UbJJV.outputs.sortBy }}",
+					"sortOrder":"{{ n_UbJJV.outputs.sortOrder }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Search Files",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.result.totalFetched",
+					"root.result.totalCount",
+					"root.result.returned",
+					"root.result.nextCursor",
+					"root.result.items.source",
+					"root.result.items.ua:type",
+					"root.result.items.items.chunkNumber",
+					"root.result.items.items.id",
+					"root.result.items.items.name",
+					"root.result.items.items.type",
+					"root.result.items.items.size",
+					"root.result.items.items.sizeReadable",
+					"root.result.items.items.mimeType",
+					"root.result.items.items.childCount",
+					"root.result.items.items.parentPath",
+					"root.result.items.items.fullPath",
+					"root.result.items.items.webUrl",
+					"root.result.items.items.downloadUrl",
+					"root.result.items.items.createdAt",
+					"root.result.items.items.modifiedAt",
+					"root.result.items.items.createdBy.name",
+					"root.result.items.items.createdBy.email",
+					"root.result.items.items.modifiedBy.name",
+					"root.result.items.items.modifiedBy.email",
+					"root.result.items.items.driveId",
+					"root.result.items.items.driveType",
+					"root.result.searchTerms.source",
+					"root.result.searchTerms.ua:type",
+					"root.result.searchTerms.items",
+					"root.result.total",
+					"root.result.totalFetched",
+					"root.result.returned",
+					"root.result.moreResultsAvailable",
+					"root.result.nextOffset",
+					"root.result.aggregations.source",
+					"root.result.aggregations.ua:type",
+					"root.result.aggregations.items.field",
+					"root.result.aggregations.items.buckets.source",
+					"root.result.aggregations.items.buckets.ua:type",
+					"root.result.aggregations.items.buckets.items.key",
+					"root.result.aggregations.items.buckets.items.count",
+					"root.result.aggregations.items.buckets.items.aggregationFilterToken",
+					"root.result.items.source",
+					"root.result.items.ua:type",
+					"root.result.items.items.chunkNumber",
+					"root.result.items.items.hitId",
+					"root.result.items.items.id",
+					"root.result.items.items.rank",
+					"root.result.items.items.name",
+					"root.result.items.items.type",
+					"root.result.items.items.extension",
+					"root.result.items.items.mimeType",
+					"root.result.items.items.size",
+					"root.result.items.items.sizeReadable",
+					"root.result.items.items.parentPath",
+					"root.result.items.items.fullPath",
+					"root.result.items.items.webUrl",
+					"root.result.items.items.summary",
+					"root.result.items.items.matchedTerms.source",
+					"root.result.items.items.matchedTerms.ua:type",
+					"root.result.items.items.matchedTerms.items",
+					"root.result.items.items.createdAt",
+					"root.result.items.items.modifiedAt",
+					"root.result.items.items.createdBy",
+					"root.result.items.items.modifiedBy",
+					"root.result.items.items.driveId",
+					"root.result.items.items.siteId"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_IZ4pR-1",
+			"id":"n_FWXq1",
+			"index":6,
+			"inputs":{
+				"result":{
+					"aggregations":{
+						"items":{
+							"buckets":{
+								"items":{
+									"aggregationFilterToken":"{{ n_LC15A.outputs.aggregations[0].buckets[0].aggregationFilterToken }}",
+									"count":"{{ n_LC15A.outputs.aggregations[0].buckets[0].count }}",
+									"key":"{{ n_LC15A.outputs.aggregations[0].buckets[0].key }}"
+								},
+								"source":"{{ n_LC15A.outputs.aggregations[0].buckets }}",
+								"ua:type":"mappedArray"
+							},
+							"field":"{{ n_LC15A.outputs.aggregations[0].field }}"
+						},
+						"source":"{{ n_LC15A.outputs.aggregations }}",
+						"ua:type":"mappedArray"
+					},
+					"errorMessage":"{{ n_LC15A.outputs.errorMessage }}",
+					"items":{
+						"items":{
+							"chunkNumber":"{{ n_LC15A.outputs.items[0].chunkNumber }}",
+							"createdAt":"{{ n_LC15A.outputs.items[0].createdAt }}",
+							"createdBy":"{{ n_LC15A.outputs.items[0].createdBy }}",
+							"driveId":"{{ n_LC15A.outputs.items[0].driveId }}",
+							"extension":"{{ n_LC15A.outputs.items[0].extension }}",
+							"fullPath":"{{ n_LC15A.outputs.items[0].fullPath }}",
+							"hitId":"{{ n_LC15A.outputs.items[0].hitId }}",
+							"id":"{{ n_LC15A.outputs.items[0].id }}",
+							"matchedTerms":{
+								"items":"{{ n_LC15A.outputs.items[0].matchedTerms[0] }}",
+								"source":"{{ n_LC15A.outputs.items[0].matchedTerms }}",
+								"ua:type":"mappedArray"
+							},
+							"mimeType":"{{ n_LC15A.outputs.items[0].mimeType }}",
+							"modifiedAt":"{{ n_LC15A.outputs.items[0].modifiedAt }}",
+							"modifiedBy":"{{ n_LC15A.outputs.items[0].modifiedBy }}",
+							"name":"{{ n_LC15A.outputs.items[0].name }}",
+							"parentPath":"{{ n_LC15A.outputs.items[0].parentPath }}",
+							"rank":"{{ n_LC15A.outputs.items[0].rank }}",
+							"siteId":"{{ n_LC15A.outputs.items[0].siteId }}",
+							"size":"{{ n_LC15A.outputs.items[0].size }}",
+							"sizeReadable":"{{ n_LC15A.outputs.items[0].sizeReadable }}",
+							"summary":"{{ n_LC15A.outputs.items[0].summary }}",
+							"type":"{{ n_LC15A.outputs.items[0].type }}",
+							"webUrl":"{{ n_LC15A.outputs.items[0].webUrl }}"
+						},
+						"source":"{{ n_LC15A.outputs.items }}",
+						"ua:type":"mappedArray"
+					},
+					"moreResultsAvailable":"{{ n_LC15A.outputs.moreResultsAvailable }}",
+					"nextOffset":"{{ n_LC15A.outputs.nextOffset }}",
+					"returned":"{{ n_LC15A.outputs.returned }}",
+					"searchTerms":{
+						"items":"{{ n_LC15A.outputs.searchTerms[0] }}",
+						"source":"{{ n_LC15A.outputs.searchTerms }}",
+						"ua:type":"mappedArray"
+					},
+					"total":"{{ n_LC15A.outputs.total }}",
+					"totalFetched":"{{ n_LC15A.outputs.totalFetched }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return File's Data",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a120e3fafcac26cfbdfa21a",
+	"workflowVersion":51
+}
