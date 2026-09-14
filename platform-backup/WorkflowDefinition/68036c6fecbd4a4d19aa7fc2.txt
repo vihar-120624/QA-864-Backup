@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743922121,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743922185,
+		"deployedAt":1789395269968,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eceb245d2142160e6eec5",
+		"deployedDefinitionId":"6aa8014572fd792214e8ca41",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":51
+		"version":2,
+		"workflowVersion":54
 	},
 	"edges":[
 		{
@@ -91,11 +91,11 @@
 		},
 		{
 			"fromNodeId":"n_od04a",
-			"id":"next@n_od04a@n_QgxV6",
+			"id":"next@n_od04a@agcAgent",
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_QgxV6",
+			"toNodeId":"agcAgent",
 			"type":"next"
 		},
 		{
@@ -176,7 +176,15 @@
 		},
 		{
 			"fromNodeId":"n_FRx5Z",
-			"id":"next@n_FRx5Z@NUIiK",
+			"id":"next@n_FRx5Z@n_yhh0F",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yhh0F",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_yhh0F",
+			"id":"next@n_yhh0F@NUIiK",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"NUIiK",
@@ -192,15 +200,7 @@
 		},
 		{
 			"fromNodeId":"mEtf2",
-			"id":"next@mEtf2@l6vJW",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"l6vJW",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"l6vJW",
-			"id":"next@l6vJW@uYhwt",
+			"id":"next@mEtf2@uYhwt",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"uYhwt",
@@ -229,6 +229,32 @@
 			"skip":false,
 			"toNodeId":"is3Ts",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"agcAgent",
+			"id":"next@agcAgent@agcFlagGate",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"agcFlagGate",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"if@agcFlagGate@n_TZl9d",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_TZl9d",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"agcFlagGate",
+			"id":"next@agcFlagGate@n_QgxV6",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QgxV6",
+			"type":"next"
 		}
 	],
 	"grants":{
@@ -246,7 +272,7 @@
 	"id":"68036c6fecbd4a4d19aa7fc2",
 	"lastModifiedBy":-1,
 	"lcName":"stop response generation",
-	"modifiedTime":1788252973498,
+	"modifiedTime":1789395396084,
 	"name":"Stop Response Generation",
 	"nodes":[
 		{
@@ -780,7 +806,8 @@
 					"finalAnswer":"{{ S8r97.outputs.content }}",
 					"publishThought":false
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"publish llm response",
@@ -868,6 +895,92 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":3416,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"1rBBG-1",
+			"id":"n_yhh0F",
+			"index":17,
+			"inputs":{
+				"recordId":"{{ n_FRx5Z.outputs.streamingDetailWaitingInstanceId }}",
+				"useRawPayload":false,
+				"writeThroughSessionVariables":false,
+				"object_type":"stop_response_generation",
+				"retryOnFailure":true,
+				"skipIfBlank":false,
+				"record":{
+					"content":"{{ S8r97.outputs.content }}",
+					"executionId":"{{ n_FRx5Z.outputs.streamingDetailWaitingInstanceId }}"
+				},
+				"upsert":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":248,
 				"resourceName":"callables_call_automation",
@@ -878,7 +991,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"1rBBG-1",
 			"id":"NUIiK",
-			"index":17,
+			"index":18,
 			"inputs":{
 				"automationId":"67b4908aaffe713b4ced2d83",
 				"runtimeConnections":{},
@@ -888,7 +1001,8 @@
 					"chunkContent":"{{ S8r97.outputs.content }}",
 					"eventType":"cancelled"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -907,7 +1021,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"1rBBG-1",
 			"id":"mEtf2",
-			"index":18,
+			"index":19,
 			"inputs":{
 				"automationId":"67b4908aaffe713b4ced2d83",
 				"runtimeConnections":{},
@@ -923,55 +1037,6 @@
 			"subTitle":"Callable",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
-				"appName":"storage_by_unifyapps",
-				"resourceVersion":2555,
-				"resourceName":"storage_by_unifyapps_update_records",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"1rBBG-1",
-			"id":"l6vJW",
-			"index":19,
-			"inputs":{
-				"numberOfRecordsToUpdate":"MULTIPLE",
-				"triggerInputCondition":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"{{ S8r97.outputs.caseId }}"
-							},
-							"property":"properties_caseId"
-						}
-					],
-					"operator":"AND"
-				},
-				"object_type":"service_hub_message",
-				"skipIfBlank":false,
-				"updateFields":[
-					{
-						"actionType":"SET",
-						"fieldName":"properties.additional.streamingInProgress",
-						"setValue":"false"
-					}
-				],
-				"skipIfEmpty":false,
-				"page":{
-					"limit":20,
-					"offset":0
-				},
-				"skipSchemaValidation":false,
-				"unsetIfNull":false
-			},
-			"skip":true,
-			"subTitle":"message streaming stop",
-			"title":"Update records by query",
-			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -1067,6 +1132,62 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2,
+				"resourceName":"storage_by_unifyapps_get_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_od04a@1rBBG-1@n",
+			"id":"agcAgent",
+			"index":24,
+			"inputs":{
+				"object_type":"ai_agent",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"id":"{{ EPFZk.outputs.properties.additional.aiAgentId }}",
+				"readThroughSessionVariables":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch the agent's rollout flag",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":914,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_od04a@1rBBG-1@n",
+			"id":"agcFlagGate",
+			"index":25,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ agcAgent.outputs.properties.useAgentCore }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Agent opted into agent core?",
+			"title":"Condition",
+			"type":"IF_ELSE"
 		}
 	],
 	"ownerUserId":-1,
@@ -1086,5 +1207,5 @@
 	"tags":[
 		
 	],
-	"version":53
+	"version":55
 }
