@@ -1,0 +1,199 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395152145,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395152185,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800d0c6a14707f150342d",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":5
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_3DoJV",
+			"id":"next@n_3DoJV@n_E1J25",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E1J25",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_E1J25",
+			"id":"next@n_E1J25@n_dg9KD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dg9KD",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a76ebd678a96e20a002614a",
+	"lastModifiedBy":-1,
+	"lcName":"agent optimiser | updatetaskdetails",
+	"modifiedTime":1789395388416,
+	"name":"Agent Optimiser | updateTaskDetails",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1365,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BNUlM-1",
+			"id":"n_3DoJV",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[
+						"success"
+					],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"newTaskDescription":{
+							"title":"New Task Description",
+							"type":"string"
+						},
+						"newTaskInstructions":{
+							"title":"New Task Instructions",
+							"type":"string"
+						},
+						"newTaskName":{
+							"title":"New Task Name",
+							"type":"string"
+						},
+						"taskId":{
+							"title":"Task Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"taskId"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":2954,
+				"resourceName":"storage_by_unifyapps_update_record_fields_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BNUlM-1",
+			"id":"n_E1J25",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ n_3DoJV.outputs.taskId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"e_topic_ai_agent",
+				"skipIfBlank":true,
+				"skipPermissionCheck":false,
+				"updateFields":[
+					{
+						"actionType":"SET",
+						"fieldName":"properties.name",
+						"setValue":"{{ n_3DoJV.outputs.newTaskName }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.description",
+						"setValue":"{{ n_3DoJV.outputs.newTaskDescription }}"
+					},
+					{
+						"actionType":"SET",
+						"fieldName":"properties.instructions",
+						"setValue":"{{ n_3DoJV.outputs.newTaskInstructions }}"
+					}
+				],
+				"skipSchemaValidation":true,
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage",
+			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1365,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_BNUlM-1",
+			"id":"n_dg9KD",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":"{{ n_E1J25.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"AI Agent",
+		"Agent Optimiser"
+	],
+	"version":6
+}

@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743962515,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743962765,
+		"deployedAt":1789395287145,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecedaba51514edfc7deb8",
+		"deployedDefinitionId":"6aa8015739ee5f5ef70b65bb",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":321
+		"version":2,
+		"workflowVersion":324
 	},
 	"edges":[
 		{
@@ -94,7 +94,7 @@
 	"id":"6881f6a9423c70d0f4f1d84a",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge indexer | hubspot | index contact",
-	"modifiedTime":1788252971300,
+	"modifiedTime":1789395388454,
 	"name":"Knowledge Indexer | Hubspot | Index contact",
 	"nodes":[
 		{
@@ -111,6 +111,7 @@
 			"index":1,
 			"inputs":{
 				"result":{
+					"dynamic":true,
 					"properties":{
 						"success":{
 							"title":"Success",
@@ -200,6 +201,13 @@
 				"output":{
 					"additionalProperties":false,
 					"properties":{
+						"companyList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Company List",
+							"type":"array"
+						},
 						"referenceUrl":{
 							"title":"Reference Url",
 							"type":"string"
@@ -385,6 +393,10 @@
 									"title":"hubspot_owner_id",
 									"type":"string"
 								},
+								"jobtitle":{
+									"title":"Jobtitle",
+									"type":"string"
+								},
 								"lastmodifieddate":{
 									"title":"lastmodifieddate",
 									"type":"string"
@@ -482,7 +494,10 @@
 			"additional":{
 				"xsdSchemaConfig":{
 					"root":{}
-				}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.companyList.items"
+				]
 			},
 			"context":{
 				"appName":"code_by_unifyapps",
@@ -505,14 +520,19 @@
 							"type":"string"
 						}
 					},
-					"required":[
-						"eventData"
-					],
+					"required":[],
 					"type":"object"
 				},
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"companyList":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Company List",
+							"type":"array"
+						},
 						"properties":{
 							"additionalProperties":false,
 							"properties":{},
@@ -523,10 +543,15 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def FIELD_LABELS = [\n  title                        : \"title\",\n  firstname                    : \"firstName\",\n  lastname                     : \"lastName\",\n  email                        : \"email\",\n  company                      : \"company\",\n  hs_content_membership_status : \"status\",\n  hs_lead_status               : \"leadStatus\",\n  total_revenue                : \"totalRevenue\",\n  lifecyclestage               : \"lifeCycleStage\",\n  hs_linkedin_url              : \"linkedinUrl\",\n  owner                        : \"owner\",\n  ownerEmail                   : \"ownerEmail\"\n]\n\ndef ORDER = [\"title\",\"firstname\",\"lastname\",\"email\",\"company\",\"hs_content_membership_status\",\n             \"hs_lead_status\",\"total_revenue\",\"lifecyclestage\",\"hs_linkedin_url\",\"owner\",\"ownerEmail\"]\n\ndef merged = [:]\nmerged.putAll(properties ?: [:])\n\n// title = firstName + lastName\nmerged['title'] = [merged['firstname'], merged['lastname']]\n        .findAll { it != null && it.toString().trim() }\n        .collect { it.toString().trim() }\n        .join(\" \")\n\ndef buildText = { Map props, Map labels, List order ->\n    order.findAll { props[it] != null && props[it].toString().trim() }\n         .collect { \"${labels[it]}: ${props[it].toString().trim()}\" }\n         .join(\", \")\n}\n\nreturn [\"eventData\": buildText(merged, FIELD_LABELS, ORDER).toString()]",
+				"code":"def FIELD_LABELS = [\n  title                        : \"title\",\n  firstname                    : \"firstName\",\n  lastname                     : \"lastName\",\n  email                        : \"email\",\n  company                      : \"company\",\n  hs_content_membership_status : \"status\",\n  hs_lead_status               : \"leadStatus\",\n  total_revenue                : \"totalRevenue\",\n  lifecyclestage               : \"lifeCycleStage\",\n  hs_linkedin_url              : \"linkedinUrl\",\n  owner                        : \"owner\",\n  ownerEmail                   : \"ownerEmail\",\n  jobtitle                     : \"jobtitle\",\n  companyList                  : \"associatedCompanies\"\n]\n\ndef ORDER = [\"title\",\"firstname\",\"lastname\",\"email\",\"company\",\"hs_content_membership_status\",\n             \"hs_lead_status\",\"total_revenue\",\"lifecyclestage\",\"hs_linkedin_url\",\"owner\",\"ownerEmail\",\"jobtitle\",\n             \"companyList\"]\n\ndef merged = [:]\nmerged.putAll(properties ?: [:])\n\n// title = firstName + lastName\nmerged['title'] = [merged['firstname'], merged['lastname']]\n        .findAll { it != null && it.toString().trim() }\n        .collect { it.toString().trim() }\n        .join(\" \")\n\n// companyList comes from its own binding (array of strings)\ndef companies = binding.hasVariable('companyList') ? companyList : null\n\ndef joinList = { value ->\n    if (value == null) return null\n    def items = (value instanceof Collection || value instanceof Object[]) ? value.toList() : [value]\n    def cleaned = items.findResults { it?.toString()?.trim() ?: null }\n    cleaned ? cleaned.join(\" | \") : null\n}\n\ndef companyText = joinList(companies)\nif (companyText) merged['companyList'] = companyText\n\ndef buildText = { Map props, Map labels, List order ->\n    order.findAll { props[it] != null && props[it].toString().trim() }\n         .collect { \"${labels[it]}: ${props[it].toString().trim()}\" }\n         .join(\", \")\n}\n\nreturn [\"eventData\": buildText(merged, FIELD_LABELS, ORDER).toString()]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"companyList":{
+						"items":"{{ n_O9s6c.outputs.result.companyList[0] }}",
+						"source":"{{ n_O9s6c.outputs.result.companyList }}",
+						"ua:type":"mappedArray"
+					},
 					"properties":"{{ n_gCc75.outputs.result.properties }}"
 				}
 			},
@@ -662,7 +687,7 @@
 					"chunkMetadata":"{{ n_N3IsP.outputs.chunkMetadata }}",
 					"chunks":{
 						"items":{
-							"data":"{{ nebL9.outputs.chunks }} ; {{ n_T1Rnz.outputs.result.text }}",
+							"data":"{{ nebL9.outputs.chunks[0] }} ; {{ n_T1Rnz.outputs.result.text }}",
 							"sharedWithIds":{
 								"items":"{{ n_QcFG1.outputs.sharedWithIds }}",
 								"source":"{{ n_QcFG1.outputs.sharedWithIds }}",
@@ -726,5 +751,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":323
+	"version":325
 }

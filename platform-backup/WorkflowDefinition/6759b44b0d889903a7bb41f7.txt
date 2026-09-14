@@ -4,19 +4,45 @@
 	],
 	"createdTime":1787744580377,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744580737,
+		"deployedAt":1789395344319,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed144cee862008d7564df",
+		"deployedDefinitionId":"6aa8019039ee5f5ef70b6a95",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":160
+		"version":2,
+		"workflowVersion":163
 	},
 	"edges":[
 		{
 			"fromNodeId":"z35h8",
-			"id":"next@z35h8@_DWuYm",
+			"id":"next@z35h8@n_oOFLO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_oOFLO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_oOFLO",
+			"id":"if@n_oOFLO@n_Tv0d3",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Tv0d3",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Tv0d3",
+			"id":"next@n_Tv0d3@_DWuYm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_DWuYm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_oOFLO",
+			"id":"next@n_oOFLO@_DWuYm",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_DWuYm",
@@ -208,7 +234,7 @@
 	"id":"6759b44b0d889903a7bb41f7",
 	"lastModifiedBy":-1,
 	"lcName":"data rag as action",
-	"modifiedTime":1788252971624,
+	"modifiedTime":1789395388423,
 	"name":"Data RAG As Action",
 	"nodes":[
 		{
@@ -339,6 +365,10 @@
 							"title":"executeUsingModel",
 							"type":"string"
 						},
+						"semanticSearchQuery":{
+							"title":"Semantic Search Query",
+							"type":"boolean"
+						},
 						"tableIds":{
 							"items":{
 								"type":"string"
@@ -369,6 +399,59 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":484,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"ngYSB-1",
+			"id":"n_oOFLO",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ z35h8.outputs.semanticSearchQuery }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"isNotSemanticQuery?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1194,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_oOFLO@ngYSB-1@y",
+			"id":"n_Tv0d3",
+			"index":3,
+			"inputs":{
+				"result":{
+					"success":"false"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceName":"callables_call_automation",
 				"type":"APPLICATION"
@@ -378,7 +461,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"_DWuYm",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"automationId":"68712e940efd02597703f2f3",
 				"runtimeConnections":{},
@@ -413,7 +496,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_3baJ4",
-			"index":3,
+			"index":5,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -488,7 +571,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"_bbDG8",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"filters":[
 					{
@@ -524,7 +607,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_bbDG8@ngYSB-1@y",
 			"id":"_ULhc2",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"result":{
 					"passMessageDirectlyToAgent":"No tables and columns found for SQL formation.",
@@ -548,7 +631,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"StVrb",
-			"index":6,
+			"index":8,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -904,7 +987,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_rz7ly",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"variableSchema":{
 					"additionalProperties":false,
@@ -935,7 +1018,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"_fKJt7",
-			"index":8,
+			"index":10,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1046,7 +1129,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"_mfTdR",
-			"index":9,
+			"index":11,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1324,7 +1407,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"_N7xPB",
-			"index":10,
+			"index":12,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1581,7 +1664,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"_BkM6Q",
-			"index":11,
+			"index":13,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1871,7 +1954,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_Bh6q5",
-			"index":12,
+			"index":14,
 			"inputs":{
 				"automationId":"67a48d37f8f1744841dabb63",
 				"runtimeConnections":{},
@@ -1910,7 +1993,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_KEQOn",
-			"index":13,
+			"index":15,
 			"inputs":{
 				"automationId":"672eefb99d0e461f4f99c3bd",
 				"runtimeConnections":{},
@@ -1928,6 +2011,11 @@
 					"fewShotExamples":{
 						"items":"{{ _DWuYm.outputs.fewShotExamples[0] }}",
 						"source":"{{ _DWuYm.outputs.fewShotExamples }}",
+						"ua:type":"mappedArray"
+					},
+					"joins":{
+						"items":"{{ _DWuYm.outputs.joins[0] }}",
+						"source":"{{ _DWuYm.outputs.joins }}",
 						"ua:type":"mappedArray"
 					},
 					"keyMeasuresExamples":{
@@ -1981,7 +2069,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_dj4Ar",
-			"index":14,
+			"index":16,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2011,7 +2099,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_DVEjS",
-			"index":15,
+			"index":17,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2044,7 +2132,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_V1Qfl",
-			"index":16,
+			"index":18,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2143,7 +2231,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_pw5Hg",
-			"index":17,
+			"index":19,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2178,7 +2266,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_P7tWu",
-			"index":18,
+			"index":20,
 			"inputs":{
 				"variables":[
 					{
@@ -2232,7 +2320,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"n_IjqXX",
-			"index":19,
+			"index":21,
 			"inputs":{
 				"captureAddedItems":false,
 				"insertLocation":"END",
@@ -2274,7 +2362,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"rp0ma",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2416,9 +2504,10 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"ngYSB-1",
 			"id":"n_0LkTe",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"automationId":"68c51597269ad81cc750a3ca",
+				"distributeLoad":false,
 				"runtimeConnections":{},
 				"synchronous":false,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
@@ -2494,7 +2583,7 @@
 					]
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Capture Trace",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
@@ -2511,7 +2600,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ngYSB-1",
 			"id":"sE03r",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"result":{
 					"assumptions_for_sql_generation":"{{ _fKJt7.outputs.assumptions_for_sql_generation }}",
@@ -2568,15 +2657,18 @@
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
 	"standard":true,
 	"tags":[
-		"AI Agent"
+		"AI Agent",
+		"release_27jan",
+		"msft_connectors"
 	],
-	"version":162
+	"version":164
 }

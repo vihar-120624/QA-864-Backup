@@ -4,15 +4,14 @@
 	],
 	"createdTime":1787743781221,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743781401,
+		"deployedAt":1789395182642,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece259d7c534668ef7f65",
-		"deploymentTag":"reemoved_some_fileTypes",
+		"deployedDefinitionId":"6aa800eec6a14707f150368d",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":27
+		"version":2,
+		"workflowVersion":30
 	},
 	"edges":[
 		{
@@ -142,13 +141,6 @@
 			"fromNodeId":"_EQHi7",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_HfmMU",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_HfmMU",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_eADoO",
 			"type":"next"
 		},
@@ -174,9 +166,9 @@
 	},
 	"id":"68eaa390ab169b40395613dd",
 	"lastModifiedBy":-1,
-	"lcName":"upload files for chat",
-	"modifiedTime":1788252971623,
-	"name":"Upload files for Chat",
+	"lcName":"[dt] upload files for chat",
+	"modifiedTime":1789395388393,
+	"name":"[DT] Upload files for Chat",
 	"nodes":[
 		{
 			"additional":{
@@ -792,7 +784,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def finalFiles = []\n\nif (!binding.hasVariable('files') || files == null || files.isEmpty()) {\n  return [\n    finalFiles : []\n  ]\n}\n\ndef extensionToMimeType = [\n  \"pdf\"  : \"application/pdf\",\n  \"doc\"  : \"application/msword\",\n  \"docx\" : \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"xls\"  : \"application/vnd.ms-excel\",\n  \"xlsx\" : \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\n  \"csv\"  : \"text/csv\",\n  \"png\"  : \"image/png\",\n  \"jpg\"  : \"image/jpeg\",\n  \"jpeg\" : \"image/jpeg\",\n  \"webp\" : \"image/webp\",\n  \"txt\"  : \"text/plain\",\n  \"md\"   : \"text/markdown\",  \n  \"ppt\"  : \"application/vnd.ms-powerpoint\",  \n  \"pptx\" : \"application/vnd.openxmlformats-officedocument.presentationml.presentation\", \n  \"wav\"  : \"audio/wav\",\n  \"html\" : \"text/html\",\n  \"htm\"  : \"text/html\",\n  \"json\" : \"application/json\",\n  \"xml\"  : \"application/xml\",\n  \"rtf\"  : \"application/rtf\"\n]\n\nfiles.each { file ->\n  def originalName = file.name ?: \"\"\n  def nameHasDot = originalName?.contains('.')\n  def nameExt = nameHasDot ? originalName.tokenize('.')?.last()?.toLowerCase() : null\n  def sourceExt = file.source?.tokenize('.')?.last()?.toLowerCase()\n  // Prefer extension from name when present; otherwise fall back to source extension\n  def extension = nameExt ?: sourceExt\n\n  // Determine mime type: prefer our mapping, then file.fileType if provided, else octet-stream\n  def mimeType = extension ? (extensionToMimeType[extension] ?: file.fileType) : file.fileType\n  mimeType = mimeType ?: \"application/octet-stream\"\n\n  // Only append extension when the provided name had no extension\n  def nameWithExt = originalName\n  if (!nameHasDot && extension) {\n    nameWithExt = originalName + \".\" + extension\n  }\n\n  def processedFile = [\n    fileExtension : extension,\n    fileType      : mimeType,\n    name          : nameWithExt,\n    size          : file.size,\n    source        : file.source,\n    sourceType    : file.sourceType\n  ]\n  finalFiles << processedFile\n}\n\nreturn [\n  finalFiles : finalFiles\n]\n",
+				"code":"def finalFiles = []\n\nif (!binding.hasVariable('files') || files == null || files.isEmpty()) {\n  return [\n    finalFiles : []\n  ]\n}\n\ndef extensionToMimeType = [\n  \"pdf\"  : \"application/pdf\",\n  \"doc\"  : \"application/msword\",\n  \"docx\" : \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"xls\"  : \"application/vnd.ms-excel\",\n  \"xlsx\" : \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\n  \"csv\"  : \"text/csv\",\n  \"png\"  : \"image/png\",\n  \"jpg\"  : \"image/jpeg\",\n  \"jpeg\" : \"image/jpeg\",\n  \"webp\" : \"image/webp\",\n  \"txt\"  : \"text/plain\",\n  \"md\"   : \"text/markdown\",  \n  \"ppt\"  : \"application/vnd.ms-powerpoint\",  \n  \"pptx\" : \"application/vnd.openxmlformats-officedocument.presentationml.presentation\", \n  \"mp3\"  : \"audio/mpeg\",\n  \"mpeg\" : \"video/mpeg\",\n  \"mp4\"  : \"video/mp4\",\n  \"wav\"  : \"audio/wav\",\n  \"html\" : \"text/html\",\n  \"htm\"  : \"text/html\",\n  \"json\" : \"application/json\",\n  \"xml\"  : \"application/xml\",\n  \"rtf\"  : \"application/rtf\",\n  \"py\"   : \"text/x-python\",\n  \"js\"   : \"text/javascript\"\n]\n\nfiles.each { file ->\n  def originalName = file.name ?: \"\"\n  def nameHasDot = originalName?.contains('.')\n  def nameExt = nameHasDot ? originalName.tokenize('.')?.last()?.toLowerCase() : null\n  def sourceExt = file.source?.tokenize('.')?.last()?.toLowerCase()\n  // Prefer extension from name when present; otherwise fall back to source extension\n  def extension = nameExt ?: sourceExt\n\n  // Determine mime type: prefer our mapping, then file.fileType if provided, else octet-stream\n  def mimeType = extension ? (extensionToMimeType[extension] ?: file.fileType) : file.fileType\n  mimeType = mimeType ?: \"application/octet-stream\"\n\n  // Only append extension when the provided name had no extension\n  def nameWithExt = originalName\n  if (!nameHasDot && extension) {\n    nameWithExt = originalName + \".\" + extension\n  }\n\n  def processedFile = [\n    fileExtension : extension,\n    fileType      : mimeType,\n    name          : nameWithExt,\n    size          : file.size,\n    source        : file.source,\n    sourceType    : file.sourceType\n  ]\n  finalFiles << processedFile\n}\n\nreturn [\n  finalFiles : finalFiles\n]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1486,28 +1478,6 @@
 			"type":"ACTION"
 		},
 		{
-			"context":{
-				"appName":"utility_by_unifyapps",
-				"resourceVersion":615,
-				"resourceName":"utility_by_unifyapps_generate_public_url",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_2PYkn@_5NVxH-1@l",
-			"id":"n_HfmMU",
-			"index":16,
-			"inputs":{
-				"file":"{{ n_2PYkn.outputs.item }}",
-				"expiryTime":24
-			},
-			"skip":false,
-			"subTitle":"Utility by UnifyApps",
-			"title":"Generate public file URL",
-			"type":"ACTION"
-		},
-		{
 			"additional":{
 				"visibleOptionalFields":[
 					"root.itemToAdd.metadata.uploadTime",
@@ -1526,7 +1496,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_2PYkn@_5NVxH-1@l",
 			"id":"n_eADoO",
-			"index":17,
+			"index":16,
 			"inputs":{
 				"itemToAdd":{
 					"id":"{{ _EQHi7.outputs.id }}",
@@ -1536,7 +1506,7 @@
 						"uploadTime":"{{ _EQHi7.outputs.createdTime }}"
 					},
 					"name":"{{ _EQHi7.outputs.properties.name }}",
-					"url":"{{ n_HfmMU.outputs.url }}"
+					"url":"{{ __ENV__.outputs.PlatformDomain }}{{ CSZ80.outputs.path }}"
 				},
 				"insertLocation":"END",
 				"listName":"{{ n_y9EQD.outputs.items[0] }}"
@@ -1558,7 +1528,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_5NVxH-1",
 			"id":"n_1U3YW",
-			"index":18,
+			"index":17,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -1603,5 +1573,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":29
+	"version":31
 }
