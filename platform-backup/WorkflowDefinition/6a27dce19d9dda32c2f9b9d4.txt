@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743726817,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743727108,
+		"deployedAt":1789395152555,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdef9d7c534668ef6f67",
+		"deployedDefinitionId":"6aa800d0c6a14707f1503435",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":34
+		"version":2,
+		"workflowVersion":37
 	},
 	"edges":[
 		{
@@ -56,7 +56,33 @@
 		},
 		{
 			"fromNodeId":"n_CG3lc",
-			"id":"next@n_CG3lc@n_O6zf8",
+			"id":"next@n_CG3lc@n_B1X5C",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_B1X5C",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B1X5C",
+			"id":"if@n_B1X5C@n_KKt9g",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KKt9g",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_KKt9g",
+			"id":"next@n_KKt9g@n_O6zf8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O6zf8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_B1X5C",
+			"id":"next@n_B1X5C@n_O6zf8",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_O6zf8",
@@ -78,7 +104,7 @@
 	"id":"6a27dce19d9dda32c2f9b9d4",
 	"lastModifiedBy":-1,
 	"lcName":"skill | save skill with tools",
-	"modifiedTime":1788252972190,
+	"modifiedTime":1789395394189,
 	"name":"Skill | Save Skill with Tools",
 	"nodes":[
 		{
@@ -107,6 +133,10 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
+						"autoDeploy":{
+							"title":"Auto Deploy",
+							"type":"boolean"
+						},
 						"id":{
 							"title":"Id",
 							"type":"string"
@@ -338,6 +368,64 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":194,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5FO3z-1",
+			"id":"n_B1X5C",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_avSN9.outputs.autoDeploy }}"
+					},
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_avSN9.outputs.autoDeploy }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":12225,
+				"resourceName":"standard_entities_deploy_entity",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_B1X5C@_5FO3z-1@y",
+			"id":"n_KKt9g",
+			"index":8,
+			"inputs":{
+				"entityType":"e_skill_ai_agent",
+				"id":"{{ n_AaAzc.outputs.object.id }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Deploy entity",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":908,
 				"resourceName":"callables_return_to_automation",
@@ -348,7 +436,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_5FO3z-1",
 			"id":"n_O6zf8",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"result":{
 					"success":true
@@ -374,5 +462,5 @@
 		}
 	},
 	"standard":true,
-	"version":36
+	"version":38
 }

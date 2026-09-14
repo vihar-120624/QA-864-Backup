@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743513176,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743513408,
+		"deployedAt":1789395067483,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecd1953a823318abfc11e",
+		"deployedDefinitionId":"6aa8007b72fd792214e8bfac",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":134
+		"version":2,
+		"workflowVersion":137
 	},
 	"edges":[
 		{
@@ -142,7 +142,15 @@
 		},
 		{
 			"fromNodeId":"_rDdb3",
-			"id":"next@_rDdb3@n_GeO0y",
+			"id":"next@_rDdb3@n_XPxIT",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XPxIT",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_XPxIT",
+			"id":"next@n_XPxIT@n_GeO0y",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_GeO0y",
@@ -184,33 +192,41 @@
 		},
 		{
 			"fromNodeId":"n_qa4Zq",
-			"id":"if@n_qa4Zq@n_Ec7AI",
+			"id":"if@n_qa4Zq@n_c4QOx",
 			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_c4QOx",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_c4QOx",
+			"id":"next@n_c4QOx@n_Ec7AI",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Ec7AI",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_Ec7AI",
-			"id":"if@n_Ec7AI@n_b5Eva",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_b5Eva",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_b5Eva",
-			"id":"next@n_b5Eva@n_voMda",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_voMda",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_voMda",
-			"id":"next@n_voMda@n_ywOFn",
+			"fromNodeId":"n_Ec7AI",
+			"id":"if@n_Ec7AI@n_fck1a",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fck1a",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_fck1a",
+			"id":"next@n_fck1a@n_SsCnF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SsCnF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_SsCnF",
+			"id":"next@n_SsCnF@n_ywOFn",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_ywOFn",
@@ -370,7 +386,7 @@
 	"id":"6970a524648686730e1c9793",
 	"lastModifiedBy":-1,
 	"lcName":"memoryprofile | memoryinference",
-	"modifiedTime":1788252973231,
+	"modifiedTime":1789395394161,
 	"name":"MemoryProfile | memoryInference",
 	"nodes":[
 		{
@@ -1037,6 +1053,77 @@
 			"type":"ACTION"
 		},
 		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
+				"visibleOptionalFields":[
+					"root.parameters.memoryProfileUserSpecific.items",
+					"root.parameters.memoryProfileAgentSpecific.items",
+					"root.parameters.memoryProfileTeamSpecific.items",
+					"root.parameters.agentId.items",
+					"root.parameters.memoryProfileProjectSpecific.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":52,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_adJCN-1",
+			"id":"n_XPxIT",
+			"index":14,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"cacheKey":{
+							"title":"Cache Key",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"spaceId":{
+							"title":"Space Id",
+							"type":"string"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def a = binding.hasVariable('agentId') && agentId ? agentId : 'NO_AGENT'\ndef u = binding.hasVariable('userId') && userId ? userId : 'NO_USER'\ndef s = binding.hasVariable('spaceId') && spaceId ? spaceId : 'NO_SPACE'\nreturn [cacheKey: \"memInf|agent=${a}|user=${u}|space=${s}\".toString()]",
+				"compile_static":false,
+				"isAsync":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"agentId":"{{ n_WF3Bn.outputs.agentId[0] }}",
+					"spaceId":"{{ n_Bpquy.outputs.spaceId }}",
+					"userId":"{{ n_WF3Bn.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"cache key",
+			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
 			"context":{
 				"appName":"if_else",
 				"resourceVersion":141,
@@ -1048,7 +1135,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_GeO0y",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"filters":[
 					{
@@ -1083,7 +1170,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_GeO0y@_adJCN-1@y",
 			"id":"n_55bGq",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1140,7 +1227,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_A0O2k",
-			"index":16,
+			"index":17,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1190,7 +1277,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_qa4Zq",
-			"index":17,
+			"index":18,
 			"inputs":{
 				"filters":[
 					{
@@ -1210,6 +1297,94 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":4362,
+				"resourceName":"storage_by_unifyapps_count_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_qa4Zq@_adJCN-1@y",
+			"id":"n_c4QOx",
+			"index":19,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"resolvedFilter":{
+								"filter":"{{ _rDdb3.outputs.result.filter }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"memory_json_store"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_XPxIT.outputs.result.cacheKey }}",
+					"enabled":false,
+					"timeToLive":"300",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Count records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":72,
 				"resourceName":"if_else_condition",
@@ -1220,7 +1395,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qa4Zq@_adJCN-1@y",
 			"id":"n_Ec7AI",
-			"index":18,
+			"index":20,
 			"inputs":{
 				"filters":[
 					{
@@ -1229,9 +1404,16 @@
 							"value":"true"
 						},
 						"property":"{{ n_WF3Bn.outputs.skipSemanticRetrieval }}"
+					},
+					{
+						"filter":{
+							"operator":"LTE",
+							"value":"{{ n_WF3Bn.outputs.limitMemories }}"
+						},
+						"property":"{{ n_c4QOx.outputs.count }}"
 					}
 				],
-				"operator":"AND"
+				"operator":"OR"
 			},
 			"skip":false,
 			"subTitle":"Condition",
@@ -1249,8 +1431,8 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@y",
-			"id":"n_b5Eva",
-			"index":19,
+			"id":"n_fck1a",
+			"index":21,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1268,18 +1450,75 @@
 				"includeCurrentUserPermissions":false,
 				"sortBy":[
 					{
-						"field":"mTm",
+						"field":"cTm",
 						"order":"DESC"
 					}
 				],
 				"translationsOption":"DEFAULT",
 				"page":{
-					"limit":15,
+					"limit":"{{ n_WF3Bn.outputs.limitMemories }}",
 					"paginateBy":"OFFSET"
 				},
 				"includeTotalCount":false,
 				"numberOfRecordsToFetch":"MULTIPLE",
 				"readThroughSessionVariables":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_XPxIT.outputs.result.cacheKey }}",
+					"enabled":false,
+					"timeToLive":"300",
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -1302,8 +1541,8 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@y",
-			"id":"n_voMda",
-			"index":20,
+			"id":"n_SsCnF",
+			"index":22,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1332,13 +1571,13 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def memoriesByType = [:].withDefault { [] }\ndef languagePreferenceMemories = []\n\ndef isLanguagePreferenceMemory = { String text ->\n    if (!text) return false\n\n    def lower = text.toLowerCase()\n\n    return (\n        lower.contains(\"prefers to chat in\") ||\n        lower.contains(\"preferred language\") ||\n        lower.contains(\"prefers responses in\") ||\n        lower.contains(\"prefers to respond in\") ||\n        lower.contains(\"response language\") ||\n        lower.contains(\"chat language\") ||\n        lower.contains(\"speak in\") ||\n        lower.contains(\"answer in\")\n    )\n}\n\n// Collect memories grouped by memoryType\n(memoryList ?: []).each { obj ->\n    def memoryType = obj?.properties?.memoryType\n    def memoryText = obj?.properties?.memoryText\n\n    if (memoryType && memoryText) {\n        if (isLanguagePreferenceMemory(memoryText)) {\n            languagePreferenceMemories << memoryText\n        } else {\n            memoriesByType[memoryType] << memoryText\n        }\n    }\n}\n\n// Remove duplicates while preserving order\nlanguagePreferenceMemories = languagePreferenceMemories.unique()\nmemoriesByType = memoriesByType.collectEntries { type, texts ->\n    [(type): texts.unique()]\n}\n\ndef result = new StringBuilder()\n\nif (languagePreferenceMemories) {\n    result.append(\"**CRITICAL MEMORY RULE**:\\n\")\n    result.append(\"Any memory about the user's preferred chat or response language is ALWAYS relevant and must be followed as the highest-priority language instruction.\\n\")\n    result.append(\"Do not ignore language preference memories even if other memories may be optional.\\n\")\n    result.append(\"If a memory says the user prefers a specific language, always respond in that language unless the user explicitly asks to switch.\\n\\n\")\n    result.append(\"Language preference memories:\\n\")\n    languagePreferenceMemories.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\n// result.append(\"## [CRITICAL USER PREFRENCES] These are a few applicable user prefrences that must be followed for the user request.\")\n// // result.append(\"[IMPORTANT] Not all of these may be important to answer the user query, so choose the relevant memories only and neglect the unrelated memories. \")\n// // result.append(\"However, any memory about the user's preferred chat or response language is ALWAYS relevant and must never be ignored.\\n\")\n\n// memoriesByType.each { type, texts ->\n//     result.append(\"\\n${type.capitalize()}:\\n\")\n//     texts.each { text ->\n//         result.append(\"- ${text}\\n\")\n//     }\n// }\n\n// def memoriesString = result.toString().trim()\n\n\n\nmemoriesByType.each { type, texts ->\n    result.append(\"\\n${type.capitalize()}:\\n\")\n    texts.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\ndef memoriesString = result.toString().trim()\n\nif (!memoriesString.isEmpty()) {\n    memoriesString =\n        \"## [CRITICAL MEMORY BASED USER PREFRENCES] A few applicable user prefrences or derived memories that must be kept in mind while answering the user request.\\n\\n\" +\n        memoriesString\n}\n\n\nreturn [\"memoryString\": memoriesString]",
+				"code":"memoryList = (memoryList ?: []).reverse() \n\ndef memoriesByType = [:].withDefault { [] }\ndef languagePreferenceMemories = []\n\ndef isLanguagePreferenceMemory = { String text ->\n    if (!text) return false\n\n    def lower = text.toLowerCase()\n\n    return (\n        lower.contains(\"prefers to chat in\") ||\n        lower.contains(\"preferred language\") ||\n        lower.contains(\"prefers responses in\") ||\n        lower.contains(\"prefers to respond in\") ||\n        lower.contains(\"response language\") ||\n        lower.contains(\"chat language\") ||\n        lower.contains(\"speak in\") ||\n        lower.contains(\"answer in\")\n    )\n}\n\n// Collect memories grouped by memoryType\n(memoryList ?: []).each { obj ->\n    def memoryType = obj?.properties?.memoryType\n    def memoryText = obj?.properties?.memoryText\n\n    if (memoryType && memoryText) {\n        if (isLanguagePreferenceMemory(memoryText)) {\n            languagePreferenceMemories << memoryText\n        } else {\n            memoriesByType[memoryType] << memoryText\n        }\n    }\n}\n\n// Remove duplicates while preserving order\nlanguagePreferenceMemories = languagePreferenceMemories.unique()\nmemoriesByType = memoriesByType.collectEntries { type, texts ->\n    [(type): texts.unique()]\n}\n\ndef result = new StringBuilder()\n\nif (languagePreferenceMemories) {\n    result.append(\"**CRITICAL MEMORY RULE**:\\n\")\n    result.append(\"Any memory about the user's preferred chat or response language is ALWAYS relevant and must be followed as the highest-priority language instruction.\\n\")\n    result.append(\"Do not ignore language preference memories even if other memories may be optional.\\n\")\n    result.append(\"If a memory says the user prefers a specific language, always respond in that language unless the user explicitly asks to switch.\\n\\n\")\n    result.append(\"Language preference memories:\\n\")\n    languagePreferenceMemories.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\nmemoriesByType = memoriesByType.sort { it.key } \nmemoriesByType.each { type, texts ->\n    result.append(\"\\n${type.capitalize()}:\\n\")\n    texts.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\ndef memoriesString = result.toString().trim()\n\nif (!memoriesString.isEmpty()) {\n    memoriesString =\n        \"## [CRITICAL MEMORY BASED USER PREFRENCES] A few applicable user prefrences or derived memories that must be kept in mind while answering the user request.\\n\\n\" +\n        memoriesString\n}\n\n\nreturn [\"memoryString\": memoriesString]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"memoryList":{
-						"items":"{{ n_b5Eva.outputs.objects[0] }}",
-						"source":"{{ n_b5Eva.outputs.objects }}",
+						"items":"{{ n_fck1a.outputs.objects[0] }}",
+						"source":"{{ n_fck1a.outputs.objects }}",
 						"ua:type":"mappedArray"
 					}
 				}
@@ -1360,12 +1599,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@y",
 			"id":"n_ywOFn",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"variables":[
 					{
 						"source":"{{ n_A0O2k.outputs.memoryString }}",
-						"value":"{{ n_voMda.outputs.result.memoryString }}"
+						"value":"{{ n_SsCnF.outputs.result.memoryString }}"
 					}
 				]
 			},
@@ -1386,7 +1625,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@n",
 			"id":"n_vqu2I",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"automationId":"6784b9216fb83f0972c5625d",
 				"runtimeConnections":{},
@@ -1414,7 +1653,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@n",
 			"id":"n_fCC06",
-			"index":23,
+			"index":25,
 			"inputs":{
 				"automationId":"69d3aaf8b92f4d5f7ebdecc0",
 				"runtimeConnections":{},
@@ -1452,7 +1691,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@n",
 			"id":"n_vKUTM",
-			"index":24,
+			"index":26,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1481,7 +1720,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def memoriesByType = [:].withDefault { [] }\ndef languagePreferenceMemories = []\n\ndef isLanguagePreferenceMemory = { String text ->\n    if (!text) return false\n\n    def lower = text.toLowerCase()\n\n    return (\n        lower.contains(\"prefers to chat in\") ||\n        lower.contains(\"preferred language\") ||\n        lower.contains(\"prefers responses in\") ||\n        lower.contains(\"prefers to respond in\") ||\n        lower.contains(\"response language\") ||\n        lower.contains(\"chat language\") ||\n        lower.contains(\"speak in\") ||\n        lower.contains(\"answer in\")\n    )\n}\n\n// Collect memories grouped by memoryType\n(memoryList ?: []).each { obj ->\n    def memoryType = obj?.document?.properties?.memoryType\n    def memoryText = obj?.document?.properties?.memoryText\n\n    if (memoryType && memoryText) {\n        if (isLanguagePreferenceMemory(memoryText)) {\n            languagePreferenceMemories << memoryText\n        } else {\n            memoriesByType[memoryType] << memoryText\n        }\n    }\n}\n\n// Remove duplicates while preserving order\nlanguagePreferenceMemories = languagePreferenceMemories.unique()\nmemoriesByType = memoriesByType.collectEntries { type, texts ->\n    [(type): texts.unique()]\n}\n\ndef result = new StringBuilder()\n\nif (languagePreferenceMemories) {\n    result.append(\"**CRITICAL MEMORY RULE**:\\n\")\n    result.append(\"Any memory about the user's preferred chat or response language is ALWAYS relevant and must be followed as the highest-priority language instruction.\\n\")\n    result.append(\"Do not ignore language preference memories even if other memories may be optional.\\n\")\n    result.append(\"If a memory says the user prefers a specific language, always respond in that language unless the user explicitly asks to switch.\\n\\n\")\n    result.append(\"Language preference memories:\\n\")\n    languagePreferenceMemories.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\n// result.append(\"## [CRITICAL USER PREFRENCES] These are a few applicable user prefrences that must be followed for the user request.\")\n// // result.append(\"[IMPORTANT] Not all of these may be important to answer the user query, so choose the relevant memories only and neglect the unrelated memories. \")\n// // result.append(\"However, any memory about the user's preferred chat or response language is ALWAYS relevant and must never be ignored.\\n\")\n\n// memoriesByType.each { type, texts ->\n//     result.append(\"\\n${type.capitalize()}:\\n\")\n//     texts.each { text ->\n//         result.append(\"- ${text}\\n\")\n//     }\n// }\n\n// def memoriesString = result.toString().trim()\n\n\n\nmemoriesByType.each { type, texts ->\n    result.append(\"\\n${type.capitalize()}:\\n\")\n    texts.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\ndef memoriesString = result.toString().trim()\n\nif (!memoriesString.isEmpty()) {\n    memoriesString =\n        \"## [CRITICAL MEMORY BASED USER PREFRENCES] These are a few applicable user prefrences that must be followed for the user request.\\n\\n\" +\n        memoriesString\n}\n\n\nreturn [\"memoryString\": memoriesString]",
+				"code":"def memoriesByType = [:].withDefault { [] }\ndef languagePreferenceMemories = []\n\ndef isLanguagePreferenceMemory = { String text ->\n    if (!text) return false\n\n    def lower = text.toLowerCase()\n\n    return (\n        lower.contains(\"prefers to chat in\") ||\n        lower.contains(\"preferred language\") ||\n        lower.contains(\"prefers responses in\") ||\n        lower.contains(\"prefers to respond in\") ||\n        lower.contains(\"response language\") ||\n        lower.contains(\"chat language\") ||\n        lower.contains(\"speak in\") ||\n        lower.contains(\"answer in\")\n    )\n}\n\n// Collect memories grouped by memoryType\n(memoryList ?: []).each { obj ->\n    def memoryType = obj?.document?.properties?.memoryType\n    def memoryText = obj?.document?.properties?.memoryText\n\n    if (memoryType && memoryText) {\n        if (isLanguagePreferenceMemory(memoryText)) {\n            languagePreferenceMemories << memoryText\n        } else {\n            memoriesByType[memoryType] << memoryText\n        }\n    }\n}\n\n// Remove duplicates while preserving order\nlanguagePreferenceMemories = languagePreferenceMemories.unique()\nmemoriesByType = memoriesByType.collectEntries { type, texts ->\n    [(type): texts.unique()]\n}\n\ndef result = new StringBuilder()\n\nif (languagePreferenceMemories) {\n    result.append(\"**CRITICAL MEMORY RULE**:\\n\")\n    result.append(\"Any memory about the user's preferred chat or response language is ALWAYS relevant and must be followed as the highest-priority language instruction.\\n\")\n    result.append(\"Do not ignore language preference memories even if other memories may be optional.\\n\")\n    result.append(\"If a memory says the user prefers a specific language, always respond in that language unless the user explicitly asks to switch.\\n\\n\")\n    result.append(\"Language preference memories:\\n\")\n    languagePreferenceMemories.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\n// result.append(\"## [CRITICAL USER PREFRENCES] These are a few applicable user prefrences that must be followed for the user request.\")\n// // result.append(\"[IMPORTANT] Not all of these may be important to answer the user query, so choose the relevant memories only and neglect the unrelated memories. \")\n// // result.append(\"However, any memory about the user's preferred chat or response language is ALWAYS relevant and must never be ignored.\\n\")\n\n// memoriesByType.each { type, texts ->\n//     result.append(\"\\n${type.capitalize()}:\\n\")\n//     texts.each { text ->\n//         result.append(\"- ${text}\\n\")\n//     }\n// }\n\n// def memoriesString = result.toString().trim()\n\n\n\nmemoriesByType.each { type, texts ->\n    result.append(\"\\n${type.capitalize()}:\\n\")\n    texts.each { text ->\n        result.append(\"- ${text}\\n\")\n    }\n}\n\ndef memoriesString = result.toString().trim()\n\nif (!memoriesString.isEmpty()) {\n    memoriesString =\n        \"## [CRITICAL MEMORY BASED USER PREFRENCES] A few applicable user prefrences or derived memories that must be kept in mind while answering the user request.\\n\\n\" +\n        memoriesString\n}\n\n\nreturn [\"memoryString\": memoriesString]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1509,7 +1748,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Ec7AI@n_qa4Zq@_adJCN-1@y@n",
 			"id":"n_5ClKe",
-			"index":25,
+			"index":27,
 			"inputs":{
 				"variables":[
 					{
@@ -1535,7 +1774,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_qa4Zq@_adJCN-1@y",
 			"id":"n_K5at8",
-			"index":26,
+			"index":28,
 			"inputs":{
 				"result":{
 					"memoryEnabled":true,
@@ -1559,7 +1798,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_Q27Zj",
-			"index":27,
+			"index":29,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1609,7 +1848,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_9fVP4",
-			"index":28,
+			"index":30,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1917,7 +2156,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_CoOWy",
-			"index":29,
+			"index":31,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2225,7 +2464,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_tgAUM",
-			"index":30,
+			"index":32,
 			"inputs":{
 				"automationId":"66ac70650f725f5b425d12d8",
 				"runtimeConnections":{},
@@ -2271,7 +2510,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_VWald",
-			"index":31,
+			"index":33,
 			"inputs":{
 				"jsonSchema":{
 					"additionalProperties":false,
@@ -2315,7 +2554,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_nZFNw",
-			"index":32,
+			"index":34,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2426,7 +2665,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_MtaCq",
-			"index":33,
+			"index":35,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2492,7 +2731,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_9Oip2",
-			"index":34,
+			"index":36,
 			"inputs":{
 				"shouldSearchInAnalyticsStore":false,
 				"object_type":"memory_vector_store",
@@ -2530,7 +2769,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_LOINg",
-			"index":35,
+			"index":37,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2649,7 +2888,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_adJCN-1",
 			"id":"n_iwYS3",
-			"index":36,
+			"index":38,
 			"inputs":{
 				"result":{
 					"memories":{
@@ -2695,5 +2934,5 @@
 		}
 	},
 	"standard":true,
-	"version":136
+	"version":138
 }
