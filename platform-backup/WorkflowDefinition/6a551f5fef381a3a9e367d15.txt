@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743809679,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743809741,
+		"deployedAt":1789395202733,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece4145d2142160e6e42a",
+		"deployedDefinitionId":"6aa80102c6a14707f150377a",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":15
+		"version":2,
+		"workflowVersion":18
 	},
 	"edges":[
 		{
@@ -65,7 +65,33 @@
 		},
 		{
 			"fromNodeId":"n_5rLv7",
-			"id":"next@n_5rLv7@n_eMhWB",
+			"id":"next@n_5rLv7@n_syoJg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_syoJg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_syoJg",
+			"id":"if@n_syoJg@n_mJg3b",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mJg3b",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_mJg3b",
+			"id":"next@n_mJg3b@n_r6RAq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_r6RAq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_syoJg",
+			"id":"next@n_syoJg@n_eMhWB",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_eMhWB",
@@ -94,6 +120,15 @@
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_I5uPn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_r6RAq",
+			"id":"next@n_r6RAq@n_y4jwl",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_y4jwl",
 			"type":"next"
 		},
 		{
@@ -154,7 +189,7 @@
 	"id":"6a551f5fef381a3a9e367d15",
 	"lastModifiedBy":-1,
 	"lcName":"enterprise search | upsert connector",
-	"modifiedTime":1788252972751,
+	"modifiedTime":1789395389488,
 	"name":"ENTERPRISE SEARCH | Upsert Connector",
 	"nodes":[
 		{
@@ -172,6 +207,7 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"dynamic":true,
 					"properties":{
 						"success":{
 							"title":"Success",
@@ -467,6 +503,27 @@
 				"schema":{
 					"type":"object",
 					"properties":{
+						"_ua_variableDetails":{
+							"items":{
+								"properties":{
+									"dataType":{
+										"description":"Data type of the variable",
+										"type":"string"
+									},
+									"description":{
+										"description":"Description of the variable",
+										"type":"string"
+									},
+									"name":{
+										"description":"Name of the variable",
+										"type":"string"
+									}
+								},
+								"type":"object"
+							},
+							"title":"Variable Details",
+							"type":"array"
+						},
 						"items":{
 							"disableActions":true,
 							"items":{
@@ -883,6 +940,94 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":915,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_f53S5@n_y4jwl@_vuHka-1@l@y",
+			"id":"n_syoJg",
+			"index":8,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_5rLv7.outputs.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":12717,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_syoJg@n_f53S5@n_y4jwl@_vuHka-1@l@y@y",
+			"id":"n_mJg3b",
+			"index":9,
+			"inputs":{
+				"useRawPayload":true,
+				"rawPayload":"{{ n_y4jwl.outputs.item }}",
+				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
+				"object_type":"e_action_ai_agent",
+				"skipIfBlank":false,
+				"record":{
+					"deferToolLoading":false,
+					"enableToolSearch":false,
+					"enabled":false,
+					"isStandardAction":false,
+					"runTimeConnectionEnabled":false
+				},
+				"useUuid":false,
+				"batching":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":729,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_syoJg@n_f53S5@n_y4jwl@_vuHka-1@l@y@y",
+			"id":"n_r6RAq",
+			"index":10,
+			"inputs":{
+				"itemToAdd":"{{ n_mJg3b.outputs.id }}",
+				"insertLocation":"END",
+				"captureAddedItem":false,
+				"listName":"{{ n_omuyd.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":1504,
 				"resourceName":"storage_by_unifyapps_update_record_by_id",
@@ -891,9 +1036,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_f53S5@n_y4jwl@_vuHka-1@l@y",
+			"groupId":"n_syoJg@n_f53S5@n_y4jwl@_vuHka-1@l@y@n",
 			"id":"n_eMhWB",
-			"index":8,
+			"index":11,
 			"inputs":{
 				"recordId":"{{ n_5rLv7.outputs.id }}",
 				"useRawPayload":true,
@@ -925,9 +1070,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"n_f53S5@n_y4jwl@_vuHka-1@l@y",
+			"groupId":"n_syoJg@n_f53S5@n_y4jwl@_vuHka-1@l@y@n",
 			"id":"n_NuZwE",
-			"index":9,
+			"index":12,
 			"inputs":{
 				"itemToAdd":"{{ n_5rLv7.outputs.id }}",
 				"insertLocation":"END",
@@ -951,7 +1096,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_f53S5@n_y4jwl@_vuHka-1@l@n",
 			"id":"n_y1qfl",
-			"index":10,
+			"index":13,
 			"inputs":{
 				"useRawPayload":true,
 				"rawPayload":"{{ n_PhYuU.outputs.result.rawPayload }}",
@@ -985,7 +1130,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_f53S5@n_y4jwl@_vuHka-1@l@n",
 			"id":"n_I5uPn",
-			"index":11,
+			"index":14,
 			"inputs":{
 				"itemToAdd":"{{ n_y1qfl.outputs.id }}",
 				"insertLocation":"END",
@@ -1009,7 +1154,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_vuHka-1",
 			"id":"n_gbTWB",
-			"index":12,
+			"index":15,
 			"inputs":{
 				"object_type":"e_topic_app_library",
 				"includeRoleMappings":false,
@@ -1035,7 +1180,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_vuHka-1",
 			"id":"n_FCTCl",
-			"index":13,
+			"index":16,
 			"inputs":{
 				"automationId":"68061d3e9fe68756bec65c0f",
 				"runtimeConnections":{},
@@ -1080,7 +1225,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_vuHka-1",
 			"id":"n_3Yl0D",
-			"index":14,
+			"index":17,
 			"inputs":{
 				"result":{
 					"success":true
@@ -1106,5 +1251,5 @@
 		}
 	},
 	"standard":true,
-	"version":17
+	"version":19
 }
