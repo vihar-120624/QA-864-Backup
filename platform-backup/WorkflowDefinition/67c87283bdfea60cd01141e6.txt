@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743786623,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743786722,
+		"deployedAt":1789395185240,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece2a9d7c534668ef8058",
+		"deployedDefinitionId":"6aa800f139ee5f5ef70b6152",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":133
+		"version":2,
+		"workflowVersion":136
 	},
 	"edges":[
 		{
@@ -65,16 +65,24 @@
 		},
 		{
 			"fromNodeId":"n_Wkf89",
-			"id":"next@n_Wkf89@n_1IoKm",
+			"id":"next@n_Wkf89@n_RmyeI",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_1IoKm",
+			"toNodeId":"n_RmyeI",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_Tymrd",
-			"id":"next@n_Tymrd@n_1IoKm",
+			"id":"next@n_Tymrd@n_RmyeI",
 			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RmyeI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RmyeI",
+			"id":"next@n_RmyeI@n_1IoKm",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_1IoKm",
@@ -136,7 +144,7 @@
 	"id":"67c87283bdfea60cd01141e6",
 	"lastModifiedBy":-1,
 	"lcName":"websearch agent",
-	"modifiedTime":1788252972134,
+	"modifiedTime":1789395393575,
 	"name":"WebSearch agent",
 	"nodes":[
 		{
@@ -454,6 +462,63 @@
 		},
 		{
 			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1060,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"5s0uf-1",
+			"id":"n_RmyeI",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"searchModelId":{
+							"title":"Search Model Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"searchModelId":{
+							"title":"Search Model Id",
+							"type":"string"
+						},
+						"toolAdditional":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Additional",
+							"type":"object"
+						}
+					},
+					"required":[
+						"toolAdditional"
+					],
+					"type":"object"
+				},
+				"code":"def toolAdditional = binding.hasVariable(\"toolAdditional\") ? binding.getVariable(\"toolAdditional\") : [:]\ndef searchModelId = binding.hasVariable(\"searchModelId\") ? binding.getVariable(\"searchModelId\") : null\n\n// logic:\n// if toolAdditional is present then we have to honour searchModelId model from it otherwise searchModelId from input\n// sample toolAdditional:\n\n// 1) {\n//     \"searchMethod\": \"LLM_BASED\",\n//     \"llmSearchConfig\": {\n//       \"modelId\": \"e_6a61c61124b7dc3d8f1b05be\"\n//     }\n\n// 2)\n\n// {\n//     \"searchMethod\": \"APPLICATION_BASED\",\n//     \"applicationSearchConfig\": {\n//       \"searchProviderId\": \"tavily\",\n//       \"searchConnectionId\": \"67e3c2bcdad3ae6aaf7d3e48\",\n//       \"scraperConfig\": {\n//         \"scraperProviderId\": \"tavily\",\n//         \"scraperConnectionId\": \"68d5711b620c123d9383788c\"\n//       }\n//     }\n\nif (toolAdditional != null && !((Map) toolAdditional).isEmpty()) {\n    Map toolAdditionalMap = (Map) toolAdditional\n    def searchMethod = toolAdditionalMap.get(\"searchMethod\")\n\n    if (searchMethod == \"LLM_BASED\") {\n        def llmSearchConfig = toolAdditionalMap.get(\"llmSearchConfig\") as Map\n        searchModelId = (llmSearchConfig != null) ? llmSearchConfig.get(\"modelId\") : null\n    } else if (searchMethod == \"APPLICATION_BASED\") {\n        searchModelId = null\n    }\n    // any other/unrecognized searchMethod value: fall through, keep input searchModelId\n}\n\nreturn [\n    \"searchModelId\": searchModelId\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"searchModelId":"{{ n_e5rFx.outputs.properties.websearchSettings.searchModelId }}",
+					"toolAdditional":"{{ TqnB7.outputs.toolAdditional }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":170,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -464,7 +529,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"5s0uf-1",
 			"id":"n_1IoKm",
-			"index":8,
+			"index":9,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -486,7 +551,7 @@
 				}
 			},
 			"inputs":{
-				"searchModelId":"{{ n_e5rFx.outputs.properties.websearchSettings.searchModelId }}",
+				"searchModelId":"{{ n_RmyeI.outputs.result.searchModelId }}",
 				"scrapModelId":"{{ n_e5rFx.outputs.properties.websearchSettings.scrapModelId }}"
 			},
 			"outputSchema":{
@@ -525,7 +590,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"5s0uf-1",
 			"id":"n_Aef6P",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"inputText":"=MAPGET({{ TqnB7.outputs.toolInputs }},\"query\")"
 			},
@@ -601,7 +666,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"5s0uf-1",
 			"id":"Oqpz0",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -663,12 +728,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"5s0uf-1",
 			"id":"n_D3hGD",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"automationId":"68d3dc41efe64779b75f8258",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
+					"additionalConfig":"{{ TqnB7.outputs.toolAdditional }}",
 					"agentResponseMessageId":"{{ TqnB7.outputs.agentResponseMessageId }}",
 					"aiAgentId":"{{ TqnB7.outputs.triggeredByAgentId }}",
 					"caseId":"{{ TqnB7.outputs.caseId }}",
@@ -704,7 +770,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"5s0uf-1",
 			"id":"n_wMlzb",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -761,7 +827,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"5s0uf-1",
 			"id":"UB4qk",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -795,5 +861,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":135
+	"version":137
 }
