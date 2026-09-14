@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743789459,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743789574,
+		"deployedAt":1789395186758,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece2d177b4b4aca57b4a9",
+		"deployedDefinitionId":"6aa800f239ee5f5ef70b615f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":138
+		"version":2,
+		"workflowVersion":141
 	},
 	"edges":[
 		{
@@ -235,7 +235,7 @@
 	"id":"6761589c529264022c7d1650",
 	"lastModifiedBy":-1,
 	"lcName":"signal trigger ",
-	"modifiedTime":1788252971459,
+	"modifiedTime":1789395389993,
 	"name":"Signal Trigger ",
 	"nodes":[
 		{
@@ -1501,6 +1501,15 @@
 							"title":"Agent Responses",
 							"type":"array"
 						},
+						"copilotBlocks":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Copilot Blocks",
+							"type":"array"
+						},
 						"publicResponses":{
 							"items":{
 								"additionalProperties":false,
@@ -1559,7 +1568,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def publicResponses = []\ndef agentResponses = []\nif(binding.hasVariable('messages') && !messages.isEmpty()) {\n  for(msg in messages) {\n\n    // compute agent responses\n    if(msg?.properties?.content?.text || msg?.properties?.interfaceDetails || msg?.properties?.content?.coPilotBlocks?.blocks || msg?.properties?.content?.choiceList) {\n      agentResponses.add([\"messageId\": msg.id, \"messageCreatedTime\": msg.createdTime, \"additional\": msg?.properties?.additional, \"text\": msg?.properties?.content?.text, \"coPilotBlocks\": msg?.properties?.content?.coPilotBlocks?.blocks, \"interfaceDetails\": msg?.properties?.interfaceDetails, \"choices\": msg?.properties?.content?.choiceList])\n    }\n\n    if(msg?.properties?.additional?.internalMessageType == \"THOUGHT\") {\n      continue;\n    }\n\n    if(msg?.properties?.additional?.internalMessageType == \"AGENT_INTERNAL_RESPONSE\") {\n      continue;\n    }\n\n\n    // compute public response\n    def textContent = msg?.properties?.content?.text\n    def choiceList = msg?.properties?.content?.choiceList\n\n    def responseObj = [:]  \n\n    if (textContent != null && !textContent.isBlank()) {\n        responseObj.text = textContent\n    }\n\n    if (choiceList != null && !choiceList.isEmpty()) {\n        responseObj.choices = choiceList\n    }\n\n    // Only add if we have something\n    if (!responseObj.isEmpty()) {\n        publicResponses.add(responseObj)\n    }\n\n  } \n}\n\n\nreturn [\"publicResponses\": publicResponses, \"agentResponses\": agentResponses];\n\n",
+				"code":"def publicResponses = []\ndef agentResponses = []\ndef copilotBlocks = []\n\nif(binding.hasVariable('messages') && !messages.isEmpty()) {\n  for(msg in messages) {\n\n    // compute agent responses\n    if(msg?.properties?.content?.text || msg?.properties?.interfaceDetails || msg?.properties?.content?.coPilotBlocks?.blocks || msg?.properties?.content?.choiceList) {\n      agentResponses.add([\"messageId\": msg.id, \"messageCreatedTime\": msg.createdTime, \"additional\": msg?.properties?.additional, \"text\": msg?.properties?.content?.text, \"coPilotBlocks\": msg?.properties?.content?.coPilotBlocks?.blocks, \"interfaceDetails\": msg?.properties?.interfaceDetails, \"choices\": msg?.properties?.content?.choiceList])\n    }\n\n    def blocks = msg?.properties?.content?.coPilotBlocks?.blocks\n    def citationBlocks = blocks ? blocks.findAll { it?.blockType == \"Citation\" } : []\n\n\n    if (!citationBlocks.isEmpty()) {\n      citationBlocks.each { block ->\n        def citations = block?.data?.citations\n        if (citations) {\n            copilotBlocks.addAll(citations)\n        }\n    }\n}\n\n    if(msg?.properties?.additional?.internalMessageType == \"THOUGHT\") {\n      continue;\n    }\n\n    if(msg?.properties?.additional?.internalMessageType == \"AGENT_INTERNAL_RESPONSE\") {\n      continue;\n    }\n\n\n    // compute public response\n    def textContent = msg?.properties?.content?.text\n    def choiceList = msg?.properties?.content?.choiceList\n\n    def responseObj = [:]  \n\n    if (textContent != null && !textContent.isBlank()) {\n        responseObj.text = textContent\n    }\n\n    if (choiceList != null && !choiceList.isEmpty()) {\n        responseObj.choices = choiceList\n    }\n\n    // Only add if we have something\n    if (!responseObj.isEmpty()) {\n        publicResponses.add(responseObj)\n    }\n\n  } \n}\n\n\nreturn [\"publicResponses\": publicResponses, \"agentResponses\": agentResponses, \"copilotBlocks\":copilotBlocks];\n\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1616,8 +1625,8 @@
 						"ua:type":"mappedArray"
 					},
 					"coPilotBlocks":{
-						"items":"{{ LRq7c.outputs.coPilotBlocks[0] }}",
-						"source":"{{ LRq7c.outputs.coPilotBlocks }}",
+						"items":"{{ n_82EqW.outputs.result.copilotBlocks[0] }}",
+						"source":"{{ n_82EqW.outputs.result.copilotBlocks }}",
 						"ua:type":"mappedArray"
 					},
 					"interfaceDetails":"{{ LRq7c.outputs.interfaceDetails }}",
@@ -1665,5 +1674,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":140
+	"version":142
 }

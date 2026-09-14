@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744700549,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744701128,
+		"deployedAt":1789395375683,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed1bcba51514edfc81ccf",
+		"deployedDefinitionId":"6aa801afc6a14707f150413f",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":87
+		"version":2,
+		"workflowVersion":90
 	},
 	"edges":[
 		{
@@ -198,7 +198,40 @@
 		},
 		{
 			"fromNodeId":"n_rY5q1",
-			"id":"next@n_rY5q1@n_Emjvv",
+			"id":"next@n_rY5q1@_bdOvc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_bdOvc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_bdOvc",
+			"id":"loop@_bdOvc@_SPQrg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_SPQrg",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"_SPQrg",
+			"id":"next@_SPQrg@_9yoMF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_9yoMF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_9yoMF",
+			"id":"next@_9yoMF@_bdOvc",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_bdOvc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_bdOvc",
+			"id":"next@_bdOvc@n_Emjvv",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_Emjvv",
@@ -253,7 +286,7 @@
 	"id":"6a15781fe90459768fcd177f",
 	"lastModifiedBy":-1,
 	"lcName":"confluence store userspace",
-	"modifiedTime":1788252972818,
+	"modifiedTime":1789395389857,
 	"name":"Confluence Store UserSpace",
 	"nodes":[
 		{
@@ -290,6 +323,14 @@
 						"connectionType":{
 							"title":"Connection Type",
 							"type":"string"
+						},
+						"suffix":{
+							"title":"Suffix",
+							"type":"string"
+						},
+						"syncNum":{
+							"title":"Sync Num",
+							"type":"integer"
 						}
 					},
 					"required":[],
@@ -469,11 +510,13 @@
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"parameters":{
+					"SyncNum":"{{ n_gFYfS.outputs.syncNum }}",
 					"connectionId":"{{ n_gFYfS.outputs.connectionId }}",
 					"connectionType":"{{ n_gFYfS.outputs.connectionType }}",
-					"suffix":"{{ __RUN__.outputs.executionId }}"
+					"suffix":"{{ n_gFYfS.outputs.suffix }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -507,13 +550,6 @@
 							"value":"0"
 						},
 						"property":"=LEN({{ _GFT6S.outputs.userGroups }})"
-					},
-					{
-						"filter":{
-							"operator":"GT",
-							"value":"0"
-						},
-						"property":"=LEN({{ _GFT6S.outputs.failureInPermission }})"
 					}
 				],
 				"operator":"OR"
@@ -596,7 +632,8 @@
 						"connectionId":"{{ n_gFYfS.outputs.connectionId }}",
 						"connectionType":"{{ n_gFYfS.outputs.connectionType }}",
 						"groupName":"{{ n_RavrR.outputs.item[0] }}",
-						"suffix":"{{ __RUN__.outputs.executionId }}"
+						"suffix":"{{ n_gFYfS.outputs.suffix }}",
+						"syncNum":"{{ n_gFYfS.outputs.syncNum }}"
 					},
 					"source":"{{ n_RavrR.outputs.item }}",
 					"ua:type":"mappedArray"
@@ -715,6 +752,13 @@
 								"value":"{{ n_hPyeR.outputs.currentTimeEpoch }}"
 							},
 							"property":"cTm"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_gFYfS.outputs.connectionId }}"
+							},
+							"property":"properties_connectionId"
 						}
 					],
 					"operator":"AND"
@@ -827,6 +871,13 @@
 								"value":"{{ n_hPyeR.outputs.currentTimeEpoch }}"
 							},
 							"property":"cTm"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_gFYfS.outputs.connectionId }}"
+							},
+							"property":"properties_connectionId"
 						}
 					],
 					"operator":"AND"
@@ -939,6 +990,13 @@
 								"value":"{{ n_hPyeR.outputs.currentTimeEpoch }}"
 							},
 							"property":"cTm"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_gFYfS.outputs.connectionId }}"
+							},
+							"property":"properties_connectionId"
 						}
 					],
 					"operator":"AND"
@@ -1007,8 +1065,127 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_lhTKx-1",
-			"id":"n_Emjvv",
+			"id":"_bdOvc",
 			"index":19,
+			"inputs":{
+				"condition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"1"
+							},
+							"property":"1"
+						}
+					],
+					"operator":"AND"
+				},
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"While loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":486,
+				"resourceName":"storage_by_unifyapps_delete_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_bdOvc@_lhTKx-1@l",
+			"id":"_SPQrg",
+			"index":20,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"LT",
+								"value":"{{ n_hPyeR.outputs.currentTimeEpoch }}"
+							},
+							"property":"cTm"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_gFYfS.outputs.connectionId }}"
+							},
+							"property":"properties_connectionId"
+						}
+					],
+					"operator":"AND"
+				},
+				"writeThroughSessionVariables":false,
+				"object_type":"confluence_all_spaces",
+				"numberOfRecordsToDelete":"MULTIPLE",
+				"sortBy":[],
+				"page":{
+					"limit":"{{ n_GgOkC.outputs.deleteLimit }}",
+					"offset":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"break",
+				"resourceVersion":23,
+				"resourceName":"break",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_bdOvc@_lhTKx-1@l",
+			"id":"_9yoMF",
+			"index":21,
+			"inputs":{
+				"loop":"_bdOvc",
+				"conditions":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"MISSING"
+							},
+							"property":"{{ _SPQrg.outputs.count }}"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"0"
+							},
+							"property":"{{ _SPQrg.outputs.count }}"
+						}
+					],
+					"operator":"OR"
+				}
+			},
+			"skip":false,
+			"subTitle":"Break",
+			"title":"Break",
+			"type":"BREAK"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":13,
+				"resourceName":"loop_while",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_lhTKx-1",
+			"id":"n_Emjvv",
+			"index":22,
 			"inputs":{
 				"condition":{
 					"filters":[
@@ -1041,7 +1218,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Emjvv@_lhTKx-1@l",
 			"id":"n_S3UJJ",
-			"index":20,
+			"index":23,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -1051,6 +1228,13 @@
 								"value":"{{ n_hPyeR.outputs.currentTimeEpoch }}"
 							},
 							"property":"cTm"
+						},
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_gFYfS.outputs.connectionId }}"
+							},
+							"property":"properties_connectionId"
 						}
 					],
 					"operator":"AND"
@@ -1081,7 +1265,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_Emjvv@_lhTKx-1@l",
 			"id":"n_7gRF9",
-			"index":21,
+			"index":24,
 			"inputs":{
 				"loop":"n_Emjvv",
 				"conditions":{
@@ -1120,7 +1304,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_lhTKx-1",
 			"id":"n_sHdFa",
-			"index":22,
+			"index":25,
 			"inputs":{
 				"result":{
 					"success":true
@@ -1150,5 +1334,5 @@
 		}
 	},
 	"standard":true,
-	"version":89
+	"version":91
 }
