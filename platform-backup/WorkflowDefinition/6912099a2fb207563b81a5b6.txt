@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743777401,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743777455,
+		"deployedAt":1789395180795,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece2145d2142160e6e059",
+		"deployedDefinitionId":"6aa800ecc6a14707f150366b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":3
+		"version":2,
+		"workflowVersion":6
 	},
 	"edges":[
 		{
@@ -40,7 +40,7 @@
 			"fromNodeId":"n_mV80v",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_8RQ98",
+			"toNodeId":"n_ACVLp",
 			"type":"next"
 		},
 		{
@@ -48,11 +48,50 @@
 			"name":"no",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_8RQ98",
+			"toNodeId":"n_ACVLp",
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_ACVLp",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8RQ98",
+			"type":"if"
+		},
+		{
 			"fromNodeId":"n_8RQ98",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_vATEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ACVLp",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_vATEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_vATEx",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_kYZUi",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_kYZUi",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1U3YW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_vATEx",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_1U3YW",
@@ -73,9 +112,9 @@
 	},
 	"id":"6912099a2fb207563b81a5b6",
 	"lastModifiedBy":-1,
-	"lcName":"delete knowledge",
-	"modifiedTime":1788252972515,
-	"name":"Delete Knowledge",
+	"lcName":"[dt] delete knowledge",
+	"modifiedTime":1789395390301,
+	"name":"[DT] Delete Knowledge",
 	"nodes":[
 		{
 			"additional":{
@@ -105,6 +144,10 @@
 						"properties":{
 							"datasource":{
 								"title":"Datasource",
+								"type":"string"
+							},
+							"documentId":{
+								"title":"Document Id",
 								"type":"string"
 							},
 							"id":{
@@ -195,6 +238,10 @@
 				"input":{
 					"additionalProperties":false,
 					"properties":{
+						"documentId":{
+							"title":"Document Id",
+							"type":"string"
+						},
 						"id":{
 							"title":"Id",
 							"type":"string"
@@ -203,10 +250,11 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"if(!binding.hasVariable('id') || id == \"\"){\n  return[\n    allowed : false,\n    errorMessage : \"id must be present\"\n  ]\n}\n\nreturn [\n    allowed: true\n]\n",
+				"code":"if((!binding.hasVariable('id') || id == \"\") && (!binding.hasVariable('documentId') || documentId == \"\") ){\n  return[\n    allowed : false,\n    errorMessage : \"id or documentId must be present\"\n  ]\n}\n\nreturn [\n    allowed: true\n]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
+					"documentId":"{{ n_imeHO.outputs.body.documentId }}",
 					"id":"{{ n_imeHO.outputs.body.id }}"
 				}
 			},
@@ -273,6 +321,35 @@
 		},
 		{
 			"context":{
+				"appName":"if_else",
+				"resourceVersion":169,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5NVxH-1",
+			"id":"n_ACVLp",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_imeHO.outputs.body.id }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
 				"appName":"storage_by_unifyapps",
 				"resourceVersion":533,
 				"resourceName":"storage_by_unifyapps_delete_record_by_id",
@@ -281,9 +358,9 @@
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
-			"groupId":"_5NVxH-1",
+			"groupId":"n_ACVLp@_5NVxH-1@y",
 			"id":"n_8RQ98",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"knowledge",
@@ -292,6 +369,74 @@
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
 			"title":"Delete record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":169,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_5NVxH-1",
+			"id":"_vATEx",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_imeHO.outputs.body.documentId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8259,
+				"resourceName":"storage_by_unifyapps_delete_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_vATEx@_5NVxH-1@y",
+			"id":"_kYZUi",
+			"index":8,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_imeHO.outputs.body.documentId }}"
+							},
+							"property":"properties_customProperties_documentId"
+						}
+					],
+					"operator":"AND"
+				},
+				"writeThroughSessionVariables":false,
+				"object_type":"knowledge",
+				"numberOfRecordsToDelete":"MULTIPLE",
+				"page":{
+					"limit":100,
+					"offset":0
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete records",
 			"type":"ACTION"
 		},
 		{
@@ -306,7 +451,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_5NVxH-1",
 			"id":"n_1U3YW",
-			"index":6,
+			"index":9,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -335,5 +480,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":5
+	"version":7
 }

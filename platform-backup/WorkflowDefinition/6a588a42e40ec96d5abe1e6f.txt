@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743796028,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743796081,
+		"deployedAt":1789395189923,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece349d7c534668ef8298",
+		"deployedDefinitionId":"6aa800f5c6a14707f15036fd",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":20
+		"version":2,
+		"workflowVersion":23
 	},
 	"edges":[
 		{
@@ -121,7 +121,7 @@
 	"id":"6a588a42e40ec96d5abe1e6f",
 	"lastModifiedBy":-1,
 	"lcName":"purview webhook data downloader | each audit",
-	"modifiedTime":1788252972857,
+	"modifiedTime":1789395390307,
 	"name":"Purview Webhook Data Downloader | Each Audit",
 	"nodes":[
 		{
@@ -205,7 +205,7 @@
 			"context":{
 				"appName":"microsoft_purview",
 				"resourceVersion":21,
-				"connectionId":"6a5110111d295d070f1b72a9",
+				"connectionId":"6a55e2b850aff03a4261e687",
 				"resourceName":"microsoft_purview_get_audit_content",
 				"type":"APPLICATION"
 			},
@@ -302,11 +302,13 @@
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
+				"inlineRefresh":false,
 				"object_type":"purview_audits",
 				"skipIfBlank":false,
 				"record":{
-					"audit":"{{ n_OHvq0.outputs.contentUri }}",
-					"executionID":"{{ __RUN__.outputs.executionId }}"
+					"contentUri":"{{ n_OHvq0.outputs.contentUri }}",
+					"errorDetails":"{{ n_j4jEb.outputs }}",
+					"executionId":"{{ __ENV__.outputs.executionId }}"
 				},
 				"useUuid":false,
 				"batching":false
@@ -594,5 +596,5 @@
 		}
 	},
 	"standard":true,
-	"version":22
+	"version":24
 }
