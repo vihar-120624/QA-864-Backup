@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744042356,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744042747,
+		"deployedAt":1789395307381,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf2aba51514edfc7e511",
+		"deployedDefinitionId":"6aa8016b39ee5f5ef70b66b3",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":145
+		"version":2,
+		"workflowVersion":148
 	},
 	"edges":[
 		{
@@ -99,15 +99,7 @@
 		},
 		{
 			"fromNodeId":"_Mk5qw",
-			"id":"next@_Mk5qw@_XxLq5",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"_XxLq5",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"_XxLq5",
-			"id":"next@_XxLq5@_niqoV",
+			"id":"next@_Mk5qw@_niqoV",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_niqoV",
@@ -260,7 +252,64 @@
 		},
 		{
 			"fromNodeId":"_NwIzh",
-			"id":"next@_NwIzh@_dlczW",
+			"id":"next@_NwIzh@n_R75Xs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_R75Xs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_R75Xs",
+			"id":"next@n_R75Xs@n_l0RVo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_l0RVo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_l0RVo",
+			"id":"next@n_l0RVo@n_QnPcW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QnPcW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QnPcW",
+			"id":"loop@n_QnPcW@n_SnJPw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SnJPw",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_SnJPw",
+			"id":"next@n_SnJPw@n_Jgwun",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Jgwun",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Jgwun",
+			"id":"next@n_Jgwun@n_QnPcW",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QnPcW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QnPcW",
+			"id":"next@n_QnPcW@n_sVFU7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sVFU7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sVFU7",
+			"id":"next@n_sVFU7@_dlczW",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_dlczW",
@@ -365,12 +414,14 @@
 	"id":"685475c5f8fdf67b14f064a3",
 	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | slack | message",
-	"modifiedTime":1788252971539,
+	"modifiedTime":1789395398411,
 	"name":"Knowledge Downloader | Slack | Message",
 	"nodes":[
 		{
 			"additional":{
-				"xsdSchemaConfig":{}
+				"xsdSchemaConfig":{
+					"root":{}
+				}
 			},
 			"context":{
 				"appName":"callables",
@@ -714,6 +765,31 @@
 								"parent_user_id":{
 									"title":"parent_user_id",
 									"type":"string"
+								},
+								"reactions":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"count":{
+												"title":"count",
+												"type":"integer"
+											},
+											"name":{
+												"title":"name",
+												"type":"string"
+											},
+											"users":{
+												"items":{
+													"type":"string"
+												},
+												"title":"users",
+												"type":"array"
+											}
+										},
+										"type":"object"
+									},
+									"title":"reactions",
+									"type":"array"
 								},
 								"replies":{
 									"items":{
@@ -1392,39 +1468,6 @@
 		},
 		{
 			"context":{
-				"appName":"continue",
-				"resourceVersion":370,
-				"resourceName":"continue",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_gVsML@n_e8CdW@_KHpbz-1@1@l",
-			"id":"_XxLq5",
-			"index":11,
-			"inputs":{
-				"loop":"_gVsML",
-				"conditions":{
-					"filters":[
-						{
-							"filter":{
-								"operator":"EQUAL",
-								"value":"true"
-							},
-							"property":"{{ _Mk5qw.outputs.result.isVideo }}"
-						}
-					],
-					"operator":"AND"
-				}
-			},
-			"skip":false,
-			"subTitle":"Continue",
-			"title":"Continue",
-			"type":"CONTINUE"
-		},
-		{
-			"context":{
 				"appName":"slack",
 				"resourceVersion":2750,
 				"connectionId":"684be81b9291f675d634b3ee",
@@ -1436,7 +1479,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"_gVsML@n_e8CdW@_KHpbz-1@1@l",
 			"id":"_niqoV",
-			"index":12,
+			"index":11,
 			"inputs":{
 				"file_url":"{{ _gVsML.outputs.item.url_private_download }}",
 				"token_type":"{{ n_1YoH5.outputs.token_type }}"
@@ -1514,7 +1557,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_niqoV@_gVsML@n_e8CdW@_KHpbz-1@1@l@success",
 			"id":"n_3vUtT",
-			"index":13,
+			"index":12,
 			"inputs":{
 				"itemToAdd":{
 					"fileObj":"{{ _niqoV.outputs.file }}"
@@ -1540,7 +1583,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_niqoV@_gVsML@n_e8CdW@_KHpbz-1@1@l@error",
 			"id":"_SWMIy",
-			"index":14,
+			"index":13,
 			"inputs":{
 				"loop":"_gVsML"
 			},
@@ -1561,7 +1604,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gVsML@n_e8CdW@_KHpbz-1@1@l",
 			"id":"n_C5ewz",
-			"index":15,
+			"index":14,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1672,7 +1715,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gVsML@n_e8CdW@_KHpbz-1@1@l",
 			"id":"n_U28Yh",
-			"index":16,
+			"index":15,
 			"inputs":{
 				"automationId":"696214695541230fa0df0c65",
 				"runtimeConnections":{},
@@ -1700,7 +1743,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_gVsML@n_e8CdW@_KHpbz-1@1@l",
 			"id":"n_5uYg4",
-			"index":17,
+			"index":16,
 			"inputs":{
 				"filters":[
 					{
@@ -1730,7 +1773,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5uYg4@_gVsML@n_e8CdW@_KHpbz-1@1@l@y",
 			"id":"n_GNeaW",
-			"index":18,
+			"index":17,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
@@ -1751,6 +1794,7 @@
 						"source":"{{ _jrN5Q.outputs.sharedWithIds }}",
 						"ua:type":"mappedArray"
 					},
+					"sourceId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.thread_ts }}_{{ n_1YoH5.outputs.message.ts }}_{{ _gVsML.outputs.item.id }}",
 					"sourceResponse":"{{ n_C5ewz.outputs.result.sourceResponse }}",
 					"uniqueEntityId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.thread_ts }}_{{ n_1YoH5.outputs.message.ts }}_{{ _gVsML.outputs.item.id }}"
 				},
@@ -1773,7 +1817,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_5uYg4@_gVsML@n_e8CdW@_KHpbz-1@1@l@n",
 			"id":"n_J6fua",
-			"index":19,
+			"index":18,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
@@ -1794,6 +1838,7 @@
 						"source":"{{ _jrN5Q.outputs.sharedWithIds }}",
 						"ua:type":"mappedArray"
 					},
+					"sourceId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.ts }}_{{ _gVsML.outputs.item.id }}",
 					"sourceResponse":"{{ n_C5ewz.outputs.result.sourceResponse }}",
 					"uniqueEntityId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.ts }}_{{ _gVsML.outputs.item.id }}"
 				},
@@ -1816,7 +1861,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"n_e8CdW@2",
-			"index":20,
+			"index":19,
 			"inputs":{
 				"name":"messages",
 				"conditions":{
@@ -1849,7 +1894,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"_jMKjo",
-			"index":21,
+			"index":20,
 			"inputs":{
 				"channel":"{{ n_1YoH5.outputs.channel.Id }}",
 				"token_type":"{{ n_1YoH5.outputs.token_type }}",
@@ -1930,7 +1975,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"n_TBU4E",
-			"index":22,
+			"index":21,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1980,7 +2025,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"_TH2Do",
-			"index":23,
+			"index":22,
 			"inputs":{
 				"filters":[
 					{
@@ -2016,7 +2061,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_TH2Do@n_e8CdW@_KHpbz-1@2@y",
 			"id":"_mZGYF",
-			"index":24,
+			"index":23,
 			"inputs":{
 				"automationId":"66b21dc0ab12d571b5b54062",
 				"runtimeConnections":{
@@ -2037,7 +2082,60 @@
 					"ts":"{{ n_1YoH5.outputs.message.ts }}",
 					"visibility":"{{ n_1YoH5.outputs.visibility }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Import thread messages",
@@ -2056,7 +2154,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"_NwIzh",
-			"index":25,
+			"index":24,
 			"inputs":{
 				"automationId":"66b22de8ab12d571b5b54799",
 				"runtimeConnections":{},
@@ -2071,6 +2169,522 @@
 			"subTitle":"Fetch Mentioned Users",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.reactions.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":149,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_e8CdW@_KHpbz-1@2",
+			"id":"n_R75Xs",
+			"index":25,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"userIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"User Ids",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"reactions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Reactions",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def userIds = []\nif (binding.hasVariable('reactions') && reactions) {\n    reactions.each { r -> (r.users ?: []).each { id -> if (id != null) userIds << id } }\n}\nreturn [\"userIds\": userIds.unique()]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"reactions":{
+						"items":"{{ n_1YoH5.outputs.message.reactions[0] }}",
+						"source":"{{ n_1YoH5.outputs.message.reactions }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"unique userIds",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":5,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_e8CdW@_KHpbz-1@2",
+			"id":"n_l0RVo",
+			"index":26,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						],
+						"ui:title":""
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"properties":{},
+												"type":"object"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"properties":{
+											"items":{
+												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
+											}
+										},
+										"type":"object"
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"userId":{
+											"title":"User Id",
+											"type":"string"
+										},
+										"userName":{
+											"title":"User Name",
+											"type":"string"
+										}
+									},
+									"required":[],
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									]
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
+						},
+						"ua:list_type":{
+							"default":"OBJECT",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"title":"List Type",
+							"type":"string"
+						},
+						"ua:title":{
+							"type":"string"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:title":"reactionUser",
+				"ua:list_type":"OBJECT"
+			},
+			"outputSchema":{
+				"type":"SCHEMA",
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"disableActions":true,
+							"items":{
+								"properties":{
+									"userId":{
+										"title":"User Id",
+										"type":"string"
+									},
+									"userName":{
+										"title":"User Name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"reactionUser",
+							"type":"array"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":5,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_e8CdW@_KHpbz-1@2",
+			"id":"n_QnPcW",
+			"index":27,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_R75Xs.outputs.result.userIds }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":174,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_QnPcW@n_e8CdW@_KHpbz-1@2@l",
+			"id":"n_SnJPw",
+			"index":28,
+			"inputs":{
+				"automationId":"66acfe1b663a6211bbc40233",
+				"runtimeConnections":{
+					"slack":"{{ n_1YoH5.outputs.connectionId }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"token_type":"{{ n_1YoH5.outputs.token_type }}",
+					"userId":"{{ n_QnPcW.outputs.item }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":5,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_QnPcW@n_e8CdW@_KHpbz-1@2@l",
+			"id":"n_Jgwun",
+			"index":29,
+			"inputs":{
+				"itemToAdd":{
+					"userId":"{{ n_SnJPw.outputs.userId }}",
+					"userName":"{{ n_SnJPw.outputs.userName }}"
+				},
+				"insertLocation":"END",
+				"captureAddedItem":false,
+				"listName":"{{ n_l0RVo.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.reactions.items",
+					"root.parameters.userDetails.items.userId",
+					"root.parameters.userDetails.items.userName"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":149,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_e8CdW@_KHpbz-1@2",
+			"id":"n_sVFU7",
+			"index":30,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"reactionString":{
+							"title":"Reaction String",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"reactions":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Reactions",
+							"type":"array"
+						},
+						"userDetails":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"userId":{
+										"title":"User Id",
+										"type":"string"
+									},
+									"userName":{
+										"title":"User Name",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"User Details",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def reactionString = \"\"\nif (binding.hasVariable('reactions') && reactions) {\n    def details = binding.hasVariable('userDetails') ? (userDetails ?: []) : []\n\n    \n    def nameById = [:]\n    details.each { u ->\n        if (u?.userId) {\n            nameById[u.userId] = (u.userName ?: u.userId)\n        }\n    }\n\n    reactionString = reactions.findAll { it?.name }.collect { r ->\n        def who = (r.users ?: []).findAll { it }.collect { id -> nameById[id] ?: id }.join(\", \")\n        who ? \"${r.name} by ${who}\" : \"${r.name}\"\n    }.join(\"; \")\n}\nreturn [\"reactionString\": reactionString]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"reactions":{
+						"items":"{{ n_1YoH5.outputs.message.reactions[0] }}",
+						"source":"{{ n_1YoH5.outputs.message.reactions }}",
+						"ua:type":"mappedArray"
+					},
+					"userDetails":{
+						"items":{
+							"userId":"{{ n_l0RVo.outputs.items[0].userId }}",
+							"userName":"{{ n_l0RVo.outputs.items[0].userName }}"
+						},
+						"source":"{{ n_l0RVo.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"reaction Groovey ",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
 		},
 		{
 			"additional":{
@@ -2090,7 +2704,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"_dlczW",
-			"index":26,
+			"index":31,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2133,6 +2747,10 @@
 							"title":"Mentioned User List",
 							"type":"array"
 						},
+						"reactionString":{
+							"title":"Reaction String",
+							"type":"string"
+						},
 						"text":{
 							"title":"Text",
 							"type":"string"
@@ -2149,7 +2767,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"import java.text.SimpleDateFormat\n\ndef epochToReadable(epochTime) {\n    def timeInMillis = epochTime * 1000\n    def date = new Date(timeInMillis)\n    def sdf = new SimpleDateFormat(\"dd MMM yyyy hh:mma\")\n    return sdf.format(date)\n}\n\ndef remEmoji(text, mentionedUsers) {\n    // Remove emojis and extra spaces using regex\n    text = text.replaceAll(/(:\\S*?:)/, \"\").replaceAll(/\\s+/, \" \")\n    mentionedUsers.each { user ->\n        text = text.replaceAll(\"<@${user.id}>\", user.name)\n    }\n    return text.toLowerCase()\n}\n\ndef formattedDate = null\nif (binding.hasVariable('timeStamp')) {\n    def time = Long.parseLong(timeStamp.split(\"\\\\.\")[0])\n    formattedDate = epochToReadable(time)\n}\n\ndef chunk = \"\"\ndef mentionedUsers = []\nif(binding.hasVariable('mentionedUserList')) {\n    mentionedUsers = mentionedUserList\n}\nchunk += binding.hasVariable('channelId') ? \"channelId: ${channelId} \" : \"\"\nchunk += binding.hasVariable('channel') ? \"channel: ${channel} \" : \"\"\nchunk += binding.hasVariable('user') ? \"sender: ${user} \" : \"\"\nchunk += binding.hasVariable('timeStamp') ? \"date: ${formattedDate} \" : \"\"\nchunk += binding.hasVariable('text') ? \"message: ${remEmoji(text,mentionedUsers)}\" : \"\"\ndef wordCount = chunk?.tokenize()?.size() ?: 0\nreturn [\n    \"chunk\": chunk\n    ]\n",
+				"code":"import java.text.SimpleDateFormat\n\ndef epochToReadable(epochTime) {\n    def timeInMillis = epochTime * 1000\n    def date = new Date(timeInMillis)\n    def sdf = new SimpleDateFormat(\"dd MMM yyyy hh:mma\")\n    return sdf.format(date)\n}\n\ndef remEmoji(text, mentionedUsers) {\n    // Remove emojis and extra spaces using regex\n    text = text.replaceAll(/(:\\S*?:)/, \"\").replaceAll(/\\s+/, \" \")\n    mentionedUsers.each { user ->\n        text = text.replaceAll(\"<@${user.id}>\", user.name)\n    }\n    return text.toLowerCase()\n}\n\ndef formattedDate = null\nif (binding.hasVariable('timeStamp')) {\n    def time = Long.parseLong(timeStamp.split(\"\\\\.\")[0])\n    formattedDate = epochToReadable(time)\n}\n\ndef chunk = \"\"\ndef mentionedUsers = []\nif(binding.hasVariable('mentionedUserList')) {\n    mentionedUsers = mentionedUserList\n}\nchunk += binding.hasVariable('channelId') ? \"channelId: ${channelId} \" : \"\"\nchunk += binding.hasVariable('channel') ? \"channel: ${channel} \" : \"\"\nchunk += binding.hasVariable('user') ? \"sender: ${user} \" : \"\"\nchunk += binding.hasVariable('timeStamp') ? \"date: ${formattedDate} \" : \"\"\nchunk += binding.hasVariable('text') ? \"message: ${remEmoji(text,mentionedUsers)}\" : \"\"\nchunk += (binding.hasVariable('reactionString') && reactionString) ? \" [ reactions: ${reactionString} ]\" : \"\"\ndef wordCount = chunk?.tokenize()?.size() ?: 0\nreturn [\n    \"chunk\": chunk\n    ]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -2164,6 +2782,7 @@
 						"source":"{{ _NwIzh.outputs.users }}",
 						"ua:type":"mappedArray"
 					},
+					"reactionString":"{{ n_sVFU7.outputs.result.reactionString }}",
 					"text":"{{ n_1YoH5.outputs.message.text }}",
 					"timeStamp":"{{ n_1YoH5.outputs.message.ts }}",
 					"user":"{{ _0sY68.outputs.userName }}"
@@ -2186,7 +2805,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"n_Hkezl",
-			"index":27,
+			"index":32,
 			"inputs":{
 				"variables":[
 					{
@@ -2212,7 +2831,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"_Addig",
-			"index":28,
+			"index":33,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -2294,7 +2913,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_e8CdW@_KHpbz-1@2",
 			"id":"n_pKYSB",
-			"index":29,
+			"index":34,
 			"inputs":{
 				"automationId":"696214695541230fa0df0c65",
 				"runtimeConnections":{},
@@ -2322,7 +2941,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_KHpbz-1",
 			"id":"n_hPQDK",
-			"index":30,
+			"index":35,
 			"inputs":{
 				"filters":[
 					{
@@ -2352,14 +2971,14 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_hPQDK@_KHpbz-1@y",
 			"id":"n_NZtxv",
-			"index":31,
+			"index":36,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
 					"attachments":{
-						"items":"{{ n_Pf9Ez.outputs.items[0] }}",
+						"items":"{{ n_Pf9Ez.outputs.items[0].fileObj }}",
 						"source":"{{ n_Pf9Ez.outputs.items }}",
 						"ua:type":"mappedArray"
 					},
@@ -2368,7 +2987,7 @@
 					"knowledgeSetId":"{{ n_1YoH5.outputs.knowledgeSetId }}",
 					"knowledgeVersion":"{{ n_1YoH5.outputs.indexingVersion }}",
 					"metadata":"{{ n_pKYSB.outputs.chunkMetadata }}",
-					"modifiedTime":"{{ n_pKYSB.outputs.chunkMetadata.createdAt }}",
+					"modifiedTime":"{{ n_pKYSB.outputs.chunkMetadata.modifiedAt }}",
 					"parentEntityId":"{{ n_1YoH5.outputs.parentEntityId }}",
 					"resourceType":"message",
 					"rootEntityId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.ts }}",
@@ -2377,6 +2996,7 @@
 						"source":"{{ _jrN5Q.outputs.sharedWithIds }}",
 						"ua:type":"mappedArray"
 					},
+					"sourceId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.thread_ts }}_{{ n_1YoH5.outputs.message.ts }}",
 					"sourceResponse":"{{ _Addig.outputs.result.sourceResponse }}",
 					"uniqueEntityId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.thread_ts }}_{{ n_1YoH5.outputs.message.ts }}"
 				},
@@ -2399,14 +3019,14 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_hPQDK@_KHpbz-1@n",
 			"id":"n_2Zdqk",
-			"index":32,
+			"index":37,
 			"inputs":{
 				"automationId":"6867a54b78989b484e92345e",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
 					"attachments":{
-						"items":"{{ n_Pf9Ez.outputs.items[0] }}",
+						"items":"{{ n_Pf9Ez.outputs.items[0].fileObj }}",
 						"source":"{{ n_Pf9Ez.outputs.items }}",
 						"ua:type":"mappedArray"
 					},
@@ -2415,7 +3035,7 @@
 					"knowledgeSetId":"{{ n_1YoH5.outputs.knowledgeSetId }}",
 					"knowledgeVersion":"{{ n_1YoH5.outputs.indexingVersion }}",
 					"metadata":"{{ n_pKYSB.outputs.chunkMetadata }}",
-					"modifiedTime":"{{ n_pKYSB.outputs.chunkMetadata.createdAt }}",
+					"modifiedTime":"{{ n_pKYSB.outputs.chunkMetadata.modifiedAt }}",
 					"parentEntityId":"{{ n_1YoH5.outputs.parentEntityId }}",
 					"resourceType":"message",
 					"rootEntityId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.ts }}",
@@ -2424,6 +3044,7 @@
 						"source":"{{ _jrN5Q.outputs.sharedWithIds }}",
 						"ua:type":"mappedArray"
 					},
+					"sourceId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.ts }}",
 					"sourceResponse":"{{ _Addig.outputs.result.sourceResponse }}",
 					"uniqueEntityId":"{{ n_1YoH5.outputs.channel.Id }}_{{ n_1YoH5.outputs.message.ts }}"
 				},
@@ -2446,7 +3067,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_KHpbz-1",
 			"id":"n_suDyD",
-			"index":33,
+			"index":38,
 			"inputs":{
 				"result":{
 					"success":true
@@ -2476,8 +3097,5 @@
 		}
 	},
 	"standard":true,
-	"tags":[
-		"knowledge_v2"
-	],
-	"version":147
+	"version":149
 }

@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743673725,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743674583,
+		"deployedAt":1789395124536,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdba9d7c534668ef61bc",
+		"deployedDefinitionId":"6aa800b439ee5f5ef70b5d74",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":82
+		"version":2,
+		"workflowVersion":85
 	},
 	"edges":[
 		{
@@ -758,7 +758,7 @@
 	"id":"69f724c13987333e9dc7780a",
 	"lastModifiedBy":-1,
 	"lcName":"createpiesubautomation",
-	"modifiedTime":1788252971879,
+	"modifiedTime":1789395398423,
 	"name":"createPieSubAutomation",
 	"nodes":[
 		{
@@ -904,6 +904,12 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"dataLabels":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Data Labels",
+										"type":"object"
+									},
 									"key":{
 										"title":"key",
 										"type":"string"
@@ -911,8 +917,13 @@
 									"label":{
 										"title":"label",
 										"type":"string"
+									},
+									"tickLabel":{
+										"title":"Tick Label",
+										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"title":"series",
@@ -955,6 +966,10 @@
 							"title":"title",
 							"type":"string"
 						},
+						"xAxisLabel":{
+							"title":"X Axis Label",
+							"type":"string"
+						},
 						"xAxisRenderDateFormat":{
 							"title":"X Axis Render Date Format",
 							"type":"string"
@@ -982,7 +997,9 @@
 					"root.parameters.input.series.items.label",
 					"root.parameters.input.series.items.key",
 					"root.parameters.input.xAxisValue",
-					"root.parameters.input.sql_output_2.items"
+					"root.parameters.input.sql_output_2.items",
+					"root.parameters.input.series.items.tickLabel",
+					"root.parameters.input.series.items.dataLabels"
 				]
 			},
 			"context":{
@@ -1018,12 +1035,22 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"dataLabels":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Data Labels",
+										"type":"object"
+									},
 									"key":{
 										"title":"Key",
 										"type":"string"
 									},
 									"label":{
 										"title":"Label",
+										"type":"string"
+									},
+									"tickLabel":{
+										"title":"Tick Label",
 										"type":"string"
 									}
 								},
@@ -1051,6 +1078,12 @@
 									"items":{
 										"additionalProperties":false,
 										"properties":{
+											"dataLabels":{
+												"additionalProperties":false,
+												"properties":{},
+												"title":"Data Labels",
+												"type":"object"
+											},
 											"key":{
 												"title":"key",
 												"type":"string"
@@ -1058,8 +1091,13 @@
 											"label":{
 												"title":"label",
 												"type":"string"
+											},
+											"tickLabel":{
+												"title":"Tick Label",
+												"type":"string"
 											}
 										},
+										"required":[],
 										"type":"object"
 									},
 									"title":"series",
@@ -1087,7 +1125,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"\n// Closure to clean keys\ndef cleanKey = { key ->\n    if (!(key instanceof String)) return key\n    key.replaceAll(/[^A-Za-z0-9_]/, '')\n}\n\n// Extract inputs\ndef series = input.get('series', [])\ndef sql_output = input.get('sql_output_2', [])\ndef xAxisValue = input.get('xAxisValue', '')\n\n// Clean & lowercase xAxisValue\ndef lowerXAxisValue = cleanKey(xAxisValue?.toLowerCase())\n\n// Clean & lowercase series keys (label remains unchanged)\ndef lowerSeries = series.collect { entry ->\n    [\n        key: cleanKey(entry['key']?.toLowerCase()),\n        label: entry['label']\n    ]\n}\n\n// List of cleaned series keys\ndef seriesKeys = lowerSeries.collect { it['key'] }\n\n// Lowercase + clean keys in sql_output for validation\ndef sql_output_normalized = sql_output.collect { row ->\n    row.collectEntries { k, v -> [cleanKey(k.toLowerCase()), v] }\n}\n\n// Prevent xAxisValue being same as first series key\ndef valueKey = seriesKeys[0]\nif (valueKey == lowerXAxisValue) {\n    return [\n        \"isCorrect\": false, \n        \"series\": lowerSeries, \n        \"xAxisValue\": lowerXAxisValue,\n        \"lowerSqlOutput\": sql_output_normalized\n    ]\n}\n\n// Validate that each row contains xAxisValue and first series key\nboolean allRowsValid = sql_output_normalized.every {\n    it.containsKey(lowerXAxisValue) && it.containsKey(valueKey)\n}\n\ndef allKeys = sql_output_normalized[0]?.keySet() ?: []\nboolean hasStringKeyAcrossAllRows = allKeys.any { key ->\n    sql_output_normalized.every { row ->\n        row[key] instanceof String\n    }\n}\n\n\n\ndef filteredRows = sql_output_normalized.findAll { row ->\n    row.containsKey(lowerXAxisValue) &&\n    row[lowerXAxisValue]?.toString()?.trim() &&\n    seriesKeys.every { key -> row.containsKey(key) && row[key] != null }\n}\n\nboolean isCorrect = !filteredRows.isEmpty()\n\nreturn [\n    // \"isCorrect\": allRowsValid && hasStringKeyAcrossAllRows,\n    \"isCorrect\":isCorrect,\n    \"series\": lowerSeries,\n    \"xAxisValue\": lowerXAxisValue,\n    \"lowerSqlOutput\": filteredRows\n]\n\n// // Closure to clean keys\n// def cleanKey = { key ->\n//     if (!(key instanceof String)) return key\n//     key.replaceAll(/[^A-Za-z0-9_]/, '')\n// }\n\n// // Extract inputs\n// def series = input.get('series', [])\n// def sql_output_2 = input.get('sql_output_2', [])\n// def xAxisValue = input.get('xAxisValue', '')\n\n// // Clean & lowercase xAxisValue\n// def lowerXAxisValue = cleanKey(xAxisValue?.toLowerCase())\n\n// // Clean & lowercase series keys (label remains unchanged)\n// def lowerSeries = series.collect { entry ->\n//     [\n//         key: cleanKey(entry['key']?.toLowerCase()),\n//         label: entry['label']\n//     ]\n// }\n\n// // List of cleaned series keys\n// def seriesKeys = lowerSeries.collect { it['key'] }\n\n// // Normalize sql_output_2 keys\n// def sql_output_normalized = (sql_output_2 ?: []).collect { row ->\n//     row.collectEntries { k, v -> [cleanKey(k.toLowerCase()), v] }\n// }\n\n// // Early return if any series key is missing\n// for (seriesKey in seriesKeys) {\n//     boolean keyExists = sql_output_normalized.every { it.containsKey(seriesKey) }\n//     if (!keyExists) return [\n//         \"isCorrect\": false, \n//         \"series\": lowerSeries, \n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n// // Check if xAxisValue exists in every row\n// boolean xAxisExists = sql_output_normalized.every { it.containsKey(lowerXAxisValue) }\n\n// if (lowerSeries.isEmpty() || !xAxisExists) {\n//     return [\n//         \"isCorrect\": false, \n//         \"series\": lowerSeries, \n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n// // Prevent xAxisValue being same as first series key\n// def valueKey = seriesKeys[0]\n// if (valueKey == lowerXAxisValue) {\n//     return [\n//         \"isCorrect\": false, \n//         \"series\": lowerSeries, \n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n// // Validate that each row contains xAxisValue and first series key\n// boolean allRowsValid = sql_output_normalized.every {\n//     it.containsKey(lowerXAxisValue) && it.containsKey(valueKey)\n// }\n\n// // Check if at least one column is string across all rows\n// def allKeys = sql_output_normalized[0]?.keySet() ?: []\n// boolean hasStringKeyAcrossAllRows = allKeys.any { key ->\n//     sql_output_normalized.every { row ->\n//         row[key] instanceof String\n//     }\n// }\n// def isEpoch = { val ->\n//     if (!(val instanceof Number)) return false\n//     def len = val.toString().length()\n//     return (len == 10 || len == 13)\n// }\n\n// // xAxis validation (new addition)\n// def xAxisIsValid = sql_output_normalized.every { row ->\n//     def val = row[lowerXAxisValue]\n//     (val instanceof String) || isEpoch(val)\n// }\n// // Check if ALL series values across ALL rows are zero (or null)\n// boolean allSeriesValuesAreZero = seriesKeys.every { sKey ->\n//     sql_output_normalized.every { row ->\n//         def val = row[sKey]\n//         val == null || val == 0 || val == 0.0 || (val instanceof Number && val.toDouble() == 0.0)\n//     }\n// }\n\n// if (allSeriesValuesAreZero) {\n//     return [\n//         \"isCorrect\": false,\n//         \"renderAsTable\": true,\n//         \"reason\": \"all_values_zero\",\n//         \"series\": lowerSeries,\n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n\n// return [\n//     \"isCorrect\": allRowsValid && (hasStringKeyAcrossAllRows || xAxisIsValid),\n//     \"series\": lowerSeries,\n//     \"xAxisValue\": lowerXAxisValue,\n//     \"lowerSqlOutput\": sql_output_normalized\n// ]",
+				"code":"\n// Closure to clean keys\ndef cleanKey = { key ->\n    if (!(key instanceof String)) return key\n    key.replaceAll(/[^A-Za-z0-9_]/, '')\n}\n\n// Extract inputs\ndef series = input.get('series', [])\ndef sql_output = input.get('sql_output_2', [])\ndef xAxisValue = input.get('xAxisValue', '')\n\n// Clean & lowercase xAxisValue\ndef lowerXAxisValue = cleanKey(xAxisValue?.toLowerCase())\n\n// Clean & lowercase series keys (label remains unchanged)\ndef lowerSeries = series.collect { entry ->\n    [\n        key: cleanKey(entry['key']?.toLowerCase()),\n        label: entry['label'],\n        tickLabel: entry['tickLabel'],\n        dataLabels: entry['dataLabels']\n    ]\n}\n\n// List of cleaned series keys\ndef seriesKeys = lowerSeries.collect { it['key'] }\n\n// Lowercase + clean keys in sql_output for validation\ndef sql_output_normalized = sql_output.collect { row ->\n    row.collectEntries { k, v -> [cleanKey(k.toLowerCase()), v] }\n}\n\n// Prevent xAxisValue being same as first series key\ndef valueKey = seriesKeys[0]\nif (valueKey == lowerXAxisValue) {\n    return [\n        \"isCorrect\": false, \n        \"series\": lowerSeries, \n        \"xAxisValue\": lowerXAxisValue,\n        \"lowerSqlOutput\": sql_output_normalized\n    ]\n}\n\n// Validate that each row contains xAxisValue and first series key\nboolean allRowsValid = sql_output_normalized.every {\n    it.containsKey(lowerXAxisValue) && it.containsKey(valueKey)\n}\n\ndef allKeys = sql_output_normalized[0]?.keySet() ?: []\nboolean hasStringKeyAcrossAllRows = allKeys.any { key ->\n    sql_output_normalized.every { row ->\n        row[key] instanceof String\n    }\n}\n\n\n\ndef filteredRows = sql_output_normalized.findAll { row ->\n    row.containsKey(lowerXAxisValue) &&\n    row[lowerXAxisValue]?.toString()?.trim() &&\n    seriesKeys.every { key -> row.containsKey(key) && row[key] != null }\n}\n\nboolean isCorrect = !filteredRows.isEmpty()\n\nreturn [\n    // \"isCorrect\": allRowsValid && hasStringKeyAcrossAllRows,\n    \"isCorrect\":isCorrect,\n    \"series\": lowerSeries,\n    \"xAxisValue\": lowerXAxisValue,\n    \"lowerSqlOutput\": filteredRows\n]\n\n// // Closure to clean keys\n// def cleanKey = { key ->\n//     if (!(key instanceof String)) return key\n//     key.replaceAll(/[^A-Za-z0-9_]/, '')\n// }\n\n// // Extract inputs\n// def series = input.get('series', [])\n// def sql_output_2 = input.get('sql_output_2', [])\n// def xAxisValue = input.get('xAxisValue', '')\n\n// // Clean & lowercase xAxisValue\n// def lowerXAxisValue = cleanKey(xAxisValue?.toLowerCase())\n\n// // Clean & lowercase series keys (label remains unchanged)\n// def lowerSeries = series.collect { entry ->\n//     [\n//         key: cleanKey(entry['key']?.toLowerCase()),\n//         label: entry['label']\n//     ]\n// }\n\n// // List of cleaned series keys\n// def seriesKeys = lowerSeries.collect { it['key'] }\n\n// // Normalize sql_output_2 keys\n// def sql_output_normalized = (sql_output_2 ?: []).collect { row ->\n//     row.collectEntries { k, v -> [cleanKey(k.toLowerCase()), v] }\n// }\n\n// // Early return if any series key is missing\n// for (seriesKey in seriesKeys) {\n//     boolean keyExists = sql_output_normalized.every { it.containsKey(seriesKey) }\n//     if (!keyExists) return [\n//         \"isCorrect\": false, \n//         \"series\": lowerSeries, \n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n// // Check if xAxisValue exists in every row\n// boolean xAxisExists = sql_output_normalized.every { it.containsKey(lowerXAxisValue) }\n\n// if (lowerSeries.isEmpty() || !xAxisExists) {\n//     return [\n//         \"isCorrect\": false, \n//         \"series\": lowerSeries, \n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n// // Prevent xAxisValue being same as first series key\n// def valueKey = seriesKeys[0]\n// if (valueKey == lowerXAxisValue) {\n//     return [\n//         \"isCorrect\": false, \n//         \"series\": lowerSeries, \n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n// // Validate that each row contains xAxisValue and first series key\n// boolean allRowsValid = sql_output_normalized.every {\n//     it.containsKey(lowerXAxisValue) && it.containsKey(valueKey)\n// }\n\n// // Check if at least one column is string across all rows\n// def allKeys = sql_output_normalized[0]?.keySet() ?: []\n// boolean hasStringKeyAcrossAllRows = allKeys.any { key ->\n//     sql_output_normalized.every { row ->\n//         row[key] instanceof String\n//     }\n// }\n// def isEpoch = { val ->\n//     if (!(val instanceof Number)) return false\n//     def len = val.toString().length()\n//     return (len == 10 || len == 13)\n// }\n\n// // xAxis validation (new addition)\n// def xAxisIsValid = sql_output_normalized.every { row ->\n//     def val = row[lowerXAxisValue]\n//     (val instanceof String) || isEpoch(val)\n// }\n// // Check if ALL series values across ALL rows are zero (or null)\n// boolean allSeriesValuesAreZero = seriesKeys.every { sKey ->\n//     sql_output_normalized.every { row ->\n//         def val = row[sKey]\n//         val == null || val == 0 || val == 0.0 || (val instanceof Number && val.toDouble() == 0.0)\n//     }\n// }\n\n// if (allSeriesValuesAreZero) {\n//     return [\n//         \"isCorrect\": false,\n//         \"renderAsTable\": true,\n//         \"reason\": \"all_values_zero\",\n//         \"series\": lowerSeries,\n//         \"xAxisValue\": lowerXAxisValue,\n//         \"lowerSqlOutput\": sql_output_normalized\n//     ]\n// }\n\n\n// return [\n//     \"isCorrect\": allRowsValid && (hasStringKeyAcrossAllRows || xAxisIsValid),\n//     \"series\": lowerSeries,\n//     \"xAxisValue\": lowerXAxisValue,\n//     \"lowerSqlOutput\": sql_output_normalized\n// ]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -1095,8 +1133,10 @@
 					"input":{
 						"series":{
 							"items":{
+								"dataLabels":"{{ n_ZO1WS.outputs.series[0].dataLabels }}",
 								"key":"{{ n_ZO1WS.outputs.series[0].key }}",
-								"label":"{{ n_ZO1WS.outputs.series[0].label }}"
+								"label":"{{ n_ZO1WS.outputs.series[0].label }}",
+								"tickLabel":"{{ n_ZO1WS.outputs.series[0].tickLabel }}"
 							},
 							"source":"{{ n_ZO1WS.outputs.series }}",
 							"ua:type":"mappedArray"
@@ -4607,12 +4647,11 @@
 				"visibleOptionalFields":[
 					"root.parameters.series.items.label",
 					"root.parameters.series.items.key",
-					"root.parameters.yAxis.yAxisSeries.items.key",
-					"root.parameters.yAxis.yAxisSeries.items.label",
-					"root.parameters.yAxis.yAxisSeries.items.tickLabel",
 					"root.parameters.sql_output_2.items",
 					"root.parameters.centerKPI.label",
-					"root.parameters.centerKPI.value"
+					"root.parameters.centerKPI.value",
+					"root.parameters.series.items.tickLabel",
+					"root.parameters.series.items.dataLabels"
 				]
 			},
 			"context":{
@@ -4677,6 +4716,12 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"dataLabels":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Data Labels",
+										"type":"object"
+									},
 									"key":{
 										"title":"key",
 										"type":"string"
@@ -4684,8 +4729,13 @@
 									"label":{
 										"title":"label",
 										"type":"string"
+									},
+									"tickLabel":{
+										"title":"Tick Label",
+										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"title":"series",
@@ -4708,6 +4758,14 @@
 							"title":"Title",
 							"type":"string"
 						},
+						"valuesInDataLabel":{
+							"title":"Values In Data Label",
+							"type":"boolean"
+						},
+						"xAxisLabel":{
+							"title":"X Axis Label",
+							"type":"string"
+						},
 						"xAxisValue":{
 							"title":"xAxisValue",
 							"type":"string"
@@ -4716,7 +4774,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def tickLabelConfig\n\nboolean hasLabelType = binding.hasVariable('labelType')\ndef currencyCode=binding.hasVariable(\"currencyCode\")?binding.getVariable(\"currencyCode\"):\"USD\"\nif (hasLabelType && labelType == 'PERCENT' && series.size() == 1) {\n    tickLabelConfig = [\n        \"type\": \"PERCENT\",\n        \"decimalPlaces\": 2\n    ]\n} else if (hasLabelType && labelType == 'CURRENCY' && series.size() == 1) {\n    tickLabelConfig = [\n        \"type\": \"CURRENCY\",\n        \"decimalPlaces\": 2,\n        \"currencyCode\":currencyCode\n    ]\n} else {\n    tickLabelConfig = [\n        \"enabled\": true,\n        \"notation\": \"compact\",\n        \"type\": \"NUMBER\",\n        \"decimalPlaces\": 2\n    ]\n}\n\ndef subTitle=binding.hasVariable(\"subTitle\")?binding.getVariable(\"subTitle\"):null\ndef centerKPI=binding.hasVariable(\"centerKPI\")?binding.getVariable(\"centerKPI\"):[:]\ndef chartConfig=[\n   \"chartType\": chartType,\n   \"xAxisValue\": xAxisValue,\n   \"yAxis\": [\n        \"series\": series,\n        \"tickLabels\": tickLabelConfig\n    ],\n   \"chartData\": sql_output_2,\n   \"title\": title,\n   \"subTitle\":subTitle\n]\n// if (centerKPI?.label && centerKPI?.value != null && centerKPI?.value != \"\") {        \n//     def parsedValue = centerKPI.value\n//     if (parsedValue instanceof String && parsedValue.isNumber()) {\n//         parsedValue = parsedValue.toBigDecimal()\n//     }\n        \n//     def centerSlot = [\n//         \"value\": parsedValue,\n//         \"valueFormat\": tickLabelConfig,\n//         \"label\": centerKPI.label\n//     ]\n        \n//     chartConfig[\"centerSlot\"] = centerSlot\n// }\nif (centerKPI?.label && centerKPI?.value != null && centerKPI?.value != \"\") {\n    def rawValue = centerKPI.value\n    def parsedValue = rawValue\n\n    // Default format\n    def valueFormat = [\n        \"type\": \"STRING\"\n    ]\n\n    if (rawValue instanceof String) {\n        def trimmed = rawValue.trim()\n\n        // Currency symbol/code mapping\n        def currencyMap = [\n            \"₹\": \"INR\",\n            \"\\$\": \"USD\",\n            \"€\": \"EUR\",\n            \"£\": \"GBP\"\n        ]\n\n\n        // Matches: ₹1500, $1,500, INR 1500, USD 1,500.25\n        def currencyMatcher = trimmed =~ /^((₹|\\$|€|£)|([A-Za-z]{3}))\\s*([\\d,]+(?:\\.\\d+)?)$/\n\n        if (currencyMatcher.matches()) {\n            currencyCode = currencyMatcher[0][2]\n                    ? currencyMap[currencyMatcher[0][2]]\n                    : currencyMatcher[0][3].toUpperCase()\n\n            def numericPart = currencyMatcher[0][4].replace(\",\", \"\")\n\n            try {\n                parsedValue = numericPart.contains(\".\")\n                        ? numericPart.toBigDecimal()\n                        : numericPart.toLong()\n\n                valueFormat = [\n                    \"type\"         : \"CURRENCY\",\n                    \"currencyCode\" : currencyCode,\n                    \"decimalPlaces\": 2\n                ]\n            } catch (Exception ignored) {\n                parsedValue = rawValue\n                valueFormat = [\n                    \"type\": \"STRING\"\n                ]\n            }\n\n        } else {\n            // Matches: 12, 12.68, 15,000, 12%, 12.68%, 15,000%\n            def matcher = trimmed =~ /^([\\d,]+(?:\\.\\d+)?)\\s*(%)?$/\n\n            if (matcher.matches()) {\n                def numericPart = matcher[0][1].replace(\",\", \"\")\n                def isPercent = matcher[0][2] == \"%\"\n\n                try {\n                    parsedValue = numericPart.contains(\".\")\n                            ? numericPart.toBigDecimal()\n                            : numericPart.toLong()\n\n                    valueFormat = isPercent\n                            ? [\n                                \"type\": \"PERCENT\",\n                                \"decimalPlaces\": 2\n                            ]\n                            : [\n                                \"enabled\": true,\n                                \"notation\": \"compact\",\n                                \"type\": \"NUMBER\",\n                                \"decimalPlaces\": 2\n                            ]\n\n                } catch (Exception ignored) {\n                    parsedValue = rawValue\n                    valueFormat = [\n                        \"type\": \"STRING\"\n                    ]\n                }\n            }\n        }\n\n    } else if (rawValue instanceof Number) {\n\n        parsedValue = rawValue\n\n        valueFormat = [\n            \"enabled\": true,\n            \"notation\": \"compact\",\n            \"type\": \"NUMBER\",\n            \"decimalPlaces\": 2\n        ]\n    }\n\n    def centerSlot = [\n        \"value\"       : parsedValue,\n        \"valueFormat\" : valueFormat,\n        \"label\"       : centerKPI.label\n    ]\n\n    chartConfig[\"centerSlot\"] = centerSlot\n}\n\n\nreturn [\n    \"blockType\": binding.hasVariable(\"blockType\") ? binding.getVariable(\"blockType\") : \"Chart\",\n    \"data\": chartConfig\n]",
+				"code":"def defaultTickLabelConfig = [\n    \"enabled\": true,\n    \"notation\": \"compact\",\n    \"type\": \"NUMBER\",\n    \"decimalPlaces\": 2\n]\n\ndef currencyCode = binding.hasVariable(\"currencyCode\")\n        ? binding.getVariable(\"currencyCode\")\n        : \"USD\"\n\n// Only consider the first 2 series.\n// Any series beyond the second one is ignored.\ndef effectiveSeries = (series ?: []).take(2)\n\ndef primarySeries = effectiveSeries ? effectiveSeries[0] : null\ndef secondarySeries = effectiveSeries.size() > 1 ? effectiveSeries[1] : null\n\n// Extract dataLabels.content.field if present\ndef getDataLabelField = { seriesObject ->\n    if (!(seriesObject instanceof Map)) {\n        return null\n    }\n\n    def dataLabels = seriesObject.get(\"dataLabels\")\n\n    if (!(dataLabels instanceof Map)) {\n        return null\n    }\n\n    def content = dataLabels.get(\"content\")\n\n    if (!(content instanceof Map)) {\n        return null\n    }\n\n    def field = content.get(\"field\")\n\n    return field != null && field.toString().trim() != \"\"\n            ? field.toString()\n            : null\n}\n\ndef getTickLabelConfig = { seriesObject ->\n\n    def tickLabel = (\n        seriesObject instanceof Map &&\n        seriesObject.containsKey(\"tickLabel\") &&\n        seriesObject.tickLabel != null\n    ) ? seriesObject.tickLabel.toString().trim().toUpperCase() : \"\"\n\n    def config\n\n    if (tickLabel == \"PERCENT\") {\n        config = [\n            \"type\": \"PERCENT\",\n            \"decimalPlaces\": 2\n        ]\n    } else if (tickLabel == \"CURRENCY\") {\n        config = [\n            \"type\": \"CURRENCY\",\n            \"decimalPlaces\": 2,\n            \"currencyCode\": currencyCode\n        ]\n    } else {\n        config = defaultTickLabelConfig\n    }\n\n    // Add field only when dataLabels.content.field exists\n    def field = getDataLabelField(seriesObject)\n\n    if (field != null) {\n        config = new LinkedHashMap(config)\n        config[\"field\"] = field\n    }\n\n    return config\n}\n\ndef tickLabelConfig = getTickLabelConfig(primarySeries)\n\ndef rawValuesInDataLabel = binding.hasVariable(\"valuesInDataLabel\") ? binding.getVariable(\"valuesInDataLabel\") : false\n// Normalize to boolean\ndef valuesInDataLabel = (rawValuesInDataLabel instanceof Boolean) \n        ? rawValuesInDataLabel \n        : rawValuesInDataLabel?.toString()?.equalsIgnoreCase(\"true\")\nif(valuesInDataLabel){\n    tickLabelConfig.notation=null\n}\n\ndef centerKPI = binding.hasVariable(\"centerKPI\")\n        ? binding.getVariable(\"centerKPI\")\n        : [:]\n\ndef subTitle = binding.hasVariable(\"subTitle\")\n        ? binding.getVariable(\"subTitle\")\n        : null\n\ndef chartConfig = [\n    \"chartType\": chartType,\n    \"xAxisValue\": xAxisValue,\n    \"yAxis\": [\n        \"series\": primarySeries != null ? [primarySeries] : [],\n        \"tickLabels\": tickLabelConfig\n    ],\n    \"chartData\": sql_output_2,\n    \"title\": title,\n    \"subTitle\": subTitle\n]\n\n// Build addOns with secondaryMetric and legendsHeader.\ndef addOns = [\n    \"legends\":[\n        \"header\": [\n            \"category\": binding.hasVariable(\"xAxisLabel\")\n                    ? xAxisLabel\n                    : \"\",\n            \"value\": primarySeries != null && primarySeries.containsKey(\"label\")\n                    ? primarySeries.label\n                    : \"\",\n            \"secondaryValue\": secondarySeries != null && secondarySeries.containsKey(\"label\")\n                    ? secondarySeries.label\n                    : \"\"\n        ]\n    ]\n]\n\n// Second series goes into addOns.secondaryMetric.\n// Any series after the second one is ignored.\nif (secondarySeries != null) {\n\n    def secondaryTickLabelConfig = getTickLabelConfig(secondarySeries)\n\n    addOns[\"secondaryMetric\"] = [\n        \"label\": secondarySeries.containsKey(\"label\")\n                ? secondarySeries.label\n                : \"\",\n        \"format\": secondaryTickLabelConfig,\n        \"value\": secondarySeries.containsKey(\"key\")\n                ? secondarySeries.key\n                : \"\"\n    ]\n}\n\nchartConfig[\"addOns\"] = addOns\n\nif (centerKPI?.label && centerKPI?.value != null && centerKPI?.value != \"\") {\n\n    def rawValue = centerKPI.value\n    def parsedValue = rawValue\n\n    // Default format\n    def valueFormat = [\n        \"type\": \"STRING\"\n    ]\n\n    if (rawValue instanceof String) {\n\n        def trimmed = rawValue.trim()\n\n        // Currency symbol/code mapping\n        def currencyMap = [\n            \"₹\": \"INR\",\n            \"\\$\": \"USD\",\n            \"€\": \"EUR\",\n            \"£\": \"GBP\"\n        ]\n\n        // Matches: ₹1500, $1,500, INR 1500, USD 1,500.25\n        def currencyMatcher = trimmed =~ /^((₹|\\$|€|£)|([A-Za-z]{3}))\\s*([\\d,]+(?:\\.\\d+)?)$/\n\n        if (currencyMatcher.matches()) {\n\n            currencyCode = currencyMatcher[0][2]\n                    ? currencyMap[currencyMatcher[0][2]]\n                    : currencyMatcher[0][3].toUpperCase()\n\n            def numericPart = currencyMatcher[0][4].replace(\",\", \"\")\n\n            try {\n\n                parsedValue = numericPart.contains(\".\")\n                        ? numericPart.toBigDecimal()\n                        : numericPart.toLong()\n\n                valueFormat = [\n                    \"type\": \"CURRENCY\",\n                    \"currencyCode\": currencyCode,\n                    \"decimalPlaces\": 2\n                ]\n\n            } catch (Exception ignored) {\n\n                parsedValue = rawValue\n\n                valueFormat = [\n                    \"type\": \"STRING\"\n                ]\n            }\n\n        } else {\n\n            // Matches: 12, 12.68, 15,000, 12%, 12.68%, 15,000%\n            def matcher = trimmed =~ /^([\\d,]+(?:\\.\\d+)?)\\s*(%)?$/\n\n            if (matcher.matches()) {\n\n                def numericPart = matcher[0][1].replace(\",\", \"\")\n                def isPercent = matcher[0][2] == \"%\"\n\n                try {\n\n                    parsedValue = numericPart.contains(\".\")\n                            ? numericPart.toBigDecimal()\n                            : numericPart.toLong()\n\n                    valueFormat = isPercent\n                            ? [\n                                \"type\": \"PERCENT\",\n                                \"decimalPlaces\": 2\n                            ]\n                            : [\n                                \"enabled\": true,\n                                \"notation\": \"compact\",\n                                \"type\": \"NUMBER\",\n                                \"decimalPlaces\": 2\n                            ]\n\n                } catch (Exception ignored) {\n\n                    parsedValue = rawValue\n\n                    valueFormat = [\n                        \"type\": \"STRING\"\n                    ]\n                }\n            }\n        }\n\n    } else if (rawValue instanceof Number) {\n\n        parsedValue = rawValue\n\n        valueFormat = [\n            \"enabled\": true,\n            \"notation\": \"compact\",\n            \"type\": \"NUMBER\",\n            \"decimalPlaces\": 2\n        ]\n    }\n\n    def centerSlot = [\n        \"value\": parsedValue,\n        \"valueFormat\": valueFormat,\n        \"label\": centerKPI.label\n    ]\n\n    chartConfig[\"centerSlot\"] = centerSlot\n}\n\nreturn [\n    \"blockType\": binding.hasVariable(\"blockType\")\n            ? binding.getVariable(\"blockType\")\n            : \"Chart\",\n    \"data\": chartConfig\n]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -4730,8 +4788,10 @@
 					"labelType":"{{ n_ZO1WS.outputs.labelType }}",
 					"series":{
 						"items":{
+							"dataLabels":"{{ 3GtES.outputs.result.series[0].dataLabels }}",
 							"key":"{{ 3GtES.outputs.result.series[0].key }}",
-							"label":"{{ 3GtES.outputs.result.series[0].label }}"
+							"label":"{{ 3GtES.outputs.result.series[0].label }}",
+							"tickLabel":"{{ 3GtES.outputs.result.series[0].tickLabel }}"
 						},
 						"source":"{{ 3GtES.outputs.result.series }}",
 						"ua:type":"mappedArray"
@@ -4743,6 +4803,8 @@
 					},
 					"subTitle":"{{ n_ZO1WS.outputs.subTitle }}",
 					"title":"{{ n_ZO1WS.outputs.title }}",
+					"valuesInDataLabel":"{{ __ENV__.outputs.VALUES_IN_DATA_LABEL }}",
+					"xAxisLabel":"{{ n_ZO1WS.outputs.xAxisLabel }}",
 					"xAxisValue":"{{ 3GtES.outputs.result.xAxisValue }}"
 				}
 			},
@@ -5165,12 +5227,11 @@
 				"visibleOptionalFields":[
 					"root.parameters.series.items.label",
 					"root.parameters.series.items.key",
-					"root.parameters.yAxis.yAxisSeries.items.key",
-					"root.parameters.yAxis.yAxisSeries.items.label",
-					"root.parameters.yAxis.yAxisSeries.items.tickLabel",
 					"root.parameters.sql_output_2.items",
 					"root.parameters.centerKPI.label",
-					"root.parameters.centerKPI.value"
+					"root.parameters.centerKPI.value",
+					"root.parameters.series.items.tickLabel",
+					"root.parameters.series.items.dataLabels"
 				]
 			},
 			"context":{
@@ -5235,6 +5296,12 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"dataLabels":{
+										"additionalProperties":false,
+										"properties":{},
+										"title":"Data Labels",
+										"type":"object"
+									},
 									"key":{
 										"title":"key",
 										"type":"string"
@@ -5242,8 +5309,13 @@
 									"label":{
 										"title":"label",
 										"type":"string"
+									},
+									"tickLabel":{
+										"title":"Tick Label",
+										"type":"string"
 									}
 								},
+								"required":[],
 								"type":"object"
 							},
 							"title":"series",
@@ -5266,6 +5338,14 @@
 							"title":"Title",
 							"type":"string"
 						},
+						"valuesInDataLabel":{
+							"title":"Values In Data Label",
+							"type":"boolean"
+						},
+						"xAxisLabel":{
+							"title":"X Axis Label",
+							"type":"string"
+						},
 						"xAxisValue":{
 							"title":"xAxisValue",
 							"type":"string"
@@ -5274,7 +5354,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def tickLabelConfig\n\nboolean hasLabelType = binding.hasVariable('labelType')\ndef currencyCode=binding.hasVariable(\"currencyCode\")?binding.getVariable(\"currencyCode\"):\"USD\"\nif (hasLabelType && labelType == 'PERCENT' && series.size() == 1) {\n    tickLabelConfig = [\n        \"type\": \"PERCENT\",\n        \"decimalPlaces\": 2\n    ]\n} else if (hasLabelType && labelType == 'CURRENCY' && series.size() == 1) {\n    tickLabelConfig = [\n        \"type\": \"CURRENCY\",\n        \"decimalPlaces\": 2,\n        \"currencyCode\":currencyCode\n    ]\n} else {\n    tickLabelConfig = [\n        \"enabled\": true,\n        \"notation\": \"compact\",\n        \"type\": \"NUMBER\",\n        \"decimalPlaces\": 2\n    ]\n}\ndef centerKPI=binding.hasVariable(\"centerKPI\")?binding.getVariable(\"centerKPI\"):[:]\ndef subTitle=binding.hasVariable(\"subTitle\")?binding.getVariable(\"subTitle\"):null\ndef chartConfig=[\n   \"chartType\": chartType,\n   \"xAxisValue\": xAxisValue,\n   \"yAxis\": [\n        \"series\": series,\n        \"tickLabels\": tickLabelConfig\n    ],\n   \"chartData\": sql_output_2,\n   \"title\": title,\n   \"subTitle\":subTitle\n]\n// if (centerKPI?.label && centerKPI?.value != null && centerKPI?.value != \"\") {        \n//     def parsedValue = centerKPI.value\n//     if (parsedValue instanceof String && parsedValue.isNumber()) {\n//         parsedValue = parsedValue.toBigDecimal()\n//     }\n        \n//     def centerSlot = [\n//         \"value\": parsedValue,\n//         \"valueFormat\": tickLabelConfig,\n//         \"label\": centerKPI.label\n//     ]\n        \n//     chartConfig[\"centerSlot\"] = centerSlot\n// }\nif (centerKPI?.label && centerKPI?.value != null && centerKPI?.value != \"\") {\n    def rawValue = centerKPI.value\n    def parsedValue = rawValue\n\n    // Default format\n    def valueFormat = [\n        \"type\": \"STRING\"\n    ]\n\n    if (rawValue instanceof String) {\n        def trimmed = rawValue.trim()\n\n        // Currency symbol/code mapping\n        def currencyMap = [\n            \"₹\": \"INR\",\n            \"\\$\": \"USD\",\n            \"€\": \"EUR\",\n            \"£\": \"GBP\"\n        ]\n\n        // Matches: ₹1500, $1,500, INR 1500, USD 1,500.25\n        def currencyMatcher = trimmed =~ /^((₹|\\$|€|£)|([A-Za-z]{3}))\\s*([\\d,]+(?:\\.\\d+)?)$/\n\n        if (currencyMatcher.matches()) {\n            currencyCode = currencyMatcher[0][2]\n                    ? currencyMap[currencyMatcher[0][2]]\n                    : currencyMatcher[0][3].toUpperCase()\n\n            def numericPart = currencyMatcher[0][4].replace(\",\", \"\")\n\n            try {\n                parsedValue = numericPart.contains(\".\")\n                        ? numericPart.toBigDecimal()\n                        : numericPart.toLong()\n\n                valueFormat = [\n                    \"type\"         : \"CURRENCY\",\n                    \"currencyCode\" : currencyCode,\n                    \"decimalPlaces\": 2\n                ]\n            } catch (Exception ignored) {\n                parsedValue = rawValue\n                valueFormat = [\n                    \"type\": \"STRING\"\n                ]\n            }\n\n        } else {\n            // Matches: 12, 12.68, 15,000, 12%, 12.68%, 15,000%\n            def matcher = trimmed =~ /^([\\d,]+(?:\\.\\d+)?)\\s*(%)?$/\n\n            if (matcher.matches()) {\n                def numericPart = matcher[0][1].replace(\",\", \"\")\n                def isPercent = matcher[0][2] == \"%\"\n\n                try {\n                    parsedValue = numericPart.contains(\".\")\n                            ? numericPart.toBigDecimal()\n                            : numericPart.toLong()\n\n                    valueFormat = isPercent\n                            ? [\n                                \"type\": \"PERCENT\",\n                                \"decimalPlaces\": 2\n                            ]\n                            : [\n                                \"enabled\": true,\n                                \"notation\": \"compact\",\n                                \"type\": \"NUMBER\",\n                                \"decimalPlaces\": 2\n                            ]\n\n                } catch (Exception ignored) {\n                    parsedValue = rawValue\n                    valueFormat = [\n                        \"type\": \"STRING\"\n                    ]\n                }\n            }\n        }\n\n    } else if (rawValue instanceof Number) {\n\n        parsedValue = rawValue\n\n        valueFormat = [\n            \"enabled\": true,\n            \"notation\": \"compact\",\n            \"type\": \"NUMBER\",\n            \"decimalPlaces\": 2\n        ]\n    }\n\n    def centerSlot = [\n        \"value\"       : parsedValue,\n        \"valueFormat\" : valueFormat,\n        \"label\"       : centerKPI.label\n    ]\n\n    chartConfig[\"centerSlot\"] = centerSlot\n}\n\nreturn [\n    \"blockType\": binding.hasVariable(\"blockType\") ? binding.getVariable(\"blockType\") : \"Chart\",\n    \"data\": chartConfig\n]",
+				"code":"def defaultTickLabelConfig = [\n    \"enabled\": true,\n    \"notation\": \"compact\",\n    \"type\": \"NUMBER\",\n    \"decimalPlaces\": 2\n]\n\ndef currencyCode = binding.hasVariable(\"currencyCode\")\n        ? binding.getVariable(\"currencyCode\")\n        : \"USD\"\n\n// Only consider the first 2 series.\n// Any series beyond the second one is ignored.\ndef effectiveSeries = (series ?: []).take(2)\n\ndef primarySeries = effectiveSeries ? effectiveSeries[0] : null\ndef secondarySeries = effectiveSeries.size() > 1 ? effectiveSeries[1] : null\n\n// Extract dataLabels.content.field if present\ndef getDataLabelField = { seriesObject ->\n    if (!(seriesObject instanceof Map)) {\n        return null\n    }\n\n    def dataLabels = seriesObject.get(\"dataLabels\")\n\n    if (!(dataLabels instanceof Map)) {\n        return null\n    }\n\n    def content = dataLabels.get(\"content\")\n\n    if (!(content instanceof Map)) {\n        return null\n    }\n\n    def field = content.get(\"field\")\n\n    return field != null && field.toString().trim() != \"\"\n            ? field.toString()\n            : null\n}\n\ndef getTickLabelConfig = { seriesObject ->\n\n    def tickLabel = (\n        seriesObject instanceof Map &&\n        seriesObject.containsKey(\"tickLabel\") &&\n        seriesObject.tickLabel != null\n    ) ? seriesObject.tickLabel.toString().trim().toUpperCase() : \"\"\n\n    def config\n\n    if (tickLabel == \"PERCENT\") {\n        config = [\n            \"type\": \"PERCENT\",\n            \"decimalPlaces\": 2\n        ]\n    } else if (tickLabel == \"CURRENCY\") {\n        config = [\n            \"type\": \"CURRENCY\",\n            \"decimalPlaces\": 2,\n            \"currencyCode\": currencyCode\n        ]\n    } else {\n        config = defaultTickLabelConfig\n    }\n\n    // Add field only when dataLabels.content.field exists\n    def field = getDataLabelField(seriesObject)\n\n    if (field != null) {\n        config = new LinkedHashMap(config)\n        config[\"field\"] = field\n    }\n\n    return config\n}\n\ndef tickLabelConfig = getTickLabelConfig(primarySeries)\n\ndef rawValuesInDataLabel = binding.hasVariable(\"valuesInDataLabel\") ? binding.getVariable(\"valuesInDataLabel\") : false\n// Normalize to boolean\ndef valuesInDataLabel = (rawValuesInDataLabel instanceof Boolean) \n        ? rawValuesInDataLabel \n        : rawValuesInDataLabel?.toString()?.equalsIgnoreCase(\"true\")\nif(valuesInDataLabel){\n    tickLabelConfig.notation=null\n}\n\ndef centerKPI = binding.hasVariable(\"centerKPI\")\n        ? binding.getVariable(\"centerKPI\")\n        : [:]\n\ndef subTitle = binding.hasVariable(\"subTitle\")\n        ? binding.getVariable(\"subTitle\")\n        : null\n\ndef chartConfig = [\n    \"chartType\": chartType,\n    \"xAxisValue\": xAxisValue,\n    \"yAxis\": [\n        \"series\": primarySeries != null ? [primarySeries] : [],\n        \"tickLabels\": tickLabelConfig\n    ],\n    \"chartData\": sql_output_2,\n    \"title\": title,\n    \"subTitle\": subTitle\n]\n\n// Build addOns with secondaryMetric and legendsHeader.\ndef addOns = [\n    \"legends\": [\n        \"header\":[\n            \"category\": binding.hasVariable(\"xAxisLabel\")\n                    ? xAxisLabel\n                    : null,\n            \"value\": primarySeries != null && primarySeries.containsKey(\"label\")\n                    ? primarySeries.label\n                    : null,\n            \"secondaryValue\": secondarySeries != null && secondarySeries.containsKey(\"label\")\n                    ? secondarySeries.label\n                    : null\n        ]\n    ]\n]\n\n// Second series goes into addOns.secondaryMetric.\n// Any series after the second one is ignored.\nif (secondarySeries != null) {\n\n    def secondaryTickLabelConfig = getTickLabelConfig(secondarySeries)\n\n    addOns[\"secondaryMetric\"] = [\n        \"label\": secondarySeries.containsKey(\"label\")\n                ? secondarySeries.label\n                : \"\",\n        \"format\": secondaryTickLabelConfig,\n        \"value\": secondarySeries.containsKey(\"key\")\n                ? secondarySeries.key\n                : \"\"\n    ]\n}\n\nchartConfig[\"addOns\"] = addOns\n\nif (centerKPI?.label && centerKPI?.value != null && centerKPI?.value != \"\") {\n\n    def rawValue = centerKPI.value\n    def parsedValue = rawValue\n\n    // Default format\n    def valueFormat = [\n        \"type\": \"STRING\"\n    ]\n\n    if (rawValue instanceof String) {\n\n        def trimmed = rawValue.trim()\n\n        // Currency symbol/code mapping\n        def currencyMap = [\n            \"₹\": \"INR\",\n            \"\\$\": \"USD\",\n            \"€\": \"EUR\",\n            \"£\": \"GBP\"\n        ]\n\n        // Matches: ₹1500, $1,500, INR 1500, USD 1,500.25\n        def currencyMatcher = trimmed =~ /^((₹|\\$|€|£)|([A-Za-z]{3}))\\s*([\\d,]+(?:\\.\\d+)?)$/\n\n        if (currencyMatcher.matches()) {\n\n            currencyCode = currencyMatcher[0][2]\n                    ? currencyMap[currencyMatcher[0][2]]\n                    : currencyMatcher[0][3].toUpperCase()\n\n            def numericPart = currencyMatcher[0][4].replace(\",\", \"\")\n\n            try {\n\n                parsedValue = numericPart.contains(\".\")\n                        ? numericPart.toBigDecimal()\n                        : numericPart.toLong()\n\n                valueFormat = [\n                    \"type\": \"CURRENCY\",\n                    \"currencyCode\": currencyCode,\n                    \"decimalPlaces\": 2\n                ]\n\n            } catch (Exception ignored) {\n\n                parsedValue = rawValue\n\n                valueFormat = [\n                    \"type\": \"STRING\"\n                ]\n            }\n\n        } else {\n\n            // Matches: 12, 12.68, 15,000, 12%, 12.68%, 15,000%\n            def matcher = trimmed =~ /^([\\d,]+(?:\\.\\d+)?)\\s*(%)?$/\n\n            if (matcher.matches()) {\n\n                def numericPart = matcher[0][1].replace(\",\", \"\")\n                def isPercent = matcher[0][2] == \"%\"\n\n                try {\n\n                    parsedValue = numericPart.contains(\".\")\n                            ? numericPart.toBigDecimal()\n                            : numericPart.toLong()\n\n                    valueFormat = isPercent\n                            ? [\n                                \"type\": \"PERCENT\",\n                                \"decimalPlaces\": 2\n                            ]\n                            : [\n                                \"enabled\": true,\n                                \"notation\": \"compact\",\n                                \"type\": \"NUMBER\",\n                                \"decimalPlaces\": 2\n                            ]\n\n                } catch (Exception ignored) {\n\n                    parsedValue = rawValue\n\n                    valueFormat = [\n                        \"type\": \"STRING\"\n                    ]\n                }\n            }\n        }\n\n    } else if (rawValue instanceof Number) {\n\n        parsedValue = rawValue\n\n        valueFormat = [\n            \"enabled\": true,\n            \"notation\": \"compact\",\n            \"type\": \"NUMBER\",\n            \"decimalPlaces\": 2\n        ]\n    }\n\n    def centerSlot = [\n        \"value\": parsedValue,\n        \"valueFormat\": valueFormat,\n        \"label\": centerKPI.label\n    ]\n\n    chartConfig[\"centerSlot\"] = centerSlot\n}\n\nreturn [\n    \"blockType\": binding.hasVariable(\"blockType\")\n            ? binding.getVariable(\"blockType\")\n            : \"Chart\",\n    \"data\": chartConfig\n]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -5288,8 +5368,10 @@
 					"labelType":"{{ n_ZO1WS.outputs.labelType }}",
 					"series":{
 						"items":{
+							"dataLabels":"{{ 3GtES.outputs.result.series[0].dataLabels }}",
 							"key":"{{ 3GtES.outputs.result.series[0].key }}",
-							"label":"{{ 3GtES.outputs.result.series[0].label }}"
+							"label":"{{ 3GtES.outputs.result.series[0].label }}",
+							"tickLabel":"{{ 3GtES.outputs.result.series[0].tickLabel }}"
 						},
 						"source":"{{ 3GtES.outputs.result.series }}",
 						"ua:type":"mappedArray"
@@ -5301,6 +5383,8 @@
 					},
 					"subTitle":"{{ n_ZO1WS.outputs.subTitle }}",
 					"title":"{{ n_ZO1WS.outputs.title }}",
+					"valuesInDataLabel":"{{ __ENV__.outputs.VALUES_IN_DATA_LABEL }}",
+					"xAxisLabel":"{{ n_ZO1WS.outputs.xAxisLabel }}",
 					"xAxisValue":"{{ 3GtES.outputs.result.xAxisValue }}"
 				}
 			},
@@ -6064,5 +6148,5 @@
 		}
 	},
 	"standard":true,
-	"version":84
+	"version":86
 }
