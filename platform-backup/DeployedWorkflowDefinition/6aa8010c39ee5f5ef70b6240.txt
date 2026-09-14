@@ -1,0 +1,601 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395212450,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Strt",
+			"id":"next@n_Strt@n_Sess",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Sess",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Sess",
+			"id":"next@n_Sess@n_Rids",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rids",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rids",
+			"id":"next@n_Rids@n_Rslv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Rslv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Rslv",
+			"id":"next@n_Rslv@n_Prep",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Prep",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Prep",
+			"id":"next@n_Prep@n_IfEx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IfEx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfEx",
+			"id":"if@n_IfEx@n_Exec",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Exec",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_Exec",
+			"id":"next@n_Exec@n_Norm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Norm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IfEx",
+			"id":"next@n_IfEx@n_Norm",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Norm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Norm",
+			"id":"next@n_Norm@n_Stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		}
+	],
+	"id":"6aa8010c39ee5f5ef70b6240",
+	"lastModifiedBy":-1,
+	"lcName":"email canvas | find thread",
+	"modifiedTime":1789395212451,
+	"name":"Email Canvas | Find Thread",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":940,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_Strt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"count":{
+							"title":"count",
+							"type":"integer"
+						},
+						"errorCode":{
+							"title":"errorCode",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"errorMessage",
+							"type":"string"
+						},
+						"note":{
+							"title":"note",
+							"type":"string"
+						},
+						"provider":{
+							"title":"provider",
+							"type":"string"
+						},
+						"success":{
+							"title":"success",
+							"type":"boolean"
+						},
+						"threads":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"threads",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"help":"Only needed when no agent session variables are available.",
+							"title":"aiAgentId",
+							"type":"string"
+						},
+						"appName":{
+							"help":"Force a provider. Omit to use the agent's configured mailbox.",
+							"title":"appName",
+							"type":"string"
+						},
+						"caseId":{
+							"help":"Only needed when no agent session variables are available.",
+							"title":"caseId",
+							"type":"string"
+						},
+						"limit":{
+							"help":"Max conversations to return (default 5, max 25). Gmail returns at most one.",
+							"title":"limit",
+							"type":"integer"
+						},
+						"query":{
+							"help":"Who or what to look for. On Gmail this is Gmail search syntax (from:ada budget, subject:\"Q3 plan\", newer_than:7d). On Outlook a plain email address matches the sender and anything else matches the subject.",
+							"title":"query",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_Sess",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"aiAgentId":{
+							"title":"Ai Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_Rids",
+			"index":3,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"agentId":{
+							"title":"Agent Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"inAgentId":{
+							"title":"In Agent Id",
+							"type":"string"
+						},
+						"inCaseId":{
+							"title":"In Case Id",
+							"type":"string"
+						},
+						"sessAgentId":{
+							"title":"Sess Agent Id",
+							"type":"string"
+						},
+						"sessCaseId":{
+							"title":"Sess Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef pick = { Object a, Object b ->\n    def x = (a == null) ? '' : a.toString().trim()\n    if (x) return x\n    def y = (b == null) ? '' : b.toString().trim()\n    return y\n}\nreturn [\n    agentId: pick(readVar('sessAgentId', ''), readVar('inAgentId', '')),\n    caseId : pick(readVar('sessCaseId', ''), readVar('inCaseId', ''))\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"inAgentId":"{{ n_Strt.outputs.aiAgentId }}",
+					"inCaseId":"{{ n_Strt.outputs.caseId }}",
+					"sessAgentId":"{{ n_Sess.outputs.aiAgentId }}",
+					"sessCaseId":"{{ n_Sess.outputs.caseId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"session wins, input is the fallback",
+			"title":"Resolve ids",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":992,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_EMFT1-1",
+			"id":"n_Rslv",
+			"index":4,
+			"inputs":{
+				"automationId":"6aa3c66432fa0205bbf4c34b",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ n_Rids.outputs.result.agentId }}",
+					"allowPrompt":true,
+					"caseId":"{{ n_Rids.outputs.result.caseId }}",
+					"preferredAppName":"{{ n_Strt.outputs.appName }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Email Canvas | Resolve Mailbox",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_Prep",
+			"index":5,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"context":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Context",
+							"type":"object"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"input":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Input",
+							"type":"object"
+						},
+						"ok":{
+							"title":"Ok",
+							"type":"boolean"
+						},
+						"shape":{
+							"title":"Shape",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"query":{
+							"title":"Query",
+							"type":"string"
+						},
+						"resolve":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Resolve",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef resolve = readVar('resolve', [:])\nif (!(resolve instanceof Map)) resolve = [:]\n\ndef halt = { String code, String msg ->\n    return [ok: false, errorCode: code, errorMessage: msg, context: [:], input: [:], shape: '']\n}\n\nif (resolve['success'] != true) {\n    return halt((resolve['errorCode'] ?: 'CONNECTION_REQUIRED').toString(),\n                (resolve['errorMessage'] ?: 'No usable mailbox connection').toString())\n}\ndef profile = (resolve['profile'] instanceof Map) ? resolve['profile'] : [:]\ndef search = (profile['search'] instanceof Map) ? profile['search'] : [:]\nif (search.isEmpty() || !search['resource']) {\n    return halt('SEARCH_UNSUPPORTED', (resolve['appName'] ?: '?') + ' cannot search its mailbox')\n}\n\ndef query = (readVar('query', '') ?: '').toString().trim()\nif (!query) return halt('QUERY_MISSING', 'Say what to look for, e.g. the sender or a few words of the subject')\n\ndef limit = 5\ndef raw = readVar('limit', null)\nif (raw instanceof Number) limit = raw.intValue()\nelse if (raw != null && raw.toString().isInteger()) limit = raw.toString().toInteger()\nif (limit < 1) limit = 1\nif (limit > 25) limit = 25\n\ndef EMAIL = ~/(?i)^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$/\ndef shape = (search['shape'] ?: '').toString()\ndef q = ''\nif (shape == 'GRAPH') {\n    // Graph takes an OData $filter, not free text. Single quotes are escaped by doubling them.\n    def lit = query.replace(\"'\", \"''\")\n    q = EMAIL.matcher(query).matches() ? (\"from/emailAddress/address eq '\" + lit + \"'\")\n                                       : (\"contains(subject,'\" + lit + \"')\")\n} else {\n    // Gmail takes its own search syntax (from:, subject:, has:attachment, ...) verbatim\n    q = query\n}\n\ndef input = [:]\ninput[search['queryField'].toString()] = q\nif (search['limitField']) input[search['limitField'].toString()] = limit\n\ndef context = [:]\ncontext['appName'] = (resolve['appName'] ?: '').toString()\ncontext['resourceName'] = search['resource'].toString()\ncontext['type'] = 'APPLICATION'\ndef cid = (resolve['connectionId'] ?: '').toString()\nif (cid) context['connectionId'] = cid\n\nreturn [ok: true, errorCode: '', errorMessage: '', context: context, input: input, shape: shape]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"limit":"{{ n_Strt.outputs.limit }}",
+					"query":"{{ n_Strt.outputs.query }}",
+					"resolve":"{{ n_Rslv.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Gmail syntax or an OData filter",
+			"title":"Build mailbox query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":919,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_IfEx",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"true"
+						},
+						"property":"{{ n_Prep.outputs.result.ok }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Mailbox reachable?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"custom_application",
+				"resourceVersion":0,
+				"resourceName":"custom_application_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_IfEx@_EMFT1-1@y",
+			"id":"n_Exec",
+			"index":7,
+			"inputs":{
+				"input":"{{ n_Prep.outputs.result.input }}",
+				"context":"{{ n_Prep.outputs.result.context }}",
+				"options":{}
+			},
+			"skip":false,
+			"subTitle":"Dynamic provider action",
+			"title":"Execute Custom Application Request",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_Norm",
+			"index":8,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"count":{
+							"title":"Count",
+							"type":"integer"
+						},
+						"errorCode":{
+							"title":"Error Code",
+							"type":"string"
+						},
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"provider":{
+							"title":"Provider",
+							"type":"string"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"threads":{
+							"items":{
+								"additionalProperties":true,
+								"properties":{},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Threads",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"execOut":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Exec Out",
+							"type":"object"
+						},
+						"prep":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Prep",
+							"type":"object"
+						},
+						"resolve":{
+							"additionalProperties":true,
+							"properties":{},
+							"required":[],
+							"title":"Resolve",
+							"type":"object"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def readVar = { String name, Object fallback ->\n    binding.hasVariable(name) && binding.getVariable(name) != null ? binding.getVariable(name) : fallback\n}\ndef prep = readVar('prep', [:])\ndef resolve = readVar('resolve', [:])\ndef execOut = readVar('execOut', null)\nif (!(prep instanceof Map)) prep = [:]\nif (!(resolve instanceof Map)) resolve = [:]\n\ndef provider = (resolve['appName'] ?: '').toString()\ndef profile = (resolve['profile'] instanceof Map) ? resolve['profile'] : [:]\n\nif (prep['ok'] != true) {\n    return [success: false, provider: provider, threads: [],\n            errorCode: (prep['errorCode'] ?: 'PROVIDER_ERROR').toString(),\n            errorMessage: (prep['errorMessage'] ?: '').toString(), count: 0]\n}\n\ndef resp = (execOut instanceof Map) ? execOut : [:]\ndef flat = [:]\nresp.each { k, v -> flat[k.toString()] = v }\n// custom_application_execute wraps the provider payload; unwrap the usual envelopes\n['result', 'response', 'body', 'data'].each { envelope ->\n    def inner = resp[envelope]\n    if (inner instanceof Map) inner.each { k, v -> if (flat[k.toString()] == null) flat[k.toString()] = v }\n}\n\ndef deeplinkFor = { String threadId, String fallback ->\n    if (fallback) return fallback\n    if ((profile['deeplinkFrom'] ?: '') == 'template' && threadId) {\n        return (profile['deeplinkTemplate'] ?: '').toString().replace('{threadId}', threadId)\n    }\n    return ''\n}\ndef person = { String name, String email ->\n    def m = [:]\n    if (email) m['email'] = email\n    if (name) m['name'] = name\n    return m\n}\n\ndef threads = []\ndef shape = (prep['shape'] ?: '').toString()\n\nif (shape == 'GRAPH') {\n    def rows = (flat['value'] instanceof List) ? flat['value'] : []\n    rows.each { r ->\n        if (!(r instanceof Map)) return\n        def ea = { Object holder ->\n            def h = (holder instanceof Map) ? holder['emailAddress'] : null\n            return (h instanceof Map) ? person((h['name'] ?: '').toString(), (h['address'] ?: '').toString()) : [:]\n        }\n        def recips = { Object list ->\n            return ((list instanceof List) ? list : []).collect(ea).findAll { it['email'] }\n        }\n        def t = [:]\n        t['provider'] = provider\n        t['messageId'] = (r['id'] ?: '').toString()\n        t['threadId'] = (r['conversationId'] ?: '').toString()\n        t['rfcMessageId'] = (r['internetMessageId'] ?: '').toString()\n        t['references'] = ''\n        t['replyType'] = 'REPLY'\n        t['subject'] = (r['subject'] ?: '').toString()\n        t['snippet'] = (r['bodyPreview'] ?: '').toString().take(300)\n        t['receivedAt'] = (r['receivedDateTime'] ?: '').toString()\n        t['deeplink'] = deeplinkFor(t['threadId'].toString(), (r['webLink'] ?: '').toString())\n        def f = ea(r['from'])\n        if (f['email']) t['from'] = f\n        t['to'] = recips(r['toRecipients'])\n        t['cc'] = recips(r['ccRecipients'])\n        if (t['messageId']) threads.add(t)\n    }\n} else {\n    // gmail_find_email answers with the single best match, flattened, plus the raw message\n    def found = (flat['found'] == true || (flat['found'] != null && flat['found'].toString() == 'true'))\n    def rawMsg = (flat['raw'] instanceof Map) ? flat['raw'] : [:]\n    def id = (flat['id'] ?: rawMsg['id'] ?: '').toString()\n    if (found && id) {\n        def header = { String want ->\n            def payload = (rawMsg['payload'] instanceof Map) ? rawMsg['payload'] : [:]\n            def hs = (payload['headers'] instanceof List) ? payload['headers'] : []\n            def hit = hs.find { it instanceof Map && (it['name'] ?: '').toString().equalsIgnoreCase(want) }\n            return (hit instanceof Map) ? (hit['value'] ?: '').toString() : ''\n        }\n        def fr = (flat['from'] instanceof Map) ? flat['from'] : [:]\n        def pairUp = { Object holder, String namesKey, String emailsKey ->\n            def h = (holder instanceof Map) ? holder : [:]\n            def emails = (h[emailsKey] instanceof List) ? h[emailsKey] : []\n            def names = (h[namesKey] instanceof List) ? h[namesKey] : []\n            def out = []\n            emails.eachWithIndex { e, i ->\n                def em = (e ?: '').toString().trim()\n                if (!em) return\n                out.add(person((i < names.size() ? (names[i] ?: '') : '').toString().trim(), em))\n            }\n            return out\n        }\n        def t = [:]\n        t['provider'] = provider\n        t['messageId'] = id\n        t['threadId'] = (flat['threadId'] ?: rawMsg['threadId'] ?: '').toString()\n        t['rfcMessageId'] = header('Message-ID')\n        t['references'] = header('References')\n        t['replyType'] = 'REPLY'\n        t['subject'] = (flat['subject'] ?: header('Subject')).toString()\n        t['snippet'] = (rawMsg['snippet'] ?: '').toString().take(300)\n        t['receivedAt'] = (flat['date'] ?: '').toString()\n        t['deeplink'] = deeplinkFor(t['threadId'].toString(), '')\n        def fp = person((fr['fromName'] ?: '').toString().trim(), (fr['fromEmail'] ?: '').toString().trim())\n        if (fp['email']) t['from'] = fp\n        t['to'] = pairUp(flat['to'], 'toNames', 'toEmails')\n        t['cc'] = pairUp(flat['cc'], 'ccNames', 'ccEmails')\n        threads.add(t)\n    }\n}\n\nif (threads.isEmpty()) {\n    def raw = (resp == null) ? '' : resp.toString()\n    def lower = raw.toLowerCase()\n    if (lower.contains('unauthorized') || lower.contains('invalid_grant') || lower.contains('401')) {\n        return [success: false, provider: provider, threads: [], count: 0,\n                errorCode: 'AUTH_EXPIRED', errorMessage: 'The mailbox connection needs to be re-authorised']\n    }\n    return [success: true, provider: provider, threads: [], count: 0, errorCode: '', errorMessage: '']\n}\n\nreturn [success: true, provider: provider, threads: threads, count: threads.size(),\n        errorCode: '', errorMessage: '']\n",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"execOut":"{{ n_Exec.outputs }}",
+					"prep":"{{ n_Prep.outputs.result }}",
+					"resolve":"{{ n_Rslv.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"thread identity the composer can replay",
+			"title":"Flatten conversations",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":963,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_EMFT1-1",
+			"id":"n_Stop",
+			"index":9,
+			"inputs":{
+				"result":{
+					"count":"{{ n_Norm.outputs.result.count }}",
+					"errorCode":"{{ n_Norm.outputs.result.errorCode }}",
+					"errorMessage":"{{ n_Norm.outputs.result.errorMessage }}",
+					"note":"Each entry in `threads` is one conversation you can reply into. To draft a reply, call the email composer tool and pass that entry's `thread` fields VERBATIM as its `thread` input - the ids are provider-specific and cannot be guessed or edited. Use the entry's `to` and `cc` as the reply's recipients (drop the mailbox owner's own address), and write only the new text in `body`: the provider quotes the original message underneath. An empty `threads` means nothing matched - ask the user to narrow it down rather than inventing a thread.",
+					"provider":"{{ n_Norm.outputs.result.provider }}",
+					"success":"{{ n_Norm.outputs.result.success }}",
+					"threads":"{{ n_Norm.outputs.result.threads }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6aa3da86e626fe0bb7aa1e1f",
+	"workflowVersion":0
+}
