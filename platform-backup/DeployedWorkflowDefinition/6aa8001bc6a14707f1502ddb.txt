@@ -1,0 +1,257 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789394971544,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa80016b91cc6613f663237",
+		"changesetType":"IMPORT"
+	},
+	"description":"User adds their instructions to generate rules. Invalidates previous AI suggested rules",
+	"edges":[
+		{
+			"fromNodeId":"n_0yRvS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_faz3D",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_faz3D",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Dmw95",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Dmw95",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EgWHF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_EgWHF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CS8BP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CS8BP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_e7VOt",
+			"type":"next"
+		}
+	],
+	"id":"6aa8001bc6a14707f1502ddb",
+	"lastModifiedBy":-1,
+	"lcName":"dqm add rule knowledge",
+	"modifiedTime":1789394971545,
+	"name":"DQM Add Rule Knowledge",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":100,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0DB7P-1",
+			"id":"n_0yRvS",
+			"index":1,
+			"inputs":{
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"assetId":{
+							"title":"Asset Id",
+							"type":"string"
+						},
+						"instructions":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Instructions",
+							"type":"array"
+						},
+						"monitoringExperimentId":{
+							"title":"Monitoring Experiment Id",
+							"type":"string"
+						}
+					},
+					"required":[
+						"monitoringExperimentId",
+						"assetId",
+						"instructions"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"caches_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"caches_by_unifyapps_evict_node_cache",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0DB7P-1",
+			"id":"n_faz3D",
+			"index":2,
+			"inputs":{
+				"automation_id":"685395d5ffff9b5ed015bac1",
+				"cache_key":"{{ n_0yRvS.outputs.monitoringExperimentId }}_{{ n_0yRvS.outputs.assetId }}",
+				"node_id":"n_ZdKdH"
+			},
+			"skip":false,
+			"subTitle":"Caches by UnifyApps",
+			"title":"Evict node cache",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":99,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0DB7P-1",
+			"id":"n_Dmw95",
+			"index":3,
+			"inputs":{
+				"recordId":"{{ n_0yRvS.outputs.assetId }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"data_quality_llm_rule_knowledge",
+				"record":{
+					"assetId":"{{ n_0yRvS.outputs.assetId }}",
+					"instructions":{
+						"items":"{{ n_0yRvS.outputs.instructions[0] }}",
+						"source":"{{ n_0yRvS.outputs.instructions }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Create or update rule knowledge",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":101,
+				"resourceName":"callables_call_automation_async",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0DB7P-1",
+			"id":"n_EgWHF",
+			"index":4,
+			"inputs":{
+				"automationId":"68812ff99937f568ffa9b641",
+				"runtimeConnections":{},
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"parameters":{
+					"assetId":"{{ n_0yRvS.outputs.assetId }}",
+					"monitoringExperimentId":"{{ n_0yRvS.outputs.monitoringExperimentId }}",
+					"userInstructions":{
+						"items":"{{ n_0yRvS.outputs.instructions[0] }}",
+						"source":"{{ n_0yRvS.outputs.instructions }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Suggest LLM Rules",
+			"title":"Call automation async",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":24,
+				"resourceName":"storage_by_unifyapps_delete_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0DB7P-1",
+			"id":"n_CS8BP",
+			"index":5,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"data_quality_llm_suggested_rule",
+				"entityId":"{{ n_0yRvS.outputs.assetId }}"
+			},
+			"skip":false,
+			"subTitle":"Invalidate existing rules",
+			"title":"Delete record by ID",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":101,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_0DB7P-1",
+			"id":"n_e7VOt",
+			"index":6,
+			"inputs":{
+				"result":"{{ n_CS8BP.outputs }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"dqm",
+		"Internal"
+	],
+	"version":0,
+	"workflowDefinitionId":"6887506fe006b053389518f8",
+	"workflowVersion":7
+}

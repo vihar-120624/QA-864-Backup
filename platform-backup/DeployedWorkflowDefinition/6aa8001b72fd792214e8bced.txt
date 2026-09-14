@@ -1,0 +1,493 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789394971490,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa80016b91cc6613f663237",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_sRlg1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3BV7s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3BV7s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6dqNt",
+			"type":"next"
+		}
+	],
+	"id":"6aa8001b72fd792214e8bced",
+	"lastModifiedBy":-1,
+	"lcName":"dqm create rule",
+	"modifiedTime":1789394971491,
+	"name":"DQM Create Rule",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":100,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1wpWO-1",
+			"id":"n_sRlg1",
+			"index":1,
+			"inputs":{
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"ruleConfig":{
+							"additionalProperties":false,
+							"properties":{
+								"attributes":{
+									"help":"Array of attributes in the rule",
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"dataType":{
+												"help":"One of  INT, STRING, DECIMAL, DATE, BOOLEAN",
+												"title":"Data Type",
+												"type":"string"
+											},
+											"id":{
+												"title":"Id",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											}
+										},
+										"required":[
+											"id",
+											"name",
+											"dataType"
+										],
+										"type":"object"
+									},
+									"title":"Attributes",
+									"type":"array"
+								},
+								"description":{
+									"help":"Description of the rule",
+									"title":"Description",
+									"type":"string"
+								},
+								"dimension":{
+									"help":"One of VALIDITY,UNIQUENESS,TIMELINESS,ACCURACY,COMPLETENESS",
+									"title":"Dimension",
+									"type":"string"
+								},
+								"groups":{
+									"help":"Array of groups. A group contains groupId, groupName and array of attributes",
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"attributes":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"dataType":{
+															"help":"One of  INT, STRING, DECIMAL, DATE, BOOLEAN",
+															"title":"Data Type",
+															"type":"string"
+														},
+														"id":{
+															"title":"Id",
+															"type":"string"
+														},
+														"name":{
+															"title":"Name",
+															"type":"string"
+														}
+													},
+													"required":[
+														"id",
+														"name",
+														"dataType"
+													],
+													"type":"object"
+												},
+												"title":"Attributes",
+												"type":"array"
+											},
+											"groupId":{
+												"title":"Group Id",
+												"type":"string"
+											},
+											"groupName":{
+												"title":"Group Name",
+												"type":"string"
+											}
+										},
+										"required":[
+											"groupId",
+											"groupName",
+											"attributes"
+										],
+										"type":"object"
+									},
+									"title":"Groups",
+									"type":"array"
+								},
+								"name":{
+									"help":"Rule name",
+									"title":"Name",
+									"type":"string"
+								},
+								"noMatchResult":{
+									"help":"Result to return when no ruleset condition matches",
+									"title":"No Match Result",
+									"type":"string"
+								},
+								"parameters":{
+									"help":"Array of parameters",
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"dataType":{
+												"help":"One of  INT, STRING, DECIMAL, DATE, BOOLEAN",
+												"title":"Data Type",
+												"type":"string"
+											},
+											"id":{
+												"title":"Id",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											}
+										},
+										"required":[
+											"id",
+											"name",
+											"dataType"
+										],
+										"type":"object"
+									},
+									"title":"Parameters",
+									"type":"array"
+								},
+								"ruleCategory":{
+									"help":"One of AGGREGATION/SIMPLE. AGGREGATION ruleCategory only in the case when dimension is UNIQUENESS",
+									"title":"Rule Category",
+									"type":"string"
+								},
+								"ruleSets":{
+									"help":"Array of ruleSets. A ruleSet should always contain a type FILTER, an id, a name, a result and a filter. score is optional",
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"filter":{
+												"additionalProperties":false,
+												"help":"Filter condition to be evaluated",
+												"properties":{},
+												"title":"Filter",
+												"type":"object"
+											},
+											"id":{
+												"help":"UUIDv4 unique id",
+												"title":"Id",
+												"type":"string"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											},
+											"result":{
+												"help":"Result based on the rule dimension",
+												"title":"Result",
+												"type":"string"
+											},
+											"score":{
+												"title":"Score",
+												"type":"number"
+											},
+											"type":{
+												"default":"FILTER",
+												"help":"One of FILTER, TEMPLATE",
+												"title":"Type",
+												"type":"string"
+											}
+										},
+										"required":[
+											"type",
+											"id",
+											"name",
+											"result",
+											"filter"
+										],
+										"type":"object"
+									},
+									"title":"Rule Sets",
+									"type":"array"
+								},
+								"ruleState":{
+									"help":"One of ACTIVE/INACTIVE/DRAFT",
+									"title":"Rule State",
+									"type":"string"
+								},
+								"ruleType":{
+									"default":"EVALUATION",
+									"help":"One of EVALUATION/DETECTION",
+									"title":"Rule Type",
+									"type":"string"
+								},
+								"variables":{
+									"help":"Array of variables",
+									"items":{
+										"additionalProperties":false,
+										"properties":{
+											"id":{
+												"title":"Id",
+												"type":"string"
+											},
+											"inputAttribute":{
+												"additionalProperties":false,
+												"properties":{
+													"dataType":{
+														"help":"One of  INT, STRING, DECIMAL, DATE, BOOLEAN",
+														"title":"Data Type",
+														"type":"string"
+													},
+													"id":{
+														"title":"Id",
+														"type":"string"
+													},
+													"name":{
+														"title":"Name",
+														"type":"string"
+													}
+												},
+												"required":[
+													"id",
+													"name",
+													"dataType"
+												],
+												"title":"Input Attribute",
+												"type":"object"
+											},
+											"name":{
+												"title":"Name",
+												"type":"string"
+											},
+											"transformations":{
+												"items":{
+													"additionalProperties":false,
+													"properties":{
+														"metadata":{
+															"additionalProperties":false,
+															"properties":{},
+															"title":"Metadata",
+															"type":"object"
+														},
+														"type":{
+															"help":"One of TRIM,UPPER_CASE,LOWER_CASE,SPACE_REDUCE,REMOVE_NON_DIGITS,REMOVE_NON_LETTERS",
+															"title":"Type",
+															"type":"string"
+														}
+													},
+													"required":[
+														"type"
+													],
+													"type":"object"
+												},
+												"title":"Transformations",
+												"type":"array"
+											}
+										},
+										"required":[
+											"id",
+											"name",
+											"inputAttribute",
+											"transformations"
+										],
+										"type":"object"
+									},
+									"title":"Variables",
+									"type":"array"
+								}
+							},
+							"required":[
+								"name",
+								"ruleType",
+								"ruleCategory",
+								"attributes",
+								"ruleSets",
+								"noMatchResult",
+								"dimension",
+								"ruleState"
+							],
+							"title":"Rule Config",
+							"type":"object"
+						}
+					},
+					"required":[
+						"ruleConfig"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.variables.items.transformations.items.metadata",
+					"root.record.groups.items.groupId",
+					"root.record.groups.items.groupName",
+					"root.record.ruleSets.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":99,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1wpWO-1",
+			"id":"n_3BV7s",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"dq_rules_config",
+				"record":{
+					"attributes":{
+						"items":{
+							"dataType":"{{ n_sRlg1.outputs.ruleConfig.attributes[0].dataType }}",
+							"id":"{{ n_sRlg1.outputs.ruleConfig.attributes[0].id }}",
+							"name":"{{ n_sRlg1.outputs.ruleConfig.attributes[0].name }}"
+						},
+						"source":"{{ n_sRlg1.outputs.ruleConfig.attributes }}",
+						"ua:type":"mappedArray"
+					},
+					"description":"{{ n_sRlg1.outputs.ruleConfig.description }}",
+					"dimension":"{{ n_sRlg1.outputs.ruleConfig.dimension }}",
+					"groups":{
+						"items":{
+							"attributes":{
+								"items":{
+									"dataType":"{{ n_sRlg1.outputs.ruleConfig.groups[0].attributes[0].dataType }}",
+									"id":"{{ n_sRlg1.outputs.ruleConfig.groups[0].attributes[0].id }}",
+									"name":"{{ n_sRlg1.outputs.ruleConfig.groups[0].attributes[0].name }}"
+								},
+								"source":"{{ n_sRlg1.outputs.ruleConfig.groups[0].attributes }}",
+								"ua:type":"mappedArray"
+							},
+							"groupId":"{{ n_sRlg1.outputs.ruleConfig.groups[0].groupId }}",
+							"groupName":"{{ n_sRlg1.outputs.ruleConfig.groups[0].groupName }}"
+						},
+						"source":"{{ n_sRlg1.outputs.ruleConfig.groups }}",
+						"ua:type":"mappedArray"
+					},
+					"name":"{{ n_sRlg1.outputs.ruleConfig.name }}",
+					"noMatchResult":"{{ n_sRlg1.outputs.ruleConfig.noMatchResult }}",
+					"parameters":{
+						"items":{
+							"dataType":"{{ n_sRlg1.outputs.ruleConfig.parameters[0].dataType }}",
+							"id":"{{ n_sRlg1.outputs.ruleConfig.parameters[0].id }}",
+							"name":"{{ n_sRlg1.outputs.ruleConfig.parameters[0].name }}"
+						},
+						"source":"{{ n_sRlg1.outputs.ruleConfig.parameters }}",
+						"ua:type":"mappedArray"
+					},
+					"ruleCategory":"{{ n_sRlg1.outputs.ruleConfig.ruleCategory }}",
+					"ruleSets":{
+						"items":"{{ n_sRlg1.outputs.ruleConfig.ruleSets[0] }}",
+						"source":"{{ n_sRlg1.outputs.ruleConfig.ruleSets }}",
+						"ua:type":"mappedArray"
+					},
+					"ruleState":"{{ n_sRlg1.outputs.ruleConfig.ruleState }}",
+					"ruleType":"{{ n_sRlg1.outputs.ruleConfig.ruleType }}",
+					"variables":{
+						"items":{
+							"id":"{{ n_sRlg1.outputs.ruleConfig.variables[0].id }}",
+							"inputAttribute":{
+								"dataType":"{{ n_sRlg1.outputs.ruleConfig.variables[0].inputAttribute.dataType }}",
+								"id":"{{ n_sRlg1.outputs.ruleConfig.variables[0].inputAttribute.id }}",
+								"name":"{{ n_sRlg1.outputs.ruleConfig.variables[0].inputAttribute.name }}"
+							},
+							"name":"{{ n_sRlg1.outputs.ruleConfig.variables[0].name }}",
+							"transformations":{
+								"items":{
+									"metadata":"{{ n_sRlg1.outputs.ruleConfig.variables[0].transformations[0].metadata }}",
+									"type":"{{ n_sRlg1.outputs.ruleConfig.variables[0].transformations[0].type }}"
+								},
+								"source":"{{ n_sRlg1.outputs.ruleConfig.variables[0].transformations }}",
+								"ua:type":"mappedArray"
+							}
+						},
+						"source":"{{ n_sRlg1.outputs.ruleConfig.variables }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":101,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_1wpWO-1",
+			"id":"n_6dqNt",
+			"index":3,
+			"inputs":{
+				"result":"{{ n_3BV7s.outputs }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"dqm",
+		"Internal"
+	],
+	"version":0,
+	"workflowDefinitionId":"68877192e006b0533895b090",
+	"workflowVersion":5
+}
