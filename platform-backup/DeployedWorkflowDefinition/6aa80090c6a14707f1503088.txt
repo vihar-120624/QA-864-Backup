@@ -1,0 +1,135 @@
+{
+	"changesetType":"IMPORT",
+	"createdTime":1789395088386,
+	"deleted":false,
+	"deployedWorkflowVersion":1,
+	"deploymentSource":{
+		"changesetRequestId":"6aa7fffcb91cc6613f66322e",
+		"changesetType":"IMPORT"
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_zF8Pp",
+			"id":"next@n_zF8Pp@n_nC2B5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_nC2B5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_nC2B5",
+			"id":"next@n_nC2B5@n_Tzx7u",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Tzx7u",
+			"type":"next"
+		}
+	],
+	"id":"6aa80090c6a14707f1503088",
+	"lastModifiedBy":-1,
+	"lcName":"routine | routine list available apps",
+	"modifiedTime":1789395088387,
+	"name":"ROUTINE | Routine List Available Apps",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7280,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_q2hFV-1",
+			"id":"n_zF8Pp",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"appName":{
+							"items":{
+								"type":"string"
+							},
+							"title":"App Name",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"routines_by_unifyapps",
+				"resourceVersion":4,
+				"resourceName":"routines_by_unifyapps_search_available_apps",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_q2hFV-1",
+			"id":"n_nC2B5",
+			"index":2,
+			"inputs":{},
+			"skip":false,
+			"subTitle":"Routines by UnifyApps",
+			"title":"Search Available Apps",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":7316,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_q2hFV-1",
+			"id":"n_Tzx7u",
+			"index":3,
+			"inputs":{
+				"result":{
+					"appName":{
+						"items":"{{ n_nC2B5.outputs.apps[0] }}",
+						"source":"{{ n_nC2B5.outputs.apps }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"paused":false,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":0,
+	"workflowDefinitionId":"6a94bbe28c5b8e452607efe3",
+	"workflowVersion":1
+}
