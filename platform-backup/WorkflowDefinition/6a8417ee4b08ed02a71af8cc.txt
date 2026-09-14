@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744639626,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744639999,
+		"deployedAt":1789395357201,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ed17fba51514edfc818c1",
+		"deployedDefinitionId":"6aa8019d39ee5f5ef70b6b28",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":1
+		"version":2,
+		"workflowVersion":4
 	},
 	"description":"Callable automation that starts an agent session with a given prompt, polls for SSE events until the agent signals done, then returns the full preview URL.",
 	"edges":[
@@ -579,7 +579,7 @@
 	"id":"6a8417ee4b08ed02a71af8cc",
 	"lastModifiedBy":-1,
 	"lcName":"generate code app testing es",
-	"modifiedTime":1788252972455,
+	"modifiedTime":1789395389641,
 	"name":"Generate Code App Testing ES",
 	"nodes":[
 		{
@@ -691,6 +691,10 @@
 						},
 						"sessionId":{
 							"title":"Session Id",
+							"type":"string"
+						},
+						"themeId":{
+							"title":"Theme Id",
 							"type":"string"
 						}
 					},
@@ -1960,6 +1964,7 @@
 							"props":{
 								"displayFormat":"{{ n_sRYdl.outputs.result.fileType }}",
 								"fileName":"{{ n_K9KUY.outputs.properties.name }}",
+								"pageInputs":"{{ n_sRYdl.outputs.result.pageInputs }}",
 								"sourceType":"url",
 								"src":"{{ n_BuUrl.outputs.result.previewUrl }}"
 							},
@@ -2076,7 +2081,8 @@
 					"input":"=CONCAT({{ n_StArt.outputs.prompt }}, \" - Important instructions: Do NOT ask any clarifying questions. Do NOT ask for approval on any plan. Directly proceed with implementation.\")",
 					"interactive":false,
 					"model":"claude-opus-4-8",
-					"target":"code-builder"
+					"target":"code-builder",
+					"themeId":"{{ n_StArt.outputs.themeId }}"
 				},
 				"httpMethod":"POST",
 				"connectionType":"DIRECT",
@@ -2122,6 +2128,10 @@
 						},
 						"target":{
 							"title":"Target",
+							"type":"string"
+						},
+						"themeId":{
+							"title":"Theme Id",
 							"type":"string"
 						}
 					},
@@ -2324,7 +2334,7 @@
 					],
 					"type":"object"
 				},
-				"code":"import groovy.json.JsonOutput\n\nstatic Map buildApplicationPayload(String name) {\n\n    final String LOGO_BASE = \"https://assets.unifyapps.com/interface/brand-logo\"\n    final String SMALL_LOGO = \"${LOGO_BASE}/brand-logo-sm-3-comp.svg\"\n    final String LARGE_LOGO = \"${LOGO_BASE}/brand-logo-lg-3-comp.svg\"\n\n    return [\n        type         : \"application\",\n        name         : name,\n        standard     : false,\n        metadata     : [\n            logo    : [\n                small  : SMALL_LOGO,\n                large  : LARGE_LOGO,\n                favicon: SMALL_LOGO\n            ],\n            _counter: [\n                _pageCount             : 0,\n                _moduleCount           : 0,\n                _mqttTopicCounter      : 0,\n                _templateComponentCount: 0\n            ]\n        ],\n        deviceDetails: [\n            base: \"desktop\"\n        ],\n        navigation   : [\n            primary      : [],\n            secondary    : [],\n            defaultPageId: \"\"\n        ],\n        manifest     : [\n            type: \"WEB\",\n            mode: \"code\"\n        ],\n        locale       : [\n            defaultLocale: \"en-US\"\n        ],\n        theme        : [\n            defaultThemeId: \"e_6a196dee24152315a92541d5\"\n        ]\n    ]\n}\n\ndef raw = binding.hasVariable(\"prompt\") ? prompt : null\n\nif (raw instanceof Map) {\n    raw = raw.prompt                       // prompt itself was the object\n} else if (raw == null) {\n    // look through the usual wrapper names for a .prompt key\n    raw = [\"input\", \"params\", \"body\", \"data\", \"payload\", \"request\"]\n        .findResult { k ->\n            binding.hasVariable(k) && binding.getVariable(k) instanceof Map\n                ? binding.getVariable(k).prompt\n                : null\n        }\n}\n\nString appName = (raw as String ?: \"\").trim().take(25)\n\nMap payload = buildApplicationPayload(appName)\n\nprintln JsonOutput.prettyPrint(JsonOutput.toJson(payload))\n\nreturn [interface: payload]",
+				"code":"import groovy.json.JsonOutput\n\nstatic Map buildApplicationPayload(String name) {\n\n    final String LOGO_BASE = \"https://assets.unifyapps.com/interface/brand-logo\"\n    final String SMALL_LOGO = \"$LOGO_BASE/brand-logo-sm-3-comp.svg\"\n    final String LARGE_LOGO = \"$LOGO_BASE/brand-logo-lg-3-comp.svg\"\n\n    return [\n        type         : \"application\",\n        name         : name,\n        standard     : false,\n        metadata     : [\n            logo    : [\n                small  : SMALL_LOGO,\n                large  : LARGE_LOGO,\n                favicon: SMALL_LOGO\n            ],\n            _counter: [\n                _pageCount             : 0,\n                _moduleCount           : 0,\n                _mqttTopicCounter      : 0,\n                _templateComponentCount: 0\n            ]\n        ],\n        deviceDetails: [\n            base: \"desktop\"\n        ],\n        navigation   : [\n            primary      : [],\n            secondary    : [],\n            defaultPageId: \"\"\n        ],\n        manifest     : [\n            type: \"WEB\",\n            mode: \"code\"\n        ],\n        locale       : [\n            defaultLocale: \"en-US\"\n        ],\n        theme        : [\n            defaultThemeId: \"e_6a196dee24152315a92541d5\"\n        ]\n    ]\n}\n\ndef raw = binding.hasVariable(\"prompt\") ? prompt : null\n\nif (raw instanceof Map) {\n    raw = raw.prompt                       // prompt itself was the object\n} else if (raw == null) {\n    // look through the usual wrapper names for a .prompt key\n    raw = [\"input\", \"params\", \"body\", \"data\", \"payload\", \"request\"]\n        .findResult { k ->\n            binding.hasVariable(k) && binding.getVariable(k) instanceof Map\n                ? binding.getVariable(k).prompt\n                : null\n        }\n}\n\nString appName = (raw as String ?: \"\").trim().take(25)\n\nMap payload = buildApplicationPayload(appName)\n\nprintln JsonOutput.prettyPrint(JsonOutput.toJson(payload))\n\nreturn [interface: payload]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3098,7 +3108,7 @@
 					],
 					"type":"object"
 				},
-				"code":"def hostVal = host\ndef appIdVal = appId\nreturn [previewUrl: \"${hostVal}/agent-api/preview/b/${appIdVal}/main/\".toString()]",
+				"code":"def hostVal = host\ndef appIdVal = appId\nreturn [previewUrl: \"$hostVal/agent-api/preview/b/$appIdVal/main/\".toString()]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3486,6 +3496,7 @@
 							"props":{
 								"displayFormat":"{{ n_TQzHY.outputs.result.fileType }}",
 								"fileName":"{{ n_ISWUF.outputs.properties.name }}",
+								"pageInputs":"{{ n_TQzHY.outputs.result.pageInputs }}",
 								"sourceType":"url",
 								"src":"{{ n_xCRzE.outputs.result.previewUrl }}"
 							},
@@ -3574,5 +3585,5 @@
 	"tags":[
 		"AI Generated"
 	],
-	"version":3
+	"version":5
 }
