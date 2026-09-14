@@ -4,19 +4,27 @@
 	],
 	"createdTime":1787743466723,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743467003,
+		"deployedAt":1789395047759,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8eccea4cdb0358b9df1ec6",
+		"deployedDefinitionId":"6aa8006772fd792214e8bed5",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":333
+		"version":2,
+		"workflowVersion":336
 	},
 	"edges":[
 		{
 			"fromNodeId":"_QbuFF",
-			"id":"next@_QbuFF@n_L832o",
+			"id":"next@_QbuFF@n_bgNPF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bgNPF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bgNPF",
+			"id":"next@n_bgNPF@n_L832o",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_L832o",
@@ -156,7 +164,33 @@
 		},
 		{
 			"fromNodeId":"n_0gp8Y",
-			"id":"next@n_0gp8Y@n_cgZwc",
+			"id":"next@n_0gp8Y@n_IHiJW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IHiJW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IHiJW",
+			"id":"if@n_IHiJW@n_tT2rc",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_tT2rc",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_tT2rc",
+			"id":"next@n_tT2rc@n_cgZwc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cgZwc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_IHiJW",
+			"id":"next@n_IHiJW@n_cgZwc",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_cgZwc",
@@ -173,24 +207,16 @@
 		},
 		{
 			"fromNodeId":"n_6GdOV",
-			"id":"next@n_6GdOV@n_tfp32",
+			"id":"next@n_6GdOV@n_fpHiS",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_tfp32",
+			"toNodeId":"n_fpHiS",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_cgZwc",
-			"id":"next@n_cgZwc@n_tfp32",
+			"id":"next@n_cgZwc@n_fpHiS",
 			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_tfp32",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_tfp32",
-			"id":"next@n_tfp32@n_fpHiS",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_fpHiS",
@@ -306,7 +332,7 @@
 	"id":"672eefb99d0e461f4f99c3bd",
 	"lastModifiedBy":-1,
 	"lcName":"query on sql based platforms",
-	"modifiedTime":1788252972561,
+	"modifiedTime":1789395398559,
 	"name":"Query On SQL Based Platforms",
 	"nodes":[
 		{
@@ -444,6 +470,15 @@
 							"title":"fewShotExamples",
 							"type":"array"
 						},
+						"joins":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Joins",
+							"type":"array"
+						},
 						"keyMeasuresExamples":{
 							"items":{
 								"additionalProperties":false,
@@ -540,6 +575,34 @@
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8403,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_NmEen-1",
+			"id":"n_bgNPF",
+			"index":2,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"aiAgentId":"{{ _QbuFF.outputs.aiAgentId }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
 			"additional":{
 				"visibleOptionalFields":[
 					"root.parameters.metadata.items"
@@ -556,7 +619,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_NmEen-1",
 			"id":"n_L832o",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -677,7 +740,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_NmEen-1",
 			"id":"n_D9cMM",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -718,7 +781,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def sqlRegex = /\"sql_query\":\"(.*?)\"/\ndef tableRegex = ~/APPS\\.\\w+/\n\ndef filteredExamples = []\n\nexamples.each { ex ->\n    def jsonOutput = ex.jsonOutput\n    def matcher = (jsonOutput =~ sqlRegex)\n\n    if (matcher.find()) {\n        def sqlQuery = matcher.group(1).replaceAll('\\\\\\\\\\\\\"', '\"')\n\n        def queryTables = [] as Set\n        def tMatcher = (sqlQuery =~ tableRegex)\n        tMatcher.each { match -> queryTables << match }\n\n        // Check if ALL tables are valid\n        def invalidTables = queryTables.findAll { !(it in applicableTables) }\n\n        if (invalidTables.isEmpty()) {\n            filteredExamples << ex\n        }\n    }\n}\n\nreturn ['filteredExamples' : filteredExamples]\n",
+				"code":"def sqlRegex = /\"sql_query\":\"(.*?)\"/\ndef tableAlternation = applicableTables.collect { java.util.regex.Pattern.quote(it) }.join('|')\ndef tableRegex = ~/\\b(${tableAlternation})\\b/\n\ndef filteredExamples = []\n\nexamples.each { group ->\n    group.fewshots.each { ex ->\n        def jsonOutput = ex.jsonOutput\n        def matcher = (jsonOutput =~ sqlRegex)\n\n        if (matcher.find()) {\n            def sqlQuery = matcher.group(1).replaceAll('\\\\\\\\\"', '\"')\n\n            def queryTables = [] as Set\n            def tMatcher = (sqlQuery =~ tableRegex)\n            tMatcher.each { match -> queryTables << match[0] }\n\n            def invalidTables = queryTables.findAll { !(it in applicableTables) }\n\n            if (invalidTables.isEmpty() && queryTables) {\n                filteredExamples << ex\n            }\n        }\n    }\n}\n\nreturn ['filteredExamples': filteredExamples]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -806,7 +869,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_yyoZQ",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"variableSchema":{
 					"additionalProperties":false,
@@ -839,7 +902,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_OFqHa",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -901,7 +964,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_xKPZN",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"filters":[
 					{
@@ -931,7 +994,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_xKPZN@_NmEen-1@y",
 			"id":"n_JEswE",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"useRawPayload":false,
 				"writeThroughSessionVariables":false,
@@ -965,7 +1028,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_hHAm1",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1013,7 +1076,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_Mybqg",
-			"index":9,
+			"index":10,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1067,7 +1130,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_LSoSc",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"filters":[
 					{
@@ -1096,7 +1159,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"n_LSoSc@_NmEen-1@y",
 			"id":"n_t7b71",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"object_type":"knowledge",
 				"includeRoleMappings":false,
@@ -1177,7 +1240,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_LSoSc@_NmEen-1@y",
 			"id":"n_55rCx",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"variables":[
 					{
@@ -1203,7 +1266,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_EvD0w",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1283,7 +1346,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_XXOsf",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"automationId":"68d40b9991992c6c03332c78",
 				"runtimeConnections":{},
@@ -1298,6 +1361,11 @@
 						"ua:type":"mappedArray"
 					},
 					"isToolDescription":false,
+					"joins":{
+						"items":"{{ _QbuFF.outputs.joins[0] }}",
+						"source":"{{ _QbuFF.outputs.joins }}",
+						"ua:type":"mappedArray"
+					},
 					"keyMeasuresExamples":{
 						"items":"{{ _QbuFF.outputs.keyMeasuresExamples[0] }}",
 						"source":"{{ _QbuFF.outputs.keyMeasuresExamples }}",
@@ -1322,7 +1390,6 @@
 					},
 					"platformName":"{{ _QbuFF.outputs.platformName }}",
 					"sqlServerRelatedDynamicMetadata":"{{ n_yyoZQ.outputs.sqlServerRelatedDynamicMetadata }}",
-					"sqldebuggerRecordId":"{{ n_JEswE.outputs.id }}",
 					"userQuery":"{{ _QbuFF.outputs.userQuery }}"
 				},
 				"version":"-1"
@@ -1344,7 +1411,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"U9Dup",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"automationId":"67d5af775c39266befb87be3",
 				"runtimeConnections":{},
@@ -1384,7 +1451,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_0gp8Y",
-			"index":16,
+			"index":17,
 			"inputs":{
 				"automationId":"68d3da37efe64779b75f6341",
 				"runtimeConnections":{},
@@ -1410,11 +1477,81 @@
 					"promptForSQLgen":"{{ n_XXOsf.outputs.prompt }}",
 					"sqldebuggerRecordId":"{{ n_JEswE.outputs.id }}"
 				},
-				"version":"-1"
+				"version":"-1",
+				"executeOnSameVM":false
 			},
 			"skip":false,
 			"subTitle":"Execution on sql based platfors",
 			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":921,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_NmEen-1",
+			"id":"n_IHiJW",
+			"index":18,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EXISTS"
+						},
+						"property":"{{ n_bgNPF.outputs.properties.textToSQLSettings.customDataPublisherAutomationId }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":8321,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_IHiJW@_NmEen-1@y",
+			"id":"n_tT2rc",
+			"index":19,
+			"inputs":{
+				"callableInterfaceId":"6a9ea6a419287d374cf217f0",
+				"runtimeConnections":"",
+				"synchronous":true,
+				"callableInterfaces":[],
+				"fallbackWorkflowId":"{{ n_bgNPF.outputs.properties.textToSQLSettings.customDataPublisherAutomationId }}",
+				"parameters":{
+					"caseId":"{{ _QbuFF.outputs.caseId }}",
+					"columnNames":{
+						"items":"{{ n_0gp8Y.outputs.ColumnNames[0] }}",
+						"source":"{{ n_0gp8Y.outputs.ColumnNames }}",
+						"ua:type":"mappedArray"
+					},
+					"platformName":"{{ _QbuFF.outputs.platformName }}",
+					"sqlOutput":{
+						"items":"{{ n_0gp8Y.outputs.SqlOutput[0] }}",
+						"source":"{{ n_0gp8Y.outputs.SqlOutput }}",
+						"ua:type":"mappedArray"
+					},
+					"sqlQuery":"{{ n_0gp8Y.outputs.sqlQuery }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call interface",
 			"type":"CALL_WORKFLOW"
 		},
 		{
@@ -1429,7 +1566,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_cgZwc",
-			"index":17,
+			"index":20,
 			"inputs":{
 				"filters":[
 					{
@@ -1458,7 +1595,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_cgZwc@_NmEen-1@y",
 			"id":"n_6GdOV",
-			"index":18,
+			"index":21,
 			"inputs":{
 				"result":{
 					"passMessageDirectlyToAgent":"{{ n_0gp8Y.outputs.PassMessageDirectlyToAgent }}",
@@ -1472,33 +1609,6 @@
 		},
 		{
 			"context":{
-				"appName":"callables",
-				"resourceVersion":810,
-				"resourceName":"callables_call_automation",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"_NmEen-1",
-			"id":"n_tfp32",
-			"index":19,
-			"inputs":{
-				"automationId":"67a48d37f8f1744841dabb63",
-				"runtimeConnections":{},
-				"synchronous":true,
-				"parameters":{
-					"aiAgentId":"{{ _QbuFF.outputs.aiAgentId }}"
-				},
-				"version":"-1"
-			},
-			"skip":false,
-			"subTitle":"Callable",
-			"title":"Call automation",
-			"type":"CALL_WORKFLOW"
-		},
-		{
-			"context":{
 				"appName":"if_else",
 				"resourceVersion":455,
 				"resourceName":"if_else_condition",
@@ -1509,7 +1619,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_fpHiS",
-			"index":20,
+			"index":22,
 			"inputs":{
 				"filters":[
 					{
@@ -1517,14 +1627,14 @@
 							"operator":"NOT_EQUAL",
 							"value":"true"
 						},
-						"property":"{{ n_tfp32.outputs.properties.responseGenerationSettings.disableThought }}"
+						"property":"{{ n_bgNPF.outputs.properties.responseGenerationSettings.disableThought }}"
 					},
 					{
 						"filter":{
 							"operator":"EQUAL",
 							"value":"true"
 						},
-						"property":"{{ n_tfp32.outputs.properties.responseGenerationSettings.sqlSettings.allowedToPublishSQL }}"
+						"property":"{{ n_bgNPF.outputs.properties.responseGenerationSettings.sqlSettings.allowedToPublishSQL }}"
 					},
 					{
 						"filter":{
@@ -1552,7 +1662,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_fpHiS@_NmEen-1@y",
 			"id":"_ntG92",
-			"index":21,
+			"index":23,
 			"inputs":{
 				"callableInterfaceId":"__ua__publish_response_interface",
 				"defaultFallbackWorkflowId":"66fbed229edc4e0b6303cefd",
@@ -1595,7 +1705,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"_riX3H",
-			"index":22,
+			"index":24,
 			"inputs":{
 				"output":{
 					"additionalProperties":false,
@@ -1671,7 +1781,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"nJq8F",
-			"index":23,
+			"index":25,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1723,7 +1833,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"3RHvi",
-			"index":24,
+			"index":26,
 			"inputs":{
 				"filters":[
 					{
@@ -1753,7 +1863,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3RHvi@_NmEen-1@n",
 			"id":"Ze80q",
-			"index":25,
+			"index":27,
 			"inputs":{
 				"variables":[
 					{
@@ -1779,7 +1889,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"n_E6Rpe",
-			"index":26,
+			"index":28,
 			"inputs":{
 				"filters":[
 					{
@@ -1838,7 +1948,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_E6Rpe@_NmEen-1@y",
 			"id":"_Ov4zF",
-			"index":27,
+			"index":29,
 			"inputs":{
 				"result":{
 					"assumptions_for_sql_generation":"{{ n_0gp8Y.outputs.assumptions_for_sql_generation }}",
@@ -1932,7 +2042,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_NmEen-1",
 			"id":"_uQU6W",
-			"index":28,
+			"index":30,
 			"inputs":{
 				"result":{
 					"columnNames":{
@@ -1982,5 +2092,5 @@
 		}
 	},
 	"standard":true,
-	"version":335
+	"version":337
 }
