@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743728068,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743728474,
+		"deployedAt":1789395152846,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecdf09d7c534668ef6f81",
+		"deployedDefinitionId":"6aa800d039ee5f5ef70b6021",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":71
+		"version":2,
+		"workflowVersion":74
 	},
 	"edges":[
 		{
@@ -280,7 +280,40 @@
 		},
 		{
 			"fromNodeId":"n_bxMSP",
-			"id":"next@n_bxMSP@n_3U64L",
+			"id":"next@n_bxMSP@n_MVnrt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MVnrt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MVnrt",
+			"id":"next@n_MVnrt@n_S66tX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S66tX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S66tX",
+			"id":"loop@n_S66tX@n_1d3xh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1d3xh",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_1d3xh",
+			"id":"next@n_1d3xh@n_S66tX",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S66tX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S66tX",
+			"id":"next@n_S66tX@n_3U64L",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_3U64L",
@@ -302,7 +335,7 @@
 	"id":"6a172a57da64fa5618a65167",
 	"lastModifiedBy":-1,
 	"lcName":"confluence space -> usergroups",
-	"modifiedTime":1788252971336,
+	"modifiedTime":1789395388874,
 	"name":"Confluence Space -> UserGroups",
 	"nodes":[
 		{
@@ -342,6 +375,10 @@
 				"setup":{
 					"additionalProperties":false,
 					"properties":{
+						"SyncNum":{
+							"title":"Sync Num",
+							"type":"integer"
+						},
 						"connectionId":{
 							"title":"Connection Id",
 							"type":"string"
@@ -541,7 +578,25 @@
 							"properties":{
 								"items":{
 									"additionalProperties":false,
-									"properties":{},
+									"properties":{
+										"name":{
+											"title":"Name",
+											"type":"string"
+										},
+										"spaceKey":{
+											"title":"Space Key",
+											"type":"string"
+										},
+										"status":{
+											"title":"Status",
+											"type":"string"
+										},
+										"type":{
+											"title":"Type",
+											"type":"string"
+										}
+									},
+									"required":[],
 									"type":[
 										"object",
 										"string",
@@ -600,7 +655,7 @@
 					"ua:type":"mappedArray"
 				},
 				"ua:title":"spaceKeys",
-				"ua:list_type":"STRING"
+				"ua:list_type":"OBJECT"
 			},
 			"outputSchema":{
 				"type":"SCHEMA",
@@ -611,7 +666,26 @@
 						"items":{
 							"disableActions":true,
 							"items":{
-								"type":"string"
+								"properties":{
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"spaceKey":{
+										"title":"Space Key",
+										"type":"string"
+									},
+									"status":{
+										"title":"Status",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
 							},
 							"title":"spaceKeys",
 							"type":"array"
@@ -1155,13 +1229,19 @@
 				"filters":[
 					{
 						"filter":{
+							"operator":"MISSING"
+						},
+						"property":"{{ n_zTwA7.outputs.connectionType }}"
+					},
+					{
+						"filter":{
 							"operator":"EQUAL",
 							"value":"server"
 						},
 						"property":"{{ n_zTwA7.outputs.connectionType }}"
 					}
 				],
-				"operator":"AND"
+				"operator":"OR"
 			},
 			"skip":false,
 			"subTitle":"Server Connection ?",
@@ -1313,7 +1393,10 @@
 		{
 			"additional":{
 				"visibleOptionalFields":[
-					"root.itemsToAdd.items.object"
+					"root.itemsToAdd.items.spaceKey",
+					"root.itemsToAdd.items.name",
+					"root.itemsToAdd.items.status",
+					"root.itemsToAdd.items.type"
 				]
 			},
 			"context":{
@@ -1332,7 +1415,13 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"items":"{{ dnNvw.outputs.results[0].key }}",
+					"items":{
+						"id":"{{ dnNvw.outputs.results[0].id }}",
+						"name":"{{ dnNvw.outputs.results[0].name }}",
+						"spaceKey":"{{ dnNvw.outputs.results[0].key }}",
+						"status":"{{ dnNvw.outputs.results[0].status }}",
+						"type":"{{ dnNvw.outputs.results[0].type }}"
+					},
 					"source":"{{ dnNvw.outputs.results }}",
 					"ua:type":"mappedArray"
 				},
@@ -1542,7 +1631,10 @@
 		{
 			"additional":{
 				"visibleOptionalFields":[
-					"root.itemsToAdd.items.object"
+					"root.itemsToAdd.items.name",
+					"root.itemsToAdd.items.status",
+					"root.itemsToAdd.items.type",
+					"root.itemsToAdd.items.spaceKey"
 				]
 			},
 			"context":{
@@ -1561,7 +1653,13 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"items":"{{ n_IZJDz.outputs.results[0].id }}",
+					"items":{
+						"id":"{{ n_IZJDz.outputs.results[0].id }}",
+						"name":"{{ n_IZJDz.outputs.results[0].name }}",
+						"spaceKey":"{{ n_IZJDz.outputs.results[0].id }}",
+						"status":"{{ n_IZJDz.outputs.results[0].status }}",
+						"type":"{{ n_IZJDz.outputs.results[0].type }}"
+					},
 					"source":"{{ n_IZJDz.outputs.results }}",
 					"ua:type":"mappedArray"
 				},
@@ -1959,9 +2057,10 @@
 				"distributeWorkflowLoad":false,
 				"parametersList":{
 					"items":{
+						"SyncNum":"{{ n_zTwA7.outputs.SyncNum }}",
 						"connectionId":"{{ n_zTwA7.outputs.connectionId }}",
 						"connectionType":"{{ n_zTwA7.outputs.connectionType }}",
-						"spaceKey":"{{ n_bxMSP.outputs.item[0] }}",
+						"spaceKey":"{{ n_bxMSP.outputs.item[0].spaceKey }}",
 						"suffix":"{{ n_zTwA7.outputs.suffix }}"
 					},
 					"source":"{{ n_bxMSP.outputs.item }}",
@@ -2206,6 +2305,280 @@
 			"type":"ACTION"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.groupNames.items",
+					"root.parameters.allSpaces.items.name",
+					"root.parameters.allSpaces.items.status",
+					"root.parameters.allSpaces.items.type",
+					"root.parameters.failedSpaceKey.items",
+					"root.parameters.allSpaces.items.spaceKey"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1457,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Mg42E-1",
+			"id":"n_MVnrt",
+			"index":28,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"finalSpaceList":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"spaceKey":{
+										"title":"Space Key",
+										"type":"string"
+									},
+									"status":{
+										"title":"Status",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Final Space List",
+							"type":"array"
+						},
+						"uniqueGroupNames":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Unique Group Names",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"allSpaces":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"name":{
+										"title":"Name",
+										"type":"string"
+									},
+									"spaceKey":{
+										"title":"Space Key",
+										"type":"string"
+									},
+									"status":{
+										"title":"Status",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"All Spaces",
+							"type":"array"
+						},
+						"failedSpaceKey":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Failed Space Key",
+							"type":"array"
+						},
+						"groupNames":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Group Names",
+							"type":"array"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"def groupNames = binding.hasVariable('groupNames') ? groupNames : []\ndef uniqueGroupNames = groupNames ? groupNames.toUnique() : []\n\ndef spaces = (binding.hasVariable('allSpaces') && allSpaces != null) ? allSpaces : []\ndef failedKeys = (binding.hasVariable('failedSpaceKey') && failedSpaceKey != null) ? failedSpaceKey : []\n\ndef finalSpaceList = spaces.findAll { space -> !failedKeys.contains(space?.spaceKey) }\n\nreturn ['uniqueGroupNames': uniqueGroupNames, 'finalSpaceList': finalSpaceList]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"allSpaces":{
+						"items":{
+							"name":"{{ n_w7UKU.outputs.items[0].name }}",
+							"spaceKey":"{{ n_w7UKU.outputs.items[0].spaceKey }}",
+							"status":"{{ n_w7UKU.outputs.items[0].status }}",
+							"type":"{{ n_w7UKU.outputs.items[0].type }}"
+						},
+						"source":"{{ n_w7UKU.outputs.items }}",
+						"ua:type":"mappedArray"
+					},
+					"failedSpaceKey":{
+						"items":"{{ n_RvS81.outputs.items[0] }}",
+						"source":"{{ n_RvS81.outputs.items }}",
+						"ua:type":"mappedArray"
+					},
+					"groupNames":{
+						"items":"{{ n_wd1eM.outputs.items[0] }}",
+						"source":"{{ n_wd1eM.outputs.items }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":173,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Mg42E-1",
+			"id":"n_S66tX",
+			"index":29,
+			"inputs":{
+				"repeatMode":"BATCH",
+				"listSource":"{{ n_MVnrt.outputs.result.finalSpaceList }}",
+				"captureIterations":false,
+				"batchSize":100
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.records.items.spaceKey",
+					"root.records.items.spaceName",
+					"root.records.items.type",
+					"root.records.items.status",
+					"root.records.items.id",
+					"root.records.items.connectionId",
+					"root.records.items.connectionType"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7740,
+				"resourceName":"storage_by_unifyapps_bulk_create_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_S66tX@_Mg42E-1@l",
+			"id":"n_1d3xh",
+			"index":30,
+			"inputs":{
+				"useRawPayload":false,
+				"object_type":"confluence_all_spaces",
+				"records":{
+					"items":{
+						"connectionId":"{{ n_zTwA7.outputs.connectionId }}",
+						"connectionType":"{{ n_zTwA7.outputs.connectionType }}",
+						"id":"{{ n_S66tX.outputs.item[0].spaceKey }}_{{ n_zTwA7.outputs.suffix }}",
+						"spaceKey":"{{ n_S66tX.outputs.item[0].spaceKey }}",
+						"spaceName":"{{ n_S66tX.outputs.item[0].name }}",
+						"status":"{{ n_S66tX.outputs.item[0].status }}",
+						"type":"{{ n_S66tX.outputs.item[0].type }}"
+					},
+					"source":"{{ n_S66tX.outputs.item }}",
+					"ua:type":"mappedArray"
+				},
+				"skipIfBlank":false,
+				"skipUpdate":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":2000,
+					"maxDelay":20000
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"store all spaces",
+			"title":"Create or update records in bulk",
+			"type":"ACTION"
+		},
+		{
 			"context":{
 				"appName":"callables",
 				"resourceVersion":1440,
@@ -2217,7 +2590,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Mg42E-1",
 			"id":"n_3U64L",
-			"index":28,
+			"index":31,
 			"inputs":{
 				"result":{
 					"failureInPermission":{
@@ -2256,5 +2629,5 @@
 		}
 	},
 	"standard":true,
-	"version":73
+	"version":75
 }
