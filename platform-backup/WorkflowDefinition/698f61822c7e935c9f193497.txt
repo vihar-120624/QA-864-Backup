@@ -1,0 +1,414 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395136679,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395137741,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800c13e2bb610bc87af85",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":54
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_ZIRlC",
+			"id":"next@n_ZIRlC@n_7TCNw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7TCNw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7TCNw",
+			"id":"next@n_7TCNw@n_1NL8J",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1NL8J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1NL8J",
+			"id":"next@n_1NL8J@n_CWfsk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CWfsk",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"698f61822c7e935c9f193497",
+	"lastModifiedBy":-1,
+	"lcName":"schedule knowledge downloader wrapper | user context",
+	"modifiedTime":1789395398651,
+	"name":"Schedule Knowledge Downloader Wrapper | User context",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":444,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_F0Yag-1",
+			"id":"n_ZIRlC",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"downloaderAutomation":{
+							"title":"Downloader Automation",
+							"type":"string"
+						},
+						"downloaderStartTime":{
+							"title":"Downloader Start Time",
+							"type":"integer"
+						},
+						"grabbingFrequency":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{
+									"daysOfMonth":{
+										"items":{
+											"type":"integer"
+										},
+										"title":"Days Of Month",
+										"type":"array"
+									},
+									"daysOfWeek":{
+										"items":{
+											"type":"string"
+										},
+										"title":"Days Of Week",
+										"type":"array"
+									},
+									"duration":{
+										"title":"Duration",
+										"type":"integer"
+									},
+									"expression":{
+										"title":"Expression",
+										"type":"string"
+									},
+									"grabberSubtype":{
+										"title":"Grabber Subtype",
+										"type":"string"
+									},
+									"grabberType":{
+										"title":"Grabber Type",
+										"type":"string"
+									},
+									"scheduleType":{
+										"title":"Schedule Type",
+										"type":"string"
+									},
+									"timezone":{
+										"title":"Timezone",
+										"type":"string"
+									},
+									"triggerAt":{
+										"title":"Trigger At",
+										"type":"string"
+									},
+									"type":{
+										"title":"Type",
+										"type":"string"
+									},
+									"unit":{
+										"title":"Unit",
+										"type":"string"
+									}
+								},
+								"required":[],
+								"type":"object"
+							},
+							"title":"Grabbing Frequency",
+							"type":"array"
+						},
+						"importerConnections":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Importer Connections",
+							"type":"object"
+						},
+						"importerParams":{
+							"additionalProperties":false,
+							"properties":{
+								"aiAgentId":{
+									"title":"Ai Agent Id",
+									"type":"string"
+								},
+								"inputs":{
+									"title":"inputs",
+									"type":"object"
+								},
+								"knowledge":{
+									"title":"knowledge",
+									"type":"object"
+								},
+								"knowledgeId":{
+									"title":"knowledgeId",
+									"type":"string"
+								},
+								"resourceInputs":{
+									"items":{
+										"additionalProperties":false,
+										"properties":{},
+										"type":"object"
+									},
+									"title":"Resource Inputs",
+									"type":"array"
+								}
+							},
+							"required":[],
+							"type":"object"
+						},
+						"knowledgeId":{
+							"title":"Knowledge Id",
+							"type":"string"
+						},
+						"skipBackwardSchedule":{
+							"title":"Skip Backward Schedule",
+							"type":"boolean"
+						},
+						"skipForwardSchedule":{
+							"title":"Skip Forward Schedule",
+							"type":"boolean"
+						},
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1351,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_F0Yag-1",
+			"id":"n_7TCNw",
+			"index":2,
+			"inputs":{
+				"output":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"input":{
+					"additionalProperties":false,
+					"properties":{
+						"userId":{
+							"title":"User Id",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"code":"return [\"userId\":userId.toString()]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"userId":"{{ n_ZIRlC.outputs.userId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.importerParams.knowledgeId",
+					"root.parameters.importerParams.aiAgentId",
+					"root.parameters.downloaderAutomation",
+					"root.parameters.knowledgeId",
+					"root.parameters.downloaderStartTime",
+					"root.parameters.grabbingFrequency.source",
+					"root.parameters.grabbingFrequency.ua:type",
+					"root.parameters.grabbingFrequency.items.type",
+					"root.parameters.grabbingFrequency.items.unit",
+					"root.parameters.grabbingFrequency.items.duration",
+					"root.parameters.grabbingFrequency.items.grabberType",
+					"root.parameters.grabbingFrequency.items.scheduleType",
+					"root.parameters.grabbingFrequency.items.daysOfWeek.source",
+					"root.parameters.grabbingFrequency.items.daysOfWeek.ua:type",
+					"root.parameters.grabbingFrequency.items.daysOfWeek.items",
+					"root.parameters.grabbingFrequency.items.daysOfMonth.source",
+					"root.parameters.grabbingFrequency.items.daysOfMonth.ua:type",
+					"root.parameters.grabbingFrequency.items.daysOfMonth.items",
+					"root.parameters.grabbingFrequency.items.expression",
+					"root.parameters.grabbingFrequency.items.triggerAt",
+					"root.parameters.grabbingFrequency.items.timezone",
+					"root.parameters.skipBackwardSchedule",
+					"root.parameters.skipForwardSchedule"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1700,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_F0Yag-1",
+			"id":"n_1NL8J",
+			"index":3,
+			"inputs":{
+				"automationId":"68e04e12568e7817abce873b",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"runInUserContext":"{{ n_7TCNw.outputs.result.userId }}",
+				"parameters":{
+					"downloaderAutomation":"{{ n_ZIRlC.outputs.downloaderAutomation }}",
+					"downloaderStartTime":"{{ n_ZIRlC.outputs.downloaderStartTime }}",
+					"grabbingFrequency":{
+						"items":{
+							"daysOfMonth":{
+								"items":"{{ n_ZIRlC.outputs.grabbingFrequency[0].daysOfMonth[0] }}",
+								"source":"{{ n_ZIRlC.outputs.grabbingFrequency[0].daysOfMonth }}",
+								"ua:type":"mappedArray"
+							},
+							"daysOfWeek":{
+								"items":"{{ n_ZIRlC.outputs.grabbingFrequency[0].daysOfWeek[0] }}",
+								"source":"{{ n_ZIRlC.outputs.grabbingFrequency[0].daysOfWeek }}",
+								"ua:type":"mappedArray"
+							},
+							"duration":"{{ n_ZIRlC.outputs.grabbingFrequency[0].duration }}",
+							"expression":"{{ n_ZIRlC.outputs.grabbingFrequency[0].expression }}",
+							"grabberSubtype":"{{ n_ZIRlC.outputs.grabbingFrequency[0].grabberSubtype }}",
+							"grabberType":"{{ n_ZIRlC.outputs.grabbingFrequency[0].grabberType }}",
+							"scheduleType":"{{ n_ZIRlC.outputs.grabbingFrequency[0].scheduleType }}",
+							"timezone":"{{ n_ZIRlC.outputs.grabbingFrequency[0].timezone }}",
+							"triggerAt":"{{ n_ZIRlC.outputs.grabbingFrequency[0].triggerAt }}",
+							"type":"{{ n_ZIRlC.outputs.grabbingFrequency[0].type }}",
+							"unit":"{{ n_ZIRlC.outputs.grabbingFrequency[0].unit }}"
+						},
+						"source":"{{ n_ZIRlC.outputs.grabbingFrequency }}",
+						"ua:type":"mappedArray"
+					},
+					"importerConnections":"{{ n_ZIRlC.outputs.importerConnections }}",
+					"importerParams":{
+						"aiAgentId":"{{ n_ZIRlC.outputs.importerParams.aiAgentId }}",
+						"inputs":"{{ n_ZIRlC.outputs.importerParams.inputs }}",
+						"knowledge":"{{ n_ZIRlC.outputs.importerParams.knowledge }}",
+						"knowledgeId":"{{ n_ZIRlC.outputs.importerParams.knowledgeId }}",
+						"resourceInputs":{
+							"items":"{{ n_ZIRlC.outputs.importerParams.resourceInputs[0] }}",
+							"source":"{{ n_ZIRlC.outputs.importerParams.resourceInputs }}",
+							"ua:type":"mappedArray"
+						}
+					},
+					"knowledgeId":"{{ n_ZIRlC.outputs.knowledgeId }}",
+					"skipBackwardSchedule":"{{ n_ZIRlC.outputs.skipBackwardSchedule }}",
+					"skipForwardSchedule":"{{ n_ZIRlC.outputs.skipForwardSchedule }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":454,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_F0Yag-1",
+			"id":"n_CWfsk",
+			"index":4,
+			"inputs":{
+				"result":{
+					"success":"{{ n_1NL8J.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
+		"resourceBudgetConfig":{
+			"maxVariableBytes":268435456
+		},
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"knowledge_v2",
+		"release_27jan"
+	],
+	"version":55
+}

@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787744039963,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787744040158,
+		"deployedAt":1789395306522,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ecf28ba51514edfc7e502",
+		"deployedDefinitionId":"6aa8016ac6a14707f1503d2b",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":8
+		"version":2,
+		"workflowVersion":11
 	},
 	"edges":[
 		{
@@ -57,9 +57,9 @@
 	},
 	"id":"690c4d1a6841d67da28f0077",
 	"lastModifiedBy":-1,
-	"lcName":"fetch topic execution models",
-	"modifiedTime":1788252971563,
-	"name":"Fetch Topic Execution Models",
+	"lcName":"[dt] fetch topic execution models",
+	"modifiedTime":1789395398742,
+	"name":"[DT] Fetch Topic Execution Models",
 	"nodes":[
 		{
 			"context":{
@@ -106,9 +106,18 @@
 									"items":{
 										"additionalProperties":false,
 										"properties":{
+											"Description":{
+												"title":"description",
+												"type":"string"
+											},
 											"isSelected":{
 												"title":"Is Selected",
 												"type":"boolean"
+											},
+											"mode":{
+												"default":"smart",
+												"title":"Mode",
+												"type":"string"
 											},
 											"modelId":{
 												"title":"Model Id",
@@ -246,6 +255,7 @@
 					],
 					"operator":"AND"
 				},
+				"shouldSearchInAnalyticsStore":false,
 				"object_type":"ai_agent_llm_model",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
@@ -267,7 +277,9 @@
 			"additional":{
 				"visibleOptionalFields":[
 					"root.parameters.models.items.modelName",
-					"root.parameters.models.items.modelId"
+					"root.parameters.models.items.modelId",
+					"root.parameters.models.items.Description",
+					"root.parameters.models.items.mode"
 				]
 			},
 			"context":{
@@ -294,9 +306,17 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"Description":{
+										"title":"Description",
+										"type":"string"
+									},
 									"isSelected":{
 										"title":"Is Selected",
 										"type":"boolean"
+									},
+									"mode":{
+										"title":"Mode",
+										"type":"string"
 									},
 									"modelId":{
 										"title":"Model Id",
@@ -336,6 +356,14 @@
 							"items":{
 								"additionalProperties":false,
 								"properties":{
+									"Description":{
+										"title":"description",
+										"type":"string"
+									},
+									"mode":{
+										"title":"Mode",
+										"type":"string"
+									},
 									"modelId":{
 										"title":"Model Id",
 										"type":"string"
@@ -364,9 +392,12 @@
 				"captureStdOutput":false,
 				"parameters":{
 					"defaultModel":"{{ n_WoEFS.outputs.defaultModel }}",
+					"hasMore":"{{ n_qr2ad.outputs.hasMore }}",
 					"limit":"{{ n_WoEFS.outputs.limit }}",
 					"models":{
 						"items":{
+							"Description":"{{ n_qr2ad.outputs.objects[0].properties.description }}",
+							"mode":"{{ n_qr2ad.outputs.objects[0].properties.mode }}",
 							"modelId":"{{ n_qr2ad.outputs.objects[0].id }}",
 							"modelName":"{{ n_qr2ad.outputs.objects[0].properties.name }}"
 						},
@@ -401,7 +432,9 @@
 					"hasMore":"{{ n_EJ9IC.outputs.result.hasMore }}",
 					"models":{
 						"items":{
+							"Description":"{{ n_EJ9IC.outputs.result.models[0].Description }}",
 							"isSelected":"{{ n_EJ9IC.outputs.result.models[0].isSelected }}",
+							"mode":"{{ n_EJ9IC.outputs.result.models[0].mode }}",
 							"modelId":"{{ n_EJ9IC.outputs.result.models[0].modelId }}",
 							"name":"{{ n_EJ9IC.outputs.result.models[0].modelName }}"
 						},
@@ -435,5 +468,5 @@
 	"tags":[
 		
 	],
-	"version":10
+	"version":12
 }

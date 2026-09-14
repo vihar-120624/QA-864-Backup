@@ -1,0 +1,226 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395225589,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395225631,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa8011939ee5f5ef70b6311",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":12
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_Strt",
+			"id":"next@n_Strt@n_Call",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Call",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Call",
+			"id":"next@n_Call@n_Stop",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Stop",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"6a9493d361e2ab0c3006d8b2",
+	"lastModifiedBy":-1,
+	"lcName":"qa tool",
+	"modifiedTime":1789395398683,
+	"name":"QA Tool",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1321,
+				"resourceName":"callables_from_interface"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QaTol-1",
+			"id":"n_Strt",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"error":{
+							"title":"Error",
+							"type":"string"
+						},
+						"retrigger":{
+							"title":"Retrigger",
+							"type":"boolean"
+						},
+						"success":{
+							"title":"Success",
+							"type":"boolean"
+						},
+						"toolInvocationCost":{
+							"title":"Tool Invocation Cost",
+							"type":"number"
+						},
+						"toolOutput":{
+							"title":"toolOutput",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				},
+				"callableInterfaceId":"679484ef9c8ab5620dca9609",
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"actionId":{
+							"title":"Action Id",
+							"type":"string"
+						},
+						"agentResponseMessageId":{
+							"title":"Agent Response Message Id",
+							"type":"string"
+						},
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						},
+						"currentTaskId":{
+							"title":"currentTaskId",
+							"type":"string"
+						},
+						"executeUsingModel":{
+							"title":"Execute Using Model",
+							"type":"string"
+						},
+						"toolAdditional":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"Tool Additional",
+							"type":"object"
+						},
+						"toolId":{
+							"title":"toolId",
+							"type":"string"
+						},
+						"toolInputs":{
+							"title":"toolInputs",
+							"type":"object"
+						},
+						"toolName":{
+							"title":"Tool Name",
+							"type":"string"
+						},
+						"triggeredByAgentId":{
+							"title":"Triggered By Agent Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object",
+					"ua:modal":{
+						"field_type":"STRING",
+						"is_optional":true
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger interface",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":460,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QaTol-1",
+			"id":"n_Call",
+			"index":2,
+			"inputs":{
+				"automationId":"6a61bc8f8f2f720b8bc3daef",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"attachments":"{{ n_Strt.outputs.toolInputs.attachments }}",
+					"targetFileType":"{{ n_Strt.outputs.toolInputs.targetFileType }}"
+				},
+				"version":"-1"
+			},
+			"skip":false,
+			"subTitle":"Attachment to context",
+			"title":"Call attachment-to-context",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1321,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_QaTol-1",
+			"id":"n_Stop",
+			"index":3,
+			"inputs":{
+				"result":{
+					"toolOutput":"{{ n_Call.outputs.output }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"version":13
+}

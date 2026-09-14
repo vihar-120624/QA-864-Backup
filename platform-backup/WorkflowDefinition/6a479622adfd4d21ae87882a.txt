@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743845724,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743845902,
+		"deployedAt":1789395234175,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece659d7c534668ef9199",
+		"deployedDefinitionId":"6aa8012272fd792214e8c84c",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":294
+		"version":2,
+		"workflowVersion":297
 	},
 	"edges":[
 		{
@@ -1123,7 +1123,7 @@
 	"id":"6a479622adfd4d21ae87882a",
 	"lastModifiedBy":-1,
 	"lcName":"governance | for one control",
-	"modifiedTime":1788252971563,
+	"modifiedTime":1789395398706,
 	"name":"Governance | For one Control",
 	"nodes":[
 		{
@@ -1306,10 +1306,6 @@
 							"title":"description",
 							"type":"string"
 						},
-						"enabled":{
-							"title":"enabled",
-							"type":"boolean"
-						},
 						"llmModel":{
 							"title":"llmModel",
 							"type":"string"
@@ -1347,7 +1343,7 @@
 					"required":[],
 					"type":"object"
 				},
-				"code":"def c = binding.hasVariable('controlObject') ? controlObject : [:]\n\nreturn [\n    name               : c.name,\n    description        : c.description,\n    appliedTo          : c.appliedTo,\n    checkType          : c.checkType,\n    appliedOn          : c.appliedOn,\n    outputType         : c.outputType,\n    llmModel           : c.llmModel,\n    confidenceThreshold: c.confidenceThreshold,\n    checkSeverity      : c.checkSeverity,\n    severityModel      : c.severityModel,\n    actionType         : c.actionType,\n    enabled            : c.enabled,\n    additional         : c.additional, \n    severityLevel     : c.severityLevel\n]",
+				"code":"def c = binding.hasVariable('controlObject') ? controlObject : [:]\n\nreturn [\n    name               : c.name,\n    description        : c.description,\n    appliedTo          : c.appliedTo,\n    checkType          : c.checkType,\n    appliedOn          : c.appliedOn,\n    outputType         : c.outputType,\n    llmModel           : c.llmModel,\n    confidenceThreshold: c.confidenceThreshold,\n    checkSeverity      : c.checkSeverity,\n    severityModel      : c.severityModel,\n    actionType         : c.actionType,\n    additional         : c.additional, \n    severityLevel     : c.severityLevel\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1679,13 +1675,6 @@
 									"value":"{{ n_zeIv6.outputs.inputType }}"
 								},
 								"property":"{{ n_qo9AO.outputs.result.appliedOn }}"
-							},
-							{
-								"filter":{
-									"operator":"EQUAL",
-									"value":"true"
-								},
-								"property":"{{ n_qo9AO.outputs.result.enabled }}"
 							}
 						],
 						"operator":"AND"
@@ -1965,14 +1954,14 @@
 									{
 										"filter":{
 											"operator":"EQUAL",
-											"value":"Custom LLM"
+											"value":"Custom (LLM check)"
 										},
 										"property":"{{ n_YxKLx.outputs.checkTypeName }}"
 									}
 								],
 								"operator":"AND"
 							},
-							"name":"Custom LLM"
+							"name":"Custom (LLM check)"
 						}
 					},
 					{
@@ -3522,14 +3511,13 @@
 			"id":"n_7Z7B8",
 			"index":47,
 			"inputs":{
-				"automationId":"6a4a027ff7f50f55598618b7",
+				"automationId":"6a9834dd82887c18b55805bb",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"parameters":{
-					"aiAgentId":"{{ n_zeIv6.outputs.aiAgentId }}",
+					"behaviour":"block",
 					"infoTypes":"{{ n_v8xwR.outputs.result.infoTypes }}",
-					"input":"{{ n_CS5Ru.outputs.maskedQuery }}",
-					"llmModel":"{{ n_v8xwR.outputs.result.llmModel }}"
+					"text":"{{ n_CS5Ru.outputs.maskedQuery }}"
 				},
 				"version":"-1"
 			},
@@ -3555,7 +3543,7 @@
 				"variables":[
 					{
 						"source":"{{ n_CS5Ru.outputs.blocked }}",
-						"value":"{{ n_7Z7B8.outputs.block }}"
+						"value":"=IF({{ n_7Z7B8.outputs.proceed }},\"false\",\"true\")"
 					}
 				]
 			},
@@ -3578,13 +3566,13 @@
 			"id":"_6Db5a@9",
 			"index":49,
 			"inputs":{
-				"name":"Custom LLM",
+				"name":"Custom (LLM check)",
 				"conditions":{
 					"filters":[
 						{
 							"filter":{
 								"operator":"EQUAL",
-								"value":"Custom LLM"
+								"value":"Custom (LLM check)"
 							},
 							"property":"{{ n_YxKLx.outputs.checkTypeName }}"
 						}
@@ -4608,7 +4596,7 @@
 			"index":77,
 			"inputs":{
 				"result":{
-					"block":true,
+					"block":false,
 					"blockMessage":"{{ n_CS5Ru.outputs.maskedQuery }}"
 				}
 			},
@@ -5667,5 +5655,5 @@
 		}
 	},
 	"standard":true,
-	"version":296
+	"version":298
 }
