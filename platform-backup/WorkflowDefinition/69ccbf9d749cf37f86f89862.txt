@@ -1,0 +1,542 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1789395197067,
+	"deleted":false,
+	"deployedVersion":1,
+	"deploymentState":{
+		"deployedAt":1789395197112,
+		"deployedBy":-1,
+		"deployedDefinitionId":"6aa800fd72fd792214e8c75c",
+		"deploymentTag":"removed_reference",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":66
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_6ySj6",
+			"id":"next@n_6ySj6@n_vwEie",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vwEie",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vwEie",
+			"id":"next@n_vwEie@n_j1WDU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_j1WDU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_j1WDU",
+			"id":"next@n_j1WDU@n_Ify5k",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ify5k",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"id":"if@n_Ify5k@n_9U9zr",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9U9zr",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9U9zr",
+			"id":"next@n_9U9zr@n_LC15A",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ify5k",
+			"id":"next@n_Ify5k@n_LC15A",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LC15A",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LC15A",
+			"id":"next@n_LC15A@n_HkY3J",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HkY3J",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"CE",
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"69ccbf9d749cf37f86f89862",
+	"lastModifiedBy":-1,
+	"lcName":"[microsoft calender] fetch meetings wrapper",
+	"modifiedTime":1789395397475,
+	"name":"[Microsoft Calender] Fetch Meetings Wrapper",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2494,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_S3c7o-1",
+			"id":"n_6ySj6",
+			"index":1,
+			"inputs":{
+				"result":{
+					"additionalProperties":false,
+					"properties":{
+						"errorMessage":{
+							"title":"Error Message",
+							"type":"string"
+						},
+						"filteredMeetingsAccordingToUserQuery":{
+							"title":"Filtered Meetings According To User Query",
+							"type":"string"
+						},
+						"freeDays":{
+							"items":{
+								"type":"string"
+							},
+							"title":"Free Days",
+							"type":"array"
+						},
+						"freeSlotsAndDailyMeetingsCount":{
+							"items":{
+								"additionalProperties":false,
+								"properties":{},
+								"type":"object"
+							},
+							"title":"Free Slots And Daily Meetings Count",
+							"type":"array"
+						},
+						"meetingDetails":{
+							"items":{
+								"type":"object"
+							},
+							"title":"meetingDetails",
+							"type":"array"
+						},
+						"totalMeetingsInDateRange":{
+							"title":"Total Meetings In Date Range",
+							"type":"integer"
+						}
+					},
+					"required":[],
+					"type":"object"
+				},
+				"setup":{
+					"additionalProperties":false,
+					"properties":{
+						"attendeeName":{
+							"help":"Optional attendee name or email filter.",
+							"title":"Attendee Name",
+							"type":"string"
+						},
+						"backToBackMeetings":{
+							"help":"Set to true only for back-to-back meeting analysis; never combine with `overlappingMeetings` in one call.",
+							"title":"Back To Back Meetings",
+							"type":"boolean"
+						},
+						"category":{
+							"help":"Optional exact or user-supplied calendar category filter.",
+							"title":"Category",
+							"type":"string"
+						},
+						"emailAddress":{
+							"help":"Optional organizer email-address filter; this is not an attendee-email field.",
+							"title":"Email Address",
+							"type":"string"
+						},
+						"endTime":{
+							"help":"Required interval end as an ISO 8601 timestamp with an explicit local UTC offset; it must be later than `startTime`.",
+							"title":"endTime",
+							"type":"string"
+						},
+						"externalAttendee":{
+							"help":"Set to true only when the user explicitly requests meetings with external attendees; otherwise omit.",
+							"title":"External Attendee",
+							"type":"boolean"
+						},
+						"includeOnlyMeetingsWithAttachments":{
+							"help":"Set to true only when results must exclusively be meetings that have attachments; omit for attachment metadata or content requests that do not require exclusive filtering.",
+							"title":"Include Only Meetings With Attachments",
+							"type":"boolean"
+						},
+						"isCancelled":{
+							"help":"Set to true only when the user explicitly requests cancelled meetings; otherwise omit.",
+							"title":"isCancelled",
+							"type":"boolean"
+						},
+						"isOrganizer":{
+							"help":"Set to true only when the user explicitly requests meetings organized by the current user; otherwise omit.",
+							"title":"isOrganizer",
+							"type":"boolean"
+						},
+						"limit":{
+							"title":"Limit",
+							"type":"integer"
+						},
+						"location":{
+							"help":"Optional meeting-location filter.",
+							"title":"Location",
+							"type":"string"
+						},
+						"meetingDuration":{
+							"title":"Meeting Duration",
+							"type":"integer"
+						},
+						"meetingInfo":{
+							"help":"Optional concise phrase to match meeting subject, title, description, or agenda.",
+							"title":"Meeting Info",
+							"type":"string"
+						},
+						"offset":{
+							"title":"Offset",
+							"type":"integer"
+						},
+						"organizerName":{
+							"help":"Optional organizer display-name filter.",
+							"title":"Organizer Name",
+							"type":"string"
+						},
+						"overlappingMeetings":{
+							"help":"Set to true only for overlapping meeting analysis; never combine with `backToBackMeetings` in one call.",
+							"title":"Overlapping Meetings",
+							"type":"boolean"
+						},
+						"private":{
+							"help":"Set to true only when the user explicitly requests private meetings; otherwise omit.",
+							"title":"Private",
+							"type":"boolean"
+						},
+						"startTime":{
+							"help":"Required interval start as an ISO 8601 timestamp with an explicit local UTC offset.",
+							"title":"startTime",
+							"type":"string"
+						}
+					},
+					"required":[
+						"startTime",
+						"endTime"
+					],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1545,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_S3c7o-1",
+			"id":"n_vwEie",
+			"index":2,
+			"inputs":{
+				"variableSchema":{
+					"additionalProperties":false,
+					"properties":{
+						"caseId":{
+							"title":"Case Id",
+							"type":"string"
+						}
+					},
+					"required":[],
+					"type":"object"
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1829,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_S3c7o-1",
+			"id":"n_j1WDU",
+			"index":3,
+			"inputs":{
+				"automationId":"6a33d10e9d00fe063d03a98e",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"parameters":{
+					"appName":"microsoft_calendar"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":75,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_S3c7o-1",
+			"id":"n_Ify5k",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"filter":{
+							"operator":"EQUAL",
+							"value":"false"
+						},
+						"property":"{{ n_j1WDU.outputs.success }}"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Connection Not Present?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ify5k@_S3c7o-1@y",
+			"id":"n_9U9zr",
+			"index":5,
+			"inputs":{
+				"result":{
+					"errorMessage":"{{ n_j1WDU.outputs.errorMessage }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Return Error",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.startEpoch",
+					"root.parameters.endEpoch",
+					"root.parameters.limit",
+					"root.parameters.offset",
+					"root.parameters.isRead",
+					"root.parameters.from",
+					"root.parameters.orderBy",
+					"root.parameters.orderDir"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1928,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_S3c7o-1",
+			"id":"n_LC15A",
+			"index":6,
+			"inputs":{
+				"automationId":"69ccc03e75f0690b6d0eb0b9",
+				"runtimeConnections":{
+					"microsoft_calendar":"{{ n_j1WDU.outputs.connectionId }}",
+					"microsoft_outlook":"{{ n_INExi.outputs.connections[0].id }}"
+				},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
+				"parameters":{
+					"attendeeName":"{{ n_6ySj6.outputs.attendeeName }}",
+					"backToBackMeetings":"{{ n_6ySj6.outputs.backToBackMeetings }}",
+					"category":"{{ n_6ySj6.outputs.category }}",
+					"emailAddress":"{{ n_6ySj6.outputs.emailAddress }}",
+					"endTime":"{{ n_6ySj6.outputs.endTime }}",
+					"externalAttendee":"{{ n_6ySj6.outputs.externalAttendee }}",
+					"includeAttachments":"{{ n_6ySj6.outputs.includeOnlyMeetingsWithAttachments }}",
+					"isCancelled":"{{ n_6ySj6.outputs.isCancelled }}",
+					"isOrganizer":"{{ n_6ySj6.outputs.isOrganizer }}",
+					"limit":"{{ n_6ySj6.outputs.limit }}",
+					"location":"{{ n_6ySj6.outputs.location }}",
+					"meetingDuration":"{{ n_6ySj6.outputs.meetingDuration }}",
+					"meetingInfo":"{{ n_6ySj6.outputs.meetingInfo }}",
+					"name":"{{ n_6ySj6.outputs.organizerName }}",
+					"offset":"{{ n_6ySj6.outputs.offset }}",
+					"overlappingMeetings":"{{ n_6ySj6.outputs.overlappingMeetings }}",
+					"private":"{{ n_6ySj6.outputs.private }}",
+					"startTime":"{{ n_6ySj6.outputs.startTime }}"
+				},
+				"version":"-1",
+				"executeOnSameVM":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS",
+					"useInMemoryCache":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"[Microsoft Calender] Fetch Meetings",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":0,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_S3c7o-1",
+			"id":"n_HkY3J",
+			"index":7,
+			"inputs":{
+				"result":{
+					"filteredMeetingsAccordingToUserQuery":"{{ n_LC15A.outputs.filteredMeetingsAccordingToUserQuery }}",
+					"freeDays":{
+						"items":"{{ n_LC15A.outputs.freeDays[0] }}",
+						"source":"{{ n_LC15A.outputs.freeDays }}",
+						"ua:type":"mappedArray"
+					},
+					"freeSlotsAndDailyMeetingsCount":{
+						"items":"{{ n_LC15A.outputs.freeSlotsAndDailyMeetingsCount[0] }}",
+						"source":"{{ n_LC15A.outputs.freeSlotsAndDailyMeetingsCount }}",
+						"ua:type":"mappedArray"
+					},
+					"meetingDetails":{
+						"items":"{{ n_LC15A.outputs.meetingDetails[0] }}",
+						"source":"{{ n_LC15A.outputs.meetingDetails }}",
+						"ua:type":"mappedArray"
+					},
+					"totalMeetingsInDateRange":"{{ n_LC15A.outputs.totalMeetingsInDateRange }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		"Calendar"
+	],
+	"version":67
+}

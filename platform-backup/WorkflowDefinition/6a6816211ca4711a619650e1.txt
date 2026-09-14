@@ -4,14 +4,14 @@
 	],
 	"createdTime":1787743858248,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1787743858432,
+		"deployedAt":1789395238159,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6a8ece729d7c534668ef9478",
+		"deployedDefinitionId":"6aa8012672fd792214e8c88e",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":30
+		"version":2,
+		"workflowVersion":33
 	},
 	"edges":[
 		{
@@ -137,7 +137,7 @@
 	"id":"6a6816211ca4711a619650e1",
 	"lastModifiedBy":-1,
 	"lcName":"(tool) fetch generic entities",
-	"modifiedTime":1788252972133,
+	"modifiedTime":1789395397423,
 	"name":"(tool) Fetch Generic Entities",
 	"nodes":[
 		{
@@ -154,67 +154,67 @@
 			"index":1,
 			"inputs":{
 				"result":{
-					"type":"object",
 					"additionalProperties":false,
 					"properties":{
 						"entities":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
-									"id":{
-										"type":"string",
-										"title":"id"
-									},
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
 									"entityType":{
-										"type":"string",
-										"title":"entityType"
+										"title":"entityType",
+										"type":"string"
 									},
 									"entityTypeName":{
-										"type":"string",
-										"title":"entityTypeName"
+										"title":"entityTypeName",
+										"type":"string"
+									},
+									"id":{
+										"title":"id",
+										"type":"string"
+									},
+									"name":{
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"entityType"
-								]
+								],
+								"type":"object"
 							},
-							"title":"entities"
+							"title":"entities",
+							"type":"array"
 						}
-					}
+					},
+					"type":"object"
 				},
 				"setup":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"entityIds":{
+							"items":{
+								"type":"string"
+							},
+							"title":"entityIds",
+							"type":"array"
+						},
+						"entityType":{
+							"help":"Which entity type (class) to search for: LowCode/NoCode apps (e_interface), LowCode/NoCode modules (e_component) etc.  Common entity types:  LowCode/NoCode applications (apps) -> e_interface LowCode/NoCode modules/pages -> e_component Users -> USER Teams -> USER_GROUP (User) Roles -> ROLE_DEFINITION API endpoints -> API_ENDPOINT API collections -> API_ENDPOINT_COLLECTION API policies -> API_POLICY API clients -> API_CLIENT Access profiles -> ACCESS_PROFILE e_env_variables -> Environment variables",
+							"title":"entityType",
+							"type":"string"
+						},
+						"searchQueries":{
+							"items":{
+								"type":"string"
+							},
+							"title":"searchQueries",
+							"type":"array"
+						}
+					},
 					"required":[
 						"entityType"
 					],
-					"properties":{
-						"entityType":{
-							"type":"string",
-							"title":"entityType",
-							"help":"Which entity type (class) to search for: LowCode/NoCode apps (e_interface), LowCode/NoCode modules (e_component) etc.  Common entity types:  LowCode/NoCode applications (apps) -> e_interface LowCode/NoCode modules/pages -> e_component Users -> USER Teams -> USER_GROUP (User) Roles -> ROLE_DEFINITION API endpoints -> API_ENDPOINT API collections -> API_ENDPOINT_COLLECTION API policies -> API_POLICY API clients -> API_CLIENT Access profiles -> ACCESS_PROFILE e_env_variables -> Environment variables"
-						},
-						"entityIds":{
-							"type":"array",
-							"items":{
-								"type":"string"
-							},
-							"title":"entityIds"
-						},
-						"searchQueries":{
-							"type":"array",
-							"items":{
-								"type":"string"
-							},
-							"title":"searchQueries"
-						}
-					}
+					"type":"object"
 				}
 			},
 			"skip":false,
@@ -247,23 +247,23 @@
 					"type":"object",
 					"properties":{
 						"lookupByQueryOptions":{
-							"type":"object",
+							"additionalProperties":false,
 							"properties":{
-								"searchBy":{
-									"type":"string",
-									"title":"searchBy"
-								},
 								"entity_type":{
-									"type":"string",
-									"title":"entity_type"
+									"title":"entity_type",
+									"type":"string"
+								},
+								"searchBy":{
+									"title":"searchBy",
+									"type":"string"
 								}
 							},
-							"additionalProperties":false,
-							"title":"lookupByQueryOptions",
 							"required":[
 								"searchBy",
 								"entity_type"
-							]
+							],
+							"title":"lookupByQueryOptions",
+							"type":"object"
 						}
 					},
 					"required":[
@@ -273,8 +273,8 @@
 			},
 			"inputs":{
 				"lookupByQueryOptions":{
-					"searchBy":"LABEL_AND_VALUE",
-					"entity_type":"{{ n_taOjD.outputs.entityType }}"
+					"entity_type":"{{ n_taOjD.outputs.entityType }}",
+					"searchBy":"LABEL_AND_VALUE"
 				}
 			},
 			"outputSchema":{
@@ -285,23 +285,23 @@
 					"type":"object",
 					"properties":{
 						"lookupByQueryOptions":{
-							"type":"object",
+							"additionalProperties":false,
 							"properties":{
-								"searchBy":{
-									"type":"string",
-									"title":"searchBy"
-								},
 								"entity_type":{
-									"type":"string",
-									"title":"entity_type"
+									"title":"entity_type",
+									"type":"string"
+								},
+								"searchBy":{
+									"title":"searchBy",
+									"type":"string"
 								}
 							},
-							"additionalProperties":false,
-							"title":"lookupByQueryOptions",
 							"required":[
 								"searchBy",
 								"entity_type"
-							]
+							],
+							"title":"lookupByQueryOptions",
+							"type":"object"
 						}
 					},
 					"required":[
@@ -329,35 +329,35 @@
 			"index":3,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"entityTypeName":{
+							"title":"entityTypeName",
+							"type":"string"
+						},
+						"lookupType":{
+							"title":"lookupType",
+							"type":"string"
+						}
+					},
 					"required":[
 						"entityTypeName",
 						"lookupType"
 					],
-					"properties":{
-						"entityTypeName":{
-							"type":"string",
-							"title":"entityTypeName"
-						},
-						"lookupType":{
-							"type":"string",
-							"title":"lookupType"
-						}
-					}
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"entityType":{
+							"title":"entityType",
+							"type":"string"
+						}
+					},
 					"required":[
 						"entityType"
 					],
-					"properties":{
-						"entityType":{
-							"type":"string",
-							"title":"entityType"
-						}
-					}
+					"type":"object"
 				},
 				"code":"def entityTypeVsEntityName = [\n  e_interface: \"Application\",\n  e_component: \"Application Page/Module\",\n  USER: \"Users\",\n  USER_GROUP: \"Teams\",\n  ROLE_DEFINITION: \"(User) Roles\",\n  API_ENDPOINT: \"API endpoints\",\n  API_ENDPOINT_COLLECTION: \"API collections\",\n  API_POLICY: \"API policies\",\n  API_CLIENT: \"API clients\",\n  ACCESS_PROFILE: \"Access profiles\",\n]\n\ndef entityIdPrefixEntities = [\n  \"e_interface\",\n  \"e_env_variables\",\n  \"e_component\"\n]\n\ndef lookupType = entityIdPrefixEntities.contains(entityType)\n    ? \"ENTITY_ID:\" + entityType\n    : entityType.toString().toUpperCase()\n\nreturn [\n  entityTypeName: entityTypeVsEntityName[entityType],\n  lookupType: lookupType\n]",
 				"compile_static":false,
@@ -387,17 +387,17 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"{{ n_taOjD.outputs.entityIds }}",
 						"filter":{
 							"operator":"EXISTS"
-						}
+						},
+						"property":"{{ n_taOjD.outputs.entityIds }}"
 					},
 					{
-						"property":"=LEN({{ n_taOjD.outputs.entityIds }})",
 						"filter":{
 							"operator":"GT",
 							"value":"=0"
-						}
+						},
+						"property":"=LEN({{ n_taOjD.outputs.entityIds }})"
 					}
 				],
 				"operator":"AND"
@@ -427,11 +427,11 @@
 				},
 				"options":"{{ n_sDQl3.outputs.lookupByQueryOptions }}",
 				"lookupType":"{{ n_XPfeX.outputs.result.lookupType }}",
-				"type":"ByKeys",
 				"fields":[
 					"id",
 					"name"
-				]
+				],
+				"type":"ByKeys"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -453,43 +453,43 @@
 			"index":6,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
 					"properties":{
 						"entities":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false
+								"type":"object"
 							},
-							"title":"entities"
+							"title":"entities",
+							"type":"array"
 						}
-					}
+					},
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"lookupResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"lookupResponse",
+							"type":"object"
+						}
+					},
 					"required":[
 						"lookupResponse"
 					],
-					"properties":{
-						"lookupResponse":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"lookupResponse"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = binding.getVariable('lookupResponse') ?: [objects:[]]\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef rawObjects = serializedResponse['objects']\ndef entities = rawObjects.values().collect { obj ->\n    [\n        id  : obj.id,\n        name: obj.containsKey('properties')\n            ? obj.properties.name\n            : obj.name\n    ]\n}\n\nreturn [\"entities\": entities]",
 				"compile_static":false,
@@ -519,14 +519,14 @@
 			"inputs":{
 				"result":{
 					"entities":{
-						"source":"{{ n_CYGwQ.outputs.result.entities }}",
-						"ua:type":"mappedArray",
 						"items":{
-							"id":"{{ n_CYGwQ.outputs.result.entities[0].id }}",
-							"name":"{{ n_CYGwQ.outputs.result.entities[0].name }}",
 							"entityType":"{{ n_taOjD.outputs.entityType }}",
-							"entityTypeName":"{{ n_XPfeX.outputs.result.entityTypeName }}"
-						}
+							"entityTypeName":"{{ n_XPfeX.outputs.result.entityTypeName }}",
+							"id":"{{ n_CYGwQ.outputs.result.entities[0].id }}",
+							"name":"{{ n_CYGwQ.outputs.result.entities[0].name }}"
+						},
+						"source":"{{ n_CYGwQ.outputs.result.entities }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -553,18 +553,18 @@
 				"dynamic":false,
 				"layout":{
 					"createList":{
-						"ui:title":"",
+						"items":{
+							"ui:description":"Set the initial values of the list (defaults to empty)",
+							"ui:title":"Initial list items"
+						},
 						"ua:type":{
 							"ui:widget":"hidden"
-						},
-						"items":{
-							"ui:title":"Initial list items",
-							"ui:description":"Set the initial values of the list (defaults to empty)"
 						},
 						"ui:order":[
 							"*",
 							"items"
-						]
+						],
+						"ui:title":""
 					},
 					"ua:title":{
 						"ui:widget":"hidden"
@@ -586,13 +586,13 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
 											"items":{
-												"type":"object",
-												"properties":{}
+												"properties":{},
+												"type":"object"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -608,17 +608,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of String"
-											},
 											"items":{
 												"type":"string"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of String",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -634,17 +634,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Integers"
-											},
 											"items":{
 												"type":"integer"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Integers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -660,17 +660,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Numbers"
-											},
 											"items":{
 												"type":"number"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Numbers",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -686,17 +686,17 @@
 							"then":{
 								"properties":{
 									"createList":{
-										"type":"object",
 										"properties":{
-											"source":{
-												"type":"string",
-												"format":"ua:source",
-												"title":"List of Booleans"
-											},
 											"items":{
 												"type":"boolean"
+											},
+											"source":{
+												"format":"ua:source",
+												"title":"List of Booleans",
+												"type":"string"
 											}
-										}
+										},
+										"type":"object"
 									}
 								}
 							}
@@ -705,12 +705,51 @@
 					"format":"ua:list",
 					"type":"object",
 					"properties":{
-						"ua:title":{
-							"type":"string"
+						"createList":{
+							"properties":{
+								"items":{
+									"additionalProperties":false,
+									"properties":{
+										"entityType":{
+											"title":"entityType",
+											"type":"string"
+										},
+										"id":{
+											"title":"id",
+											"type":"string"
+										},
+										"name":{
+											"title":"name",
+											"type":"string"
+										}
+									},
+									"required":[
+										"id",
+										"name",
+										"entityType"
+									],
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									]
+								},
+								"source":{
+									"format":"ua:source",
+									"title":"List Item Source",
+									"type":"string"
+								},
+								"ua:type":{
+									"default":"mappedArray",
+									"type":"string"
+								}
+							},
+							"type":"object"
 						},
 						"ua:list_type":{
-							"type":"string",
-							"title":"List Type",
+							"default":"OBJECT",
 							"oneOf":[
 								{
 									"const":"OBJECT",
@@ -733,50 +772,11 @@
 									"title":"Boolean"
 								}
 							],
-							"default":"OBJECT"
+							"title":"List Type",
+							"type":"string"
 						},
-						"createList":{
-							"type":"object",
-							"properties":{
-								"ua:type":{
-									"type":"string",
-									"default":"mappedArray"
-								},
-								"source":{
-									"type":"string",
-									"format":"ua:source",
-									"title":"List Item Source"
-								},
-								"items":{
-									"additionalProperties":false,
-									"type":[
-										"object",
-										"string",
-										"number",
-										"boolean",
-										"integer"
-									],
-									"properties":{
-										"id":{
-											"type":"string",
-											"title":"id"
-										},
-										"name":{
-											"type":"string",
-											"title":"name"
-										},
-										"entityType":{
-											"type":"string",
-											"title":"entityType"
-										}
-									},
-									"required":[
-										"id",
-										"name",
-										"entityType"
-									]
-								}
-							}
+						"ua:title":{
+							"type":"string"
 						}
 					}
 				}
@@ -795,31 +795,31 @@
 					"type":"object",
 					"properties":{
 						"items":{
-							"type":"array",
-							"title":"Entities",
 							"disableActions":true,
 							"items":{
-								"type":"object",
 								"properties":{
+									"entityType":{
+										"title":"entityType",
+										"type":"string"
+									},
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
-									},
-									"entityType":{
-										"type":"string",
-										"title":"entityType"
+										"title":"name",
+										"type":"string"
 									}
 								},
 								"required":[
 									"id",
 									"name",
 									"entityType"
-								]
-							}
+								],
+								"type":"object"
+							},
+							"title":"Entities",
+							"type":"array"
 						}
 					}
 				}
@@ -868,17 +868,17 @@
 				"filter":{
 					"filters":[
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"MISSING"
-							}
+							},
+							"property":"deleted"
 						},
 						{
-							"property":"deleted",
 							"filter":{
 								"operator":"EQUAL",
 								"value":"=FALSE()"
-							}
+							},
+							"property":"deleted"
 						}
 					],
 					"operator":"OR"
@@ -890,11 +890,11 @@
 					"limit":20,
 					"offset":0
 				},
-				"type":"ByQuery",
 				"fields":[
 					"id",
 					"name"
-				]
+				],
+				"type":"ByQuery"
 			},
 			"skip":false,
 			"subTitle":"Standard entities by WurkNow",
@@ -916,50 +916,50 @@
 			"index":11,
 			"inputs":{
 				"output":{
-					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"entities"
-					],
 					"properties":{
 						"entities":{
-							"type":"array",
 							"items":{
-								"type":"object",
+								"additionalProperties":false,
 								"properties":{
 									"id":{
-										"type":"string",
-										"title":"id"
+										"title":"id",
+										"type":"string"
 									},
 									"name":{
-										"type":"string",
-										"title":"name"
+										"title":"name",
+										"type":"string"
 									}
 								},
-								"additionalProperties":false,
 								"required":[
 									"id",
 									"name"
-								]
+								],
+								"type":"object"
 							},
-							"title":"entities"
+							"title":"entities",
+							"type":"array"
 						}
-					}
+					},
+					"required":[
+						"entities"
+					],
+					"type":"object"
 				},
 				"input":{
-					"type":"object",
 					"additionalProperties":false,
+					"properties":{
+						"lookupResponse":{
+							"additionalProperties":false,
+							"properties":{},
+							"title":"lookupResponse",
+							"type":"object"
+						}
+					},
 					"required":[
 						"lookupResponse"
 					],
-					"properties":{
-						"lookupResponse":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
-							"title":"lookupResponse"
-						}
-					}
+					"type":"object"
 				},
 				"code":"import com.unifyapps.infra.utils.JsonUtils;\n\ndef response = binding.getVariable('lookupResponse') ?: [objects:[]]\ndef serializedResponse = JsonUtils.toJSON(response)\n\ndef rawObjects = serializedResponse['objects']\ndef entities = rawObjects.collect { obj ->\n    [\n        id  : obj.id,\n        name: obj.containsKey('properties')\n            ? obj.properties.name\n            : obj.name\n    ]\n}\n\nreturn [\"entities\": entities]",
 				"compile_static":false,
@@ -990,13 +990,13 @@
 				"captureAddedItems":false,
 				"insertLocation":"END",
 				"itemsToAdd":{
-					"ua:type":"mappedArray",
-					"source":"{{ n_LNgY5.outputs.result.entities }}",
 					"items":{
+						"entityType":"{{ n_taOjD.outputs.entityType }}",
 						"id":"{{ n_LNgY5.outputs.result.entities[0].id }}",
-						"name":"{{ n_LNgY5.outputs.result.entities[0].name }}",
-						"entityType":"{{ n_taOjD.outputs.entityType }}"
-					}
+						"name":"{{ n_LNgY5.outputs.result.entities[0].name }}"
+					},
+					"source":"{{ n_LNgY5.outputs.result.entities }}",
+					"ua:type":"mappedArray"
 				},
 				"listName":"{{ n_wuODB.outputs.items[0] }}"
 			},
@@ -1021,14 +1021,14 @@
 			"inputs":{
 				"result":{
 					"entities":{
-						"ua:type":"mappedArray",
 						"items":{
-							"id":"{{ n_wuODB.outputs.items[0].id }}",
-							"name":"{{ n_wuODB.outputs.items[0].name }}",
 							"entityType":"{{ n_wuODB.outputs.items[0].entityType }}",
-							"entityTypeName":"{{ n_XPfeX.outputs.result.entityTypeName }}"
+							"entityTypeName":"{{ n_XPfeX.outputs.result.entityTypeName }}",
+							"id":"{{ n_wuODB.outputs.items[0].id }}",
+							"name":"{{ n_wuODB.outputs.items[0].name }}"
 						},
-						"source":"{{ n_wuODB.outputs.items }}"
+						"source":"{{ n_wuODB.outputs.items }}",
+						"ua:type":"mappedArray"
 					}
 				}
 			},
@@ -1055,5 +1055,5 @@
 	"tags":[
 		"text-to-workflow"
 	],
-	"version":32
+	"version":34
 }
