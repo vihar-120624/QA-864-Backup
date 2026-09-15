@@ -6,46 +6,92 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_sNX9T",
-			"id":"next@_sNX9T@_r5sjz",
+			"fromNodeId":"n_aNw6P",
+			"id":"next@n_aNw6P@n_6k9GN",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_r5sjz",
+			"toNodeId":"n_6k9GN",
 			"type":"next"
 		}
 	],
 	"id":"6aa925485f2f1a31eb710f51",
 	"lastModifiedBy":300954,
 	"lastPlatformUpdateBy":300954,
-	"lastPlatformUpdateOn":1789470030702,
+	"lastPlatformUpdateOn":1789470059843,
 	"lcName":"basic",
-	"modifiedTime":1789470030702,
+	"modifiedTime":1789470059843,
 	"name":"basic",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":18,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_sNX9T-1",
-			"id":"_sNX9T",
+			"id":"n_aNw6P",
 			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"ds"
+					],
+					"properties":{
+						"ds":{
+							"type":"string",
+							"title":"Ds"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"sdc"
+					],
+					"properties":{
+						"sdc":{
+							"type":"string",
+							"title":"Sdc"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":18,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_sNX9T-1",
-			"id":"_r5sjz",
+			"id":"n_6k9GN",
 			"index":2,
+			"inputs":{
+				"result":{
+					"ds":"{{ n_aNw6P.outputs.sdc }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":300954,
@@ -62,5 +108,5 @@
 		}
 	},
 	"standard":false,
-	"version":1
+	"version":2
 }
