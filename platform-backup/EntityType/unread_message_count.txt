@@ -177,7 +177,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789394979481,
+	"modifiedTime":1789488088492,
 	"name":"Copilot | Live Chat | Unread Message",
 	"ownerUserId":-1,
 	"packaged":true,
