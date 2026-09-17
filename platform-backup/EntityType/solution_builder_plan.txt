@@ -1,5 +1,5 @@
 {
-	"columnCounts":7,
+	"columnCounts":11,
 	"createdTime":1788754842445,
 	"deleted":false,
 	"description":"",
@@ -50,7 +50,11 @@
 				"plan",
 				"app_brief",
 				"manifest",
-				"workflowBriefs"
+				"workflowBriefs",
+				"solutionId",
+				"status",
+				"solution_builder_spec_id",
+				"specId"
 			]
 		},
 		"schema":{
@@ -110,6 +114,44 @@
 					"searchable":true,
 					"title":"plan",
 					"type":"string"
+				},
+				"solutionId":{
+					"filterable":true,
+					"help":"Id of the solution which this plan is a part of.",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Solution ID",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"solution_builder_spec_id":{
+					"filterable":false,
+					"help":"The spec this plan is linked to",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Solution Builder Spec Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"specId":{
+					"filterable":true,
+					"title":"Spec ID",
+					"type":"string"
+				},
+				"status":{
+					"filterable":false,
+					"help":"Status of plan i.e. planned, in_progress, failed, implemented",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Status",
+					"type":"string",
+					"uniqueKey":false
 				},
 				"workflowBriefs":{
 					"filterable":true,
@@ -186,9 +228,7 @@
 					"uniqueKey":false
 				}
 			},
-			"required":[
-				"caseId"
-			]
+			"required":[]
 		}
 	},
 	"lastModifiedBy":-1,
@@ -207,6 +247,7 @@
 		],
 		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
@@ -216,6 +257,8 @@
 			"caseId",
 			"manifest",
 			"plan",
+			"solutionId",
+			"specId",
 			"workflowBriefs",
 			"workflowBriefs.briefBody",
 			"workflowBriefs.dependsOn",
@@ -279,10 +322,10 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789394978633,
+	"modifiedTime":1789671163740,
 	"name":"Solution builder plans",
 	"ownerUserId":-1,
-	"packaged":true,
+	"packaged":false,
 	"pluralName":"solution_builder_plans",
 	"schema":{
 		"type":"SCHEMA",
@@ -344,6 +387,44 @@
 					"searchable":true,
 					"title":"plan",
 					"type":"string"
+				},
+				"solutionId":{
+					"filterable":true,
+					"help":"Id of the solution which this plan is a part of.",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Solution ID",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"solution_builder_spec_id":{
+					"filterable":false,
+					"help":"The spec this plan is linked to",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Solution Builder Spec Id",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"specId":{
+					"filterable":true,
+					"title":"Spec ID",
+					"type":"string"
+				},
+				"status":{
+					"filterable":false,
+					"help":"Status of plan i.e. planned, in_progress, failed, implemented",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Status",
+					"type":"string",
+					"uniqueKey":false
 				},
 				"workflowBriefs":{
 					"filterable":true,
@@ -420,14 +501,12 @@
 					"uniqueKey":false
 				}
 			},
-			"required":[
-				"caseId"
-			]
+			"required":[]
 		}
 	},
-	"standard":true,
+	"standard":false,
 	"tags":[
 		"solution-builder"
 	],
-	"version":7
+	"version":8
 }
