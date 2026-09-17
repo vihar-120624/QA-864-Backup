@@ -20,8 +20,8 @@
 			"settings":{
 				"notification":{
 					"listChanged":{
-						"items":{},
-						"ui:widget":"MultiSelectWidget"
+						"ui:widget":"MultiSelectWidget",
+						"items":{}
 					},
 					"subscribe":{
 						"ui:order":[
@@ -52,70 +52,52 @@
 			"additionalProperties":false,
 			"type":"object",
 			"properties":{
-				"apiCollectionId":{
+				"name":{
+					"type":"string",
+					"title":"Name",
+					"searchable":true,
+					"sortable":false,
 					"filterable":true,
-					"nameField":false,
 					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Api Collection Id",
-					"type":"string"
-				},
-				"appsUsed":{
-					"filterable":false,
-					"items":{
-						"type":"string"
-					},
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Apps Used",
-					"type":"array"
+					"nameField":true
 				},
 				"description":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"string",
+					"title":"Description",
 					"searchable":true,
 					"sortable":false,
-					"title":"Description",
-					"type":"string"
+					"filterable":false,
+					"primaryKey":false,
+					"nameField":false
 				},
 				"enabled":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"boolean",
+					"title":"Enabled",
 					"searchable":false,
 					"sortable":false,
-					"title":"Enabled",
-					"type":"boolean"
-				},
-				"name":{
-					"filterable":true,
-					"nameField":true,
+					"filterable":false,
 					"primaryKey":false,
-					"searchable":true,
+					"nameField":false
+				},
+				"apiCollectionId":{
+					"type":"string",
+					"title":"Api Collection Id",
+					"searchable":false,
 					"sortable":false,
-					"title":"Name",
-					"type":"string"
+					"filterable":true,
+					"primaryKey":false,
+					"nameField":false
 				},
 				"settings":{
-					"additionalProperties":false,
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"object",
 					"properties":{
 						"notification":{
-							"additionalProperties":false,
-							"filterable":false,
-							"nameField":false,
-							"primaryKey":false,
+							"type":"object",
 							"properties":{
 								"listChanged":{
-									"filterable":false,
-									"format":"multi-select",
+									"type":"array",
 									"items":{
+										"type":"string",
 										"oneOf":[
 											{
 												"const":"prompts",
@@ -129,64 +111,82 @@
 												"const":"tools",
 												"title":"tools"
 											}
-										],
-										"type":"string"
+										]
 									},
-									"nameField":false,
-									"primaryKey":false,
+									"format":"multi-select",
+									"title":"List Changed",
 									"searchable":false,
 									"sortable":false,
-									"title":"List Changed",
-									"type":"array"
+									"filterable":false,
+									"primaryKey":false,
+									"nameField":false
 								},
 								"subscribe":{
-									"filterable":false,
+									"type":"string",
 									"format":"single-select",
-									"nameField":false,
+									"title":"Subscribe",
 									"oneOf":[
 										{
 											"const":"resources",
 											"title":"resources"
 										}
 									],
-									"primaryKey":false,
 									"searchable":false,
 									"sortable":false,
-									"title":"Subscribe",
-									"type":"string"
+									"filterable":false,
+									"primaryKey":false,
+									"nameField":false
 								}
 							},
-							"required":[],
+							"additionalProperties":false,
+							"title":"Notification",
 							"searchable":false,
 							"sortable":false,
-							"title":"Notification",
-							"type":"object"
+							"filterable":false,
+							"primaryKey":false,
+							"nameField":false,
+							"required":[]
 						}
 					},
-					"required":[],
+					"additionalProperties":false,
+					"title":"Settings",
 					"searchable":false,
 					"sortable":false,
-					"title":"Settings",
-					"type":"object"
-				},
-				"standard":{
-					"default":false,
-					"filterable":true,
-					"nameField":false,
+					"filterable":false,
 					"primaryKey":false,
-					"searchable":true,
+					"nameField":false,
+					"required":[]
+				},
+				"appsUsed":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					},
+					"title":"Apps Used",
+					"searchable":false,
 					"sortable":false,
-					"title":"Standard",
-					"type":"boolean"
+					"filterable":false,
+					"primaryKey":false,
+					"nameField":false
 				},
 				"streamUrl":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"string",
+					"title":"Stream Url",
 					"searchable":false,
 					"sortable":false,
-					"title":"Stream Url",
-					"type":"string"
+					"filterable":false,
+					"primaryKey":false,
+					"nameField":false
+				},
+				"standard":{
+					"type":"boolean",
+					"title":"Standard",
+					"default":false,
+					"searchable":true,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"nameField":false
 				}
 			},
 			"required":[
@@ -210,13 +210,14 @@
 		],
 		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
 		"external":false,
 		"filterableFields":[
-			"apiCollectionId",
 			"name",
+			"apiCollectionId",
 			"standard"
 		],
 		"graphType":"LEGACY_MDM",
@@ -240,9 +241,9 @@
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
 		"searchableFields":[
+			"name",
+			"name",
 			"description",
-			"name",
-			"name",
 			"standard"
 		],
 		"sessionBackedStorageEnabled":false,
@@ -277,7 +278,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789394978663,
+	"modifiedTime":1789677889767,
 	"name":"MCP Server",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -289,70 +290,52 @@
 			"additionalProperties":false,
 			"type":"object",
 			"properties":{
-				"apiCollectionId":{
+				"name":{
+					"type":"string",
+					"title":"Name",
+					"searchable":true,
+					"sortable":false,
 					"filterable":true,
-					"nameField":false,
 					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Api Collection Id",
-					"type":"string"
-				},
-				"appsUsed":{
-					"filterable":false,
-					"items":{
-						"type":"string"
-					},
-					"nameField":false,
-					"primaryKey":false,
-					"searchable":false,
-					"sortable":false,
-					"title":"Apps Used",
-					"type":"array"
+					"nameField":true
 				},
 				"description":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"string",
+					"title":"Description",
 					"searchable":true,
 					"sortable":false,
-					"title":"Description",
-					"type":"string"
+					"filterable":false,
+					"primaryKey":false,
+					"nameField":false
 				},
 				"enabled":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"boolean",
+					"title":"Enabled",
 					"searchable":false,
 					"sortable":false,
-					"title":"Enabled",
-					"type":"boolean"
-				},
-				"name":{
-					"filterable":true,
-					"nameField":true,
+					"filterable":false,
 					"primaryKey":false,
-					"searchable":true,
+					"nameField":false
+				},
+				"apiCollectionId":{
+					"type":"string",
+					"title":"Api Collection Id",
+					"searchable":false,
 					"sortable":false,
-					"title":"Name",
-					"type":"string"
+					"filterable":true,
+					"primaryKey":false,
+					"nameField":false
 				},
 				"settings":{
-					"additionalProperties":false,
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"object",
 					"properties":{
 						"notification":{
-							"additionalProperties":false,
-							"filterable":false,
-							"nameField":false,
-							"primaryKey":false,
+							"type":"object",
 							"properties":{
 								"listChanged":{
-									"filterable":false,
-									"format":"multi-select",
+									"type":"array",
 									"items":{
+										"type":"string",
 										"oneOf":[
 											{
 												"const":"prompts",
@@ -366,64 +349,82 @@
 												"const":"tools",
 												"title":"tools"
 											}
-										],
-										"type":"string"
+										]
 									},
-									"nameField":false,
-									"primaryKey":false,
+									"format":"multi-select",
+									"title":"List Changed",
 									"searchable":false,
 									"sortable":false,
-									"title":"List Changed",
-									"type":"array"
+									"filterable":false,
+									"primaryKey":false,
+									"nameField":false
 								},
 								"subscribe":{
-									"filterable":false,
+									"type":"string",
 									"format":"single-select",
-									"nameField":false,
+									"title":"Subscribe",
 									"oneOf":[
 										{
 											"const":"resources",
 											"title":"resources"
 										}
 									],
-									"primaryKey":false,
 									"searchable":false,
 									"sortable":false,
-									"title":"Subscribe",
-									"type":"string"
+									"filterable":false,
+									"primaryKey":false,
+									"nameField":false
 								}
 							},
-							"required":[],
+							"additionalProperties":false,
+							"title":"Notification",
 							"searchable":false,
 							"sortable":false,
-							"title":"Notification",
-							"type":"object"
+							"filterable":false,
+							"primaryKey":false,
+							"nameField":false,
+							"required":[]
 						}
 					},
-					"required":[],
+					"additionalProperties":false,
+					"title":"Settings",
 					"searchable":false,
 					"sortable":false,
-					"title":"Settings",
-					"type":"object"
-				},
-				"standard":{
-					"default":false,
-					"filterable":true,
-					"nameField":false,
+					"filterable":false,
 					"primaryKey":false,
-					"searchable":true,
+					"nameField":false,
+					"required":[]
+				},
+				"appsUsed":{
+					"type":"array",
+					"items":{
+						"type":"string"
+					},
+					"title":"Apps Used",
+					"searchable":false,
 					"sortable":false,
-					"title":"Standard",
-					"type":"boolean"
+					"filterable":false,
+					"primaryKey":false,
+					"nameField":false
 				},
 				"streamUrl":{
-					"filterable":false,
-					"nameField":false,
-					"primaryKey":false,
+					"type":"string",
+					"title":"Stream Url",
 					"searchable":false,
 					"sortable":false,
-					"title":"Stream Url",
-					"type":"string"
+					"filterable":false,
+					"primaryKey":false,
+					"nameField":false
+				},
+				"standard":{
+					"type":"boolean",
+					"title":"Standard",
+					"default":false,
+					"searchable":true,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"nameField":false
 				}
 			},
 			"required":[
@@ -432,5 +433,5 @@
 		}
 	},
 	"standard":true,
-	"version":2
+	"version":3
 }
