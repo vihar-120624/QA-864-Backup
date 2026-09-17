@@ -4,14 +4,14 @@
 	],
 	"createdTime":1789491673081,
 	"deleted":false,
-	"deployedVersion":1,
+	"deployedVersion":2,
 	"deploymentState":{
-		"deployedAt":1789491673121,
+		"deployedAt":1789653721340,
 		"deployedBy":-1,
-		"deployedDefinitionId":"6aa979d9129ce75981b4cd11",
+		"deployedDefinitionId":"6aabf2d9719a891cf66b165c",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":32
+		"version":2,
+		"workflowVersion":34
 	},
 	"edges":[
 		{
@@ -101,7 +101,7 @@
 	"id":"689ada9b96174d6b88cb7d4b",
 	"lastModifiedBy":-1,
 	"lcName":"user listing ",
-	"modifiedTime":1789491673368,
+	"modifiedTime":1789653721643,
 	"name":"User Listing ",
 	"nodes":[
 		{
@@ -709,7 +709,7 @@
 					},
 					"type":"object"
 				},
-				"query":"WITH base AS (\n    SELECT \n        _pr_actorId,\n        _pr_metrics__duration,\n        _pr_screenContext__sessionId,\n        _pr_activityTime,\n        _pr_screenContext__pageId\n    FROM ENTITY_e_user_activity\n    WHERE _pr_applicationId = '{{ n_9ZQys.outputs.applicationId }}'\n      AND _pr_activityTime >= {{ n_wEJ21.outputs.result.startTime }}\n      AND _pr_activityTime <= {{ n_wEJ21.outputs.result.endTime }}\n),\n\nactor_stats AS (\n    SELECT \n        _pr_actorId,\n        SUM(_pr_metrics__duration) / 3600000 AS total_duration,\n        COUNT(DISTINCT _pr_screenContext__sessionId) AS loginCount,\n        MIN(_pr_activityTime) AS First_Activity,\n        MAX(_pr_activityTime) AS Most_Recent_Activity,\n        (SUM(_pr_metrics__duration) / COUNT(DISTINCT _pr_screenContext__sessionId)) / 3600000 \n            AS Avg_Session_Duration\n    FROM base\n    GROUP BY _pr_actorId\n),\n\npage_ranked AS (\n    SELECT \n        _pr_actorId,\n        _pr_screenContext__pageId,\n        COUNT(*) AS page_visits,\n        ROW_NUMBER() OVER (PARTITION BY _pr_actorId ORDER BY COUNT(*) DESC) AS rn\n    FROM base\n    GROUP BY _pr_actorId, _pr_screenContext__pageId\n),\ntop_page AS (\n    SELECT _pr_actorId, _pr_screenContext__pageId AS Most_Logged_In_Page\n    FROM page_ranked\n    WHERE rn = 1\n),\n\nday_ranked AS (\n    SELECT\n        _pr_actorId,\n        DATE(from_unixtime(_pr_activityTime / 1000)) AS activity_day,\n        SUM(_pr_metrics__duration) AS total_day_duration,\n        ROW_NUMBER() OVER (\n            PARTITION BY _pr_actorId\n            ORDER BY SUM(_pr_metrics__duration) DESC\n        ) AS rn\n    FROM base\n    GROUP BY _pr_actorId, DATE(from_unixtime(_pr_activityTime / 1000))\n),\n\ntop_day AS (\n    SELECT \n        _pr_actorId,\n        activity_day AS Peak_Usage_Day\n    FROM day_ranked\n    WHERE rn = 1\n)\n\nSELECT \n    a._pr_actorId,\n    a.total_duration,\n    a.loginCount,\n    a.First_Activity,\n    a.Most_Recent_Activity,\n    a.Avg_Session_Duration,\n    p.Most_Logged_In_Page,\n    d.Peak_Usage_Day\nFROM actor_stats a\nLEFT JOIN top_page p ON a._pr_actorId = p._pr_actorId\nLEFT JOIN top_day d ON a._pr_actorId = d._pr_actorId\nORDER BY a.total_duration DESC\nLIMIT {{ n_9ZQys.outputs.offset }}, {{ n_9ZQys.outputs.limit }};\n",
+				"query":"WITH base AS (\n    SELECT \n        _pr_actorId,\n        _pr_metrics__duration,\n        _pr_screenContext__sessionId,\n        _pr_activityTime,\n        _pr_screenContext__pageId\n    FROM ENTITY_e_user_activity\n    WHERE _pr_applicationId = '{{ n_9ZQys.outputs.applicationId }}'\n      AND _pr_activityTime >= {{ n_wEJ21.outputs.result.startTime }}\n      AND _pr_activityTime <= {{ n_wEJ21.outputs.result.endTime }}\n),\n\nactor_stats AS (\n    SELECT \n        _pr_actorId,\n        SUM(_pr_metrics__duration) / 3600000 AS total_duration,\n        COUNT(DISTINCT _pr_screenContext__sessionId) AS loginCount,\n        MIN(_pr_activityTime) AS First_Activity,\n        MAX(_pr_activityTime) AS Most_Recent_Activity,\n        (SUM(_pr_metrics__duration) / COUNT(DISTINCT _pr_screenContext__sessionId)) / 3600000 \n            AS Avg_Session_Duration\n    FROM base\n    GROUP BY _pr_actorId\n),\n\npage_ranked AS (\n    SELECT \n        _pr_actorId,\n        _pr_screenContext__pageId,\n        COUNT(*) AS page_visits,\n        ROW_NUMBER() OVER (PARTITION BY _pr_actorId ORDER BY COUNT(*) DESC) AS rn\n    FROM base\n    GROUP BY _pr_actorId, _pr_screenContext__pageId\n),\ntop_page AS (\n    SELECT _pr_actorId, _pr_screenContext__pageId AS Most_Logged_In_Page\n    FROM page_ranked\n    WHERE rn = 1\n),\n\nday_ranked AS (\n    SELECT\n        _pr_actorId,\n        DATE(from_unixtime(_pr_activityTime / 1000)) AS activity_day,\n        SUM(_pr_metrics__duration) AS total_day_duration,\n        ROW_NUMBER() OVER (\n            PARTITION BY _pr_actorId\n            ORDER BY SUM(_pr_metrics__duration) DESC\n        ) AS rn\n    FROM base\n    GROUP BY _pr_actorId, DATE(from_unixtime(_pr_activityTime / 1000))\n),\n\ntop_day AS (\n    SELECT \n        _pr_actorId,\n        activity_day AS Peak_Usage_Day\n    FROM day_ranked\n    WHERE rn = 1\n)\n\nSELECT \n    a._pr_actorId,\n    a.total_duration,\n    a.loginCount,\n    a.First_Activity,\n    a.Most_Recent_Activity,\n    a.Avg_Session_Duration,\n    p.Most_Logged_In_Page,\n    d.Peak_Usage_Day\nFROM actor_stats a\nLEFT JOIN top_page p ON a._pr_actorId = p._pr_actorId\nLEFT JOIN top_day d ON a._pr_actorId = d._pr_actorId\nWHERE a._pr_actorId IN (SELECT userId FROM USER WHERE deleted = false)\nORDER BY a.total_duration DESC\nLIMIT {{ n_9ZQys.outputs.offset }}, {{ n_9ZQys.outputs.limit }};\n",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":false,
@@ -949,5 +949,5 @@
 	"tags":[
 		
 	],
-	"version":33
+	"version":35
 }
