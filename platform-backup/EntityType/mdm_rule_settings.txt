@@ -17,6 +17,11 @@
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
+			"topK":{
+				"ui:title":"Top K",
+				"ui:help":"How many nearest neighbours to compare the incoming record against",
+				"ui:hidden":"{{ comparisonMethod !== 'SEMANTIC_COMPARATOR' }}"
+			},
 			"tokenizationSetting":{
 				"ui:title":"Tokenization Settings",
 				"ui:help":"Select how to break down and compare fields",
@@ -25,6 +30,23 @@
 			"comparisonMethod":{
 				"ui:title":"Comparsion Method",
 				"ui:help":"Choose the algorithm for comparing field values"
+			},
+			"semanticDefinition":{
+				"ui:widget":"LookupWidget",
+				"ui:title":"Semantic Definition",
+				"ui:placeholder":"Select Semantic Definition",
+				"ui:help":"The semantic definition (embedding template) to match on",
+				"ui:hidden":"{{ comparisonMethod !== 'SEMANTIC_COMPARATOR' }}",
+				"ui:options":{
+					"ua:payload":{
+						"type":"ByQuery",
+						"lookupType":"ENTITY_TYPE_SEMANTIC_DEFINITION",
+						"options":{
+							"entityType":"{{ contextData.unifiedEntityId }}"
+						}
+					}
+				},
+				"ua:allowCustom":false
 			},
 			"enableTokenization":{
 				"ui:title":"Enable Tokenization",
@@ -75,8 +97,19 @@
 						{
 							"const":"METAPHONE_COMPARATOR",
 							"title":"Metaphone Comparator"
+						},
+						{
+							"const":"SEMANTIC_COMPARATOR",
+							"title":"Semantic Comparator"
 						}
 					]
+				},
+				"semanticDefinition":{
+					"type":"string"
+				},
+				"topK":{
+					"type":"integer",
+					"default":10
 				},
 				"cleansingFunction":{
 					"type":"string",
@@ -109,7 +142,9 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
@@ -168,10 +203,10 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788448625976,
+	"modifiedTime":1789733682774,
 	"name":"Ontology Rule Settings",
 	"ownerUserId":-1,
 	"packaged":true,
 	"standard":true,
-	"version":2
+	"version":4
 }
