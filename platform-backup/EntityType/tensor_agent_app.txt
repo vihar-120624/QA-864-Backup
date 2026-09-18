@@ -1,5 +1,5 @@
 {
-	"columnCounts":11,
+	"columnCounts":12,
 	"createdTime":1787737366977,
 	"deleted":false,
 	"grants":{
@@ -34,7 +34,9 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
@@ -105,7 +107,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788879290849,
+	"modifiedTime":1789731073521,
 	"name":"Tensor Agent App",
 	"ownerUserId":-1,
 	"packaged":false,
@@ -186,6 +188,17 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
+				"modelRouting":{
+					"type":"string",
+					"title":"Model Routing (JSON)",
+					"description":"JSON object as a string: how to REACH `model` — {provider, connectionId, vertexProject, ...} as app_store_entity._to_props writes it. A blob for the same reason as gitLink, so the next routing field needs no entity-type migration. Only meaningful alongside `model`, and only recorded when the two were offered together; a chat that names its own routing ignores it. Without this property the engine's write is rejected as `additionalProperties modelRouting`, which fails the WHOLE record — so defaultBranch and model are lost with it, and a chat that names no routing of its own has none to inherit and dies at its first LLM call.",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
 				"gitLink":{
 					"type":"string",
 					"title":"Git Link (JSON)",
@@ -248,5 +261,5 @@
 	"tags":[
 		"text-to-ui"
 	],
-	"version":2
+	"version":5
 }
