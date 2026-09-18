@@ -1,5 +1,5 @@
 {
-	"columnCounts":18,
+	"columnCounts":21,
 	"createdTime":1789650528325,
 	"deleted":false,
 	"description":"Stores lifecycle and uploaded audio metadata for one meeting recording session.",
@@ -31,9 +31,12 @@
 				"attempts",
 				"lastError",
 				"transcriptId",
-				"clientSessionId",
 				"desktopVersion",
 				"stateChangedAt",
+				"streamWindows",
+				"streamLastWindowSeq",
+				"streamAssembledAt",
+				"streamAssemblyError",
 				"transcriptionClaimToken",
 				"transcriptionClaimExpiresAt",
 				"transcriptionClaimGeneration"
@@ -219,16 +222,6 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"clientSessionId":{
-					"type":"string",
-					"title":"Client Session ID",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":true,
-					"nameField":false
-				},
 				"desktopVersion":{
 					"type":"string",
 					"title":"Desktop Version",
@@ -255,6 +248,46 @@
 					"searchable":false,
 					"sortable":false,
 					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamWindows":{
+					"type":"integer",
+					"title":"Stream Windows",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamLastWindowSeq":{
+					"type":"integer",
+					"title":"Stream Last Window Sequence",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamAssembledAt":{
+					"type":"integer",
+					"title":"Stream Assembled At",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamAssemblyError":{
+					"type":"string",
+					"title":"Stream Assembly Error",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
@@ -286,7 +319,6 @@
 				"startedAt",
 				"pausedMs",
 				"attempts",
-				"clientSessionId",
 				"stateChangedAt"
 			]
 		}
@@ -321,9 +353,9 @@
 			"audio.mimeType",
 			"audio.sizeBytes",
 			"attempts",
-			"clientSessionId",
 			"stateChangedAt",
 			"transcriptionClaimToken",
+			"streamWindows",
 			"transcriptionClaimExpiresAt"
 		],
 		"graphType":"LEGACY_MDM",
@@ -369,7 +401,7 @@
 		"syncFromSourceCustomer":false,
 		"translationsEnabled":false,
 		"uniqueKeyFields":[
-			"clientSessionId"
+			
 		],
 		"urlValidationEnabledFields":[
 			
@@ -381,7 +413,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789650528344,
+	"modifiedTime":1789761534501,
 	"name":"Meeting Recording Session",
 	"ownerUserId":-1,
 	"packaged":false,
@@ -569,16 +601,6 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"clientSessionId":{
-					"type":"string",
-					"title":"Client Session ID",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":true,
-					"nameField":false
-				},
 				"desktopVersion":{
 					"type":"string",
 					"title":"Desktop Version",
@@ -605,6 +627,46 @@
 					"searchable":false,
 					"sortable":false,
 					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamWindows":{
+					"type":"integer",
+					"title":"Stream Windows",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamLastWindowSeq":{
+					"type":"integer",
+					"title":"Stream Last Window Sequence",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamAssembledAt":{
+					"type":"integer",
+					"title":"Stream Assembled At",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"streamAssemblyError":{
+					"type":"string",
+					"title":"Stream Assembly Error",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
@@ -636,7 +698,6 @@
 				"startedAt",
 				"pausedMs",
 				"attempts",
-				"clientSessionId",
 				"stateChangedAt"
 			]
 		}
@@ -645,5 +706,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
