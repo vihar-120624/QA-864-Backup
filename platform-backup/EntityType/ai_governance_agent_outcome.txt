@@ -1,5 +1,5 @@
 {
-	"columnCounts":6,
+	"columnCounts":10,
 	"createdTime":1787743285537,
 	"deleted":false,
 	"grants":{
@@ -17,6 +17,11 @@
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
 		"layout":{
+			"automation":{
+				"ui:order":[
+					"recordedByAutomationId"
+				]
+			},
 			"rules":{
 				"ui:order":[
 					"type",
@@ -29,7 +34,11 @@
 				"verificationType",
 				"rules",
 				"aiJudge",
-				"composite_pk_outcome_agent_id"
+				"composite_pk_outcome_agent_id",
+				"automation",
+				"valuePerOutcomeMethod",
+				"valuePerOutcome",
+				"valuePerOutcomeAutomationId"
 			],
 			"aiJudge":{
 				"ui:order":[
@@ -66,6 +75,30 @@
 					"required":[],
 					"title":"aiJudge",
 					"type":"object"
+				},
+				"automation":{
+					"additionalProperties":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{
+						"recordedByAutomationId":{
+							"filterable":false,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":false,
+							"sortable":false,
+							"title":"recordedByAutomationId",
+							"type":"string",
+							"uniqueKey":false
+						}
+					},
+					"required":[],
+					"searchable":false,
+					"sortable":false,
+					"title":"automation",
+					"type":"object",
+					"uniqueKey":false
 				},
 				"composite_pk_outcome_agent_id":{
 					"filterable":false,
@@ -113,6 +146,47 @@
 					"required":[],
 					"title":"rules",
 					"type":"object"
+				},
+				"valuePerOutcome":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"valuePerOutcome",
+					"type":"number",
+					"uniqueKey":false
+				},
+				"valuePerOutcomeAutomationId":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"valuePerOutcomeAutomationId",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"valuePerOutcomeMethod":{
+					"filterable":false,
+					"format":"single-select",
+					"nameField":false,
+					"oneOf":[
+						{
+							"const":"FIXED",
+							"title":"FIXED"
+						},
+						{
+							"const":"AUTOMATION",
+							"title":"AUTOMATION"
+						}
+					],
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"valuePerOutcomeMethod",
+					"type":"string",
+					"uniqueKey":false
 				},
 				"verificationType":{
 					"format":"single-select",
@@ -168,6 +242,7 @@
 		],
 		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
@@ -239,7 +314,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789394968490,
+	"modifiedTime":1789981975322,
 	"name":"AI Governance | Agent Outcome",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -274,6 +349,30 @@
 					"required":[],
 					"title":"aiJudge",
 					"type":"object"
+				},
+				"automation":{
+					"additionalProperties":false,
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"properties":{
+						"recordedByAutomationId":{
+							"filterable":false,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":false,
+							"sortable":false,
+							"title":"recordedByAutomationId",
+							"type":"string",
+							"uniqueKey":false
+						}
+					},
+					"required":[],
+					"searchable":false,
+					"sortable":false,
+					"title":"automation",
+					"type":"object",
+					"uniqueKey":false
 				},
 				"composite_pk_outcome_agent_id":{
 					"filterable":false,
@@ -322,6 +421,47 @@
 					"title":"rules",
 					"type":"object"
 				},
+				"valuePerOutcome":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"valuePerOutcome",
+					"type":"number",
+					"uniqueKey":false
+				},
+				"valuePerOutcomeAutomationId":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"valuePerOutcomeAutomationId",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"valuePerOutcomeMethod":{
+					"filterable":false,
+					"format":"single-select",
+					"nameField":false,
+					"oneOf":[
+						{
+							"const":"FIXED",
+							"title":"FIXED"
+						},
+						{
+							"const":"AUTOMATION",
+							"title":"AUTOMATION"
+						}
+					],
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"valuePerOutcomeMethod",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"verificationType":{
 					"format":"single-select",
 					"oneOf":[
@@ -348,9 +488,9 @@
 			]
 		}
 	},
-	"standard":true,
+	"standard":false,
 	"tags":[
 		
 	],
-	"version":11
+	"version":12
 }

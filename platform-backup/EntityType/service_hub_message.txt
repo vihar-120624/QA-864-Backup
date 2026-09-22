@@ -691,6 +691,54 @@
 						"sqlMetadata"
 					]
 				},
+				"isStaticMessage":{
+					"ui:order":[
+						"rephrasedUserMessage",
+						"sqlQuery",
+						"platformUserId",
+						"temporaryMessage",
+						"internalMessageType",
+						"streamingInProgress",
+						"ttsDetails",
+						"parentMessageId",
+						"platformName",
+						"hasMoreData",
+						"triggeredFromApplicationId",
+						"IsDataRAGExecuted",
+						"messageSubType",
+						"inReplyToMessageId",
+						"isRead",
+						"parallelToolCallEnabled",
+						"relativeCallTime",
+						"messageDeliveryStatus",
+						"firstResponseMessageId",
+						"firstResponseMessageTime",
+						"responseTime",
+						"usedMetadata",
+						"streamingCompletionTime",
+						"SQLServerAddditionalMetadata",
+						"deepResearchEnabled",
+						"thoughtGroupId",
+						"sql_output",
+						"followups",
+						"summary",
+						"requestApprovalStatus",
+						"voiceAgentTrace",
+						"reference",
+						"queryCost",
+						"clarifications",
+						"guardrailHit",
+						"iconName",
+						"sqlMetadata",
+						"sqlMetadata2",
+						"thoughtType",
+						"displayMode",
+						"messageContext",
+						"stopResponseGeneration",
+						"clientToolCalls",
+						"llmUsageDetails"
+					]
+				},
 				"llmUsageDetails":{
 					"cacheReadCost":{
 						"ui:order":[
@@ -1869,7 +1917,8 @@
 					"messageContext",
 					"stopResponseGeneration",
 					"clientToolCalls",
-					"llmUsageDetails"
+					"llmUsageDetails",
+					"isStaticMessage"
 				],
 				"usedMetadata":{
 					"items":{
@@ -2523,24 +2572,18 @@
 							"filterable":false,
 							"nameField":false,
 							"primaryKey":false,
-							"searchable":false,
-							"sortable":false,
 							"properties":{
 								"add":{
 									"additionalProperties":false,
 									"filterable":false,
 									"nameField":false,
 									"primaryKey":false,
-									"searchable":false,
-									"sortable":false,
 									"properties":{
 										"principals":{
 											"additionalProperties":false,
 											"filterable":false,
 											"nameField":false,
 											"primaryKey":false,
-											"searchable":false,
-											"sortable":false,
 											"properties":{
 												"u":{
 													"foreignKey":{
@@ -2565,31 +2608,35 @@
 													"type":"array"
 												}
 											},
+											"searchable":false,
+											"sortable":false,
 											"title":"Principals",
 											"type":"object"
 										},
 										"roleIds":{
 											"filterable":false,
+											"items":{
+												"type":"string"
+											},
 											"nameField":false,
 											"primaryKey":false,
 											"searchable":false,
 											"sortable":false,
-											"items":{
-												"type":"string"
-											},
 											"title":"Role Ids",
 											"type":"array"
 										}
 									},
+									"searchable":false,
+									"sortable":false,
 									"title":"Add",
 									"type":"object"
 								},
 								"byUserId":{
+									"filterable":true,
 									"foreignKey":{
 										"reference":"USER"
 									},
 									"foreignKeyConstraintEnforced":false,
-									"filterable":true,
 									"nameField":false,
 									"primaryKey":false,
 									"searchable":false,
@@ -2602,16 +2649,12 @@
 									"filterable":false,
 									"nameField":false,
 									"primaryKey":false,
-									"searchable":false,
-									"sortable":false,
 									"properties":{
 										"principals":{
 											"additionalProperties":false,
 											"filterable":false,
 											"nameField":false,
 											"primaryKey":false,
-											"searchable":false,
-											"sortable":false,
 											"properties":{
 												"u":{
 													"foreignKey":{
@@ -2636,46 +2679,42 @@
 													"type":"array"
 												}
 											},
+											"searchable":false,
+											"sortable":false,
 											"title":"Principals",
 											"type":"object"
 										},
 										"roleIds":{
 											"filterable":false,
+											"items":{
+												"type":"string"
+											},
 											"nameField":false,
 											"primaryKey":false,
 											"searchable":false,
 											"sortable":false,
-											"items":{
-												"type":"string"
-											},
 											"title":"Role Ids",
 											"type":"array"
 										}
 									},
+									"searchable":false,
+									"sortable":false,
 									"title":"Remove",
 									"type":"object"
 								},
 								"update":{
 									"filterable":false,
-									"nameField":false,
-									"primaryKey":false,
-									"searchable":false,
-									"sortable":false,
 									"items":{
 										"additionalProperties":false,
 										"filterable":false,
 										"nameField":false,
 										"primaryKey":false,
-										"searchable":false,
-										"sortable":false,
 										"properties":{
 											"principals":{
 												"additionalProperties":false,
 												"filterable":false,
 												"nameField":false,
 												"primaryKey":false,
-												"searchable":false,
-												"sortable":false,
 												"properties":{
 													"u":{
 														"foreignKey":{
@@ -2700,29 +2739,39 @@
 														"type":"array"
 													}
 												},
+												"searchable":false,
+												"sortable":false,
 												"title":"Principals",
 												"type":"object"
 											},
 											"roleIds":{
 												"filterable":false,
+												"items":{
+													"type":"string"
+												},
 												"nameField":false,
 												"primaryKey":false,
 												"searchable":false,
 												"sortable":false,
-												"items":{
-													"type":"string"
-												},
 												"title":"Role Ids",
 												"type":"array"
 											}
 										},
+										"searchable":false,
+										"sortable":false,
 										"title":"Update",
 										"type":"object"
 									},
+									"nameField":false,
+									"primaryKey":false,
+									"searchable":false,
+									"sortable":false,
 									"title":"Update",
 									"type":"array"
 								}
 							},
+							"searchable":false,
+							"sortable":false,
 							"title":"Activity",
 							"type":"object"
 						},
@@ -2947,6 +2996,17 @@
 							"sortable":false,
 							"title":"Is Read",
 							"type":"boolean"
+						},
+						"isStaticMessage":{
+							"default":false,
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":false,
+							"title":"isStaticMessage",
+							"type":"boolean",
+							"uniqueKey":false
 						},
 						"llmUsageDetails":{
 							"additionalProperties":false,
@@ -4560,7 +4620,7 @@
 				"status":"SUCCESS"
 			},
 			{
-				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: 1 }, name: \"caseId_1\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: 1 }, name: \\\"caseId_1\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1789495769, \"i\": 12}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1789495769, \"i\": 12}}}",
+				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: 1 }, name: \"caseId_1\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: 1 }, name: \\\"caseId_1\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1789971970, \"i\": 31}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1789971970, \"i\": 31}}}",
 				"indexFieldMetadataList":[
 					{
 						"field":"id",
@@ -4585,7 +4645,7 @@
 				"status":"SUCCESS"
 			},
 			{
-				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_1\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_1\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1789495769, \"i\": 12}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1789495769, \"i\": 12}}}",
+				"failureReason":"Command failed with error 197 (InvalidIndexSpecificationOption): 'The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \"index_1\", background: true, v: 2 }' on server mongo-rs-global-0.mongo-rs-global.unifyapps-infra.svc.cluster.local:27017. The full response is {\"ok\": 0.0, \"errmsg\": \"The field 'background' is not valid for an _id index specification. Specification: { key: { _id: -1 }, name: \\\"index_1\\\", background: true, v: 2 }\", \"code\": 197, \"codeName\": \"InvalidIndexSpecificationOption\", \"$clusterTime\": {\"clusterTime\": {\"$timestamp\": {\"t\": 1789971970, \"i\": 31}}, \"signature\": {\"hash\": {\"$binary\": {\"base64\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAA=\", \"subType\": \"00\"}}, \"keyId\": 0}}, \"operationTime\": {\"$timestamp\": {\"t\": 1789971970, \"i\": 31}}}",
 				"indexFieldMetadataList":[
 					{
 						"field":"id",
@@ -4602,6 +4662,7 @@
 		],
 		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			"additional.rephrasedUserMessage",
 			"content.text",
@@ -4672,6 +4733,7 @@
 			"additional.clarifications.multiple",
 			"additional.clarifications.options",
 			"additional.applicationId",
+			"additional.isStaticMessage",
 			"additional.stopResponseGeneration",
 			"additional.thoughtGroupId",
 			"bcc",
@@ -4833,6 +4895,7 @@
 			"additional.clarifications.question",
 			"additional.clarifications.multiple",
 			"additional.clarifications.options",
+			"additional.isStaticMessage",
 			"additional.stopResponseGeneration",
 			"additional.thoughtGroupId",
 			"content.coPilotBlocks",
@@ -4882,7 +4945,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789495769199,
+	"modifiedTime":1789971970276,
 	"name":"ServiceHub_Message",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -4941,24 +5004,18 @@
 							"filterable":false,
 							"nameField":false,
 							"primaryKey":false,
-							"searchable":false,
-							"sortable":false,
 							"properties":{
 								"add":{
 									"additionalProperties":false,
 									"filterable":false,
 									"nameField":false,
 									"primaryKey":false,
-									"searchable":false,
-									"sortable":false,
 									"properties":{
 										"principals":{
 											"additionalProperties":false,
 											"filterable":false,
 											"nameField":false,
 											"primaryKey":false,
-											"searchable":false,
-											"sortable":false,
 											"properties":{
 												"u":{
 													"foreignKey":{
@@ -4983,31 +5040,35 @@
 													"type":"array"
 												}
 											},
+											"searchable":false,
+											"sortable":false,
 											"title":"Principals",
 											"type":"object"
 										},
 										"roleIds":{
 											"filterable":false,
+											"items":{
+												"type":"string"
+											},
 											"nameField":false,
 											"primaryKey":false,
 											"searchable":false,
 											"sortable":false,
-											"items":{
-												"type":"string"
-											},
 											"title":"Role Ids",
 											"type":"array"
 										}
 									},
+									"searchable":false,
+									"sortable":false,
 									"title":"Add",
 									"type":"object"
 								},
 								"byUserId":{
+									"filterable":true,
 									"foreignKey":{
 										"reference":"USER"
 									},
 									"foreignKeyConstraintEnforced":false,
-									"filterable":true,
 									"nameField":false,
 									"primaryKey":false,
 									"searchable":false,
@@ -5020,16 +5081,12 @@
 									"filterable":false,
 									"nameField":false,
 									"primaryKey":false,
-									"searchable":false,
-									"sortable":false,
 									"properties":{
 										"principals":{
 											"additionalProperties":false,
 											"filterable":false,
 											"nameField":false,
 											"primaryKey":false,
-											"searchable":false,
-											"sortable":false,
 											"properties":{
 												"u":{
 													"foreignKey":{
@@ -5054,46 +5111,42 @@
 													"type":"array"
 												}
 											},
+											"searchable":false,
+											"sortable":false,
 											"title":"Principals",
 											"type":"object"
 										},
 										"roleIds":{
 											"filterable":false,
+											"items":{
+												"type":"string"
+											},
 											"nameField":false,
 											"primaryKey":false,
 											"searchable":false,
 											"sortable":false,
-											"items":{
-												"type":"string"
-											},
 											"title":"Role Ids",
 											"type":"array"
 										}
 									},
+									"searchable":false,
+									"sortable":false,
 									"title":"Remove",
 									"type":"object"
 								},
 								"update":{
 									"filterable":false,
-									"nameField":false,
-									"primaryKey":false,
-									"searchable":false,
-									"sortable":false,
 									"items":{
 										"additionalProperties":false,
 										"filterable":false,
 										"nameField":false,
 										"primaryKey":false,
-										"searchable":false,
-										"sortable":false,
 										"properties":{
 											"principals":{
 												"additionalProperties":false,
 												"filterable":false,
 												"nameField":false,
 												"primaryKey":false,
-												"searchable":false,
-												"sortable":false,
 												"properties":{
 													"u":{
 														"foreignKey":{
@@ -5118,29 +5171,39 @@
 														"type":"array"
 													}
 												},
+												"searchable":false,
+												"sortable":false,
 												"title":"Principals",
 												"type":"object"
 											},
 											"roleIds":{
 												"filterable":false,
+												"items":{
+													"type":"string"
+												},
 												"nameField":false,
 												"primaryKey":false,
 												"searchable":false,
 												"sortable":false,
-												"items":{
-													"type":"string"
-												},
 												"title":"Role Ids",
 												"type":"array"
 											}
 										},
+										"searchable":false,
+										"sortable":false,
 										"title":"Update",
 										"type":"object"
 									},
+									"nameField":false,
+									"primaryKey":false,
+									"searchable":false,
+									"sortable":false,
 									"title":"Update",
 									"type":"array"
 								}
 							},
+							"searchable":false,
+							"sortable":false,
 							"title":"Activity",
 							"type":"object"
 						},
@@ -5365,6 +5428,17 @@
 							"sortable":false,
 							"title":"Is Read",
 							"type":"boolean"
+						},
+						"isStaticMessage":{
+							"default":false,
+							"filterable":true,
+							"nameField":false,
+							"primaryKey":false,
+							"searchable":true,
+							"sortable":false,
+							"title":"isStaticMessage",
+							"type":"boolean",
+							"uniqueKey":false
 						},
 						"llmUsageDetails":{
 							"additionalProperties":false,
@@ -6825,6 +6899,6 @@
 			]
 		}
 	},
-	"standard":true,
-	"version":273
+	"standard":false,
+	"version":274
 }

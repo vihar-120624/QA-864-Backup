@@ -1,5 +1,5 @@
 {
-	"columnCounts":8,
+	"columnCounts":9,
 	"createdTime":1788164138973,
 	"deleted":false,
 	"grants":{
@@ -25,8 +25,22 @@
 				"events",
 				"locale",
 				"timezone",
-				"instructions"
-			]
+				"instructions",
+				"connections"
+			],
+			"connections":{
+				"items":{
+					"ui:order":[
+						"appName",
+						"connectionId"
+					],
+					"connectionId":{
+						"ui:order":[
+							"appName"
+						]
+					}
+				}
+			}
 		},
 		"schema":{
 			"additionalProperties":false,
@@ -266,6 +280,24 @@
 				"instructions":{
 					"type":"string",
 					"title":"House instructions"
+				},
+				"connections":{
+					"type":"array",
+					"title":"Connections",
+					"items":{
+						"type":"object",
+						"additionalProperties":false,
+						"properties":{
+							"appName":{
+								"type":"string",
+								"title":"App Name"
+							},
+							"connectionId":{
+								"type":"string",
+								"title":"Connection Id"
+							}
+						}
+					}
 				}
 			}
 		}
@@ -284,7 +316,9 @@
 		"dateFields":[
 			
 		],
+		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
@@ -336,7 +370,10 @@
 			"events",
 			"locale",
 			"timezone",
-			"instructions"
+			"instructions",
+			"connections",
+			"connections.appName",
+			"connections.connectionId"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":false,
@@ -393,7 +430,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1788164352699,
+	"modifiedTime":1789954802908,
 	"name":"e_routine_notification_settings",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -639,10 +676,28 @@
 				"instructions":{
 					"type":"string",
 					"title":"House instructions"
+				},
+				"connections":{
+					"type":"array",
+					"title":"Connections",
+					"items":{
+						"type":"object",
+						"additionalProperties":false,
+						"properties":{
+							"appName":{
+								"type":"string",
+								"title":"App Name"
+							},
+							"connectionId":{
+								"type":"string",
+								"title":"Connection Id"
+							}
+						}
+					}
 				}
 			}
 		}
 	},
 	"standard":true,
-	"version":1
+	"version":3
 }

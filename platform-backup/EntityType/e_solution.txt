@@ -1,5 +1,5 @@
 {
-	"columnCounts":13,
+	"columnCounts":14,
 	"createdTime":1788754823994,
 	"deleted":false,
 	"id":"e_solution",
@@ -12,8 +12,16 @@
 					"ui:order":[
 						"id",
 						"type",
-						"state"
-					]
+						"state",
+						"version"
+					],
+					"version":{
+						"ui:order":[
+							"id",
+							"type",
+							"state"
+						]
+					}
 				}
 			},
 			"ui:order":[
@@ -29,7 +37,8 @@
 				"connectionId",
 				"provider",
 				"vertexProject",
-				"memory"
+				"memory",
+				"globalPlan"
 			]
 		},
 		"schema":{
@@ -76,6 +85,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"globalPlan":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Global Plan",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"linkedEntities":{
 					"filterable":true,
 					"items":{
@@ -109,6 +128,16 @@
 								"sortable":false,
 								"title":"Type",
 								"type":"string",
+								"uniqueKey":false
+							},
+							"version":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":true,
+								"sortable":true,
+								"title":"Version",
+								"type":"integer",
 								"uniqueKey":false
 							}
 						},
@@ -237,7 +266,8 @@
 		],
 		"external":false,
 		"filterableFields":[
-			"linkedEntities"
+			"linkedEntities",
+			"linkedEntities.version"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":true,
@@ -260,6 +290,7 @@
 		"scdType2Enabled":false,
 		"schemaValidationEnabled":true,
 		"searchableFields":[
+			"linkedEntities.version",
 			"name"
 		],
 		"sessionBackedStorageEnabled":false,
@@ -292,9 +323,9 @@
 		"vectorFields":[
 			
 		],
-		"versioningEnabled":false
+		"versioningEnabled":true
 	},
-	"modifiedTime":1789744741098,
+	"modifiedTime":1789928430963,
 	"name":"Solution",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -346,6 +377,16 @@
 					"type":"string",
 					"uniqueKey":false
 				},
+				"globalPlan":{
+					"filterable":false,
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"Global Plan",
+					"type":"string",
+					"uniqueKey":false
+				},
 				"linkedEntities":{
 					"filterable":true,
 					"items":{
@@ -379,6 +420,16 @@
 								"sortable":false,
 								"title":"Type",
 								"type":"string",
+								"uniqueKey":false
+							},
+							"version":{
+								"filterable":true,
+								"nameField":false,
+								"primaryKey":false,
+								"searchable":true,
+								"sortable":true,
+								"title":"Version",
+								"type":"integer",
 								"uniqueKey":false
 							}
 						},
@@ -485,9 +536,9 @@
 			]
 		}
 	},
-	"standard":false,
+	"standard":true,
 	"tags":[
 		"solution-builder"
 	],
-	"version":17
+	"version":21
 }

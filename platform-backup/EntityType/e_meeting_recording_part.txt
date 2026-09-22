@@ -1,8 +1,8 @@
 {
-	"columnCounts":29,
-	"createdTime":1789650528325,
+	"columnCounts":22,
+	"createdTime":1789872088791,
 	"deleted":false,
-	"description":"Stores lifecycle and uploaded audio metadata for one meeting recording session.",
+	"description":"Stores one bounded internal media bucket for a meeting recording.",
 	"grants":{
 		"configs":[
 			{
@@ -13,7 +13,7 @@
 			}
 		]
 	},
-	"id":"e_meeting_recording_session",
+	"id":"e_meeting_recording_part",
 	"input":{
 		"type":"SCHEMA_AND_LAYOUT",
 		"dynamic":false,
@@ -21,33 +21,26 @@
 			"ui:order":[
 				"meetingId",
 				"ownerUserId",
+				"bucketIndex",
+				"captureGeneration",
 				"state",
+				"mediaStartMs",
+				"mediaEndMs",
+				"bucketBoundaryMs",
 				"startedAt",
-				"stoppedAt",
-				"pausedMs",
-				"durationMs",
+				"sealedAt",
+				"windowCount",
+				"audioBytes",
+				"pendingReservations",
 				"audio",
+				"transcriptId",
 				"engine",
 				"attempts",
 				"lastError",
-				"transcriptId",
-				"desktopVersion",
 				"stateChangedAt",
-				"streamWindows",
-				"streamLastWindowSeq",
-				"streamAssembledAt",
-				"streamAssemblyError",
 				"transcriptionClaimToken",
 				"transcriptionClaimExpiresAt",
-				"transcriptionClaimGeneration",
-				"captureGeneration",
-				"mediaOffsetMs",
-				"captureMediaStartMs",
-				"nextWindowSeq",
-				"inFlightWindowReservations",
-				"lastWindowReservationAt",
-				"sealedCaptureGeneration",
-				"captureSealPending"
+				"transcriptionClaimGeneration"
 			]
 		},
 		"schema":{
@@ -74,22 +67,48 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
+				"bucketIndex":{
+					"type":"integer",
+					"title":"Bucket Index",
+					"searchable":false,
+					"sortable":true,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"captureGeneration":{
+					"type":"integer",
+					"title":"Capture Generation",
+					"searchable":false,
+					"sortable":true,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
 				"state":{
 					"type":"string",
-					"format":"single-select",
 					"title":"State",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false,
+					"format":"single-select",
 					"oneOf":[
 						{
-							"const":"RECORDING",
-							"title":"RECORDING"
+							"const":"OPEN",
+							"title":"OPEN"
 						},
 						{
-							"const":"PAUSED",
-							"title":"PAUSED"
+							"const":"CLOSING",
+							"title":"CLOSING"
 						},
 						{
-							"const":"STOPPED",
-							"title":"STOPPED"
+							"const":"SEALED",
+							"title":"SEALED"
 						},
 						{
 							"const":"UPLOADED",
@@ -107,9 +126,23 @@
 							"const":"FAILED",
 							"title":"FAILED"
 						}
-					],
+					]
+				},
+				"mediaStartMs":{
+					"type":"integer",
+					"title":"Media Start Milliseconds",
 					"searchable":false,
-					"sortable":false,
+					"sortable":true,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"mediaEndMs":{
+					"type":"integer",
+					"title":"Media End Milliseconds",
+					"searchable":false,
+					"sortable":true,
 					"filterable":true,
 					"primaryKey":false,
 					"uniqueKey":false,
@@ -125,9 +158,19 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"stoppedAt":{
+				"sealedAt":{
 					"type":"integer",
-					"title":"Stopped At",
+					"title":"Sealed At",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"windowCount":{
+					"type":"integer",
+					"title":"Acknowledged Window Count",
 					"searchable":false,
 					"sortable":false,
 					"filterable":false,
@@ -135,9 +178,9 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"pausedMs":{
+				"audioBytes":{
 					"type":"integer",
-					"title":"Paused Milliseconds",
+					"title":"Acknowledged Audio Bytes",
 					"searchable":false,
 					"sortable":false,
 					"filterable":false,
@@ -145,12 +188,12 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"durationMs":{
+				"pendingReservations":{
 					"type":"integer",
-					"title":"Duration Milliseconds",
+					"title":"Pending Window Reservations",
 					"searchable":false,
 					"sortable":false,
-					"filterable":false,
+					"filterable":true,
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
@@ -158,6 +201,12 @@
 				"audio":{
 					"type":"object",
 					"title":"Audio",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false,
 					"additionalProperties":false,
 					"properties":{
 						"fileKey":{
@@ -182,7 +231,11 @@
 						"mimeType",
 						"sizeBytes",
 						"sha256"
-					],
+					]
+				},
+				"transcriptId":{
+					"type":"string",
+					"title":"Transcript ID",
 					"searchable":false,
 					"sortable":false,
 					"filterable":false,
@@ -220,26 +273,6 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"transcriptId":{
-					"type":"string",
-					"title":"Transcript ID",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"desktopVersion":{
-					"type":"string",
-					"title":"Desktop Version",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
 				"stateChangedAt":{
 					"type":"integer",
 					"title":"State Changed At",
@@ -256,46 +289,6 @@
 					"searchable":false,
 					"sortable":false,
 					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamWindows":{
-					"type":"integer",
-					"title":"Stream Windows",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamLastWindowSeq":{
-					"type":"integer",
-					"title":"Stream Last Window Sequence",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamAssembledAt":{
-					"type":"integer",
-					"title":"Stream Assembled At",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamAssemblyError":{
-					"type":"string",
-					"title":"Stream Assembly Error",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
@@ -320,81 +313,11 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"captureGeneration":{
+				"bucketBoundaryMs":{
 					"type":"integer",
-					"title":"Capture Generation",
+					"title":"Bucket Boundary Milliseconds",
 					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"mediaOffsetMs":{
-					"type":"integer",
-					"title":"Media Offset Milliseconds",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"captureMediaStartMs":{
-					"type":"integer",
-					"title":"Capture Media Start Milliseconds",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"nextWindowSeq":{
-					"type":"integer",
-					"title":"Next Window Sequence",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"inFlightWindowReservations":{
-					"type":"integer",
-					"title":"In-Flight Window Reservations",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"lastWindowReservationAt":{
-					"type":"integer",
-					"title":"Last Window Reservation At",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"sealedCaptureGeneration":{
-					"type":"integer",
-					"title":"Sealed Capture Generation",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"captureSealPending":{
-					"type":"boolean",
-					"title":"Capture Seal Pending",
-					"searchable":false,
-					"sortable":false,
+					"sortable":true,
 					"filterable":true,
 					"primaryKey":false,
 					"uniqueKey":false,
@@ -402,19 +325,26 @@
 				}
 			},
 			"required":[
+				"meetingId",
 				"ownerUserId",
+				"bucketIndex",
+				"captureGeneration",
 				"state",
+				"mediaStartMs",
+				"mediaEndMs",
 				"startedAt",
-				"pausedMs",
+				"windowCount",
+				"audioBytes",
+				"pendingReservations",
 				"attempts",
 				"stateChangedAt"
 			]
 		}
 	},
 	"lastModifiedBy":-1,
-	"lcName":"meeting recording session",
+	"lcName":"meeting recording part",
 	"metadata":{
-		"auditable":true,
+		"auditable":false,
 		"autoGeneratedFields":[
 			
 		],
@@ -435,7 +365,13 @@
 		"filterableFields":[
 			"meetingId",
 			"ownerUserId",
+			"bucketIndex",
+			"captureGeneration",
 			"state",
+			"mediaStartMs",
+			"mediaEndMs",
+			"sealedAt",
+			"pendingReservations",
 			"audio.sha256",
 			"audio.fileKey",
 			"audio.mimeType",
@@ -443,13 +379,8 @@
 			"attempts",
 			"stateChangedAt",
 			"transcriptionClaimToken",
-			"streamWindows",
 			"transcriptionClaimExpiresAt",
-			"captureGeneration",
-			"inFlightWindowReservations",
-			"lastWindowReservationAt",
-			"sealedCaptureGeneration",
-			"captureSealPending"
+			"bucketBoundaryMs"
 		],
 		"graphType":"LEGACY_MDM",
 		"hasTimeSeriesRecords":false,
@@ -506,11 +437,11 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789872116196,
-	"name":"Meeting Recording Session",
+	"modifiedTime":1789872088838,
+	"name":"Meeting Recording Part",
 	"ownerUserId":-1,
 	"packaged":false,
-	"pluralName":"Meeting Recording Sessions",
+	"pluralName":"Meeting Recording Parts",
 	"schema":{
 		"type":"SCHEMA",
 		"dynamic":false,
@@ -538,22 +469,48 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
+				"bucketIndex":{
+					"type":"integer",
+					"title":"Bucket Index",
+					"searchable":false,
+					"sortable":true,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"captureGeneration":{
+					"type":"integer",
+					"title":"Capture Generation",
+					"searchable":false,
+					"sortable":true,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
 				"state":{
 					"type":"string",
-					"format":"single-select",
 					"title":"State",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false,
+					"format":"single-select",
 					"oneOf":[
 						{
-							"const":"RECORDING",
-							"title":"RECORDING"
+							"const":"OPEN",
+							"title":"OPEN"
 						},
 						{
-							"const":"PAUSED",
-							"title":"PAUSED"
+							"const":"CLOSING",
+							"title":"CLOSING"
 						},
 						{
-							"const":"STOPPED",
-							"title":"STOPPED"
+							"const":"SEALED",
+							"title":"SEALED"
 						},
 						{
 							"const":"UPLOADED",
@@ -571,9 +528,23 @@
 							"const":"FAILED",
 							"title":"FAILED"
 						}
-					],
+					]
+				},
+				"mediaStartMs":{
+					"type":"integer",
+					"title":"Media Start Milliseconds",
 					"searchable":false,
-					"sortable":false,
+					"sortable":true,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"mediaEndMs":{
+					"type":"integer",
+					"title":"Media End Milliseconds",
+					"searchable":false,
+					"sortable":true,
 					"filterable":true,
 					"primaryKey":false,
 					"uniqueKey":false,
@@ -589,9 +560,19 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"stoppedAt":{
+				"sealedAt":{
 					"type":"integer",
-					"title":"Stopped At",
+					"title":"Sealed At",
+					"searchable":false,
+					"sortable":false,
+					"filterable":true,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false
+				},
+				"windowCount":{
+					"type":"integer",
+					"title":"Acknowledged Window Count",
 					"searchable":false,
 					"sortable":false,
 					"filterable":false,
@@ -599,9 +580,9 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"pausedMs":{
+				"audioBytes":{
 					"type":"integer",
-					"title":"Paused Milliseconds",
+					"title":"Acknowledged Audio Bytes",
 					"searchable":false,
 					"sortable":false,
 					"filterable":false,
@@ -609,12 +590,12 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"durationMs":{
+				"pendingReservations":{
 					"type":"integer",
-					"title":"Duration Milliseconds",
+					"title":"Pending Window Reservations",
 					"searchable":false,
 					"sortable":false,
-					"filterable":false,
+					"filterable":true,
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
@@ -622,6 +603,12 @@
 				"audio":{
 					"type":"object",
 					"title":"Audio",
+					"searchable":false,
+					"sortable":false,
+					"filterable":false,
+					"primaryKey":false,
+					"uniqueKey":false,
+					"nameField":false,
 					"additionalProperties":false,
 					"properties":{
 						"fileKey":{
@@ -646,7 +633,11 @@
 						"mimeType",
 						"sizeBytes",
 						"sha256"
-					],
+					]
+				},
+				"transcriptId":{
+					"type":"string",
+					"title":"Transcript ID",
 					"searchable":false,
 					"sortable":false,
 					"filterable":false,
@@ -684,26 +675,6 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"transcriptId":{
-					"type":"string",
-					"title":"Transcript ID",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"desktopVersion":{
-					"type":"string",
-					"title":"Desktop Version",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
 				"stateChangedAt":{
 					"type":"integer",
 					"title":"State Changed At",
@@ -720,46 +691,6 @@
 					"searchable":false,
 					"sortable":false,
 					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamWindows":{
-					"type":"integer",
-					"title":"Stream Windows",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamLastWindowSeq":{
-					"type":"integer",
-					"title":"Stream Last Window Sequence",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamAssembledAt":{
-					"type":"integer",
-					"title":"Stream Assembled At",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"streamAssemblyError":{
-					"type":"string",
-					"title":"Stream Assembly Error",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
 					"primaryKey":false,
 					"uniqueKey":false,
 					"nameField":false
@@ -784,81 +715,11 @@
 					"uniqueKey":false,
 					"nameField":false
 				},
-				"captureGeneration":{
+				"bucketBoundaryMs":{
 					"type":"integer",
-					"title":"Capture Generation",
+					"title":"Bucket Boundary Milliseconds",
 					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"mediaOffsetMs":{
-					"type":"integer",
-					"title":"Media Offset Milliseconds",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"captureMediaStartMs":{
-					"type":"integer",
-					"title":"Capture Media Start Milliseconds",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"nextWindowSeq":{
-					"type":"integer",
-					"title":"Next Window Sequence",
-					"searchable":false,
-					"sortable":false,
-					"filterable":false,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"inFlightWindowReservations":{
-					"type":"integer",
-					"title":"In-Flight Window Reservations",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"lastWindowReservationAt":{
-					"type":"integer",
-					"title":"Last Window Reservation At",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"sealedCaptureGeneration":{
-					"type":"integer",
-					"title":"Sealed Capture Generation",
-					"searchable":false,
-					"sortable":false,
-					"filterable":true,
-					"primaryKey":false,
-					"uniqueKey":false,
-					"nameField":false
-				},
-				"captureSealPending":{
-					"type":"boolean",
-					"title":"Capture Seal Pending",
-					"searchable":false,
-					"sortable":false,
+					"sortable":true,
 					"filterable":true,
 					"primaryKey":false,
 					"uniqueKey":false,
@@ -866,10 +727,17 @@
 				}
 			},
 			"required":[
+				"meetingId",
 				"ownerUserId",
+				"bucketIndex",
+				"captureGeneration",
 				"state",
+				"mediaStartMs",
+				"mediaEndMs",
 				"startedAt",
-				"pausedMs",
+				"windowCount",
+				"audioBytes",
+				"pendingReservations",
 				"attempts",
 				"stateChangedAt"
 			]
@@ -879,5 +747,5 @@
 	"tags":[
 		
 	],
-	"version":3
+	"version":1
 }

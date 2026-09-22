@@ -27,6 +27,8 @@
 				"stopAgentExecution",
 				"currentTopicId",
 				"waitingForResponse",
+				"detachedLatchId",
+				"parentMessageId",
 				"triggeredByAiAgentId"
 			]
 		},
@@ -56,6 +58,28 @@
 					"searchable":true,
 					"sortable":true,
 					"title":"currentTopicId",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"detachedLatchId":{
+					"filterable":true,
+					"help":"Set when this task was dispatched DETACHED - nobody is blocked on it, and whoever wants to know when it lands waits on this latch. A task delegated through the blocking path (agent-to-agent, handoff to team) leaves this empty, because the caller's own tool call already covers it. Cleared when the task stops running.",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":true,
+					"sortable":false,
+					"title":"detachedLatchId",
+					"type":"string",
+					"uniqueKey":false
+				},
+				"parentMessageId":{
+					"filterable":true,
+					"help":"The agent message the task was dispatched from. Its result is written back as a tool-use row on THIS message, which is already visible to the dispatching agent - a row on a message of its own would be authored by whoever the case's current agent is at that moment, and filtered out of the parent's prompt.",
+					"nameField":false,
+					"primaryKey":false,
+					"searchable":false,
+					"sortable":false,
+					"title":"parentMessageId",
 					"type":"string",
 					"uniqueKey":false
 				},
@@ -124,6 +148,7 @@
 		],
 		"deleteStaleEntitiesOnConfigSync":false,
 		"deployable":false,
+		"derivedEdgeEntity":false,
 		"encryptedFields":[
 			
 		],
@@ -198,7 +223,7 @@
 		],
 		"versioningEnabled":false
 	},
-	"modifiedTime":1789394967762,
+	"modifiedTime":1789945312953,
 	"name":"Session Task Tracker",
 	"ownerUserId":-1,
 	"packaged":true,
@@ -288,5 +313,5 @@
 	"tags":[
 		
 	],
-	"version":2
+	"version":4
 }
